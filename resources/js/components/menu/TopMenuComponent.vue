@@ -34,7 +34,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <div v-for="item in this.lang_sort" :key="item.title">
-                        <a href="#" class="dropdown-item">
+                        <a :href="'/language/' + item.alias"
+                           class="dropdown-item"
+                        >
                             <img :src="item.avatar" class="lang_flag" alt="flag language">
                             {{item.title}}
                         </a>
@@ -76,6 +78,9 @@
                         this.lang_sort.push(this.lang.lang[index])
                     }
                 }
+            },
+            changeLanguage: function () {
+
             },
         },
 

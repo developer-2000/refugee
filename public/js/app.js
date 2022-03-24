@@ -1965,11 +1965,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1991,7 +1986,8 @@ __webpack_require__.r(__webpack_exports__);
           this.lang_sort.push(this.lang.lang[index]);
         }
       }
-    }
+    },
+    changeLanguage: function changeLanguage() {}
   }
 });
 
@@ -37616,16 +37612,19 @@ var render = function () {
               return _c("div", { key: item.title }, [
                 _c(
                   "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
+                  {
+                    staticClass: "dropdown-item",
+                    attrs: { href: "/language/" + item.alias },
+                  },
                   [
                     _c("img", {
                       staticClass: "lang_flag",
                       attrs: { src: item.avatar, alt: "flag language" },
                     }),
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(item.title) +
-                        "\n                        "
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -37681,7 +37680,7 @@ var staticRenderFns = [
               staticClass: "nav-link dropdown-toggle",
               attrs: { href: "#", id: "navbardrop", "data-toggle": "dropdown" },
             },
-            [_vm._v("\n                    Dropdown link\n                ")]
+            [_vm._v("\n                Dropdown link\n            ")]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "dropdown-menu" }, [
