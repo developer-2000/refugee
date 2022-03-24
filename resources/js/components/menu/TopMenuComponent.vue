@@ -28,7 +28,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Language menu -->
-            <li class="nav-item dropdown language-li">
+            <li class="nav-item dropdown button-menu">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
                 </a>
@@ -45,9 +45,9 @@
                 </div>
             </li>
             <!-- / Language menu -->
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
+            <li class="nav-item button-menu">
+                <a class="nav-link" href="#">
+                    {{ trans('menu.top','authorization') }}
                 </a>
             </li>
         </ul>
@@ -56,8 +56,12 @@
 </template>
 
 <script>
+    import translation from '../../mixins/translation'
 
     export default {
+        mixins: [
+            translation
+        ],
         data() {
             return {
                 lang_sort: [],
@@ -66,10 +70,6 @@
         props: [
             'lang',   // масив названий и url языка
         ],
-        // хук - после отрисовки , доступ к данным
-        mounted() {
-            this.onlyNextLanguage();
-        },
         methods: {
             onlyNextLanguage: function () { // отбор не показанных языков
                 for (var index in this.lang.lang) {
@@ -79,11 +79,10 @@
                     }
                 }
             },
-            changeLanguage: function () {
-
-            },
         },
-
+        mounted() {
+            this.onlyNextLanguage();
+        },
     }
 </script>
 

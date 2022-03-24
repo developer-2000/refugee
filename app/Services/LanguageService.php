@@ -18,7 +18,7 @@ class LanguageService
             $lang[] = (object) $array[3];
         }
 
-        return compact( 'avatar', 'lang');
+        return compact( 'avatar', 'lang', 'lang_local');
     }
 
     /**

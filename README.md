@@ -7,3 +7,30 @@
             $view->with('lang', 'text');
         });
     }
+
+#### Подгрузка перевода строк в vue.js
+ * создать файл перевода в Laravel
+
+    \resources\lang\en\menu\top.php
+
+ * добавить путь к файлу с переводом в настройки пакета
+
+    \config\localization-js.php
+
+    'messages' => [ 'menu/top' ],
+
+ * выполнить команду добавления переводов
+
+    \resources\js\vue-translations.js
+
+    php artisan lang:js --quiet --no-lib
+
+ * создал метод для вывода записи перевода
+
+    \resources\js\mixins\translation.js
+
+ * вывод строки в html
+ 
+    {{ trans('menu.top','authorization') }}
+
+

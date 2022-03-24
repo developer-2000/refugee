@@ -1,0 +1,1 @@
+module.exports = {"en.menu.top":{"authorization":"Sign in"},"ru.menu.top":{"authorization":"\u0412\u0445\u043e\u0434"},"uk.menu.top":{"authorization":"\u0412\u0445\u0456\u0434"}};

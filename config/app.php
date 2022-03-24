@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         \App\Providers\ComposerServiceProvider::class,
-
+        Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
 
         /*
          * Application Service Providers...

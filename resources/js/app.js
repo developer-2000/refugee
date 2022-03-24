@@ -1,8 +1,13 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// var Lang = require('lang.js');
+// import translations from './vue-translations.js';
+// var lang = new Lang();
+// lang.setMessages(translations);
+// Vue.filter('trans', (...args) => {
+//     return lang.get(...args);
+// });
 
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 
