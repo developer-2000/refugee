@@ -1,58 +1,89 @@
 <template>
-    <!-- top menu -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Menu -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item dropdown nav-item d-none d-sm-inline-block">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Link 1</a>
-                    <a class="dropdown-item" href="#">Link 2</a>
-                    <a class="dropdown-item" href="#">Link 3</a>
-                </div>
-            </li>
-        </ul>
-        <!-- / Menu -->
-
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Language menu -->
-            <li class="nav-item dropdown button-menu">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div v-for="item in this.lang_sort" :key="item.title">
-                        <a :href="'/language/' + item.alias"
-                           class="dropdown-item"
-                        >
-                            <img :src="item.avatar" class="lang_flag" alt="flag language">
-                            {{item.title}}
-                        </a>
-                        <div class="dropdown-divider"></div>
+    <div>
+        <!-- top menu -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Menu -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index3.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item dropdown nav-item d-none d-sm-inline-block">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Dropdown link
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Link 1</a>
+                        <a class="dropdown-item" href="#">Link 2</a>
+                        <a class="dropdown-item" href="#">Link 3</a>
                     </div>
+                </li>
+            </ul>
+            <!-- / Menu -->
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Language menu -->
+                <li class="nav-item dropdown button-menu">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div v-for="item in this.lang_sort" :key="item.title">
+                            <a :href="'/language/' + item.alias"
+                               class="dropdown-item"
+                            >
+                                <img :src="item.avatar" class="lang_flag" alt="flag language">
+                                {{item.title}}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                </li>
+                <!-- / Language menu -->
+                <!-- Auth -->
+                <li class="nav-item button-menu">
+<!--                    <a class="nav-link" href="#" @click.prevent="visibleModal">-->
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal">
+                        {{ trans('menu.top','authorization') }}
+                    </a>
+                </li>
+                <!-- / Auth -->
+            </ul>
+        </nav>
+        <!-- / top menu -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="authModalTitle">Авторизация</h5>
+<!--                        <button type="button" class="close" @click="visibleModal">-->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!--                    <div class="modal-body">-->
+                    <!--                        ...-->
+                    <!--                    </div>-->
+                    <!--                    <div class="modal-footer">-->
+                    <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                    <!--                        <button type="button" class="btn btn-primary">Save changes</button>-->
+                    <!--                    </div>-->
+
                 </div>
-            </li>
-            <!-- / Language menu -->
-            <li class="nav-item button-menu">
-                <a class="nav-link" href="#">
-                    {{ trans('menu.top','authorization') }}
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <!-- / top menu -->
+            </div>
+        </div>
+        <!-- / Modal -->
+    </div>
+
 </template>
 
 <script>
@@ -78,6 +109,11 @@
                         this.lang_sort.push(this.lang.lang[index])
                     }
                 }
+            },
+            visibleModal(e) {
+                this.$store.commit('tpSetMenuVisi')
+                console.log(this.$store.getters.tpGetMenuVisi);
+                // e.preventDefault();
             },
         },
         mounted() {
