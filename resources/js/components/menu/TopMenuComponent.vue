@@ -48,7 +48,6 @@
                 <!-- / Language menu -->
                 <!-- Auth -->
                 <li class="nav-item button-menu">
-<!--                    <a class="nav-link" href="#" @click.prevent="visibleModal">-->
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal">
                         {{ trans('menu.top','authorization') }}
                     </a>
@@ -77,7 +76,16 @@
                     <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
                     <!--                        <button type="button" class="btn btn-primary">Save changes</button>-->
                     <!--                    </div>-->
-
+                    <!-- ТЕЛО В МОДАЛКЕ     ===============================  -->
+                    <!-- динамически отображает компонент после клика кнопок -->
+                    <component
+                        :reset_p="reset_pass"
+                        @reset_pass="func_reset_pass"
+                        @login='reset_array'
+                        v-bind:is="this.$store.getters.tpGetComponent"
+                        class="tab"
+                    ></component>
+                    <!-- / ТЕЛО В МОДАЛКЕ =============================== -->
                 </div>
             </div>
         </div>
@@ -89,13 +97,27 @@
 <script>
     import translation from '../../mixins/translation'
 
+    import ImpAuth from '../auth/ExampleAuth.vue'
+    // import ImpSign from '../auth/ExampleSign.vue'
+    // import ImpResp from '../auth/ExampleResp.vue'
+    // import ImpNewPass from '../auth/ExampleNewPass.vue'
+    // import ImpSuccessSign from '../auth/ExampleSuccessSign.vue'
+
     export default {
+        components: {
+            'comAuth': ImpAuth,
+            // 'comSign': ImpSign,
+            // 'comResp': ImpResp,
+            // 'comNewPass': ImpNewPass,
+            // 'comSuccessSign': ImpSuccessSign,
+        },
         mixins: [
             translation
         ],
         data() {
             return {
                 lang_sort: [],
+                reset_pass: true, // глобал для компонента ImpNewPass
             }
         },
         props: [
@@ -110,10 +132,18 @@
                     }
                 }
             },
-            visibleModal(e) {
-                this.$store.commit('tpSetMenuVisi')
-                console.log(this.$store.getters.tpGetMenuVisi);
-                // e.preventDefault();
+            // выбор имени компонента
+            reset_array: function (a) {
+
+                // чилдрен присылает значение выбора компонента в масиве в виде обьекта
+                this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
+
+                if (typeof a !== 'object' && a !== 3) {
+                    this.$store.commit('tpSetMenuVisi')
+                }
+            },
+            func_reset_pass(value) {
+                this.reset_pass = value;
             },
         },
         mounted() {
