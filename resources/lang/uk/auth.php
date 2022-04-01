@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'registration' => 'Реєстрація',
+    'authorization' => 'Авторизація',
+    'password_recovery' => 'Відновлення пароля',
+    'change_password' => 'Змінити пароль',
+    'registration_with' => 'Реєстрація за допомогою',
+    'authorization_using' => 'Авторизація за допомогою',
+    'or' => 'Або',
+    'enter_mail_use_authorization' => 'Введіть Email, який Ви використовуєте для авторизації',
+    'first_name' => "Ім'я",
+    'last_name' => 'Прізвище',
+    'field_not_filled' => 'Поле не заповнене!',
+    'number_characters' => 'Кількість символів',
+    'less_needed' => 'менш необхідних',
+    'email_not_incorrectly' => 'Email введено неправильно!',
+    'email_already_registered' => 'Цей Email вже зареєстрований!',
+    'agree_with_that' => 'Натискаючи «Реєстрація», я погоджуюсь з тим, що прочитав і прийняв',
+    'terms_use' => 'Умови використання',
+    'and' => 'і',
+    'privacy_policy' => 'Політика конфіденційності',
+    'already_have_account' => 'Вже є обліковий запис',
+    'not_registered' => 'Не зареєстровані',
+    'forgot_your_password' => 'Забули свій пароль',
+];

@@ -15,6 +15,7 @@ return [
      */
     'messages' => [
         'menu/top',
+        'auth',
     ],
 
     /*

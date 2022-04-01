@@ -8,6 +8,8 @@
         });
     }
 
+#### vue.js на русском
+https://ru.vuejs.org/v2/guide/index.html
 #### Подгрузка перевода строк в vue.js
  * создать файл перевода в Laravel
 

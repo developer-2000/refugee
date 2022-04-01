@@ -37,10 +37,13 @@ Route::resource('country', 'CountryController')->only([
     'show'
 ]);
 
+//Route::post('/user/registration', 'Auth/CountryController@register');
 
-//    ->names([
-//    'show' => 'country.show'
-//]);
+Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
+    Route::post('/registration', 'AuthorController@register');
+    Route::post('/check_email', 'AuthorController@checkEmail');
+});
+
 
 Auth::routes();
 

@@ -22,13 +22,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
-{{--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>--}}
-
-{{--    <script src="{{asset('adminlte/js/adminlte.js')}}"></script>--}}
-{{--    <script src="{{ asset('js/app.js') }}"></script>--}}
+{{--    <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">--}}
 
 
 
@@ -107,20 +101,10 @@
     </div>
 
     <!-- jQuery -->
- <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
- <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-{{-- <script src="{{asset('adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>--}}
-    <!-- Bootstrap 4 -->
-{{-- <script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
-
-{{--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>--}}
-
+    <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="{{asset('adminlte/js/adminlte.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-
 
     @stack('scripts')
 </body>

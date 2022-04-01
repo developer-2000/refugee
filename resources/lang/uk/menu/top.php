@@ -2,4 +2,5 @@
 
 return [
     'authorization' => 'Вхід',
+    'registration' => 'Реєстрація',
 ];

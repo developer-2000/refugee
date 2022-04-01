@@ -22,34 +22,66 @@ aside .brand-link span:nth-child(2){
     margin-right: 10px!important;
     font-weight: 600;
 }
-/*.navbar-header .navbar-brand {*/
-/*    margin-left: 0px!important;*/
-/*}*/
-/*.navbar-header > a > b:nth-child(1) {*/
-/*    color: #067cf6;*/
-/*}*/
-/*.navbar-header > a > b:nth-child(3) {*/
-/*    color: #fdbb2d;*/
-/*}*/
-/*.main-header .container {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*}*/
-/*.navbar-brand {*/
-/*     height: auto;*/
-/*}*/
-/*.btn-group-vertical > .btn-group::after, .btn-group-vertical > .btn-group::before, .btn-toolbar::after, .btn-toolbar::before, .clearfix::after, .clearfix::before, .container-fluid::after, .container-fluid::before, .container::after, .container::before, .dl-horizontal dd::after, .dl-horizontal dd::before, .form-horizontal .form-group::after, .form-horizontal .form-group::before, .modal-footer::after, .modal-footer::before, .modal-header::after, .modal-header::before, .nav::after, .nav::before, .navbar-collapse::after, .navbar-collapse::before, .navbar-header::after, .navbar-header::before, .navbar::after, .navbar::before, .pager::after, .pager::before, .panel-body::after, .panel-body::before, .row::after, .row::before {*/
-/*    content: none!important;*/
-/*}*/
-/*.navbar-nav > li > a {*/
-/*    line-height: 40px;*/
-/*}*/
-/*#navbar-collapse {*/
-/*    flex-basis: auto;*/
-/*    display: flex!important;*/
-/*    justify-content: flex-end!important;*/
-/*}*/
+/* Modal Auth */
+.modal-dialog{
+    cursor: default;
+}
+.modal-header {
+    padding: 10px 15px;
+}
+.modal-header button{
+    margin-top: -14px!important;
+}
+.block_auth {
+    padding: 10px 20px;
+    background-color: white;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: center;
+}
+.block_auth .annotation-top, .block_auth .annotation-bottom {
+    color: #BDBDBD;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 10px 0px 15px;
+}
+.block_auth .annotation-bottom {
+    margin: 15px 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0px 15px;
+}
+.block_auth .annotation-bottom span {
+    margin: 0px 10px;
+}
+.block_auth .annotation-bottom::before, .block_auth .annotation-bottom::after {
+    content: '';
+    border-bottom: 1px solid #BDBDBD;
+    flex: 1;
+}
+.block_auth button {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    margin: 40px 0px 10px;
+}
+.button-auth {
+    display: flex;
+    align-items: center;
+}
+
+
+/* Media min */
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 400px!important;
+    }
+}
 
 
 

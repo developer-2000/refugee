@@ -46,13 +46,17 @@
                     </div>
                 </li>
                 <!-- / Language menu -->
-                <!-- Auth -->
-                <li class="nav-item button-menu">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal">
-                        {{ trans('menu.top','authorization') }}
-                    </a>
+                <!-- Sign in -->
+                <li class="nav-item button-menu button-auth">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
+                       @click.prevent="reset_array(0)"
+                    > {{ trans('menu.top','authorization') }} </a>
+                    <span>/</span>
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
+                       @click.prevent="reset_array(1)"
+                    > {{ trans('menu.top','registration') }} </a>
                 </li>
-                <!-- / Auth -->
+                <!-- / Sign up -->
             </ul>
         </nav>
         <!-- / top menu -->
@@ -62,54 +66,38 @@
         <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="authModalTitle">Авторизация</h5>
-<!--                        <button type="button" class="close" @click="visibleModal">-->
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <!--                    <div class="modal-body">-->
-                    <!--                        ...-->
-                    <!--                    </div>-->
-                    <!--                    <div class="modal-footer">-->
-                    <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                    <!--                        <button type="button" class="btn btn-primary">Save changes</button>-->
-                    <!--                    </div>-->
-                    <!-- ТЕЛО В МОДАЛКЕ     ===============================  -->
                     <!-- динамически отображает компонент после клика кнопок -->
                     <component
                         :reset_p="reset_pass"
+                        :lang="lang"
                         @reset_pass="func_reset_pass"
                         @login='reset_array'
                         v-bind:is="this.$store.getters.tpGetComponent"
                         class="tab"
                     ></component>
-                    <!-- / ТЕЛО В МОДАЛКЕ =============================== -->
                 </div>
             </div>
         </div>
         <!-- / Modal -->
     </div>
-
 </template>
 
 <script>
     import translation from '../../mixins/translation'
 
     import ImpAuth from '../auth/ExampleAuth.vue'
-    // import ImpSign from '../auth/ExampleSign.vue'
-    // import ImpResp from '../auth/ExampleResp.vue'
-    // import ImpNewPass from '../auth/ExampleNewPass.vue'
-    // import ImpSuccessSign from '../auth/ExampleSuccessSign.vue'
+    import ImpSign from '../auth/ExampleSign.vue'
+    import ImpResp from '../auth/ExampleResp.vue'
+    import ImpNewPass from '../auth/ExampleNewPass.vue'
+    import ImpSuccessSign from '../auth/ExampleSuccessSign.vue'
 
     export default {
         components: {
             'comAuth': ImpAuth,
-            // 'comSign': ImpSign,
-            // 'comResp': ImpResp,
-            // 'comNewPass': ImpNewPass,
-            // 'comSuccessSign': ImpSuccessSign,
+            'comSign': ImpSign,
+            'comResp': ImpResp,
+            'comNewPass': ImpNewPass,
+            'comSuccessSign': ImpSuccessSign,
         },
         mixins: [
             translation
@@ -124,7 +112,8 @@
             'lang',   // масив названий и url языка
         ],
         methods: {
-            onlyNextLanguage: function () { // отбор не показанных языков
+            // отбор названий не показанных языков
+            onlyNextLanguage: function () {
                 for (var index in this.lang.lang) {
                     if (this.lang.lang[index]['avatar'] !== this.lang.avatar) {
                         // добавить только следущие языки
@@ -132,9 +121,8 @@
                     }
                 }
             },
-            // выбор имени компонента
+            // выбор имени компонента для динамик компонента
             reset_array: function (a) {
-
                 // чилдрен присылает значение выбора компонента в масиве в виде обьекта
                 this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
 
