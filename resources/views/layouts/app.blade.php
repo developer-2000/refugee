@@ -84,7 +84,7 @@
 
             <top-menu-component
                 :lang="{{json_encode($lang)}}"
-                :user="{{json_encode(\Illuminate\Support\Facades\Auth::user())}}"
+                :user="{{json_encode($user)}}"
                 :code_change_password="@if (session('code_change_password')) {{ session('code_change_password') }} @else 0 @endif"
             ></top-menu-component>
 

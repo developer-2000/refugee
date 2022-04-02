@@ -75,7 +75,6 @@
 </template>
 
 <script>
-
     import {email, minLength, required} from 'vuelidate/lib/validators'
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";

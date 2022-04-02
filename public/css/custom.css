@@ -16,7 +16,7 @@ aside .brand-link span:nth-child(2){
     color: rgb(6, 124, 246);
 }
 .button-menu{
-    background: #e6e6e6;
+    background: #f1f1f1;
     min-width: 50px;
     text-align: center;
     margin-right: 10px!important;
@@ -82,7 +82,7 @@ aside .brand-link span:nth-child(2){
     text-align: center;
 }
 svg{
-    width: 25px;
+    width: 20px;
 }
 
 

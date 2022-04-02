@@ -33,16 +33,24 @@ Route::group([ 'middleware' => ['locale'] ], function () {
 
     Route::get('language/{name}', 'LanguageController@changeLanguage');
 
-    Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
-        Route::post('/login', 'AuthorController@login');
-        Route::post('/registration', 'AuthorController@register');
-        Route::post('/check_email', 'AuthorController@checkEmail');
-        Route::post('/send-code-password', 'AuthorController@sendCodeForChangePassword');
-        Route::post('/change-password', 'AuthorController@changePassword');
-        Route::get('/activate', 'AuthorController@activateAccount');
-        Route::get('/view-change-password', 'AuthorController@viewChangePassword');
-        Route::get('/logout', 'AuthorController@logout');
+    Route::middleware('throttle:3,1')->group(function () {
+        Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
+            Route::post('/login', 'AuthorController@login');
+            Route::post('/registration', 'AuthorController@register');
+            Route::post('/check_email', 'AuthorController@checkEmail');
+            Route::post('/send-code-password', 'AuthorController@sendCodeForChangePassword');
+            Route::post('/change-password', 'AuthorController@changePassword');
+            Route::get('/activate', 'AuthorController@activateAccount');
+            Route::get('/view-change-password', 'AuthorController@viewChangePassword');
+            Route::get('/logout', 'AuthorController@logout');
+        });
     });
+
+
+
+
+
+//    vacancy
 
     Route::resource('country', 'CountryController')->only([
         'show'
