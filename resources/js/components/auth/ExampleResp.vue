@@ -86,17 +86,16 @@
     }
 </script>
 
-<style scoped>
-    .block_auth .comment {
-        color: black;
-        font-size: 12px;
-        margin: 15px 0px;
-        padding: 0px 18px;
-    }
-    .block_auth .footer div {
-        margin: 10px 0px;
-    }
-    .block_auth .forms {
-        width: 90%;
+<style scoped lang="scss">
+    .block_auth{
+        .comment {
+            color: black;
+            font-size: 12px;
+            margin: 15px 0px;
+            padding: 0px 18px;
+        }
+        .forms {
+            width: 90%;
+        }
     }
 </style>
