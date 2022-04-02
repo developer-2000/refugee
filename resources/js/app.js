@@ -14,7 +14,6 @@ Vue.use(VueSweetalert2);
 
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 
-
 const app = new Vue({
     el: '#app',
     store,

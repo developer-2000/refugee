@@ -12,11 +12,11 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <!-- Styles -->
     <link rel="stylesheet" href="{{asset('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- css -->
     <link rel="stylesheet" href="{{asset('adminlte/css/adminlte.min.css')}}">
-{{--    <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">--}}
+
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -84,7 +84,24 @@
 
             <top-menu-component
                 :lang="{{json_encode($lang)}}"
+                :user="{{json_encode(\Illuminate\Support\Facades\Auth::user())}}"
+                :code_change_password="@if (session('code_change_password')) {{ session('code_change_password') }} @else 0 @endif"
             ></top-menu-component>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('link_not_valid'))
+                <div class="alert alert-danger">
+                    {{ session('link_not_valid') }}
+                </div>
+            @endif
 
 
             <!-- Content body -->

@@ -3,7 +3,7 @@ export default ({
     state:{
         tpMenuVisi: false,
         tpNameComponent: '',
-        tpArrayComponent: ['comAuth', 'comSign', 'comResp', 'comNewPass', 'comSuccessSign'],
+        tpArrayComponent: ['comAuth', 'comSign', 'comResp', 'comChangePassword'],
     },
     // SET this.$store.commit('tpSetComponent', {'a':1})
     mutations: {

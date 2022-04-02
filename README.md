@@ -8,6 +8,9 @@
         });
     }
 
+#### Laravel на русском
+https://laravel.su/docs/6.x/redirects
+
 #### vue.js на русском
 https://ru.vuejs.org/v2/guide/index.html
 #### Подгрузка перевода строк в vue.js

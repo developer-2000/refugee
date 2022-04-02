@@ -12,6 +12,7 @@ class LanguageService
         $array_land = config('site.locale.languages');   // мой масив языков
         $lang_local = $this->getNameLanguage();
         $avatar = $array_land[$lang_local][3]['avatar'];
+        session(['locale' => $lang_local]);
 
         // создать масив языков для клиентской части
         foreach ($array_land as $array){
@@ -22,14 +23,14 @@ class LanguageService
     }
 
     /**
-     * анализ и выдача языка сайта. пререготива выдачи языка:
-     * сессия, браузер, система
+     * если в сессии нет языка, выдает язык браузера
+     * если в языках сайта нет языка браузера, выдает язык проекта (uk)
+     * если в сессии есть язык, выдает его
+     * в сессию язык пападает после первой загрузки страницы и при переключениях языка
+     *
      * @return false|\Illuminate\Config\Repository|\Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed|string
      */
     private function getNameLanguage() {
-//         session()->forget('locale');
-//        session(['locale' => 'en']);
-
         // язык выбранный ранее юзером (null или uk)
         $session_lang = session('locale');
 
@@ -37,7 +38,7 @@ class LanguageService
             $browser = $this->getPreferredBrowserLanguage();
 
             // язык браузера схож с одним из языков сайта
-            if ( in_array( $browser, array_keys(config('site.locale.languages')) ) ) { // в масиве языков есть язык пользователя
+            if ( in_array( $browser, array_keys(config('site.locale.languages')) ) ) {
                 return $browser;
             }
             else{

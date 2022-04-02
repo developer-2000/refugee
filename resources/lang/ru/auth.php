@@ -3,12 +3,15 @@
 return [
     'registration' => 'Регистрация',
     'authorization' => 'Авторизация',
+    'sign_out' => 'Выйти из аккаунта',
     'password_recovery' => 'Восстановление пароля',
+    'email_request' => 'Письмо на Email',
     'change_password' => 'Изменить пароль',
     'registration_with' => 'Регистрация с помощью',
     'authorization_using' => 'Авторизация с помощью',
     'or' => 'Или',
     'enter_mail_use_authorization' => 'Введите Email используемый Вами для авторизации',
+    'enter_remember_new_password' => 'Введите и запомните новый пароль.',
     'first_name' => 'Имя',
     'last_name' => 'Фамилия',
     'field_not_filled' => 'Поле не заполнено!',
@@ -23,4 +26,9 @@ return [
     'already_have_account' => 'Уже есть учетная запись',
     'not_registered' => 'Не зарегистрированы',
     'forgot_your_password' => 'Забыли свой пароль',
+    'not_activation_account' => 'При регистрации этого аккаунта, на указанную вами почту, было выслано письмо для активации акаунта. Вам необходимо перейти по ссылке активации, которая содержитса в письме.',
+    'message_change_password_email' => 'На указынный Email, отправлено письмо для активации акаунта',
+    'link_not_valid' => 'Ссылка не действительна',
+    'data_not_correct' => 'Данные неверны',
+
 ];

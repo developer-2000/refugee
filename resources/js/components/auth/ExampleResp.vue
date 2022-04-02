@@ -12,7 +12,7 @@
             <div class="comment">{{ trans('auth','enter_mail_use_authorization') }}.</div>
             <!-- ФОРМЫ =============================== -->
             <div class="forms">
-                <form @submit.prevent="onSubmit" action="#">
+                <form @submit.prevent="changePassword" action="#">
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -32,7 +32,7 @@
                     <button :class="{'btn btn-block btn-primary disabled': $v.$invalid, 'btn btn-block btn-primary btn-flat': !$v.$invalid}"
                             type="submit"
                             :disabled="$v.$invalid"
-                    >{{ trans('auth','change_password') }}</button>
+                    >{{ trans('auth','email_request') }}</button>
                 </form>
             </div>
             <!-- / ФОРМЫ =============================== .prevent-->
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-
     import { required, email } from 'vuelidate/lib/validators'
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
@@ -59,38 +58,20 @@
             }
         },
         methods: {
-            // клик по кнопке сброса пароля
-            onSubmit () {
-                $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
-
-                var self = this
-
-                $.ajax({
-                    url     : '/password/email',
-                    type    : 'POST',
-                    data    : {email: this.email, _token: this.x_csrf},
-                    // dataType: 'json',
-                    success : function ( req ) {
-                        // обращение к событию родителя - загрузка компонента сообщения
-                        self.$emit('login', { num: 3, })
-                        // оповещение - найденный и не найденный email
-                        parseInt(req) === 0 ?
-                            self.$emit("reset_pass", false) :
-                            self.$emit("reset_pass", true);
-                    },
-                    error: function( json2 ) {
-                        console.log(' error 0 ' , json2);
-                        if(json2.status === 422) {
-                            console.log(' error 1 ' , json2.responseJSON);
-                            $.each(json2.responseJSON, function (key, value) {
-                                console.log(' error 2 ');
-                            });
-
-                        } else {
-                            console.log(' error 3 ')
-                        }
+            async changePassword () {
+                let data = {
+                    email: this.email,
+                };
+                try {
+                    this.clearInputValue()
+                    $('#authModal').modal('toggle')
+                    const response = await this.$http.post(`user/send-code-password`, data);
+                    if(this.checkSuccess(response)){
+                        this.message(response.data.message, 'success', 10000, true);
                     }
-                });
+                } catch (e) {
+                    console.log(e);
+                }
             }
         },
         props: [
@@ -117,8 +98,5 @@
     }
     .block_auth .forms {
         width: 90%;
-    }
-    .block_auth button {
-        margin: 30px 0px 20px;
     }
 </style>

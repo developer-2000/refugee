@@ -26,7 +26,7 @@
             <div class="annotation-bottom"> <span>{{ trans('auth','or') }}</span> </div>
             <div class="forms">
                 <!-- ФОРМЫ =============================== -->
-                <form @submit.prevent="Auth">
+                <form @submit.prevent="auth">
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -98,38 +98,23 @@
                 })
             },
             // авторизация пользователя
-            Auth: function(){
-                // $.ajaxSetup({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     }
-                // });
-                //
-                // var self = this;
-                //
-                // $.ajax({
-                //     url: "/auth/login",
-                //     method: "POST",
-                //     data: {email: this.email, password: this.password},
-                //     success: function (response) {
-                //         var resp = response.msg;
-                //
-                //         if (typeof(resp) !== "undefined") {
-                //             if (resp === true) {
-                //                 // window.location.replace("/");
-                //                 document.location.reload(true);
-                //             }
-                //             else{
-                //                 // показать сообщение
-                //                 self.not_correct = resp
-                //                 setTimeout(() => {
-                //                     self.not_correct = ''
-                //                 }, 3000)
-                //             }
-                //         }
-                //     }
-                // });
-            }
+            async auth(){
+                let data = {
+                    email: this.email,
+                    password: this.password,
+                };
+                try {
+                    const response = await this.$http.post(`user/login`, data);
+                    if(this.checkSuccess(response)){
+                        location.reload()
+                    }
+                    else{
+                        this.message(response.data.message, 'error', 10000, true);
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            },
         },
         props: [
             'lang',   // масив названий и url языка

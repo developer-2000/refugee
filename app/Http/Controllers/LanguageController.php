@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class LanguageController extends Controller
 {
@@ -16,6 +17,7 @@ class LanguageController extends Controller
         if (in_array( $name, array_keys(config('site.locale.languages')) )) {
             session(['locale' => $name]);
         }
+
         return redirect()->back();
     }
 }

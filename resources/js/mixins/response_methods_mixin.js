@@ -7,17 +7,12 @@ export default {
     methods: {
         // проверка backup данных axios
         checkSuccess(response) {
-            if(response?.data?.status && response.data.status == 200){
+            if(response?.data?.status && response.data.status == 'success'){
                 return true;
-            }
-            else{
-                // if(response?.data?.code === 422){
-                    this.message(response.data.message, 'error');
-                // }
             }
             return false;
         },
-        message(msg = '', icon, time = 1500, button_bool = false) {
+        message(msg = '', icon, time = 3000, button_bool = false) {
             const Toast = this.$swal.mixin({
                 toast: true,
                 position: 'top',

@@ -27,22 +27,28 @@ Route::get('/artisan/{cmd}', function($cmd) {
     }
 });
 
-Route::get('/', 'IndexController@index')->name('index');
-Route::get('language/{name}', 'LanguageController@changeLanguage');
+Route::group([ 'middleware' => ['locale'] ], function () {
 
-//Route::get('country/{country}', 'CountryController@index')
-//    ->where('country', '[a-z]+')->name('country.index');
+    Route::get('/', 'IndexController@index')->name('index');
 
-Route::resource('country', 'CountryController')->only([
-    'show'
-]);
+    Route::get('language/{name}', 'LanguageController@changeLanguage');
 
-//Route::post('/user/registration', 'Auth/CountryController@register');
+    Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
+        Route::post('/login', 'AuthorController@login');
+        Route::post('/registration', 'AuthorController@register');
+        Route::post('/check_email', 'AuthorController@checkEmail');
+        Route::post('/send-code-password', 'AuthorController@sendCodeForChangePassword');
+        Route::post('/change-password', 'AuthorController@changePassword');
+        Route::get('/activate', 'AuthorController@activateAccount');
+        Route::get('/view-change-password', 'AuthorController@viewChangePassword');
+        Route::get('/logout', 'AuthorController@logout');
+    });
 
-Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
-    Route::post('/registration', 'AuthorController@register');
-    Route::post('/check_email', 'AuthorController@checkEmail');
+    Route::resource('country', 'CountryController')->only([
+        'show'
+    ]);
 });
+
 
 
 Auth::routes();

@@ -2,17 +2,6 @@
 
 return [
 
-    /*
-     * Available languages
-     *
-      * Добавьте свой код языка в этот массив.
-      * Код должен иметь то же имя, что и языковая папка.
-      * Обязательно добавьте новый язык в алфавитном порядке.
-      * Выбор языка не будет доступен, если есть только один вариант языка
-      * Комментирование языков сделает их недоступными для пользователя
-     *
-     * @var array
-     */
     'languages' => [
         /*
           * Ключ - код локали Laravel
@@ -20,7 +9,7 @@ return [
           * Индекс 1 подмассива - это код локали PHP для setlocale ()
           * Индекс 2 подмассива указывает, использовать ли RTL (справа налево) CSS для этого языка
          */
-        'en'    => [ 'en', 'en_US', false, [ 'alias' => 'en', 'title' => 'English', 'avatar' => '/img/custom/US.png' ], ],
+        'en'    => ['en', 'en_US', false, [ 'alias' => 'en', 'title' => 'English', 'avatar' => '/img/custom/US.png' ], ],
         'ru'    => ['ru', 'ru-RU', false, [ 'alias' => 'ru', 'title' => 'Русский', 'avatar' => '/img/custom/RU.png' ], ],
         'uk'    => ['uk', 'uk_UA', false, [ 'alias' => 'uk', 'title' => 'Український', 'avatar' => '/img/custom/UA.png' ], ],
     ],

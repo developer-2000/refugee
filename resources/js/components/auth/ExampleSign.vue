@@ -152,8 +152,7 @@
                     $('#authModal').modal('toggle')
                     const response = await this.$http.post(`user/registration`, data);
                     if(this.checkSuccess(response)){
-                        this.messageSuccess(response.data.message, 'success', 10000, true);
-                        // console.log(response.data.message)
+                        this.message(response.data.message, 'success', 10000, true);
                     }
                 } catch (e) {
                     console.log(e);

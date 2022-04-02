@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Response;
 
 class BaseController extends Controller
 {
-    public function getResponse($message = 'success', $status = 200) {
-        return Response::json(compact('status', 'message'), 200);
+    public function getResponse($message = '', $status = 'success',  $code = 200) {
+        return Response::json(compact('message', 'status'), $code);
     }
 
-//    public function getErrorResponse($message, $httpStatus = 400) {
-//        return Response::json([ "status" => 'error', "errors"  => $message], $httpStatus);
-//    }
+    public function getErrorResponse($message = '', $status = 'error', $code = 200) {
+        return Response::json(compact('message', 'status'), $code);
+    }
 }
