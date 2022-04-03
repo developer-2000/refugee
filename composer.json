@@ -16,7 +16,8 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "2.4",
-        "mariuzzo/laravel-js-localization": "^1.9"
+        "mariuzzo/laravel-js-localization": "^1.9",
+        "menarasolutions/geographer": "^0.3.13"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -35,6 +35,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/mime-type-detection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mariuzzo/laravel-js-localization" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/menarasolutions/geographer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/menarasolutions/geographer-data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />

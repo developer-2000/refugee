@@ -8,6 +8,10 @@
         });
     }
 
+#### Пакет стран и городов
+https://github.com/MenaraSolutions/geographer-laravel
+
+
 #### Laravel на русском
 https://laravel.su/docs/6.x/redirects
 
