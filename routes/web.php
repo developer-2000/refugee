@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 // технический роут
 Route::group(['prefix'=>'technical'], function (){
     // /artisan/clear_all
@@ -29,10 +28,9 @@ Route::group(['prefix'=>'technical'], function (){
         }
     });
 
+    // /technical/load-location-db
     Route::get('/load-location-db', function () {
-
         (new \App\Services\MakeLocationDbServices());
-
         return view('index');
     });
 });
@@ -44,7 +42,7 @@ Route::group([ 'middleware' => ['locale'] ], function () {
 
     Route::get('language/{name}', 'LanguageController@changeLanguage');
 
-    Route::middleware('throttle:3,1')->group(function () {
+//    Route::middleware('throttle:3,1')->group(function () {
         Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
             Route::post('/login', 'AuthorController@login');
             Route::post('/registration', 'AuthorController@register');
@@ -55,7 +53,7 @@ Route::group([ 'middleware' => ['locale'] ], function () {
             Route::get('/view-change-password', 'AuthorController@viewChangePassword');
             Route::get('/logout', 'AuthorController@logout');
         });
-    });
+//    });
 
 
 

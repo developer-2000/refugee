@@ -25,6 +25,26 @@ export default {
                 title: msg
             })
         },
+        messageError(err, msg = '') {
+            if (err.response) {
+                msg = (err.response.status == 422) ? 'account does not exist' : ''
+            } else if (err.request) {
+                msg = err.request.statusText
+            } else {
+                msg = err
+            }
+            const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'top',
+                timer: 3000,
+                showConfirmButton: false,
+                confirmButtonColor: '#3085d6',
+            });
+            Toast.fire({
+                icon: 'error',
+                title: msg
+            })
+        },
         // confirm сообщение на странице
         confirmMessage(msg = '', icon, id) {
             this.$swal({

@@ -103,13 +103,24 @@
                     password: this.password,
                 };
                 try {
-                    const response = await this.$http.post(`user/login`, data);
-                    if(this.checkSuccess(response)){
-                        location.reload()
-                    }
-                    else{
-                        this.message(response.data.message, 'error', 10000, true);
-                    }
+                    const response = await this.$http.post(`user/login`, data)
+                        .then(res => {
+                            if(this.checkSuccess(res)){
+                                location.reload()
+                            }
+                            // custom ошибки
+                            else{
+                                this.message(res.data.message, 'error', 10000, true);
+                            }
+                        })
+                        // ошибки сервера
+                        .catch(err => {
+                            this.messageError(err)
+                        })
+
+                    // console.log(response)
+
+
                 } catch (e) {
                     console.log(e);
                 }

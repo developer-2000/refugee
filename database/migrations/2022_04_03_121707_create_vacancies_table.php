@@ -19,14 +19,14 @@ class CreateVacanciesTable extends Migration
             $table->foreign('position_id')->references('id')->on('positions');
             $table->unsignedBigInteger('category_id')->comment('категория вакансии');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('country')->index()->nullable()->default(null)->comment('страна');
+            $table->string('region')->index()->nullable()->default(null)->comment('регион');
+            $table->string('city')->index()->nullable()->default(null)->comment('город');
+            $table->string('address')->index()->nullable()->default(null)->comment('адрес');
+            $table->boolean('look_another_city')->default(false)->comment('поиск кандидатов в другом городе');
+            $table->json('type_employment')->index()->nullable()->default(null)->comment('работа - полная / не полная / удаленка');
+            $table->json('salary')->index()->comment('зарплата - одно значение, диапазон, договорная, в месяц/час, коментарий');
 
-//            $table->string('country')->index()->comment('страна');
-//            $table->string('region')->index()->comment('регион');
-//            $table->string('city')->index()->comment('город');
-//            $table->string('address')->index()->comment('адрес');
-//            $table->string('work_location')->index()->comment('локация работы');
-//            $table->string('type_employment')->index()->comment('полная / не полная занятость');
-//            $table->string('salary')->index()->comment('зарплата одно значение, диапазон, договорная, в месяц.час, коментарий');
 //            $table->string('work_experience')->index()->comment('опыт работы - перечень');
 //            $table->string('education')->index()->comment('образование - перечень');
 //            $table->string('vacancy_suitable')->index()->comment('вакансия подходит - перечень возраста и здоровья');

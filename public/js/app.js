@@ -2173,31 +2173,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return _this.$http.post("user/login", data);
+                return _this.$http.post("user/login", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    location.reload();
+                  } // custom ошибки
+                  else {
+                    _this.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this.messageError(err);
+                });
 
               case 4:
                 response = _context.sent;
-
-                if (_this.checkSuccess(response)) {
-                  location.reload();
-                } else {
-                  _this.message(response.data.message, 'error', 10000, true);
-                }
-
-                _context.next = 11;
+                _context.next = 10;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
 
-              case 11:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[1, 7]]);
       }))();
     }
   },
@@ -2525,34 +2528,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   password: _this.password
                 };
                 _context.prev = 1;
-
-                _this.clearInputValue();
-
-                $('#authModal').modal('toggle');
-                _context.next = 6;
+                _context.next = 4;
                 return _this.$http.post("user/registration", data);
 
-              case 6:
+              case 4:
                 response = _context.sent;
 
                 if (_this.checkSuccess(response)) {
                   _this.message(response.data.message, 'success', 10000, true);
                 }
 
-                _context.next = 13;
+                _context.next = 11;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
 
-              case 13:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 10]]);
+        }, _callee, null, [[1, 8]]);
       }))();
     }
   },
@@ -58192,6 +58191,29 @@ __webpack_require__.r(__webpack_exports__);
       });
       Toast.fire({
         icon: icon,
+        title: msg
+      });
+    },
+    messageError: function messageError(err) {
+      var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (err.response) {
+        msg = err.response.status == 422 ? 'account does not exist' : '';
+      } else if (err.request) {
+        msg = err.request.statusText;
+      } else {
+        msg = err;
+      }
+
+      var Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top',
+        timer: 3000,
+        showConfirmButton: false,
+        confirmButtonColor: '#3085d6'
+      });
+      Toast.fire({
+        icon: 'error',
         title: msg
       });
     },
