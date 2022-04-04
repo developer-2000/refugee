@@ -24,18 +24,16 @@ class CreateVacanciesTable extends Migration
             $table->string('city')->index()->nullable()->default(null)->comment('город');
             $table->string('address')->index()->nullable()->default(null)->comment('адрес');
             $table->boolean('look_another_city')->default(false)->comment('поиск кандидатов в другом городе');
-            $table->json('type_employment')->index()->nullable()->default(null)->comment('работа - полная / не полная / удаленка');
-            $table->json('salary')->index()->comment('зарплата - одно значение, диапазон, договорная, в месяц/час, коментарий');
-
-//            $table->string('work_experience')->index()->comment('опыт работы - перечень');
-//            $table->string('education')->index()->comment('образование - перечень');
-//            $table->string('vacancy_suitable')->index()->comment('вакансия подходит - перечень возраста и здоровья');
-//            $table->string('job_requirements')->index()->comment('требования вакансии');
-//            $table->string('working_conditions')->index()->comment('условия работы');
-//            $table->string('employee_responsibilities')->index()->comment('обязанности работника');
-//            $table->string('contact_information')->index()->comment('Контактная информация - перечень контактов о себе');
-//            $table->string('how_respond')->index()->comment('Как можно откликнуться - с резюме или без');
-//            $table->string('job_posting')->index()->comment('Размещение вакансии - стандарт, горячая, скрытая');
+            $table->string('type_employment')->index()->nullable()->default(null)->comment('работа - полная / не полная / удаленка');
+            $table->string('salary')->index()->comment('зарплата - одно значение, диапазон, договорная, в месяц/час, коментарий');
+            $table->tinyInteger('work_experience')->index()->default(0)->comment('опыт работы');
+            $table->tinyInteger('education')->index()->default(0)->comment('образование - перечень');
+            $table->tinyInteger('vacancy_suitable')->index()->default(0)->comment('образование - перечень');
+            $table->text('job_requirements')->nullable()->default(null)->comment('требования вакансии');
+            $table->text('working_conditions')->nullable()->default(null)->comment('условия работы');
+            $table->text('employee_responsibilities')->nullable()->default(null)->comment('обязанности работника');
+            $table->string('contact_information')->nullable()->default(null)->comment('какие контакты связи показать соискателю');
+            $table->tinyInteger('job_status')->index()->default(0)->comment('статус вакансии - стандарт, скрытая, горячая');
             $table->timestamps();
         });
     }

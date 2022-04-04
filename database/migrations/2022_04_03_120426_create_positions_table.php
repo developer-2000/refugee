@@ -15,7 +15,8 @@ class CreatePositionsTable extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->index()->comment('должность');
+            $table->string('title')->index();
+            $table->boolean('active')->default(0)->comment('активность вакансии');
         });
     }
 

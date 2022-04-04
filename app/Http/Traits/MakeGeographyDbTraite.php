@@ -1,12 +1,10 @@
 <?php
-
 namespace App\Http\Traits;
 
 use App\Exceptions\UserException;
 use MenaraSolutions\Geographer\Country;
 
 trait MakeGeographyDbTraite {
-
 
 // ========================================
 // ========================================
@@ -53,7 +51,6 @@ trait MakeGeographyDbTraite {
     return $customStates;
     }
 
-
 // ========================================
 // ========================================
     // создать custom масив - code регионы и их города на выбраном языке
@@ -85,7 +82,6 @@ trait MakeGeographyDbTraite {
     return $arrayRegions;
     }
 
-
 // ========================================
 // ========================================
     // перебрать города
@@ -113,14 +109,5 @@ trait MakeGeographyDbTraite {
 
     return $arraySity;
     }
-
-
-
-
-
-
-
-
-
 
 }

@@ -13,6 +13,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 Vue.use(VueSweetalert2);
 
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
+Vue.component('create-vacancy-component', require('./components/CreateVacancyComponent').default);
 
 const app = new Vue({
     el: '#app',

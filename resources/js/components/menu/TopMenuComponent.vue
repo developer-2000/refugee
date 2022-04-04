@@ -18,7 +18,7 @@
                         Работа
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Добавить вакансию</a>
+                        <a class="dropdown-item" href="#" @click.prevent="checkAuth('/vacancy/create')">Добавить вакансию</a>
                         <a class="dropdown-item" href="#">Добавить резюме</a>
                         <a class="dropdown-item" href="#">Найти вакансию</a>
                         <a class="dropdown-item" href="#">Найти резюме</a>
@@ -148,7 +148,6 @@
             reset_array: function (a) {
                 // чилдрен присылает значение выбора компонента в масиве в виде обьекта
                 this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
-
                 // open/close modal
                 if (typeof a !== 'object' && a !== 3) {
                     this.$store.commit('tpSetMenuVisi')
@@ -161,6 +160,16 @@
                 if(this.code_change_password !== 0){
                     this.reset_array(3)
                     $('#authModal').modal('toggle')
+                }
+            },
+            checkAuth(url) {
+
+                if(this.user == null){
+                    this.reset_array(0)
+                    $('#authModal').modal('toggle')
+                }
+                else{
+                    location.href = url;
                 }
             },
         },

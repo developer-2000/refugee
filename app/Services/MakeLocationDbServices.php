@@ -22,7 +22,6 @@ class MakeLocationDbServices {
         $this->earth = new Earth();
         $this->lang = config('site.settings_location_db.lang');
         $this->settingsCountry = config('site.settings_location_db.country');
-
         $this->allCountry();
     }
 
@@ -43,10 +42,12 @@ class MakeLocationDbServices {
             $arrCountry = $this->customArrCountry($all_county);
             $this->arrLangCounty[$lang] = $arrCountry;
         }
+
         MakeGeographyDb::updateOrCreate(
             ['id' => '1'],
             ['country' => $this->arrLangCounty]
         );
+
         // создать custom регионы стран на разных языках
         $this->allRegions();
     }
@@ -89,6 +90,7 @@ class MakeLocationDbServices {
             ['id' => '1'],
             ['regions' => $this->arrLangRegion]
         );
+
         $this->allCities();
     }
 
@@ -128,27 +130,5 @@ class MakeLocationDbServices {
         $this->arrLangRegion = null;
         $this->arrLangCounty = null;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

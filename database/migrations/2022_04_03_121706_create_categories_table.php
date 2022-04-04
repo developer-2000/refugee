@@ -15,7 +15,8 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->index()->comment('категория вакансии');
+            $table->string('title')->index();
+            $table->boolean('active')->default(0)->comment('активность категории');
         });
     }
 

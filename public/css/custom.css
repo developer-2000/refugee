@@ -1,3 +1,6 @@
+body{
+    font-size: 1rem;
+}
 aside .brand-link{
     display: flex;
     flex-direction: column;
@@ -84,9 +87,26 @@ aside .brand-link span:nth-child(2){
 svg{
     width: 20px;
 }
+/* form inputs */
+.mandatory-filling svg{
+    width: 10px;
+}
+.mandatory-filling path{
+    fill: red;
+}
+
+
 
 
 /* Media min */
+@media (min-width: 1200px){
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 100%;
+        /*outline: 1px solid red;*/
+        padding: 0px 25px;
+    }
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 400px!important;
