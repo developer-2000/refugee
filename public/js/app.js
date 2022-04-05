@@ -1995,6 +1995,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2002,6 +2064,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       position: '',
+      street_house: null,
+      address: {
+        country: null,
+        region: null,
+        sity: null
+      },
       objCategory: {
         categories: [],
         categoriesArray: '',
@@ -2034,7 +2102,7 @@ __webpack_require__.r(__webpack_exports__);
     createArrayCategories: function createArrayCategories() {
       var _this = this;
 
-      var count = 15;
+      var count = 18;
       var tick = 0;
       this.objCategory.categoriesArray = [];
       this.settings.categories.forEach(function (value, index) {
@@ -2046,15 +2114,38 @@ __webpack_require__.r(__webpack_exports__);
         _this.objCategory.categoriesArray[tick - 1].push(value);
       });
       console.log(this.objCategory.categoriesArray);
+    },
+    initializationFunc: function initializationFunc() {
+      var _this2 = this;
+
+      this.createArrayCategories(); // страна
+
+      $('#country').on('select2:select', function (e) {
+        _this2.address.country = e.params.data.text;
+        console.log(_this2.address.country);
+      }); // регион
+
+      $('#region').on('select2:select', function (e) {
+        _this2.address.region = e.params.data.text;
+        console.log(_this2.address.region);
+      }); // город
+
+      $('#sity').on('select2:select', function (e) {
+        _this2.address.sity = e.params.data.text;
+        console.log(_this2.address.sity);
+      });
     }
   },
   props: ['lang', // масив названий и url языка
   'settings'],
   mounted: function mounted() {
-    this.createArrayCategories(); // console.log(this.settings)
+    this.initializationFunc(); // console.log(this.settings)
   },
   validations: {
     position: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    },
+    street_house: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
     }
   }
@@ -2912,6 +3003,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   props: ['lang', // масив названий и url языка
   'user', 'code_change_password'],
   methods: {
+    deleteStorage: function deleteStorage() {
+      localStorage.removeItem('url_click_no_auth');
+    },
     // отбор названий не показанных языков
     onlyNextLanguage: function onlyNextLanguage() {
       for (var index in this.lang.lang) {
@@ -2943,18 +3037,34 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (this.user == null) {
         this.reset_array(0);
         $('#authModal').modal('toggle');
+        localStorage.setItem('url_click_no_auth', url);
       } else {
         location.href = url;
       }
+    },
+    urlTransitions: function urlTransitions() {
+      var value = localStorage.getItem('url_click_no_auth');
+
+      if (value !== null) {
+        this.deleteStorage();
+        location.href = value;
+      }
+    },
+    initializationFunc: function initializationFunc() {
+      var _this = this;
+
+      this.onlyNextLanguage();
+      this.openModalChangePassword();
+      this.urlTransitions();
+      $('#authModal').on('hidden.bs.modal', function (e) {
+        _this.deleteStorage();
+      });
     }
   },
   mounted: function mounted() {
-    this.onlyNextLanguage();
-    this.openModalChangePassword();
-
-    if (this.user != null) {
-      console.log(this.user);
-    }
+    this.initializationFunc(); // if(this.user != null){
+    //     console.log(this.user)
+    // }
   }
 });
 
@@ -40949,7 +41059,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "forms" }, [
+  return _c("div", { staticClass: "forms create-page" }, [
+    _c("h1", { staticClass: "title_page card-body" }, [
+      _vm._v("Создать вакансию"),
+    ]),
+    _vm._v(" "),
     _c(
       "form",
       {
@@ -41016,6 +41130,160 @@ var render = function () {
               }),
               _vm._v(" "),
               !_vm.$v.position.required
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(" Пожалуйста, выберите хотя бы одну категорию. "),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "country" } }, [
+                _vm._v("Страна вакансии\n                        "),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              this.address.country == null
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(" Пожалуйста, выберите хотя бы одну категорию. "),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "region" } }, [
+                _vm._v("Регион вакансии\n                        "),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              this.address.region == null
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(" Пожалуйста, выберите хотя бы одну категорию. "),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "sity" } }, [
+                _vm._v("Город вакансии\n                        "),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              this.address.sity == null
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(" Пожалуйста, выберите хотя бы одну категорию. "),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "street_house" } }, [
+                _vm._v(
+                  "\n                        Улица дом вакансии\n                        "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.street_house,
+                    expression: "street_house",
+                  },
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": _vm.$v.street_house.$error },
+                attrs: { type: "text", id: "street_house" },
+                domProps: { value: _vm.street_house },
+                on: {
+                  blur: function ($event) {
+                    return _vm.$v.street_house.$touch()
+                  },
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.street_house = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              !_vm.$v.street_house.required
                 ? _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(" Пожалуйста, выберите хотя бы одну категорию. "),
                   ])
@@ -41107,7 +41375,7 @@ var render = function () {
               },
               [
                 _vm._v(
-                  " Пожалуйста, выберите хотя бы одну категорию.\n                "
+                  "\n                    Пожалуйста, выберите хотя бы одну категорию.\n                "
                 ),
               ]
             ),
@@ -41131,7 +41399,80 @@ var render = function () {
     ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "form-control select2", attrs: { id: "country" } },
+      [
+        _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+          _vm._v("Выбрать страну"),
+        ]),
+        _vm._v(" "),
+        _c("option", [_vm._v("California")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Delaware")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Tennessee")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Texas")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Washington")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "form-control select2", attrs: { id: "region" } },
+      [
+        _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+          _vm._v("Выбрать регион"),
+        ]),
+        _vm._v(" "),
+        _c("option", [_vm._v("California")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Delaware")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Tennessee")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Texas")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Washington")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "form-control select2", attrs: { id: "sity" } },
+      [
+        _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+          _vm._v("Выбрать страну"),
+        ]),
+        _vm._v(" "),
+        _c("option", [_vm._v("California")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Delaware")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Tennessee")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Texas")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Washington")]),
+      ]
+    )
+  },
+]
 render._withStripped = true
 
 

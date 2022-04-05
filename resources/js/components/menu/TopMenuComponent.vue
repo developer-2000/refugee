@@ -135,6 +135,9 @@
             'code_change_password',
         ],
         methods: {
+            deleteStorage: () => {
+                localStorage.removeItem('url_click_no_auth')
+            },
             // отбор названий не показанных языков
             onlyNextLanguage: function () {
                 for (var index in this.lang.lang) {
@@ -163,23 +166,38 @@
                 }
             },
             checkAuth(url) {
-
                 if(this.user == null){
                     this.reset_array(0)
                     $('#authModal').modal('toggle')
+                    localStorage.setItem('url_click_no_auth', url)
                 }
                 else{
                     location.href = url;
                 }
             },
+            urlTransitions() {
+                let value = localStorage.getItem('url_click_no_auth')
+                if(value !== null){
+                    this.deleteStorage()
+                    location.href = value;
+                }
+            },
+            initializationFunc() {
+                this.onlyNextLanguage()
+                this.openModalChangePassword()
+                this.urlTransitions()
+
+                $('#authModal').on('hidden.bs.modal', (e) => {
+                    this.deleteStorage()
+                })
+            },
         },
         mounted() {
-            this.onlyNextLanguage();
-            this.openModalChangePassword();
+            this.initializationFunc()
 
-            if(this.user != null){
-                console.log(this.user)
-            }
+            // if(this.user != null){
+            //     console.log(this.user)
+            // }
         },
     }
 </script>

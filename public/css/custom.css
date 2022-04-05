@@ -1,6 +1,10 @@
 body{
     font-size: 1rem;
 }
+h1{
+    font-weight: 600;
+    font-size: 1.7rem;
+}
 aside .brand-link{
     display: flex;
     flex-direction: column;
@@ -24,6 +28,10 @@ aside .brand-link span:nth-child(2){
     text-align: center;
     margin-right: 10px!important;
     font-weight: 600;
+}
+.title_page{
+    margin: 0;
+    padding: 15px 0px;
 }
 /* Modal Auth */
 .modal-dialog{
@@ -88,11 +96,37 @@ svg{
     width: 20px;
 }
 /* form inputs */
+.create-page .form-group{
+    border-bottom: 1px solid #ffdf9b;
+    border-right: 1px solid #c0ddfb;
+}
 .mandatory-filling svg{
     width: 10px;
 }
 .mandatory-filling path{
     fill: red;
+}
+/* select 2 */
+.select2-container {
+    width: 100%;
+}
+.select2-container .select2-selection--single {
+    height: 36px;
+}
+.select2-container--default .select2-results > .select2-results__options,
+.select2-container{
+    font-size: 14px;
+}
+.select2-container--default .select2-selection--single {
+    padding: 7px 7px 0;
+    border: 1px solid #ced4da;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 5px;
+}
+.select2-container--focus .select2-selection.select2-selection--single {
+    border-color:#a1cbef!important;
+    box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
 
 

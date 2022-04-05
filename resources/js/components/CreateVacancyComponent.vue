@@ -1,5 +1,6 @@
 <template>
-    <div class="forms">
+    <div class="forms create-page">
+        <h1 class="title_page card-body">Создать вакансию</h1>
         <form @submit.prevent="createVacancy" action="" method="post">
             <div class="row">
                 <div class="col-sm-4">
@@ -18,7 +19,78 @@
                         >
                         <div class="invalid-feedback" v-if="!$v.position.required"> Пожалуйста, выберите хотя бы одну категорию. </div>
                     </div>
+
+                    <!-- Country -->
+                    <div class="form-group">
+                        <label for="country">Страна вакансии
+                            <span class="mandatory-filling">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                            </span>
+                        </label>
+                        <select class="form-control select2" id="country">
+                            <option disabled="disabled" selected>Выбрать страну</option>
+                            <option>California</option>
+                            <option>Delaware</option>
+                            <option>Tennessee</option>
+                            <option>Texas</option>
+                            <option>Washington</option>
+                        </select>
+                        <div class="invalid-feedback" v-if="this.address.country == null"> Пожалуйста, выберите хотя бы одну категорию. </div>
+                    </div>
+
+                    <!-- Region -->
+                    <div class="form-group">
+                        <label for="region">Регион вакансии
+                            <span class="mandatory-filling">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                            </span>
+                        </label>
+                        <select class="form-control select2" id="region">
+                            <option disabled="disabled" selected>Выбрать регион</option>
+                            <option>California</option>
+                            <option>Delaware</option>
+                            <option>Tennessee</option>
+                            <option>Texas</option>
+                            <option>Washington</option>
+                        </select>
+                        <div class="invalid-feedback" v-if="this.address.region == null"> Пожалуйста, выберите хотя бы одну категорию. </div>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <label for="sity">Город вакансии
+                            <span class="mandatory-filling">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                            </span>
+                        </label>
+                        <select class="form-control select2" id="sity">
+                            <option disabled="disabled" selected>Выбрать страну</option>
+                            <option>California</option>
+                            <option>Delaware</option>
+                            <option>Tennessee</option>
+                            <option>Texas</option>
+                            <option>Washington</option>
+                        </select>
+                        <div class="invalid-feedback" v-if="this.address.sity == null"> Пожалуйста, выберите хотя бы одну категорию. </div>
+                    </div>
+
+                    <!-- Street_house -->
+                    <div class="form-group">
+                        <label for="street_house">
+                            Улица дом вакансии
+                            <span class="mandatory-filling">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                            </span>
+                        </label>
+                        <input type="text" id="street_house" class="form-control"
+                               :class="{'is-invalid': $v.street_house.$error}"
+                               v-model="street_house"
+                               @blur="$v.street_house.$touch()"
+                        >
+                        <div class="invalid-feedback" v-if="!$v.street_house.required"> Пожалуйста, выберите хотя бы одну категорию. </div>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-8">
                     <!-- Categories -->
                     <div class="border_error">
@@ -45,21 +117,11 @@
                         </div>
                     </div>
                     <div class="invalid-feedback"
-                         :class="{'is-invalid visible': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
-                         > Пожалуйста, выберите хотя бы одну категорию.
+                         :class="{'is-invalid visible': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}">
+                        Пожалуйста, выберите хотя бы одну категорию.
                     </div>
                 </div>
-
             </div>
-
-
-
-
-
-
-
-
-
 
             <button type="submit"
                     :class="{'btn btn-block btn-primary disabled': ($v.$invalid || !this.objCategory.categories.length), 'btn btn-block btn-primary btn-flat': (!$v.$invalid && this.objCategory.categories.length)}"
@@ -81,6 +143,12 @@
         data() {
             return {
                 position: '',
+                street_house: null,
+                address: {
+                    country: null,
+                    region: null,
+                    sity: null,
+                },
                 objCategory: {
                     categories: [],
                     categoriesArray: '',
@@ -110,7 +178,7 @@
             },
             // разбить масив категорий на несколько
             createArrayCategories(){
-                let count = 15
+                let count = 18
                 let tick = 0
                 this.objCategory.categoriesArray = [];
                 this.settings.categories.forEach((value, index) => {
@@ -121,18 +189,40 @@
                     this.objCategory.categoriesArray[(tick-1)].push(value);
                 });
                 console.log(this.objCategory.categoriesArray)
-            }
+            },
+            initializationFunc() {
+                this.createArrayCategories()
+                // страна
+                $('#country').on('select2:select', (e) => {
+                    this.address.country = e.params.data.text
+                    console.log(this.address.country)
+                })
+                // регион
+                $('#region').on('select2:select', (e) => {
+                    this.address.region = e.params.data.text
+                    console.log(this.address.region)
+                })
+                // город
+                $('#sity').on('select2:select', (e) => {
+                    this.address.sity = e.params.data.text
+                    console.log(this.address.sity)
+                })
+
+            },
         },
         props: [
             'lang',   // масив названий и url языка
             'settings',
         ],
         mounted() {
-            this.createArrayCategories()
+            this.initializationFunc()
             // console.log(this.settings)
         },
         validations: {
             position: {
+                required,
+            },
+            street_house: {
                 required,
             },
         }
