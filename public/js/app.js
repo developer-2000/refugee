@@ -2057,6 +2057,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2065,6 +2125,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       position: '',
       street_house: null,
+      checkbox_city: false,
+      search_city: null,
+      type_employment: null,
       address: {
         country: null,
         region: null,
@@ -2087,13 +2150,12 @@ __webpack_require__.r(__webpack_exports__);
         selected.push(checked[i].value);
       }
 
-      this.objCategory.categories = selected;
-
-      if (!this.objCategory.categories.length) {
-        $('.border_error').css('border', '1px solid red');
-      } else {
-        $('.border_error').css('border', 'none');
-      }
+      this.objCategory.categories = selected; // if(!this.objCategory.categories.length){
+      //     $('.border_error').css('border','1px solid red')
+      // }
+      // else{
+      //     $('.border_error').css('border','none')
+      // }
 
       console.log(selected);
     },
@@ -2133,6 +2195,11 @@ __webpack_require__.r(__webpack_exports__);
       $('#sity').on('select2:select', function (e) {
         _this2.address.sity = e.params.data.text;
         console.log(_this2.address.sity);
+      }); // город
+
+      $('#search_city').on('select2:select', function (e) {
+        _this2.search_city = e.params.data.text;
+        console.log(_this2.search_city);
       });
     }
   },
@@ -2146,6 +2213,9 @@ __webpack_require__.r(__webpack_exports__);
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
     },
     street_house: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    },
+    type_employment: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
     }
   }
@@ -7449,7 +7519,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".form-group[data-v-cbfd5dee] {\n  padding: 3px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-cbfd5dee] {\n  position: absolute;\n  bottom: 2px;\n}\n.border_error[data-v-cbfd5dee] {\n  /*border: 1px solid red;*/\n}\n.visible[data-v-cbfd5dee] {\n  display: block;\n}", ""]);
+exports.push([module.i, ".form-group[data-v-cbfd5dee] {\n  padding: 3px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-cbfd5dee] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-cbfd5dee] {\n  padding: 0px 25px 0 0;\n}\n.visible[data-v-cbfd5dee] {\n  display: block;\n}\n.search-city[data-v-cbfd5dee] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-cbfd5dee] {\n  width: 100% !important;\n}\n.border_error[data-v-cbfd5dee] {\n  border: 1px solid red;\n}", ""]);
 
 // exports
 
@@ -41292,76 +41362,89 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-sm-8" }, [
-            _c("div", { staticClass: "border_error" }, [
-              _c("label", { attrs: { for: "categories" } }, [
-                _vm._v(
-                  "\n                        Категория размещения вакансии\n                        "
-                ),
-                _c("span", { staticClass: "mandatory-filling" }, [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 512 512",
-                      },
-                    },
-                    [
-                      _c("path", {
+            _c(
+              "div",
+              {
+                class: {
+                  border_error:
+                    !this.objCategory.categories.length &&
+                    this.objCategory.boolChecked == true,
+                },
+              },
+              [
+                _c("label", { attrs: { for: "categories" } }, [
+                  _vm._v(
+                    "\n                        Категория размещения вакансии\n                        "
+                  ),
+                  _c("span", { staticClass: "mandatory-filling" }, [
+                    _c(
+                      "svg",
+                      {
                         attrs: {
-                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
                         },
-                      }),
-                    ]
-                  ),
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
                 ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "container", attrs: { id: "categories" } },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    [
-                      _vm._l(
-                        this.objCategory.categoriesArray,
-                        function (array) {
-                          return [
-                            _c(
-                              "div",
-                              { staticClass: "col-xl" },
-                              _vm._l(array, function (value, key) {
-                                return _c("div", { key: key }, [
-                                  _c("input", {
-                                    staticClass: "form-check-input",
-                                    attrs: {
-                                      name: "category",
-                                      type: "checkbox",
-                                    },
-                                    domProps: { value: key },
-                                    on: { change: _vm.checkCategory },
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    { staticClass: "form-check-label" },
-                                    [_vm._v(_vm._s(value))]
-                                  ),
-                                ])
-                              }),
-                              0
-                            ),
-                          ]
-                        }
-                      ),
-                    ],
-                    2
-                  ),
-                ]
-              ),
-            ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "container collection-checkbox",
+                    attrs: { id: "categories" },
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "row" },
+                      [
+                        _vm._l(
+                          this.objCategory.categoriesArray,
+                          function (array) {
+                            return [
+                              _c(
+                                "div",
+                                { staticClass: "col-xl" },
+                                _vm._l(array, function (value, key) {
+                                  return _c("div", { key: key }, [
+                                    _c("input", {
+                                      staticClass: "form-check-input",
+                                      attrs: {
+                                        name: "category",
+                                        type: "checkbox",
+                                      },
+                                      domProps: { value: key },
+                                      on: { change: _vm.checkCategory },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { staticClass: "form-check-label" },
+                                      [_vm._v(_vm._s(value))]
+                                    ),
+                                  ])
+                                }),
+                                0
+                              ),
+                            ]
+                          }
+                        ),
+                      ],
+                      2
+                    ),
+                  ]
+                ),
+              ]
+            ),
             _vm._v(" "),
             _c(
               "div",
@@ -41377,6 +41460,230 @@ var render = function () {
                 _vm._v(
                   "\n                    Пожалуйста, выберите хотя бы одну категорию.\n                "
                 ),
+              ]
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "checkbox-box" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.checkbox_city,
+                      expression: "checkbox_city",
+                    },
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: { id: "checkbox_city", type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.checkbox_city)
+                      ? _vm._i(_vm.checkbox_city, null) > -1
+                      : _vm.checkbox_city,
+                  },
+                  on: {
+                    change: function ($event) {
+                      var $$a = _vm.checkbox_city,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.checkbox_city = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.checkbox_city = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.checkbox_city = $$c
+                      }
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "checkbox_city" } }, [
+                  _vm._v("Искать кандидатов в другом городе"),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.checkbox_city,
+                      expression: "checkbox_city",
+                    },
+                  ],
+                  staticClass: "search-city",
+                },
+                [
+                  _c("label", { attrs: { for: "search_city" } }, [
+                    _vm._v("Город для поиска " + _vm._s(this.search_city)),
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3),
+                ]
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-4 form-group" }, [
+            _c("label", { attrs: { for: "type_employment" } }, [
+              _vm._v(
+                "\n                    Вид занятости\n                    "
+              ),
+              _c("span", { staticClass: "mandatory-filling" }, [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      viewBox: "0 0 512 512",
+                      xmlns: "http://www.w3.org/2000/svg",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                      },
+                    }),
+                  ]
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "container collection-checkbox",
+                attrs: { id: "type_employment" },
+              },
+              [
+                _c("div", { staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type_employment,
+                        expression: "type_employment",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: "radioPrimary1",
+                      name: "type_employment",
+                      value: "1",
+                    },
+                    domProps: { checked: _vm._q(_vm.type_employment, "1") },
+                    on: {
+                      change: function ($event) {
+                        _vm.type_employment = "1"
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "radioPrimary1" } }, [
+                    _vm._v("локально, полная занятость"),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type_employment,
+                        expression: "type_employment",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: "radioPrimary2",
+                      name: "type_employment",
+                      value: "2",
+                    },
+                    domProps: { checked: _vm._q(_vm.type_employment, "2") },
+                    on: {
+                      change: function ($event) {
+                        _vm.type_employment = "2"
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "radioPrimary2" } }, [
+                    _vm._v("локально, полная занятость 2"),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type_employment,
+                        expression: "type_employment",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: "radioPrimary3",
+                      name: "type_employment",
+                      value: "3",
+                    },
+                    domProps: { checked: _vm._q(_vm.type_employment, "3") },
+                    on: {
+                      change: function ($event) {
+                        _vm.type_employment = "3"
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "radioPrimary3" } }, [
+                    _vm._v("локально, полная занятость 3"),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type_employment,
+                        expression: "type_employment",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: "radioPrimary4",
+                      name: "type_employment",
+                      value: "4",
+                    },
+                    domProps: { checked: _vm._q(_vm.type_employment, "4") },
+                    on: {
+                      change: function ($event) {
+                        _vm.type_employment = "4"
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "radioPrimary4" } }, [
+                    _vm._v("локально, полная занятость 4"),
+                  ]),
+                ]),
               ]
             ),
           ]),
@@ -41457,7 +41764,31 @@ var staticRenderFns = [
       { staticClass: "form-control select2", attrs: { id: "sity" } },
       [
         _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
-          _vm._v("Выбрать страну"),
+          _vm._v("Выбрать город"),
+        ]),
+        _vm._v(" "),
+        _c("option", [_vm._v("California")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Delaware")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Tennessee")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Texas")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Washington")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "form-control select2", attrs: { id: "search_city" } },
+      [
+        _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+          _vm._v("Выбрать город поиска"),
         ]),
         _vm._v(" "),
         _c("option", [_vm._v("California")]),

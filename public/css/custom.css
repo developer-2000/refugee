@@ -106,9 +106,21 @@ svg{
 .mandatory-filling path{
     fill: red;
 }
+.checkbox-box{
+    margin: 8px 0px -18px;
+}
+.form-group input[type="checkbox"]{
+    margin: 0 4px 0;
+    position: relative;
+    top: -1px;
+}
+.form-group input[type="checkbox"]:hover,
+.form-group input[type="radio"]:hover{
+    cursor: pointer;
+}
 /* select 2 */
 .select2-container {
-    width: 100%;
+    width: 100%!important;
 }
 .select2-container .select2-selection--single {
     height: 36px;
