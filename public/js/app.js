@@ -2117,6 +2117,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2127,11 +2218,18 @@ __webpack_require__.r(__webpack_exports__);
       street_house: null,
       checkbox_city: false,
       search_city: null,
-      type_employment: null,
+      type_employment: 1,
+      salary: {
+        salary_but: 1,
+        range_from: null,
+        range_to: null,
+        one_value_sum: null,
+        switchSalary: false
+      },
       address: {
         country: null,
         region: null,
-        sity: null
+        city: null
       },
       objCategory: {
         categories: [],
@@ -2150,13 +2248,7 @@ __webpack_require__.r(__webpack_exports__);
         selected.push(checked[i].value);
       }
 
-      this.objCategory.categories = selected; // if(!this.objCategory.categories.length){
-      //     $('.border_error').css('border','1px solid red')
-      // }
-      // else{
-      //     $('.border_error').css('border','none')
-      // }
-
+      this.objCategory.categories = selected;
       console.log(selected);
     },
     createVacancy: function createVacancy() {},
@@ -2192,15 +2284,48 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this2.address.region);
       }); // город
 
-      $('#sity').on('select2:select', function (e) {
-        _this2.address.sity = e.params.data.text;
-        console.log(_this2.address.sity);
+      $('#сity').on('select2:select', function (e) {
+        _this2.address.сity = e.params.data.text;
+        console.log(_this2.address.сity);
       }); // город
 
       $('#search_city').on('select2:select', function (e) {
         _this2.search_city = e.params.data.text;
         console.log(_this2.search_city);
       });
+    },
+    checkSalary: function checkSalary() {
+      // выровнять последнее число по первому если оно меньше
+      if (this.checkingInteger(this.salary.range_from) && this.checkingInteger(this.salary.range_to)) {
+        if (parseInt(this.salary.range_from) > parseInt(this.salary.range_to)) {
+          this.salary.range_to = this.salary.range_from;
+        }
+      } // если выбран сектор а поля не заполнены
+
+
+      if (this.salary.salary_but == 1 && (!this.salary.range_from || this.salary.range_from == '' || !this.salary.range_to || this.salary.range_to == '') || this.salary.salary_but == 2 && (!this.salary.one_value_sum || this.salary.one_value_sum == '')) {
+        console.log('true');
+        this.salary.switchSalary = true;
+        return true;
+      }
+
+      console.log('false');
+      this.salary.switchSalary = false;
+      return false;
+    },
+    disableButton: function disableButton(v) {
+      if (v.$invalid || !this.objCategory.categories.length || this.checkSalary()) {
+        return true;
+      }
+
+      return false;
+    },
+    checkingInteger: function checkingInteger(value) {
+      if (parseInt(value) >= 0) {
+        return true;
+      }
+
+      return false;
     }
   },
   props: ['lang', // масив названий и url языка
@@ -7519,7 +7644,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".form-group[data-v-cbfd5dee] {\n  padding: 3px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-cbfd5dee] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-cbfd5dee] {\n  padding: 0px 25px 0 0;\n}\n.visible[data-v-cbfd5dee] {\n  display: block;\n}\n.search-city[data-v-cbfd5dee] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-cbfd5dee] {\n  width: 100% !important;\n}\n.border_error[data-v-cbfd5dee] {\n  border: 1px solid red;\n}", ""]);
+exports.push([module.i, "label[data-v-cbfd5dee] {\n  cursor: pointer;\n}\n.form-group[data-v-cbfd5dee] {\n  padding: 3px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-cbfd5dee] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-cbfd5dee] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-cbfd5dee] {\n  display: block;\n}\n.search-city[data-v-cbfd5dee] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-cbfd5dee] {\n  width: 100% !important;\n}\n.border_error[data-v-cbfd5dee] {\n  border: 1px solid red;\n}\n#salary_accordion .card[data-v-cbfd5dee] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n#salary_accordion .card .card-header[data-v-cbfd5dee] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n#salary_accordion .card .card-header button[data-v-cbfd5dee] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n#salary_accordion .card .card-body[data-v-cbfd5dee] {\n  padding: 0;\n}\n.bg-warning[data-v-cbfd5dee] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-cbfd5dee]:nth-child(2),\n#one_value input[data-v-cbfd5dee] {\n  margin-right: 7px;\n}\n.line_select[data-v-cbfd5dee] {\n  display: initial;\n}", ""]);
 
 // exports
 
@@ -41271,7 +41396,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "sity" } }, [
+              _c("label", { attrs: { for: "сity" } }, [
                 _vm._v("Город вакансии\n                        "),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -41295,7 +41420,7 @@ var render = function () {
               _vm._v(" "),
               _vm._m(2),
               _vm._v(" "),
-              this.address.sity == null
+              this.address.сity == null
                 ? _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(" Пожалуйста, выберите хотя бы одну категорию. "),
                   ])
@@ -41361,10 +41486,11 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-sm-8" }, [
+          _c("div", { staticClass: "col-sm-8" }, [
             _c(
               "div",
               {
+                staticClass: "form-group",
                 class: {
                   border_error:
                     !this.objCategory.categories.length &&
@@ -41372,93 +41498,96 @@ var render = function () {
                 },
               },
               [
-                _c("label", { attrs: { for: "categories" } }, [
-                  _vm._v(
-                    "\n                        Категория размещения вакансии\n                        "
-                  ),
-                  _c("span", { staticClass: "mandatory-filling" }, [
-                    _c(
-                      "svg",
-                      {
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          viewBox: "0 0 512 512",
-                        },
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                          },
-                        }),
-                      ]
+                _c("div", [
+                  _c("label", { attrs: { for: "categories" } }, [
+                    _vm._v(
+                      "\n                            Категория размещения вакансии\n                            "
                     ),
+                    _c("span", { staticClass: "mandatory-filling" }, [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 512 512",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                            },
+                          }),
+                        ]
+                      ),
+                    ]),
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "container-fluid collection-checkbox",
+                      attrs: { id: "categories" },
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        [
+                          _vm._l(
+                            this.objCategory.categoriesArray,
+                            function (array) {
+                              return [
+                                _c(
+                                  "div",
+                                  { staticClass: "col-xl" },
+                                  _vm._l(array, function (value, key) {
+                                    return _c("div", { key: key }, [
+                                      _c("input", {
+                                        staticClass: "form-check-input",
+                                        attrs: {
+                                          name: "category",
+                                          id: "category_" + key,
+                                          type: "checkbox",
+                                        },
+                                        domProps: { value: key },
+                                        on: { change: _vm.checkCategory },
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        { attrs: { for: "category_" + key } },
+                                        [_vm._v(_vm._s(value))]
+                                      ),
+                                    ])
+                                  }),
+                                  0
+                                ),
+                              ]
+                            }
+                          ),
+                        ],
+                        2
+                      ),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c(
                   "div",
                   {
-                    staticClass: "container collection-checkbox",
-                    attrs: { id: "categories" },
+                    staticClass: "invalid-feedback",
+                    class: {
+                      "is-invalid visible":
+                        !this.objCategory.categories.length &&
+                        this.objCategory.boolChecked == true,
+                    },
                   },
                   [
-                    _c(
-                      "div",
-                      { staticClass: "row" },
-                      [
-                        _vm._l(
-                          this.objCategory.categoriesArray,
-                          function (array) {
-                            return [
-                              _c(
-                                "div",
-                                { staticClass: "col-xl" },
-                                _vm._l(array, function (value, key) {
-                                  return _c("div", { key: key }, [
-                                    _c("input", {
-                                      staticClass: "form-check-input",
-                                      attrs: {
-                                        name: "category",
-                                        type: "checkbox",
-                                      },
-                                      domProps: { value: key },
-                                      on: { change: _vm.checkCategory },
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "label",
-                                      { staticClass: "form-check-label" },
-                                      [_vm._v(_vm._s(value))]
-                                    ),
-                                  ])
-                                }),
-                                0
-                              ),
-                            ]
-                          }
-                        ),
-                      ],
-                      2
+                    _vm._v(
+                      "\n                        Пожалуйста, выберите хотя бы одну категорию.\n                    "
                     ),
                   ]
-                ),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "invalid-feedback",
-                class: {
-                  "is-invalid visible":
-                    !this.objCategory.categories.length &&
-                    this.objCategory.boolChecked == true,
-                },
-              },
-              [
-                _vm._v(
-                  "\n                    Пожалуйста, выберите хотя бы одну категорию.\n                "
                 ),
               ]
             ),
@@ -41537,38 +41666,33 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4 form-group" }, [
-            _c("label", { attrs: { for: "type_employment" } }, [
-              _vm._v(
-                "\n                    Вид занятости\n                    "
-              ),
-              _c("span", { staticClass: "mandatory-filling" }, [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      viewBox: "0 0 512 512",
-                      xmlns: "http://www.w3.org/2000/svg",
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                      },
-                    }),
-                  ]
+          _c("div", { staticClass: "col-sm-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "type_employment" } }, [
+                _vm._v(
+                  "\n                        Вид занятости\n                        "
                 ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        viewBox: "0 0 512 512",
+                        xmlns: "http://www.w3.org/2000/svg",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
               ]),
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "container collection-checkbox",
-                attrs: { id: "type_employment" },
-              },
-              [
+              _vm._v(" "),
+              _c("div", { attrs: { id: "type_employment" } }, [
                 _c("div", { staticClass: "icheck-primary" }, [
                   _c("input", {
                     directives: [
@@ -41684,6 +41808,378 @@ var render = function () {
                     _vm._v("локально, полная занятость 4"),
                   ]),
                 ]),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "form-group",
+                class: { border_error: this.salary.switchSalary },
+              },
+              [
+                _c("label", { attrs: { for: "type_employment" } }, [
+                  _vm._v(
+                    "\n                        Зарплата\n                        "
+                  ),
+                  _c("span", { staticClass: "mandatory-filling" }, [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          viewBox: "0 0 512 512",
+                          xmlns: "http://www.w3.org/2000/svg",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { attrs: { id: "salary_accordion" } }, [
+                  _c("div", { staticClass: "card" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card-header",
+                        attrs: { id: "headingOne" },
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "line_select",
+                            attrs: {
+                              "data-toggle": "collapse",
+                              "data-target": "#range",
+                              "aria-expanded": "true",
+                              "aria-controls": "collapseOne",
+                            },
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.salary.salary_but,
+                                  expression: "salary.salary_but",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                id: "salary_but1",
+                                name: "salary_but",
+                                value: "1",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.salary.salary_but, "1"),
+                              },
+                              on: {
+                                change: [
+                                  function ($event) {
+                                    return _vm.$set(
+                                      _vm.salary,
+                                      "salary_but",
+                                      "1"
+                                    )
+                                  },
+                                  _vm.checkSalary,
+                                ],
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "salary_but1" } }, [
+                              _vm._v("Диапазон"),
+                            ]),
+                          ]
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse show",
+                        attrs: {
+                          id: "range",
+                          "aria-labelledby": "headingOne",
+                          "data-parent": "#salary_accordion",
+                        },
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.salary.range_from,
+                                expression: "salary.range_from",
+                              },
+                            ],
+                            attrs: {
+                              type: "number",
+                              placeholder: "от",
+                              id: "range_from",
+                              min: "0",
+                              max: "100000000",
+                            },
+                            domProps: { value: _vm.salary.range_from },
+                            on: {
+                              change: _vm.checkSalary,
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.salary,
+                                  "range_from",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(
+                            "\n                                    -\n                                    "
+                          ),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.salary.range_to,
+                                expression: "salary.range_to",
+                              },
+                            ],
+                            attrs: {
+                              type: "number",
+                              placeholder: "до",
+                              id: "range_to",
+                              min: "0",
+                              max: "100000000",
+                            },
+                            domProps: { value: _vm.salary.range_to },
+                            on: {
+                              change: _vm.checkSalary,
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.salary,
+                                  "range_to",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(
+                            "\n                                    евро в месяц\n                                "
+                          ),
+                        ]),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card-header",
+                        attrs: { id: "headingTwo" },
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "line_select",
+                            attrs: {
+                              "data-toggle": "collapse",
+                              "data-target": "#one_value",
+                              "aria-expanded": "false",
+                              "aria-controls": "collapseTwo",
+                            },
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.salary.salary_but,
+                                  expression: "salary.salary_but",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                id: "salary_but2",
+                                name: "salary_but",
+                                value: "2",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.salary.salary_but, "2"),
+                              },
+                              on: {
+                                change: [
+                                  function ($event) {
+                                    return _vm.$set(
+                                      _vm.salary,
+                                      "salary_but",
+                                      "2"
+                                    )
+                                  },
+                                  _vm.checkSalary,
+                                ],
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "salary_but2" } }, [
+                              _vm._v("Одно значение"),
+                            ]),
+                          ]
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse",
+                        attrs: {
+                          id: "one_value",
+                          "aria-labelledby": "headingTwo",
+                          "data-parent": "#salary_accordion",
+                        },
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.salary.one_value_sum,
+                                expression: "salary.one_value_sum",
+                              },
+                            ],
+                            attrs: {
+                              type: "number",
+                              placeholder: "сумма",
+                              id: "one_value_sum",
+                              min: "0",
+                              max: "100000000",
+                            },
+                            domProps: { value: _vm.salary.one_value_sum },
+                            on: {
+                              change: _vm.checkSalary,
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.salary,
+                                  "one_value_sum",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(
+                            "\n                                    евро в месяц\n                                "
+                          ),
+                        ]),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card-header",
+                        attrs: { id: "headingThree" },
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "line_select",
+                            attrs: {
+                              "data-toggle": "collapse",
+                              "data-target": "#collapseThree",
+                              "aria-expanded": "false",
+                              "aria-controls": "collapseThree",
+                            },
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.salary.salary_but,
+                                  expression: "salary.salary_but",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                id: "salary_but3",
+                                name: "salary_but",
+                                value: "3",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.salary.salary_but, "3"),
+                              },
+                              on: {
+                                change: [
+                                  function ($event) {
+                                    return _vm.$set(
+                                      _vm.salary,
+                                      "salary_but",
+                                      "3"
+                                    )
+                                  },
+                                  _vm.checkSalary,
+                                ],
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "salary_but3" } }, [
+                              _vm._v("Не указывать"),
+                            ]),
+                          ]
+                        ),
+                        _vm._v(
+                          " (не рекомендуется)\n                            "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(4),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "invalid-feedback",
+                    class: { "is-invalid visible": this.salary.switchSalary },
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Пожалуйста, выберите хотя бы одну категорию.\n                    "
+                    ),
+                  ]
+                ),
               ]
             ),
           ]),
@@ -41693,10 +42189,8 @@ var render = function () {
           "button",
           {
             class: {
-              "btn btn-block btn-primary disabled":
-                _vm.$v.$invalid || !this.objCategory.categories.length,
-              "btn btn-block btn-primary btn-flat":
-                !_vm.$v.$invalid && this.objCategory.categories.length,
+              "btn btn-block btn-primary disabled": _vm.disableButton(_vm.$v),
+              "btn btn-block btn-primary btn-flat": !_vm.disableButton(_vm.$v),
             },
             attrs: { type: "submit", disabled: _vm.$v.$invalid },
           },
@@ -41761,7 +42255,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "select",
-      { staticClass: "form-control select2", attrs: { id: "sity" } },
+      { staticClass: "form-control select2", attrs: { id: "сity" } },
       [
         _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
           _vm._v("Выбрать город"),
@@ -41800,6 +42294,31 @@ var staticRenderFns = [
         _c("option", [_vm._v("Texas")]),
         _vm._v(" "),
         _c("option", [_vm._v("Washington")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "collapse",
+        attrs: {
+          id: "collapseThree",
+          "aria-labelledby": "headingThree",
+          "data-parent": "#salary_accordion",
+        },
+      },
+      [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "bg-warning color-palette" }, [
+            _vm._v(
+              "\n                                        Чтобы получить больше откликов, укажите зарплату.\n                                        Когда соискатели знают, какую зарплату вы предлагаете, они более осознанно откликаются на вакансии.\n                                        Так вы быстрее найдете подходящего сотрудника.\n                                    "
+            ),
+          ]),
+        ]),
       ]
     )
   },
