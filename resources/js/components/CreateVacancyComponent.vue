@@ -14,7 +14,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                             </span>
                         </label>
-                        <input type="text" id="position" class="form-control"
+                        <input type="text" id="position" class="form-control" maxlength="100"
                                :class="{'is-invalid': $v.position.$error}"
                                v-model="position"
                                @blur="$v.position.$touch()"
@@ -84,7 +84,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                             </span>
                         </label>
-                        <input type="text" id="street_house" class="form-control"
+                        <input type="text" id="street_house" class="form-control" maxlength="100"
                                :class="{'is-invalid': $v.street_house.$error}"
                                v-model="street_house"
                                @blur="$v.street_house.$touch()"
@@ -156,12 +156,7 @@
                 <!-- type_employment -->
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="type_employment">
-                            Вид занятости
-                            <span class="mandatory-filling">
-                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                        </span>
-                        </label>
+                        <label for="type_employment"> Вид занятости  </label>
                         <div id="type_employment">
                             <div class="icheck-primary">
                                 <input type="radio" id="radioPrimary1" name="type_employment" value="1"
@@ -189,7 +184,7 @@
                 <!-- salary -->
                 <div class="col-sm-4">
                     <div class="form-group" :class="{border_error: this.salary.switchSalary }">
-                        <label for="type_employment">
+                        <label for="salary_accordion">
                             Зарплата
                             <span class="mandatory-filling">
                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
@@ -267,12 +262,94 @@
                                 </div>
                             </div>
                         </div>
+                        <label for="payroll_comment"> Комментарий к зарплате </label>
+                        <input type="text" id="payroll_comment" class="form-control" maxlength="100"
+                               v-model="salary.payroll_comment"
+                        >
                         <div class="invalid-feedback" :class="{'is-invalid visible': this.salary.switchSalary}">
                             Пожалуйста, выберите хотя бы одну категорию.
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- третий row -->
+            <div class="row">
+                <!-- work experience -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="work_experience">Опыт работы </label>
+                        <select class="form-control select2" id="work_experience">
+                            <option value="" selected>готовы взять без опыта</option>
+                            <option value="">от 1 года</option>
+                            <option value="">от 2 лет</option>
+                            <option value="">от 5 лет</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Education -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="education">Образование</label>
+                        <select class="form-control select2" id="education">
+                            <option value="" selected>не имеет значения</option>
+                            <option value="66">высшее</option>
+                            <option value="67">неоконченное высшее</option>
+                            <option value="68">среднее специальное</option>
+                            <option value="69">среднее</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Vacancy suitable -->
+                <div class="col-sm-4">
+                    <div class="form-group" :class="{'border_error': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
+                        <label for="vacancy_suitable">
+                            Вакансия подходит для
+                            <span class="mandatory-filling">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                            </span>
+                        </label>
+                        <div id="vacancy_suitable">
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_1"
+                                        @change="vacancySuitable"
+                                       value="1"
+                                >
+                                <label for="vacancy_suitable_1">это не имеет значения</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_2"
+                                       @change="vacancySuitable"
+                                       value="2"
+                                >
+                                <label for="vacancy_suitable_2">до 25 лет</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_3"
+                                       @change="vacancySuitable"
+                                       value="3"
+                                >
+                                <label for="vacancy_suitable_3">от 25 до 40 лет</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_4"
+                                       @change="vacancySuitable"
+                                       value="4"
+                                >
+                                <label for="vacancy_suitable_4">от 40 лет и старше</label>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback" :class="{'is-invalid visible': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
+                            Пожалуйста, выберите хотя бы одну категорию.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <button type="submit"
                     :class="{'btn btn-block btn-primary disabled': disableButton($v), 'btn btn-block btn-primary btn-flat': !disableButton($v)}"
@@ -304,6 +381,7 @@
                     range_to: null,
                     one_value_sum: null,
                     switchSalary: false,
+                    payroll_comment: null,
                 },
                 address: {
                     country: null,
@@ -315,9 +393,24 @@
                     categoriesArray: '',
                     boolChecked: false,
                 },
+                objSuitable: {
+                    suitable: [],
+                    suitableArray: '',
+                    boolSuitable: false,
+                },
             }
         },
         methods: {
+            vacancySuitable(){
+                this.objSuitable.boolSuitable = true;
+                let checked = document.querySelectorAll('[name="vacancy_suitable"]:checked');
+                let selected = [];
+                for (let i=0; i<checked.length; i++) {
+                    selected.push(checked[i].value);
+                }
+                this.objSuitable.suitable = selected;
+                console.log(selected)
+            },
             checkCategory(){
                 this.objCategory.boolChecked = true;
                 let checked = document.querySelectorAll('[name="category"]:checked');
@@ -333,7 +426,7 @@
             },
             // разбить масив категорий на несколько
             createArrayCategories(){
-                let count = 18
+                let count = 15
                 let tick = 0
                 this.objCategory.categoriesArray = [];
                 this.settings.categories.forEach((value, index) => {
@@ -394,6 +487,7 @@
                 if(
                     v.$invalid ||
                     !this.objCategory.categories.length ||
+                    !this.objSuitable.suitable.length ||
                     this.checkSalary()
                 ){
                     return true;
@@ -436,7 +530,7 @@
         cursor: pointer;
     }
     .form-group{
-        padding: 3px 10px 20px;
+        padding: 5px 10px 20px;
         background: $back-form-group;
         position: relative;
         .invalid-feedback{
