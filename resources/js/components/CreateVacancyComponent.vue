@@ -312,14 +312,6 @@
                         <div id="vacancy_suitable">
                             <div>
                                 <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                       id="vacancy_suitable_1"
-                                        @change="vacancySuitable"
-                                       value="1"
-                                >
-                                <label for="vacancy_suitable_1">это не имеет значения</label>
-                            </div>
-                            <div>
-                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
                                        id="vacancy_suitable_2"
                                        @change="vacancySuitable"
                                        value="2"
@@ -341,6 +333,29 @@
                                        value="4"
                                 >
                                 <label for="vacancy_suitable_4">от 40 лет и старше</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_1"
+                                       @change="vacancySuitable"
+                                       value="1"
+                                >
+                                <label for="vacancy_suitable_1">это не имеет значения</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_5"
+                                       @change="vacancySuitable"
+                                       value="5"
+                                >
+                                <label for="vacancy_suitable_5">свой вариант</label>
+                            </div>
+                            <div
+                                v-if="(this.objSuitable.suitable.indexOf('5') != -1)">
+                                <label for="commentary_age">Комментарий к возрасту</label>
+                                <input type="text" id="commentary_age" class="form-control" maxlength="100"
+                                       v-model="objSuitable.commentary_age"
+                                >
                             </div>
                         </div>
                         <div class="invalid-feedback" :class="{'is-invalid visible': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
@@ -397,6 +412,7 @@
                     suitable: [],
                     suitableArray: '',
                     boolSuitable: false,
+                    commentary_age: '',
                 },
             }
         },

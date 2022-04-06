@@ -2285,6 +2285,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2317,7 +2332,8 @@ __webpack_require__.r(__webpack_exports__);
       objSuitable: {
         suitable: [],
         suitableArray: '',
-        boolSuitable: false
+        boolSuitable: false,
+        commentary_age: ''
       }
     };
   },
@@ -42342,23 +42358,6 @@ var render = function () {
                       attrs: {
                         name: "vacancy_suitable",
                         type: "checkbox",
-                        id: "vacancy_suitable_1",
-                        value: "1",
-                      },
-                      on: { change: _vm.vacancySuitable },
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "vacancy_suitable_1" } }, [
-                      _vm._v("это не имеет значения"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        name: "vacancy_suitable",
-                        type: "checkbox",
                         id: "vacancy_suitable_2",
                         value: "2",
                       },
@@ -42403,6 +42402,78 @@ var render = function () {
                       _vm._v("от 40 лет и старше"),
                     ]),
                   ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "vacancy_suitable",
+                        type: "checkbox",
+                        id: "vacancy_suitable_1",
+                        value: "1",
+                      },
+                      on: { change: _vm.vacancySuitable },
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "vacancy_suitable_1" } }, [
+                      _vm._v("это не имеет значения"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "vacancy_suitable",
+                        type: "checkbox",
+                        id: "vacancy_suitable_5",
+                        value: "5",
+                      },
+                      on: { change: _vm.vacancySuitable },
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "vacancy_suitable_5" } }, [
+                      _vm._v("свой вариант"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  this.objSuitable.suitable.indexOf("5") != -1
+                    ? _c("div", [
+                        _c("label", { attrs: { for: "commentary_age" } }, [
+                          _vm._v("Комментарий к возрасту"),
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.objSuitable.commentary_age,
+                              expression: "objSuitable.commentary_age",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "commentary_age",
+                            maxlength: "100",
+                          },
+                          domProps: { value: _vm.objSuitable.commentary_age },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.objSuitable,
+                                "commentary_age",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                      ])
+                    : _vm._e(),
                 ]),
                 _vm._v(" "),
                 _c(

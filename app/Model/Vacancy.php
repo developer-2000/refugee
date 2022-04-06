@@ -14,6 +14,6 @@ class Vacancy extends Model
         'city' => 'json',
         'type_employment' => 'json',
         'salary' => 'json',
-        'json' => 'json',
+        'vacancy_suitable' => 'json',
     ];
 }

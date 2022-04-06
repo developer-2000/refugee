@@ -28,8 +28,8 @@ class CreateVacanciesTable extends Migration
             $table->string('salary')->index()->comment('зарплата - одно значение, диапазон, договорная, в месяц/час, коментарий');
             $table->tinyInteger('work_experience')->index()->default(0)->comment('опыт работы');
             $table->tinyInteger('education')->index()->default(0)->comment('образование - перечень');
+            $table->string('vacancy_suitable')->index()->nullable()->default(null)->comment('возраст вакансии');
 
-            $table->tinyInteger('vacancy_suitable')->index()->default(0)->comment('образование - перечень');
             $table->text('job_requirements')->nullable()->default(null)->comment('требования вакансии');
             $table->text('working_conditions')->nullable()->default(null)->comment('условия работы');
             $table->text('employee_responsibilities')->nullable()->default(null)->comment('обязанности работника');

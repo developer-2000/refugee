@@ -35,10 +35,11 @@ return [
     // Вакансия подходит для: до 25 лет, от 25 до 40 лет, от 40 лет и старше, не важно
     // Индексы ключи к файлу языка
     'vacancy_suitable' => [
-        'it_not_matter',
         'up_to_25_years_old',
         'from_25_to_40_years_old',
         'from_40_years_old_and_older',
+        'it_not_matter',
+        'your_own_version',
     ],
     // Какие контакты связи показать соискателю: email, tel, messenger viber, messenger telegram,
     // Индексы ключи к файлу языка
