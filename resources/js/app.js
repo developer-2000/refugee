@@ -19,8 +19,7 @@ Vue.component('create-vacancy-component', require('./components/CreateVacancyCom
 import CKEditor from 'ckeditor4-vue';
 Vue.use( CKEditor );
 
-import { BTooltip } from 'bootstrap'
-Vue.component('b-tooltip', BTooltip)
+
 
 const app = new Vue({
     el: '#app',

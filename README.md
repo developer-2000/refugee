@@ -12,6 +12,9 @@
 https://github.com/MenaraSolutions/geographer-laravel
 
 
+#### tooltip подсказка bootstrap4
+https://itchief.ru/bootstrap/tooltips
+
 #### Редактор текста CKEditor 4 WYSIWYG Editor Vue
 https://ckeditor.com/docs/ckeditor4/latest/guide/dev_vue.html
 
