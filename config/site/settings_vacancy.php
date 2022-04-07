@@ -4,9 +4,10 @@ return [
     // Вид занятости: полная, неполная, удаленная работа
     // Индексы ключи к файлу языка
     'type_employment' => [
-        'complete',
-        'incomplete',
-        'remote_work',
+        'locally_full_time',
+        'locally_part_time',
+        'remote_full_time',
+        'remote_part_time',
     ],
     // Вид занятости: Диапазон, Одно значение, Не указывать
     // Время оплаты: в час, в месяц

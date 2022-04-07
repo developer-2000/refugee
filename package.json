@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "ckeditor4-vue": "^2.0.0",
         "lang.js": "^1.1.14",
         "vue-sweetalert2": "^5.0.2",
         "vuelidate": "^0.7.7",

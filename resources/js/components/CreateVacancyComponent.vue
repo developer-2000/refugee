@@ -1,5 +1,20 @@
 <template>
     <div class="forms create-page">
+
+        <b-button v-b-tooltip.hover title="Tooltip directive content">
+            Hover Me
+        </b-button>
+
+        <b-button id="tooltip-target-1">
+            Hover Me
+        </b-button>
+        <b-tooltip target="tooltip-target-1" triggers="hover">
+            I am tooltip <b>component</b> content!
+        </b-tooltip>
+
+
+
+
         <h1 class="title_page card-body">Создать вакансию</h1>
         <form @submit.prevent="createVacancy" action="" method="post">
 
@@ -129,27 +144,66 @@
 
             <!-- второй row -->
             <div class="row">
-                <!-- Search city -->
+                <!-- Vacancy suitable -->
                 <div class="col-sm-4">
-                    <div class="form-group">
-                        <!-- 1 -->
-                        <div class="checkbox-box">
-                            <input class="form-check-input" id="checkbox_city" type="checkbox"
-                                   v-model="checkbox_city"
-                            >
-                            <label for="checkbox_city">Искать кандидатов в другом городе</label>
+                    <div class="form-group" :class="{'border_error': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
+                        <label for="vacancy_suitable">
+                            Вакансия подходит для
+                            <span class="mandatory-filling">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                            </span>
+                        </label>
+                        <div id="vacancy_suitable">
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_2"
+                                       @change="vacancySuitable"
+                                       value="2"
+                                >
+                                <label for="vacancy_suitable_2">до 25 лет</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_3"
+                                       @change="vacancySuitable"
+                                       value="3"
+                                >
+                                <label for="vacancy_suitable_3">от 25 до 40 лет</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_4"
+                                       @change="vacancySuitable"
+                                       value="4"
+                                >
+                                <label for="vacancy_suitable_4">от 40 лет и старше</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_1"
+                                       @change="vacancySuitable"
+                                       value="1"
+                                >
+                                <label for="vacancy_suitable_1">это не имеет значения</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
+                                       id="vacancy_suitable_5"
+                                       @change="vacancySuitable"
+                                       value="5"
+                                >
+                                <label for="vacancy_suitable_5">свой вариант</label>
+                            </div>
+                            <div
+                                v-if="(this.objSuitable.suitable.indexOf('5') != -1)">
+                                <label for="commentary_age">Комментарий к возрасту</label>
+                                <input type="text" id="commentary_age" class="form-control" maxlength="100"
+                                       v-model="objSuitable.commentary_age"
+                                >
+                            </div>
                         </div>
-                        <!-- 2 -->
-                        <div class="search-city" v-show="checkbox_city" >
-                            <label for="search_city">Город для поиска {{this.search_city}}</label>
-                            <select class="form-control select2" id="search_city">
-                                <option disabled="disabled" selected>Выбрать город поиска</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
-                            </select>
+                        <div class="invalid-feedback" :class="{'is-invalid visible': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
+                            Пожалуйста, выберите хотя бы одну категорию.
                         </div>
                     </div>
                 </div>
@@ -166,17 +220,17 @@
                             <div class="icheck-primary">
                                 <input type="radio" id="radioPrimary2" name="type_employment" value="2"
                                        v-model="type_employment">
-                                <label for="radioPrimary2">локально, полная занятость 2</label>
+                                <label for="radioPrimary2">локально, не полная занятость</label>
                             </div>
                             <div class="icheck-primary">
                                 <input type="radio" id="radioPrimary3" name="type_employment" value="3"
                                        v-model="type_employment">
-                                <label for="radioPrimary3">локально, полная занятость 3</label>
+                                <label for="radioPrimary3">удаленно, полная занятость</label>
                             </div>
                             <div class="icheck-primary">
                                 <input type="radio" id="radioPrimary4" name="type_employment" value="4"
                                        v-model="type_employment">
-                                <label for="radioPrimary4">локально, полная занятость 4</label>
+                                <label for="radioPrimary4">удаленно, не полная занятость</label>
                             </div>
                         </div>
                     </div>
@@ -300,76 +354,167 @@
                         </select>
                     </div>
                 </div>
-                <!-- Vacancy suitable -->
+                <!-- Search city -->
                 <div class="col-sm-4">
-                    <div class="form-group" :class="{'border_error': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
-                        <label for="vacancy_suitable">
-                            Вакансия подходит для
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                        </label>
-                        <div id="vacancy_suitable">
-                            <div>
-                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                       id="vacancy_suitable_2"
-                                       @change="vacancySuitable"
-                                       value="2"
-                                >
-                                <label for="vacancy_suitable_2">до 25 лет</label>
-                            </div>
-                            <div>
-                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                       id="vacancy_suitable_3"
-                                       @change="vacancySuitable"
-                                       value="3"
-                                >
-                                <label for="vacancy_suitable_3">от 25 до 40 лет</label>
-                            </div>
-                            <div>
-                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                       id="vacancy_suitable_4"
-                                       @change="vacancySuitable"
-                                       value="4"
-                                >
-                                <label for="vacancy_suitable_4">от 40 лет и старше</label>
-                            </div>
-                            <div>
-                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                       id="vacancy_suitable_1"
-                                       @change="vacancySuitable"
-                                       value="1"
-                                >
-                                <label for="vacancy_suitable_1">это не имеет значения</label>
-                            </div>
-                            <div>
-                                <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                       id="vacancy_suitable_5"
-                                       @change="vacancySuitable"
-                                       value="5"
-                                >
-                                <label for="vacancy_suitable_5">свой вариант</label>
-                            </div>
-                            <div
-                                v-if="(this.objSuitable.suitable.indexOf('5') != -1)">
-                                <label for="commentary_age">Комментарий к возрасту</label>
-                                <input type="text" id="commentary_age" class="form-control" maxlength="100"
-                                       v-model="objSuitable.commentary_age"
-                                >
-                            </div>
+                    <div class="form-group">
+                        <!-- 1 -->
+                        <div class="checkbox-box">
+                            <input class="form-check-input" id="checkbox_city" type="checkbox"
+                                   v-model="checkbox_city"
+                            >
+                            <label for="checkbox_city">Искать кандидатов в другом городе</label>
                         </div>
-                        <div class="invalid-feedback" :class="{'is-invalid visible': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
-                            Пожалуйста, выберите хотя бы одну категорию.
+                        <!-- 2 -->
+                        <div class="search-city" v-show="checkbox_city" >
+                            <label for="search_city">Город для поиска {{this.search_city}}</label>
+                            <select class="form-control select2" id="search_city">
+                                <option disabled="disabled" selected>Выбрать город поиска</option>
+                                <option>California</option>
+                                <option>Delaware</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- четвертый row -->
+            <div class="row">
+                <!-- Требования к кандидату -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label> Требования к кандидату </label>
+                        <ckeditor id="requirements_candidate"
+                                  v-model="objTextarea.requirements_candidate"
+                                  :config="objTextarea.editorConfig"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <!-- Условия работы -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label> Условия работы </label>
+                        <ckeditor id="working_conditions"
+                                  v-model="objTextarea.working_conditions"
+                                  :config="objTextarea.editorConfig"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <!-- Обязанности кандидата -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label> Обязанности кандидата </label>
+                        <ckeditor id="candidate_responsibilities"
+                                  v-model="objTextarea.candidate_responsibilities"
+                                  :config="objTextarea.editorConfig"
+                        ></ckeditor>
+                    </div>
+                </div>
+            </div>
 
-            <button type="submit"
-                    :class="{'btn btn-block btn-primary disabled': disableButton($v), 'btn btn-block btn-primary btn-flat': !disableButton($v)}"
-                    :disabled="$v.$invalid"
-            >{{ trans('auth','authorization') }}</button>
+            <!-- пятый row -->
+            <div class="row">
+                <!-- Отображение в вакансии контактов работодателя -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>
+                            Отображать в вакансии контакты работодателя
+                        </label>
+                        <div id="disp_emp_cont_vacancy">
+                            <div>
+                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
+                                       id="disp_emp_cont_vacancy_1"
+                                       @change="displayingEmployers"
+                                       value="1"
+                                >
+                                <label for="disp_emp_cont_vacancy_1">Email</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
+                                       id="disp_emp_cont_vacancy_2"
+                                       @change="displayingEmployers"
+                                       value="2"
+                                >
+                                <label for="disp_emp_cont_vacancy_2">Мобильный номер тел.</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
+                                       id="disp_emp_cont_vacancy_3"
+                                       @change="displayingEmployers"
+                                       value="3"
+                                >
+                                <label for="disp_emp_cont_vacancy_3">Telegram</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
+                                       id="disp_emp_cont_vacancy_4"
+                                       @change="displayingEmployers"
+                                       value="4"
+                                >
+                                <label for="disp_emp_cont_vacancy_4">Viber</label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
+                                       id="disp_emp_cont_vacancy_5"
+                                       @change="displayingEmployers"
+                                       value="5"
+                                >
+                                <label for="disp_emp_cont_vacancy_5">WhatsApp</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Как можно откликнуться -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="how_respond">Как можно откликнуться</label>
+                        <div id="how_respond">
+                            <div class="icheck-primary">
+                                <input type="radio" id="how_respond_1" name="how_respond" value="1"
+                                       v-model="how_respond">
+                                <label for="how_respond_1">Резюме обязательно</label>
+                            </div>
+                            <div class="icheck-primary">
+                                <input type="radio" id="how_respond_2" name="how_respond" value="2"
+                                       v-model="how_respond">
+                                <label for="how_respond_2">Можно и без резюме</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Размещение вакансии -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="how_respond">Размещение вакансии</label>
+                        <div id="job_posting">
+                            <div class="icheck-primary">
+                                <input type="radio" id="job_posting_1" name="job_posting" value="1"
+                                       v-model="job_posting">
+                                <label for="job_posting_1">Стандарт (Вакансия будет размещена на месяц)</label>
+                            </div>
+                            <div class="icheck-primary">
+                                <input type="radio" id="job_posting_2" name="job_posting" value="2"
+                                       v-model="job_posting">
+                                <label for="job_posting_2">Скрытая (Вакансия будет скрыта от соискателей)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- button -->
+            <div class="row footer-form">
+                <div class="col-sm-4 offset-4 but-box">
+                    <button type="submit" class="btn btn-block btn-outline-danger">Отменить</button>
+                    <button type="submit" class="btn btn-block btn-primary "
+                            :class="{'disabled': disableButton($v)}"
+                            :disabled="$v.$invalid"
+                    >{{ trans('auth','authorization') }}</button>
+                </div>
+            </div>
+
 
         </form>
     </div>
@@ -385,11 +530,15 @@
         ],
         data() {
             return {
+
+
                 position: '',
                 street_house: null,
                 checkbox_city: false,
                 search_city: null,
                 type_employment: 1,
+                how_respond: 1,
+                job_posting: 1,
                 salary: {
                     salary_but: 1,
                     range_from: null,
@@ -414,9 +563,34 @@
                     boolSuitable: false,
                     commentary_age: '',
                 },
+                objTextarea: {
+                    candidate_responsibilities: '',
+                    working_conditions: '',
+                    requirements_candidate: '',
+                    editorConfig: {
+                        toolbar: [
+                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
+                        ],
+                    },
+                },
+                objDisplayEmpContVacancy: {
+                    contacts: [],
+                    contactsArray: '',
+                    boolDisplay: false,
+                },
             }
         },
         methods: {
+            displayingEmployers(){
+                this.objDisplayEmpContVacancy.boolDisplay = true;
+                let checked = document.querySelectorAll('[name="disp_emp_cont_vacancy"]:checked');
+                let selected = [];
+                for (let i=0; i<checked.length; i++) {
+                    selected.push(checked[i].value);
+                }
+                this.objDisplayEmpContVacancy.contacts = selected;
+                console.log(selected)
+            },
             vacancySuitable(){
                 this.objSuitable.boolSuitable = true;
                 let checked = document.querySelectorAll('[name="vacancy_suitable"]:checked');

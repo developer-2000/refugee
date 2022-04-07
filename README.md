@@ -12,6 +12,12 @@
 https://github.com/MenaraSolutions/geographer-laravel
 
 
+#### Редактор текста CKEditor 4 WYSIWYG Editor Vue
+https://ckeditor.com/docs/ckeditor4/latest/guide/dev_vue.html
+
+скачать и открыть /ckeditor/samples/index.html для визуального редактора выбора кнопок окно
+https://ckeditor.com/cke4/release/CKEditor-4.5.0
+
 #### Laravel на русском
 https://laravel.su/docs/6.x/redirects
 

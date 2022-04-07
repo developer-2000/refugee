@@ -129,7 +129,19 @@ svg{
 .form-group input[type="radio"]:hover{
     cursor: pointer;
 }
-
+.btn-block + .btn-block {
+    margin: 0;
+}
+.footer-form{
+    margin: 50px 0 70px;
+}
+.but-box{
+    display: flex;
+    justify-content: space-between;
+}
+.but-box button{
+    width: 45%;
+}
 /* select 2 */
 .select2-container {
     width: 100%!important;
