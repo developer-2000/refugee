@@ -13,9 +13,12 @@ return [
     // Время оплаты: в час, в месяц
     // Индексы ключи к файлу языка
     'salary' => [
-        'options' => [ 'range','one_value','do_not_specify' ],
-        'payment_time' => [ 'per_hour','per_month' ],
+        'range' => [ 'from','before' ],
+        'single_value' => [ 'amount' ],
+        'dont_specify' => [],
+        'salary_comment' => [],
     ],
+
     // Опыт работы: без опыта, от 1 года, от 2 лет, от 5 лет,
     // Индексы ключи к файлу языка
     'work_experience' => [
@@ -36,35 +39,41 @@ return [
     // Вакансия подходит для: до 25 лет, от 25 до 40 лет, от 40 лет и старше, не важно
     // Индексы ключи к файлу языка
     'vacancy_suitable' => [
-        'up_to_25_years_old',
-        'from_25_to_40_years_old',
-        'from_40_years_old_and_older',
+        'up_to_25',
+        'from_25_to_40',
+        'from_40_years_old',
         'it_not_matter',
         'your_own_version',
+        'age_comment',
     ],
     // Какие контакты связи показать соискателю: email, tel, messenger viber, messenger telegram,
     // Индексы ключи к файлу языка
     'contact_information' => [
-        'email',
-        'tel',
-        'messenger_viber',
-        'messenger_telegram',
+        'Email',
+        'Mobile tell.',
+        'Telegram',
+        'Viber',
+        'WhatsApp',
     ],
-    // статус вакансии - стандарт, скрытая, горячая,
+    // Как можно откликнуться: Резюме обязательно, Можно без резюме
+    // Индексы ключи к файлу языка
+    'how_respond' => [
+        'resume_required',
+        'without_resume',
+    ],
+    // статус вакансии - стандарт, скрытая
     // Индексы ключи к файлу языка
     'job_status' => [
         'standard',
         'hidden',
-        'hot',
     ],
     // перечень категорий вакансий
     // Индексы ключи к файлу языка
     'categories' => [
-        'it, computers, internet','administration, middle_management','accounting, audit','hotel_and_restaurant_business, tourism','design, creativity',
-        'beauty, fitness, sports','culture, music, show_business','logistics, warehouse','marketing, advertising','medicine, pharmaceuticals','real_estate',
-        'education, science','security','sales, purchases','working_specialties, production','retail','secretariat, office_work','agriculture, agribusiness',
-        'media, publishing, printing','insurance','construction, architecture','service_sector','telecommunications_and_communications','top_management, senior_management',
-        'transport, auto_business','personnel_management','finance, bank','jurisprudence','other',
+        'internet','administration','accounting','hotel','design','beauty','culture','logistics','marketing','medicine',
+        'real_estate','education','security','sales','working','retail','secretariat','agriculture','media',
+        'insurance','construction','service_sector','telecommunications','top_management','transport','personnel_management',
+        'finance','jurisprudence','other'
     ],
 
 ];

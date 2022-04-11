@@ -26,8 +26,10 @@ export default {
             })
         },
         messageError(err, msg = '') {
+            // error validate
             if (err.response) {
-                msg = (err.response.status == 422) ? 'account does not exist' : ''
+                // msg = (err.response.status == 422) ? 'account does not exist' : ''
+                msg = (err.response.status == 422) ? err.response.data.message : ''
             } else if (err.request) {
                 msg = err.request.statusText
             } else {

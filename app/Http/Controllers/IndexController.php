@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\MakeGeographyDb;
+
 class IndexController extends Controller {
 
     public function index() {

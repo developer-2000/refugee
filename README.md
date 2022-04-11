@@ -11,6 +11,13 @@
 #### Пакет стран и городов
 https://github.com/MenaraSolutions/geographer-laravel
 
+https://github.com/MenaraSolutions/geographer
+
+В стране может не быть регионов и в регионе может не быть города
+
+В случае поиска вакансии - предоставляю город или регион
+
+
 
 #### tooltip подсказка bootstrap4
 https://itchief.ru/bootstrap/tooltips

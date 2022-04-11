@@ -1,19 +1,55 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Model\Vacancy;
+use App\Http\Requests\Vacancy\StoreVacancyRequest;
+use App\Model\MakeGeographyDb;
+use App\Repositories\VacancyRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
-class VacancyController extends Controller {
+class VacancyController extends BaseController {
 
+    protected $repository;
 
+    public function __construct() {
+        $this->repository = new VacancyRepository();
+    }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         $settings = config('site.settings_vacancy');
+        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
+            $settings['obj_countries'] = $objCountries[0]['EN'];
+        }
         return view('create_vacancy', compact('settings'));
     }
+
+    public function store(StoreVacancyRequest $request)
+    {
+        $store = $this->repository->storeVacancy($request);
+
+
+
+
+// json vacancy_suitable с commentary_age
+
+// json search_city с checkbox_city
+
+// json salary // Зарплата
+        //salary_but: "range",
+        //salary_from: 1,
+        //salary_to: 11,
+        //salary_sum: null,
+        //salary_comment: '',
+
+
+//        return Response::json([1], 200);
+        return $this->getResponse($store);
+    }
+
 
     //    /**
 //     * Display a listing of the resource.
@@ -25,17 +61,7 @@ class VacancyController extends Controller {
 //        //
 //    }
 
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request  $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function store(Request $request)
-//    {
-//        //
-//    }
-//
+
 //    /**
 //     * Display the specified resource.
 //     *

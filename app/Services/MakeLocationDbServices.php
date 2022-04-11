@@ -70,7 +70,7 @@ class MakeLocationDbServices {
             foreach ($this->arrLangCounty[$lang] as $key2 => $arrCount){
                 // найти эту страну в настройках нужных стран приложения
                 if (array_search($arrCount["code"], $this->settingsCountry) !== false){
-                    // создать custom масив штатов
+                    // создать custom масив regions
                     $customStates = $this->customArrStatesCountry($arrCount, $lang);
                     try {
                         // если есть штаты

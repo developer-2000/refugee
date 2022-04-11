@@ -9,11 +9,9 @@ class Vacancy extends Model
 
     protected $guarded = [];
     protected $casts = [
-        'country' => 'json',
-        'region' => 'json',
-        'city' => 'json',
-        'type_employment' => 'json',
-        'salary' => 'json',
+        'categories' => 'json',
         'vacancy_suitable' => 'json',
+        'salary' => 'json',
+        'search_city' => 'json',
     ];
 }
