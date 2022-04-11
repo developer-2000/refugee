@@ -2472,7 +2472,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
+$('#position').typeahead({
+  source: [{
+    id: "id1",
+    name: "jQuery"
+  }, {
+    id: "id2",
+    name: "Script"
+  }, {
+    id: "id3",
+    name: "Net"
+  }]
+});
 
 
 
@@ -2559,7 +2570,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   country_code: _this.objLocations.country
                 };
                 _context.next = 3;
-                return _this.$http.post("/vacancy/get-region", data).then(function (res) {
+                return _this.$http.post("/localisation/get-region", data).then(function (res) {
                   if (_this.checkSuccess(res)) {
                     _this.clearLocation('load_region');
 
@@ -2601,7 +2612,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   region_code: _this2.objLocations.region
                 };
                 _context2.next = 3;
-                return _this2.$http.post("/vacancy/get-city", data).then(function (res) {
+                return _this2.$http.post("/localisation/get-city", data).then(function (res) {
                   if (_this2.checkSuccess(res)) {
                     _this2.clearLocation('bool_rest');
 
@@ -2639,76 +2650,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                // let data = {
-                //     position: this.position,
-                //     // categories: this.objCategory.categories,
-                //     // country: this.objLocations.country,
-                //     // region: this.objLocations.region,
-                //     // city: this.objLocations.city,
-                //     // rest_address: this.rest_address,
-                //     // vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
-                //     // commentary_age: this.objSuitable.commentary_age,
-                //     // type_employment: this.type_employment,              // Вид занятости
-                //     // salary_but: this.objSalary.salary_but,              // Зарплата
-                //     // salary_from: this.objSalary.salary_from,
-                //     // salary_to: this.objSalary.salary_to,
-                //     // salary_sum: this.objSalary.salary_sum,
-                //     // salary_comment: this.objSalary.salary_comment,
-                //     // experience: this.experience,                        // Опыт работы
-                //     // education: this.education,                          // Образование
-                //     // checkbox_city: this.objCity.checkbox_city,          // Город для поиска
-                //     // search_city: this.objCity.search_city,
-                //     // textarea_candidate: this.objTextarea.textarea_candidate,   // Требования к кандидату
-                //     // textarea_conditions: this.objTextarea.textarea_conditions, // Условия работы
-                //     // textarea_responsibilities: this.objTextarea.textarea_responsibilities, // Обязанности кандидата
-                //     // contacts_list: this.objDisplayEmpContVacancy.contacts, // Контакты работодателя
-                //     // how_respond: this.how_respond, // Как можно откликнуться
-                //     // job_posting: this.job_posting, // Размещение вакансии
-                // };
                 data = {
-                  position: 'test',
-                  categories: [0, 1],
-                  country: "AL",
-                  region: "865732",
-                  city: "783263",
-                  rest_address: "sdf",
+                  position: _this3.position,
+                  categories: _this3.objCategory.categories,
+                  country: _this3.objLocations.country,
+                  region: _this3.objLocations.region,
+                  city: _this3.objLocations.city,
+                  rest_address: _this3.rest_address,
                   vacancy_suitable: _this3.objSuitable.suitable,
                   // Вакансия подходит для
-                  commentary_age: '',
-                  type_employment: 0,
+                  commentary_age: _this3.objSuitable.commentary_age,
+                  type_employment: _this3.type_employment,
                   // Вид занятости
-                  salary_but: "range",
+                  salary_but: _this3.objSalary.salary_but,
                   // Зарплата
-                  salary_from: 1,
-                  salary_to: 11,
-                  salary_sum: null,
-                  salary_comment: '',
-                  experience: 0,
+                  salary_from: _this3.objSalary.salary_from,
+                  salary_to: _this3.objSalary.salary_to,
+                  salary_sum: _this3.objSalary.salary_sum,
+                  salary_comment: _this3.objSalary.salary_comment,
+                  experience: _this3.experience,
                   // Опыт работы
-                  education: 0,
+                  education: _this3.education,
                   // Образование
-                  checkbox_city: true,
+                  checkbox_city: _this3.objCity.checkbox_city,
                   // Город для поиска
-                  search_city: null,
-                  // Город для поиска
-                  text_requirements: '',
+                  search_city: _this3.objCity.search_city,
+                  text_requirements: _this3.objTextarea.textarea_candidate,
                   // Требования к кандидату
-                  text_working: '',
+                  text_working: _this3.objTextarea.textarea_conditions,
                   // Условия работы
-                  text_responsibilities: '',
+                  text_responsibilities: _this3.objTextarea.textarea_responsibilities,
                   // Обязанности кандидата
-                  contacts: [0],
+                  contacts_list: _this3.objDisplayEmpContVacancy.contacts,
                   // Контакты работодателя
-                  how_respond: 0,
+                  how_respond: _this3.how_respond,
                   // Как можно откликнуться
-                  job_posting: 0 // Размещение вакансии
+                  job_posting: _this3.job_posting // Размещение вакансии
 
                 };
-                console.log(data);
-                _context3.next = 4;
+                _context3.next = 3;
                 return _this3.$http.post("/vacancy", data).then(function (res) {
                   if (_this3.checkSuccess(res)) {
-                    console.log(res.data.message);
+                    location.href = '/';
                   } // custom ошибки
                   else {
                     _this3.message(res.data.message, 'error', 10000, true);
@@ -2718,10 +2701,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this3.messageError(err);
                 });
 
-              case 4:
+              case 3:
                 response = _context3.sent;
 
-              case 5:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -41824,9 +41807,9 @@ var render = function () {
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "position" } }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "job_name")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -41921,7 +41904,7 @@ var render = function () {
               _c("label", { attrs: { for: "country" } }, [
                 _vm._v(
                   _vm._s(_vm.trans("vacancies", "country_job")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -41955,9 +41938,9 @@ var render = function () {
                     { attrs: { disabled: "disabled", selected: "" } },
                     [
                       _vm._v(
-                        "\n                                " +
+                        "\n                            " +
                           _vm._s(_vm.trans("vacancies", "select_country")) +
-                          "\n                            "
+                          "\n                        "
                       ),
                     ]
                   ),
@@ -41984,7 +41967,7 @@ var render = function () {
                   _c("label", { attrs: { for: "region" } }, [
                     _vm._v(
                       _vm._s(_vm.trans("vacancies", "job_region")) +
-                        "\n                            "
+                        "\n                        "
                     ),
                     _c("span", { staticClass: "mandatory-filling" }, [
                       _c(
@@ -42026,9 +42009,9 @@ var render = function () {
                         { attrs: { disabled: "disabled", selected: "" } },
                         [
                           _vm._v(
-                            "\n                                " +
+                            "\n                            " +
                               _vm._s(_vm.trans("vacancies", "select_region")) +
-                              "\n                            "
+                              "\n                        "
                           ),
                         ]
                       ),
@@ -42056,7 +42039,7 @@ var render = function () {
                   _c("label", { attrs: { for: "city" } }, [
                     _vm._v(
                       _vm._s(_vm.trans("vacancies", "city_job")) +
-                        "\n                            "
+                        "\n                        "
                     ),
                     _c("span", { staticClass: "mandatory-filling" }, [
                       _c(
@@ -42095,9 +42078,9 @@ var render = function () {
                         { attrs: { disabled: "disabled", selected: "" } },
                         [
                           _vm._v(
-                            "\n                                " +
+                            "\n                            " +
                               _vm._s(_vm.trans("vacancies", "select_city")) +
-                              "\n                            "
+                              "\n                        "
                           ),
                         ]
                       ),
@@ -42124,9 +42107,9 @@ var render = function () {
               ? _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "rest_address" } }, [
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(_vm.trans("vacancies", "other_job_address")) +
-                        "\n                            "
+                        "\n                        "
                     ),
                     _c("span", { staticClass: "mandatory-filling" }, [
                       _c(
@@ -42204,9 +42187,9 @@ var render = function () {
                 _c("div", [
                   _c("label", { attrs: { for: "categories" } }, [
                     _vm._v(
-                      "\n                                " +
+                      "\n                            " +
                         _vm._s(_vm.trans("vacancies", "category_job_posting")) +
-                        "\n                                "
+                        "\n                            "
                     ),
                     _c("span", { staticClass: "mandatory-filling" }, [
                       _c(
@@ -42334,9 +42317,9 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(_vm.trans("vacancies", "least_category")) +
-                        "\n                        "
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -42360,9 +42343,9 @@ var render = function () {
               [
                 _c("label", { attrs: { for: "vacancy_suitable" } }, [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -42413,11 +42396,11 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                            " +
+                                        "\n                                        " +
                                           _vm._s(
                                             _vm.trans("vacancies", value)
                                           ) +
-                                          "\n                                        "
+                                          "\n                                    "
                                       ),
                                     ]
                                   ),
@@ -42431,11 +42414,11 @@ var render = function () {
                                         { attrs: { for: "commentary_age" } },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                        " +
                                               _vm._s(
                                                 _vm.trans("vacancies", value)
                                               ) +
-                                              "\n                                        "
+                                              "\n                                    "
                                           ),
                                         ]
                                       ),
@@ -42501,9 +42484,9 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(_vm.trans("vacancies", "age_group")) +
-                        "\n                        "
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -42552,9 +42535,9 @@ var render = function () {
                       _vm._v(" "),
                       _c("label", { attrs: { for: "radio_primary_" + key } }, [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                                "
+                            "\n                            "
                         ),
                       ]),
                     ]
@@ -42575,9 +42558,9 @@ var render = function () {
               [
                 _c("label", { attrs: { for: "salary_accordion" } }, [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "salary")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -42687,9 +42670,9 @@ var render = function () {
                             _vm._v(" "),
                             _c("label", { attrs: { for: "range_1" } }, [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(_vm.trans("vacancies", "range")) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]),
                           ]
@@ -42745,7 +42728,7 @@ var render = function () {
                             },
                           }),
                           _vm._v(
-                            "\n                                        -\n                                        "
+                            "\n                                    -\n                                    "
                           ),
                           _c("input", {
                             directives: [
@@ -42783,9 +42766,9 @@ var render = function () {
                             },
                           }),
                           _vm._v(
-                            "\n                                        " +
+                            "\n                                    " +
                               _vm._s(_vm.trans("vacancies", "euro_per_month")) +
-                              "\n                                    "
+                              "\n                                "
                           ),
                         ]),
                       ]
@@ -42849,11 +42832,11 @@ var render = function () {
                             _vm._v(" "),
                             _c("label", { attrs: { for: "single_value" } }, [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(
                                     _vm.trans("vacancies", "single_value")
                                   ) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]),
                           ]
@@ -42909,9 +42892,9 @@ var render = function () {
                             },
                           }),
                           _vm._v(
-                            "\n                                        " +
+                            "\n                                    " +
                               _vm._s(_vm.trans("vacancies", "euro_per_month")) +
-                              "\n                                    "
+                              "\n                                "
                           ),
                         ]),
                       ]
@@ -42975,11 +42958,11 @@ var render = function () {
                             _vm._v(" "),
                             _c("label", { attrs: { for: "salary_but3" } }, [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(
                                     _vm.trans("vacancies", "dont_specify")
                                   ) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]),
                           ]
@@ -42987,7 +42970,7 @@ var render = function () {
                         _vm._v(
                           " (" +
                             _vm._s(_vm.trans("vacancies", "not_recommended")) +
-                            ")\n                                "
+                            ")\n                            "
                         ),
                       ]
                     ),
@@ -43009,11 +42992,11 @@ var render = function () {
                             { staticClass: "bg-warning color-palette" },
                             [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(
                                     _vm.trans("vacancies", "get_more_responses")
                                   ) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]
                           ),
@@ -43068,9 +43051,9 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(_vm.trans("vacancies", "salary_vacancy")) +
-                        "\n                        "
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -43120,9 +43103,9 @@ var render = function () {
                     return [
                       _c("option", { domProps: { value: "" + key } }, [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                                "
+                            "\n                            "
                         ),
                       ]),
                     ]
@@ -43173,9 +43156,9 @@ var render = function () {
                     return [
                       _c("option", { domProps: { value: "" + key } }, [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                                "
+                            "\n                            "
                         ),
                       ]),
                     ]
@@ -43238,9 +43221,9 @@ var render = function () {
                     _vm._v(" "),
                     _c("label", { attrs: { for: "checkbox_city" } }, [
                       _vm._v(
-                        "\n                                " +
+                        "\n                            " +
                           _vm._s(_vm.trans("vacancies", "search_candidates")) +
-                          "\n                            "
+                          "\n                        "
                       ),
                     ]),
                     _vm._v(" "),
@@ -43280,9 +43263,9 @@ var render = function () {
                     ? _c("div", { staticClass: "search-city" }, [
                         _c("label", { attrs: { for: "search_city" } }, [
                           _vm._v(
-                            "\n                                " +
+                            "\n                            " +
                               _vm._s(_vm.trans("vacancies", "city_search")) +
-                              "\n                            "
+                              "\n                        "
                           ),
                         ]),
                         _vm._v(" "),
@@ -43306,14 +43289,14 @@ var render = function () {
                               { attrs: { disabled: "disabled", selected: "" } },
                               [
                                 _vm._v(
-                                  "\n                                    " +
+                                  "\n                                " +
                                     _vm._s(
                                       _vm.trans(
                                         "vacancies",
                                         "select_search_city"
                                       )
                                     ) +
-                                    "\n                                "
+                                    "\n                            "
                                 ),
                               ]
                             ),
@@ -43351,9 +43334,9 @@ var render = function () {
               [
                 _c("label", [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "requirements_candidate")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c(
                     "span",
@@ -43416,9 +43399,9 @@ var render = function () {
               [
                 _c("label", [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "work_conditions")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c(
                     "span",
@@ -43478,11 +43461,11 @@ var render = function () {
               [
                 _c("label", [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(
                         _vm.trans("vacancies", "candidate_responsibilities")
                       ) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c(
                     "span",
@@ -43544,9 +43527,9 @@ var render = function () {
             _c("div", { staticClass: "form-group" }, [
               _c("label", [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "display_employer_jobs")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c(
                   "span",
@@ -43615,9 +43598,9 @@ var render = function () {
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "how_respond" } }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "how_can_apply")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c(
                   "span",
@@ -43685,9 +43668,9 @@ var render = function () {
                       _vm._v(" "),
                       _c("label", { attrs: { for: "how_respond_" + key } }, [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                                "
+                            "\n                            "
                         ),
                       ]),
                     ]
@@ -43702,9 +43685,9 @@ var render = function () {
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "job_posting" } }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "posting_job")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c(
                   "span",
@@ -43772,9 +43755,9 @@ var render = function () {
                       _vm._v(" "),
                       _c("label", { attrs: { for: "job_posting_" + key } }, [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                                "
+                            "\n                            "
                         ),
                       ]),
                     ]
@@ -43796,9 +43779,9 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("vacancies", "cancel")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ]
             ),
@@ -43807,13 +43790,14 @@ var render = function () {
               "button",
               {
                 staticClass: "btn btn-block btn-primary btn-lg",
-                attrs: { type: "submit" },
+                class: { disabled: _vm.disableButton(_vm.$v) },
+                attrs: { type: "submit", disabled: _vm.disableButton(_vm.$v) },
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("vacancies", "save")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ]
             ),

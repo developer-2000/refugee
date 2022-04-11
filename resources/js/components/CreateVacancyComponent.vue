@@ -526,11 +526,10 @@
                     <button type="submit" class="btn btn-block btn-outline-danger">
                         {{trans('vacancies','cancel')}}
                     </button>
-<!--                    <button type="submit" class="btn btn-block btn-primary btn-lg"-->
-<!--                            :class="{'disabled': disableButton($v)}"-->
-<!--                            :disabled="$v.$invalid"-->
-<!--                    >-->
-                    <button type="submit" class="btn btn-block btn-primary btn-lg">
+                    <button type="submit" class="btn btn-block btn-primary btn-lg"
+                            :class="{'disabled': disableButton($v)}"
+                            :disabled="disableButton($v)"
+                    >
                         {{trans('vacancies','save')}}
                     </button>
                 </div>
@@ -540,6 +539,15 @@
 </template>
 
 <script>
+
+    $('#position').typeahead({
+        source: [
+            {id: "id1", name: "jQuery"},
+            {id: "id2", name: "Script"},
+            {id: "id3", name: "Net"}
+        ]
+    });
+
     import {required} from 'vuelidate/lib/validators'
     import translation from '../mixins/translation'
     import response_methods_mixin from "../mixins/response_methods_mixin";
@@ -624,7 +632,7 @@
                 let data = {
                     country_code: this.objLocations.country,
                 };
-                const response = await this.$http.post(`/vacancy/get-region`, data)
+                const response = await this.$http.post(`/localisation/get-region`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             this.clearLocation('load_region')
@@ -647,7 +655,7 @@
                 let data = {
                     region_code: this.objLocations.region,
                 };
-                const response = await this.$http.post(`/vacancy/get-city`, data)
+                const response = await this.$http.post(`/localisation/get-city`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             this.clearLocation('bool_rest')
@@ -667,64 +675,37 @@
                 this.showLocation()
             },
             async createVacancy(){
-                // let data = {
-                //     position: this.position,
-                //     // categories: this.objCategory.categories,
-                //     // country: this.objLocations.country,
-                //     // region: this.objLocations.region,
-                //     // city: this.objLocations.city,
-                //     // rest_address: this.rest_address,
-                //     // vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
-                //     // commentary_age: this.objSuitable.commentary_age,
-                //     // type_employment: this.type_employment,              // Вид занятости
-                //     // salary_but: this.objSalary.salary_but,              // Зарплата
-                //     // salary_from: this.objSalary.salary_from,
-                //     // salary_to: this.objSalary.salary_to,
-                //     // salary_sum: this.objSalary.salary_sum,
-                //     // salary_comment: this.objSalary.salary_comment,
-                //     // experience: this.experience,                        // Опыт работы
-                //     // education: this.education,                          // Образование
-                //     // checkbox_city: this.objCity.checkbox_city,          // Город для поиска
-                //     // search_city: this.objCity.search_city,
-                //     // textarea_candidate: this.objTextarea.textarea_candidate,   // Требования к кандидату
-                //     // textarea_conditions: this.objTextarea.textarea_conditions, // Условия работы
-                //     // textarea_responsibilities: this.objTextarea.textarea_responsibilities, // Обязанности кандидата
-                //     // contacts_list: this.objDisplayEmpContVacancy.contacts, // Контакты работодателя
-                //     // how_respond: this.how_respond, // Как можно откликнуться
-                //     // job_posting: this.job_posting, // Размещение вакансии
-                // };
-
                 let data = {
-                    position: 'test',
-                    categories: [0,1],
-                    country: "AL",
-                    region: "865732",
-                    city: "783263",
-                    rest_address: "sdf",
-                    vacancy_suitable: this.objSuitable.suitable,  // Вакансия подходит для
-                    commentary_age: '',
-                    type_employment: 0,       // Вид занятости
-                    salary_but: "range",      // Зарплата
-                    salary_from: 1,
-                    salary_to: 11,
-                    salary_sum: null,
-                    salary_comment: '',
-                    experience: 0,            // Опыт работы
-                    education: 0,             // Образование
-                    checkbox_city: true,      // Город для поиска
-                    search_city: null,        // Город для поиска
-                    text_requirements: '',    // Требования к кандидату
-                    text_working: '',         // Условия работы
-                    text_responsibilities: '', // Обязанности кандидата
-                    contacts: [0],             // Контакты работодателя
-                    how_respond: 0,            // Как можно откликнуться
-                    job_posting: 0,            // Размещение вакансии
+                    position: this.position,
+                    categories: this.objCategory.categories,
+                    country: this.objLocations.country,
+                    region: this.objLocations.region,
+                    city: this.objLocations.city,
+                    rest_address: this.rest_address,
+                    vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
+                    commentary_age: this.objSuitable.commentary_age,
+                    type_employment: this.type_employment,              // Вид занятости
+                    salary_but: this.objSalary.salary_but,              // Зарплата
+                    salary_from: this.objSalary.salary_from,
+                    salary_to: this.objSalary.salary_to,
+                    salary_sum: this.objSalary.salary_sum,
+                    salary_comment: this.objSalary.salary_comment,
+                    experience: this.experience,                        // Опыт работы
+                    education: this.education,                          // Образование
+                    checkbox_city: this.objCity.checkbox_city,          // Город для поиска
+                    search_city: this.objCity.search_city,
+                    text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
+                    text_working: this.objTextarea.textarea_conditions,                 // Условия работы
+                    text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
+                    contacts_list: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
+                    how_respond: this.how_respond,                                      // Как можно откликнуться
+                    job_posting: this.job_posting,                                      // Размещение вакансии
                 };
-                console.log(data)
+
                 const response = await this.$http.post(`/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            console.log(res.data.message)
+                            location.href = '/'
                         }
                         // custom ошибки
                         else{
@@ -862,6 +843,8 @@
         mounted() {
             this.initializationFunc()
             console.log(this.settings)
+
+
 
             // инициализация всплывающих подсказок
             $('[data-toggle="tooltip"]').tooltip();

@@ -30,23 +30,6 @@ class VacancyController extends BaseController {
     public function store(StoreVacancyRequest $request)
     {
         $store = $this->repository->storeVacancy($request);
-
-
-
-
-// json vacancy_suitable с commentary_age
-
-// json search_city с checkbox_city
-
-// json salary // Зарплата
-        //salary_but: "range",
-        //salary_from: 1,
-        //salary_to: 11,
-        //salary_sum: null,
-        //salary_comment: '',
-
-
-//        return Response::json([1], 200);
         return $this->getResponse($store);
     }
 

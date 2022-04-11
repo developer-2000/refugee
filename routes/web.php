@@ -35,6 +35,7 @@ Route::group(['prefix'=>'technical'], function (){
     });
 });
 
+//
 
 Route::group([ 'middleware' => ['locale'] ], function () {
 
@@ -42,6 +43,7 @@ Route::group([ 'middleware' => ['locale'] ], function () {
 
     Route::get('language/{name}', 'LanguageController@changeLanguage');
 
+    // Auth
     Route::middleware('throttle:3,1')->group(function () {
         Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
             Route::post('/login', 'AuthorController@login');
@@ -55,18 +57,17 @@ Route::group([ 'middleware' => ['locale'] ], function () {
         });
     });
 
-    Route::resource('vacancy', 'VacancyController')->only([
-        'create', 'store',
-    ]);
-    Route::group(['prefix'=>'vacancy'], function (){
+    // vacancy
+    Route::group(['middleware'=>['auth']], function () {
+        Route::resource('vacancy', 'VacancyController')->only([
+            'create', 'store',
+        ]);
+    });
+    // localisation
+    Route::group(['prefix'=>'localisation'], function (){
         Route::post('/get-region', 'CountryController@getRegion');
         Route::post('/get-city', 'CountryController@getCity');
     });
-
-
-
-
-//    vacancy
 
     Route::resource('country', 'CountryController')->only([
         'show'
