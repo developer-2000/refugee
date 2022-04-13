@@ -552,8 +552,8 @@
 
 <script>
     import {required} from 'vuelidate/lib/validators'
-    import translation from '../mixins/translation'
-    import response_methods_mixin from "../mixins/response_methods_mixin";
+    import translation from '../../mixins/translation'
+    import response_methods_mixin from "../../mixins/response_methods_mixin";
 
     export default {
         mixins: [
@@ -886,7 +886,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "resources/sass/_variables";
+    @import "../../../sass/variables";
 
     label{
         cursor: pointer;

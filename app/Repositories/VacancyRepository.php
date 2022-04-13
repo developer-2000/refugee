@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Model\Position;
 use App\Model\Vacancy as Model;
+use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository extends CoreRepository {
 
@@ -17,6 +18,7 @@ class VacancyRepository extends CoreRepository {
         );
 
         return $this->model->create([
+            'user_id'=>Auth::user()->id,
             'position_id'=>$position->id,
             'categories'=>$request->categories,
             'country'=>$request->country,

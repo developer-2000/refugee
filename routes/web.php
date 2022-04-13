@@ -64,6 +64,7 @@ Route::group([ 'middleware' => ['locale'] ], function () {
         ]);
         Route::group(['prefix'=>'vacancy'], function (){
             Route::post('search-vacancy', 'VacancyController@searchVacancy');
+            Route::get('my-vacancies', 'VacancyController@myVacancies');
         });
     });
 

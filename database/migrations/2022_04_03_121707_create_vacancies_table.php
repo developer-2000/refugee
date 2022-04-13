@@ -15,6 +15,8 @@ class CreateVacanciesTable extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->comment('кому принадлежит');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('position_id')->comment('должность');
             $table->foreign('position_id')->references('id')->on('positions');
             $table->string('categories')->index()->nullable()->default(null)->comment('категории вакансии');

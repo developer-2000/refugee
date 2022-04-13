@@ -8,6 +8,10 @@
         });
     }
 
+#### переключатель bootstrap switch
+https://gitbrent.github.io/bootstrap4-toggle/
+
+
 #### Пакет стран и городов
 https://github.com/MenaraSolutions/geographer-laravel
 

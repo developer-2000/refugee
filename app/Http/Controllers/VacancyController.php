@@ -26,7 +26,7 @@ class VacancyController extends BaseController {
         if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
             $settings['obj_countries'] = $objCountries[0]['EN'];
         }
-        return view('create_vacancy', compact('settings'));
+        return view('vacancies/create_vacancy', compact('settings'));
     }
 
     /**
@@ -39,6 +39,11 @@ class VacancyController extends BaseController {
         return $this->getResponse($store);
     }
 
+    /**
+     * searches vacancies by the first characters
+     * @param  SearchVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function searchVacancy(SearchVacancyRequest $request)
     {
         $position = Position::where('active',1)
@@ -47,6 +52,16 @@ class VacancyController extends BaseController {
             ->pluck('title');
         return $this->getResponse(compact('position'));
     }
+
+    public function myVacancies()
+    {
+//        dd(1);
+        return view('vacancies/my_vacancies');
+    }
+
+
+
+
 
     //    /**
 //     * Display a listing of the resource.
