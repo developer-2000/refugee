@@ -62,7 +62,11 @@ Route::group([ 'middleware' => ['locale'] ], function () {
         Route::resource('vacancy', 'VacancyController')->only([
             'create', 'store',
         ]);
+        Route::group(['prefix'=>'vacancy'], function (){
+            Route::post('search-vacancy', 'VacancyController@searchVacancy');
+        });
     });
+
     // localisation
     Route::group(['prefix'=>'localisation'], function (){
         Route::post('/get-region', 'CountryController@getRegion');

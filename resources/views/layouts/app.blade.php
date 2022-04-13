@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- css -->
     <link rel="stylesheet" href="{{asset('css/admin_lte/adminlte.min.css')}}">
-{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">--}}
 
     @section('style')
     @show
@@ -118,7 +117,7 @@
 {{--    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>--}}
 {{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>--}}
 {{--    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>--}}
-    <script src="{{asset('js/jquery-3.6.0.js')}}"></script>
+    <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
     <script src="{{asset('js/admin_lte/adminlte.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 

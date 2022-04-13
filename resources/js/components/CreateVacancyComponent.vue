@@ -6,6 +6,7 @@
             <!-- первый row -->
             <div class="row">
                 <div class="col-sm-4">
+
                     <!-- Position -->
                     <div class="form-group">
                         <label for="position">
@@ -19,12 +20,23 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
-                        <input type="text" id="position" class="form-control" maxlength="100"
+                        <input type="text" id="position" class="form-control" maxlength="100" autocomplete="off"
                                :placeholder="`${trans('vacancies','example_hairdresser')}`"
                                :class="{'is-invalid': $v.position.$error}"
                                v-model="position"
                                @blur="$v.position.$touch()"
+                               @keyup="searchPosition($event.target.value)"
                         >
+                        <div class="block_position_list">
+                            <div class="dropdown-menu" id="position_list">
+                                    <div class="dropdown-item"
+                                         v-for="(value, key) in position_list" :key="key"
+                                         @click="setValuePosition(value)"
+                                    >
+                                        {{value}}
+                                    </div>
+                            </div>
+                        </div>
                         <div class="invalid-feedback" v-if="!$v.position.required">{{trans('vacancies','job_title')}}</div>
                     </div>
 
@@ -539,15 +551,6 @@
 </template>
 
 <script>
-
-    $('#position').typeahead({
-        source: [
-            {id: "id1", name: "jQuery"},
-            {id: "id2", name: "Script"},
-            {id: "id3", name: "Net"}
-        ]
-    });
-
     import {required} from 'vuelidate/lib/validators'
     import translation from '../mixins/translation'
     import response_methods_mixin from "../mixins/response_methods_mixin";
@@ -560,6 +563,7 @@
         data() {
             return {
                 position: '',
+                position_list: [],
                 rest_address: null,
                 education: 0,
                 experience: 0,
@@ -622,7 +626,6 @@
                 else if(name == 'city'){
                     this.objLocations.city = value
                     this.objLocations.bool_rest_address = true
-                    this.showLocation()
                 }
                 else if(name == 'search_city'){
                     this.objCity.search_city = value
@@ -648,8 +651,6 @@
                     .catch(err => {
                         this.messageError(err)
                     })
-
-                this.showLocation()
             },
             async loadCity(){
                 let data = {
@@ -671,8 +672,36 @@
                     .catch(err => {
                         this.messageError(err)
                     })
+            },
+            async searchPosition(value){
+                if(!value.length){
+                    $('#position_list').removeClass('show')
+                    return false
+                }
+                let data = {
+                    value: value,
+                };
+                const response = await this.$http.post(`/vacancy/search-vacancy`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            if(res.data.message.position.length){
+                                this.position_list = res.data.message.position
+                                // $('#position_list').dropdown('show')
+                                $('#position_list').addClass('show')
+                            }
+                            else{
+                                $('#position_list').removeClass('show')
+                            }
+                        }
+                        // custom ошибки
+                        else{
 
-                this.showLocation()
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
             },
             async createVacancy(){
                 let data = {
@@ -827,14 +856,10 @@
                         this.objLocations.load_cities = null
                 }
             },
-            showLocation() {
-                // console.log('bool_rest_address ', this.objLocations.bool_rest_address)
-                // console.log('load_regions ', this.objLocations.load_regions)
-                // console.log('load_cities ', this.objLocations.load_cities)
-                // console.log('country ',this.objLocations.country)
-                // console.log('region ',this.objLocations.region)
-                // console.log('city ',this.objLocations.city)
-            },
+            setValuePosition(value){
+                $('#position_list').removeClass('show')
+                this.position = value
+            }
         },
         props: [
             'lang',   // масив названий и url языка
@@ -843,9 +868,6 @@
         mounted() {
             this.initializationFunc()
             console.log(this.settings)
-
-
-
             // инициализация всплывающих подсказок
             $('[data-toggle="tooltip"]').tooltip();
         },
@@ -930,6 +952,18 @@
     }
     .line_select{
         display: initial;
+    }
+    .block_position_list{
+        position: relative;
+        #position_list{
+            width: 100%;
+            padding: 0;
+            cursor: pointer;
+            top: -3px;
+            & > div{
+                padding: 1px 12px;
+            }
+        }
     }
 </style>
 

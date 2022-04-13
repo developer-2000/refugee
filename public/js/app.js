@@ -2472,18 +2472,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-$('#position').typeahead({
-  source: [{
-    id: "id1",
-    name: "jQuery"
-  }, {
-    id: "id2",
-    name: "Script"
-  }, {
-    id: "id3",
-    name: "Net"
-  }]
-});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2492,6 +2492,7 @@ $('#position').typeahead({
   data: function data() {
     return {
       position: '',
+      position_list: [],
       rest_address: null,
       education: 0,
       experience: 0,
@@ -2552,7 +2553,6 @@ $('#position').typeahead({
       } else if (name == 'city') {
         this.objLocations.city = value;
         this.objLocations.bool_rest_address = true;
-        this.showLocation();
       } else if (name == 'search_city') {
         this.objCity.search_city = value;
       }
@@ -2589,9 +2589,7 @@ $('#position').typeahead({
               case 3:
                 response = _context.sent;
 
-                _this.showLocation();
-
-              case 5:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2631,9 +2629,7 @@ $('#position').typeahead({
               case 3:
                 response = _context2.sent;
 
-                _this2.showLocation();
-
-              case 5:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2641,7 +2637,7 @@ $('#position').typeahead({
         }, _callee2);
       }))();
     },
-    createVacancy: function createVacancy() {
+    searchPosition: function searchPosition(value) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -2650,66 +2646,116 @@ $('#position').typeahead({
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                data = {
-                  position: _this3.position,
-                  categories: _this3.objCategory.categories,
-                  country: _this3.objLocations.country,
-                  region: _this3.objLocations.region,
-                  city: _this3.objLocations.city,
-                  rest_address: _this3.rest_address,
-                  vacancy_suitable: _this3.objSuitable.suitable,
-                  // Вакансия подходит для
-                  commentary_age: _this3.objSuitable.commentary_age,
-                  type_employment: _this3.type_employment,
-                  // Вид занятости
-                  salary_but: _this3.objSalary.salary_but,
-                  // Зарплата
-                  salary_from: _this3.objSalary.salary_from,
-                  salary_to: _this3.objSalary.salary_to,
-                  salary_sum: _this3.objSalary.salary_sum,
-                  salary_comment: _this3.objSalary.salary_comment,
-                  experience: _this3.experience,
-                  // Опыт работы
-                  education: _this3.education,
-                  // Образование
-                  checkbox_city: _this3.objCity.checkbox_city,
-                  // Город для поиска
-                  search_city: _this3.objCity.search_city,
-                  text_requirements: _this3.objTextarea.textarea_candidate,
-                  // Требования к кандидату
-                  text_working: _this3.objTextarea.textarea_conditions,
-                  // Условия работы
-                  text_responsibilities: _this3.objTextarea.textarea_responsibilities,
-                  // Обязанности кандидата
-                  contacts_list: _this3.objDisplayEmpContVacancy.contacts,
-                  // Контакты работодателя
-                  how_respond: _this3.how_respond,
-                  // Как можно откликнуться
-                  job_posting: _this3.job_posting // Размещение вакансии
+                if (value.length) {
+                  _context3.next = 3;
+                  break;
+                }
 
+                $('#position_list').removeClass('show');
+                return _context3.abrupt("return", false);
+
+              case 3:
+                data = {
+                  value: value
                 };
-                _context3.next = 3;
-                return _this3.$http.post("/vacancy", data).then(function (res) {
+                _context3.next = 6;
+                return _this3.$http.post("/vacancy/search-vacancy", data).then(function (res) {
                   if (_this3.checkSuccess(res)) {
-                    location.href = '/';
+                    if (res.data.message.position.length) {
+                      _this3.position_list = res.data.message.position; // $('#position_list').dropdown('show')
+
+                      // $('#position_list').dropdown('show')
+                      $('#position_list').addClass('show');
+                    } else {
+                      $('#position_list').removeClass('show');
+                    }
                   } // custom ошибки
-                  else {
-                    _this3.message(res.data.message, 'error', 10000, true);
-                  }
+                  else {}
                 }) // ошибки сервера
                 ["catch"](function (err) {
                   _this3.messageError(err);
                 });
 
-              case 3:
+              case 6:
                 response = _context3.sent;
 
-              case 4:
+              case 7:
               case "end":
                 return _context3.stop();
             }
           }
         }, _callee3);
+      }))();
+    },
+    createVacancy: function createVacancy() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                data = {
+                  position: _this4.position,
+                  categories: _this4.objCategory.categories,
+                  country: _this4.objLocations.country,
+                  region: _this4.objLocations.region,
+                  city: _this4.objLocations.city,
+                  rest_address: _this4.rest_address,
+                  vacancy_suitable: _this4.objSuitable.suitable,
+                  // Вакансия подходит для
+                  commentary_age: _this4.objSuitable.commentary_age,
+                  type_employment: _this4.type_employment,
+                  // Вид занятости
+                  salary_but: _this4.objSalary.salary_but,
+                  // Зарплата
+                  salary_from: _this4.objSalary.salary_from,
+                  salary_to: _this4.objSalary.salary_to,
+                  salary_sum: _this4.objSalary.salary_sum,
+                  salary_comment: _this4.objSalary.salary_comment,
+                  experience: _this4.experience,
+                  // Опыт работы
+                  education: _this4.education,
+                  // Образование
+                  checkbox_city: _this4.objCity.checkbox_city,
+                  // Город для поиска
+                  search_city: _this4.objCity.search_city,
+                  text_requirements: _this4.objTextarea.textarea_candidate,
+                  // Требования к кандидату
+                  text_working: _this4.objTextarea.textarea_conditions,
+                  // Условия работы
+                  text_responsibilities: _this4.objTextarea.textarea_responsibilities,
+                  // Обязанности кандидата
+                  contacts_list: _this4.objDisplayEmpContVacancy.contacts,
+                  // Контакты работодателя
+                  how_respond: _this4.how_respond,
+                  // Как можно откликнуться
+                  job_posting: _this4.job_posting // Размещение вакансии
+
+                };
+                _context4.next = 3;
+                return _this4.$http.post("/vacancy", data).then(function (res) {
+                  if (_this4.checkSuccess(res)) {
+                    location.href = '/';
+                  } // custom ошибки
+                  else {
+                    _this4.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this4.messageError(err);
+                });
+
+              case 3:
+                response = _context4.sent;
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     },
     displayingEmployers: function displayingEmployers() {
@@ -2778,7 +2824,7 @@ $('#position').typeahead({
     },
     // разбить масив категорий на несколько
     createArrayCategories: function createArrayCategories() {
-      var _this4 = this;
+      var _this5 = this;
 
       var count = 15;
       var tick = 0;
@@ -2786,25 +2832,25 @@ $('#position').typeahead({
       this.settings.categories.forEach(function (value, index) {
         // дележка на массивы
         if (index % count == 0) {
-          _this4.objCategory.categoriesArray[tick] = [];
+          _this5.objCategory.categoriesArray[tick] = [];
           tick++;
         }
 
-        _this4.objCategory.categoriesArray[tick - 1].push([index, value]);
+        _this5.objCategory.categoriesArray[tick - 1].push([index, value]);
       });
     },
     initializationFunc: function initializationFunc() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.createArrayCategories();
       this.objLocations.load_countries = this.settings.obj_countries; // страна
 
       $('#country').on('select2:select', function (e) {
-        _this5.clearLocation();
+        _this6.clearLocation();
 
-        _this5.objLocations.country = e.params.data.id;
+        _this6.objLocations.country = e.params.data.id;
 
-        _this5.loadRegions();
+        _this6.loadRegions();
       });
     },
     clearLocation: function clearLocation(value) {
@@ -2831,12 +2877,9 @@ $('#position').typeahead({
           this.objLocations.load_cities = null;
       }
     },
-    showLocation: function showLocation() {// console.log('bool_rest_address ', this.objLocations.bool_rest_address)
-      // console.log('load_regions ', this.objLocations.load_regions)
-      // console.log('load_cities ', this.objLocations.load_cities)
-      // console.log('country ',this.objLocations.country)
-      // console.log('region ',this.objLocations.region)
-      // console.log('city ',this.objLocations.city)
+    setValuePosition: function setValuePosition(value) {
+      $('#position_list').removeClass('show');
+      this.position = value;
     }
   },
   props: ['lang', // масив названий и url языка
@@ -8175,7 +8218,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "label[data-v-cbfd5dee] {\n  cursor: pointer;\n}\n.form-group[data-v-cbfd5dee] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-cbfd5dee] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-cbfd5dee] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-cbfd5dee] {\n  display: block;\n}\n.search-city[data-v-cbfd5dee] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-cbfd5dee] {\n  width: 100% !important;\n}\n.border_error[data-v-cbfd5dee] {\n  border: 1px solid red;\n}\n#salary_accordion .card[data-v-cbfd5dee] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n#salary_accordion .card .card-header[data-v-cbfd5dee] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n#salary_accordion .card .card-header button[data-v-cbfd5dee] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n#salary_accordion .card .card-body[data-v-cbfd5dee] {\n  padding: 0;\n}\n.bg-warning[data-v-cbfd5dee] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-cbfd5dee]:nth-child(2),\n#one_value input[data-v-cbfd5dee] {\n  margin-right: 7px;\n}\n.line_select[data-v-cbfd5dee] {\n  display: initial;\n}", ""]);
+exports.push([module.i, "label[data-v-cbfd5dee] {\n  cursor: pointer;\n}\n.form-group[data-v-cbfd5dee] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-cbfd5dee] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-cbfd5dee] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-cbfd5dee] {\n  display: block;\n}\n.search-city[data-v-cbfd5dee] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-cbfd5dee] {\n  width: 100% !important;\n}\n.border_error[data-v-cbfd5dee] {\n  border: 1px solid red;\n}\n#salary_accordion .card[data-v-cbfd5dee] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n#salary_accordion .card .card-header[data-v-cbfd5dee] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n#salary_accordion .card .card-header button[data-v-cbfd5dee] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n#salary_accordion .card .card-body[data-v-cbfd5dee] {\n  padding: 0;\n}\n.bg-warning[data-v-cbfd5dee] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-cbfd5dee]:nth-child(2),\n#one_value input[data-v-cbfd5dee] {\n  margin-right: 7px;\n}\n.line_select[data-v-cbfd5dee] {\n  display: initial;\n}\n.block_position_list[data-v-cbfd5dee] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-cbfd5dee] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-cbfd5dee] {\n  padding: 1px 12px;\n}", ""]);
 
 // exports
 
@@ -41876,6 +41919,7 @@ var render = function () {
                   type: "text",
                   id: "position",
                   maxlength: "100",
+                  autocomplete: "off",
                   placeholder:
                     "" + _vm.trans("vacancies", "example_hairdresser"),
                 },
@@ -41883,6 +41927,9 @@ var render = function () {
                 on: {
                   blur: function ($event) {
                     return _vm.$v.position.$touch()
+                  },
+                  keyup: function ($event) {
+                    return _vm.searchPosition($event.target.value)
                   },
                   input: function ($event) {
                     if ($event.target.composing) {
@@ -41892,6 +41939,38 @@ var render = function () {
                   },
                 },
               }),
+              _vm._v(" "),
+              _c("div", { staticClass: "block_position_list" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "dropdown-menu",
+                    attrs: { id: "position_list" },
+                  },
+                  _vm._l(_vm.position_list, function (value, key) {
+                    return _c(
+                      "div",
+                      {
+                        key: key,
+                        staticClass: "dropdown-item",
+                        on: {
+                          click: function ($event) {
+                            return _vm.setValuePosition(value)
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(value) +
+                            "\n                                "
+                        ),
+                      ]
+                    )
+                  }),
+                  0
+                ),
+              ]),
               _vm._v(" "),
               !_vm.$v.position.required
                 ? _c("div", { staticClass: "invalid-feedback" }, [

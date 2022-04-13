@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Vacancy\SearchVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Model\MakeGeographyDb;
+use App\Model\Position;
 use App\Repositories\VacancyRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -27,12 +29,24 @@ class VacancyController extends BaseController {
         return view('create_vacancy', compact('settings'));
     }
 
+    /**
+     * @param  StoreVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreVacancyRequest $request)
     {
         $store = $this->repository->storeVacancy($request);
         return $this->getResponse($store);
     }
 
+    public function searchVacancy(SearchVacancyRequest $request)
+    {
+        $position = Position::where('active',1)
+            ->where('title', 'like', $request->value.'%')
+            ->get()
+            ->pluck('title');
+        return $this->getResponse(compact('position'));
+    }
 
     //    /**
 //     * Display a listing of the resource.
