@@ -10,23 +10,6 @@ h1{
 a:hover {
    text-decoration: none;
 }
-aside .brand-link{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: stretch;
-    align-items: flex-start;
-    padding: 6px 0 6px 10px;
-    font-size: 15px;
-    background: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(253,187,45,1) 49%, rgba(6,124,246,1) 51%, rgba(6,124,246,1) 100%);
-}
-aside .brand-link span:nth-child(1){
-    color: rgb(253, 187, 45);
-}
-aside .brand-link span:nth-child(2){
-    color: rgb(6, 124, 246);
-}
 .button-menu{
     background: #f1f1f1;
     min-width: 50px;
@@ -38,7 +21,44 @@ aside .brand-link span:nth-child(2){
     margin: 0;
     padding: 15px 5px;
 }
-
+/* sidebar left */
+.brand-link{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: flex-start;
+    padding: 6px 6px 6px 10px;
+    font-size: 15px;
+    background: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(253,187,45,1) 49%, rgba(6,124,246,1) 51%, rgba(6,124,246,1) 100%);
+}
+.brand-link span:nth-child(1){
+    width: 100%;
+    color: rgb(253, 187, 45);
+}
+.brand-link span:nth-child(2){
+    width: 100%;
+    color: rgb(6, 124, 246);
+}
+.main-sidebar{
+    background-color: #f8fafc;
+}
+#left-sidebar{
+    display:none!important;
+}
+.navbar-nav > li:nth-child(1){
+    margin-right: 10px!important;
+}
+.button-navbar{
+    display: flex!important;
+    flex-direction: column!important;
+    flex-wrap: nowrap!important;
+    justify-content: center!important;
+    align-content: flex-start!important;
+    align-items: center!important;
+}
 /* bootstrap */
 .row{
     margin: 0;
@@ -203,11 +223,24 @@ svg{
 
 
 
+@media (max-width: 575px) {
+    #left-sidebar{
+        display: flex!important;
+        flex-direction: column!important;
+        flex-wrap: nowrap!important;
+        justify-content: center!important;
+        align-content: flex-start!important;
+        align-items: center!important;
+    }
+    .button-navbar{
+        display:none!important;
+    }
+}
 
 /* Media min */
 @media (min-width: 1200px){
     .container-xl, .container-lg, .container-md, .container-sm, .container {
-        max-width: 100%;
+        max-width: 1200px;
         padding: 0 15px;
     }
 }

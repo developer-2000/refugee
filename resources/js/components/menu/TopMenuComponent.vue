@@ -4,16 +4,31 @@
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Menu -->
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                <!-- Logo -->
+                <li class="nav-item d-sm-inline-block">
+                    <a href="/" class="brand-link">
+                        <span class="brand-text font-weight-light">
+                            {{this.logo_text.uk}}
+                        </span>
+                        <span class="brand-text font-weight-light">
+                            {{this.logo_text.en}}
+                        </span>
+                    </a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                <!-- button open/close sidebar-->
+                <li id="left-sidebar" class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <!-- Menu -->
+                <li class="nav-item d-none d-sm-inline-block button-navbar">
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block button-navbar">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
-                <li class="nav-item dropdown nav-item d-none d-sm-inline-block">
+                <li class="nav-item dropdown nav-item d-none d-sm-inline-block button-navbar">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Работа
                     </a>
@@ -135,6 +150,7 @@
             }
         },
         props: [
+            'logo_text',
             'lang',   // масив названий и url языка
             'user',
             'code_change_password',
@@ -203,6 +219,7 @@
             // if(this.user != null){
             //     console.log(this.user)
             // }
+            console.log(this.logo_text.uk)
         },
     }
 </script>
@@ -244,5 +261,7 @@
             width:auto;
         }
     }
+
+    /*min-width: 175px;*/
 
 </style>

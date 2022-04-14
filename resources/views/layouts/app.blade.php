@@ -23,13 +23,15 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 </head>
-<body>
+<body class="skin-blue sidebar-custom sidebar-collapse">
 
     <div id="app">
         <div class="wrapper">
 
             <!-- left menu -->
-            <aside class="main-sidebar sidebar-white elevation-1">
+            <aside class="main-sidebar sidebar-white elevation-1"
+{{--                   data-widget="control-sidebar" data-controlsidebar-slide="false"--}}
+            >
                 <!-- Logo -->
                 <a href="/" class="brand-link">
                     <span class="brand-text font-weight-light">{{ env('APP_NAME_UK') }}</span>
@@ -79,6 +81,7 @@
             <!-- / left menu -->
 
             <top-menu-component
+                :logo_text="{{'{"uk":"'.env("APP_NAME_UK").'","en":"'.env("APP_NAME_EN").'"}'}}"
                 :lang="{{json_encode($lang)}}"
                 :user="{{json_encode($user)}}"
                 :code_change_password="@if (session('code_change_password')) {{ session('code_change_password') }} @else 0 @endif"
@@ -113,15 +116,16 @@
     </div>
 
     <!-- jQuery -->
-{{--    <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>--}}
-{{--    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>--}}
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>--}}
-{{--    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>--}}
     <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
     <script src="{{asset('js/admin_lte/adminlte.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 
-    @section('scripts')
-    @show
+@section('scripts')
+    <script>
+        // jQuery(document).ready(function(){
+        //     $("#left-sidebar").ControlSidebar('hide');
+        // });
+    </script>
+@show
 </body>
 </html>

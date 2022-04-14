@@ -2743,6 +2743,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2763,7 +2778,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     };
   },
-  props: ['lang', // масив названий и url языка
+  props: ['logo_text', 'lang', // масив названий и url языка
   'user', 'code_change_password'],
   methods: {
     deleteStorage: function deleteStorage() {
@@ -2828,6 +2843,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     this.initializationFunc(); // if(this.user != null){
     //     console.log(this.user)
     // }
+
+    console.log(this.logo_text.uk);
   }
 });
 
@@ -8405,7 +8422,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n}\n.user-menu .user-avatar img[data-v-61d2081e] {\n  width: 38px;\n}\n.user-menu .user-avatar svg[data-v-61d2081e] {\n  width: 9px;\n  margin-left: 4px;\n}\n.user-menu .user-avatar svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}", ""]);
+exports.push([module.i, ".dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n}\n.user-menu .user-avatar img[data-v-61d2081e] {\n  width: 38px;\n}\n.user-menu .user-avatar svg[data-v-61d2081e] {\n  width: 9px;\n  margin-left: 4px;\n}\n.user-menu .user-avatar svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}\n\n/*min-width: 175px;*/", ""]);
 
 // exports
 
@@ -43080,6 +43097,26 @@ var render = function () {
       },
       [
         _c("ul", { staticClass: "navbar-nav" }, [
+          _c("li", { staticClass: "nav-item d-sm-inline-block" }, [
+            _c("a", { staticClass: "brand-link", attrs: { href: "/" } }, [
+              _c("span", { staticClass: "brand-text font-weight-light" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(this.logo_text.uk) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "brand-text font-weight-light" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(this.logo_text.en) +
+                    "\n                    "
+                ),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
           _vm._m(1),
@@ -43090,7 +43127,7 @@ var render = function () {
             "li",
             {
               staticClass:
-                "nav-item dropdown nav-item d-none d-sm-inline-block",
+                "nav-item dropdown nav-item d-none d-sm-inline-block button-navbar",
             },
             [
               _c(
@@ -43431,36 +43468,48 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: { "data-widget": "pushmenu", href: "#", role: "button" },
-        },
-        [_c("i", { staticClass: "fas fa-bars" })]
-      ),
-    ])
+    return _c(
+      "li",
+      { staticClass: "nav-item", attrs: { id: "left-sidebar" } },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-widget": "pushmenu", href: "#", role: "button" },
+          },
+          [_c("i", { staticClass: "fas fa-bars" })]
+        ),
+      ]
+    )
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item d-none d-sm-inline-block" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "index3.html" } }, [
-        _vm._v("Home"),
-      ]),
-    ])
+    return _c(
+      "li",
+      { staticClass: "nav-item d-none d-sm-inline-block button-navbar" },
+      [
+        _c("a", { staticClass: "nav-link", attrs: { href: "index3.html" } }, [
+          _vm._v("Home"),
+        ]),
+      ]
+    )
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item d-none d-sm-inline-block" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Contact"),
-      ]),
-    ])
+    return _c(
+      "li",
+      { staticClass: "nav-item d-none d-sm-inline-block button-navbar" },
+      [
+        _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+          _vm._v("Contact"),
+        ]),
+      ]
+    )
   },
 ]
 render._withStripped = true
