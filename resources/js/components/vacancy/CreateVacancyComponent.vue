@@ -259,7 +259,7 @@
                                         <input type="number" min="0" max="100000000"
                                                :placeholder="`${trans('vacancies',this.settings.salary.range[1])}`"
                                                v-model="objSalary.salary_to"
-                                               @change="checkSalary"
+                                               @blur="checkSalary"
                                         >
                                         {{trans('vacancies','euro_per_month')}}
                                     </div>
@@ -315,7 +315,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <label for="payroll_comment">{{trans('vacancies','salary_comment')}}</label>
                         <input type="text" id="payroll_comment" class="form-control" maxlength="100"
@@ -678,12 +677,14 @@
                     $('#position_list').removeClass('show')
                     return false
                 }
+
                 let data = {
                     value: value,
                 };
                 const response = await this.$http.post(`/vacancy/search-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
+                            // вернет только опубликованные
                             if(res.data.message.position.length){
                                 this.position_list = res.data.message.position
                                 // $('#position_list').dropdown('show')
@@ -700,16 +701,16 @@
                     })
                     // ошибки сервера
                     .catch(err => {
-                        this.messageError(err)
+                        // this.messageError(err)
                     })
             },
             async createVacancy(){
                 let data = {
                     position: this.position,
                     categories: this.objCategory.categories,
-                    country: this.objLocations.country,
-                    region: this.objLocations.region,
-                    city: this.objLocations.city,
+                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
                     rest_address: this.rest_address,
                     vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
                     commentary_age: this.objSuitable.commentary_age,
@@ -734,7 +735,7 @@
                 const response = await this.$http.post(`/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            location.href = '/'
+                            // location.href = '/'
                         }
                         // custom ошибки
                         else{
@@ -859,6 +860,16 @@
             setValuePosition(value){
                 $('#position_list').removeClass('show')
                 this.position = value
+            },
+            returnFoundObject(data, value){
+                let obj = []
+                if(data !== null){
+                    obj = data.filter((val) => {
+                        return val.code == value
+                    });
+                }
+
+                return !obj.length ? null : obj
             }
         },
         props: [

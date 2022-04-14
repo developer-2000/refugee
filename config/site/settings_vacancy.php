@@ -13,12 +13,11 @@ return [
     // Время оплаты: в час, в месяц
     // Индексы ключи к файлу языка
     'salary' => [
-        'range' => [ 'from','before' ],
-        'single_value' => [ 'amount' ],
+        'range' => [ 'salary_from','salary_to' ],
+        'single_value' => [ 'salary_sum' ],
         'dont_specify' => [],
         'salary_comment' => [],
     ],
-
     // Опыт работы: без опыта, от 1 года, от 2 лет, от 5 лет,
     // Индексы ключи к файлу языка
     'work_experience' => [

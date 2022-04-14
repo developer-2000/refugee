@@ -215,11 +215,6 @@
         },
         mounted() {
             this.initializationFunc()
-
-            // if(this.user != null){
-            //     console.log(this.user)
-            // }
-            console.log(this.logo_text.uk)
         },
     }
 </script>

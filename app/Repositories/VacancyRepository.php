@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Model\Position;
+use App\Model\Test;
 use App\Model\Vacancy as Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,9 @@ class VacancyRepository extends CoreRepository {
     }
 
     public function storeVacancy($request){
+        $settings = (object) config('site.settings_vacancy');
+
+//        Test::create([ 'json'=>$settings->job_status ]);
 
         $position = Position::firstOrCreate(
             ['title' => mb_strtolower($request->position, 'UTF-8')]
@@ -21,9 +25,9 @@ class VacancyRepository extends CoreRepository {
             'user_id'=>Auth::user()->id,
             'position_id'=>$position->id,
             'categories'=>$request->categories,
-            'country'=>$request->country,
-            'region'=>$request->region,
-            'city'=>$request->city,
+            'country'=>$request->country !== null ? $request->country[0] : null,
+            'region'=>$request->region !== null ? $request->region[0] : null,
+            'city'=>$request->city !== null ? $request->city[0] : null,
             'rest_address'=>$request->rest_address,
             'vacancy_suitable'=>[
                 'checkboxes'=>$request->vacancy_suitable,
@@ -35,7 +39,7 @@ class VacancyRepository extends CoreRepository {
                 'inputs'=>[
                     'salary_from'=>$request->salary_from,
                     'salary_to'=>$request->salary_to,
-                    'salary_sum'=>$request->sum,
+                    'salary_sum'=>$request->salary_sum,
                 ],
                 'comment'=>$request->salary_comment,
             ],
@@ -50,7 +54,10 @@ class VacancyRepository extends CoreRepository {
             'text_responsibilities'=>$request->text_responsibilities,
             'contacts'=>$request->contacts,
             'how_respond'=>$request->how_respond,
-            'job_posting'=>$request->job_posting,
+            'job_posting'=>[
+                'status_name'=>$settings->job_status[$request->job_posting],
+                'create_time'=>now(),
+            ],
             'alias'=>sha1(time()),
         ]);
 

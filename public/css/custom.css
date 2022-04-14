@@ -17,13 +17,16 @@ a:hover {
     margin-right: 10px!important;
     font-weight: 600;
 }
-.title_page{
+.create-page .title_page{
     margin: 0;
     padding: 15px 5px;
 }
+.title_page{
+    margin: 0;
+    padding: 15px 0px;
+}
 /* sidebar left */
 .brand-link{
-    text-align: center;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -219,6 +222,27 @@ svg{
 .select2-container--focus .select2-selection.select2-selection--single {
     border-color:#a1cbef!important;
     box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+/* my vacation */
+.mode-vacancy{
+    display: flex;
+    margin-top: 10px;
+}
+.mode-vacancy .mode{
+    background: #d5d5d5;
+    padding: 0 5px 0 8px;
+    color: #202020;
+}
+.mode-vacancy .mode svg{
+    width: 13px;
+}
+.mode-vacancy .balance-mode{
+    background: #d5d5d5;
+    padding: 0 10px 0 0;
+    color: #202020;
+}
+.mode-vacancy .standard{
+    background: #38c172;
 }
 
 

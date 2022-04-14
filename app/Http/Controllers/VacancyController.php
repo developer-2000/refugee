@@ -3,11 +3,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Vacancy\SearchVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
+use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
+use App\Model\User;
+use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 
 class VacancyController extends BaseController {
 
@@ -30,6 +32,7 @@ class VacancyController extends BaseController {
     }
 
     /**
+     * создать вакансию
      * @param  StoreVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -40,7 +43,7 @@ class VacancyController extends BaseController {
     }
 
     /**
-     * searches vacancies by the first characters
+     * найти должность по первым символам
      * @param  SearchVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -53,10 +56,36 @@ class VacancyController extends BaseController {
         return $this->getResponse(compact('position'));
     }
 
+    /**
+     * выбрать все свои вакансии
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function myVacancies()
     {
-//        dd(1);
-        return view('vacancies/my_vacancies');
+        $settings = config('site.settings_vacancy');
+        $user_data = User::where('id', Auth::user()->id)
+            ->with('vacancies.position')
+            ->first();
+        return view('vacancies/my_vacancies', compact('user_data','settings'));
+    }
+
+    /**
+     * обновить статус вакансии
+     * @param  UpVacancyStatusRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function upVacancyStatus(UpVacancyStatusRequest $request)
+    {
+        $settings = (object) config('site.settings_vacancy');
+        Vacancy::where('id', $request->id)
+            ->update([
+                'job_posting'=>[
+                    'status_name'=>$settings->job_status[$request->index],
+                    'create_time'=>now(),
+                ],
+            ]);
+
+        return $this->getResponse();
     }
 
 
