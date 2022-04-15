@@ -60,12 +60,13 @@ Route::group([ 'middleware' => ['locale'] ], function () {
     // vacancy
     Route::group(['middleware'=>['auth']], function () {
         Route::resource('vacancy', 'VacancyController')->only([
-            'create', 'store',
+            'create', 'store', 'destroy', 'edit', 'update',
         ]);
         Route::group(['prefix'=>'vacancy'], function (){
             Route::post('search-vacancy', 'VacancyController@searchVacancy');
             Route::get('my-vacancies', 'VacancyController@myVacancies');
             Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
+            Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
         });
     });
 

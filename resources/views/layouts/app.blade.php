@@ -29,9 +29,7 @@
         <div class="wrapper">
 
             <!-- left menu -->
-            <aside class="main-sidebar sidebar-white elevation-1"
-{{--                   data-widget="control-sidebar" data-controlsidebar-slide="false"--}}
-            >
+            <aside class="main-sidebar sidebar-white elevation-1">
                 <!-- Logo -->
                 <a href="/" class="brand-link">
                     <span class="brand-text font-weight-light">{{ env('APP_NAME_UK') }}</span>

@@ -3418,6 +3418,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3425,6 +3455,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
   data: function data() {
     return {
+      vacancy_id: 0,
       position: '',
       position_list: [],
       rest_address: null,
@@ -3465,7 +3496,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         textarea_responsibilities: '',
         textarea_conditions: '',
         textarea_candidate: '',
-        editorConfig: {
+        editorConfig1: {
+          toolbar: [['Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList']]
+        },
+        editorConfig2: {
+          toolbar: [['Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList']]
+        },
+        editorConfig3: {
           toolbar: [['Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList']]
         }
       },
@@ -3541,7 +3578,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 data = {
-                  region_code: _this2.objLocations.region
+                  region_code: '' + _this2.objLocations.region
                 };
                 _context2.next = 3;
                 return _this2.$http.post("/localisation/get-city", data).then(function (res) {
@@ -3597,9 +3634,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (_this3.checkSuccess(res)) {
                     // вернет только опубликованные
                     if (res.data.message.position.length) {
-                      _this3.position_list = res.data.message.position; // $('#position_list').dropdown('show')
-
-                      // $('#position_list').dropdown('show')
+                      _this3.position_list = res.data.message.position;
                       $('#position_list').addClass('show');
                     } else {
                       $('#position_list').removeClass('show');
@@ -3630,6 +3665,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
+                // выровнять последнее число по первому если оно меньше
+                if (_this4.checkingInteger(_this4.objSalary.salary_from) && _this4.checkingInteger(_this4.objSalary.salary_to)) {
+                  if (parseInt(_this4.objSalary.salary_from) > parseInt(_this4.objSalary.salary_to)) {
+                    _this4.objSalary.salary_to = _this4.objSalary.salary_from;
+                  }
+                }
+
                 data = {
                   position: _this4.position,
                   categories: _this4.objCategory.categories,
@@ -3661,16 +3703,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   // Условия работы
                   text_responsibilities: _this4.objTextarea.textarea_responsibilities,
                   // Обязанности кандидата
-                  contacts_list: _this4.objDisplayEmpContVacancy.contacts,
+                  contacts: _this4.objDisplayEmpContVacancy.contacts,
                   // Контакты работодателя
                   how_respond: _this4.how_respond,
                   // Как можно откликнуться
                   job_posting: _this4.job_posting // Размещение вакансии
 
                 };
-                _context4.next = 3;
+                _context4.next = 4;
                 return _this4.$http.post("/vacancy", data).then(function (res) {
-                  if (_this4.checkSuccess(res)) {// location.href = '/'
+                  if (_this4.checkSuccess(res)) {
+                    location.href = '/vacancy/my-vacancies';
                   } // custom ошибки
                   else {
                     _this4.message(res.data.message, 'error', 10000, true);
@@ -3680,15 +3723,93 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.messageError(err);
                 });
 
-              case 3:
+              case 4:
                 response = _context4.sent;
 
-              case 4:
+              case 5:
               case "end":
                 return _context4.stop();
             }
           }
         }, _callee4);
+      }))();
+    },
+    updateVacancy: function updateVacancy() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                // выровнять последнее число по первому если оно меньше
+                if (_this5.checkingInteger(_this5.objSalary.salary_from) && _this5.checkingInteger(_this5.objSalary.salary_to)) {
+                  if (parseInt(_this5.objSalary.salary_from) > parseInt(_this5.objSalary.salary_to)) {
+                    _this5.objSalary.salary_to = _this5.objSalary.salary_from;
+                  }
+                }
+
+                data = {
+                  position: _this5.position,
+                  categories: _this5.objCategory.categories,
+                  country: _this5.returnFoundObject(_this5.objLocations.load_countries, _this5.objLocations.country),
+                  region: _this5.returnFoundObject(_this5.objLocations.load_regions, _this5.objLocations.region),
+                  city: _this5.returnFoundObject(_this5.objLocations.load_cities, _this5.objLocations.city),
+                  rest_address: _this5.rest_address,
+                  vacancy_suitable: _this5.objSuitable.suitable,
+                  // Вакансия подходит для
+                  commentary_age: _this5.objSuitable.commentary_age,
+                  type_employment: _this5.type_employment,
+                  // Вид занятости
+                  salary_but: _this5.objSalary.salary_but,
+                  // Зарплата
+                  salary_from: _this5.objSalary.salary_from,
+                  salary_to: _this5.objSalary.salary_to,
+                  salary_sum: _this5.objSalary.salary_sum,
+                  salary_comment: _this5.objSalary.salary_comment,
+                  experience: _this5.experience,
+                  // Опыт работы
+                  education: _this5.education,
+                  // Образование
+                  checkbox_city: _this5.objCity.checkbox_city,
+                  // Город для поиска
+                  search_city: _this5.objCity.search_city,
+                  text_requirements: _this5.objTextarea.textarea_candidate,
+                  // Требования к кандидату
+                  text_working: _this5.objTextarea.textarea_conditions,
+                  // Условия работы
+                  text_responsibilities: _this5.objTextarea.textarea_responsibilities,
+                  // Обязанности кандидата
+                  contacts: _this5.objDisplayEmpContVacancy.contacts,
+                  // Контакты работодателя
+                  how_respond: _this5.how_respond,
+                  // Как можно откликнуться
+                  job_posting: _this5.job_posting // Размещение вакансии
+
+                };
+                _context5.next = 4;
+                return _this5.$http.put("/vacancy/" + _this5.vacancy_id, data).then(function (res) {
+                  if (_this5.checkSuccess(res)) {
+                    location.href = '/vacancy/my-vacancies';
+                  } // custom ошибки
+                  else {
+                    _this5.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this5.messageError(err);
+                });
+
+              case 4:
+                response = _context5.sent;
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     },
     displayingEmployers: function displayingEmployers() {
@@ -3725,14 +3846,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.objCategory.categories = selected;
     },
     checkSalary: function checkSalary() {
-      // выровнять последнее число по первому если оно меньше
-      if (this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)) {
-        if (parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)) {
-          this.objSalary.salary_to = this.objSalary.salary_from;
-        }
-      } // если выбран сектор а поля не заполнены
-
-
+      // если выбран сектор а поля не заполнены
       if (this.objSalary.salary_but == "range" && (!this.objSalary.salary_from || this.objSalary.salary_from == '' || !this.objSalary.salary_to || this.objSalary.salary_to == '') || this.objSalary.salary_but == "single_value" && (!this.objSalary.salary_sum || this.objSalary.salary_sum == '')) {
         this.objSalary.switchSalary = true;
         return true;
@@ -3757,7 +3871,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // разбить масив категорий на несколько
     createArrayCategories: function createArrayCategories() {
-      var _this5 = this;
+      var _this6 = this;
 
       var count = 15;
       var tick = 0;
@@ -3765,25 +3879,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.settings.categories.forEach(function (value, index) {
         // дележка на массивы
         if (index % count == 0) {
-          _this5.objCategory.categoriesArray[tick] = [];
+          _this6.objCategory.categoriesArray[tick] = [];
           tick++;
         }
 
-        _this5.objCategory.categoriesArray[tick - 1].push([index, value]);
-      });
-    },
-    initializationFunc: function initializationFunc() {
-      var _this6 = this;
-
-      this.createArrayCategories();
-      this.objLocations.load_countries = this.settings.obj_countries; // страна
-
-      $('#country').on('select2:select', function (e) {
-        _this6.clearLocation();
-
-        _this6.objLocations.country = e.params.data.id;
-
-        _this6.loadRegions();
+        _this6.objCategory.categoriesArray[tick - 1].push([index, value]);
       });
     },
     clearLocation: function clearLocation(value) {
@@ -3824,15 +3924,110 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return !obj.length ? null : obj;
+    },
+    // в случае редактирования вакансии
+    giveValuesFields: function giveValuesFields() {
+      var _this7 = this;
+
+      if (this.vacancy == null) {
+        return false;
+      }
+
+      this.vacancy_id = this.vacancy.id;
+      this.position = this.vacancy.position.title;
+      this.objCategory.categories = this.vacancy.categories;
+      var input = '';
+
+      for (var i = 0; i < this.objCategory.categories.length; i++) {
+        input = document.querySelector('#category_' + this.objCategory.categories[i]);
+        input.checked = true;
+      }
+
+      this.objCategory.boolChecked = true; // Location
+
+      this.objLocations.load_countries = this.settings.obj_countries;
+      this.objLocations.country = this.vacancy.country.code;
+      this.loadRegions();
+
+      if (this.vacancy.region != null) {
+        this.objLocations.region = this.vacancy.region.code;
+        this.loadCity();
+      }
+
+      if (this.vacancy.city != null) {
+        this.objLocations.city = this.vacancy.city.code;
+      }
+
+      setTimeout(function () {
+        _this7.objLocations.bool_rest_address = true;
+      }, 1000);
+      this.rest_address = this.vacancy.rest_address; // Вакансия подходит для
+
+      if (this.vacancy.vacancy_suitable != null) {
+        this.objSuitable.suitable = this.vacancy.vacancy_suitable.checkboxes;
+        this.objSuitable.commentary_age = this.vacancy.vacancy_suitable.comment;
+
+        for (var _i = 0; _i < this.objSuitable.suitable.length; _i++) {
+          input = document.querySelector('#vacancy_suitable_' + this.objSuitable.suitable[_i]);
+          input.checked = true;
+        }
+      }
+
+      this.type_employment = this.vacancy.type_employment; // Зарплата
+
+      this.objSalary.salary_but = this.vacancy.salary.radio_name;
+      this.objSalary.salary_from = this.vacancy.salary.inputs.salary_from;
+      this.objSalary.salary_to = this.vacancy.salary.inputs.salary_to;
+      this.objSalary.salary_sum = this.vacancy.salary.inputs.salary_sum;
+      this.objSalary.salary_comment = this.vacancy.salary.comment;
+      $('#' + this.objSalary.salary_but).collapse('show');
+      this.experience = this.vacancy.experience;
+      this.education = this.vacancy.education; // Город для поиска
+
+      this.objCity.checkbox_city = this.vacancy.search_city.bool;
+      this.objCity.search_city = this.vacancy.search_city.code;
+      this.objTextarea.textarea_candidate = this.vacancy.text_requirements;
+      this.a1 = this.vacancy.text_requirements;
+      this.objTextarea.textarea_conditions = this.vacancy.text_working;
+      this.objTextarea.textarea_responsibilities = this.vacancy.text_responsibilities; // Контакты работодателя
+
+      this.objDisplayEmpContVacancy.contacts = this.vacancy.contacts;
+
+      for (var _i2 = 0; _i2 < this.objDisplayEmpContVacancy.contacts.length; _i2++) {
+        input = document.querySelector('#disp_emp_cont_vacancy_' + this.objDisplayEmpContVacancy.contacts[_i2]);
+        input.checked = true;
+      } // Как можно откликнуться
+
+
+      this.how_respond = this.vacancy.how_respond; // Размещение вакансии
+
+      this.job_posting = this.settings.job_status.indexOf(this.vacancy.job_posting.status_name);
+    },
+    initializationFunc: function initializationFunc() {
+      var _this8 = this;
+
+      this.createArrayCategories();
+      this.objLocations.load_countries = this.settings.obj_countries; // страна
+
+      $('#country').on('select2:select', function (e) {
+        _this8.clearLocation();
+
+        _this8.objLocations.country = e.params.data.id;
+
+        _this8.loadRegions();
+      });
     }
   },
   props: ['lang', // масив названий и url языка
-  'settings'],
+  'settings', 'vacancy'],
   mounted: function mounted() {
-    this.initializationFunc();
-    console.log(this.settings); // инициализация всплывающих подсказок
+    this.initializationFunc(); // инициализация всплывающих подсказок
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip(); // Код, который будет запущен только после отрисовки всех представлений
+
+    this.$nextTick(function () {
+      this.giveValuesFields();
+    });
   },
   validations: {
     position: {
@@ -3868,6 +4063,19 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4058,13 +4266,81 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    duplicateVacancy: function duplicateVacancy(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = {
+                  id: id
+                };
+                _context2.next = 3;
+                return _this2.$http.post("/vacancy/duplicate-vacancy", data).then(function (res) {
+                  if (_this2.checkSuccess(res)) {
+                    location.reload();
+                  } // custom ошибки
+                  else {
+                    _this2.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this2.messageError(err);
+                });
+
+              case 3:
+                response = _context2.sent;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    deleteVacancy: function deleteVacancy(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http.destroy("/vacancy/" + id, {}).then(function (res) {
+                  if (_this3.checkSuccess(res)) {
+                    location.reload();
+                  } // custom ошибки
+                  else {
+                    _this3.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this3.messageError(err);
+                });
+
+              case 2:
+                response = _context3.sent;
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   props: ['lang', // масив названий и url языка
   'settings', 'user_data'],
-  mounted: function mounted() {
-    console.log(this.user_data);
-    console.log(this.settings);
+  mounted: function mounted() {// console.log(this.user_data)
+    // console.log(this.settings)
   }
 });
 
@@ -8561,7 +8837,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n#salary_accordion .card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n#salary_accordion .card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n#salary_accordion .card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n#salary_accordion .card .card-body[data-v-3249dfc6] {\n  padding: 0;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#one_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}", ""]);
+exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n#salary_accordion .card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n#salary_accordion .card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n#salary_accordion .card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n#salary_accordion .card .card-body[data-v-3249dfc6] {\n  padding: 0;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}", ""]);
 
 // exports
 
@@ -43658,159 +43934,46 @@ var render = function () {
       _vm._v(_vm._s(_vm.trans("vacancies", "create_job"))),
     ]),
     _vm._v(" "),
-    _c(
-      "form",
-      {
-        attrs: { action: "", method: "post" },
-        on: {
-          submit: function ($event) {
-            $event.preventDefault()
-            return _vm.createVacancy.apply(null, arguments)
-          },
-        },
-      },
-      [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "position" } }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("vacancies", "job_name")) +
-                    "\n                        "
-                ),
-                _c("span", { staticClass: "mandatory-filling" }, [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 512 512",
-                      },
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                        },
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
+    _c("form", { attrs: { action: "", method: "post" } }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "position" } }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.trans("vacancies", "job_name")) +
+                  "\n                        "
+              ),
+              _c("span", { staticClass: "mandatory-filling" }, [
                 _c(
-                  "span",
+                  "svg",
                   {
-                    staticClass: "info-tooltip",
                     attrs: {
-                      "data-toggle": "tooltip",
-                      "data-trigger": "click",
-                      title: "" + _vm.trans("vacancies", "title_position"),
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
                     },
                   },
                   [
-                    _c(
-                      "svg",
-                      {
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          viewBox: "0 0 512 512",
-                        },
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
                       },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
-                          },
-                        }),
-                      ]
-                    ),
+                    }),
                   ]
                 ),
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.position,
-                    expression: "position",
-                  },
-                ],
-                staticClass: "form-control",
-                class: { "is-invalid": _vm.$v.position.$error },
-                attrs: {
-                  type: "text",
-                  id: "position",
-                  maxlength: "100",
-                  autocomplete: "off",
-                  placeholder:
-                    "" + _vm.trans("vacancies", "example_hairdresser"),
-                },
-                domProps: { value: _vm.position },
-                on: {
-                  blur: function ($event) {
-                    return _vm.$v.position.$touch()
-                  },
-                  keyup: function ($event) {
-                    return _vm.searchPosition($event.target.value)
-                  },
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.position = $event.target.value
+              _c(
+                "span",
+                {
+                  staticClass: "info-tooltip",
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-trigger": "click",
+                    title: "" + _vm.trans("vacancies", "title_position"),
                   },
                 },
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "block_position_list" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu",
-                    attrs: { id: "position_list" },
-                  },
-                  _vm._l(_vm.position_list, function (value, key) {
-                    return _c(
-                      "div",
-                      {
-                        key: key,
-                        staticClass: "dropdown-item",
-                        on: {
-                          click: function ($event) {
-                            return _vm.setValuePosition(value)
-                          },
-                        },
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(value) +
-                            "\n                                "
-                        ),
-                      ]
-                    )
-                  }),
-                  0
-                ),
-              ]),
-              _vm._v(" "),
-              !_vm.$v.position.required
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(_vm._s(_vm.trans("vacancies", "job_title"))),
-                  ])
-                : _vm._e(),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "country" } }, [
-                _vm._v(
-                  _vm._s(_vm.trans("vacancies", "country_job")) +
-                    "\n                        "
-                ),
-                _c("span", { staticClass: "mandatory-filling" }, [
+                [
                   _c(
                     "svg",
                     {
@@ -43822,433 +43985,164 @@ var render = function () {
                     [
                       _c("path", {
                         attrs: {
-                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
                         },
                       }),
                     ]
                   ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  staticClass: "form-control select2",
-                  attrs: { id: "country" },
-                },
-                [
-                  _c(
-                    "option",
-                    { attrs: { disabled: "disabled", selected: "" } },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans("vacancies", "select_country")) +
-                          "\n                        "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(
-                    _vm.objLocations.load_countries,
-                    function (array, key) {
-                      return [
-                        _c(
-                          "option",
-                          { key: key, domProps: { value: array.code } },
-                          [_vm._v(_vm._s(array.name))]
-                        ),
-                      ]
-                    }
-                  ),
-                ],
-                2
+                ]
               ),
             ]),
             _vm._v(" "),
-            _vm.objLocations.load_regions
-              ? _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "region" } }, [
-                    _vm._v(
-                      _vm._s(_vm.trans("vacancies", "job_region")) +
-                        "\n                        "
-                    ),
-                    _c("span", { staticClass: "mandatory-filling" }, [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                            },
-                          }),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.position,
+                  expression: "position",
+                },
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.$v.position.$error },
+              attrs: {
+                type: "text",
+                id: "position",
+                maxlength: "100",
+                autocomplete: "off",
+                placeholder: "" + _vm.trans("vacancies", "example_hairdresser"),
+              },
+              domProps: { value: _vm.position },
+              on: {
+                blur: function ($event) {
+                  return _vm.$v.position.$touch()
+                },
+                keyup: function ($event) {
+                  return _vm.searchPosition($event.target.value)
+                },
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.position = $event.target.value
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "block_position_list" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { id: "position_list" },
+                },
+                _vm._l(_vm.position_list, function (value, key) {
+                  return _c(
+                    "div",
                     {
-                      staticClass: "form-control select2",
-                      attrs: { id: "region" },
+                      key: key,
+                      staticClass: "dropdown-item",
                       on: {
-                        change: function ($event) {
-                          return _vm.changeSelect2(
-                            $event.target.value,
-                            "region"
-                          )
+                        click: function ($event) {
+                          return _vm.setValuePosition(value)
                         },
                       },
                     },
                     [
-                      _c(
-                        "option",
-                        { attrs: { disabled: "disabled", selected: "" } },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.trans("vacancies", "select_region")) +
-                              "\n                        "
-                          ),
-                        ]
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(value) +
+                          "\n                                "
                       ),
-                      _vm._v(" "),
-                      _vm._l(
-                        _vm.objLocations.load_regions,
-                        function (array, key) {
-                          return [
-                            _c(
-                              "option",
-                              { key: key, domProps: { value: array.code } },
-                              [_vm._v(_vm._s(array.name))]
-                            ),
-                          ]
-                        }
-                      ),
-                    ],
-                    2
-                  ),
-                ])
-              : _vm._e(),
+                    ]
+                  )
+                }),
+                0
+              ),
+            ]),
             _vm._v(" "),
-            _vm.objLocations.load_cities
-              ? _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "city" } }, [
-                    _vm._v(
-                      _vm._s(_vm.trans("vacancies", "city_job")) +
-                        "\n                        "
-                    ),
-                    _c("span", { staticClass: "mandatory-filling" }, [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                            },
-                          }),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      staticClass: "form-control select2",
-                      attrs: { id: "city" },
-                      on: {
-                        change: function ($event) {
-                          return _vm.changeSelect2($event.target.value, "city")
-                        },
-                      },
-                    },
-                    [
-                      _c(
-                        "option",
-                        { attrs: { disabled: "disabled", selected: "" } },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.trans("vacancies", "select_city")) +
-                              "\n                        "
-                          ),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(
-                        _vm.objLocations.load_cities,
-                        function (array, key) {
-                          return [
-                            _c(
-                              "option",
-                              { key: key, domProps: { value: array.code } },
-                              [_vm._v(_vm._s(array.name))]
-                            ),
-                          ]
-                        }
-                      ),
-                    ],
-                    2
-                  ),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.objLocations.bool_rest_address
-              ? _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "rest_address" } }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans("vacancies", "other_job_address")) +
-                        "\n                        "
-                    ),
-                    _c("span", { staticClass: "mandatory-filling" }, [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                            },
-                          }),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.rest_address,
-                        expression: "rest_address",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    class: { "is-invalid": _vm.$v.rest_address.$error },
-                    attrs: {
-                      type: "text",
-                      id: "rest_address",
-                      maxlength: "100",
-                      placeholder:
-                        "" + _vm.trans("vacancies", "remaining_address"),
-                    },
-                    domProps: { value: _vm.rest_address },
-                    on: {
-                      blur: function ($event) {
-                        return _vm.$v.rest_address.$touch()
-                      },
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.rest_address = $event.target.value
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  !_vm.$v.rest_address.required
-                    ? _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(_vm._s(_vm.trans("vacancies", "street_house"))),
-                      ])
-                    : _vm._e(),
+            !_vm.$v.position.required
+              ? _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(_vm._s(_vm.trans("vacancies", "job_title"))),
                 ])
               : _vm._e(),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-sm-8" }, [
-            _c(
-              "div",
-              {
-                staticClass: "form-group",
-                class: {
-                  border_error:
-                    !this.objCategory.categories.length &&
-                    this.objCategory.boolChecked == true,
-                },
-              },
-              [
-                _c("div", [
-                  _c("label", { attrs: { for: "categories" } }, [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(_vm.trans("vacancies", "category_job_posting")) +
-                        "\n                            "
-                    ),
-                    _c("span", { staticClass: "mandatory-filling" }, [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                            },
-                          }),
-                        ]
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        staticClass: "info-tooltip",
-                        attrs: {
-                          "data-toggle": "tooltip",
-                          "data-trigger": "click",
-                          title:
-                            "" + _vm.trans("vacancies", "title_categories"),
-                        },
-                      },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 512 512",
-                            },
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
-                              },
-                            }),
-                          ]
-                        ),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "container-fluid collection-checkbox",
-                      attrs: { id: "categories" },
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "row" },
-                        [
-                          _vm._l(
-                            this.objCategory.categoriesArray,
-                            function (array, key) {
-                              return [
-                                _c(
-                                  "div",
-                                  { staticClass: "col-xl" },
-                                  _vm._l(array, function (valueArr, key2) {
-                                    return _c("div", { key: key2 }, [
-                                      _c("input", {
-                                        staticClass: "form-check-input",
-                                        attrs: {
-                                          name: "category",
-                                          id: "category_" + key + "_" + key2,
-                                          type: "checkbox",
-                                        },
-                                        domProps: { value: valueArr[0] },
-                                        on: { change: _vm.checkCategory },
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "label",
-                                        {
-                                          attrs: {
-                                            for: "category_" + key + "_" + key2,
-                                          },
-                                        },
-                                        [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.trans(
-                                                "vacancies",
-                                                valueArr[1]
-                                              )
-                                            )
-                                          ),
-                                        ]
-                                      ),
-                                    ])
-                                  }),
-                                  0
-                                ),
-                              ]
-                            }
-                          ),
-                        ],
-                        2
-                      ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "country" } }, [
+              _vm._v(
+                _vm._s(_vm.trans("vacancies", "country_job")) +
+                  "\n                        "
+              ),
+              _c("span", { staticClass: "mandatory-filling" }, [
                 _c(
-                  "div",
+                  "svg",
                   {
-                    staticClass: "invalid-feedback",
-                    class: {
-                      "is-invalid visible":
-                        !this.objCategory.categories.length &&
-                        this.objCategory.boolChecked == true,
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
                     },
                   },
                   [
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                      },
+                    }),
+                  ]
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              { staticClass: "form-control select2", attrs: { id: "country" } },
+              [
+                _c(
+                  "option",
+                  { attrs: { disabled: "disabled", selected: "" } },
+                  [
                     _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans("vacancies", "least_category")) +
-                        "\n                    "
+                      "\n                            " +
+                        _vm._s(_vm.trans("vacancies", "select_country")) +
+                        "\n                        "
                     ),
                   ]
                 ),
-              ]
+                _vm._v(" "),
+                _vm._l(_vm.objLocations.load_countries, function (array, key) {
+                  return [
+                    _vm.objLocations.country == array.code
+                      ? [
+                          _c(
+                            "option",
+                            {
+                              key: key,
+                              attrs: { selected: "" },
+                              domProps: { value: array.code },
+                            },
+                            [_vm._v(_vm._s(array.name))]
+                          ),
+                        ]
+                      : [
+                          _c(
+                            "option",
+                            { key: key, domProps: { value: array.code } },
+                            [_vm._v(_vm._s(array.name))]
+                          ),
+                        ],
+                  ]
+                }),
+              ],
+              2
             ),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "form-group",
-                class: {
-                  border_error:
-                    !this.objSuitable.suitable.length &&
-                    this.objSuitable.boolSuitable == true,
-                },
-              },
-              [
-                _c("label", { attrs: { for: "vacancy_suitable" } }, [
+          _vm._v(" "),
+          _vm.objLocations.load_regions
+            ? _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "region" } }, [
                   _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
+                    _vm._s(_vm.trans("vacancies", "job_region")) +
                       "\n                        "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
@@ -44272,32 +44166,440 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c(
-                  "div",
-                  { attrs: { id: "vacancy_suitable" } },
+                  "select",
+                  {
+                    staticClass: "form-control select2",
+                    attrs: { id: "region" },
+                    on: {
+                      change: function ($event) {
+                        return _vm.changeSelect2($event.target.value, "region")
+                      },
+                    },
+                  },
                   [
+                    _c(
+                      "option",
+                      { attrs: { disabled: "disabled", selected: "" } },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.trans("vacancies", "select_region")) +
+                            "\n                        "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
                     _vm._l(
-                      this.settings.vacancy_suitable,
-                      function (value, key) {
+                      _vm.objLocations.load_regions,
+                      function (array, key) {
                         return [
-                          key < 5
+                          _vm.objLocations.region == array.code
                             ? [
-                                _c("div", [
-                                  _c("input", {
-                                    staticClass: "form-check-input",
-                                    attrs: {
-                                      name: "vacancy_suitable",
-                                      type: "checkbox",
-                                      id: "vacancy_suitable_" + key,
-                                    },
-                                    domProps: { value: "" + key },
-                                    on: { change: _vm.vacancySuitable },
-                                  }),
-                                  _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    key: key,
+                                    attrs: { selected: "" },
+                                    domProps: { value: array.code },
+                                  },
+                                  [_vm._v(_vm._s(array.name))]
+                                ),
+                              ]
+                            : [
+                                _c(
+                                  "option",
+                                  { key: key, domProps: { value: array.code } },
+                                  [_vm._v(_vm._s(array.name))]
+                                ),
+                              ],
+                        ]
+                      }
+                    ),
+                  ],
+                  2
+                ),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.objLocations.load_cities
+            ? _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "city" } }, [
+                  _vm._v(
+                    _vm._s(_vm.trans("vacancies", "city_job")) +
+                      "\n                        "
+                  ),
+                  _c("span", { staticClass: "mandatory-filling" }, [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control select2",
+                    attrs: { id: "city" },
+                    on: {
+                      change: function ($event) {
+                        return _vm.changeSelect2($event.target.value, "city")
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { disabled: "disabled", selected: "" } },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.trans("vacancies", "select_city")) +
+                            "\n                        "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.objLocations.load_cities, function (array, key) {
+                      return [
+                        _vm.objLocations.city == array.code
+                          ? [
+                              _c(
+                                "option",
+                                {
+                                  key: key,
+                                  attrs: { selected: "" },
+                                  domProps: { value: array.code },
+                                },
+                                [_vm._v(_vm._s(array.name))]
+                              ),
+                            ]
+                          : [
+                              _c(
+                                "option",
+                                { key: key, domProps: { value: array.code } },
+                                [_vm._v(_vm._s(array.name))]
+                              ),
+                            ],
+                      ]
+                    }),
+                  ],
+                  2
+                ),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.objLocations.bool_rest_address
+            ? _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "rest_address" } }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.trans("vacancies", "other_job_address")) +
+                      "\n                        "
+                  ),
+                  _c("span", { staticClass: "mandatory-filling" }, [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rest_address,
+                      expression: "rest_address",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.$v.rest_address.$error },
+                  attrs: {
+                    type: "text",
+                    id: "rest_address",
+                    maxlength: "100",
+                    placeholder:
+                      "" + _vm.trans("vacancies", "remaining_address"),
+                  },
+                  domProps: { value: _vm.rest_address },
+                  on: {
+                    blur: function ($event) {
+                      return _vm.$v.rest_address.$touch()
+                    },
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.rest_address = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                !_vm.$v.rest_address.required
+                  ? _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(_vm._s(_vm.trans("vacancies", "street_house"))),
+                    ])
+                  : _vm._e(),
+              ])
+            : _vm._e(),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-8" }, [
+          _c(
+            "div",
+            {
+              staticClass: "form-group",
+              class: {
+                border_error:
+                  !this.objCategory.categories.length &&
+                  this.objCategory.boolChecked == true,
+              },
+            },
+            [
+              _c("div", [
+                _c("label", { attrs: { for: "categories" } }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans("vacancies", "category_job_posting")) +
+                      "\n                            "
+                  ),
+                  _c("span", { staticClass: "mandatory-filling" }, [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "info-tooltip",
+                      attrs: {
+                        "data-toggle": "tooltip",
+                        "data-trigger": "click",
+                        title: "" + _vm.trans("vacancies", "title_categories"),
+                      },
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 512 512",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                            },
+                          }),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "container-fluid collection-checkbox",
+                    attrs: { id: "categories" },
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "row" },
+                      [
+                        _vm._l(
+                          this.objCategory.categoriesArray,
+                          function (array, key) {
+                            return [
+                              _c(
+                                "div",
+                                { staticClass: "col-xl" },
+                                _vm._l(array, function (valueArr, key2) {
+                                  return _c("div", { key: key2 }, [
+                                    _c("input", {
+                                      staticClass: "form-check-input",
+                                      attrs: {
+                                        name: "category",
+                                        id: "category_" + valueArr[0],
+                                        type: "checkbox",
+                                      },
+                                      domProps: { value: valueArr[0] },
+                                      on: { change: _vm.checkCategory },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        attrs: {
+                                          for: "category_" + valueArr[0],
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.trans("vacancies", valueArr[1])
+                                          )
+                                        ),
+                                      ]
+                                    ),
+                                  ])
+                                }),
+                                0
+                              ),
+                            ]
+                          }
+                        ),
+                      ],
+                      2
+                    ),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "invalid-feedback",
+                  class: {
+                    "is-invalid visible":
+                      !this.objCategory.categories.length &&
+                      this.objCategory.boolChecked == true,
+                  },
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.trans("vacancies", "least_category")) +
+                      "\n                    "
+                  ),
+                ]
+              ),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "div",
+            {
+              staticClass: "form-group",
+              class: {
+                border_error:
+                  !this.objSuitable.suitable.length &&
+                  this.objSuitable.boolSuitable == true,
+              },
+            },
+            [
+              _c("label", { attrs: { for: "vacancy_suitable" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { attrs: { id: "vacancy_suitable" } },
+                [
+                  _vm._l(this.settings.vacancy_suitable, function (value, key) {
+                    return [
+                      key < 5
+                        ? [
+                            _c("div", [
+                              _c("input", {
+                                staticClass: "form-check-input",
+                                attrs: {
+                                  name: "vacancy_suitable",
+                                  type: "checkbox",
+                                  id: "vacancy_suitable_" + key,
+                                },
+                                domProps: { value: "" + key },
+                                on: { change: _vm.vacancySuitable },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                { attrs: { for: "vacancy_suitable_" + key } },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(_vm.trans("vacancies", value)) +
+                                      "\n                                    "
+                                  ),
+                                ]
+                              ),
+                            ]),
+                          ]
+                        : [
+                            _vm.objSuitable.suitable.indexOf("4") != -1
+                              ? _c("div", [
                                   _c(
                                     "label",
-                                    {
-                                      attrs: { for: "vacancy_suitable_" + key },
-                                    },
+                                    { attrs: { for: "commentary_age" } },
                                     [
                                       _vm._v(
                                         "\n                                        " +
@@ -44308,181 +44610,784 @@ var render = function () {
                                       ),
                                     ]
                                   ),
-                                ]),
-                              ]
-                            : [
-                                _vm.objSuitable.suitable.indexOf("4") != -1
-                                  ? _c("div", [
-                                      _c(
-                                        "label",
-                                        { attrs: { for: "commentary_age" } },
-                                        [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(
-                                                _vm.trans("vacancies", value)
-                                              ) +
-                                              "\n                                    "
-                                          ),
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value:
-                                              _vm.objSuitable.commentary_age,
-                                            expression:
-                                              "objSuitable.commentary_age",
-                                          },
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: {
-                                          type: "text",
-                                          id: "commentary_age",
-                                          maxlength: "100",
-                                          placeholder:
-                                            "" +
-                                            _vm.trans(
-                                              "vacancies",
-                                              "data_entry"
-                                            ),
-                                        },
-                                        domProps: {
-                                          value: _vm.objSuitable.commentary_age,
-                                        },
-                                        on: {
-                                          input: function ($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              _vm.objSuitable,
-                                              "commentary_age",
-                                              $event.target.value
-                                            )
-                                          },
-                                        },
-                                      }),
-                                    ])
-                                  : _vm._e(),
-                              ],
-                        ]
-                      }
-                    ),
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "invalid-feedback",
-                    class: {
-                      "is-invalid visible":
-                        !this.objSuitable.suitable.length &&
-                        this.objSuitable.boolSuitable == true,
-                    },
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans("vacancies", "age_group")) +
-                        "\n                    "
-                    ),
-                  ]
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "type_employment" } }, [
-                _vm._v(_vm._s(_vm.trans("vacancies", "type_employment"))),
-              ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.objSuitable.commentary_age,
+                                        expression:
+                                          "objSuitable.commentary_age",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      id: "commentary_age",
+                                      maxlength: "100",
+                                      placeholder:
+                                        "" +
+                                        _vm.trans("vacancies", "data_entry"),
+                                    },
+                                    domProps: {
+                                      value: _vm.objSuitable.commentary_age,
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.objSuitable,
+                                          "commentary_age",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                ])
+                              : _vm._e(),
+                          ],
+                    ]
+                  }),
+                ],
+                2
+              ),
               _vm._v(" "),
               _c(
                 "div",
-                { attrs: { id: "type_employment" } },
-                _vm._l(this.settings.type_employment, function (value, key) {
-                  return _c(
-                    "div",
-                    { key: key, staticClass: "icheck-primary" },
-                    [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.type_employment,
-                            expression: "type_employment",
-                          },
-                        ],
-                        attrs: {
-                          type: "radio",
-                          name: "type_employment",
-                          id: "radio_primary_" + key,
-                        },
-                        domProps: {
-                          value: "" + key,
-                          checked: _vm._q(_vm.type_employment, "" + key),
-                        },
-                        on: {
-                          change: function ($event) {
-                            _vm.type_employment = "" + key
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "radio_primary_" + key } }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                            "
-                        ),
-                      ]),
-                    ]
-                  )
-                }),
-                0
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "form-group",
-                class: { border_error: this.objSalary.switchSalary },
-              },
-              [
-                _c("label", { attrs: { for: "salary_accordion" } }, [
+                {
+                  staticClass: "invalid-feedback",
+                  class: {
+                    "is-invalid visible":
+                      !this.objSuitable.suitable.length &&
+                      this.objSuitable.boolSuitable == true,
+                  },
+                },
+                [
                   _vm._v(
                     "\n                        " +
-                      _vm._s(_vm.trans("vacancies", "salary")) +
-                      "\n                        "
+                      _vm._s(_vm.trans("vacancies", "age_group")) +
+                      "\n                    "
                   ),
-                  _c("span", { staticClass: "mandatory-filling" }, [
+                ]
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "type_employment" } }, [
+              _vm._v(_vm._s(_vm.trans("vacancies", "type_employment"))),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "type_employment" } },
+              _vm._l(this.settings.type_employment, function (value, key) {
+                return _c("div", { key: key, staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type_employment,
+                        expression: "type_employment",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      name: "type_employment",
+                      id: "radio_primary_" + key,
+                    },
+                    domProps: {
+                      value: "" + key,
+                      checked: _vm._q(_vm.type_employment, "" + key),
+                    },
+                    on: {
+                      change: function ($event) {
+                        _vm.type_employment = "" + key
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "radio_primary_" + key } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.trans("vacancies", value)) +
+                        "\n                            "
+                    ),
+                  ]),
+                ])
+              }),
+              0
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "div",
+            {
+              staticClass: "form-group",
+              class: { border_error: this.objSalary.switchSalary },
+            },
+            [
+              _c("label", { attrs: { for: "salary_accordion" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("vacancies", "salary")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        viewBox: "0 0 512 512",
+                        xmlns: "http://www.w3.org/2000/svg",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "info-tooltip",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      "data-trigger": "click",
+                      title: "" + _vm.trans("vacancies", "title_salary"),
+                    },
+                  },
+                  [
                     _c(
                       "svg",
                       {
                         attrs: {
-                          viewBox: "0 0 512 512",
                           xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
                         },
                       },
                       [
                         _c("path", {
                           attrs: {
-                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                            d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
                           },
                         }),
                       ]
                     ),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { attrs: { id: "salary_accordion" } }, [
+                _c("div", { staticClass: "card" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card-header", attrs: { id: "headingOne" } },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "line_select",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#range",
+                            "aria-expanded": "true",
+                            "aria-controls": "collapseOne",
+                          },
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.objSalary.salary_but,
+                                expression: "objSalary.salary_but",
+                              },
+                            ],
+                            attrs: {
+                              type: "radio",
+                              id: "range_1",
+                              name: "salary_but",
+                              value: "range",
+                            },
+                            domProps: {
+                              checked: _vm._q(
+                                _vm.objSalary.salary_but,
+                                "range"
+                              ),
+                            },
+                            on: {
+                              change: [
+                                function ($event) {
+                                  return _vm.$set(
+                                    _vm.objSalary,
+                                    "salary_but",
+                                    "range"
+                                  )
+                                },
+                                _vm.checkSalary,
+                              ],
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("label", { attrs: { for: "range_1" } }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.trans("vacancies", "range")) +
+                                "\n                                    "
+                            ),
+                          ]),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "collapse show",
+                      attrs: {
+                        id: "range",
+                        "aria-labelledby": "headingOne",
+                        "data-parent": "#salary_accordion",
+                      },
+                    },
+                    [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.objSalary.salary_from,
+                              expression: "objSalary.salary_from",
+                            },
+                          ],
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "100000000",
+                            placeholder:
+                              "" +
+                              _vm.trans(
+                                "vacancies",
+                                this.settings.salary.range[0]
+                              ),
+                          },
+                          domProps: { value: _vm.objSalary.salary_from },
+                          on: {
+                            change: _vm.checkSalary,
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.objSalary,
+                                "salary_from",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(
+                          "\n                                    -\n                                    "
+                        ),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.objSalary.salary_to,
+                              expression: "objSalary.salary_to",
+                            },
+                          ],
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "100000000",
+                            placeholder:
+                              "" +
+                              _vm.trans(
+                                "vacancies",
+                                this.settings.salary.range[1]
+                              ),
+                          },
+                          domProps: { value: _vm.objSalary.salary_to },
+                          on: {
+                            blur: _vm.checkSalary,
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.objSalary,
+                                "salary_to",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm.trans("vacancies", "euro_per_month")) +
+                            "\n                                "
+                        ),
+                      ]),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card-header", attrs: { id: "headingTwo" } },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "line_select",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#single_value",
+                            "aria-expanded": "false",
+                            "aria-controls": "collapseTwo",
+                          },
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.objSalary.salary_but,
+                                expression: "objSalary.salary_but",
+                              },
+                            ],
+                            attrs: {
+                              type: "radio",
+                              id: "single_value1",
+                              name: "salary_but",
+                              value: "single_value",
+                            },
+                            domProps: {
+                              checked: _vm._q(
+                                _vm.objSalary.salary_but,
+                                "single_value"
+                              ),
+                            },
+                            on: {
+                              change: [
+                                function ($event) {
+                                  return _vm.$set(
+                                    _vm.objSalary,
+                                    "salary_but",
+                                    "single_value"
+                                  )
+                                },
+                                _vm.checkSalary,
+                              ],
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("label", { attrs: { for: "single_value1" } }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.trans("vacancies", "single_value")) +
+                                "\n                                    "
+                            ),
+                          ]),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "collapse",
+                      attrs: {
+                        id: "single_value",
+                        "aria-labelledby": "headingTwo",
+                        "data-parent": "#salary_accordion",
+                      },
+                    },
+                    [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.objSalary.salary_sum,
+                              expression: "objSalary.salary_sum",
+                            },
+                          ],
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "100000000",
+                            placeholder:
+                              "" +
+                              _vm.trans(
+                                "vacancies",
+                                this.settings.salary.single_value[0]
+                              ),
+                          },
+                          domProps: { value: _vm.objSalary.salary_sum },
+                          on: {
+                            change: _vm.checkSalary,
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.objSalary,
+                                "salary_sum",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm.trans("vacancies", "euro_per_month")) +
+                            "\n                                "
+                        ),
+                      ]),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "card-header",
+                      attrs: { id: "headingThree" },
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "line_select",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#dont_specify",
+                            "aria-expanded": "false",
+                            "aria-controls": "collapseThree",
+                          },
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.objSalary.salary_but,
+                                expression: "objSalary.salary_but",
+                              },
+                            ],
+                            attrs: {
+                              type: "radio",
+                              id: "dont_specify1",
+                              name: "salary_but",
+                              value: "dont_specify",
+                            },
+                            domProps: {
+                              checked: _vm._q(
+                                _vm.objSalary.salary_but,
+                                "dont_specify"
+                              ),
+                            },
+                            on: {
+                              change: [
+                                function ($event) {
+                                  return _vm.$set(
+                                    _vm.objSalary,
+                                    "salary_but",
+                                    "dont_specify"
+                                  )
+                                },
+                                _vm.checkSalary,
+                              ],
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("label", { attrs: { for: "dont_specify1" } }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.trans("vacancies", "dont_specify")) +
+                                "\n                                    "
+                            ),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(
+                        " (" +
+                          _vm._s(_vm.trans("vacancies", "not_recommended")) +
+                          ")\n                            "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "collapse",
+                      attrs: {
+                        id: "dont_specify",
+                        "aria-labelledby": "headingThree",
+                        "data-parent": "#salary_accordion",
+                      },
+                    },
+                    [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "bg-warning color-palette" }, [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(
+                                _vm.trans("vacancies", "get_more_responses")
+                              ) +
+                              "\n                                    "
+                          ),
+                        ]),
+                      ]),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "payroll_comment" } }, [
+                _vm._v(_vm._s(_vm.trans("vacancies", "salary_comment"))),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.objSalary.salary_comment,
+                    expression: "objSalary.salary_comment",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "payroll_comment",
+                  maxlength: "100",
+                  placeholder: "" + _vm.trans("vacancies", "data_entry"),
+                },
+                domProps: { value: _vm.objSalary.salary_comment },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.objSalary,
+                      "salary_comment",
+                      $event.target.value
+                    )
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "invalid-feedback",
+                  class: { "is-invalid visible": this.objSalary.switchSalary },
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.trans("vacancies", "salary_vacancy")) +
+                      "\n                    "
+                  ),
+                ]
+              ),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "work_experience" } }, [
+              _vm._v(_vm._s(_vm.trans("vacancies", "work_experience"))),
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.experience,
+                    expression: "experience",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { id: "work_experience" },
+                on: {
+                  change: function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.experience = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                },
+              },
+              [
+                _vm._l(this.settings.work_experience, function (value, key) {
+                  return [
+                    _c("option", { domProps: { value: "" + key } }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.trans("vacancies", value)) +
+                          "\n                            "
+                      ),
+                    ]),
+                  ]
+                }),
+              ],
+              2
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "education" } }, [
+              _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.education,
+                    expression: "education",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { id: "education" },
+                on: {
+                  change: function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.education = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                },
+              },
+              [
+                _vm._l(this.settings.education, function (value, key) {
+                  return [
+                    _c("option", { domProps: { value: "" + key } }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.trans("vacancies", value)) +
+                          "\n                            "
+                      ),
+                    ]),
+                  ]
+                }),
+              ],
+              2
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _vm.objLocations.load_cities
+          ? _c("div", { staticClass: "col-sm-4" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "checkbox-box" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.objCity.checkbox_city,
+                        expression: "objCity.checkbox_city",
+                      },
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { id: "checkbox_city", type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.objCity.checkbox_city)
+                        ? _vm._i(_vm.objCity.checkbox_city, null) > -1
+                        : _vm.objCity.checkbox_city,
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$a = _vm.objCity.checkbox_city,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.objCity,
+                                "checkbox_city",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.objCity,
+                                "checkbox_city",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.objCity, "checkbox_city", $$c)
+                        }
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "checkbox_city" } }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.trans("vacancies", "search_candidates")) +
+                        "\n                        "
+                    ),
                   ]),
                   _vm._v(" "),
                   _c(
@@ -44492,7 +45397,7 @@ var render = function () {
                       attrs: {
                         "data-toggle": "tooltip",
                         "data-trigger": "click",
-                        title: "" + _vm.trans("vacancies", "title_salary"),
+                        title: "" + _vm.trans("vacancies", "title_search_city"),
                       },
                     },
                     [
@@ -44516,923 +45421,94 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
-                _c("div", { attrs: { id: "salary_accordion" } }, [
-                  _c("div", { staticClass: "card" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "card-header",
-                        attrs: { id: "headingOne" },
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "line_select",
-                            attrs: {
-                              "data-toggle": "collapse",
-                              "data-target": "#range",
-                              "aria-expanded": "true",
-                              "aria-controls": "collapseOne",
-                            },
-                          },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.objSalary.salary_but,
-                                  expression: "objSalary.salary_but",
-                                },
-                              ],
-                              attrs: {
-                                type: "radio",
-                                name: "salary_but",
-                                id: "range_1",
-                                value: "range",
-                              },
-                              domProps: {
-                                checked: _vm._q(
-                                  _vm.objSalary.salary_but,
-                                  "range"
-                                ),
-                              },
-                              on: {
-                                change: [
-                                  function ($event) {
-                                    return _vm.$set(
-                                      _vm.objSalary,
-                                      "salary_but",
-                                      "range"
-                                    )
-                                  },
-                                  _vm.checkSalary,
-                                ],
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "range_1" } }, [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(_vm.trans("vacancies", "range")) +
-                                  "\n                                    "
-                              ),
-                            ]),
-                          ]
-                        ),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "collapse show",
-                        attrs: {
-                          id: "range",
-                          "aria-labelledby": "headingOne",
-                          "data-parent": "#salary_accordion",
-                        },
-                      },
-                      [
-                        _c("div", { staticClass: "card-body" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objSalary.salary_from,
-                                expression: "objSalary.salary_from",
-                              },
-                            ],
-                            attrs: {
-                              type: "number",
-                              min: "0",
-                              max: "100000000",
-                              placeholder:
-                                "" +
-                                _vm.trans(
-                                  "vacancies",
-                                  this.settings.salary.range[0]
-                                ),
-                            },
-                            domProps: { value: _vm.objSalary.salary_from },
-                            on: {
-                              change: _vm.checkSalary,
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objSalary,
-                                  "salary_from",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(
-                            "\n                                    -\n                                    "
-                          ),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objSalary.salary_to,
-                                expression: "objSalary.salary_to",
-                              },
-                            ],
-                            attrs: {
-                              type: "number",
-                              min: "0",
-                              max: "100000000",
-                              placeholder:
-                                "" +
-                                _vm.trans(
-                                  "vacancies",
-                                  this.settings.salary.range[1]
-                                ),
-                            },
-                            domProps: { value: _vm.objSalary.salary_to },
-                            on: {
-                              blur: _vm.checkSalary,
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objSalary,
-                                  "salary_to",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.trans("vacancies", "euro_per_month")) +
-                              "\n                                "
-                          ),
-                        ]),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "card-header",
-                        attrs: { id: "headingTwo" },
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "line_select",
-                            attrs: {
-                              "data-toggle": "collapse",
-                              "data-target": "#one_value",
-                              "aria-expanded": "false",
-                              "aria-controls": "collapseTwo",
-                            },
-                          },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.objSalary.salary_but,
-                                  expression: "objSalary.salary_but",
-                                },
-                              ],
-                              attrs: {
-                                type: "radio",
-                                id: "single_value",
-                                name: "salary_but",
-                                value: "single_value",
-                              },
-                              domProps: {
-                                checked: _vm._q(
-                                  _vm.objSalary.salary_but,
-                                  "single_value"
-                                ),
-                              },
-                              on: {
-                                change: [
-                                  function ($event) {
-                                    return _vm.$set(
-                                      _vm.objSalary,
-                                      "salary_but",
-                                      "single_value"
-                                    )
-                                  },
-                                  _vm.checkSalary,
-                                ],
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "single_value" } }, [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(
-                                    _vm.trans("vacancies", "single_value")
-                                  ) +
-                                  "\n                                    "
-                              ),
-                            ]),
-                          ]
-                        ),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "collapse",
-                        attrs: {
-                          id: "one_value",
-                          "aria-labelledby": "headingTwo",
-                          "data-parent": "#salary_accordion",
-                        },
-                      },
-                      [
-                        _c("div", { staticClass: "card-body" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objSalary.salary_sum,
-                                expression: "objSalary.salary_sum",
-                              },
-                            ],
-                            attrs: {
-                              type: "number",
-                              min: "0",
-                              max: "100000000",
-                              placeholder:
-                                "" +
-                                _vm.trans(
-                                  "vacancies",
-                                  this.settings.salary.single_value[0]
-                                ),
-                            },
-                            domProps: { value: _vm.objSalary.salary_sum },
-                            on: {
-                              change: _vm.checkSalary,
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objSalary,
-                                  "salary_sum",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.trans("vacancies", "euro_per_month")) +
-                              "\n                                "
-                          ),
-                        ]),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "card-header",
-                        attrs: { id: "headingThree" },
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "line_select",
-                            attrs: {
-                              "data-toggle": "collapse",
-                              "data-target": "#collapseThree",
-                              "aria-expanded": "false",
-                              "aria-controls": "collapseThree",
-                            },
-                          },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.objSalary.salary_but,
-                                  expression: "objSalary.salary_but",
-                                },
-                              ],
-                              attrs: {
-                                type: "radio",
-                                id: "salary_but3",
-                                name: "salary_but",
-                                value: "dont_specify",
-                              },
-                              domProps: {
-                                checked: _vm._q(
-                                  _vm.objSalary.salary_but,
-                                  "dont_specify"
-                                ),
-                              },
-                              on: {
-                                change: [
-                                  function ($event) {
-                                    return _vm.$set(
-                                      _vm.objSalary,
-                                      "salary_but",
-                                      "dont_specify"
-                                    )
-                                  },
-                                  _vm.checkSalary,
-                                ],
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "salary_but3" } }, [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(
-                                    _vm.trans("vacancies", "dont_specify")
-                                  ) +
-                                  "\n                                    "
-                              ),
-                            ]),
-                          ]
-                        ),
+                _vm.objCity.checkbox_city
+                  ? _c("div", { staticClass: "search-city" }, [
+                      _c("label", { attrs: { for: "search_city" } }, [
                         _vm._v(
-                          " (" +
-                            _vm._s(_vm.trans("vacancies", "not_recommended")) +
-                            ")\n                            "
+                          "\n                            " +
+                            _vm._s(_vm.trans("vacancies", "city_search")) +
+                            "\n                        "
                         ),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "collapse",
-                        attrs: {
-                          id: "collapseThree",
-                          "aria-labelledby": "headingThree",
-                          "data-parent": "#salary_accordion",
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          staticClass: "form-control select2",
+                          attrs: { id: "search_city" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.changeSelect2(
+                                $event.target.value,
+                                "search_city"
+                              )
+                            },
+                          },
                         },
-                      },
-                      [
-                        _c("div", { staticClass: "card-body" }, [
+                        [
                           _c(
-                            "div",
-                            { staticClass: "bg-warning color-palette" },
+                            "option",
+                            { attrs: { disabled: "disabled", selected: "" } },
                             [
                               _vm._v(
-                                "\n                                        " +
+                                "\n                                " +
                                   _vm._s(
-                                    _vm.trans("vacancies", "get_more_responses")
+                                    _vm.trans("vacancies", "select_search_city")
                                   ) +
-                                  "\n                                    "
+                                  "\n                            "
                               ),
                             ]
                           ),
-                        ]),
-                      ]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "payroll_comment" } }, [
-                  _vm._v(_vm._s(_vm.trans("vacancies", "salary_comment"))),
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.objSalary.salary_comment,
-                      expression: "objSalary.salary_comment",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "payroll_comment",
-                    maxlength: "100",
-                    placeholder: "" + _vm.trans("vacancies", "data_entry"),
-                  },
-                  domProps: { value: _vm.objSalary.salary_comment },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.objSalary,
-                        "salary_comment",
-                        $event.target.value
-                      )
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "invalid-feedback",
-                    class: {
-                      "is-invalid visible": this.objSalary.switchSalary,
-                    },
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans("vacancies", "salary_vacancy")) +
-                        "\n                    "
-                    ),
-                  ]
-                ),
-              ]
-            ),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "work_experience" } }, [
-                _vm._v(_vm._s(_vm.trans("vacancies", "work_experience"))),
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.experience,
-                      expression: "experience",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  attrs: { id: "work_experience" },
-                  on: {
-                    change: function ($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function (o) {
-                          return o.selected
-                        })
-                        .map(function (o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.experience = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    },
-                  },
-                },
-                [
-                  _vm._l(this.settings.work_experience, function (value, key) {
-                    return [
-                      _c("option", { domProps: { value: "" + key } }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                            "
-                        ),
-                      ]),
-                    ]
-                  }),
-                ],
-                2
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "education" } }, [
-                _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.education,
-                      expression: "education",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  attrs: { id: "education" },
-                  on: {
-                    change: function ($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function (o) {
-                          return o.selected
-                        })
-                        .map(function (o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.education = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    },
-                  },
-                },
-                [
-                  _vm._l(this.settings.education, function (value, key) {
-                    return [
-                      _c("option", { domProps: { value: "" + key } }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                            "
-                        ),
-                      ]),
-                    ]
-                  }),
-                ],
-                2
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _vm.objLocations.load_cities
-            ? _c("div", { staticClass: "col-sm-4" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("div", { staticClass: "checkbox-box" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.objCity.checkbox_city,
-                          expression: "objCity.checkbox_city",
-                        },
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: { id: "checkbox_city", type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.objCity.checkbox_city)
-                          ? _vm._i(_vm.objCity.checkbox_city, null) > -1
-                          : _vm.objCity.checkbox_city,
-                      },
-                      on: {
-                        change: function ($event) {
-                          var $$a = _vm.objCity.checkbox_city,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(
-                                  _vm.objCity,
-                                  "checkbox_city",
-                                  $$a.concat([$$v])
-                                )
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.objCity,
-                                  "checkbox_city",
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(_vm.objCity, "checkbox_city", $$c)
-                          }
-                        },
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "checkbox_city" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans("vacancies", "search_candidates")) +
-                          "\n                        "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        staticClass: "info-tooltip",
-                        attrs: {
-                          "data-toggle": "tooltip",
-                          "data-trigger": "click",
-                          title:
-                            "" + _vm.trans("vacancies", "title_search_city"),
-                        },
-                      },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 512 512",
-                            },
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
-                              },
-                            }),
-                          ]
-                        ),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _vm.objCity.checkbox_city
-                    ? _c("div", { staticClass: "search-city" }, [
-                        _c("label", { attrs: { for: "search_city" } }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.trans("vacancies", "city_search")) +
-                              "\n                        "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            staticClass: "form-control select2",
-                            attrs: { id: "search_city" },
-                            on: {
-                              change: function ($event) {
-                                return _vm.changeSelect2(
-                                  $event.target.value,
-                                  "search_city"
-                                )
-                              },
-                            },
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { disabled: "disabled", selected: "" } },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(
-                                      _vm.trans(
-                                        "vacancies",
-                                        "select_search_city"
-                                      )
-                                    ) +
-                                    "\n                            "
-                                ),
+                          _vm._v(" "),
+                          _vm._l(
+                            _vm.objLocations.load_cities,
+                            function (array, key) {
+                              return [
+                                _vm.objCity.search_city == array.code
+                                  ? [
+                                      _c(
+                                        "option",
+                                        {
+                                          key: key,
+                                          attrs: { selected: "" },
+                                          domProps: { value: array.code },
+                                        },
+                                        [_vm._v(_vm._s(array.name))]
+                                      ),
+                                    ]
+                                  : [
+                                      _c(
+                                        "option",
+                                        {
+                                          key: key,
+                                          domProps: { value: array.code },
+                                        },
+                                        [_vm._v(_vm._s(array.name))]
+                                      ),
+                                    ],
                               ]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(
-                              _vm.objLocations.load_cities,
-                              function (array, key) {
-                                return [
-                                  _c(
-                                    "option",
-                                    {
-                                      key: key,
-                                      domProps: { value: array.code },
-                                    },
-                                    [_vm._v(_vm._s(array.name))]
-                                  ),
-                                ]
-                              }
-                            ),
-                          ],
-                          2
-                        ),
-                      ])
-                    : _vm._e(),
-                ]),
-              ])
-            : _vm._e(),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.trans("vacancies", "requirements_candidate")) +
-                      "\n                        "
-                  ),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "info-tooltip",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-trigger": "click",
-                        title:
-                          "" +
-                          _vm.trans(
-                            "vacancies",
-                            "title_requirements_candidate"
+                            }
                           ),
-                      },
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
-                            },
-                          }),
-                        ]
+                        ],
+                        2
                       ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ckeditor", {
-                  attrs: {
-                    id: "requirements_candidate",
-                    config: _vm.objTextarea.editorConfig,
-                  },
-                  model: {
-                    value: _vm.objTextarea.textarea_candidate,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.objTextarea, "textarea_candidate", $$v)
-                    },
-                    expression: "objTextarea.textarea_candidate",
-                  },
-                }),
-              ],
-              1
-            ),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.trans("vacancies", "work_conditions")) +
-                      "\n                        "
-                  ),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "info-tooltip",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-trigger": "click",
-                        title:
-                          "" +
-                          _vm.trans("vacancies", "title_working_conditions"),
-                      },
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
-                            },
-                          }),
-                        ]
-                      ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ckeditor", {
-                  attrs: {
-                    id: "working_conditions",
-                    config: _vm.objTextarea.editorConfig,
-                  },
-                  model: {
-                    value: _vm.objTextarea.textarea_conditions,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.objTextarea, "textarea_conditions", $$v)
-                    },
-                    expression: "objTextarea.textarea_conditions",
-                  },
-                }),
-              ],
-              1
-            ),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(
-                        _vm.trans("vacancies", "candidate_responsibilities")
-                      ) +
-                      "\n                        "
-                  ),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "info-tooltip",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-trigger": "click",
-                        title:
-                          "" + _vm.trans("vacancies", "title_candidate_resp"),
-                      },
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 512 512",
-                          },
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
-                            },
-                          }),
-                        ]
-                      ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ckeditor", {
-                  attrs: {
-                    id: "candidate_responsibilities",
-                    config: _vm.objTextarea.editorConfig,
-                  },
-                  model: {
-                    value: _vm.objTextarea.textarea_responsibilities,
-                    callback: function ($$v) {
-                      _vm.$set(
-                        _vm.objTextarea,
-                        "textarea_responsibilities",
-                        $$v
-                      )
-                    },
-                    expression: "objTextarea.textarea_responsibilities",
-                  },
-                }),
-              ],
-              1
-            ),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
+                    ])
+                  : _vm._e(),
+              ]),
+            ])
+          : _vm._e(),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
               _c("label", [
                 _vm._v(
                   "\n                        " +
-                    _vm._s(_vm.trans("vacancies", "display_employer_jobs")) +
+                    _vm._s(_vm.trans("vacancies", "requirements_candidate")) +
                     "\n                        "
                 ),
                 _c(
@@ -45443,7 +45519,8 @@ var render = function () {
                       "data-toggle": "tooltip",
                       "data-trigger": "click",
                       title:
-                        "" + _vm.trans("vacancies", "title_display_employer"),
+                        "" +
+                        _vm.trans("vacancies", "title_requirements_candidate"),
                     },
                   },
                   [
@@ -45467,43 +45544,30 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { attrs: { id: "disp_emp_cont_vacancy" } },
-                _vm._l(
-                  this.settings.contact_information,
-                  function (value, key) {
-                    return _c("div", { key: key }, [
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          name: "disp_emp_cont_vacancy",
-                          type: "checkbox",
-                          id: "disp_emp_cont_vacancy_" + key,
-                        },
-                        domProps: { value: "" + key },
-                        on: { change: _vm.displayingEmployers },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        { attrs: { for: "disp_emp_cont_vacancy_" + key } },
-                        [_vm._v(_vm._s(value))]
-                      ),
-                    ])
-                  }
-                ),
-                0
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "how_respond" } }, [
+              _c("ckeditor", {
+                attrs: { config: _vm.objTextarea.editorConfig1 },
+                model: {
+                  value: _vm.objTextarea.textarea_candidate,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.objTextarea, "textarea_candidate", $$v)
+                  },
+                  expression: "objTextarea.textarea_candidate",
+                },
+              }),
+            ],
+            1
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", [
                 _vm._v(
                   "\n                        " +
-                    _vm._s(_vm.trans("vacancies", "how_can_apply")) +
+                    _vm._s(_vm.trans("vacancies", "work_conditions")) +
                     "\n                        "
                 ),
                 _c(
@@ -45513,7 +45577,8 @@ var render = function () {
                     attrs: {
                       "data-toggle": "tooltip",
                       "data-trigger": "click",
-                      title: "" + _vm.trans("vacancies", "title_how_respond"),
+                      title:
+                        "" + _vm.trans("vacancies", "title_working_conditions"),
                     },
                   },
                   [
@@ -45537,60 +45602,32 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { attrs: { id: "how_respond" } },
-                _vm._l(this.settings.how_respond, function (value, key) {
-                  return _c(
-                    "div",
-                    { key: key, staticClass: "icheck-primary" },
-                    [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.how_respond,
-                            expression: "how_respond",
-                          },
-                        ],
-                        attrs: {
-                          type: "radio",
-                          name: "how_respond",
-                          id: "how_respond_" + key,
-                        },
-                        domProps: {
-                          value: "" + key,
-                          checked: _vm._q(_vm.how_respond, "" + key),
-                        },
-                        on: {
-                          change: function ($event) {
-                            _vm.how_respond = "" + key
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "how_respond_" + key } }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                            "
-                        ),
-                      ]),
-                    ]
-                  )
-                }),
-                0
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "job_posting" } }, [
+              _c("ckeditor", {
+                attrs: { config: _vm.objTextarea.editorConfig2 },
+                model: {
+                  value: _vm.objTextarea.textarea_conditions,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.objTextarea, "textarea_conditions", $$v)
+                  },
+                  expression: "objTextarea.textarea_conditions",
+                },
+              }),
+            ],
+            1
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", [
                 _vm._v(
                   "\n                        " +
-                    _vm._s(_vm.trans("vacancies", "posting_job")) +
+                    _vm._s(
+                      _vm.trans("vacancies", "candidate_responsibilities")
+                    ) +
                     "\n                        "
                 ),
                 _c(
@@ -45600,7 +45637,8 @@ var render = function () {
                     attrs: {
                       "data-toggle": "tooltip",
                       "data-trigger": "click",
-                      title: "" + _vm.trans("vacancies", "title_job_posting"),
+                      title:
+                        "" + _vm.trans("vacancies", "title_candidate_resp"),
                     },
                   },
                   [
@@ -45624,57 +45662,263 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
+              _c("ckeditor", {
+                attrs: { config: _vm.objTextarea.editorConfig3 },
+                model: {
+                  value: _vm.objTextarea.textarea_responsibilities,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.objTextarea, "textarea_responsibilities", $$v)
+                  },
+                  expression: "objTextarea.textarea_responsibilities",
+                },
+              }),
+            ],
+            1
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.trans("vacancies", "display_employer_jobs")) +
+                  "\n                        "
+              ),
               _c(
-                "div",
-                { attrs: { id: "job_posting" } },
-                _vm._l(this.settings.job_status, function (value, key) {
-                  return _c(
-                    "div",
-                    { key: key, staticClass: "icheck-primary" },
+                "span",
+                {
+                  staticClass: "info-tooltip",
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-trigger": "click",
+                    title:
+                      "" + _vm.trans("vacancies", "title_display_employer"),
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
                     [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.job_posting,
-                            expression: "job_posting",
-                          },
-                        ],
+                      _c("path", {
                         attrs: {
-                          type: "radio",
-                          name: "job_posting",
-                          id: "job_posting_" + key,
-                        },
-                        domProps: {
-                          value: "" + key,
-                          checked: _vm._q(_vm.job_posting, "" + key),
-                        },
-                        on: {
-                          change: function ($event) {
-                            _vm.job_posting = "" + key
-                          },
+                          d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "job_posting_" + key } }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.trans("vacancies", value)) +
-                            "\n                            "
-                        ),
-                      ]),
                     ]
-                  )
-                }),
-                0
+                  ),
+                ]
               ),
             ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "disp_emp_cont_vacancy" } },
+              _vm._l(this.settings.contact_information, function (value, key) {
+                return _c("div", { key: key }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: {
+                      name: "disp_emp_cont_vacancy",
+                      type: "checkbox",
+                      id: "disp_emp_cont_vacancy_" + key,
+                    },
+                    domProps: { value: "" + key },
+                    on: { change: _vm.displayingEmployers },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: "disp_emp_cont_vacancy_" + key } },
+                    [_vm._v(_vm._s(value))]
+                  ),
+                ])
+              }),
+              0
+            ),
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row footer-form" }, [
-          _c("div", { staticClass: "col-sm-4 offset-4 but-box" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "how_respond" } }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.trans("vacancies", "how_can_apply")) +
+                  "\n                        "
+              ),
+              _c(
+                "span",
+                {
+                  staticClass: "info-tooltip",
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-trigger": "click",
+                    title: "" + _vm.trans("vacancies", "title_how_respond"),
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "how_respond" } },
+              _vm._l(this.settings.how_respond, function (value, key) {
+                return _c("div", { key: key, staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.how_respond,
+                        expression: "how_respond",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      name: "how_respond",
+                      id: "how_respond_" + key,
+                    },
+                    domProps: {
+                      value: "" + key,
+                      checked: _vm._q(_vm.how_respond, "" + key),
+                    },
+                    on: {
+                      change: function ($event) {
+                        _vm.how_respond = "" + key
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "how_respond_" + key } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.trans("vacancies", value)) +
+                        "\n                            "
+                    ),
+                  ]),
+                ])
+              }),
+              0
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "job_posting" } }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.trans("vacancies", "posting_job")) +
+                  "\n                        "
+              ),
+              _c(
+                "span",
+                {
+                  staticClass: "info-tooltip",
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-trigger": "click",
+                    title: "" + _vm.trans("vacancies", "title_job_posting"),
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "job_posting" } },
+              _vm._l(this.settings.job_status, function (value, key) {
+                return _c("div", { key: key, staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.job_posting,
+                        expression: "job_posting",
+                      },
+                    ],
+                    attrs: {
+                      type: "radio",
+                      name: "job_posting",
+                      id: "job_posting_" + key,
+                    },
+                    domProps: {
+                      value: "" + key,
+                      checked: _vm._q(_vm.job_posting, "" + key),
+                    },
+                    on: {
+                      change: function ($event) {
+                        _vm.job_posting = "" + key
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "job_posting_" + key } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.trans("vacancies", value)) +
+                        "\n                            "
+                    ),
+                  ]),
+                ])
+              }),
+              0
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row footer-form" }, [
+        _c(
+          "div",
+          { staticClass: "col-sm-4 offset-4 but-box" },
+          [
             _c(
               "button",
               {
@@ -45690,25 +45934,62 @@ var render = function () {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-block btn-primary btn-lg",
-                class: { disabled: _vm.disableButton(_vm.$v) },
-                attrs: { type: "submit", disabled: _vm.disableButton(_vm.$v) },
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans("vacancies", "save")) +
-                    "\n                "
-                ),
-              ]
-            ),
-          ]),
-        ]),
-      ]
-    ),
+            _vm.vacancy_id == 0
+              ? [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-block btn-primary btn-lg",
+                      class: { disabled: _vm.disableButton(_vm.$v) },
+                      attrs: {
+                        type: "submit",
+                        disabled: _vm.disableButton(_vm.$v),
+                      },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.createVacancy.apply(null, arguments)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans("vacancies", "save")) +
+                          "\n                    "
+                      ),
+                    ]
+                  ),
+                ]
+              : [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-block btn-primary btn-lg",
+                      class: { disabled: _vm.disableButton(_vm.$v) },
+                      attrs: {
+                        type: "submit",
+                        disabled: _vm.disableButton(_vm.$v),
+                      },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.updateVacancy.apply(null, arguments)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Изменить\n                    "
+                      ),
+                    ]
+                  ),
+                ],
+          ],
+          2
+        ),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -45865,7 +46146,96 @@ var render = function () {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm._m(1, true),
+              _c("div", { staticClass: "btn-group dropleft" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary dropdown-toggle",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "dropdown",
+                      "aria-haspopup": "true",
+                      "aria-expanded": "false",
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Функции\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "dropdown-menu" }, [
+                  objVacancy.job_posting.status_name == "standard"
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.changeStatus(objVacancy.id, 1)
+                            },
+                          },
+                        },
+                        [_vm._v("Скрыть")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  objVacancy.job_posting.status_name == "standard"
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.changeStatus(objVacancy.id, 0)
+                            },
+                          },
+                        },
+                        [_vm._v("Обновить")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "/vacancy/" + objVacancy.id + "/edit" },
+                    },
+                    [_vm._v("Редактировать")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.duplicateVacancy(objVacancy.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Скопировать")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.deleteVacancy(objVacancy.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Удалить")]
+                  ),
+                ]),
+              ]),
             ]),
           ]),
         ])
@@ -45883,46 +46253,6 @@ var staticRenderFns = [
       _c("a", { attrs: { href: "#" } }, [
         _c("div", { staticClass: "response-num" }, [_vm._v("0")]),
         _vm._v("\n                    откликов\n                "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group dropleft" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary dropdown-toggle",
-          attrs: {
-            type: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false",
-          },
-        },
-        [_vm._v("\n                        Action\n                    ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown-menu" }, [
-        _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-          _vm._v("Action"),
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-          _vm._v("Another action"),
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-          _vm._v("Something else here"),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-divider" }),
-        _vm._v(" "),
-        _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-          _vm._v("Separated link"),
-        ]),
       ]),
     ])
   },
@@ -62315,7 +62645,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee2);
     }))();
   },
-  patch: function patch(url) {
+  destroy: function destroy(url) {
     var _arguments3 = arguments;
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
       var data, headers;
@@ -62326,7 +62656,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               data = _arguments3.length > 1 && _arguments3[1] !== undefined ? _arguments3[1] : {};
               headers = _arguments3.length > 2 && _arguments3[2] !== undefined ? _arguments3[2] : {};
               _context3.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch(url, data, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](url, data, {
                 headers: headers
               });
 
@@ -62339,6 +62669,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee3);
+    }))();
+  },
+  put: function put(url) {
+    var _arguments4 = arguments;
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var data, headers;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              data = _arguments4.length > 1 && _arguments4[1] !== undefined ? _arguments4[1] : {};
+              headers = _arguments4.length > 2 && _arguments4[2] !== undefined ? _arguments4[2] : {};
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, data, {
+                headers: headers
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
     }))();
   }
 });

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Vacancy;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVacancyRequest extends FormRequest
+class UpdateVacancyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,12 @@ class StoreVacancyRequest extends FormRequest
         return true;
     }
 
+    public function all($keys = null) {
+        $data = parent::all($keys);
+        $data['id'] = $this->route('vacancy');
+        return $data;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +30,7 @@ class StoreVacancyRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required|integer|exists:vacancies,id',
             'position' => 'required|string|max:255',
             'categories' => 'sometimes|array',
             'categories.*' => 'integer',

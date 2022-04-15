@@ -21,6 +21,7 @@
     <create-vacancy-component
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
+        :vacancy="{{isset($vacancy) ? json_encode($vacancy) : json_encode(null)}}"
     ></create-vacancy-component>
 
 </div>

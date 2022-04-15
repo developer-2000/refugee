@@ -1,7 +1,7 @@
 <template>
     <div class="forms create-page">
         <h1 class="title_page card-body">{{trans('vacancies','create_job')}}</h1>
-        <form @submit.prevent="createVacancy" action="" method="post">
+        <form action="" method="post">
 
             <!-- первый row -->
             <div class="row">
@@ -52,7 +52,13 @@
                                 {{trans('vacancies','select_country')}}
                             </option>
                             <template v-for="(array, key) in objLocations.load_countries">
-                                <option :value="array.code" :key="key">{{array.name}}</option>
+                                <!-- в случае редиктирования -->
+                                <template v-if="objLocations.country == array.code" >
+                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                </template>
                             </template>
                         </select>
                     </div>
@@ -70,9 +76,14 @@
                             <option disabled="disabled" selected>
                                 {{trans('vacancies','select_region')}}
                             </option>
-                            <template
-                                v-for="(array, key) in objLocations.load_regions">
-                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            <template v-for="(array, key) in objLocations.load_regions">
+                                <!-- в случае редиктирования -->
+                                <template v-if="objLocations.region == array.code" >
+                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                </template>
                             </template>
                         </select>
                     </div>
@@ -90,9 +101,14 @@
                             <option disabled="disabled" selected>
                                 {{trans('vacancies','select_city')}}
                             </option>
-                            <template
-                                v-for="(array, key) in objLocations.load_cities">
-                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            <template v-for="(array, key) in objLocations.load_cities">
+                                <!-- в случае редиктирования -->
+                                <template v-if="objLocations.city == array.code" >
+                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                </template>
                             </template>
                         </select>
                     </div>
@@ -138,11 +154,11 @@
                                         <div class="col-xl">
                                             <div v-for="(valueArr, key2) in array" :key="key2">
                                                 <input @change="checkCategory" class="form-check-input" name="category"
-                                                       :id="`category_${key}_${key2}`"
+                                                       :id="`category_${valueArr[0]}`"
                                                        type="checkbox"
                                                        :value="valueArr[0]"
                                                 >
-                                                <label :for="`category_${key}_${key2}`">{{trans('vacancies',valueArr[1])}}</label>
+                                                <label :for="`category_${valueArr[0]}`">{{trans('vacancies',valueArr[1])}}</label>
                                             </div>
                                         </div>
                                     </template>
@@ -237,8 +253,7 @@
                                 <!-- radio -->
                                 <div class="card-header" id="headingOne">
                                     <div class="line_select" data-toggle="collapse" data-target="#range" aria-expanded="true" aria-controls="collapseOne">
-                                        <input type="radio" name="salary_but" id="range_1"
-                                               value="range"
+                                        <input type="radio" id="range_1" name="salary_but" value="range"
                                                v-model="objSalary.salary_but"
                                                @change="checkSalary"
                                         >
@@ -269,19 +284,18 @@
                             <div class="card">
                                 <!-- radio -->
                                 <div class="card-header" id="headingTwo">
-                                    <div class="line_select" data-toggle="collapse" data-target="#one_value" aria-expanded="false" aria-controls="collapseTwo">
-                                        <input type="radio" id="single_value" name="salary_but"
-                                               value="single_value"
+                                    <div class="line_select" data-toggle="collapse" data-target="#single_value" aria-expanded="false" aria-controls="collapseTwo">
+                                        <input type="radio" id="single_value1" name="salary_but" value="single_value"
                                                v-model="objSalary.salary_but"
                                                @change="checkSalary"
                                         >
-                                        <label for="single_value">
+                                        <label for="single_value1">
                                             {{trans('vacancies','single_value')}}
                                         </label>
                                     </div>
                                 </div>
                                 <!-- number -->
-                                <div id="one_value" class="collapse" aria-labelledby="headingTwo" data-parent="#salary_accordion">
+                                <div id="single_value" class="collapse" aria-labelledby="headingTwo" data-parent="#salary_accordion">
                                     <div class="card-body">
                                         <input type="number" min="0" max="100000000"
                                                :placeholder="`${trans('vacancies',this.settings.salary.single_value[0])}`"
@@ -296,18 +310,17 @@
                             <div class="card">
                                 <!-- radio -->
                                 <div class="card-header" id="headingThree">
-                                    <div class="line_select" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        <input type="radio" id="salary_but3" name="salary_but"
-                                               value="dont_specify"
+                                    <div class="line_select" data-toggle="collapse" data-target="#dont_specify" aria-expanded="false" aria-controls="collapseThree">
+                                        <input type="radio" id="dont_specify1" name="salary_but" value="dont_specify"
                                                v-model="objSalary.salary_but"
                                                @change="checkSalary"
                                         >
-                                        <label for="salary_but3">
+                                        <label for="dont_specify1">
                                             {{trans('vacancies','dont_specify')}}
                                         </label>
                                     </div> ({{trans('vacancies','not_recommended')}})
                                 </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#salary_accordion">
+                                <div id="dont_specify" class="collapse" aria-labelledby="headingThree" data-parent="#salary_accordion">
                                     <div class="card-body">
                                         <div class="bg-warning color-palette">
                                             {{trans('vacancies','get_more_responses')}}
@@ -389,7 +402,13 @@
                                     {{trans('vacancies','select_search_city')}}
                                 </option>
                                 <template v-for="(array, key) in objLocations.load_cities">
-                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                    <!-- в случае редиктирования -->
+                                    <template v-if="objCity.search_city == array.code" >
+                                        <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                    </template>
+                                    <template v-else>
+                                        <option :value="array.code" :key="key">{{array.name}}</option>
+                                    </template>
                                 </template>
                             </select>
                         </div>
@@ -410,9 +429,8 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
-                        <ckeditor id="requirements_candidate"
-                                  v-model="objTextarea.textarea_candidate"
-                                  :config="objTextarea.editorConfig"
+                        <ckeditor v-model="objTextarea.textarea_candidate"
+                                  :config="objTextarea.editorConfig1"
                         ></ckeditor>
                     </div>
                 </div>
@@ -427,9 +445,8 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
-                        <ckeditor id="working_conditions"
-                                  v-model="objTextarea.textarea_conditions"
-                                  :config="objTextarea.editorConfig"
+                        <ckeditor v-model="objTextarea.textarea_conditions"
+                                  :config="objTextarea.editorConfig2"
                         ></ckeditor>
                     </div>
                 </div>
@@ -444,9 +461,8 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
-                        <ckeditor id="candidate_responsibilities"
-                                  v-model="objTextarea.textarea_responsibilities"
-                                  :config="objTextarea.editorConfig"
+                        <ckeditor v-model="objTextarea.textarea_responsibilities"
+                                  :config="objTextarea.editorConfig3"
                         ></ckeditor>
                     </div>
                 </div>
@@ -537,12 +553,26 @@
                     <button type="submit" class="btn btn-block btn-outline-danger">
                         {{trans('vacancies','cancel')}}
                     </button>
-                    <button type="submit" class="btn btn-block btn-primary btn-lg"
-                            :class="{'disabled': disableButton($v)}"
-                            :disabled="disableButton($v)"
-                    >
-                        {{trans('vacancies','save')}}
-                    </button>
+                    <!-- button create -->
+                    <template v-if="vacancy_id == 0">
+                        <button type="submit" class="btn btn-block btn-primary btn-lg"
+                                :class="{'disabled': disableButton($v)}"
+                                :disabled="disableButton($v)"
+                                @click.prevent="createVacancy"
+                        >
+                            {{trans('vacancies','save')}}
+                        </button>
+                    </template>
+                    <!-- button update -->
+                    <template v-else>
+                        <button type="submit" class="btn btn-block btn-primary btn-lg"
+                                :class="{'disabled': disableButton($v)}"
+                                :disabled="disableButton($v)"
+                                @click.prevent="updateVacancy"
+                        >
+                            Изменить
+                        </button>
+                    </template>
                 </div>
             </div>
         </form>
@@ -561,6 +591,7 @@
         ],
         data() {
             return {
+                vacancy_id: 0,
                 position: '',
                 position_list: [],
                 rest_address: null,
@@ -600,7 +631,17 @@
                     textarea_responsibilities: '',
                     textarea_conditions: '',
                     textarea_candidate: '',
-                    editorConfig: {
+                    editorConfig1: {
+                        toolbar: [
+                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
+                        ],
+                    },
+                    editorConfig2: {
+                        toolbar: [
+                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
+                        ],
+                    },
+                    editorConfig3: {
                         toolbar: [
                             [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
                         ],
@@ -653,7 +694,7 @@
             },
             async loadCity(){
                 let data = {
-                    region_code: this.objLocations.region,
+                    region_code: ''+this.objLocations.region,
                 };
                 const response = await this.$http.post(`/localisation/get-city`, data)
                     .then(res => {
@@ -687,7 +728,6 @@
                             // вернет только опубликованные
                             if(res.data.message.position.length){
                                 this.position_list = res.data.message.position
-                                // $('#position_list').dropdown('show')
                                 $('#position_list').addClass('show')
                             }
                             else{
@@ -705,6 +745,12 @@
                     })
             },
             async createVacancy(){
+                // выровнять последнее число по первому если оно меньше
+                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
+                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
+                        this.objSalary.salary_to = this.objSalary.salary_from
+                    }
+                }
                 let data = {
                     position: this.position,
                     categories: this.objCategory.categories,
@@ -727,15 +773,63 @@
                     text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
                     text_working: this.objTextarea.textarea_conditions,                 // Условия работы
                     text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
-                    contacts_list: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
+                    contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
+                    how_respond: this.how_respond,                                      // Как можно откликнуться
+                    job_posting: this.job_posting,                                      // Размещение вакансии
+                };
+                const response = await this.$http.post(`/vacancy`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.href = '/vacancy/my-vacancies'
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            async updateVacancy(){
+                // выровнять последнее число по первому если оно меньше
+                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
+                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
+                        this.objSalary.salary_to = this.objSalary.salary_from
+                    }
+                }
+                let data = {
+                    position: this.position,
+                    categories: this.objCategory.categories,
+                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+                    rest_address: this.rest_address,
+                    vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
+                    commentary_age: this.objSuitable.commentary_age,
+                    type_employment: this.type_employment,              // Вид занятости
+                    salary_but: this.objSalary.salary_but,              // Зарплата
+                    salary_from: this.objSalary.salary_from,
+                    salary_to: this.objSalary.salary_to,
+                    salary_sum: this.objSalary.salary_sum,
+                    salary_comment: this.objSalary.salary_comment,
+                    experience: this.experience,                        // Опыт работы
+                    education: this.education,                          // Образование
+                    checkbox_city: this.objCity.checkbox_city,          // Город для поиска
+                    search_city: this.objCity.search_city,
+                    text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
+                    text_working: this.objTextarea.textarea_conditions,                 // Условия работы
+                    text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
+                    contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
                     how_respond: this.how_respond,                                      // Как можно откликнуться
                     job_posting: this.job_posting,                                      // Размещение вакансии
                 };
 
-                const response = await this.$http.post(`/vacancy`, data)
+                const response = await this.$http.put(`/vacancy/`+this.vacancy_id, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // location.href = '/'
+                            location.href = '/vacancy/my-vacancies'
                         }
                         // custom ошибки
                         else{
@@ -775,12 +869,6 @@
                 this.objCategory.categories = selected;
             },
             checkSalary() {
-                // выровнять последнее число по первому если оно меньше
-                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
-                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
-                        this.objSalary.salary_to = this.objSalary.salary_from
-                    }
-                }
                 // если выбран сектор а поля не заполнены
                 if(
                     (this.objSalary.salary_but == "range" &&
@@ -826,16 +914,6 @@
                     this.objCategory.categoriesArray[(tick-1)].push([index, value]);
                 });
             },
-            initializationFunc() {
-                this.createArrayCategories()
-                this.objLocations.load_countries = this.settings.obj_countries
-                // страна
-                $('#country').on('select2:select', (e) => {
-                    this.clearLocation()
-                    this.objLocations.country = e.params.data.id
-                    this.loadRegions();
-                })
-            },
             clearLocation(value) {
                 switch (value) {
                     case 'load_cities':
@@ -870,17 +948,101 @@
                 }
 
                 return !obj.length ? null : obj
-            }
+            },
+            // в случае редактирования вакансии
+            giveValuesFields(){
+                if(this.vacancy == null){
+                    return false
+                }
+
+                this.vacancy_id = this.vacancy.id
+                this.position = this.vacancy.position.title
+                this.objCategory.categories = this.vacancy.categories
+                var input = '';
+                for(let i=0; i<this.objCategory.categories.length; i++) {
+                    input = document.querySelector('#category_'+this.objCategory.categories[i]);
+                    input.checked = true;
+                }
+                this.objCategory.boolChecked = true;
+                // Location
+                this.objLocations.load_countries = this.settings.obj_countries
+                this.objLocations.country = this.vacancy.country.code
+                this.loadRegions();
+                if(this.vacancy.region != null){
+                    this.objLocations.region = this.vacancy.region.code
+                    this.loadCity()
+                }
+                if(this.vacancy.city != null){
+                    this.objLocations.city = this.vacancy.city.code
+                }
+                setTimeout(() => {
+                    this.objLocations.bool_rest_address = true
+                }, 1000);
+                this.rest_address = this.vacancy.rest_address
+                // Вакансия подходит для
+                if(this.vacancy.vacancy_suitable != null){
+                    this.objSuitable.suitable = this.vacancy.vacancy_suitable.checkboxes
+                    this.objSuitable.commentary_age = this.vacancy.vacancy_suitable.comment
+                    for(let i=0; i<this.objSuitable.suitable.length; i++) {
+                        input = document.querySelector('#vacancy_suitable_'+this.objSuitable.suitable[i]);
+                        input.checked = true;
+                    }
+                }
+                this.type_employment = this.vacancy.type_employment
+                // Зарплата
+                this.objSalary.salary_but = this.vacancy.salary.radio_name
+                this.objSalary.salary_from = this.vacancy.salary.inputs.salary_from
+                this.objSalary.salary_to = this.vacancy.salary.inputs.salary_to
+                this.objSalary.salary_sum = this.vacancy.salary.inputs.salary_sum
+                this.objSalary.salary_comment = this.vacancy.salary.comment
+                $('#'+this.objSalary.salary_but).collapse('show');
+                this.experience = this.vacancy.experience
+                this.education = this.vacancy.education
+                // Город для поиска
+                this.objCity.checkbox_city = this.vacancy.search_city.bool
+                this.objCity.search_city = this.vacancy.search_city.code
+
+                this.objTextarea.textarea_candidate = this.vacancy.text_requirements
+                this.a1 = this.vacancy.text_requirements
+
+                this.objTextarea.textarea_conditions = this.vacancy.text_working
+                this.objTextarea.textarea_responsibilities = this.vacancy.text_responsibilities
+                // Контакты работодателя
+                this.objDisplayEmpContVacancy.contacts = this.vacancy.contacts
+                for(let i=0; i<this.objDisplayEmpContVacancy.contacts.length; i++) {
+                    input = document.querySelector('#disp_emp_cont_vacancy_'+this.objDisplayEmpContVacancy.contacts[i]);
+                    input.checked = true;
+                }
+                // Как можно откликнуться
+                this.how_respond = this.vacancy.how_respond
+                // Размещение вакансии
+                this.job_posting = this.settings.job_status.indexOf(this.vacancy.job_posting.status_name)
+            },
+            initializationFunc() {
+                this.createArrayCategories()
+                this.objLocations.load_countries = this.settings.obj_countries
+                // страна
+                $('#country').on('select2:select', (e) => {
+                    this.clearLocation()
+                    this.objLocations.country = e.params.data.id
+                    this.loadRegions();
+                })
+            },
         },
         props: [
             'lang',   // масив названий и url языка
             'settings',
+            'vacancy',
         ],
         mounted() {
             this.initializationFunc()
-            console.log(this.settings)
             // инициализация всплывающих подсказок
             $('[data-toggle="tooltip"]').tooltip();
+
+            // Код, который будет запущен только после отрисовки всех представлений
+            this.$nextTick(function () {
+                this.giveValuesFields()
+            })
         },
         validations: {
             position: {
@@ -958,7 +1120,7 @@
         border-radius: 3px;
     }
     #range input:nth-child(2),
-    #one_value input{
+    #single_value input{
         margin-right: 7px;
     }
     .line_select{

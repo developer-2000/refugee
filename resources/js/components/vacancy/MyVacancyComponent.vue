@@ -56,20 +56,33 @@
                 </div>
                 <!-- button -->
                 <div class="button-vacancy">
+                    <!-- hidden to standard -->
                     <button type="button" class="btn btn-block btn-outline-primary"
                             v-if="objVacancy.job_posting.status_name == 'hidden'"
                             @click="changeStatus(objVacancy.id, 0)"
                     >Разместить</button>
                     <div class="btn-group dropleft">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
+                            Функции
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
+                            <a class="dropdown-item" href="#"
+                               v-if="objVacancy.job_posting.status_name == 'standard'"
+                               @click="changeStatus(objVacancy.id, 1)"
+                            >Скрыть</a>
+                            <a class="dropdown-item" href="#"
+                               v-if="objVacancy.job_posting.status_name == 'standard'"
+                               @click="changeStatus(objVacancy.id, 0)"
+                            >Обновить</a>
+                            <a class="dropdown-item"
+                               :href="`/vacancy/${objVacancy.id}/edit`"
+                            >Редактировать</a>
+                            <a class="dropdown-item" href="#"
+                               @click="duplicateVacancy(objVacancy.id)"
+                            >Скопировать</a>
+                            <a class="dropdown-item" href="#"
+                               @click="deleteVacancy(objVacancy.id)"
+                            >Удалить</a>
                         </div>
                     </div>
                 </div>
@@ -181,6 +194,41 @@
                     .catch(err => {
                         this.messageError(err)
                     })
+            },
+            async duplicateVacancy(id){
+                let data = {
+                    id: id,
+                };
+                const response = await this.$http.post(`/vacancy/duplicate-vacancy`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            async deleteVacancy(id){
+                const response = await this.$http.destroy(`/vacancy/` + id, {})
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
             }
         },
         props: [
@@ -189,8 +237,8 @@
             'user_data',
         ],
         mounted() {
-            console.log(this.user_data)
-            console.log(this.settings)
+            // console.log(this.user_data)
+            // console.log(this.settings)
         },
     }
 </script>
