@@ -12,14 +12,15 @@ Vue.prototype.$http = http_client;
 import VueSweetalert2 from 'vue-sweetalert2';
 Vue.use(VueSweetalert2);
 
-Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
-Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
-Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
-
 // редактор текста
 import CKEditor from 'ckeditor4-vue';
 Vue.use( CKEditor );
 
+
+Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
+Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
+Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
+Vue.component('search-panel-vacancy', require('./components/search_vacancy/SearchPanelVacancyComponent').default);
 
 const app = new Vue({
     el: '#app',

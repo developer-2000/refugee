@@ -91,6 +91,19 @@ return [
     'save'=>"Save",
 
 
+    // my vacancies
+    'my_vacancies'=>"My vacancies",
+    'pending'=>"pending",
+    'responses'=>"responses",
+    'post'=>"Post",
+    'functions'=>"Functions",
+    'hide'=>"Hide",
+    'update'=>"Update",
+    'edit'=>"Edit",
+    'copy'=>"Copy",
+    'delete'=>"Delete",
+
+
     // categories
     'internet'=>'IT, computers, internet',
     'administration'=>'Administration, middle management',

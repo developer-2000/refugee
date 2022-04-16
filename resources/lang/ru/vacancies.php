@@ -92,6 +92,17 @@ return [
     'save'=>"Сохранить",
 
 
+    // my vacancies
+    'my_vacancies'=>"Мои вакансии",
+    'pending'=>"на проверке",
+    'responses'=>"откликов",
+    'post'=>"Разместить",
+    'functions'=>"Функции",
+    'hide'=>"Скрыть",
+    'update'=>"Обновить",
+    'edit'=>"Редактировать",
+    'copy'=>"Скопировать",
+    'delete'=>"Удалить",
 
 
     // categories

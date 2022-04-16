@@ -48,6 +48,74 @@ class VacancyController extends BaseController {
     }
 
     /**
+     * delete vacancy
+     * @param  DeleteVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(DeleteVacancyRequest $request)
+    {
+        $vacancy = Vacancy::where('id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+        if(!$vacancy){
+            return $this->getErrorResponse('Not found!');
+        }
+
+        $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
+
+        $vacancy->delete();
+        if($count_position === 1){
+            Position::where('id', $vacancy->position_id)->delete();
+        }
+
+        return $this->getResponse($count_position);
+    }
+
+    /**
+     * открыть для редактирования
+     * @param  EditVacancyRequest  $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function edit(EditVacancyRequest $request)
+    {
+        $vacancy = Vacancy::where('id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->with('position')
+            ->first();
+        if(!$vacancy){
+            return redirect()->back()->withErrors(['message'=>'Not found!']);
+        }
+
+        $settings = config('site.settings_vacancy');
+        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
+            $settings['obj_countries'] = $objCountries[0]['EN'];
+        }
+
+        return view('vacancies/create_vacancy', compact('vacancy','settings'));
+    }
+
+    /**
+     * изменить вакансию
+     * @param  UpdateVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateVacancyRequest $request)
+    {
+        // моя вакансия
+        $vacancy = Vacancy::where('id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->with('position')
+            ->first();
+        if(!$vacancy){
+            return redirect()->back()->withErrors(['message'=>'Not found!']);
+        }
+
+        $update = $this->repository->updateVacancy($request);
+
+        return $this->getResponse();
+    }
+
+    /**
      * найти должность по первым символам
      * @param  SearchVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
@@ -117,73 +185,6 @@ class VacancyController extends BaseController {
         return $this->getResponse();
     }
 
-    /**
-     * delete vacancy
-     * @param  DeleteVacancyRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(DeleteVacancyRequest $request)
-    {
-        $vacancy = Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
-        if(!$vacancy){
-            return $this->getErrorResponse('Not found!');
-        }
-
-        $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
-
-        $vacancy->delete();
-        if($count_position === 1){
-            Position::where('id', $vacancy->position_id)->delete();
-        }
-
-        return $this->getResponse($count_position);
-    }
-
-    /**
-     * открыть для редактирования
-     * @param  EditVacancyRequest  $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function edit(EditVacancyRequest $request)
-    {
-        $vacancy = Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->with('position')
-            ->first();
-        if(!$vacancy){
-            return redirect()->back()->withErrors(['message'=>'Not found!']);
-        }
-
-        $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
-            $settings['obj_countries'] = $objCountries[0]['EN'];
-        }
-
-        return view('vacancies/create_vacancy', compact('vacancy','settings'));
-    }
-
-    /**
-     * изменить вакансию
-     * @param  UpdateVacancyRequest  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateVacancyRequest $request)
-    {
-        // моя вакансия
-        $vacancy = Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->with('position')
-            ->first();
-        if(!$vacancy){
-            return redirect()->back()->withErrors(['message'=>'Not found!']);
-        }
-
-        $update = $this->repository->updateVacancy($request);
-
-        return $this->getResponse();
-    }
 
     //    /**
 //     * Display a listing of the resource.
