@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller {
 
     public function index(Request $request) {
-        return view('index');
+        $settings = config('site.settings_vacancy');
+        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
+            $settings['obj_countries'] = $objCountries[0]['EN'];
+        }
+        return view('index', compact('settings'));
     }
 
 

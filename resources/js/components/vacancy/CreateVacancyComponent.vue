@@ -71,7 +71,7 @@
                             </span>
                         </label>
                         <select class="form-control select2" id="region"
-                                @change="changeSelect2($event.target.value, 'region')"
+                                @change="changeSelect($event.target.value, 'region')"
                         >
                             <option disabled="disabled" selected>
                                 {{trans('vacancies','select_region')}}
@@ -96,7 +96,7 @@
                             </span>
                         </label>
                         <select class="form-control select2" id="city"
-                                @change="changeSelect2($event.target.value, 'city')"
+                                @change="changeSelect($event.target.value, 'city')"
                         >
                             <option disabled="disabled" selected>
                                 {{trans('vacancies','select_city')}}
@@ -396,7 +396,7 @@
                                 {{trans('vacancies','city_search')}}
                             </label>
                             <select class="form-control select2" id="search_city"
-                                    @change="changeSelect2($event.target.value, 'search_city')"
+                                    @change="changeSelect($event.target.value, 'search_city')"
                             >
                                 <option disabled="disabled" selected>
                                     {{trans('vacancies','select_search_city')}}
@@ -581,11 +581,13 @@
 
 <script>
     import {required} from 'vuelidate/lib/validators'
+    import localisation_functions_mixin from '../../mixins/localisation_functions_mixin'
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
 
     export default {
         mixins: [
+            localisation_functions_mixin,
             translation,
             response_methods_mixin,
         ],
@@ -600,15 +602,6 @@
                 type_employment: 0,
                 how_respond: 0,
                 job_posting: 0,
-                objLocations: {
-                    load_countries:null,
-                    load_regions:null,
-                    load_cities:null,
-                    bool_rest_address:null, // показ Остальной адрес
-                    country: null,
-                    region: null,
-                    city: null,
-                },
                 objSalary: {
                     salary_but: "range",
                     salary_from: null,
@@ -658,61 +651,6 @@
             }
         },
         methods: {
-            changeSelect2(value, name){
-                if(name == 'region'){
-                    this.objLocations.region = value
-                    this.loadCity();
-                }
-                else if(name == 'city'){
-                    this.objLocations.city = value
-                    this.objLocations.bool_rest_address = true
-                }
-                else if(name == 'search_city'){
-                    this.objCity.search_city = value
-                }
-            },
-            async loadRegions(){
-                let data = {
-                    country_code: this.objLocations.country,
-                };
-                const response = await this.$http.post(`/localisation/get-region`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            this.clearLocation('load_region')
-                            this.objLocations.load_regions = res.data.message
-                        }
-                        // custom ошибки
-                        else{
-                            this.clearLocation('load_region')
-                            this.objLocations.bool_rest_address = true
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            async loadCity(){
-                let data = {
-                    region_code: ''+this.objLocations.region,
-                };
-                const response = await this.$http.post(`/localisation/get-city`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            this.clearLocation('bool_rest')
-                            this.objLocations.load_cities = res.data.message
-                        }
-                        // custom ошибки
-                        else{
-                            this.clearLocation('load_cities')
-                            this.objLocations.bool_rest_address = true
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
             async searchPosition(value){
                 if(!value.length){
                     $('#position_list').removeClass('show')
@@ -914,27 +852,6 @@
                     this.objCategory.categoriesArray[(tick-1)].push([index, value]);
                 });
             },
-            clearLocation(value) {
-                switch (value) {
-                    case 'load_cities':
-                        this.objLocations.load_cities = null
-                        break;
-                    case 'bool_rest':
-                        this.objLocations.bool_rest_address = null
-                        break;
-                    case 'load_region':
-                        this.objLocations.bool_rest_address = null
-                        this.objLocations.load_cities = null
-                        break;
-                    default:
-                        this.objLocations.country = null
-                        this.objLocations.region = null
-                        this.objLocations.city = null
-                        this.objLocations.bool_rest_address = null
-                        this.objLocations.load_regions = null
-                        this.objLocations.load_cities = null
-                }
-            },
             setValuePosition(value){
                 $('#position_list').removeClass('show')
                 this.position = value
@@ -1021,12 +938,6 @@
             initializationFunc() {
                 this.createArrayCategories()
                 this.objLocations.load_countries = this.settings.obj_countries
-                // страна
-                $('#country').on('select2:select', (e) => {
-                    this.clearLocation()
-                    this.objLocations.country = e.params.data.id
-                    this.loadRegions();
-                })
             },
         },
         props: [

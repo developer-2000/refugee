@@ -35,15 +35,15 @@ a:hover {
     align-items: flex-start;
     padding: 6px 6px 6px 10px;
     font-size: 15px;
-    background: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(253,187,45,1) 49%, rgba(6,124,246,1) 51%, rgba(6,124,246,1) 100%);
+    background: linear-gradient(0deg, rgba(253,230,45,1) 0%, rgba(253,230,45,1) 49%, rgba(0,123,255,1) 49%, rgba(0,123,255,1) 100%);
 }
 .brand-link span:nth-child(1){
     width: 100%;
-    color: rgb(253, 187, 45);
+    color: rgba(253,230,45,1);
 }
 .brand-link span:nth-child(2){
     width: 100%;
-    color: rgb(6, 124, 246);
+    color: rgba(0,123,255,1);
 }
 .main-sidebar{
     background-color: #f8fafc;
@@ -98,7 +98,7 @@ a:hover {
     opacity: 1;
 }
 .info-tooltip path{
-    fill: #067cf6;
+    fill: rgba(0,123,255,1);
 }
 /* Modal Auth */
 .modal-dialog{
@@ -223,6 +223,26 @@ svg{
     border-color:#a1cbef!important;
     box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff!important;
+    border-color: #006fe6!important;
+    color: #fff;
+    padding: 0 0 0 10px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 6px 0 5px !important;
+    float: right !important;
+    border: none;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+    background: none;
+    color: #fff;
+    outline: none;
+}
+
 /* my vacation */
 .mode-vacancy{
     display: flex;
