@@ -91,6 +91,51 @@
             </div>
         </div>
 
+        <!-- Suitable -->
+        <div class="card card-primary suitable">
+            <!-- header -->
+            <div class="card-header">
+                <h3 class="card-title">Возраст соискателя</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- body -->
+            <div class="card-body">
+
+                <div class="form-group">
+                    <!-- 1 -->
+                    <div class="checkbox-box">
+                        <input class="form-check-input" id="checkbox_suit" type="checkbox"
+                               v-model="objCheckSuitable.check"
+                        >
+                        <label for="checkbox_suit">
+                            установить возраст
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- 2 -->
+                    <div class="search-city" v-if="objCheckSuitable.check">
+                        <input :placeholder="`${trans('vacancies','to')}`"
+                               max="100000000" min="0" type="number"
+                               @blur="checkSuitable"
+                               v-model="objCheckSuitable.suitable_from"
+                        >
+                        -
+                        <input :placeholder="`${trans('vacancies','from')}`"
+                               max="100000000" min="0" type="number"
+                               @blur="checkSuitable"
+                               v-model="objCheckSuitable.suitable_to"
+                        >
+                        лет
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
 <!--        <button type="button" @click="returnParent">Передать родителю</button>-->
     </div>
@@ -109,7 +154,11 @@
         ],
         data() {
             return {
-
+                objCheckSuitable:{
+                    check:false,
+                    suitable_from: 18,
+                    suitable_to: 60,
+                },
             }
         },
         methods: {
@@ -117,9 +166,18 @@
                 this.$emit('returnParent', {
                     objLocations: this.objLocations,
                 })
-            }
+            },
+            checkSuitable() {
+                if(!this.checkingInteger(this.objCheckSuitable.suitable_from)){
+                    this.objCheckSuitable.suitable_from = 0
+                }
+                else if(!this.checkingInteger(this.objCheckSuitable.suitable_to)){
+                    this.objCheckSuitable.suitable_to = 0
+                }
+            },
         },
         props: [
+            'lang',   // масив названий и url языка
             'settings'
         ],
         mounted() {
@@ -152,20 +210,33 @@
         border-right: 1px solid #c0ddfb;
         box-shadow: none;
         .card-header{
+            padding: 8px 13px;
             h3{
                 margin: 2px 0 0 0;
             }
             button{
                 margin: 0;
-                padding: 0 5px 0 5px;
+                padding: 0 10px 0 5px;
             }
         }
         .card-body{
             padding: 10px 12px 0;
         }
-
     }
-
+    .suitable{
+        .card-body{
+            padding: 10px 12px 7px;
+        }
+    }
+    .checkbox-box {
+        margin: 0px 0px -18px;
+        display: flex;
+        label {
+            cursor: pointer;
+            margin-top: 7px;
+            margin-left: 5px;
+        }
+    }
 
 </style>
 

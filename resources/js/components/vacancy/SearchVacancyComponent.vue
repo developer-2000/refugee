@@ -2,6 +2,7 @@
     <div class="search-panel">
         <div class="left-site">
             <search_panel
+                :lang="lang"
                 :settings="settings"
                 @returnParent="updateData"
             ></search_panel>
@@ -32,6 +33,7 @@
             }
         },
         props: [
+            'lang',
             'settings',
         ],
         mounted() {
@@ -47,7 +49,7 @@
         padding-top: 20px;
 
         .left-site{
-            width: 25%;
+            width: 280px;
         }
         .right-site{
             width: 75%;

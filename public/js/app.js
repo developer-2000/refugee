@@ -3764,13 +3764,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return false;
     },
-    checkingInteger: function checkingInteger(value) {
-      if (parseInt(value) >= 0) {
-        return true;
-      }
-
-      return false;
-    },
     alignNumbers: function alignNumbers() {
       // выровнять последнее число по первому если оно меньше
       if (this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)) {
@@ -4385,22 +4378,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_localisation_functions_mixin__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
-    return {};
+    return {
+      objCheckSuitable: {
+        check: false,
+        suitable_from: 18,
+        suitable_to: 60
+      }
+    };
   },
   methods: {
     returnParent: function returnParent() {
       this.$emit('returnParent', {
         objLocations: this.objLocations
       });
+    },
+    checkSuitable: function checkSuitable() {
+      if (!this.checkingInteger(this.objCheckSuitable.suitable_from)) {
+        this.objCheckSuitable.suitable_from = 0;
+      } else if (!this.checkingInteger(this.objCheckSuitable.suitable_to)) {
+        this.objCheckSuitable.suitable_to = 0;
+      }
     }
   },
-  props: ['settings'],
+  props: ['lang', // масив названий и url языка
+  'settings'],
   mounted: function mounted() {
     var _this = this;
 
@@ -4449,6 +4501,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4463,7 +4516,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(data);
     }
   },
-  props: ['settings'],
+  props: ['lang', 'settings'],
   mounted: function mounted() {}
 });
 
@@ -8960,7 +9013,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n.card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n.card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n.card .card-body[data-v-3249dfc6] {\n  padding: 0;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}", ""]);
+exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n.card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n.card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n.card .card-body[data-v-3249dfc6] {\n  padding: 0 0 0 2px;\n  height: 31px;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}", ""]);
 
 // exports
 
@@ -8998,7 +9051,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-45ef9922] {\n  width: 100%;\n  border-radius: 3px 3px 0px 0px;\n  border: none;\n  border-bottom: 1px solid #ffdf9b;\n  border-right: 1px solid #c0ddfb;\n  box-shadow: none;\n}\n.card .card-header h3[data-v-45ef9922] {\n  margin: 2px 0 0 0;\n}\n.card .card-header button[data-v-45ef9922] {\n  margin: 0;\n  padding: 0 5px 0 5px;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 0;\n}", ""]);
+exports.push([module.i, ".card[data-v-45ef9922] {\n  width: 100%;\n  border-radius: 3px 3px 0px 0px;\n  border: none;\n  border-bottom: 1px solid #ffdf9b;\n  border-right: 1px solid #c0ddfb;\n  box-shadow: none;\n}\n.card .card-header[data-v-45ef9922] {\n  padding: 8px 13px;\n}\n.card .card-header h3[data-v-45ef9922] {\n  margin: 2px 0 0 0;\n}\n.card .card-header button[data-v-45ef9922] {\n  margin: 0;\n  padding: 0 10px 0 5px;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 0;\n}\n.suitable .card-body[data-v-45ef9922] {\n  padding: 10px 12px 7px;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0px 0px -18px;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin-top: 7px;\n  margin-left: 5px;\n}", ""]);
 
 // exports
 
@@ -9017,7 +9070,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  padding-top: 20px;\n}\n.search-panel .left-site[data-v-fbaa726e] {\n  width: 25%;\n}\n.search-panel .right-site[data-v-fbaa726e] {\n  width: 75%;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  padding-top: 20px;\n}\n.search-panel .left-site[data-v-fbaa726e] {\n  width: 280px;\n}\n.search-panel .right-site[data-v-fbaa726e] {\n  width: 75%;\n}", ""]);
 
 // exports
 
@@ -46906,6 +46959,137 @@ var render = function () {
         ]),
       ]),
     ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card card-primary suitable" }, [
+      _vm._m(2),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "checkbox-box" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.objCheckSuitable.check,
+                  expression: "objCheckSuitable.check",
+                },
+              ],
+              staticClass: "form-check-input",
+              attrs: { id: "checkbox_suit", type: "checkbox" },
+              domProps: {
+                checked: Array.isArray(_vm.objCheckSuitable.check)
+                  ? _vm._i(_vm.objCheckSuitable.check, null) > -1
+                  : _vm.objCheckSuitable.check,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.objCheckSuitable.check,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.objCheckSuitable,
+                          "check",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.objCheckSuitable,
+                          "check",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.objCheckSuitable, "check", $$c)
+                  }
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "checkbox_suit" } }, [
+              _vm._v(
+                "\n                            установить возраст\n                        "
+              ),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _vm.objCheckSuitable.check
+            ? _c("div", { staticClass: "search-city" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.objCheckSuitable.suitable_from,
+                      expression: "objCheckSuitable.suitable_from",
+                    },
+                  ],
+                  attrs: {
+                    placeholder: "" + _vm.trans("vacancies", "to"),
+                    max: "100000000",
+                    min: "0",
+                    type: "number",
+                  },
+                  domProps: { value: _vm.objCheckSuitable.suitable_from },
+                  on: {
+                    blur: _vm.checkSuitable,
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.objCheckSuitable,
+                        "suitable_from",
+                        $event.target.value
+                      )
+                    },
+                  },
+                }),
+                _vm._v("\n                        -\n                        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.objCheckSuitable.suitable_to,
+                      expression: "objCheckSuitable.suitable_to",
+                    },
+                  ],
+                  attrs: {
+                    placeholder: "" + _vm.trans("vacancies", "from"),
+                    max: "100000000",
+                    min: "0",
+                    type: "number",
+                  },
+                  domProps: { value: _vm.objCheckSuitable.suitable_to },
+                  on: {
+                    blur: _vm.checkSuitable,
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.objCheckSuitable,
+                        "suitable_to",
+                        $event.target.value
+                      )
+                    },
+                  },
+                }),
+                _vm._v("\n                        лет\n                    "),
+              ])
+            : _vm._e(),
+        ]),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = [
@@ -46955,6 +47139,29 @@ var staticRenderFns = [
       ]),
     ])
   },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Возраст соискателя")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-tool",
+            attrs: {
+              type: "button",
+              "data-card-widget": "collapse",
+              "data-toggle": "tooltip",
+            },
+          },
+          [_c("i", { staticClass: "fas fa-minus" })]
+        ),
+      ]),
+    ])
+  },
 ]
 render._withStripped = true
 
@@ -46983,7 +47190,7 @@ var render = function () {
       { staticClass: "left-site" },
       [
         _c("search_panel", {
-          attrs: { settings: _vm.settings },
+          attrs: { lang: _vm.lang, settings: _vm.settings },
           on: { returnParent: _vm.updateData },
         }),
       ],
@@ -63505,6 +63712,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           this.objLocations.load_regions = null;
           this.objLocations.load_cities = null;
       }
+    },
+    checkingInteger: function checkingInteger(value) {
+      if (parseInt(value) >= 0) {
+        return true;
+      }
+
+      return false;
     }
   },
   mounted: function mounted() {
@@ -63982,7 +64196,7 @@ module.exports = {
     "it_not_matter": "it doesn't matter",
     "job_name": "Job name",
     "job_region": "Job region",
-    "job_suitable_for": "The job is suitable for",
+    "job_suitable_for": "Vacancy age",
     "job_title": "Please enter a job title.",
     "jurisprudence": "Jurisprudence",
     "least_category": "Please select at least one category.",
@@ -64134,7 +64348,7 @@ module.exports = {
     "it_not_matter": "\u044D\u0442\u043E \u043D\u0435 \u0438\u043C\u0435\u0435\u0442 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F",
     "job_name": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u0438",
     "job_region": "\u0420\u0435\u0433\u0438\u043E\u043D \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
-    "job_suitable_for": "\u0412\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u043F\u043E\u0434\u0445\u043E\u0434\u0438\u0442 \u0434\u043B\u044F",
+    "job_suitable_for": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "job_title": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u0438.",
     "jurisprudence": "\u042E\u0440\u0438\u0441\u043F\u0440\u0443\u0434\u0435\u043D\u0446\u0438\u044F",
     "least_category": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0445\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u0443 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E.",
@@ -64286,7 +64500,7 @@ module.exports = {
     "it_not_matter": "\u0446\u0435 \u043D\u0435 \u043C\u0430\u0454 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F",
     "job_name": "\u041D\u0430\u0437\u0432\u0430 \u043F\u043E\u0441\u0430\u0434\u0438",
     "job_region": "\u0420\u0435\u0433\u0456\u043E\u043D \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
-    "job_suitable_for": "\u0412\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u043F\u0456\u0434\u0445\u043E\u0434\u0438\u0442\u044C \u0434\u043B\u044F",
+    "job_suitable_for": "\u0412\u0456\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "job_title": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u043D\u0430\u0437\u0432\u0443 \u043F\u043E\u0441\u0430\u0434\u0438.",
     "jurisprudence": "\u042E\u0440\u0438\u0441\u043F\u0440\u0443\u0434\u0435\u043D\u0446\u0456\u044F",
     "least_category": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u0445\u043E\u0447\u0430 \u0431 \u043E\u0434\u043D\u0443 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u044E.",

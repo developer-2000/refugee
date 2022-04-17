@@ -94,6 +94,12 @@ export default {
                     this.objLocations.load_cities = null
             }
         },
+        checkingInteger(value) {
+            if(parseInt(value) >= 0){
+                return true;
+            }
+            return false;
+        },
     },
     mounted() {
 

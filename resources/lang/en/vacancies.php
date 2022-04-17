@@ -10,7 +10,7 @@ return [
     'city_job'=>'City of job',
     'other_job_address'=>'Other job address',
     'category_job_posting'=>'Category for job posting',
-    'job_suitable_for'=>'The job is suitable for',
+    'job_suitable_for'=>'Vacancy age',
     'type_employment'=>'Type of employment',
     'salary'=>'Salary',
     'work_experience'=>'Work experience',

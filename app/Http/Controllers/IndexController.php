@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 
 use App\Model\MakeGeographyDb;
+use App\Model\Test;
 use App\Model\User;
+use App\Model\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +16,10 @@ class IndexController extends Controller {
         if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
             $settings['obj_countries'] = $objCountries[0]['EN'];
         }
+
+//        $data = Vacancy::where('vacancy_suitable->inputs->suitable_to', 60)
+//            ->get();
+
         return view('index', compact('settings'));
     }
 

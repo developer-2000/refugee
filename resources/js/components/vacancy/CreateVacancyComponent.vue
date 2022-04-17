@@ -859,12 +859,6 @@
                 }
                 return false;
             },
-            checkingInteger(value) {
-                if(parseInt(value) >= 0){
-                    return true;
-                }
-                return false;
-            },
             alignNumbers() {
                 // выровнять последнее число по первому если оно меньше
                 if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
@@ -1086,7 +1080,8 @@
             }
         }
         .card-body{
-            padding: 0;
+            padding: 0 0 0 2px;
+            height: 31px;
         }
     }
     .bg-warning{

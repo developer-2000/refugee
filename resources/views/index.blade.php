@@ -19,6 +19,7 @@
 <div class="container">
 
     <search-vacancy
+        :lang="{{json_encode($lang)}}"
         :settings="{{isset($settings) ? json_encode($settings) : json_encode(null)}}"
     ></search-vacancy>
 </div>

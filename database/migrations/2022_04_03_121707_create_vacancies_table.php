@@ -24,7 +24,10 @@ class CreateVacanciesTable extends Migration
             $table->string('region')->index()->nullable()->default(null)->comment('регион');
             $table->string('city')->index()->nullable()->default(null)->comment('город');
             $table->string('rest_address')->index()->comment('остальной адрес');
-            $table->text('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
+
+//            $table->text('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
+            $table->json('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
+
             $table->tinyInteger('type_employment')->index()->comment('работа - полная / не полная / удаленка');
             $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, не указано, коментарий');
             $table->tinyInteger('experience')->index()->comment('опыт работы');

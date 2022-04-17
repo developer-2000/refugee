@@ -10,7 +10,7 @@ return [
     'city_job'=>'Місто вакансії',
     'other_job_address'=>'Остання адреса вакансії',
     'category_job_posting'=>'Категорія розміщення вакансії',
-    'job_suitable_for'=>'Вакансія підходить для',
+    'job_suitable_for'=>'Вік вакансії',
     'type_employment'=>'Вигляд зайнятості',
     'salary'=>'Зарплата',
     'work_experience'=>'Досвід роботи',
