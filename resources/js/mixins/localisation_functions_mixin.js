@@ -72,6 +72,9 @@ export default {
             else if(name == 'search_city'){
                 this.objCity.search_city = value
             }
+            else if(name == 'employment'){
+                this.index_employment = value
+            }
         },
         clearLocation(value) {
             switch (value) {

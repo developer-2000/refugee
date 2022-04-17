@@ -14,51 +14,54 @@
             </div>
             <!-- body -->
             <div class="card-body">
-                <!-- Country -->
-                <div class="form-group">
-                    <label for="country">
-                        Страна поиска
-                    </label>
-                    <select class="form-control select2" id="country">
-                        <option disabled="disabled" selected>
-                            Выбрать
-                        </option>
-                        <template v-for="(array, key) in settings.obj_countries">
-                            <option :value="array.code" :key="key">{{array.name}}</option>
-                        </template>
-                    </select>
-                </div>
-                <!-- Region -->
-                <div class="form-group" v-if="objLocations.load_regions">
-                    <label for="region">
-                        Регион поиска
-                    </label>
-                    <select class="form-control select2" id="region"
-                            @change="changeSelect($event.target.value, 'region')"
-                    >
-                        <option disabled="disabled" selected>
-                            Выбрать
-                        </option>
-                        <template v-for="(array, key) in objLocations.load_regions">
-                            <option :value="array.code" :key="key">{{array.name}}</option>
-                        </template>
-                    </select>
-                </div>
-                <!-- City -->
-                <div class="form-group" v-if="objLocations.load_cities">
-                    <label for="city">
-                        Город поиска
-                    </label>
-                    <select class="form-control select2" id="city"
-                            @change="changeSelect($event.target.value, 'city')"
-                    >
-                        <option disabled="disabled" selected>
-                            Выбрать
-                        </option>
-                        <template v-for="(array, key) in objLocations.load_cities">
-                            <option :value="array.code" :key="key">{{array.name}}</option>
-                        </template>
-                    </select>
+
+                <div class="form-group location-grope">
+                    <!-- Country -->
+                    <div class="box-div">
+                        <label for="country">
+                            Страна поиска
+                        </label>
+                        <select class="form-control select2" id="country">
+                            <option disabled="disabled" selected>
+                                Выбрать
+                            </option>
+                            <template v-for="(array, key) in settings.obj_countries">
+                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            </template>
+                        </select>
+                    </div>
+                    <!-- Region -->
+                    <div class="box-div" v-if="objLocations.load_regions">
+                        <label for="region">
+                            Регион поиска
+                        </label>
+                        <select class="form-control select2" id="region"
+                                @change="changeSelect($event.target.value, 'region')"
+                        >
+                            <option disabled="disabled" selected>
+                                Выбрать
+                            </option>
+                            <template v-for="(array, key) in objLocations.load_regions">
+                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            </template>
+                        </select>
+                    </div>
+                    <!-- City -->
+                    <div v-if="objLocations.load_cities">
+                        <label for="city">
+                            Город поиска
+                        </label>
+                        <select class="form-control select2" id="city"
+                                @change="changeSelect($event.target.value, 'city')"
+                        >
+                            <option disabled="disabled" selected>
+                                Выбрать
+                            </option>
+                            <template v-for="(array, key) in objLocations.load_cities">
+                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            </template>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,18 +79,13 @@
             </div>
             <!-- body -->
             <div class="card-body">
-
                 <div class="form-group">
-                    <label for="categories">
-                        Категории
-                    </label>
                     <select class="form-control select2" id="categories" multiple="multiple" data-placeholder="Выбрать">
                         <template v-for="(value, index) in settings.categories">
                             <option :value="index" :key="index">{{value}}</option>
                         </template>
                     </select>
                 </div>
-
             </div>
         </div>
 
@@ -115,10 +113,8 @@
                             установить возраст
                         </label>
                     </div>
-                </div>
-                <div class="form-group">
                     <!-- 2 -->
-                    <div class="search-city" v-if="objCheckSuitable.check">
+                    <div class="box-suitable" v-if="objCheckSuitable.check">
                         <input :placeholder="`${trans('vacancies','to')}`"
                                max="100000000" min="0" type="number"
                                @blur="checkSuitable"
@@ -134,6 +130,34 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <!-- Employment -->
+        <div class="card card-primary suitable">
+            <!-- header -->
+            <div class="card-header">
+                <h3 class="card-title">Вид занятости</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- body -->
+            <div class="card-body">
+                <div class="form-group">
+                    <select class="form-control" id="employment"
+                            @change="changeSelect($event.target.value, 'employment')"
+                    >
+                        <option :value="null" selected>
+                            Выбрать
+                        </option>
+                        <template v-for="(value, key) in settings.type_employment">
+                            <option :value="key" :key="key">{{value}}</option>
+                        </template>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -159,6 +183,7 @@
                     suitable_from: 18,
                     suitable_to: 60,
                 },
+                index_employment: null,
             }
         },
         methods: {
@@ -202,6 +227,9 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .form-group{
+        margin: 0 0 4px 0;
+    }
     .card{
         width: 100%;
         border-radius: 3px 3px 0px 0px;
@@ -210,7 +238,7 @@
         border-right: 1px solid #c0ddfb;
         box-shadow: none;
         .card-header{
-            padding: 8px 13px;
+            padding: 4px 13px;
             h3{
                 margin: 2px 0 0 0;
             }
@@ -220,22 +248,27 @@
             }
         }
         .card-body{
-            padding: 10px 12px 0;
+            padding: 10px 12px 8px;
         }
     }
     .suitable{
         .card-body{
             padding: 10px 12px 7px;
         }
+        .box-suitable{
+            margin-top: 5px;
+        }
     }
     .checkbox-box {
-        margin: 0px 0px -18px;
+        margin: 0;
         display: flex;
         label {
             cursor: pointer;
-            margin-top: 7px;
-            margin-left: 5px;
+            margin: 0 0 0 6px;
         }
+    }
+    .box-div{
+        margin-bottom: 10px;
     }
 
 </style>

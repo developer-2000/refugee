@@ -42,14 +42,6 @@ return [
         ['set_age' => [ 'from', 'to' ]],
         'age_comment',
     ],
-//    'vacancy_suitable' => [
-//        'up_to_25',
-//        'from_25_to_40',
-//        'from_40_years_old',
-//        'it_not_matter',
-//        'your_own_version',
-//        'age_comment',
-//    ],
     // Какие контакты связи показать соискателю: email, tel, messenger viber, messenger telegram,
     // Индексы ключи к файлу языка
     'contact_information' => [

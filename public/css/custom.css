@@ -162,6 +162,7 @@ a:hover {
 svg{
     width: 20px;
 }
+
 /* form inputs */
 .create-page .form-group{
     border-bottom: 1px solid #ffdf9b;
@@ -177,9 +178,10 @@ svg{
     margin: 8px 0px -18px;
 }
 .form-group input[type="checkbox"]{
-    margin: 0 4px 0;
+    margin: 6px 4px 0;
     position: relative;
-    top: -1px;
+    top: 0;
+    height: 15px;
 }
 .form-group input[type="number"]{
     width: 100px;
@@ -197,7 +199,6 @@ svg{
     box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25) !important;
     outline: none;
 }
-
 .btn-block + .btn-block {
     margin: 0;
 }
@@ -211,6 +212,9 @@ svg{
 .but-box button,
 .but-box a{
     width: 45%;
+}
+label{
+    color: #444;
 }
 /* select 2 */
 .select2-container {
