@@ -1,6 +1,13 @@
 <template>
     <div class="forms create-page">
-        <h1 class="title_page card-body">{{trans('vacancies','create_job')}}</h1>
+
+        <h1 v-if="this.vacancy == null" class="title_page card-body">
+            {{trans('vacancies','create_job')}}
+        </h1>
+        <h1 v-else class="title_page card-body">
+            {{trans('vacancies','update_job')}}
+        </h1>
+
         <form action="" method="post">
 
             <!-- первый row -->
@@ -176,44 +183,90 @@
             <div class="row">
                 <!-- Вакансия подходит для -->
                 <div class="col-sm-4">
-                    <div class="form-group" :class="{'border_error': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
+                    <div class="form-group">
                         <label for="vacancy_suitable">
                             {{trans('vacancies','job_suitable_for')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
                         </label>
                         <div id="vacancy_suitable">
-                            <template v-for="(value, key) in this.settings.vacancy_suitable">
-                                <!-- checkbox -->
-                                <template v-if="key<5">
-                                    <div>
-                                        <input class="form-check-input" name="vacancy_suitable" type="checkbox"
-                                               :id="`vacancy_suitable_${key}`"
-                                               @change="vacancySuitable"
-                                               :value="`${key}`"
+                            <div class="accordion" id="suitable_accordion">
+                                <template v-for="(value, key) in this.settings.vacancy_suitable">
+
+                                    <!-- card radio 1 -->
+                                    <div class="card" v-if="key==0">
+                                        <!-- radio -->
+                                        <div class="card-header" id="headingItNotMatter">
+                                            <div aria-controls="it_not_matter" aria-expanded="true"
+                                                 data-target="#it_not_matter" data-toggle="collapse">
+                                                <input :id="`vacancy_suitable_${key}`"
+                                                       name="suitable"
+                                                       type="radio"
+                                                       v-model="objSuitable.suitable"
+                                                       value="it_not_matter">
+                                                <label :for="`vacancy_suitable_${key}`">
+                                                    {{trans('vacancies',value)}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- body -->
+                                        <div aria-labelledby="headingItNotMatter" class="collapse show" data-parent="#suitable_accordion"
+                                             id="it_not_matter"
                                         >
-                                        <label :for="`vacancy_suitable_${key}`">
+                                        </div>
+                                    </div>
+
+                                    <!-- card radio 2 -->
+                                    <div class="card" v-else-if="key==1">
+                                        <!-- radio -->
+                                        <div class="card-header" id="headingSetAge">
+                                            <div aria-controls="set_age" aria-expanded="false" data-target="#set_age"
+                                                 data-toggle="collapse">
+                                                <input
+                                                    :id="`vacancy_suitable_${key}`"
+                                                    @change="checkSuitable"
+                                                    name="suitable"
+                                                    type="radio"
+                                                    v-model="objSuitable.suitable"
+                                                    value="set_age"
+                                                >
+                                                <label :for="`vacancy_suitable_${key}`">
+                                                    {{trans('vacancies','set_age')}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- number -->
+                                        <div aria-labelledby="headingSetAge" class="collapse" data-parent="#suitable_accordion"
+                                             id="set_age"
+                                        >
+                                            <div class="card-body">
+                                                <input :placeholder="`${trans('vacancies',value['set_age'][0])}`" @blur="checkSuitable" max="100000000"
+                                                       min="0"
+                                                       type="number"
+                                                       v-model="objSuitable.suitable_from"
+                                                >
+                                                -
+                                                <input :placeholder="`${trans('vacancies',value['set_age'][1])}`" @blur="checkSuitable" max="100000000"
+                                                       min="0"
+                                                       type="number"
+                                                       v-model="objSuitable.suitable_to"
+                                                >
+                                                лет
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- input -->
+                                    <div v-else-if="key==2">
+                                        <label for="suitable_commentary">
                                             {{trans('vacancies',value)}}
                                         </label>
-                                    </div>
-                                </template>
-                                <!-- input -->
-                                <template v-else>
-                                    <div v-if="(objSuitable.suitable.indexOf('4') != -1)">
-                                        <label for="commentary_age">
-                                            {{trans('vacancies',value)}}
-                                        </label>
-                                        <input type="text" id="commentary_age" class="form-control" maxlength="100"
-                                               :placeholder="`${trans('vacancies','data_entry')}`"
-                                               v-model="objSuitable.commentary_age"
+                                        <input :placeholder="`${trans('vacancies','data_entry')}`" class="form-control" id="suitable_commentary" maxlength="100"
+                                               type="text"
+                                               v-model="objSuitable.suitable_commentary"
                                         >
                                     </div>
+
                                 </template>
-                            </template>
-                        </div>
-                        <div class="invalid-feedback" :class="{'is-invalid visible': (!this.objSuitable.suitable.length && this.objSuitable.boolSuitable == true)}">
-                            {{trans('vacancies','age_group')}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -249,13 +302,24 @@
                             </span>
                         </label>
                         <div id="salary_accordion">
+
                             <div class="card">
                                 <!-- radio -->
                                 <div class="card-header" id="headingOne">
-                                    <div class="line_select" data-toggle="collapse" data-target="#range" aria-expanded="true" aria-controls="collapseOne">
-                                        <input type="radio" id="range_1" name="salary_but" value="range"
-                                               v-model="objSalary.salary_but"
-                                               @change="checkSalary"
+                                    <div
+                                        class="line_select"
+                                        data-toggle="collapse"
+                                        data-target="#range"
+                                        aria-expanded="true"
+                                        aria-controls="collapseOne"
+                                    >
+                                        <input
+                                            type="radio"
+                                            id="range_1"
+                                            name="salary_but"
+                                            value="range"
+                                            v-model="objSalary.salary_but"
+                                            @change="checkSalary"
                                         >
                                         <label for="range_1">
                                             {{trans('vacancies','range')}}
@@ -263,7 +327,12 @@
                                     </div>
                                 </div>
                                 <!-- number -->
-                                <div id="range" class="collapse show" aria-labelledby="headingOne" data-parent="#salary_accordion">
+                                <div
+                                    id="range"
+                                    class="collapse show"
+                                    aria-labelledby="headingOne"
+                                    data-parent="#salary_accordion"
+                                >
                                     <div class="card-body">
                                         <input type="number" min="0" max="100000000"
                                                :placeholder="`${trans('vacancies',this.settings.salary.range[0])}`"
@@ -284,10 +353,20 @@
                             <div class="card">
                                 <!-- radio -->
                                 <div class="card-header" id="headingTwo">
-                                    <div class="line_select" data-toggle="collapse" data-target="#single_value" aria-expanded="false" aria-controls="collapseTwo">
-                                        <input type="radio" id="single_value1" name="salary_but" value="single_value"
-                                               v-model="objSalary.salary_but"
-                                               @change="checkSalary"
+                                    <div
+                                        class="line_select"
+                                        data-toggle="collapse"
+                                        data-target="#single_value"
+                                        aria-expanded="false"
+                                        aria-controls="collapseTwo"
+                                    >
+                                        <input
+                                            type="radio"
+                                            id="single_value1"
+                                            name="salary_but"
+                                            value="single_value"
+                                            v-model="objSalary.salary_but"
+                                            @change="checkSalary"
                                         >
                                         <label for="single_value1">
                                             {{trans('vacancies','single_value')}}
@@ -295,7 +374,12 @@
                                     </div>
                                 </div>
                                 <!-- number -->
-                                <div id="single_value" class="collapse" aria-labelledby="headingTwo" data-parent="#salary_accordion">
+                                <div
+                                    id="single_value"
+                                    class="collapse"
+                                    aria-labelledby="headingTwo"
+                                    data-parent="#salary_accordion"
+                                >
                                     <div class="card-body">
                                         <input type="number" min="0" max="100000000"
                                                :placeholder="`${trans('vacancies',this.settings.salary.single_value[0])}`"
@@ -328,6 +412,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <label for="payroll_comment">{{trans('vacancies','salary_comment')}}</label>
                         <input type="text" id="payroll_comment" class="form-control" maxlength="100"
@@ -550,11 +635,11 @@
             <!-- button -->
             <div class="row footer-form">
                 <div class="col-sm-4 offset-4 but-box">
-                    <button type="submit" class="btn btn-block btn-outline-danger">
-                        {{trans('vacancies','cancel')}}
-                    </button>
                     <!-- button create -->
                     <template v-if="vacancy_id == 0">
+                        <a href="/" class="btn btn-block btn-outline-danger btn-lg">
+                            {{trans('vacancies','cancel')}}
+                        </a>
                         <button type="submit" class="btn btn-block btn-primary btn-lg"
                                 :class="{'disabled': disableButton($v)}"
                                 :disabled="disableButton($v)"
@@ -565,12 +650,15 @@
                     </template>
                     <!-- button update -->
                     <template v-else>
+                        <a href="/vacancy/my-vacancies" class="btn btn-block btn-outline-danger btn-lg">
+                            {{trans('vacancies','cancel')}}
+                        </a>
                         <button type="submit" class="btn btn-block btn-primary btn-lg"
                                 :class="{'disabled': disableButton($v)}"
                                 :disabled="disableButton($v)"
                                 @click.prevent="updateVacancy"
                         >
-                            Изменить
+                            {{trans('vacancies','update_vacancy')}}
                         </button>
                     </template>
                 </div>
@@ -616,9 +704,10 @@
                     boolChecked: false,
                 },
                 objSuitable: {
-                    suitable: [],
-                    boolSuitable: false,
-                    commentary_age: '',
+                    suitable: 'it_not_matter',
+                    suitable_from: 18,
+                    suitable_to: 60,
+                    suitable_commentary: '',
                 },
                 objTextarea: {
                     textarea_responsibilities: '',
@@ -683,38 +772,8 @@
                     })
             },
             async createVacancy(){
-                // выровнять последнее число по первому если оно меньше
-                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
-                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
-                        this.objSalary.salary_to = this.objSalary.salary_from
-                    }
-                }
-                let data = {
-                    position: this.position,
-                    categories: this.objCategory.categories,
-                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
-                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
-                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
-                    rest_address: this.rest_address,
-                    vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
-                    commentary_age: this.objSuitable.commentary_age,
-                    type_employment: this.type_employment,              // Вид занятости
-                    salary_but: this.objSalary.salary_but,              // Зарплата
-                    salary_from: this.objSalary.salary_from,
-                    salary_to: this.objSalary.salary_to,
-                    salary_sum: this.objSalary.salary_sum,
-                    salary_comment: this.objSalary.salary_comment,
-                    experience: this.experience,                        // Опыт работы
-                    education: this.education,                          // Образование
-                    checkbox_city: this.objCity.checkbox_city,          // Город для поиска
-                    search_city: this.objCity.search_city,
-                    text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
-                    text_working: this.objTextarea.textarea_conditions,                 // Условия работы
-                    text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
-                    contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
-                    how_respond: this.how_respond,                                      // Как можно откликнуться
-                    job_posting: this.job_posting,                                      // Размещение вакансии
-                };
+                this.alignNumbers()
+                let data = this.getValuesFields()
                 const response = await this.$http.post(`/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
@@ -731,39 +790,8 @@
                     })
             },
             async updateVacancy(){
-                // выровнять последнее число по первому если оно меньше
-                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
-                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
-                        this.objSalary.salary_to = this.objSalary.salary_from
-                    }
-                }
-                let data = {
-                    position: this.position,
-                    categories: this.objCategory.categories,
-                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
-                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
-                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
-                    rest_address: this.rest_address,
-                    vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
-                    commentary_age: this.objSuitable.commentary_age,
-                    type_employment: this.type_employment,              // Вид занятости
-                    salary_but: this.objSalary.salary_but,              // Зарплата
-                    salary_from: this.objSalary.salary_from,
-                    salary_to: this.objSalary.salary_to,
-                    salary_sum: this.objSalary.salary_sum,
-                    salary_comment: this.objSalary.salary_comment,
-                    experience: this.experience,                        // Опыт работы
-                    education: this.education,                          // Образование
-                    checkbox_city: this.objCity.checkbox_city,          // Город для поиска
-                    search_city: this.objCity.search_city,
-                    text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
-                    text_working: this.objTextarea.textarea_conditions,                 // Условия работы
-                    text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
-                    contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
-                    how_respond: this.how_respond,                                      // Как можно откликнуться
-                    job_posting: this.job_posting,                                      // Размещение вакансии
-                };
-
+                this.alignNumbers()
+                let data = this.getValuesFields()
                 const response = await this.$http.put(`/vacancy/`+this.vacancy_id, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
@@ -788,15 +816,6 @@
                 }
                 this.objDisplayEmpContVacancy.contacts = selected;
             },
-            vacancySuitable(){
-                this.objSuitable.boolSuitable = true;
-                let checked = document.querySelectorAll('[name="vacancy_suitable"]:checked');
-                let selected = [];
-                for (let i=0; i<checked.length; i++) {
-                    selected.push(checked[i].value);
-                }
-                this.objSuitable.suitable = selected;
-            },
             checkCategory(){
                 this.objCategory.boolChecked = true;
                 let checked = document.querySelectorAll('[name="category"]:checked');
@@ -820,6 +839,14 @@
                 this.objSalary.switchSalary = false
                 return false;
             },
+            checkSuitable() {
+                if(!this.checkingInteger(this.objSuitable.suitable_from)){
+                    this.objSuitable.suitable_from = 0
+                }
+                else if(!this.checkingInteger(this.objSuitable.suitable_to)){
+                    this.objSuitable.suitable_to = 0
+                }
+            },
             disableButton(v) {
                 if(
                     v.$invalid ||
@@ -837,6 +864,19 @@
                     return true;
                 }
                 return false;
+            },
+            alignNumbers() {
+                // выровнять последнее число по первому если оно меньше
+                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
+                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
+                        this.objSalary.salary_to = this.objSalary.salary_from
+                    }
+                }
+                if(this.checkingInteger(this.objSuitable.suitable_from) && this.checkingInteger(this.objSuitable.suitable_to)){
+                    if(parseInt(this.objSuitable.suitable_from) > parseInt(this.objSuitable.suitable_to)){
+                        this.objSuitable.suitable_to = this.objSuitable.suitable_from
+                    }
+                }
             },
             // разбить масив категорий на несколько
             createArrayCategories(){
@@ -866,8 +906,38 @@
 
                 return !obj.length ? null : obj
             },
+            getValuesFields(){
+                return {
+                    position: this.position,
+                    categories: this.objCategory.categories,
+                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+                    rest_address: this.rest_address,
+                    vacancy_suitable: this.objSuitable.suitable,        // Вакансия подходит для
+                    suitable_from: this.objSuitable.suitable_from,
+                    suitable_to: this.objSuitable.suitable_to,
+                    suitable_commentary: this.objSuitable.suitable_commentary,
+                    type_employment: this.type_employment,              // Вид занятости
+                    salary_but: this.objSalary.salary_but,              // Зарплата
+                    salary_from: this.objSalary.salary_from,
+                    salary_to: this.objSalary.salary_to,
+                    salary_sum: this.objSalary.salary_sum,
+                    salary_comment: this.objSalary.salary_comment,
+                    experience: this.experience,                        // Опыт работы
+                    education: this.education,                          // Образование
+                    checkbox_city: this.objCity.checkbox_city,          // Город для поиска
+                    search_city: this.objCity.search_city,
+                    text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
+                    text_working: this.objTextarea.textarea_conditions,                 // Условия работы
+                    text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
+                    contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
+                    how_respond: this.how_respond,                                      // Как можно откликнуться
+                    job_posting: this.job_posting,                                      // Размещение вакансии
+                };
+            },
             // в случае редактирования вакансии
-            giveValuesFields(){
+            setValuesFields(){
                 if(this.vacancy == null){
                     return false
                 }
@@ -897,14 +967,11 @@
                 }, 1000);
                 this.rest_address = this.vacancy.rest_address
                 // Вакансия подходит для
-                if(this.vacancy.vacancy_suitable != null){
-                    this.objSuitable.suitable = this.vacancy.vacancy_suitable.checkboxes
-                    this.objSuitable.commentary_age = this.vacancy.vacancy_suitable.comment
-                    for(let i=0; i<this.objSuitable.suitable.length; i++) {
-                        input = document.querySelector('#vacancy_suitable_'+this.objSuitable.suitable[i]);
-                        input.checked = true;
-                    }
-                }
+                this.objSuitable.suitable = this.vacancy.vacancy_suitable.radio_name;
+                this.objSuitable.suitable_from = this.vacancy.vacancy_suitable.inputs.suitable_from;
+                this.objSuitable.suitable_to = this.vacancy.vacancy_suitable.inputs.suitable_to;
+                this.objSuitable.suitable_commentary = this.vacancy.vacancy_suitable.comment;
+                $('#'+this.objSuitable.suitable).collapse('show');
                 this.type_employment = this.vacancy.type_employment
                 // Зарплата
                 this.objSalary.salary_but = this.vacancy.salary.radio_name
@@ -952,7 +1019,7 @@
 
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {
-                this.giveValuesFields()
+                this.setValuesFields()
             })
         },
         validations: {
@@ -1000,28 +1067,26 @@
     .border_error{
         border:1px solid red;
     }
-    #salary_accordion{
-        .card{
-            border: none;
-            margin: 0 0 9px;
-            border-radius: 0;
-            box-shadow: none;
+    .card{
+        border: none;
+        margin: 0 0 9px;
+        border-radius: 0;
+        box-shadow: none;
+        background: none;
+        .card-header{
             background: none;
-            .card-header{
-                background: none;
+            border-radius: 0;
+            padding: 0;
+            border: none;
+            button{
                 border-radius: 0;
-                padding: 0;
-                border: none;
-                button{
-                    border-radius: 0;
-                    width: 100%;
-                    text-align: left;
-                    padding: 0;
-                }
-            }
-            .card-body{
+                width: 100%;
+                text-align: left;
                 padding: 0;
             }
+        }
+        .card-body{
+            padding: 0;
         }
     }
     .bg-warning{

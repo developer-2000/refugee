@@ -198,7 +198,8 @@ svg{
     display: flex;
     justify-content: space-between;
 }
-.but-box button{
+.but-box button,
+.but-box a{
     width: 45%;
 }
 /* select 2 */
@@ -219,7 +220,8 @@ svg{
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 5px;
 }
-.select2-container--focus .select2-selection.select2-selection--single {
+.select2-container--focus .select2-selection.select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple{
     border-color:#a1cbef!important;
     box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
@@ -242,6 +244,13 @@ svg{
     color: #fff;
     outline: none;
 }
+
+.select2-container--default .select2-selection--multiple {
+    min-height: 35px;
+    border: 1px solid #ced4da;
+    padding-top: 2px;
+}
+
 
 /* my vacation */
 .mode-vacancy{

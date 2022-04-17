@@ -81,9 +81,7 @@
                     <label for="categories">
                         Категории
                     </label>
-                    <select class="form-control select2" id="categories"
-                            multiple="multiple" data-placeholder="Выбрать"
-                    >
+                    <select class="form-control select2" id="categories" multiple="multiple" data-placeholder="Выбрать">
                         <template v-for="(value, index) in settings.categories">
                             <option :value="index" :key="index">{{value}}</option>
                         </template>

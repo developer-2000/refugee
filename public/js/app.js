@@ -3449,6 +3449,94 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3480,9 +3568,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         boolChecked: false
       },
       objSuitable: {
-        suitable: [],
-        boolSuitable: false,
-        commentary_age: ''
+        suitable: 'it_not_matter',
+        suitable_from: 18,
+        suitable_to: 60,
+        suitable_commentary: ''
       },
       objTextarea: {
         textarea_responsibilities: '',
@@ -3566,51 +3655,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                // выровнять последнее число по первому если оно меньше
-                if (_this2.checkingInteger(_this2.objSalary.salary_from) && _this2.checkingInteger(_this2.objSalary.salary_to)) {
-                  if (parseInt(_this2.objSalary.salary_from) > parseInt(_this2.objSalary.salary_to)) {
-                    _this2.objSalary.salary_to = _this2.objSalary.salary_from;
-                  }
-                }
+                _this2.alignNumbers();
 
-                data = {
-                  position: _this2.position,
-                  categories: _this2.objCategory.categories,
-                  country: _this2.returnFoundObject(_this2.objLocations.load_countries, _this2.objLocations.country),
-                  region: _this2.returnFoundObject(_this2.objLocations.load_regions, _this2.objLocations.region),
-                  city: _this2.returnFoundObject(_this2.objLocations.load_cities, _this2.objLocations.city),
-                  rest_address: _this2.rest_address,
-                  vacancy_suitable: _this2.objSuitable.suitable,
-                  // Вакансия подходит для
-                  commentary_age: _this2.objSuitable.commentary_age,
-                  type_employment: _this2.type_employment,
-                  // Вид занятости
-                  salary_but: _this2.objSalary.salary_but,
-                  // Зарплата
-                  salary_from: _this2.objSalary.salary_from,
-                  salary_to: _this2.objSalary.salary_to,
-                  salary_sum: _this2.objSalary.salary_sum,
-                  salary_comment: _this2.objSalary.salary_comment,
-                  experience: _this2.experience,
-                  // Опыт работы
-                  education: _this2.education,
-                  // Образование
-                  checkbox_city: _this2.objCity.checkbox_city,
-                  // Город для поиска
-                  search_city: _this2.objCity.search_city,
-                  text_requirements: _this2.objTextarea.textarea_candidate,
-                  // Требования к кандидату
-                  text_working: _this2.objTextarea.textarea_conditions,
-                  // Условия работы
-                  text_responsibilities: _this2.objTextarea.textarea_responsibilities,
-                  // Обязанности кандидата
-                  contacts: _this2.objDisplayEmpContVacancy.contacts,
-                  // Контакты работодателя
-                  how_respond: _this2.how_respond,
-                  // Как можно откликнуться
-                  job_posting: _this2.job_posting // Размещение вакансии
-
-                };
+                data = _this2.getValuesFields();
                 _context2.next = 4;
                 return _this2.$http.post("/vacancy", data).then(function (res) {
                   if (_this2.checkSuccess(res)) {
@@ -3644,51 +3691,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                // выровнять последнее число по первому если оно меньше
-                if (_this3.checkingInteger(_this3.objSalary.salary_from) && _this3.checkingInteger(_this3.objSalary.salary_to)) {
-                  if (parseInt(_this3.objSalary.salary_from) > parseInt(_this3.objSalary.salary_to)) {
-                    _this3.objSalary.salary_to = _this3.objSalary.salary_from;
-                  }
-                }
+                _this3.alignNumbers();
 
-                data = {
-                  position: _this3.position,
-                  categories: _this3.objCategory.categories,
-                  country: _this3.returnFoundObject(_this3.objLocations.load_countries, _this3.objLocations.country),
-                  region: _this3.returnFoundObject(_this3.objLocations.load_regions, _this3.objLocations.region),
-                  city: _this3.returnFoundObject(_this3.objLocations.load_cities, _this3.objLocations.city),
-                  rest_address: _this3.rest_address,
-                  vacancy_suitable: _this3.objSuitable.suitable,
-                  // Вакансия подходит для
-                  commentary_age: _this3.objSuitable.commentary_age,
-                  type_employment: _this3.type_employment,
-                  // Вид занятости
-                  salary_but: _this3.objSalary.salary_but,
-                  // Зарплата
-                  salary_from: _this3.objSalary.salary_from,
-                  salary_to: _this3.objSalary.salary_to,
-                  salary_sum: _this3.objSalary.salary_sum,
-                  salary_comment: _this3.objSalary.salary_comment,
-                  experience: _this3.experience,
-                  // Опыт работы
-                  education: _this3.education,
-                  // Образование
-                  checkbox_city: _this3.objCity.checkbox_city,
-                  // Город для поиска
-                  search_city: _this3.objCity.search_city,
-                  text_requirements: _this3.objTextarea.textarea_candidate,
-                  // Требования к кандидату
-                  text_working: _this3.objTextarea.textarea_conditions,
-                  // Условия работы
-                  text_responsibilities: _this3.objTextarea.textarea_responsibilities,
-                  // Обязанности кандидата
-                  contacts: _this3.objDisplayEmpContVacancy.contacts,
-                  // Контакты работодателя
-                  how_respond: _this3.how_respond,
-                  // Как можно откликнуться
-                  job_posting: _this3.job_posting // Размещение вакансии
-
-                };
+                data = _this3.getValuesFields();
                 _context3.next = 4;
                 return _this3.$http.put("/vacancy/" + _this3.vacancy_id, data).then(function (res) {
                   if (_this3.checkSuccess(res)) {
@@ -3724,17 +3729,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.objDisplayEmpContVacancy.contacts = selected;
     },
-    vacancySuitable: function vacancySuitable() {
-      this.objSuitable.boolSuitable = true;
-      var checked = document.querySelectorAll('[name="vacancy_suitable"]:checked');
-      var selected = [];
-
-      for (var i = 0; i < checked.length; i++) {
-        selected.push(checked[i].value);
-      }
-
-      this.objSuitable.suitable = selected;
-    },
     checkCategory: function checkCategory() {
       this.objCategory.boolChecked = true;
       var checked = document.querySelectorAll('[name="category"]:checked');
@@ -3756,6 +3750,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.objSalary.switchSalary = false;
       return false;
     },
+    checkSuitable: function checkSuitable() {
+      if (!this.checkingInteger(this.objSuitable.suitable_from)) {
+        this.objSuitable.suitable_from = 0;
+      } else if (!this.checkingInteger(this.objSuitable.suitable_to)) {
+        this.objSuitable.suitable_to = 0;
+      }
+    },
     disableButton: function disableButton(v) {
       if (v.$invalid || !this.objCategory.categories.length || !this.objSuitable.suitable.length || this.rest_address == null || this.checkSalary()) {
         return true;
@@ -3769,6 +3770,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return false;
+    },
+    alignNumbers: function alignNumbers() {
+      // выровнять последнее число по первому если оно меньше
+      if (this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)) {
+        if (parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)) {
+          this.objSalary.salary_to = this.objSalary.salary_from;
+        }
+      }
+
+      if (this.checkingInteger(this.objSuitable.suitable_from) && this.checkingInteger(this.objSuitable.suitable_to)) {
+        if (parseInt(this.objSuitable.suitable_from) > parseInt(this.objSuitable.suitable_to)) {
+          this.objSuitable.suitable_to = this.objSuitable.suitable_from;
+        }
+      }
     },
     // разбить масив категорий на несколько
     createArrayCategories: function createArrayCategories() {
@@ -3802,8 +3817,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return !obj.length ? null : obj;
     },
+    getValuesFields: function getValuesFields() {
+      return {
+        position: this.position,
+        categories: this.objCategory.categories,
+        country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+        region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+        city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+        rest_address: this.rest_address,
+        vacancy_suitable: this.objSuitable.suitable,
+        // Вакансия подходит для
+        suitable_from: this.objSuitable.suitable_from,
+        suitable_to: this.objSuitable.suitable_to,
+        suitable_commentary: this.objSuitable.suitable_commentary,
+        type_employment: this.type_employment,
+        // Вид занятости
+        salary_but: this.objSalary.salary_but,
+        // Зарплата
+        salary_from: this.objSalary.salary_from,
+        salary_to: this.objSalary.salary_to,
+        salary_sum: this.objSalary.salary_sum,
+        salary_comment: this.objSalary.salary_comment,
+        experience: this.experience,
+        // Опыт работы
+        education: this.education,
+        // Образование
+        checkbox_city: this.objCity.checkbox_city,
+        // Город для поиска
+        search_city: this.objCity.search_city,
+        text_requirements: this.objTextarea.textarea_candidate,
+        // Требования к кандидату
+        text_working: this.objTextarea.textarea_conditions,
+        // Условия работы
+        text_responsibilities: this.objTextarea.textarea_responsibilities,
+        // Обязанности кандидата
+        contacts: this.objDisplayEmpContVacancy.contacts,
+        // Контакты работодателя
+        how_respond: this.how_respond,
+        // Как можно откликнуться
+        job_posting: this.job_posting // Размещение вакансии
+
+      };
+    },
     // в случае редактирования вакансии
-    giveValuesFields: function giveValuesFields() {
+    setValuesFields: function setValuesFields() {
       var _this5 = this;
 
       if (this.vacancy == null) {
@@ -3840,16 +3897,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, 1000);
       this.rest_address = this.vacancy.rest_address; // Вакансия подходит для
 
-      if (this.vacancy.vacancy_suitable != null) {
-        this.objSuitable.suitable = this.vacancy.vacancy_suitable.checkboxes;
-        this.objSuitable.commentary_age = this.vacancy.vacancy_suitable.comment;
-
-        for (var _i = 0; _i < this.objSuitable.suitable.length; _i++) {
-          input = document.querySelector('#vacancy_suitable_' + this.objSuitable.suitable[_i]);
-          input.checked = true;
-        }
-      }
-
+      this.objSuitable.suitable = this.vacancy.vacancy_suitable.radio_name;
+      this.objSuitable.suitable_from = this.vacancy.vacancy_suitable.inputs.suitable_from;
+      this.objSuitable.suitable_to = this.vacancy.vacancy_suitable.inputs.suitable_to;
+      this.objSuitable.suitable_commentary = this.vacancy.vacancy_suitable.comment;
+      $('#' + this.objSuitable.suitable).collapse('show');
       this.type_employment = this.vacancy.type_employment; // Зарплата
 
       this.objSalary.salary_but = this.vacancy.salary.radio_name;
@@ -3870,8 +3922,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.objDisplayEmpContVacancy.contacts = this.vacancy.contacts;
 
-      for (var _i2 = 0; _i2 < this.objDisplayEmpContVacancy.contacts.length; _i2++) {
-        input = document.querySelector('#disp_emp_cont_vacancy_' + this.objDisplayEmpContVacancy.contacts[_i2]);
+      for (var _i = 0; _i < this.objDisplayEmpContVacancy.contacts.length; _i++) {
+        input = document.querySelector('#disp_emp_cont_vacancy_' + this.objDisplayEmpContVacancy.contacts[_i]);
         input.checked = true;
       } // Как можно откликнуться
 
@@ -3893,7 +3945,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     $('[data-toggle="tooltip"]').tooltip(); // Код, который будет запущен только после отрисовки всех представлений
 
     this.$nextTick(function () {
-      this.giveValuesFields();
+      this.setValuesFields();
     });
   },
   validations: {
@@ -4235,8 +4287,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_localisation_functions_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/localisation_functions_mixin */ "./resources/js/mixins/localisation_functions_mixin.js");
 /* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 /* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
-//
-//
 //
 //
 //
@@ -8910,7 +8960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n#salary_accordion .card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n#salary_accordion .card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n#salary_accordion .card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n#salary_accordion .card .card-body[data-v-3249dfc6] {\n  padding: 0;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}", ""]);
+exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 20px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  position: absolute;\n  bottom: 2px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n.card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n.card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n.card .card-body[data-v-3249dfc6] {\n  padding: 0;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}", ""]);
 
 // exports
 
@@ -44101,9 +44151,21 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "forms create-page" }, [
-    _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v(_vm._s(_vm.trans("vacancies", "create_job"))),
-    ]),
+    this.vacancy == null
+      ? _c("h1", { staticClass: "title_page card-body" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.trans("vacancies", "create_job")) +
+              "\n    "
+          ),
+        ])
+      : _c("h1", { staticClass: "title_page card-body" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.trans("vacancies", "update_job")) +
+              "\n    "
+          ),
+        ]),
     _vm._v(" "),
     _c("form", { attrs: { action: "", method: "post" } }, [
       _c("div", { staticClass: "row" }, [
@@ -44695,157 +44757,337 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-4" }, [
-          _c(
-            "div",
-            {
-              staticClass: "form-group",
-              class: {
-                border_error:
-                  !this.objSuitable.suitable.length &&
-                  this.objSuitable.boolSuitable == true,
-              },
-            },
-            [
-              _c("label", { attrs: { for: "vacancy_suitable" } }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
-                    "\n                        "
-                ),
-                _c("span", { staticClass: "mandatory-filling" }, [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 512 512",
-                      },
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                        },
-                      }),
-                    ]
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "vacancy_suitable" } }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
+                  "\n                    "
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { attrs: { id: "vacancy_suitable" } }, [
               _c(
                 "div",
-                { attrs: { id: "vacancy_suitable" } },
+                {
+                  staticClass: "accordion",
+                  attrs: { id: "suitable_accordion" },
+                },
                 [
                   _vm._l(this.settings.vacancy_suitable, function (value, key) {
                     return [
-                      key < 5
-                        ? [
-                            _c("div", [
-                              _c("input", {
-                                staticClass: "form-check-input",
+                      key == 0
+                        ? _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "card-header",
+                                attrs: { id: "headingItNotMatter" },
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    attrs: {
+                                      "aria-controls": "it_not_matter",
+                                      "aria-expanded": "true",
+                                      "data-target": "#it_not_matter",
+                                      "data-toggle": "collapse",
+                                    },
+                                  },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.objSuitable.suitable,
+                                          expression: "objSuitable.suitable",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "vacancy_suitable_" + key,
+                                        name: "suitable",
+                                        type: "radio",
+                                        value: "it_not_matter",
+                                      },
+                                      domProps: {
+                                        checked: _vm._q(
+                                          _vm.objSuitable.suitable,
+                                          "it_not_matter"
+                                        ),
+                                      },
+                                      on: {
+                                        change: function ($event) {
+                                          return _vm.$set(
+                                            _vm.objSuitable,
+                                            "suitable",
+                                            "it_not_matter"
+                                          )
+                                        },
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        attrs: {
+                                          for: "vacancy_suitable_" + key,
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(
+                                              _vm.trans("vacancies", value)
+                                            ) +
+                                            "\n                                            "
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", {
+                              staticClass: "collapse show",
+                              attrs: {
+                                "aria-labelledby": "headingItNotMatter",
+                                "data-parent": "#suitable_accordion",
+                                id: "it_not_matter",
+                              },
+                            }),
+                          ])
+                        : key == 1
+                        ? _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "card-header",
+                                attrs: { id: "headingSetAge" },
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    attrs: {
+                                      "aria-controls": "set_age",
+                                      "aria-expanded": "false",
+                                      "data-target": "#set_age",
+                                      "data-toggle": "collapse",
+                                    },
+                                  },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.objSuitable.suitable,
+                                          expression: "objSuitable.suitable",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "vacancy_suitable_" + key,
+                                        name: "suitable",
+                                        type: "radio",
+                                        value: "set_age",
+                                      },
+                                      domProps: {
+                                        checked: _vm._q(
+                                          _vm.objSuitable.suitable,
+                                          "set_age"
+                                        ),
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            return _vm.$set(
+                                              _vm.objSuitable,
+                                              "suitable",
+                                              "set_age"
+                                            )
+                                          },
+                                          _vm.checkSuitable,
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        attrs: {
+                                          for: "vacancy_suitable_" + key,
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(
+                                              _vm.trans("vacancies", "set_age")
+                                            ) +
+                                            "\n                                            "
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "collapse",
                                 attrs: {
-                                  name: "vacancy_suitable",
-                                  type: "checkbox",
-                                  id: "vacancy_suitable_" + key,
+                                  "aria-labelledby": "headingSetAge",
+                                  "data-parent": "#suitable_accordion",
+                                  id: "set_age",
                                 },
-                                domProps: { value: "" + key },
-                                on: { change: _vm.vacancySuitable },
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "label",
-                                { attrs: { for: "vacancy_suitable_" + key } },
-                                [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(_vm.trans("vacancies", value)) +
-                                      "\n                                    "
-                                  ),
-                                ]
-                              ),
-                            ]),
-                          ]
-                        : [
-                            _vm.objSuitable.suitable.indexOf("4") != -1
-                              ? _c("div", [
-                                  _c(
-                                    "label",
-                                    { attrs: { for: "commentary_age" } },
-                                    [
-                                      _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(
-                                            _vm.trans("vacancies", value)
-                                          ) +
-                                          "\n                                    "
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
+                              },
+                              [
+                                _c("div", { staticClass: "card-body" }, [
                                   _c("input", {
                                     directives: [
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.objSuitable.commentary_age,
-                                        expression:
-                                          "objSuitable.commentary_age",
+                                        value: _vm.objSuitable.suitable_from,
+                                        expression: "objSuitable.suitable_from",
                                       },
                                     ],
-                                    staticClass: "form-control",
                                     attrs: {
-                                      type: "text",
-                                      id: "commentary_age",
-                                      maxlength: "100",
                                       placeholder:
                                         "" +
-                                        _vm.trans("vacancies", "data_entry"),
+                                        _vm.trans(
+                                          "vacancies",
+                                          value["set_age"][0]
+                                        ),
+                                      max: "100000000",
+                                      min: "0",
+                                      type: "number",
                                     },
                                     domProps: {
-                                      value: _vm.objSuitable.commentary_age,
+                                      value: _vm.objSuitable.suitable_from,
                                     },
                                     on: {
+                                      blur: _vm.checkSuitable,
                                       input: function ($event) {
                                         if ($event.target.composing) {
                                           return
                                         }
                                         _vm.$set(
                                           _vm.objSuitable,
-                                          "commentary_age",
+                                          "suitable_from",
                                           $event.target.value
                                         )
                                       },
                                     },
                                   }),
-                                ])
-                              : _vm._e(),
-                          ],
+                                  _vm._v(
+                                    "\n                                            -\n                                            "
+                                  ),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.objSuitable.suitable_to,
+                                        expression: "objSuitable.suitable_to",
+                                      },
+                                    ],
+                                    attrs: {
+                                      placeholder:
+                                        "" +
+                                        _vm.trans(
+                                          "vacancies",
+                                          value["set_age"][1]
+                                        ),
+                                      max: "100000000",
+                                      min: "0",
+                                      type: "number",
+                                    },
+                                    domProps: {
+                                      value: _vm.objSuitable.suitable_to,
+                                    },
+                                    on: {
+                                      blur: _vm.checkSuitable,
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.objSuitable,
+                                          "suitable_to",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(
+                                    "\n                                            лет\n                                        "
+                                  ),
+                                ]),
+                              ]
+                            ),
+                          ])
+                        : key == 2
+                        ? _c("div", [
+                            _c(
+                              "label",
+                              { attrs: { for: "suitable_commentary" } },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.trans("vacancies", value)) +
+                                    "\n                                    "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.objSuitable.suitable_commentary,
+                                  expression: "objSuitable.suitable_commentary",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                placeholder:
+                                  "" + _vm.trans("vacancies", "data_entry"),
+                                id: "suitable_commentary",
+                                maxlength: "100",
+                                type: "text",
+                              },
+                              domProps: {
+                                value: _vm.objSuitable.suitable_commentary,
+                              },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.objSuitable,
+                                    "suitable_commentary",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ])
+                        : _vm._e(),
                     ]
                   }),
                 ],
                 2
               ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "invalid-feedback",
-                  class: {
-                    "is-invalid visible":
-                      !this.objSuitable.suitable.length &&
-                      this.objSuitable.boolSuitable == true,
-                  },
-                },
-                [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.trans("vacancies", "age_group")) +
-                      "\n                    "
-                  ),
-                ]
-              ),
-            ]
-          ),
+            ]),
+          ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-4" }, [
@@ -46090,23 +46332,23 @@ var render = function () {
           "div",
           { staticClass: "col-sm-4 offset-4 but-box" },
           [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-block btn-outline-danger",
-                attrs: { type: "submit" },
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans("vacancies", "cancel")) +
-                    "\n                "
-                ),
-              ]
-            ),
-            _vm._v(" "),
             _vm.vacancy_id == 0
               ? [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-block btn-outline-danger btn-lg",
+                      attrs: { href: "/" },
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans("vacancies", "cancel")) +
+                          "\n                    "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "button",
                     {
@@ -46134,6 +46376,21 @@ var render = function () {
                 ]
               : [
                   _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-block btn-outline-danger btn-lg",
+                      attrs: { href: "/vacancy/my-vacancies" },
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans("vacancies", "cancel")) +
+                          "\n                    "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
                     "button",
                     {
                       staticClass: "btn btn-block btn-primary btn-lg",
@@ -46151,7 +46408,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                        Изменить\n                    "
+                        "\n                        " +
+                          _vm._s(_vm.trans("vacancies", "update_vacancy")) +
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -63706,10 +63965,9 @@ module.exports = {
     "euro_per_month": "euro per month",
     "example_hairdresser": "Example hairdresser",
     "finance": "Finance, bank",
+    "from": "from",
     "from_1_year": "from 1 year",
-    "from_25_to_40": "from 25 to 40",
     "from_2_years": "from 2 years",
-    "from_40_years_old": "from 40 years old and older",
     "from_5_years": "from 5 years",
     "functions": "Functions",
     "get_more_responses": "Enter your salary to get more responses. When job seekers know what salary you offer, they are more conscious of responding to jobs. This will help you find the right employee faster.",
@@ -63753,9 +64011,7 @@ module.exports = {
     "retail": "Retail",
     "salary": "Salary",
     "salary_comment": "Salary comment",
-    "salary_from": "from",
     "salary_sum": "amount",
-    "salary_to": "before",
     "salary_vacancy": "Please indicate the estimated salary of the vacancy.",
     "sales": "Sales, purchases",
     "save": "Save",
@@ -63768,6 +64024,7 @@ module.exports = {
     "select_region": "Select region",
     "select_search_city": "Select search city",
     "service_sector": "Service sector",
+    "set_age": "set age",
     "single_value": "Single value",
     "specialized_secondary": "secondary special",
     "standard": "Standard (Vacancy will be posted for a month)",
@@ -63783,17 +64040,18 @@ module.exports = {
     "title_salary": "Indicate the real salary that the candidate can earn. By specifying the salary, applicants respond to vacancies more consciously. This way you will find the right employee faster.",
     "title_search_city": "If your position is non-remote work and you want to search for candidates in another city in the country. Specify in which city to search.",
     "title_working_conditions": "To get more candidates and find the best, describe all the benefits of working in your company and why it is better to come to work for you, for example: friendly and cheerful team; official registration; working hours from 9 to 18; modern office in city center; comfortable modern workplace; own kitchen and gym.",
+    "to": "before",
     "top_management": "Top management, top management",
     "transport": "Transport, auto business",
     "type_employment": "Type of employment",
-    "up_to_25": "under 25",
     "update": "Update",
+    "update_job": "Edit Job",
+    "update_vacancy": "Change",
     "without_experience": "ready to take without experience",
     "without_resume": "Possible without resume",
     "work_conditions": "Work conditions",
     "work_experience": "Work experience",
-    "working": "Working professions, production",
-    "your_own_version": "your own version"
+    "working": "Working professions, production"
   },
   "ru.auth": {
     "agree_with_that": "\u041D\u0430\u0436\u0438\u043C\u0430\u044F \xAB\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\xBB, \u044F \u0441\u043E\u0433\u043B\u0430\u0448\u0430\u044E\u0441\u044C \u0441 \u0442\u0435\u043C, \u0447\u0442\u043E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u043B \u0438 \u043F\u0440\u0438\u043D\u044F\u043B",
@@ -63859,10 +64117,9 @@ module.exports = {
     "euro_per_month": "\u0435\u0432\u0440\u043E \u0432 \u043C\u0435\u0441\u044F\u0446",
     "example_hairdresser": "\u041D\u0430\u043F\u0440\u0438\u043C\u0435\u0440 \u043F\u0430\u0440\u0438\u043A\u043C\u0430\u0445\u0435\u0440",
     "finance": "\u0424\u0438\u043D\u0430\u043D\u0441\u044B, \u0431\u0430\u043D\u043A",
+    "from": "\u043E\u0442",
     "from_1_year": "\u043E\u0442 1 \u0433\u043E\u0434\u0430",
-    "from_25_to_40": "\u043E\u0442 25 \u0434\u043E 40 \u043B\u0435\u0442",
     "from_2_years": "\u043E\u0442 2 \u043B\u0435\u0442",
-    "from_40_years_old": "\u043E\u0442 40 \u043B\u0435\u0442 \u0438 \u0441\u0442\u0430\u0440\u0448\u0435",
     "from_5_years": "\u043E\u0442 5 \u043B\u0435\u0442",
     "functions": "\u0424\u0443\u043D\u043A\u0446\u0438\u0438",
     "get_more_responses": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043E\u0442\u043A\u043B\u0438\u043A\u043E\u0432, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443. \u041A\u043E\u0433\u0434\u0430 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0438 \u0437\u043D\u0430\u044E\u0442, \u043A\u0430\u043A\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u044B \u043F\u0440\u0435\u0434\u043B\u0430\u0433\u0430\u0435\u0442\u0435, \u043E\u043D\u0438 \u0431\u043E\u043B\u0435\u0435 \u043E\u0441\u043E\u0437\u043D\u0430\u043D\u043D\u043E \u043E\u0442\u043A\u043B\u0438\u043A\u0430\u044E\u0442\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u0422\u0430\u043A \u0432\u044B \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430.",
@@ -63906,9 +64163,7 @@ module.exports = {
     "retail": "\u0420\u043E\u0437\u043D\u0438\u0447\u043D\u0430\u044F \u0442\u043E\u0440\u0433\u043E\u0432\u043B\u044F",
     "salary": "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430",
     "salary_comment": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043A \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0435",
-    "salary_from": "\u043E\u0442",
     "salary_sum": "\u0441\u0443\u043C\u043C\u0430",
-    "salary_to": "\u0434\u043E",
     "salary_vacancy": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043F\u0440\u0435\u0434\u043F\u043E\u043B\u0430\u0433\u0430\u0435\u043C\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "sales": "\u041F\u0440\u043E\u0434\u0430\u0436\u0438, \u0437\u0430\u043A\u0443\u043F\u043A\u0438",
     "save": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C",
@@ -63921,6 +64176,7 @@ module.exports = {
     "select_region": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0440\u0435\u0433\u0438\u043E\u043D",
     "select_search_city": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0433\u043E\u0440\u043E\u0434 \u043F\u043E\u0438\u0441\u043A\u0430",
     "service_sector": "\u0421\u0444\u0435\u0440\u0430 \u043E\u0431\u0441\u043B\u0443\u0436\u0438\u0432\u0430\u043D\u0438\u044F",
+    "set_age": "\u0443\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0432\u043E\u0437\u0440\u0430\u0441\u0442",
     "single_value": "\u041E\u0434\u043D\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435",
     "specialized_secondary": "\u0441\u0440\u0435\u0434\u043D\u0435\u0435 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0435",
     "standard": "\u0421\u0442\u0430\u043D\u0434\u0430\u0440\u0442 (\u0412\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u0431\u0443\u0434\u0435\u0442 \u0440\u0430\u0437\u043C\u0435\u0449\u0435\u043D\u0430 \u043D\u0430 \u043C\u0435\u0441\u044F\u0446)",
@@ -63936,17 +64192,18 @@ module.exports = {
     "title_salary": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0440\u0435\u0430\u043B\u044C\u043D\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0441\u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442. \u041F\u0440\u0438 \u0443\u043A\u0430\u0437\u0430\u043D\u0438\u0438 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u044B, \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0438 \u0431\u043E\u043B\u0435\u0435 \u043E\u0441\u043E\u0437\u043D\u0430\u043D\u043D\u043E \u043E\u0442\u043A\u043B\u0438\u043A\u0430\u044E\u0442\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u0422\u0430\u043A \u0432\u044B \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430.",
     "title_search_city": "\u0415\u0441\u043B\u0438 \u0432\u0430\u0448\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u043F\u043E\u0434\u0440\u0430\u0437\u0443\u043C\u0435\u0432\u0430\u0435\u0442 \u043D\u0435 \u0443\u0434\u0430\u043B\u0435\u043D\u043D\u0443\u044E \u0440\u0430\u0431\u043E\u0442\u0443 \u0438 \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u043E\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u043B\u044F\u0442\u044C \u043F\u043E\u0438\u0441\u043A \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u0433\u043E\u0440\u043E\u0434\u0435 \u0441\u0442\u0440\u0430\u043D\u044B. \u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0432 \u043A\u0430\u043A\u043E\u043C \u0433\u043E\u0440\u043E\u0434\u0435 \u043E\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u043B\u044F\u0442\u044C \u043F\u043E\u0438\u0441\u043A.",
     "title_working_conditions": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0438 \u043D\u0430\u0439\u0442\u0438 \u043B\u0443\u0447\u0448\u0438\u0445, \u043E\u043F\u0438\u0448\u0438\u0442\u0435 \u0432\u0441\u0435 \u043F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0432\u0430\u0448\u0435\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438 \u0438 \u043F\u043E\u0447\u0435\u043C\u0443 \u043B\u0443\u0447\u0448\u0435 \u043F\u0440\u0438\u0439\u0442\u0438 \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u0438\u043C\u0435\u043D\u043D\u043E \u043A \u0432\u0430\u043C, \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440: \u0434\u0440\u0443\u0436\u0435\u043B\u044E\u0431\u043D\u0430\u044F \u0438 \u0432\u0435\u0441\u0435\u043B\u0430\u044F \u043A\u043E\u043C\u0430\u043D\u0434\u0430; \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435; \u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0434\u0435\u043D\u044C \u0441 9 \u0434\u043E 18; \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0439 \u043E\u0444\u0438\u0441 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435 \u0433\u043E\u0440\u043E\u0434\u0430; \u043A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u043E\u0435 \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0435 \u0440\u0430\u0431\u043E\u0447\u0435\u0435 \u043C\u0435\u0441\u0442\u043E; \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u043A\u0443\u0445\u043D\u044F \u0438 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B.",
+    "to": "\u0434\u043E",
     "top_management": "\u0422\u043E\u043F-\u043C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442, \u0440\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u0432\u044B\u0441\u0448\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430",
     "transport": "\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442, \u0430\u0432\u0442\u043E\u0431\u0438\u0437\u043D\u0435\u0441",
     "type_employment": "\u0412\u0438\u0434 \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u0438",
-    "up_to_25": "\u0434\u043E 25 \u043B\u0435\u0442",
     "update": "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C",
+    "update_job": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E",
+    "update_vacancy": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
     "without_experience": "\u0433\u043E\u0442\u043E\u0432\u044B \u0432\u0437\u044F\u0442\u044C \u0431\u0435\u0437 \u043E\u043F\u044B\u0442\u0430",
     "without_resume": "\u041C\u043E\u0436\u043D\u043E \u0438 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435",
     "work_conditions": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0440\u0430\u0431\u043E\u0442\u044B",
     "work_experience": "\u041E\u043F\u044B\u0442 \u0440\u0430\u0431\u043E\u0442\u044B",
-    "working": "\u0420\u0430\u0431\u043E\u0447\u0438\u0435 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438, \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E",
-    "your_own_version": "\u0441\u0432\u043E\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442"
+    "working": "\u0420\u0430\u0431\u043E\u0447\u0438\u0435 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438, \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E"
   },
   "uk.auth": {
     "agree_with_that": "\u041D\u0430\u0442\u0438\u0441\u043A\u0430\u044E\u0447\u0438 \xAB\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F\xBB, \u044F \u043F\u043E\u0433\u043E\u0434\u0436\u0443\u044E\u0441\u044C \u0437 \u0442\u0438\u043C, \u0449\u043E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0432 \u0456 \u043F\u0440\u0438\u0439\u043D\u044F\u0432",
@@ -64012,10 +64269,9 @@ module.exports = {
     "euro_per_month": "\u0454\u0432\u0440\u043E \u043D\u0430 \u043C\u0456\u0441\u044F\u0446\u044C",
     "example_hairdresser": "\u041D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434 \u043F\u0435\u0440\u0443\u043A\u0430\u0440",
     "finance": "\u0424\u0456\u043D\u0430\u043D\u0441\u0438, \u0431\u0430\u043D\u043A",
+    "from": "\u0432\u0456\u0434",
     "from_1_year": "\u0432\u0456\u0434 1 \u0440\u043E\u043A\u0443",
-    "from_25_to_40": "\u0432\u0456\u0434 25 \u0434\u043E 40 \u0440\u043E\u043A\u0456\u0432",
     "from_2_years": "\u0432\u0456\u0434 2 \u0440\u043E\u043A\u0456\u0432",
-    "from_40_years_old": "\u0432\u0456\u0434 40 \u0440\u043E\u043A\u0456\u0432 \u0456 \u0441\u0442\u0430\u0440\u0448\u0435",
     "from_5_years": "\u0432\u0456\u0434 5 \u0440\u043E\u043A\u0456\u0432",
     "functions": "\u0424\u0443\u043D\u043A\u0446\u0456\u0457",
     "get_more_responses": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u0432\u0456\u0434\u0433\u0443\u043A\u0456\u0432, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443. \u041A\u043E\u043B\u0438 \u0437\u0434\u043E\u0431\u0443\u0432\u0430\u0447\u0456 \u0437\u043D\u0430\u044E\u0442\u044C, \u044F\u043A\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0438 \u043F\u0440\u043E\u043F\u043E\u043D\u0443\u0454\u0442\u0435, \u0432\u043E\u043D\u0438 \u0431\u0456\u043B\u044C\u0448 \u0443\u0441\u0432\u0456\u0434\u043E\u043C\u043B\u0435\u043D\u043E \u0432\u0456\u0434\u0433\u0443\u043A\u0443\u044E\u0442\u044C\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u0422\u0430\u043A \u0432\u0438 \u0448\u0432\u0438\u0434\u0448\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u043E\u0433\u043E \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0430.",
@@ -64059,9 +64315,7 @@ module.exports = {
     "retail": "\u0420\u043E\u0437\u0434\u0440\u0456\u0431\u043D\u0430 \u0442\u043E\u0440\u0433\u0456\u0432\u043B\u044F",
     "salary": "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430",
     "salary_comment": "\u041A\u043E\u043C\u0435\u043D\u0442\u0430\u0440 \u0434\u043E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0438",
-    "salary_from": "\u0432\u0456\u0434",
     "salary_sum": "\u0441\u0443\u043C\u0430",
-    "salary_to": "\u0434\u043E",
     "salary_vacancy": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u043C\u043E\u0436\u043B\u0438\u0432\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "sales": "\u041F\u0440\u043E\u0434\u0430\u0436\u0456, \u0437\u0430\u043A\u0443\u043F\u0456\u0432\u043B\u0456",
     "save": "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438",
@@ -64074,6 +64328,7 @@ module.exports = {
     "select_region": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0440\u0435\u0433\u0456\u043E\u043D",
     "select_search_city": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043C\u0456\u0441\u0442\u043E \u043F\u043E\u0448\u0443\u043A\u0443",
     "service_sector": "\u0421\u0444\u0435\u0440\u0430 \u043E\u0431\u0441\u043B\u0443\u0433\u043E\u0432\u0443\u0432\u0430\u043D\u043D\u044F",
+    "set_age": "\u0432\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0438 \u0432\u0456\u043A",
     "single_value": "\u041E\u0434\u043D\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F",
     "specialized_secondary": "\u0441\u0435\u0440\u0435\u0434\u043D\u0454 \u0441\u043F\u0435\u0446\u0456\u0430\u043B\u044C\u043D\u0435",
     "standard": "\u0421\u0442\u0430\u043D\u0434\u0430\u0440\u0442 (\u0412\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u0431\u0443\u0434\u0435 \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u0430 \u043D\u0430 \u043C\u0456\u0441\u044F\u0446\u044C)",
@@ -64089,17 +64344,18 @@ module.exports = {
     "title_salary": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0440\u0435\u0430\u043B\u044C\u043D\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443, \u044F\u043A\u0443 \u0437\u043C\u043E\u0436\u0435 \u0437\u0430\u0440\u043E\u0431\u0438\u0442\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442. \u041F\u0440\u0438 \u0432\u043A\u0430\u0437\u0456\u0432\u0446\u0456 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0438, \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0438 \u0431\u0456\u043B\u044C\u0448 \u0443\u0441\u0432\u0456\u0434\u043E\u043C\u043B\u0435\u043D\u043E \u0432\u0456\u0434\u0433\u0443\u043A\u0443\u044E\u0442\u044C\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u0422\u0430\u043A \u0432\u0438 \u0448\u0432\u0438\u0434\u0448\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u043E\u0433\u043E \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0430.",
     "title_search_city": "\u042F\u043A\u0449\u043E \u0432\u0430\u0448\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u043C\u0430\u0454 \u043D\u0430 \u0443\u0432\u0430\u0437\u0456 \u043D\u0435 \u0432\u0456\u0434\u0434\u0430\u043B\u0435\u043D\u0443 \u0440\u043E\u0431\u043E\u0442\u0443 \u0456 \u0432\u0438 \u0445\u043E\u0447\u0435\u0442\u0435 \u0437\u0434\u0456\u0439\u0441\u043D\u044E\u0432\u0430\u0442\u0438 \u043F\u043E\u0448\u0443\u043A \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0432 \u0456\u043D\u0448\u043E\u043C\u0443 \u043C\u0456\u0441\u0442\u0456 \u043A\u0440\u0430\u0457\u043D\u0438. \u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0443 \u044F\u043A\u043E\u043C\u0443 \u043C\u0456\u0441\u0442\u0456 \u0437\u0434\u0456\u0439\u0441\u043D\u044E\u0432\u0430\u0442\u0438 \u043F\u043E\u0448\u0443\u043A.",
     "title_working_conditions": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0456 \u0437\u043D\u0430\u0439\u0442\u0438 \u043D\u0430\u0439\u043A\u0440\u0430\u0449\u0438\u0445, \u043E\u043F\u0438\u0448\u0456\u0442\u044C \u0443\u0441\u0456 \u043F\u0435\u0440\u0435\u0432\u0430\u0433\u0438 \u0440\u043E\u0431\u043E\u0442\u0438 \u0443 \u0432\u0430\u0448\u0456\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457 \u0442\u0430 \u0447\u043E\u043C\u0443 \u043A\u0440\u0430\u0449\u0435 \u043F\u0440\u0438\u0439\u0442\u0438 \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u0442\u0438 \u0441\u0430\u043C\u0435 \u0434\u043E \u0432\u0430\u0441, \u043D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434: \u0434\u0440\u0443\u0436\u043D\u044F \u0442\u0430 \u0432\u0435\u0441\u0435\u043B\u0430 \u043A\u043E\u043C\u0430\u043D\u0434\u0430; \u043E\u0444\u0456\u0446\u0456\u0439\u043D\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u043D\u044F; \u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0434\u0435\u043D\u044C \u0437 9 \u0434\u043E 18; \u0441\u0443\u0447\u0430\u0441\u043D\u0438\u0439 \u043E\u0444\u0456\u0441 \u0443 \u0446\u0435\u043D\u0442\u0440\u0456 \u043C\u0456\u0441\u0442\u0430; \u043A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u0435 \u0441\u0443\u0447\u0430\u0441\u043D\u0435 \u0440\u043E\u0431\u043E\u0447\u0435 \u043C\u0456\u0441\u0446\u0435; \u0432\u043B\u0430\u0441\u043D\u0430 \u043A\u0443\u0445\u043D\u044F \u0442\u0430 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B.",
+    "to": "\u0434\u043E",
     "top_management": "\u0422\u043E\u043F-\u043C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442, \u043A\u0435\u0440\u0456\u0432\u043D\u0438\u0446\u0442\u0432\u043E \u0432\u0438\u0449\u043E\u0457 \u043B\u0430\u043D\u043A\u0438",
     "transport": "\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442, \u0430\u0432\u0442\u043E\u0431\u0456\u0437\u043D\u0435\u0441",
     "type_employment": "\u0412\u0438\u0433\u043B\u044F\u0434 \u0437\u0430\u0439\u043D\u044F\u0442\u043E\u0441\u0442\u0456",
-    "up_to_25": "\u0434\u043E 25 \u0440\u043E\u043A\u0456\u0432",
     "update": "\u041E\u043D\u043E\u0432\u0438\u0442\u0438",
+    "update_job": "\u0420\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u0442\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E",
+    "update_vacancy": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438",
     "without_experience": "\u0433\u043E\u0442\u043E\u0432\u0456 \u0432\u0437\u044F\u0442\u0438 \u0431\u0435\u0437 \u0434\u043E\u0441\u0432\u0456\u0434\u0443",
     "without_resume": "\u041C\u043E\u0436\u043D\u0430 \u0456 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435",
     "work_conditions": "\u0423\u043C\u043E\u0432\u0438 \u0440\u043E\u0431\u043E\u0442\u0438",
     "work_experience": "\u0414\u043E\u0441\u0432\u0456\u0434 \u0440\u043E\u0431\u043E\u0442\u0438",
-    "working": "\u0420\u043E\u0431\u043E\u0447\u0456 \u0441\u043F\u0435\u0446\u0456\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0456, \u0432\u0438\u0440\u043E\u0431\u043D\u0438\u0446\u0442\u0432\u043E",
-    "your_own_version": "\u0441\u0432\u0456\u0439 \u0432\u0430\u0440\u0456\u0430\u043D\u0442"
+    "working": "\u0420\u043E\u0431\u043E\u0447\u0456 \u0441\u043F\u0435\u0446\u0456\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0456, \u0432\u0438\u0440\u043E\u0431\u043D\u0438\u0446\u0442\u0432\u043E"
   }
 };
 

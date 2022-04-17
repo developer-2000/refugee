@@ -3,6 +3,7 @@
 return [
     // title
     'create_job'=>'Создать вакансию',
+    'update_job'=>'Редактировать вакансию',
     'job_name'=>'Название должности',
     'country_job'=>'Страна вакансии',
     'job_region'=>'Регион вакансии',
@@ -46,25 +47,21 @@ return [
 
 
 
-
     'example_hairdresser'=>"Например парикмахер",
     'select_country'=>"Выбрать страну",
     'select_region'=>"Выбрать регион",
     'select_city'=>"Выбрать город",
     'remaining_address'=>"Остальной адрес",
-    'up_to_25'=>"до 25 лет",
-    'from_25_to_40'=>"от 25 до 40 лет",
-    'from_40_years_old'=>"от 40 лет и старше",
     'it_not_matter'=>"это не имеет значения",
-    'your_own_version'=>"свой вариант",
+    'set_age'=>"установить возраст",
     'age_comment'=>"Комментарий к возрасту",
     'locally_full_time'=>"локально, полная занятость",
     'locally_part_time'=>"локально, не полная занятость",
     'remote_full_time'=>"удаленно, полная занятость",
     'remote_part_time'=>"удаленно, не полная занятость",
     'range'=>"Диапазон",
-    'salary_from'=>"от",
-    'salary_to'=>"до",
+    'from'=>"от",
+    'to'=>"до",
     'euro_per_month'=>"евро в месяц",
     'single_value'=>"Одно значение",
     'salary_sum'=>"сумма",
@@ -90,6 +87,7 @@ return [
     'hidden'=>"Скрытая (Вакансия будет скрыта от соискателей)",
     'cancel'=>"Отменить",
     'save'=>"Сохранить",
+    'update_vacancy'=>"Изменить",
 
 
     // my vacancies

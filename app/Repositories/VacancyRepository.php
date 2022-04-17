@@ -47,8 +47,12 @@ class VacancyRepository extends CoreRepository {
             'city'=>$request->city !== null ? $request->city[0] : null,
             'rest_address'=>$request->rest_address,
             'vacancy_suitable'=>[
-                'checkboxes'=>$request->vacancy_suitable,
-                'comment'=>$request->commentary_age,
+                'radio_name'=>$request->vacancy_suitable,
+                'inputs'=>[
+                    'suitable_from'=>$request->suitable_from,
+                    'suitable_to'=>$request->suitable_to,
+                ],
+                'comment'=>$request->suitable_commentary,
             ],
             'type_employment'=>$request->type_employment,
             'salary'=>[

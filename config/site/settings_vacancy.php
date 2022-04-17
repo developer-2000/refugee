@@ -13,7 +13,7 @@ return [
     // Время оплаты: в час, в месяц
     // Индексы ключи к файлу языка
     'salary' => [
-        'range' => [ 'salary_from','salary_to' ],
+        'range' => [ 'from','to' ],
         'single_value' => [ 'salary_sum' ],
         'dont_specify' => [],
         'salary_comment' => [],
@@ -38,13 +38,18 @@ return [
     // Вакансия подходит для: до 25 лет, от 25 до 40 лет, от 40 лет и старше, не важно
     // Индексы ключи к файлу языка
     'vacancy_suitable' => [
-        'up_to_25',
-        'from_25_to_40',
-        'from_40_years_old',
         'it_not_matter',
-        'your_own_version',
+        ['set_age' => [ 'from', 'to' ]],
         'age_comment',
     ],
+//    'vacancy_suitable' => [
+//        'up_to_25',
+//        'from_25_to_40',
+//        'from_40_years_old',
+//        'it_not_matter',
+//        'your_own_version',
+//        'age_comment',
+//    ],
     // Какие контакты связи показать соискателю: email, tel, messenger viber, messenger telegram,
     // Индексы ключи к файлу языка
     'contact_information' => [

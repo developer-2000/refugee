@@ -3,6 +3,7 @@
 return [
     // title
     'create_job'=>'Створити вакансію',
+    'update_job'=>'Редагувати вакансію',
     'job_name'=>'Назва посади',
     'country_job'=>'Країна вакансії',
     'job_region'=>'Регіон вакансії',
@@ -50,19 +51,20 @@ return [
     'select_region'=>"Вибрати регіон",
     'select_city'=>"Вибрати місто",
     'remaining_address'=>"Інша адреса",
-    'up_to_25'=>"до 25 років",
-    'from_25_to_40'=>"від 25 до 40 років",
-    'from_40_years_old'=>"від 40 років і старше",
+
     'it_not_matter'=>"це не має значення",
-    'your_own_version'=>"свій варіант",
+    'set_age'=>"встановити вік",
     'age_comment'=>"Коментар до віку",
+
     'locally_full_time'=>"локально, повна зайнятість",
     'locally_part_time'=>"локально, не повна зайнятість",
     'remote_full_time'=>"віддалено, повна зайнятість",
     'remote_part_time'=>"віддалено, не повна зайнятість",
     'range'=>"Діапазон",
-    'salary_from'=>"від",
-    'salary_to'=>"до",
+
+    'from'=>"від",
+    'to'=>"до",
+
     'euro_per_month'=>"євро на місяць",
     'single_value'=>"Одне значення",
     'salary_sum'=>"сума",
@@ -88,6 +90,7 @@ return [
     'hidden'=>"Прихована (Вакансія буде прихована від претендентів)",
     'cancel'=>"Скасувати",
     'save'=>"Зберегти",
+    'update_vacancy'=>"Змінити",
 
 
     // my vacancies

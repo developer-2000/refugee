@@ -3,6 +3,7 @@
 return [
     // title
     'create_job'=>'Create Job',
+    'update_job'=>'Edit Job',
     'job_name'=>'Job name',
     'country_job'=>'Country of job',
     'job_region'=>'Job region',
@@ -51,19 +52,20 @@ return [
     'select_region'=>"Select region",
     'select_city'=>"Select city",
     'remaining_address'=>"Remaining address",
-    'up_to_25'=>"under 25",
-    'from_25_to_40'=>"from 25 to 40",
-    'from_40_years_old'=>"from 40 years old and older",
+
     'it_not_matter'=>"it doesn't matter",
-    'your_own_version'=>"your own version",
+    'set_age'=>"set age",
     'age_comment'=>"Age comment",
+
     'locally_full_time'=>"locally, full time",
     'locally_part_time'=>"locally, part time",
     'remote_full_time'=>"remote, full time",
     'remote_part_time'=>"remote, part time",
     'range'=>"Range",
-    'salary_from'=>"from",
-    'salary_to'=>"before",
+
+    'from'=>"from",
+    'to'=>"before",
+
     'euro_per_month'=>"euro per month",
     'single_value'=>"Single value",
     'salary_sum'=>"amount",
@@ -89,7 +91,7 @@ return [
     'hidden'=>"Hidden (Vacancy will be hidden from applicants)",
     'cancel'=>"Cancel",
     'save'=>"Save",
-
+    'update_vacancy'=>"Change",
 
     // my vacancies
     'my_vacancies'=>"My vacancies",
