@@ -109,19 +109,19 @@
                         <input class="form-check-input" id="checkbox_suit" type="checkbox"
                                v-model="objCheckSuitable.check"
                         >
-                        <label for="checkbox_suit">
+                        <label for="checkbox_suit" class="target-label">
                             установить возраст
                         </label>
                     </div>
                     <!-- 2 -->
                     <div class="box-suitable" v-if="objCheckSuitable.check">
-                        <input :placeholder="`${trans('vacancies','to')}`"
+                        <input :placeholder="`${trans('vacancies','from')}`"
                                max="100000000" min="0" type="number"
                                @blur="checkSuitable"
                                v-model="objCheckSuitable.suitable_from"
                         >
                         -
-                        <input :placeholder="`${trans('vacancies','from')}`"
+                        <input :placeholder="`${trans('vacancies','to')}`"
                                max="100000000" min="0" type="number"
                                @blur="checkSuitable"
                                v-model="objCheckSuitable.suitable_to"
@@ -161,6 +161,117 @@
             </div>
         </div>
 
+        <!-- Salary -->
+        <div class="card card-primary salary">
+            <!-- header -->
+            <div class="card-header">
+                <h3 class="card-title">
+                    {{trans('vacancies','salary')}}
+                </h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- body -->
+            <div class="card-body">
+                <div class="form-group">
+                    <!-- 1 -->
+                    <div class="checkbox-box">
+                        <input class="form-check-input" id="salary_checkbox" type="checkbox"
+                               v-model="objSalary.salary_checkbox"
+                        >
+                        <label for="salary_checkbox" class="target-label">
+                           c не указанной зарплатой
+                        </label>
+                    </div>
+                    <!-- 2 -->
+                    <label for="salary">
+                        {{UpperCaseFirstCharacter(trans('vacancies','euro_per_month'))}}
+                    </label>
+                    <div class="box-suitable" id="salary">
+                        <input :placeholder="`${trans('vacancies','from')}`"
+                               type="number" min="0" max="100000000"
+                               @blur="salaryLineToEmpty"
+                               @change="salaryLineToEmpty"
+                               v-model="objSalary.salary_from"
+                        >
+                        -
+                        <input :placeholder="`${trans('vacancies','to')}`"
+                               max="100000000" min="0" type="number"
+                               @blur="salaryLineToEmpty"
+                               @change="salaryLineToEmpty"
+                               v-model="objSalary.salary_to"
+                        >
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="card card-primary suitable">
+            <!-- header -->
+            <div class="card-header">
+                <h3 class="card-title">{{trans('vacancies','work_experience')}}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- body -->
+            <div class="card-body">
+                <div class="form-group">
+                    <select class="form-control"
+                            v-model="experience"
+                    >
+                        <option :value="null" selected>
+                            Выбрать
+                        </option>
+                        <template v-for="(value, key) in this.settings.work_experience">
+                            <option :value="`${key}`">
+                                {{trans('vacancies',value)}}
+                            </option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="card card-primary suitable">
+            <!-- header -->
+            <div class="card-header">
+                <h3 class="card-title">{{trans('vacancies','education_1')}}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- body -->
+            <div class="card-body">
+                <div class="form-group">
+                    <select class="form-control"
+                            v-model="education"
+                    >
+                        <option :value="null" selected>
+                            Выбрать
+                        </option>
+                        <template v-for="(value, key) in this.settings.education">
+                            <option :value="`${key}`">
+                                {{trans('vacancies',value)}}
+                            </option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
 <!--        <button type="button" @click="returnParent">Передать родителю</button>-->
     </div>
 </template>
@@ -178,12 +289,19 @@
         ],
         data() {
             return {
+                objSalary: {
+                    salary_from: null,
+                    salary_to: null,
+                    salary_checkbox: false,
+                },
                 objCheckSuitable:{
                     check:false,
                     suitable_from: 18,
                     suitable_to: 60,
                 },
                 index_employment: null,
+                experience: null,
+                education: null,
             }
         },
         methods: {
@@ -270,7 +388,15 @@
     .box-div{
         margin-bottom: 10px;
     }
-
+    .salary{
+        .checkbox-box{
+            margin-bottom: 10px;
+        }
+    }
+    .target-label{
+        color: $color-a-blue;
+        font-weight: 500!important;
+    }
 </style>
 
 

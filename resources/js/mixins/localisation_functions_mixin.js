@@ -97,11 +97,25 @@ export default {
                     this.objLocations.load_cities = null
             }
         },
+        // проверка на integer
         checkingInteger(value) {
             if(parseInt(value) >= 0){
                 return true;
             }
             return false;
+        },
+        // в Верхний регистр
+        UpperCaseFirstCharacter(value) {
+            if (typeof value !== 'string') {
+                return ''
+            }
+            return value.charAt(0).toUpperCase() + value.slice(1)
+        },
+        // конвертация строки
+        salaryLineToEmpty() {
+            this.objSalary.salary_from = (isNaN(parseInt(this.objSalary.salary_from)) || parseInt(this.objSalary.salary_from) == 0) ? null : this.objSalary.salary_from
+
+            this.objSalary.salary_to = (isNaN(parseInt(this.objSalary.salary_to)) || parseInt(this.objSalary.salary_to) == 0) ? null : this.objSalary.salary_to
         },
     },
     mounted() {

@@ -98,7 +98,7 @@ a:hover {
     opacity: 1;
 }
 .info-tooltip path{
-    fill: rgba(0,123,255,1);
+    fill: #0065f0;
 }
 /* Modal Auth */
 .modal-dialog{

@@ -10,7 +10,7 @@ return [
     'city_job'=>'City of job',
     'other_job_address'=>'Other job address',
     'category_job_posting'=>'Category for job posting',
-    'job_suitable_for'=>'Vacancy age',
+    'job_suitable_for'=>"Applicant's age",
     'type_employment'=>'Type of employment',
     'salary'=>'Salary',
     'work_experience'=>'Work experience',
@@ -19,7 +19,7 @@ return [
     'requirements_candidate'=>'Requirements for the candidate',
     'work_conditions'=>'Work conditions',
     'candidate_responsibilities'=>"Candidate's responsibilities",
-    'display_employer_jobs'=>'Display employer contacts in jobs',
+    'display_employer_jobs'=>'Display employer contacts',
     'how_can_apply'=>'How can I apply',
     'posting_job'=>'Posting a job',
 
@@ -45,27 +45,23 @@ return [
     'least_category'=>"Please select at least one category.",
     'age_group'=>"Please enter an appropriate age group option.",
     'salary_vacancy'=>"Please indicate the estimated salary of the vacancy.",
-
-
     'example_hairdresser'=>"Example hairdresser",
     'select_country'=>"Select country",
     'select_region'=>"Select region",
     'select_city'=>"Select city",
     'remaining_address'=>"Remaining address",
-
-    'it_not_matter'=>"it doesn't matter",
-    'set_age'=>"set age",
+    'it_not_matter'=>"It doesn't matter",
+    'set_age'=>"Set age",
     'age_comment'=>"Age comment",
 
-    'locally_full_time'=>"locally, full time",
-    'locally_part_time'=>"locally, part time",
-    'remote_full_time'=>"remote, full time",
-    'remote_part_time'=>"remote, part time",
-    'range'=>"Range",
+    'locally_full_time'=>"Locally, full time",
+    'locally_part_time'=>"Locally, part time",
+    'remote_full_time'=>"Remote, full time",
+    'remote_part_time'=>"Remote, part time",
 
+    'range'=>"Range",
     'from'=>"from",
     'to'=>"before",
-
     'euro_per_month'=>"euro per month",
     'single_value'=>"Single value",
     'salary_sum'=>"amount",
@@ -75,9 +71,11 @@ return [
     'salary_comment'=>"Salary comment",
     'data_entry'=>"Data entry",
     'without_experience'=>"ready to take without experience",
+
     'from_1_year'=>"from 1 year",
-    'from_2_years'=>"from 2 years",
-    'from_5_years'=>"from 5 years",
+    'from_2_years'=>"from 3 years",
+    'from_5_years'=>"from 5 years and more",
+
     'does_not_matter'=>"doesn't matter",
     'higher'=>"higher",
     'incomplete_higher'=>"incomplete higher",
@@ -87,8 +85,12 @@ return [
     'select_search_city'=>"Select search city",
     'resume_required'=>"Resume is required",
     'without_resume'=>"Possible without resume",
-    'standard'=>"Standard (Vacancy will be posted for a month)",
-    'hidden'=>"Hidden (Vacancy will be hidden from applicants)",
+
+    'standard'=>"Standard ",
+    'hidden'=>"Hidden ",
+    'standard_comment'=>"(vacancy will be posted for a month)",
+    'hidden_comment'=>"(vacancy will be hidden from applicants)",
+
     'cancel'=>"Cancel",
     'save'=>"Save",
     'update_vacancy'=>"Change",

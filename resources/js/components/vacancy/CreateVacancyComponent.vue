@@ -165,7 +165,11 @@
                                                        type="checkbox"
                                                        :value="valueArr[0]"
                                                 >
-                                                <label :for="`category_${valueArr[0]}`">{{trans('vacancies',valueArr[1])}}</label>
+                                                <label class="target-label"
+                                                    :for="`category_${valueArr[0]}`"
+                                                >
+                                                    {{trans('vacancies',valueArr[1])}}
+                                                </label>
                                             </div>
                                         </div>
                                     </template>
@@ -202,7 +206,9 @@
                                                        type="radio"
                                                        v-model="objSuitable.suitable"
                                                        value="it_not_matter">
-                                                <label :for="`vacancy_suitable_${key}`">
+                                                <label class="target-label"
+                                                    :for="`vacancy_suitable_${key}`"
+                                                >
                                                     {{trans('vacancies',value)}}
                                                 </label>
                                             </div>
@@ -228,7 +234,9 @@
                                                     v-model="objSuitable.suitable"
                                                     value="set_age"
                                                 >
-                                                <label :for="`vacancy_suitable_${key}`">
+                                                <label class="target-label"
+                                                    :for="`vacancy_suitable_${key}`"
+                                                >
                                                     {{trans('vacancies','set_age')}}
                                                 </label>
                                             </div>
@@ -280,7 +288,9 @@
                                        :id="`radio_primary_${key}`"
                                        :value="`${key}`"
                                        v-model="type_employment">
-                                <label :for="`radio_primary_${key}`">
+                                <label class="target-label"
+                                    :for="`radio_primary_${key}`"
+                                >
                                     {{trans('vacancies',value)}}
                                 </label>
                             </div>
@@ -321,7 +331,7 @@
                                             v-model="objSalary.salary_but"
                                             @change="checkSalary"
                                         >
-                                        <label for="range_1">
+                                        <label for="range_1" class="target-label">
                                             {{trans('vacancies','range')}}
                                         </label>
                                     </div>
@@ -345,7 +355,7 @@
                                                v-model="objSalary.salary_to"
                                                @blur="checkSalary"
                                         >
-                                        {{trans('vacancies','euro_per_month')}}
+                                        <i>{{trans('vacancies','euro_per_month')}}</i>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +378,7 @@
                                             v-model="objSalary.salary_but"
                                             @change="checkSalary"
                                         >
-                                        <label for="single_value1">
+                                        <label for="single_value1" class="target-label">
                                             {{trans('vacancies','single_value')}}
                                         </label>
                                     </div>
@@ -386,7 +396,7 @@
                                                v-model="objSalary.salary_sum"
                                                @change="checkSalary"
                                         >
-                                        {{trans('vacancies','euro_per_month')}}
+                                        <i>{{trans('vacancies','euro_per_month')}}</i>
                                     </div>
                                 </div>
                             </div>
@@ -399,26 +409,27 @@
                                                v-model="objSalary.salary_but"
                                                @change="checkSalary"
                                         >
-                                        <label for="dont_specify1">
+                                        <label for="dont_specify1" class="target-label">
                                             {{trans('vacancies','dont_specify')}}
                                         </label>
-                                    </div> ({{trans('vacancies','not_recommended')}})
+                                    </div>
+                                    <i>({{trans('vacancies','not_recommended')}})</i>
                                 </div>
-                                <div id="dont_specify" class="collapse" aria-labelledby="headingThree" data-parent="#salary_accordion">
-                                    <div class="card-body">
-                                        <div class="bg-warning color-palette">
-                                            {{trans('vacancies','get_more_responses')}}
-                                        </div>
+                                <div id="dont_specify" class="card-body collapse" aria-labelledby="headingThree" data-parent="#salary_accordion">
+                                    <div class="bg-warning color-palette">
+                                        {{trans('vacancies','get_more_responses')}}
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <label for="payroll_comment">{{trans('vacancies','salary_comment')}}</label>
-                        <input type="text" id="payroll_comment" class="form-control" maxlength="100"
-                               :placeholder="`${trans('vacancies','data_entry')}`"
-                               v-model="objSalary.salary_comment"
-                        >
+                        <div>
+                            <label for="payroll_comment">{{trans('vacancies','salary_comment')}}</label>
+                            <input type="text" id="payroll_comment" class="form-control" maxlength="100"
+                                   :placeholder="`${trans('vacancies','data_entry')}`"
+                                   v-model="objSalary.salary_comment"
+                            >
+                        </div>
                         <div class="invalid-feedback" :class="{'is-invalid visible': this.objSalary.switchSalary}">
                             {{trans('vacancies','salary_vacancy')}}
                         </div>
@@ -573,7 +584,11 @@
                                        @change="displayingEmployers"
                                        :value="`${key}`"
                                 >
-                                <label :for="`disp_emp_cont_vacancy_${key}`">{{value}}</label>
+                                <label class="target-label"
+                                    :for="`disp_emp_cont_vacancy_${key}`"
+                                >
+                                    {{value}}
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -597,7 +612,9 @@
                                        :id="`how_respond_${key}`"
                                        :value="`${key}`"
                                        v-model="how_respond">
-                                <label :for="`how_respond_${key}`">
+                                <label class="target-label"
+                                    :for="`how_respond_${key}`"
+                                >
                                     {{trans('vacancies',value)}}
                                 </label>
                             </div>
@@ -623,9 +640,12 @@
                                        :id="`job_posting_${key}`"
                                        :value="`${key}`"
                                        v-model="job_posting">
-                                <label :for="`job_posting_${key}`">
+                                <label class="target-label"
+                                       :for="`job_posting_${key}`"
+                                >
                                     {{trans('vacancies',value)}}
                                 </label>
+                                <i>{{trans('vacancies', value+'_comment')}}</i>
                             </div>
                         </div>
                     </div>
@@ -1040,6 +1060,9 @@
         padding: 5px 10px 20px;
         background: $back-form-group;
         position: relative;
+
+        /*height: calc(100% - 16px);*/
+
         .invalid-feedback{
             position: absolute;
             bottom: 2px;
@@ -1081,7 +1104,7 @@
         }
         .card-body{
             padding: 0 0 0 2px;
-            height: 31px;
+            min-height: 31px;
         }
     }
     .bg-warning{
@@ -1108,6 +1131,10 @@
                 padding: 1px 12px;
             }
         }
+    }
+    .target-label{
+        color: $color-a-blue;
+        font-weight: 500!important;
     }
 </style>
 

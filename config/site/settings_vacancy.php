@@ -30,10 +30,10 @@ return [
     // Индексы ключи к файлу языка
     'education' => [
         'does_not_matter',
-        'higher',
-        'incomplete_higher',
-        'specialized_secondary',
         'secondary',
+        'specialized_secondary',
+        'incomplete_higher',
+        'higher',
     ],
     // Вакансия подходит для: до 25 лет, от 25 до 40 лет, от 40 лет и старше, не важно
     // Индексы ключи к файлу языка
