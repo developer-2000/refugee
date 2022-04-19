@@ -70,17 +70,13 @@ return [
     'timezone' => 'UTC',
 
     /*
-    |--------------------------------------------------------------------------
-    | Application Locale Configuration
-    |--------------------------------------------------------------------------
-    |
-    | The application locale determines the default locale that will be used
-    | by the translation service provider. You are free to set this value
-    | to any of the locales which will be supported by the application.
+    | en если язык браузера не входит в перечень языков сайта all_lang
     |
     */
 
-    'locale' => 'uk',
+    'locale' => 'en',
+    'alternative_lang' => ['uk','ru'],
+    'all_lang' => ['en','uk','ru'],
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +89,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'uk',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +161,11 @@ return [
         /*
          * Package Service Providers...
          */
-        \App\Providers\ComposerServiceProvider::class,
+        // данные по умолчанию для фронт части
+        \App\Providers\DefaultValueProvider::class,
+        // ссылка на фасад префикса языка url и смена языка сайта
+        \App\Providers\LocalizationProvider::class,
+
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
 
         /*
@@ -228,6 +228,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        // фасад префикса языка url и смена языка сайта
+        'Localization' => \App\Facades\LocalizationFacades::class,
 
     ],
 

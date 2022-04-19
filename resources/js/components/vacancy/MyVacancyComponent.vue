@@ -66,20 +66,23 @@
                             {{trans('vacancies','functions')}}
                         </button>
                         <div class="dropdown-menu">
+                            <!-- скрыть -->
                             <a class="dropdown-item" href="#"
                                v-if="objVacancy.job_posting.status_name == 'standard'"
                                @click="changeStatus(objVacancy.id, 1)"
                             >
                                 {{trans('vacancies','hide')}}
                             </a>
+                            <!-- обновить -->
                             <a class="dropdown-item" href="#"
                                v-if="objVacancy.job_posting.status_name == 'standard'"
                                @click="changeStatus(objVacancy.id, 0)"
                             >
                                 {{trans('vacancies','update')}}
                             </a>
+                            <!-- редактировать -->
                             <a class="dropdown-item"
-                               :href="`/vacancy/${objVacancy.id}/edit`"
+                               :href="`${lang.prefix_lang}vacancy/${objVacancy.id}/edit`"
                             >
                                 {{trans('vacancies','edit')}}
                             </a>

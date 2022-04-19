@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Services\LocalizationService;
 
 // технический роут
 Route::group(['prefix'=>'technical'], function (){
@@ -35,14 +36,18 @@ Route::group(['prefix'=>'technical'], function (){
     });
 });
 
-//
 
-Route::group([ 'middleware' => ['locale'] ], function () {
+Route::group([
+    // переключение url и translation сайта
+    'prefix' => Localization::locale(),
+], function () {
 
     Route::get('/', 'IndexController@index')->name('index');
 
+    Route::get('/job-search/{country?}/{region?}/{city?}', 'IndexController@jobSearch');
+
     // Auth
-    Route::middleware('throttle:3,1')->group(function () {
+    Route::middleware('throttle:10,1')->group(function () {
         Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
             Route::post('/login', 'AuthorController@login');
             Route::post('/registration', 'AuthorController@register');
@@ -57,16 +62,17 @@ Route::group([ 'middleware' => ['locale'] ], function () {
 
     // vacancies
     Route::group(['middleware'=>['auth']], function () {
-        Route::resource('vacancy', 'VacancyController')->only([
-            'create', 'store', 'destroy', 'edit', 'update',
-        ]);
         Route::group(['prefix'=>'vacancy'], function (){
             Route::post('search-vacancy', 'VacancyController@searchVacancy');
             Route::get('my-vacancies', 'VacancyController@myVacancies');
             Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
             Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
         });
+        Route::resource('vacancy', 'VacancyController')->only([
+            'create', 'store', 'destroy', 'edit', 'update',
+        ]);
     });
+
 
     // select localisation
     Route::group(['prefix'=>'localisation'], function (){
@@ -75,7 +81,9 @@ Route::group([ 'middleware' => ['locale'] ], function () {
     });
 
     // change language
-    Route::get('language/{name}', 'LanguageController@changeLanguage');
+    Route::get('language/{name}', 'LanguageController@changeLanguage')
+        ->name('language');
+
 
     Route::resource('country', 'CountryController')->only([
         'show'

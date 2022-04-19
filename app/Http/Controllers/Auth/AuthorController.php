@@ -11,6 +11,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Model\Code;
 use App\Model\User;
+use App\Services\LanguageService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -76,7 +77,6 @@ class AuthorController extends BaseController
         Code::where('user_id',$request->id)
             ->where('code',$request->code)
             ->delete();
-
         User::where('id',$request->id)
             ->update(['email_verified_at'=>now()]);
 
@@ -86,7 +86,9 @@ class AuthorController extends BaseController
             Auth::guard('web')->login($user);
         }
 
-        return redirect('/');
+        $lang = (new LanguageService())->getLanguageArray();
+
+        return redirect(session('prefix_lang'));
     }
 
     /**
@@ -95,7 +97,7 @@ class AuthorController extends BaseController
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect(session('prefix_lang'));
     }
 
     /**
@@ -118,12 +120,13 @@ class AuthorController extends BaseController
     public function viewChangePassword(ViewChangePasswordRequest $request)
     {
         $db_code = Code::where('code',$request->code)->first();
+        $lang = (new LanguageService())->getLanguageArray();
 
         if($user = User::where('email',$db_code->email)->first()){
-            return redirect('/')->with('code_change_password', json_encode($request->code));
+            return redirect(session('prefix_lang'))->with('code_change_password', json_encode($request->code));
         }
 
-        return redirect('/')->with('link_not_valid', __('auth.link_not_valid'));
+        return redirect(session('prefix_lang'))->with('link_not_valid', __('auth.link_not_valid'));
     }
 
     /**
@@ -163,7 +166,7 @@ class AuthorController extends BaseController
         Code::create([ 'user_id' => $user_id, 'code' => $generate, 'email' => $email ]);
 
         // Генерируем ссылку и отправляем письмо на указанный адрес
-        $url = url('/')."/user/".$alias."?".$string_user_id."code=".$generate;
+        $url = url(session('prefix_lang'))."/user/".$alias."?".$string_user_id."code=".$generate;
         Mail::send('emails.registration', ['url' => $url], function($message) use ($request, $title_subject) {
             $message->to($request->email)->subject($title_subject);
         });

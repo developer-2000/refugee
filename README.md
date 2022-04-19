@@ -1,12 +1,6 @@
-#### Передача данных во все blade шаблоны
-\app\Providers\ComposerServiceProvider.php
+#### localisation - формирование url функционирование переключения на строне Front
 
-    public function boot()
-    {
-        View::composer('*', function ($view) {
-            $view->with('lang', 'text');
-        });
-    }
+ * документация функционала в documents/localization url смена из фронта.doc
 
 #### переключатель bootstrap switch
 https://gitbrent.github.io/bootstrap4-toggle/

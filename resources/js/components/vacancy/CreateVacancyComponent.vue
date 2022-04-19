@@ -797,7 +797,7 @@
                 const response = await this.$http.post(`/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            location.href = '/vacancy/my-vacancies'
+                            location.href = this.lang.prefix_lang+'vacancy/my-vacancies'
                         }
                         // custom ошибки
                         else{
@@ -815,7 +815,7 @@
                 const response = await this.$http.put(`/vacancy/`+this.vacancy_id, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            location.href = '/vacancy/my-vacancies'
+                            location.href = this.lang.prefix_lang+'vacancy/my-vacancies'
                         }
                         // custom ошибки
                         else{

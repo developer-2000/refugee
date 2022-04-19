@@ -2758,6 +2758,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2812,6 +2816,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     },
     checkAuth: function checkAuth(url) {
+      // не авторизован
       if (this.user == null) {
         this.reset_array(0);
         $('#authModal').modal('toggle');
@@ -3681,7 +3686,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.next = 4;
                 return _this2.$http.post("/vacancy", data).then(function (res) {
                   if (_this2.checkSuccess(res)) {
-                    location.href = '/vacancy/my-vacancies';
+                    location.href = _this2.lang.prefix_lang + 'vacancy/my-vacancies';
                   } // custom ошибки
                   else {
                     _this2.message(res.data.message, 'error', 10000, true);
@@ -3717,7 +3722,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.next = 4;
                 return _this3.$http.put("/vacancy/" + _this3.vacancy_id, data).then(function (res) {
                   if (_this3.checkSuccess(res)) {
-                    location.href = '/vacancy/my-vacancies';
+                    location.href = _this3.lang.prefix_lang + 'vacancy/my-vacancies';
                   } // custom ошибки
                   else {
                     _this3.message(res.data.message, 'error', 10000, true);
@@ -3995,6 +4000,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -43985,7 +43993,9 @@ var render = function () {
                     on: {
                       click: function ($event) {
                         $event.preventDefault()
-                        return _vm.checkAuth("/vacancy/create")
+                        return _vm.checkAuth(
+                          _vm.lang.prefix_lang + "vacancy/create"
+                        )
                       },
                     },
                   },
@@ -43994,14 +44004,17 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [_vm._v("Добавить резюме")]
+                  {
+                    staticClass: "dropdown-item",
+                    attrs: { href: _vm.lang.prefix_lang + "job-search" },
+                  },
+                  [_vm._v("Найти вакансию")]
                 ),
                 _vm._v(" "),
                 _c(
                   "a",
                   { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [_vm._v("Найти вакансию")]
+                  [_vm._v("Добавить резюме")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -44042,7 +44055,9 @@ var render = function () {
                     "a",
                     {
                       staticClass: "dropdown-item",
-                      attrs: { href: "/language/" + item.alias },
+                      attrs: {
+                        href: _vm.lang.prefix_lang + "language/" + item.alias,
+                      },
                     },
                     [
                       _c("img", {
@@ -44163,7 +44178,9 @@ var render = function () {
                       "a",
                       {
                         staticClass: "dropdown-item",
-                        attrs: { href: "/vacancy/my-vacancies" },
+                        attrs: {
+                          href: _vm.lang.prefix_lang + "vacancy/my-vacancies",
+                        },
                       },
                       [
                         _c(
@@ -44218,7 +44235,7 @@ var render = function () {
                       "a",
                       {
                         staticClass: "dropdown-item",
-                        attrs: { href: "/user/logout" },
+                        attrs: { href: _vm.lang.prefix_lang + "user/logout" },
                       },
                       [
                         _c(
@@ -44260,6 +44277,7 @@ var render = function () {
           role: "dialog",
           "aria-labelledby": "authModalTitle",
           "aria-hidden": "true",
+          "data-backdrop": "static",
         },
       },
       [
@@ -46953,7 +46971,13 @@ var render = function () {
                     "a",
                     {
                       staticClass: "dropdown-item",
-                      attrs: { href: "/vacancy/" + objVacancy.id + "/edit" },
+                      attrs: {
+                        href:
+                          _vm.lang.prefix_lang +
+                          "vacancy/" +
+                          objVacancy.id +
+                          "/edit",
+                      },
                     },
                     [
                       _vm._v(
