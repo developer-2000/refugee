@@ -6,7 +6,7 @@
             <ul class="navbar-nav">
                 <!-- Logo -->
                 <li class="nav-item d-sm-inline-block">
-                    <a href="/" class="brand-link">
+                    <a :href="`${lang.prefix_lang}`" class="brand-link">
                         <span class="brand-text font-weight-light">
                             {{this.logo_text.uk}}
                         </span>

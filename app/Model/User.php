@@ -22,10 +22,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function vacancies() {
         return $this->hasMany(Vacancy::class, 'user_id', 'id');
     }
 
+    public function employer() {
+        return $this->hasOne(Employer::class, 'user_id', 'id');
+    }
 
 }

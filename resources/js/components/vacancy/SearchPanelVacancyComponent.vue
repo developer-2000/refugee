@@ -352,8 +352,8 @@
         width: 100%;
         border-radius: 3px 3px 0px 0px;
         border: none;
-        border-bottom: 1px solid #ffdf9b;
-        border-right: 1px solid #c0ddfb;
+        /*border-bottom: 1px solid #ffdf9b;*/
+        /*border-right: 1px solid #c0ddfb;*/
         box-shadow: none;
         .card-header{
             padding: 4px 13px;
@@ -367,6 +367,9 @@
         }
         .card-body{
             padding: 10px 12px 8px;
+            border-left: 1px solid #c0ddfb;
+            border-right: 1px solid #c0ddfb;
+            border-bottom: 1px solid #c0ddfb;
         }
     }
     .suitable{

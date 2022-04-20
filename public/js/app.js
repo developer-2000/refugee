@@ -4673,6 +4673,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4680,15 +4761,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   mixins: [],
   data: function data() {
-    return {};
+    return {
+      search_value: '',
+      description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠'
+    };
   },
   methods: {
     updateData: function updateData(data) {
       console.log(data);
+    },
+    selectVacancy: function selectVacancy() {
+      console.log('select');
+    },
+    saveYourself: function saveYourself(event) {
+      console.log('save yourself');
+      event.stopPropagation();
+    },
+    notShowMe: function notShowMe(event) {
+      console.log('notShowMe');
+      event.stopPropagation();
     }
   },
-  props: ['lang', 'settings'],
-  mounted: function mounted() {}
+  props: ['lang', 'settings', 'vacancies'],
+  mounted: function mounted() {
+    console.log(this.vacancies.data[0]);
+  }
 });
 
 /***/ }),
@@ -9203,7 +9300,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancy[data-v-12dab04d] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-content: flex-start;\n  align-items: flex-start;\n  border-bottom: 1px solid #adb5bd;\n  color: #666;\n  line-height: 30px;\n  padding: 15px 0px;\n}\n.box-vacancy .box-title[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .box-title > div[data-v-12dab04d] {\n  margin-left: 10px;\n}\n.box-vacancy .box-title > div svg[data-v-12dab04d] {\n  width: 16px;\n}\n.box-vacancy .no-verified[data-v-12dab04d] {\n  color: #f6993f;\n}\n.box-vacancy .no-verified svg[data-v-12dab04d] {\n  fill: #f6993f;\n}\n.box-vacancy .verified[data-v-12dab04d] {\n  color: #38c172;\n}\n.box-vacancy .verified svg[data-v-12dab04d] {\n  fill: #38c172;\n}\n.box-vacancy .title-vacancy[data-v-12dab04d] {\n  font-size: 23px;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, ".box-vacancy[data-v-12dab04d] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-content: flex-start;\n  align-items: flex-start;\n  border-bottom: 1px solid #adb5bd;\n  color: #666;\n  line-height: 30px;\n  padding: 15px 0px;\n}\n.box-vacancy .box-title[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .box-title > div[data-v-12dab04d] {\n  margin-left: 10px;\n}\n.box-vacancy .box-title > div svg[data-v-12dab04d] {\n  width: 16px;\n}\n.box-vacancy .no-verified[data-v-12dab04d] {\n  color: #f6993f;\n}\n.box-vacancy .no-verified svg[data-v-12dab04d] {\n  fill: #f6993f;\n}\n.box-vacancy .verified[data-v-12dab04d] {\n  color: #38c172;\n}\n.box-vacancy .verified svg[data-v-12dab04d] {\n  fill: #38c172;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -9222,7 +9319,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-group[data-v-45ef9922] {\n  margin: 0 0 4px 0;\n}\n.card[data-v-45ef9922] {\n  width: 100%;\n  border-radius: 3px 3px 0px 0px;\n  border: none;\n  border-bottom: 1px solid #ffdf9b;\n  border-right: 1px solid #c0ddfb;\n  box-shadow: none;\n}\n.card .card-header[data-v-45ef9922] {\n  padding: 4px 13px;\n}\n.card .card-header h3[data-v-45ef9922] {\n  margin: 2px 0 0 0;\n}\n.card .card-header button[data-v-45ef9922] {\n  margin: 0;\n  padding: 0 10px 0 5px;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 8px;\n}\n.suitable .card-body[data-v-45ef9922] {\n  padding: 10px 12px 7px;\n}\n.suitable .box-suitable[data-v-45ef9922] {\n  margin-top: 5px;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin: 0 0 0 6px;\n}\n.box-div[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.salary .checkbox-box[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.target-label[data-v-45ef9922] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
+exports.push([module.i, ".form-group[data-v-45ef9922] {\n  margin: 0 0 4px 0;\n}\n.card[data-v-45ef9922] {\n  width: 100%;\n  border-radius: 3px 3px 0px 0px;\n  border: none;\n  /*border-bottom: 1px solid #ffdf9b;*/\n  /*border-right: 1px solid #c0ddfb;*/\n  box-shadow: none;\n}\n.card .card-header[data-v-45ef9922] {\n  padding: 4px 13px;\n}\n.card .card-header h3[data-v-45ef9922] {\n  margin: 2px 0 0 0;\n}\n.card .card-header button[data-v-45ef9922] {\n  margin: 0;\n  padding: 0 10px 0 5px;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 8px;\n  border-left: 1px solid #c0ddfb;\n  border-right: 1px solid #c0ddfb;\n  border-bottom: 1px solid #c0ddfb;\n}\n.suitable .card-body[data-v-45ef9922] {\n  padding: 10px 12px 7px;\n}\n.suitable .box-suitable[data-v-45ef9922] {\n  margin-top: 5px;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin: 0 0 0 6px;\n}\n.box-div[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.salary .checkbox-box[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.target-label[data-v-45ef9922] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
 
 // exports
 
@@ -9241,7 +9338,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  padding-top: 20px;\n}\n.search-panel .left-site[data-v-fbaa726e] {\n  width: 280px;\n}\n.search-panel .right-site[data-v-fbaa726e] {\n  width: 75%;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  border: 2px solid #dee2e6;\n  cursor: pointer;\n  padding: 15px 30px 15px;\n  margin-right: 15px;\n}\n.box-vacancy[data-v-fbaa726e]:hover {\n  border: 2px solid #c0ddfb;\n}\n.box-vacancy:hover .title-vacancy[data-v-fbaa726e], .box-vacancy:hover .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button > button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e] {\n  width: 20%;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e] {\n  fill: #3490dc;\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e]:nth-child(1) {\n  width: 17%;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}", ""]);
 
 // exports
 
@@ -43939,23 +44036,30 @@ var render = function () {
       [
         _c("ul", { staticClass: "navbar-nav" }, [
           _c("li", { staticClass: "nav-item d-sm-inline-block" }, [
-            _c("a", { staticClass: "brand-link", attrs: { href: "/" } }, [
-              _c("span", { staticClass: "brand-text font-weight-light" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(this.logo_text.uk) +
-                    "\n                    "
-                ),
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "brand-text font-weight-light" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(this.logo_text.en) +
-                    "\n                    "
-                ),
-              ]),
-            ]),
+            _c(
+              "a",
+              {
+                staticClass: "brand-link",
+                attrs: { href: "" + _vm.lang.prefix_lang },
+              },
+              [
+                _c("span", { staticClass: "brand-text font-weight-light" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(this.logo_text.uk) +
+                      "\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "brand-text font-weight-light" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(this.logo_text.en) +
+                      "\n                    "
+                  ),
+                ]),
+              ]
+            ),
           ]),
           _vm._v(" "),
           _vm._m(0),
@@ -47859,22 +47963,290 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "search-panel" }, [
-    _c(
-      "div",
-      { staticClass: "left-site" },
-      [
-        _c("search_panel", {
-          attrs: { lang: _vm.lang, settings: _vm.settings },
-          on: { returnParent: _vm.updateData },
-        }),
-      ],
-      1
-    ),
+    _c("h1", { staticClass: "title_page" }, [
+      _vm._v("\n            Поиск вакансий\n        "),
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "right-site" }),
+    _c("div", { staticClass: "top-search" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search_value,
+              expression: "search_value",
+            },
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            maxlength: "100",
+            autocomplete: "off",
+            placeholder: "Поиск",
+          },
+          domProps: { value: _vm.search_value },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search_value = $event.target.value
+            },
+          },
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-block btn-primary",
+            attrs: { type: "button" },
+          },
+          [_vm._v("Искать")]
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "bottom-search" }, [
+      _c("div", { staticClass: "left-site" }, [
+        _c(
+          "div",
+          {
+            staticClass: "box-vacancy",
+            on: {
+              click: function ($event) {
+                $event.preventDefault()
+                return _vm.selectVacancy.apply(null, arguments)
+              },
+            },
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "line-div" }, [
+              _c("div", { staticClass: "font-weight-bold" }, [
+                _vm._v(
+                  "\n                            2000 – 5000 euro\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "address-comment" }, [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(
+                  "\n                            По результатам собеседования\n                        "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "line-div" }, [
+              _c("div", { staticClass: "font-weight-bold" }, [
+                _vm._v("Volta Tech"),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "address-comment" }, [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(
+                  "\n                            Ukraine / Lviv / Drohobuch\n                        "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "line-div" }, [
+              _c("div", { staticClass: "address-comment" }, [
+                _vm._v(
+                  "\n                            Полная занятость.\n                            "
+                ),
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(
+                  "\n                            Опыт работы от 1 года.\n                        "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "line-div" }, [
+              _c("div", { staticClass: "address-comment display-inline" }, [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(this.description.slice(0, 150)) +
+                    "\n                            "
+                ),
+                _c("div", { staticClass: "link-vacancy display-inline" }, [
+                  _vm._v(
+                    "\n                                ...\n                                "
+                  ),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 320 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-button" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-block btn-outline-primary btn-sm",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.saveYourself.apply(null, arguments)
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z",
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                            Сохранить\n                        "
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-block btn-outline-primary btn-sm",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.notShowMe.apply(null, arguments)
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 640 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                            Не показывать\n                        "
+                  ),
+                ]
+              ),
+            ]),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "right-site" },
+        [
+          _c("search_panel", {
+            attrs: { lang: _vm.lang, settings: _vm.settings },
+            on: { returnParent: _vm.updateData },
+          }),
+        ],
+        1
+      ),
+    ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-title-logo" }, [
+      _c("h2", { staticClass: "title-vacancy" }, [
+        _vm._v(
+          "\n                            Test Title Test TitleTest TitleTest\n                        "
+        ),
+      ]),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "img-logo",
+        attrs: { src: "/img/employer/employer-default.svg", alt: "Test image" },
+      }),
+    ])
+  },
+]
 render._withStripped = true
 
 

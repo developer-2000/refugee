@@ -15,7 +15,7 @@ class CreateVacanciesTable extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->comment('кому принадлежит');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('position_id')->comment('должность');
             $table->foreign('position_id')->references('id')->on('positions');
@@ -24,10 +24,7 @@ class CreateVacanciesTable extends Migration
             $table->string('region')->index()->nullable()->default(null)->comment('регион');
             $table->string('city')->index()->nullable()->default(null)->comment('город');
             $table->string('rest_address')->index()->comment('остальной адрес');
-
-//            $table->text('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
             $table->json('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
-
             $table->tinyInteger('type_employment')->index()->comment('работа - полная / не полная / удаленка');
             $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, не указано, коментарий');
             $table->tinyInteger('experience')->index()->comment('опыт работы');

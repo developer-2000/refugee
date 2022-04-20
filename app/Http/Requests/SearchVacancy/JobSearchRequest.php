@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Vacancy;
+namespace App\Http\Requests\SearchVacancy;
 
 use Illuminate\Foundation\Http\FormRequest;
 

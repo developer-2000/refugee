@@ -44,7 +44,10 @@ Route::group([
 
     Route::get('/', 'IndexController@index')->name('index');
 
-    Route::get('/job-search/{country?}/{region?}/{city?}', 'IndexController@jobSearch');
+//    Route::get('/job-search/{country?}/{region?}/{city?}', 'SearchVacancyController@jobSearch');
+    Route::resource('job-search', 'SearchVacancyController')->only([
+        'index',
+    ]);
 
     // Auth
     Route::middleware('throttle:10,1')->group(function () {

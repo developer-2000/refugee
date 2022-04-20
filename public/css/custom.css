@@ -9,6 +9,7 @@ h1{
 }
 a:hover {
    text-decoration: none;
+   color: #1d68a7;
 }
 .button-menu{
     background: #f1f1f1;
@@ -294,7 +295,12 @@ label{
 .mode-vacancy .standard{
     background: #38c172;
 }
-
+.title-vacancy{
+    font-size: 23px;
+    color: #3490dc;
+    text-decoration: none;
+    background-color: transparent;
+}
 
 
 @media (max-width: 575px) {

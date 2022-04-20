@@ -31,7 +31,7 @@
             <!-- left menu -->
             <aside class="main-sidebar sidebar-white elevation-1">
                 <!-- Logo -->
-                <a href="/" class="brand-link">
+                <a href="{{ route('index') }}" class="brand-link">
                     <span class="brand-text font-weight-light">{{ env('APP_NAME_UK') }}</span>
                     <span class="brand-text font-weight-light">{{ env('APP_NAME_EN') }}</span>
                 </a>

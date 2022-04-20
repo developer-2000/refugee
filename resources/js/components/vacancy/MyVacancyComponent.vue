@@ -291,9 +291,6 @@
             fill:$green;
         }
     }
-    .title-vacancy{
-        font-size: 23px;
-    }
     .salary-vacancy{
         display: flex;
         .salary{

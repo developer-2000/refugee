@@ -23,4 +23,23 @@ class Vacancy extends Model
         return $this->belongsTo(Position::class, 'position_id', 'id');
     }
 
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    // цепочка = Vacancy user_id, Employer user_id, Employer logo_id,
+    public function logo_employer() {
+        return $this->hasOneThrough(
+            Image::class,      // доступ
+            Employer::class,  // промежуточная
+            'user_id',         // мой локальный
+            'id',           // доступ
+            'user_id',        // внешний промежуточная
+            'logo_id'   // внешний промежуточная
+        )->withDefault(function ($data) {
+            $data->title = 'Default logo';
+            $data->url = '/img/employer/employer-default.jpg';
+        });
+    }
+
 }
