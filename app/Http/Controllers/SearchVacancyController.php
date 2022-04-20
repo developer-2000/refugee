@@ -17,14 +17,15 @@ class SearchVacancyController extends Controller
     public function index()
     {
         $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
-            $settings['obj_countries'] = $objCountries[0]['EN'];
+
+        if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
+            $settings['obj_countries'] = $objCountries['country']['EN'];
         }
 
-        $vacancies = Vacancy::with('position','logo_employer')
+        $vacancies = Vacancy::with('position','employer.logo')
             ->paginate(10)->toArray();
 
-//        dd($vacancies['data'][0]);
+//        dd($vacancies['data'][1]);
         return view('index', compact('settings', 'vacancies'));
     }
 

@@ -42,4 +42,22 @@ class Vacancy extends Model
         });
     }
 
+    // цепочка = Vacancy user_id, User id, Employer user_id,
+    public function employer() {
+        return $this->hasOneThrough(
+            Employer::class,
+            User::class,
+            'id',
+            'user_id',
+            'user_id',
+            'id'
+        )->withDefault(function ($data) {
+            $data->title = 'Default company title';
+            $data->logo = [
+                "title" => "Default logo",
+                "url" => "/img/employer/employer-default.jpg",
+            ];
+        });
+
+    }
 }

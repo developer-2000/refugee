@@ -132,7 +132,7 @@
             'vacancies',
         ],
         mounted() {
-            console.log(this.vacancies.data[0])
+            console.log(this.vacancies.data)
         },
     }
 </script>

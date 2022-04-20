@@ -4784,7 +4784,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['lang', 'settings', 'vacancies'],
   mounted: function mounted() {
-    console.log(this.vacancies.data[0]);
+    console.log(this.vacancies.data);
   }
 });
 

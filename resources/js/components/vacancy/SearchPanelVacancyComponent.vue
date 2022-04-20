@@ -400,6 +400,7 @@
         color: $color-a-blue;
         font-weight: 500!important;
     }
+
 </style>
 
 

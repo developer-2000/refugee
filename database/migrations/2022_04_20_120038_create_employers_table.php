@@ -19,6 +19,7 @@ class CreateEmployersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('logo_id')->comment('логотип компании');
             $table->foreign('logo_id')->references('id')->on('images');
+            $table->string('title')->nullable()->default(null);
             $table->timestamps();
         });
     }

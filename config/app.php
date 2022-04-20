@@ -165,6 +165,8 @@ return [
         \App\Providers\DefaultValueProvider::class,
         // ссылка на фасад префикса языка url и смена языка сайта
         \App\Providers\LocalizationProvider::class,
+        // Debug
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
 
@@ -231,7 +233,7 @@ return [
 
         // фасад префикса языка url и смена языка сайта
         'Localization' => \App\Facades\LocalizationFacades::class,
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
