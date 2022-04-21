@@ -225,6 +225,16 @@ svg{
 label{
     color: #444;
 }
+.btn-outline-primary path{
+    fill: #3490dc;
+}
+.btn-outline-success path{
+    fill: #38c172;
+}
+.btn-outline-danger path{
+    fill: #e3342f;
+}
+
 
 /* select 2 */
 .select2-container {

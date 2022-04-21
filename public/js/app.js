@@ -4754,6 +4754,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4762,23 +4812,87 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [],
   data: function data() {
     return {
+      hover_id: '',
       search_value: '',
       description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠'
     };
   },
   methods: {
+    test: function test(event) {
+      var value = $(event.target).attr('data-bool');
+      console.log(value);
+      return 1;
+    },
     updateData: function updateData(data) {
       console.log(data);
     },
     selectVacancy: function selectVacancy() {
       console.log('select');
     },
-    saveYourself: function saveYourself(event) {
-      console.log('save yourself');
-      event.stopPropagation();
+    saveYourself: function saveYourself(vacancy_id, action) {
+      console.log('saveYourself');
+      console.log(vacancy_id, action);
     },
-    notShowMe: function notShowMe(event) {
+    notShowMe: function notShowMe(vacancy_id, action) {
       console.log('notShowMe');
+      console.log(vacancy_id, action);
+    },
+    hoverVacancy: function hoverVacancy(e) {
+      var vacancy_id = e.target.id;
+
+      if (this.hover_id == vacancy_id) {
+        return false;
+      } // все сбросить
+
+
+      var box_vacancy = document.querySelectorAll(".box-vacancy");
+      box_vacancy.forEach(function (element) {
+        element.style.zIndex = "unset";
+        element.style.position = "static";
+      }); // все поднять target
+
+      e.target.style.zIndex = "9";
+      e.target.style.position = "relative";
+      this.hover_id = vacancy_id;
+    },
+    // меняет кнопки Сохранить на В меню сохраненных и обратно
+    // меняет кнопки Не показывать на Показывать вакансию и обратно
+    changeButton: function changeButton(event, but1, but2, but3, action) {
+      var vacancy_id = $(event.target).attr('data-id'); // спрятал другие, себя изменил
+
+      if ($(event.target).attr('data-bool') == '1') {
+        $("#" + but2 + vacancy_id).css('display', 'flex');
+        $("#" + but1 + vacancy_id).css('display', 'none');
+        $("#" + but3 + vacancy_id).css('display', 'none'); // я сразу disable
+
+        $("#" + but1 + vacancy_id).prop("disabled", true); // сосед сразу disable
+
+        $("#" + but3 + vacancy_id).prop("disabled", true); // рядом через время not disable
+
+        setTimeout(function () {
+          $("#" + but2 + vacancy_id).prop("disabled", false);
+        }, 1000);
+      } // показал другие, себя изменил
+      else {
+        $("#" + but2 + vacancy_id).css('display', 'none');
+        $("#" + but1 + vacancy_id).css('display', 'flex');
+        $("#" + but3 + vacancy_id).css('display', 'flex'); // рядом сразу disable
+
+        $("#" + but2 + vacancy_id).prop("disabled", true); // я и сосед через время not disable
+
+        setTimeout(function () {
+          $("#" + but1 + vacancy_id).prop("disabled", false);
+          $("#" + but3 + vacancy_id).prop("disabled", false);
+        }, 1000);
+      } // что делать с этой вакансией
+
+
+      if (but1 == 'save_') {
+        this.saveYourself(vacancy_id, action);
+      } else if (but1 == 'show_') {
+        this.notShowMe(vacancy_id, action);
+      }
+
       event.stopPropagation();
     }
   },
@@ -9338,7 +9452,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  border: 2px solid #dee2e6;\n  cursor: pointer;\n  padding: 15px 30px 15px;\n  margin-right: 15px;\n}\n.box-vacancy[data-v-fbaa726e]:hover {\n  border: 2px solid #c0ddfb;\n}\n.box-vacancy:hover .title-vacancy[data-v-fbaa726e], .box-vacancy:hover .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button > button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e] {\n  width: 20%;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e] {\n  fill: #3490dc;\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e]:nth-child(1) {\n  width: 17%;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  outline: 2px solid #dee2e6;\n  cursor: pointer;\n  padding: 15px 30px 15px;\n  margin-right: 15px;\n  margin-top: 2px;\n}\n.box-vacancy[data-v-fbaa726e]:hover {\n  outline: 2px solid #c0ddfb;\n}\n.box-vacancy:hover .title-vacancy[data-v-fbaa726e], .box-vacancy:hover .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button > button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.save-two svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.show-two svg[data-v-fbaa726e] {\n  width: 15px;\n}\n.box-vacancy .panel-button button.save-two[data-v-fbaa726e],\n.box-vacancy .panel-button button.show-two[data-v-fbaa726e] {\n  display: none;\n}", ""]);
 
 // exports
 
@@ -47964,7 +48078,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "search-panel" }, [
     _c("h1", { staticClass: "title_page" }, [
-      _vm._v("\n            Поиск вакансий\n        "),
+      _vm._v("\n        Поиск вакансий\n    "),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "top-search" }, [
@@ -48013,10 +48127,14 @@ var render = function () {
           "div",
           {
             staticClass: "box-vacancy",
+            attrs: { id: "v1" },
             on: {
               click: function ($event) {
                 $event.preventDefault()
                 return _vm.selectVacancy.apply(null, arguments)
+              },
+              mouseenter: function ($event) {
+                return _vm.hoverVacancy($event)
               },
             },
           },
@@ -48026,7 +48144,7 @@ var render = function () {
             _c("div", { staticClass: "line-div" }, [
               _c("div", { staticClass: "font-weight-bold" }, [
                 _vm._v(
-                  "\n                            2000 – 5000 euro\n                        "
+                  "\n                        2000 – 5000 euro\n                    "
                 ),
               ]),
               _vm._v(" "),
@@ -48048,7 +48166,7 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                            По результатам собеседования\n                        "
+                  "\n                        По результатам собеседования\n                    "
                 ),
               ]),
             ]),
@@ -48076,7 +48194,7 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                            Ukraine / Lviv / Drohobuch\n                        "
+                  "\n                        Ukraine / Lviv / Drohobuch\n                    "
                 ),
               ]),
             ]),
@@ -48084,7 +48202,7 @@ var render = function () {
             _c("div", { staticClass: "line-div" }, [
               _c("div", { staticClass: "address-comment" }, [
                 _vm._v(
-                  "\n                            Полная занятость.\n                            "
+                  "\n                        Полная занятость.\n                        "
                 ),
                 _c(
                   "svg",
@@ -48103,7 +48221,7 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                            Опыт работы от 1 года.\n                        "
+                  "\n                        Опыт работы от 1 года.\n                    "
                 ),
               ]),
             ]),
@@ -48111,13 +48229,13 @@ var render = function () {
             _c("div", { staticClass: "line-div" }, [
               _c("div", { staticClass: "address-comment display-inline" }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(this.description.slice(0, 150)) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c("div", { staticClass: "link-vacancy display-inline" }, [
                   _vm._v(
-                    "\n                                ...\n                                "
+                    "\n                            ...\n                            "
                   ),
                   _c(
                     "svg",
@@ -48144,11 +48262,22 @@ var render = function () {
                 "button",
                 {
                   staticClass: "btn btn-block btn-outline-primary btn-sm",
-                  attrs: { type: "button" },
+                  attrs: {
+                    type: "button",
+                    "data-bool": "1",
+                    "data-id": "1",
+                    id: "save_1",
+                  },
                   on: {
                     click: function ($event) {
                       $event.preventDefault()
-                      return _vm.saveYourself.apply(null, arguments)
+                      return _vm.changeButton(
+                        $event,
+                        "save_",
+                        "save-two_",
+                        "show_",
+                        1
+                      )
                     },
                   },
                 },
@@ -48157,8 +48286,8 @@ var render = function () {
                     "svg",
                     {
                       attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
                         viewBox: "0 0 512 512",
+                        xmlns: "http://www.w3.org/2000/svg",
                       },
                     },
                     [
@@ -48170,7 +48299,7 @@ var render = function () {
                     ]
                   ),
                   _vm._v(
-                    "\n                            Сохранить\n                        "
+                    "\n                        Сохранить\n                    "
                   ),
                 ]
               ),
@@ -48178,12 +48307,25 @@ var render = function () {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-block btn-outline-primary btn-sm",
-                  attrs: { type: "button" },
+                  staticClass:
+                    "btn btn-block btn-outline-success btn-sm save-two",
+                  attrs: {
+                    type: "button",
+                    disabled: "",
+                    "data-bool": "0",
+                    "data-id": "1",
+                    id: "save-two_1",
+                  },
                   on: {
                     click: function ($event) {
                       $event.preventDefault()
-                      return _vm.notShowMe.apply(null, arguments)
+                      return _vm.changeButton(
+                        $event,
+                        "save_",
+                        "save-two_",
+                        "show_",
+                        0
+                      )
                     },
                   },
                 },
@@ -48192,8 +48334,54 @@ var render = function () {
                     "svg",
                     {
                       attrs: {
+                        viewBox: "0 0 512 512",
                         xmlns: "http://www.w3.org/2000/svg",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z",
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                        В меню сохраненных\n                    "
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-block btn-outline-primary btn-sm",
+                  attrs: {
+                    type: "button",
+                    "data-bool": "1",
+                    "data-id": "1",
+                    id: "show_1",
+                  },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.changeButton(
+                        $event,
+                        "show_",
+                        "show-two_",
+                        "save_",
+                        1
+                      )
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
                         viewBox: "0 0 640 512",
+                        xmlns: "http://www.w3.org/2000/svg",
                       },
                     },
                     [
@@ -48205,7 +48393,55 @@ var render = function () {
                     ]
                   ),
                   _vm._v(
-                    "\n                            Не показывать\n                        "
+                    "\n                        Не показывать\n                    "
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-block btn-outline-danger btn-sm show-two",
+                  attrs: {
+                    type: "button",
+                    disabled: "",
+                    "data-bool": "0",
+                    "data-id": "1",
+                    id: "show-two_1",
+                  },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.changeButton(
+                        $event,
+                        "show_",
+                        "show-two_",
+                        "save_",
+                        0
+                      )
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        viewBox: "0 0 576 512",
+                        xmlns: "http://www.w3.org/2000/svg",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z",
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                        Показывать вакансию\n                    "
                   ),
                 ]
               ),
@@ -48236,7 +48472,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box-title-logo" }, [
       _c("h2", { staticClass: "title-vacancy" }, [
         _vm._v(
-          "\n                            Test Title Test TitleTest TitleTest\n                        "
+          "\n                        Test Title Test TitleTest TitleTest\n                    "
         ),
       ]),
       _vm._v(" "),
