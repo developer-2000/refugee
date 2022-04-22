@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Vacancy\DeleteVacancyRequest;
 use App\Http\Requests\Vacancy\DuplicateVacancyRequest;
 use App\Http\Requests\Vacancy\EditVacancyRequest;
+use App\Http\Requests\Vacancy\SaveVacancyRequest;
 use App\Http\Requests\Vacancy\SearchVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
@@ -11,6 +12,8 @@ use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\User;
+use App\Model\UserSaveVacancy;
+use App\Model\UserShowVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use Illuminate\Http\Request;
@@ -185,6 +188,53 @@ class VacancyController extends BaseController {
         return $this->getResponse();
     }
 
+    /**
+     * добавить в закладки выбранную вакансию в поиске
+     * @param  SaveVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function bookmarkVacancy(SaveVacancyRequest $request)
+    {
+        $this->switchActionVacancy($request, new UserSaveVacancy());
+        return $this->getResponse();
+    }
+
+    /**
+     * скрыть выбранную вакансию в поиске
+     * @param  SaveVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function hideVacancyInSearch(SaveVacancyRequest $request)
+    {
+        $this->switchActionVacancy($request, new UserShowVacancy());
+        return $this->getResponse();
+    }
+
+    // ===
+    // Private
+    /**
+     * переключение состояний выбранных вакансий (добавление в закладки и скрытие)
+     * @param $request
+     * @param $model
+     */
+    private function switchActionVacancy($request, $model){
+        if($request->action == 1){
+            $model::updateOrCreate(
+                [
+                    'user_id'=>Auth::user()->id,
+                    'vacancy_id'=>$request->vacancy_id
+                ]
+            );
+        }
+        elseif($request->action == 0){
+            $model::where('user_id', Auth::user()->id)
+                ->where('vacancy_id',$request->vacancy_id)
+                ->delete();
+        }
+    }
+
+
+
 
     //    /**
 //     * Display a listing of the resource.
@@ -195,8 +245,6 @@ class VacancyController extends BaseController {
 //    {
 //        //
 //    }
-
-
 //    /**
 //     * Display the specified resource.
 //     *

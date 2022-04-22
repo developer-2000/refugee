@@ -113,9 +113,9 @@ export default {
         },
         // конвертация строки
         salaryLineToEmpty() {
-            this.objSalary.salary_from = (isNaN(parseInt(this.objSalary.salary_from)) || parseInt(this.objSalary.salary_from) == 0) ? null : this.objSalary.salary_from
+            this.objSalary.from = (isNaN(parseInt(this.objSalary.from)) || parseInt(this.objSalary.from) == 0) ? null : this.objSalary.from
 
-            this.objSalary.salary_to = (isNaN(parseInt(this.objSalary.salary_to)) || parseInt(this.objSalary.salary_to) == 0) ? null : this.objSalary.salary_to
+            this.objSalary.to = (isNaN(parseInt(this.objSalary.to)) || parseInt(this.objSalary.to) == 0) ? null : this.objSalary.to
         },
     },
     mounted() {

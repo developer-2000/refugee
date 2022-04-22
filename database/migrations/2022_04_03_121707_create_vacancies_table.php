@@ -30,7 +30,7 @@ class CreateVacanciesTable extends Migration
             $table->tinyInteger('experience')->index()->comment('опыт работы');
             $table->tinyInteger('education')->index()->comment('образование');
             $table->string('search_city')->index()->nullable()->default(null)->comment('поиск кандидатов в другом городе');
-            $table->text('text_requirements')->nullable()->default(null)->comment('требования вакансии');
+            $table->text('text_description')->nullable()->default(null)->comment('описание вакансии');
             $table->text('text_working')->nullable()->default(null)->comment('условия работы');
             $table->text('text_responsibilities')->nullable()->default(null)->comment('обязанности работника');
             $table->text('contacts')->nullable()->default(null)->comment('какие контакты связи показать соискателю');

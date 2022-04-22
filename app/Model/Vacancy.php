@@ -19,6 +19,7 @@ class Vacancy extends Model
         'job_posting' => 'json',
     ];
 
+    // заголовок вакансии
     public function position() {
         return $this->belongsTo(Position::class, 'position_id', 'id');
     }
@@ -27,6 +28,7 @@ class Vacancy extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    // Image чарез Employer
     // цепочка = Vacancy user_id, Employer user_id, Employer logo_id,
     public function logo_employer() {
         return $this->hasOneThrough(
@@ -42,6 +44,7 @@ class Vacancy extends Model
         });
     }
 
+    // Employer через User
     // цепочка = Vacancy user_id, User id, Employer user_id,
     public function employer() {
         return $this->hasOneThrough(
@@ -59,5 +62,29 @@ class Vacancy extends Model
             ];
         });
 
+    }
+
+    // масив UserSaveVacancy через User
+    public function id_saved_vacancies() {
+        return $this->hasManyThrough(
+            UserSaveVacancy::class,
+            User::class,
+            'id',
+            'user_id',
+            'user_id',
+            'id'
+        );
+    }
+
+    // масив UserShowVacancy через User
+    public function id_not_shown_vacancies() {
+        return $this->hasManyThrough(
+            UserShowVacancy::class,
+            User::class,
+            'id',
+            'user_id',
+            'user_id',
+            'id'
+        );
     }
 }

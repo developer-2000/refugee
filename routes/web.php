@@ -36,7 +36,6 @@ Route::group(['prefix'=>'technical'], function (){
     });
 });
 
-
 Route::group([
     // переключение url и translation сайта
     'prefix' => Localization::locale(),
@@ -70,12 +69,13 @@ Route::group([
             Route::get('my-vacancies', 'VacancyController@myVacancies');
             Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
             Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
+            Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
+            Route::post('hide-vacancy-search', 'VacancyController@hideVacancyInSearch');
         });
         Route::resource('vacancy', 'VacancyController')->only([
             'create', 'store', 'destroy', 'edit', 'update',
         ]);
     });
-
 
     // select localisation
     Route::group(['prefix'=>'localisation'], function (){
@@ -87,13 +87,10 @@ Route::group([
     Route::get('language/{name}', 'LanguageController@changeLanguage')
         ->name('language');
 
-
     Route::resource('country', 'CountryController')->only([
         'show'
     ]);
 });
-
-
 
 Auth::routes();
 

@@ -122,14 +122,12 @@
             salaryView(salaryObj){
                 let salary_string = ''
                 let arr_field = this.settings.salary[salaryObj.radio_name]
-
                 $.each(arr_field, function(key, name) {
                     salary_string += salaryObj.inputs[name]
                     if( (key+1) < arr_field.length){
                         salary_string += ' - '
                     }
                 })
-
                 salary_string = salary_string == '' ? 0 : salary_string
                 return salary_string
             },

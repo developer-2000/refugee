@@ -2762,6 +2762,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 //
 //
 //
+//
+//
 
 
 
@@ -3562,6 +3564,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -3581,8 +3584,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       job_posting: 0,
       objSalary: {
         salary_but: "range",
-        salary_from: null,
-        salary_to: null,
+        from: null,
+        to: null,
         salary_sum: null,
         switchSalary: false,
         salary_comment: null
@@ -3767,7 +3770,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     checkSalary: function checkSalary() {
       // если выбран сектор а поля не заполнены
-      if (this.objSalary.salary_but == "range" && (!this.objSalary.salary_from || this.objSalary.salary_from == '' || !this.objSalary.salary_to || this.objSalary.salary_to == '') || this.objSalary.salary_but == "single_value" && (!this.objSalary.salary_sum || this.objSalary.salary_sum == '')) {
+      if (this.objSalary.salary_but == "range" && (!this.objSalary.from || this.objSalary.from == '' || !this.objSalary.to || this.objSalary.to == '') || this.objSalary.salary_but == "single_value" && (!this.objSalary.salary_sum || this.objSalary.salary_sum == '')) {
         this.objSalary.switchSalary = true;
         return true;
       }
@@ -3791,9 +3794,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     alignNumbers: function alignNumbers() {
       // выровнять последнее число по первому если оно меньше
-      if (this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)) {
-        if (parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)) {
-          this.objSalary.salary_to = this.objSalary.salary_from;
+      if (this.checkingInteger(this.objSalary.from) && this.checkingInteger(this.objSalary.to)) {
+        if (parseInt(this.objSalary.from) > parseInt(this.objSalary.to)) {
+          this.objSalary.to = this.objSalary.from;
         }
       }
 
@@ -3852,8 +3855,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // Вид занятости
         salary_but: this.objSalary.salary_but,
         // Зарплата
-        salary_from: this.objSalary.salary_from,
-        salary_to: this.objSalary.salary_to,
+        from: this.objSalary.from,
+        to: this.objSalary.to,
         salary_sum: this.objSalary.salary_sum,
         salary_comment: this.objSalary.salary_comment,
         experience: this.experience,
@@ -3863,7 +3866,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         checkbox_city: this.objCity.checkbox_city,
         // Город для поиска
         search_city: this.objCity.search_city,
-        text_requirements: this.objTextarea.textarea_candidate,
+        text_description: this.objTextarea.textarea_candidate,
         // Требования к кандидату
         text_working: this.objTextarea.textarea_conditions,
         // Условия работы
@@ -3923,8 +3926,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.type_employment = this.vacancy.type_employment; // Зарплата
 
       this.objSalary.salary_but = this.vacancy.salary.radio_name;
-      this.objSalary.salary_from = this.vacancy.salary.inputs.salary_from;
-      this.objSalary.salary_to = this.vacancy.salary.inputs.salary_to;
+      this.objSalary.from = this.vacancy.salary.inputs.from;
+      this.objSalary.to = this.vacancy.salary.inputs.to;
       this.objSalary.salary_sum = this.vacancy.salary.inputs.salary_sum;
       this.objSalary.salary_comment = this.vacancy.salary.comment;
       $('#' + this.objSalary.salary_but).collapse('show');
@@ -3933,8 +3936,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.objCity.checkbox_city = this.vacancy.search_city.bool;
       this.objCity.search_city = this.vacancy.search_city.code;
-      this.objTextarea.textarea_candidate = this.vacancy.text_requirements;
-      this.a1 = this.vacancy.text_requirements;
+      this.objTextarea.textarea_candidate = this.vacancy.text_description;
       this.objTextarea.textarea_conditions = this.vacancy.text_working;
       this.objTextarea.textarea_responsibilities = this.vacancy.text_responsibilities; // Контакты работодателя
 
@@ -4594,8 +4596,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       objSalary: {
-        salary_from: null,
-        salary_to: null,
+        from: null,
+        to: null,
         salary_checkbox: false
       },
       objCheckSuitable: {
@@ -4656,7 +4658,37 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SearchPanelVacancyComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchPanelVacancyComponent.vue */ "./resources/js/components/vacancy/SearchPanelVacancyComponent.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _SearchPanelVacancyComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchPanelVacancyComponent.vue */ "./resources/js/components/vacancy/SearchPanelVacancyComponent.vue");
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/general_functions_mixin.js */ "./resources/js/mixins/general_functions_mixin.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4805,37 +4837,99 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'search_panel': _SearchPanelVacancyComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    'search_panel': _SearchPanelVacancyComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mixins: [],
+  mixins: [_mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
   data: function data() {
     return {
+      reactive_state_variable: '1',
       hover_id: '',
       search_value: '',
       description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠'
     };
   },
   methods: {
-    test: function test(event) {
-      var value = $(event.target).attr('data-bool');
-      console.log(value);
-      return 1;
-    },
     updateData: function updateData(data) {
       console.log(data);
     },
     selectVacancy: function selectVacancy() {
       console.log('select');
     },
-    saveYourself: function saveYourself(vacancy_id, action) {
-      console.log('saveYourself');
-      console.log(vacancy_id, action);
+    bookmarkVacancy: function bookmarkVacancy(vacancy_id, action) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                data = {
+                  vacancy_id: vacancy_id,
+                  action: action
+                };
+                _context.next = 3;
+                return _this.$http.post("/vacancy/bookmark-vacancy", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {// console.log(res)
+                  } // custom ошибки
+                  else {
+                    _this.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this.messageError(err);
+                });
+
+              case 3:
+                response = _context.sent;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
-    notShowMe: function notShowMe(vacancy_id, action) {
-      console.log('notShowMe');
-      console.log(vacancy_id, action);
+    hideVacancyInSearch: function hideVacancyInSearch(vacancy_id, action) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = {
+                  vacancy_id: vacancy_id,
+                  action: action
+                };
+                _context2.next = 3;
+                return _this2.$http.post("/vacancy/hide-vacancy-search", data).then(function (res) {
+                  if (_this2.checkSuccess(res)) {// console.log(res)
+                  } // custom ошибки
+                  else {
+                    _this2.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this2.messageError(err);
+                });
+
+              case 3:
+                response = _context2.sent;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     hoverVacancy: function hoverVacancy(e) {
       var vacancy_id = e.target.id;
@@ -4855,6 +4949,60 @@ __webpack_require__.r(__webpack_exports__);
       e.target.style.position = "relative";
       this.hover_id = vacancy_id;
     },
+    salaryView: function salaryView(salaryObj) {
+      var salary_string = '';
+      var arr_field = this.settings.salary[salaryObj.radio_name];
+      $.each(arr_field, function (key, name) {
+        salary_string += salaryObj.inputs[name];
+
+        if (key + 1 < arr_field.length) {
+          salary_string += ' - ';
+        }
+      });
+      salary_string = salary_string == '' ? 0 : salary_string;
+      return salary_string;
+    },
+    addressView: function addressView(vacancyObj) {
+      var address_string = '';
+
+      if (vacancyObj.country !== null) {
+        address_string += vacancyObj.country.name + '.';
+      }
+
+      if (vacancyObj.region !== null) {
+        address_string += ' ' + vacancyObj.region.name + '.';
+      }
+
+      if (vacancyObj.city !== null) {
+        address_string += ' ' + vacancyObj.city.name + '.';
+      }
+
+      address_string += ' ' + vacancyObj.rest_address + '.';
+      return address_string;
+    },
+    // это изначальное состояние кнопок Сохранить и Спрятать
+    initialStateButtons: function initialStateButtons(vacancy) {
+      // вакансия добавлена в избранное (true/false)
+      var saved_bool = this.lookingValueInArrayObjects('vacancy_id', vacancy.id, vacancy.id_saved_vacancies);
+      var show_bool = this.lookingValueInArrayObjects('vacancy_id', vacancy.id, vacancy.id_not_shown_vacancies);
+      var property_value = vacancy.id;
+
+      if (saved_bool) {
+        $("#save_" + property_value).css('display', 'none').prop("disabled", true);
+        $("#show_" + property_value).css('display', 'none').prop("disabled", true);
+        $("#show-two_" + property_value).css('display', 'none').prop("disabled", true);
+      } else if (show_bool) {
+        $("#save_" + property_value).css('display', 'none').prop("disabled", true);
+        $("#save-two_" + property_value).css('display', 'none').prop("disabled", true);
+        $("#show_" + property_value).css('display', 'none').prop("disabled", true);
+      } else {
+        $("#save-two_" + property_value).css('display', 'none').prop("disabled", true);
+        $("#show-two_" + property_value).css('display', 'none').prop("disabled", true);
+      }
+
+      this.reactive_state_variable = '';
+      return false;
+    },
     // меняет кнопки Сохранить на В меню сохраненных и обратно
     // меняет кнопки Не показывать на Показывать вакансию и обратно
     changeButton: function changeButton(event, but1, but2, but3, action) {
@@ -4871,7 +5019,7 @@ __webpack_require__.r(__webpack_exports__);
 
         setTimeout(function () {
           $("#" + but2 + vacancy_id).prop("disabled", false);
-        }, 1000);
+        }, 500);
       } // показал другие, себя изменил
       else {
         $("#" + but2 + vacancy_id).css('display', 'none');
@@ -4883,22 +5031,23 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           $("#" + but1 + vacancy_id).prop("disabled", false);
           $("#" + but3 + vacancy_id).prop("disabled", false);
-        }, 1000);
+        }, 500);
       } // что делать с этой вакансией
 
 
       if (but1 == 'save_') {
-        this.saveYourself(vacancy_id, action);
+        this.bookmarkVacancy(vacancy_id, action);
       } else if (but1 == 'show_') {
-        this.notShowMe(vacancy_id, action);
-      }
+        this.hideVacancyInSearch(vacancy_id, action);
+      } // остановить распространение события click наверх родителю
+
 
       event.stopPropagation();
     }
   },
   props: ['lang', 'settings', 'vacancies'],
   mounted: function mounted() {
-    console.log(this.vacancies.data);
+    console.log(this.vacancies);
   }
 });
 
@@ -9376,7 +9525,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n}\n.user-menu .user-avatar img[data-v-61d2081e] {\n  width: 38px;\n}\n.user-menu .user-avatar svg[data-v-61d2081e] {\n  width: 9px;\n  margin-left: 4px;\n}\n.user-menu .user-avatar svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}\n\n/*min-width: 175px;*/", ""]);
+exports.push([module.i, ".dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item .svg-cabinet svg[data-v-61d2081e] {\n  width: 25px;\n  margin-left: -3px;\n  margin-right: 5px;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n}\n.user-menu .user-avatar img[data-v-61d2081e] {\n  width: 38px;\n}\n.user-menu .user-avatar svg[data-v-61d2081e] {\n  width: 9px;\n  margin-left: 4px;\n}\n.user-menu .user-avatar svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}\n\n/*min-width: 175px;*/", ""]);
 
 // exports
 
@@ -9452,7 +9601,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  outline: 2px solid #dee2e6;\n  cursor: pointer;\n  padding: 15px 30px 15px;\n  margin-right: 15px;\n  margin-top: 2px;\n}\n.box-vacancy[data-v-fbaa726e]:hover {\n  outline: 2px solid #c0ddfb;\n}\n.box-vacancy:hover .title-vacancy[data-v-fbaa726e], .box-vacancy:hover .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button > button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.save-two svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.show-two svg[data-v-fbaa726e] {\n  width: 15px;\n}\n.box-vacancy .panel-button button.save-two[data-v-fbaa726e],\n.box-vacancy .panel-button button.show-two[data-v-fbaa726e] {\n  display: none;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  outline: 2px solid #dee2e6;\n  cursor: pointer;\n  padding: 15px 30px 15px;\n  margin-right: 15px;\n  margin-top: 2px;\n}\n.box-vacancy[data-v-fbaa726e]:hover {\n  outline: 2px solid #c0ddfb;\n}\n.box-vacancy:hover .title-vacancy[data-v-fbaa726e], .box-vacancy:hover .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button > button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.save-two svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.show-two svg[data-v-fbaa726e] {\n  width: 15px;\n}\n\n/*.box-vacancy .panel-button button.save-two,*/\n/*.box-vacancy .panel-button button.show-two{*/\n/*    display: none;*/\n/*}*/", ""]);
 
 // exports
 
@@ -44427,24 +44576,26 @@ var render = function () {
                       "a",
                       { staticClass: "dropdown-item", attrs: { href: "#" } },
                       [
-                        _c(
-                          "svg",
-                          {
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 640 512",
-                            },
-                          },
-                          [
-                            _c("path", {
+                        _c("span", { staticClass: "svg-cabinet" }, [
+                          _c(
+                            "svg",
+                            {
                               attrs: {
-                                d: "M286.3 155.1C287.4 161.9 288 168.9 288 175.1C288 183.1 287.4 190.1 286.3 196.9L308.5 216.7C315.5 223 318.4 232.1 314.7 241.7C312.4 246.1 309.9 252.2 307.1 257.2L304 262.6C300.1 267.6 297.7 272.4 294.2 277.1C288.5 284.7 278.5 287.2 269.5 284.2L241.2 274.9C230.5 283.8 218.3 290.9 205 295.9L198.1 324.9C197 334.2 189.8 341.6 180.4 342.8C173.7 343.6 166.9 344 160 344C153.1 344 146.3 343.6 139.6 342.8C130.2 341.6 122.1 334.2 121 324.9L114.1 295.9C101.7 290.9 89.5 283.8 78.75 274.9L50.53 284.2C41.54 287.2 31.52 284.7 25.82 277.1C22.28 272.4 18.98 267.5 15.94 262.5L12.92 257.2C10.13 252.2 7.592 247 5.324 241.7C1.62 232.1 4.458 223 11.52 216.7L33.7 196.9C32.58 190.1 31.1 183.1 31.1 175.1C31.1 168.9 32.58 161.9 33.7 155.1L11.52 135.3C4.458 128.1 1.62 119 5.324 110.3C7.592 104.1 10.13 99.79 12.91 94.76L15.95 89.51C18.98 84.46 22.28 79.58 25.82 74.89C31.52 67.34 41.54 64.83 50.53 67.79L78.75 77.09C89.5 68.25 101.7 61.13 114.1 56.15L121 27.08C122.1 17.8 130.2 10.37 139.6 9.231C146.3 8.418 153.1 8 160 8C166.9 8 173.7 8.418 180.4 9.23C189.8 10.37 197 17.8 198.1 27.08L205 56.15C218.3 61.13 230.5 68.25 241.2 77.09L269.5 67.79C278.5 64.83 288.5 67.34 294.2 74.89C297.7 79.56 300.1 84.42 304 89.44L307.1 94.83C309.9 99.84 312.4 105 314.7 110.3C318.4 119 315.5 128.1 308.5 135.3L286.3 155.1zM160 127.1C133.5 127.1 112 149.5 112 175.1C112 202.5 133.5 223.1 160 223.1C186.5 223.1 208 202.5 208 175.1C208 149.5 186.5 127.1 160 127.1zM484.9 478.3C478.1 479.4 471.1 480 464 480C456.9 480 449.9 479.4 443.1 478.3L423.3 500.5C416.1 507.5 407 510.4 398.3 506.7C393 504.4 387.8 501.9 382.8 499.1L377.4 496C372.4 492.1 367.6 489.7 362.9 486.2C355.3 480.5 352.8 470.5 355.8 461.5L365.1 433.2C356.2 422.5 349.1 410.3 344.1 397L315.1 390.1C305.8 389 298.4 381.8 297.2 372.4C296.4 365.7 296 358.9 296 352C296 345.1 296.4 338.3 297.2 331.6C298.4 322.2 305.8 314.1 315.1 313L344.1 306.1C349.1 293.7 356.2 281.5 365.1 270.8L355.8 242.5C352.8 233.5 355.3 223.5 362.9 217.8C367.6 214.3 372.5 210.1 377.5 207.9L382.8 204.9C387.8 202.1 392.1 199.6 398.3 197.3C407 193.6 416.1 196.5 423.3 203.5L443.1 225.7C449.9 224.6 456.9 224 464 224C471.1 224 478.1 224.6 484.9 225.7L504.7 203.5C511 196.5 520.1 193.6 529.7 197.3C535 199.6 540.2 202.1 545.2 204.9L550.5 207.9C555.5 210.1 560.4 214.3 565.1 217.8C572.7 223.5 575.2 233.5 572.2 242.5L562.9 270.8C571.8 281.5 578.9 293.7 583.9 306.1L612.9 313C622.2 314.1 629.6 322.2 630.8 331.6C631.6 338.3 632 345.1 632 352C632 358.9 631.6 365.7 630.8 372.4C629.6 381.8 622.2 389 612.9 390.1L583.9 397C578.9 410.3 571.8 422.5 562.9 433.2L572.2 461.5C575.2 470.5 572.7 480.5 565.1 486.2C560.4 489.7 555.6 492.1 550.6 496L545.2 499.1C540.2 501.9 534.1 504.4 529.7 506.7C520.1 510.4 511 507.5 504.7 500.5L484.9 478.3zM512 352C512 325.5 490.5 304 464 304C437.5 304 416 325.5 416 352C416 378.5 437.5 400 464 400C490.5 400 512 378.5 512 352z",
+                                viewBox: "0 0 576 512",
+                                xmlns: "http://www.w3.org/2000/svg",
                               },
-                            }),
-                          ]
-                        ),
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d: "m224 224c0-35.3 28.7-64 64-64s64 28.7 64 64-28.7 64-64 64-64-28.7-64-64zm-48 176c0-44.2 35.8-80 80-80h64c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16h-192c-8.8 0-16-7.2-16-16zm288-258.1v-85.9c0-13.25 10.7-24.9 24-24.9s24 11.65 24 24.9v126.6l55.5 47.1c10.1 8.6 11.4 23.7 2.8 33.8s-23.7 11.4-33.8 2.8l-24.5-20.8v186.5c0 44.2-35.8 80-80 80h-288c-44.18 0-80-35.8-80-80v-186.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8l264.03-224c8.9-7.6 22.1-7.6 31 0l160.5 136.2zm-320 322.1h288c17.7 0 32-14.3 32-32v-227.2l-176-149.33-176 149.33v227.2c0 17.7 14.3 32 32 32z",
+                                },
+                              }),
+                            ]
+                          ),
+                        ]),
                         _vm._v(
-                          "\n                            Настройки\n                        "
+                          "\n                            Личный кабинет\n                        "
                         ),
                       ]
                     ),
@@ -44606,16 +44757,16 @@ var render = function () {
     this.vacancy == null
       ? _c("h1", { staticClass: "title_page card-body" }, [
           _vm._v(
-            "\n        " +
+            "\n            " +
               _vm._s(_vm.trans("vacancies", "create_job")) +
-              "\n    "
+              "\n        "
           ),
         ])
       : _c("h1", { staticClass: "title_page card-body" }, [
           _vm._v(
-            "\n        " +
+            "\n            " +
               _vm._s(_vm.trans("vacancies", "update_job")) +
-              "\n    "
+              "\n        "
           ),
         ]),
     _vm._v(" "),
@@ -44625,9 +44776,9 @@ var render = function () {
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "position" } }, [
               _vm._v(
-                "\n                        " +
+                "\n                            " +
                   _vm._s(_vm.trans("vacancies", "job_name")) +
-                  "\n                        "
+                  "\n                            "
               ),
               _c("span", { staticClass: "mandatory-filling" }, [
                 _c(
@@ -44735,9 +44886,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                        " +
                           _vm._s(value) +
-                          "\n                                "
+                          "\n                                    "
                       ),
                     ]
                   )
@@ -44757,7 +44908,7 @@ var render = function () {
             _c("label", { attrs: { for: "country" } }, [
               _vm._v(
                 _vm._s(_vm.trans("vacancies", "country_job")) +
-                  "\n                        "
+                  "\n                            "
               ),
               _c("span", { staticClass: "mandatory-filling" }, [
                 _c(
@@ -44788,9 +44939,9 @@ var render = function () {
                   { attrs: { disabled: "disabled", selected: "" } },
                   [
                     _vm._v(
-                      "\n                            " +
+                      "\n                                " +
                         _vm._s(_vm.trans("vacancies", "select_country")) +
-                        "\n                        "
+                        "\n                            "
                     ),
                   ]
                 ),
@@ -44828,7 +44979,7 @@ var render = function () {
                 _c("label", { attrs: { for: "region" } }, [
                   _vm._v(
                     _vm._s(_vm.trans("vacancies", "job_region")) +
-                      "\n                        "
+                      "\n                            "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -44867,9 +45018,9 @@ var render = function () {
                       { attrs: { disabled: "disabled", selected: "" } },
                       [
                         _vm._v(
-                          "\n                            " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", "select_region")) +
-                            "\n                        "
+                            "\n                            "
                         ),
                       ]
                     ),
@@ -44911,7 +45062,7 @@ var render = function () {
                 _c("label", { attrs: { for: "city" } }, [
                   _vm._v(
                     _vm._s(_vm.trans("vacancies", "city_job")) +
-                      "\n                        "
+                      "\n                            "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -44950,9 +45101,9 @@ var render = function () {
                       { attrs: { disabled: "disabled", selected: "" } },
                       [
                         _vm._v(
-                          "\n                            " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", "select_city")) +
-                            "\n                        "
+                            "\n                            "
                         ),
                       ]
                     ),
@@ -44990,9 +45141,9 @@ var render = function () {
             ? _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "rest_address" } }, [
                   _vm._v(
-                    "\n                        " +
+                    "\n                            " +
                       _vm._s(_vm.trans("vacancies", "other_job_address")) +
-                      "\n                        "
+                      "\n                            "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -45070,9 +45221,9 @@ var render = function () {
               _c("div", [
                 _c("label", { attrs: { for: "categories" } }, [
                   _vm._v(
-                    "\n                            " +
+                    "\n                                " +
                       _vm._s(_vm.trans("vacancies", "category_job_posting")) +
-                      "\n                            "
+                      "\n                                "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -45165,14 +45316,14 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                " +
+                                          "\n                                                    " +
                                             _vm._s(
                                               _vm.trans(
                                                 "vacancies",
                                                 valueArr[1]
                                               )
                                             ) +
-                                            "\n                                            "
+                                            "\n                                                "
                                         ),
                                       ]
                                     ),
@@ -45202,9 +45353,9 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                        " +
+                    "\n                            " +
                       _vm._s(_vm.trans("vacancies", "least_category")) +
-                      "\n                    "
+                      "\n                        "
                   ),
                 ]
               ),
@@ -45218,9 +45369,9 @@ var render = function () {
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "vacancy_suitable" } }, [
               _vm._v(
-                "\n                        " +
+                "\n                            " +
                   _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
-                  "\n                    "
+                  "\n                        "
               ),
             ]),
             _vm._v(" "),
@@ -45296,11 +45447,11 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                " +
+                                          "\n                                                    " +
                                             _vm._s(
                                               _vm.trans("vacancies", value)
                                             ) +
-                                            "\n                                            "
+                                            "\n                                                "
                                         ),
                                       ]
                                     ),
@@ -45383,11 +45534,11 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                " +
+                                          "\n                                                    " +
                                             _vm._s(
                                               _vm.trans("vacancies", "set_age")
                                             ) +
-                                            "\n                                            "
+                                            "\n                                                "
                                         ),
                                       ]
                                     ),
@@ -45446,7 +45597,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(
-                                    "\n                                            -\n                                            "
+                                    "\n                                                -\n                                                "
                                   ),
                                   _c("input", {
                                     directives: [
@@ -45486,7 +45637,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(
-                                    "\n                                            лет\n                                        "
+                                    "\n                                                лет\n                                            "
                                   ),
                                 ]),
                               ]
@@ -45499,9 +45650,9 @@ var render = function () {
                               { attrs: { for: "suitable_commentary" } },
                               [
                                 _vm._v(
-                                  "\n                                        " +
+                                  "\n                                            " +
                                     _vm._s(_vm.trans("vacancies", value)) +
-                                    "\n                                    "
+                                    "\n                                        "
                                 ),
                               ]
                             ),
@@ -45594,9 +45745,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -45617,9 +45768,9 @@ var render = function () {
             [
               _c("label", { attrs: { for: "salary_accordion" } }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                            " +
                     _vm._s(_vm.trans("vacancies", "salary")) +
-                    "\n                        "
+                    "\n                            "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -45732,9 +45883,9 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                        " +
+                                "\n                                            " +
                                   _vm._s(_vm.trans("vacancies", "range")) +
-                                  "\n                                    "
+                                  "\n                                        "
                               ),
                             ]
                           ),
@@ -45760,8 +45911,8 @@ var render = function () {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.objSalary.salary_from,
-                              expression: "objSalary.salary_from",
+                              value: _vm.objSalary.from,
+                              expression: "objSalary.from",
                             },
                           ],
                           attrs: {
@@ -45775,7 +45926,7 @@ var render = function () {
                                 this.settings.salary.range[0]
                               ),
                           },
-                          domProps: { value: _vm.objSalary.salary_from },
+                          domProps: { value: _vm.objSalary.from },
                           on: {
                             change: _vm.checkSalary,
                             input: function ($event) {
@@ -45784,22 +45935,22 @@ var render = function () {
                               }
                               _vm.$set(
                                 _vm.objSalary,
-                                "salary_from",
+                                "from",
                                 $event.target.value
                               )
                             },
                           },
                         }),
                         _vm._v(
-                          "\n                                    -\n                                    "
+                          "\n                                        -\n                                        "
                         ),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.objSalary.salary_to,
-                              expression: "objSalary.salary_to",
+                              value: _vm.objSalary.to,
+                              expression: "objSalary.to",
                             },
                           ],
                           attrs: {
@@ -45813,18 +45964,14 @@ var render = function () {
                                 this.settings.salary.range[1]
                               ),
                           },
-                          domProps: { value: _vm.objSalary.salary_to },
+                          domProps: { value: _vm.objSalary.to },
                           on: {
                             blur: _vm.checkSalary,
                             input: function ($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(
-                                _vm.objSalary,
-                                "salary_to",
-                                $event.target.value
-                              )
+                              _vm.$set(_vm.objSalary, "to", $event.target.value)
                             },
                           },
                         }),
@@ -45899,11 +46046,11 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                        " +
+                                "\n                                            " +
                                   _vm._s(
                                     _vm.trans("vacancies", "single_value")
                                   ) +
-                                  "\n                                    "
+                                  "\n                                        "
                               ),
                             ]
                           ),
@@ -46033,11 +46180,11 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                        " +
+                                "\n                                            " +
                                   _vm._s(
                                     _vm.trans("vacancies", "dont_specify")
                                   ) +
-                                  "\n                                    "
+                                  "\n                                        "
                               ),
                             ]
                           ),
@@ -46067,11 +46214,11 @@ var render = function () {
                     [
                       _c("div", { staticClass: "bg-warning color-palette" }, [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                        " +
                             _vm._s(
                               _vm.trans("vacancies", "get_more_responses")
                             ) +
-                            "\n                                "
+                            "\n                                    "
                         ),
                       ]),
                     ]
@@ -46124,9 +46271,9 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                        " +
+                    "\n                            " +
                       _vm._s(_vm.trans("vacancies", "salary_vacancy")) +
-                      "\n                    "
+                      "\n                        "
                   ),
                 ]
               ),
@@ -46176,9 +46323,9 @@ var render = function () {
                   return [
                     _c("option", { domProps: { value: "" + key } }, [
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]),
                   ]
@@ -46229,9 +46376,9 @@ var render = function () {
                   return [
                     _c("option", { domProps: { value: "" + key } }, [
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]),
                   ]
@@ -46294,9 +46441,9 @@ var render = function () {
                   _vm._v(" "),
                   _c("label", { attrs: { for: "checkbox_city" } }, [
                     _vm._v(
-                      "\n                            " +
+                      "\n                                " +
                         _vm._s(_vm.trans("vacancies", "search_candidates")) +
-                        "\n                        "
+                        "\n                            "
                     ),
                   ]),
                   _vm._v(" "),
@@ -46335,9 +46482,9 @@ var render = function () {
                   ? _c("div", { staticClass: "search-city" }, [
                       _c("label", { attrs: { for: "search_city" } }, [
                         _vm._v(
-                          "\n                            " +
+                          "\n                                " +
                             _vm._s(_vm.trans("vacancies", "city_search")) +
-                            "\n                        "
+                            "\n                            "
                         ),
                       ]),
                       _vm._v(" "),
@@ -46361,11 +46508,11 @@ var render = function () {
                             { attrs: { disabled: "disabled", selected: "" } },
                             [
                               _vm._v(
-                                "\n                                " +
+                                "\n                                    " +
                                   _vm._s(
                                     _vm.trans("vacancies", "select_search_city")
                                   ) +
-                                  "\n                            "
+                                  "\n                                "
                               ),
                             ]
                           ),
@@ -46417,9 +46564,9 @@ var render = function () {
             [
               _c("label", [
                 _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("vacancies", "requirements_candidate")) +
-                    "\n                        "
+                  "\n                            " +
+                    _vm._s(_vm.trans("vacancies", "vacancy_description")) +
+                    "\n                            "
                 ),
                 _c(
                   "span",
@@ -46430,7 +46577,7 @@ var render = function () {
                       "data-trigger": "click",
                       title:
                         "" +
-                        _vm.trans("vacancies", "title_requirements_candidate"),
+                        _vm.trans("vacancies", "title_vacancy_description"),
                     },
                   },
                   [
@@ -46476,9 +46623,9 @@ var render = function () {
             [
               _c("label", [
                 _vm._v(
-                  "\n                        " +
+                  "\n                            " +
                     _vm._s(_vm.trans("vacancies", "work_conditions")) +
-                    "\n                        "
+                    "\n                            "
                 ),
                 _c(
                   "span",
@@ -46534,11 +46681,11 @@ var render = function () {
             [
               _c("label", [
                 _vm._v(
-                  "\n                        " +
+                  "\n                            " +
                     _vm._s(
                       _vm.trans("vacancies", "candidate_responsibilities")
                     ) +
-                    "\n                        "
+                    "\n                            "
                 ),
                 _c(
                   "span",
@@ -46593,9 +46740,9 @@ var render = function () {
           _c("div", { staticClass: "form-group" }, [
             _c("label", [
               _vm._v(
-                "\n                        " +
+                "\n                            " +
                   _vm._s(_vm.trans("vacancies", "display_employer_jobs")) +
-                  "\n                        "
+                  "\n                            "
               ),
               _c(
                 "span",
@@ -46653,9 +46800,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(value) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -46670,9 +46817,9 @@ var render = function () {
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "how_respond" } }, [
               _vm._v(
-                "\n                        " +
+                "\n                            " +
                   _vm._s(_vm.trans("vacancies", "how_can_apply")) +
-                  "\n                        "
+                  "\n                            "
               ),
               _c(
                 "span",
@@ -46743,9 +46890,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -46760,9 +46907,9 @@ var render = function () {
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "job_posting" } }, [
               _vm._v(
-                "\n                        " +
+                "\n                            " +
                   _vm._s(_vm.trans("vacancies", "posting_job")) +
-                  "\n                        "
+                  "\n                            "
               ),
               _c(
                 "span",
@@ -46833,9 +46980,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -46866,9 +47013,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(_vm.trans("vacancies", "cancel")) +
-                          "\n                    "
+                          "\n                        "
                       ),
                     ]
                   ),
@@ -46891,9 +47038,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(_vm.trans("vacancies", "save")) +
-                          "\n                    "
+                          "\n                        "
                       ),
                     ]
                   ),
@@ -46907,9 +47054,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(_vm.trans("vacancies", "cancel")) +
-                          "\n                    "
+                          "\n                        "
                       ),
                     ]
                   ),
@@ -46932,9 +47079,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\n                            " +
                           _vm._s(_vm.trans("vacancies", "update_vacancy")) +
-                          "\n                    "
+                          "\n                        "
                       ),
                     ]
                   ),
@@ -47712,8 +47859,8 @@ var render = function () {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.objSalary.salary_from,
-                  expression: "objSalary.salary_from",
+                  value: _vm.objSalary.from,
+                  expression: "objSalary.from",
                 },
               ],
               attrs: {
@@ -47722,7 +47869,7 @@ var render = function () {
                 min: "0",
                 max: "100000000",
               },
-              domProps: { value: _vm.objSalary.salary_from },
+              domProps: { value: _vm.objSalary.from },
               on: {
                 blur: _vm.salaryLineToEmpty,
                 change: _vm.salaryLineToEmpty,
@@ -47730,7 +47877,7 @@ var render = function () {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.objSalary, "salary_from", $event.target.value)
+                  _vm.$set(_vm.objSalary, "from", $event.target.value)
                 },
               },
             }),
@@ -47740,8 +47887,8 @@ var render = function () {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.objSalary.salary_to,
-                  expression: "objSalary.salary_to",
+                  value: _vm.objSalary.to,
+                  expression: "objSalary.to",
                 },
               ],
               attrs: {
@@ -47750,7 +47897,7 @@ var render = function () {
                 min: "0",
                 type: "number",
               },
-              domProps: { value: _vm.objSalary.salary_to },
+              domProps: { value: _vm.objSalary.to },
               on: {
                 blur: _vm.salaryLineToEmpty,
                 change: _vm.salaryLineToEmpty,
@@ -47758,7 +47905,7 @@ var render = function () {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.objSalary, "salary_to", $event.target.value)
+                  _vm.$set(_vm.objSalary, "to", $event.target.value)
                 },
               },
             }),
@@ -48122,166 +48269,121 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "bottom-search" }, [
-      _c("div", { staticClass: "left-site" }, [
-        _c(
-          "div",
-          {
-            staticClass: "box-vacancy",
-            attrs: { id: "v1" },
-            on: {
-              click: function ($event) {
-                $event.preventDefault()
-                return _vm.selectVacancy.apply(null, arguments)
-              },
-              mouseenter: function ($event) {
-                return _vm.hoverVacancy($event)
+      _c(
+        "div",
+        { staticClass: "left-site" },
+        _vm._l(_vm.vacancies.data, function (vacancy, key) {
+          return _c(
+            "div",
+            {
+              key: key,
+              staticClass: "box-vacancy",
+              attrs: { id: "v" + key },
+              on: {
+                click: function ($event) {
+                  $event.preventDefault()
+                  return _vm.selectVacancy.apply(null, arguments)
+                },
+                mouseenter: function ($event) {
+                  return _vm.hoverVacancy($event)
+                },
               },
             },
-          },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "line-div" }, [
-              _c("div", { staticClass: "font-weight-bold" }, [
-                _vm._v(
-                  "\n                        2000 – 5000 euro\n                    "
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "address-comment" }, [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        По результатам собеседования\n                    "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "line-div" }, [
-              _c("div", { staticClass: "font-weight-bold" }, [
-                _vm._v("Volta Tech"),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "address-comment" }, [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Ukraine / Lviv / Drohobuch\n                    "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "line-div" }, [
-              _c("div", { staticClass: "address-comment" }, [
-                _vm._v(
-                  "\n                        Полная занятость.\n                        "
-                ),
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Опыт работы от 1 года.\n                    "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "line-div" }, [
-              _c("div", { staticClass: "address-comment display-inline" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(this.description.slice(0, 150)) +
-                    "\n                        "
-                ),
-                _c("div", { staticClass: "link-vacancy display-inline" }, [
+            [
+              _c("div", { staticClass: "box-title-logo" }, [
+                _c("h2", { staticClass: "title-vacancy" }, [
                   _vm._v(
-                    "\n                            ...\n                            "
+                    "\n                        " +
+                      _vm._s(vacancy.position.title) +
+                      "\n                    "
                   ),
+                ]),
+                _vm._v(" "),
+                _c("img", {
+                  staticClass: "img-logo",
+                  attrs: { src: vacancy.employer.logo.url, alt: "Test image" },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "line-div" }, [
+                _c("div", { staticClass: "font-weight-bold" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.salaryView(vacancy.salary)) +
+                      " euro\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                vacancy.salary.comment !== null
+                  ? _c("div", { staticClass: "address-comment" }, [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            viewBox: "0 0 512 512",
+                            xmlns: "http://www.w3.org/2000/svg",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                            },
+                          }),
+                        ]
+                      ),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(vacancy.salary.comment) +
+                          "\n                    "
+                      ),
+                    ])
+                  : _vm._e(),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "line-div" }, [
+                _c("div", { staticClass: "font-weight-bold" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(vacancy.employer.title) +
+                      "\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "address-comment" }, [
                   _c(
                     "svg",
                     {
                       attrs: {
+                        viewBox: "0 0 512 512",
                         xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 320 512",
                       },
                     },
                     [
                       _c("path", {
                         attrs: {
-                          d: "M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z",
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
                         },
                       }),
                     ]
+                  ),
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.addressView(vacancy)) +
+                      "\n                    "
                   ),
                 ]),
               ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "panel-button" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-block btn-outline-primary btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-bool": "1",
-                    "data-id": "1",
-                    id: "save_1",
-                  },
-                  on: {
-                    click: function ($event) {
-                      $event.preventDefault()
-                      return _vm.changeButton(
-                        $event,
-                        "save_",
-                        "save-two_",
-                        "show_",
-                        1
-                      )
-                    },
-                  },
-                },
-                [
+              _vm._v(" "),
+              _c("div", { staticClass: "line-div" }, [
+                _c("div", { staticClass: "address-comment" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(
+                        _vm.settings.type_employment[vacancy.type_employment]
+                      ) +
+                      "\n                        "
+                  ),
                   _c(
                     "svg",
                     {
@@ -48293,162 +48395,265 @@ var render = function () {
                     [
                       _c("path", {
                         attrs: {
-                          d: "M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z",
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
                         },
                       }),
                     ]
                   ),
                   _vm._v(
-                    "\n                        Сохранить\n                    "
+                    "\n                        " +
+                      _vm._s(_vm.settings.work_experience[vacancy.experience]) +
+                      "\n                    "
                   ),
-                ]
-              ),
+                ]),
+              ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "btn btn-block btn-outline-success btn-sm save-two",
-                  attrs: {
-                    type: "button",
-                    disabled: "",
-                    "data-bool": "0",
-                    "data-id": "1",
-                    id: "save-two_1",
-                  },
-                  on: {
-                    click: function ($event) {
-                      $event.preventDefault()
-                      return _vm.changeButton(
-                        $event,
-                        "save_",
-                        "save-two_",
-                        "show_",
-                        0
-                      )
+              _c("div", { staticClass: "line-div" }, [
+                _c(
+                  "div",
+                  { staticClass: "address-comment display-inline" },
+                  [
+                    vacancy.text_description
+                      ? [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(
+                                _vm
+                                  .cutTags(vacancy.text_description)
+                                  .slice(0, 150)
+                              ) +
+                              "\n                            "
+                          ),
+                          _c(
+                            "div",
+                            { staticClass: "link-vacancy display-inline" },
+                            [
+                              _vm._v(
+                                "\n                                ...\n                                "
+                              ),
+                              _c(
+                                "svg",
+                                {
+                                  attrs: {
+                                    viewBox: "0 0 320 512",
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                  },
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d: "M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z",
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ]
+                          ),
+                        ]
+                      : _vm._e(),
+                  ],
+                  2
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-button" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-outline-primary btn-sm",
+                    attrs: {
+                      type: "button",
+                      "data-bool": "1",
+                      "data-id": vacancy.id,
+                      id: "save_" + vacancy.id,
                     },
-                  },
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        viewBox: "0 0 512 512",
-                        xmlns: "http://www.w3.org/2000/svg",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.changeButton(
+                          $event,
+                          "save_",
+                          "save-two_",
+                          "show_",
+                          1
+                        )
                       },
                     },
-                    [
-                      _c("path", {
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
                         attrs: {
-                          d: "M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z",
+                          viewBox: "0 0 512 512",
+                          xmlns: "http://www.w3.org/2000/svg",
                         },
-                      }),
-                    ]
-                  ),
-                  _vm._v(
-                    "\n                        В меню сохраненных\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-block btn-outline-primary btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-bool": "1",
-                    "data-id": "1",
-                    id: "show_1",
-                  },
-                  on: {
-                    click: function ($event) {
-                      $event.preventDefault()
-                      return _vm.changeButton(
-                        $event,
-                        "show_",
-                        "show-two_",
-                        "save_",
-                        1
-                      )
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                        Сохранить\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-block btn-outline-success btn-sm save-two",
+                    attrs: {
+                      type: "button",
+                      "data-bool": "0",
+                      "data-id": vacancy.id,
+                      id: "save-two_" + vacancy.id,
                     },
-                  },
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        viewBox: "0 0 640 512",
-                        xmlns: "http://www.w3.org/2000/svg",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.changeButton(
+                          $event,
+                          "save_",
+                          "save-two_",
+                          "show_",
+                          0
+                        )
                       },
                     },
-                    [
-                      _c("path", {
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
                         attrs: {
-                          d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
+                          viewBox: "0 0 512 512",
+                          xmlns: "http://www.w3.org/2000/svg",
                         },
-                      }),
-                    ]
-                  ),
-                  _vm._v(
-                    "\n                        Не показывать\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "btn btn-block btn-outline-danger btn-sm show-two",
-                  attrs: {
-                    type: "button",
-                    disabled: "",
-                    "data-bool": "0",
-                    "data-id": "1",
-                    id: "show-two_1",
-                  },
-                  on: {
-                    click: function ($event) {
-                      $event.preventDefault()
-                      return _vm.changeButton(
-                        $event,
-                        "show_",
-                        "show-two_",
-                        "save_",
-                        0
-                      )
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                        В меню сохраненных\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-outline-primary btn-sm",
+                    attrs: {
+                      type: "button",
+                      "data-bool": "1",
+                      "data-id": vacancy.id,
+                      id: "show_" + vacancy.id,
                     },
-                  },
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        viewBox: "0 0 576 512",
-                        xmlns: "http://www.w3.org/2000/svg",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.changeButton(
+                          $event,
+                          "show_",
+                          "show-two_",
+                          "save_",
+                          1
+                        )
                       },
                     },
-                    [
-                      _c("path", {
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
                         attrs: {
-                          d: "M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z",
+                          viewBox: "0 0 640 512",
+                          xmlns: "http://www.w3.org/2000/svg",
                         },
-                      }),
-                    ]
-                  ),
-                  _vm._v(
-                    "\n                        Показывать вакансию\n                    "
-                  ),
-                ]
-              ),
-            ]),
-          ]
-        ),
-      ]),
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                        Не показывать\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-block btn-outline-danger btn-sm show-two",
+                    attrs: {
+                      type: "button",
+                      "data-bool": "0",
+                      "data-id": vacancy.id,
+                      id: "show-two_" + vacancy.id,
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.changeButton(
+                          $event,
+                          "show_",
+                          "show-two_",
+                          "save_",
+                          0
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          viewBox: "0 0 576 512",
+                          xmlns: "http://www.w3.org/2000/svg",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                        Показывать вакансию\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(
+                  "\n\n                    " +
+                    _vm._s(_vm.reactive_state_variable) +
+                    "\n                    "
+                ),
+                _vm.initialStateButtons(vacancy) ? _c("span") : _vm._e(),
+              ]),
+            ]
+          )
+        }),
+        0
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -48464,25 +48669,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-title-logo" }, [
-      _c("h2", { staticClass: "title-vacancy" }, [
-        _vm._v(
-          "\n                        Test Title Test TitleTest TitleTest\n                    "
-        ),
-      ]),
-      _vm._v(" "),
-      _c("img", {
-        staticClass: "img-logo",
-        attrs: { src: "/img/employer/employer-default.svg", alt: "Test image" },
-      }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -64843,6 +65030,43 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/mixins/general_functions_mixin.js":
+/*!********************************************************!*\
+  !*** ./resources/js/mixins/general_functions_mixin.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  methods: {
+    // вырезает теги html из текста
+    cutTags: function cutTags(text) {
+      var regex = /<\/?[^>]+(>|$)/gi;
+      return text.replace(regex, "");
+    },
+    // поиск значения в массиве объектов
+    lookingValueInArrayObjects: function lookingValueInArrayObjects(property_name, property_value, arrSearch) {
+      var bool = false;
+      var response = arrSearch.find(function (obj) {
+        return obj[property_name] == property_value;
+      });
+
+      if (response !== undefined) {
+        bool = true;
+      }
+
+      return bool;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/mixins/localisation_functions_mixin.js":
 /*!*************************************************************!*\
   !*** ./resources/js/mixins/localisation_functions_mixin.js ***!
@@ -65015,8 +65239,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // конвертация строки
     salaryLineToEmpty: function salaryLineToEmpty() {
-      this.objSalary.salary_from = isNaN(parseInt(this.objSalary.salary_from)) || parseInt(this.objSalary.salary_from) == 0 ? null : this.objSalary.salary_from;
-      this.objSalary.salary_to = isNaN(parseInt(this.objSalary.salary_to)) || parseInt(this.objSalary.salary_to) == 0 ? null : this.objSalary.salary_to;
+      this.objSalary.from = isNaN(parseInt(this.objSalary.from)) || parseInt(this.objSalary.from) == 0 ? null : this.objSalary.from;
+      this.objSalary.to = isNaN(parseInt(this.objSalary.to)) || parseInt(this.objSalary.to) == 0 ? null : this.objSalary.to;
     }
   },
   mounted: function mounted() {
@@ -65518,7 +65742,6 @@ module.exports = {
     "remaining_address": "Remaining address",
     "remote_full_time": "Remote, full time",
     "remote_part_time": "Remote, part time",
-    "requirements_candidate": "Requirements for the candidate",
     "responses": "responses",
     "resume_required": "Resume is required",
     "retail": "Retail",
@@ -65550,9 +65773,9 @@ module.exports = {
     "title_how_respond": "This feature is useful if you want to get more responses to a job and you don't need to receive resumes from applicants. You will receive responses from candidates with and without resumes for a job.",
     "title_job_posting": "If you are not yet ready to show the job to job seekers, select the Hidden setting. You can always change this setting in the job edit.",
     "title_position": "The title of the position is the first thing the job seeker sees. In the title, put the title of the position for which you are looking for an employee, for example: building materials sales manager, secretary with knowledge of English.",
-    "title_requirements_candidate": "So that you do not waste time on unsuitable candidates, write the most important requirements for a candidate, without which you will not be able to hire him: what the candidate must know and be able to do; what personal qualities to have; what education to have, what courses should have already passed.",
     "title_salary": "Indicate the real salary that the candidate can earn. By specifying the salary, applicants respond to vacancies more consciously. This way you will find the right employee faster.",
     "title_search_city": "If your position is non-remote work and you want to search for candidates in another city in the country. Specify in which city to search.",
+    "title_vacancy_description": "In order to attract the person you need and position him for your vacancy: try to describe your offer as much as possible. Tell us what kind of company you have, who works in it, what you do and why you are looking for a new person.",
     "title_working_conditions": "To get more candidates and find the best, describe all the benefits of working in your company and why it is better to come to work for you, for example: friendly and cheerful team; official registration; working hours from 9 to 18; modern office in city center; comfortable modern workplace; own kitchen and gym.",
     "to": "before",
     "top_management": "Top management, top management",
@@ -65561,6 +65784,7 @@ module.exports = {
     "update": "Update",
     "update_job": "Edit Job",
     "update_vacancy": "Change",
+    "vacancy_description": "Vacancy description",
     "without_experience": "ready to take without experience",
     "without_resume": "Possible without resume",
     "work_conditions": "Work conditions",
@@ -65672,7 +65896,6 @@ module.exports = {
     "remaining_address": "\u041E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0430\u0434\u0440\u0435\u0441",
     "remote_full_time": "\u0423\u0434\u0430\u043B\u0435\u043D\u043D\u043E, \u043F\u043E\u043B\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C",
     "remote_part_time": "\u0423\u0434\u0430\u043B\u0435\u043D\u043D\u043E, \u043D\u0435 \u043F\u043E\u043B\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C",
-    "requirements_candidate": "\u0422\u0440\u0435\u0431\u043E\u0432\u0430\u043D\u0438\u044F \u043A \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0443",
     "responses": "\u043E\u0442\u043A\u043B\u0438\u043A\u043E\u0432",
     "resume_required": "\u0420\u0435\u0437\u044E\u043C\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E",
     "retail": "\u0420\u043E\u0437\u043D\u0438\u0447\u043D\u0430\u044F \u0442\u043E\u0440\u0433\u043E\u0432\u043B\u044F",
@@ -65704,9 +65927,9 @@ module.exports = {
     "title_how_respond": "\u042D\u0442\u0430 \u0444\u0443\u043D\u043A\u0446\u0438\u044F \u043F\u043E\u043B\u0435\u0437\u043D\u0430, \u0435\u0441\u043B\u0438 \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043E\u0442\u043A\u043B\u0438\u043A\u043E\u0432 \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E \u0438 \u0434\u043B\u044F \u0432\u0430\u0441 \u043D\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0440\u0435\u0437\u044E\u043C\u0435 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0435\u0439. \u041D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E \u0432\u044B \u0431\u0443\u0434\u0435\u0442\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u043E\u0442\u043A\u043B\u0438\u043A\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u043A\u0430\u043A \u0441 \u0440\u0435\u0437\u044E\u043C\u0435, \u0442\u0430\u043A \u0438 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435.",
     "title_job_posting": "\u0415\u0441\u043B\u0438 \u0412\u044B \u043F\u043E\u043A\u0430 \u043D\u0435 \u0433\u043E\u0442\u043E\u0432\u044B \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F\u043C, \u0432\u044B\u0431\u0435\u0440\u0435\u0442\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0443 \u0421\u043A\u0440\u044B\u0442\u0430\u044F. \u0412\u044B \u0432\u0441\u0435\u0433\u0434\u0430 \u043C\u043E\u0436\u0435\u0442\u0435 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u044D\u0442\u0443 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0443 \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "title_position": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u0438 \u2014 \u044D\u0442\u043E \u043F\u0435\u0440\u0432\u043E\u0435, \u0447\u0442\u043E \u0443\u0432\u0438\u0434\u0438\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044C. \u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0432 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u0438, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0432\u044B \u0438\u0449\u0435\u0442\u0435 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430, \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440: \u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u043F\u043E \u043F\u0440\u043E\u0434\u0430\u0436\u0430\u043C \u0441\u0442\u0440\u043E\u0439\u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B\u043E\u0432, \u0441\u0435\u043A\u0440\u0435\u0442\u0430\u0440\u044C \u0441\u043E \u0437\u043D\u0430\u043D\u0438\u0435\u043C \u0430\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u043E\u0433\u043E.",
-    "title_requirements_candidate": "\u0427\u0442\u043E\u0431\u044B \u0432\u044B \u043D\u0435 \u0442\u0440\u0430\u0442\u0438\u043B\u0438 \u0432\u0440\u0435\u043C\u044F \u043D\u0430 \u043D\u0435\u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0438\u0445 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432, \u043D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u0441\u0430\u043C\u044B\u0435 \u0432\u0430\u0436\u043D\u044B\u0435 \u0442\u0440\u0435\u0431\u043E\u0432\u0430\u043D\u0438\u044F \u043A \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0443, \u0431\u0435\u0437 \u0447\u0435\u0433\u043E \u0432\u044B \u043D\u0435 \u0441\u043C\u043E\u0436\u0435\u0442\u0435 \u0432\u0437\u044F\u0442\u044C \u0435\u0433\u043E \u043D\u0430 \u0440\u0430\u0431\u043E\u0442\u0443: \u0447\u0442\u043E \u0434\u043E\u043B\u0436\u0435\u043D \u0437\u043D\u0430\u0442\u044C \u0438 \u0443\u043C\u0435\u0442\u044C \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442; \u043A\u0430\u043A\u0438\u043C\u0438 \u043B\u0438\u0447\u043D\u044B\u043C\u0438 \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u0430\u043C\u0438 \u043E\u0431\u043B\u0430\u0434\u0430\u0442\u044C; \u043A\u0430\u043A\u0438\u043C \u043E\u0431\u0440\u0430\u0437\u043E\u0432\u0430\u043D\u0438\u0435\u043C \u043E\u0431\u043B\u0430\u0434\u0430\u0442\u044C, \u043A\u0430\u043A\u0438\u0435 \u043A\u0443\u0440\u0441\u044B \u0434\u043E\u043B\u0436\u0435\u043D \u0443\u0436\u0435 \u043F\u0440\u043E\u0439\u0442\u0438.",
     "title_salary": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0440\u0435\u0430\u043B\u044C\u043D\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0441\u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442. \u041F\u0440\u0438 \u0443\u043A\u0430\u0437\u0430\u043D\u0438\u0438 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u044B, \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0438 \u0431\u043E\u043B\u0435\u0435 \u043E\u0441\u043E\u0437\u043D\u0430\u043D\u043D\u043E \u043E\u0442\u043A\u043B\u0438\u043A\u0430\u044E\u0442\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u0422\u0430\u043A \u0432\u044B \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430.",
     "title_search_city": "\u0415\u0441\u043B\u0438 \u0432\u0430\u0448\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u043F\u043E\u0434\u0440\u0430\u0437\u0443\u043C\u0435\u0432\u0430\u0435\u0442 \u043D\u0435 \u0443\u0434\u0430\u043B\u0435\u043D\u043D\u0443\u044E \u0440\u0430\u0431\u043E\u0442\u0443 \u0438 \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u043E\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u043B\u044F\u0442\u044C \u043F\u043E\u0438\u0441\u043A \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u0433\u043E\u0440\u043E\u0434\u0435 \u0441\u0442\u0440\u0430\u043D\u044B. \u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0432 \u043A\u0430\u043A\u043E\u043C \u0433\u043E\u0440\u043E\u0434\u0435 \u043E\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u043B\u044F\u0442\u044C \u043F\u043E\u0438\u0441\u043A.",
+    "title_vacancy_description": "\u0414\u043B\u044F \u0442\u043E\u0433\u043E \u0447\u0442\u043E\u0431 \u043F\u0440\u0438\u0432\u043B\u0435\u0447\u044C \u043D\u0443\u0436\u043D\u043E\u0433\u043E \u0432\u0430\u043C \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430 \u0438 \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0438\u0442\u044C \u0435\u0433\u043E \u043A \u0432\u0430\u0448\u0435\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438: \u043F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044C \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043E\u043F\u0438\u0441\u0430\u0442\u044C \u0441\u0432\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435. \u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435 \u043A\u0430\u043A\u0430\u044F \u0443 \u0432\u0430\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F, \u043A\u0442\u043E \u0432 \u043D\u0435\u0439 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442, \u0447\u0435\u043C \u0432\u044B \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C \u0438 \u0434\u043B\u044F \u0447\u0435\u0433\u043E \u0438\u0449\u0435\u0442\u0435 \u043D\u043E\u0432\u043E\u0433\u043E \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430.",
     "title_working_conditions": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0438 \u043D\u0430\u0439\u0442\u0438 \u043B\u0443\u0447\u0448\u0438\u0445, \u043E\u043F\u0438\u0448\u0438\u0442\u0435 \u0432\u0441\u0435 \u043F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0432\u0430\u0448\u0435\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438 \u0438 \u043F\u043E\u0447\u0435\u043C\u0443 \u043B\u0443\u0447\u0448\u0435 \u043F\u0440\u0438\u0439\u0442\u0438 \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u0438\u043C\u0435\u043D\u043D\u043E \u043A \u0432\u0430\u043C, \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440: \u0434\u0440\u0443\u0436\u0435\u043B\u044E\u0431\u043D\u0430\u044F \u0438 \u0432\u0435\u0441\u0435\u043B\u0430\u044F \u043A\u043E\u043C\u0430\u043D\u0434\u0430; \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435; \u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0434\u0435\u043D\u044C \u0441 9 \u0434\u043E 18; \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0439 \u043E\u0444\u0438\u0441 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435 \u0433\u043E\u0440\u043E\u0434\u0430; \u043A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u043E\u0435 \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0435 \u0440\u0430\u0431\u043E\u0447\u0435\u0435 \u043C\u0435\u0441\u0442\u043E; \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u043A\u0443\u0445\u043D\u044F \u0438 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B.",
     "to": "\u0434\u043E",
     "top_management": "\u0422\u043E\u043F-\u043C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442, \u0440\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u0432\u044B\u0441\u0448\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430",
@@ -65715,6 +65938,7 @@ module.exports = {
     "update": "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C",
     "update_job": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E",
     "update_vacancy": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
+    "vacancy_description": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "without_experience": "\u0433\u043E\u0442\u043E\u0432\u044B \u0432\u0437\u044F\u0442\u044C \u0431\u0435\u0437 \u043E\u043F\u044B\u0442\u0430",
     "without_resume": "\u041C\u043E\u0436\u043D\u043E \u0438 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435",
     "work_conditions": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0440\u0430\u0431\u043E\u0442\u044B",
@@ -65826,7 +66050,6 @@ module.exports = {
     "remaining_address": "\u0406\u043D\u0448\u0430 \u0430\u0434\u0440\u0435\u0441\u0430",
     "remote_full_time": "\u0412\u0456\u0434\u0434\u0430\u043B\u0435\u043D\u043E, \u043F\u043E\u0432\u043D\u0430 \u0437\u0430\u0439\u043D\u044F\u0442\u0456\u0441\u0442\u044C",
     "remote_part_time": "\u0412\u0456\u0434\u0434\u0430\u043B\u0435\u043D\u043E, \u043D\u0435 \u043F\u043E\u0432\u043D\u0430 \u0437\u0430\u0439\u043D\u044F\u0442\u0456\u0441\u0442\u044C",
-    "requirements_candidate": "\u0412\u0438\u043C\u043E\u0433\u0438 \u0434\u043E \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0430",
     "responses": "\u0432\u0456\u0434\u0433\u0443\u043A\u0456\u0432",
     "resume_required": "\u0420\u0435\u0437\u044E\u043C\u0435 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u043E",
     "retail": "\u0420\u043E\u0437\u0434\u0440\u0456\u0431\u043D\u0430 \u0442\u043E\u0440\u0433\u0456\u0432\u043B\u044F",
@@ -65858,9 +66081,9 @@ module.exports = {
     "title_how_respond": "\u0426\u044F \u0444\u0443\u043D\u043A\u0446\u0456\u044F \u043A\u043E\u0440\u0438\u0441\u043D\u0430, \u044F\u043A\u0449\u043E \u0432\u0438 \u0445\u043E\u0447\u0435\u0442\u0435 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u0432\u0456\u0434\u0433\u0443\u043A\u0456\u0432 \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E \u0456 \u0434\u043B\u044F \u0432\u0430\u0441 \u043D\u0435 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u043E \u043E\u0442\u0440\u0438\u043C\u0443\u0432\u0430\u0442\u0438 \u0440\u0435\u0437\u044E\u043C\u0435 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0456\u0432. \u041D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E \u0432\u0438 \u043E\u0442\u0440\u0438\u043C\u0443\u0432\u0430\u0442\u0438\u043C\u0435\u0442\u0435 \u0432\u0456\u0434\u0433\u0443\u043A\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u044F\u043A \u0437 \u0440\u0435\u0437\u044E\u043C\u0435, \u0442\u0430\u043A \u0456 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435.",
     "title_job_posting": "\u042F\u043A\u0449\u043E \u0412\u0438 \u043F\u043E\u043A\u0438 \u0449\u043E \u043D\u0435 \u0433\u043E\u0442\u043E\u0432\u0456 \u043F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430\u043C, \u043E\u0431\u0435\u0440\u0456\u0442\u044C \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F \u041F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0430. \u0412\u0438 \u0437\u0430\u0432\u0436\u0434\u0438 \u043C\u043E\u0436\u0435\u0442\u0435 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u0446\u0435 \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F \u0432 \u0440\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u043D\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "title_position": "\u041D\u0430\u0437\u0432\u0430 \u043F\u043E\u0441\u0430\u0434\u0438 - \u0446\u0435 \u043F\u0435\u0440\u0448\u0435, \u0449\u043E \u043F\u043E\u0431\u0430\u0447\u0438\u0442\u044C \u0437\u0434\u043E\u0431\u0443\u0432\u0430\u0447. \u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0443 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0443 \u043D\u0430\u0437\u0432\u0443 \u043F\u043E\u0441\u0430\u0434\u0438, \u043D\u0430 \u044F\u043A\u0443 \u0432\u0438 \u0448\u0443\u043A\u0430\u0454\u0442\u0435 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0430, \u043D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434: \u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0437 \u043F\u0440\u043E\u0434\u0430\u0436\u0443 \u0431\u0443\u0434\u043C\u0430\u0442\u0435\u0440\u0456\u0430\u043B\u0456\u0432, \u0441\u0435\u043A\u0440\u0435\u0442\u0430\u0440 \u0437\u0456 \u0437\u043D\u0430\u043D\u043D\u044F\u043C \u0430\u043D\u0433\u043B\u0456\u0439\u0441\u044C\u043A\u043E\u0457.",
-    "title_requirements_candidate": "\u0429\u043E\u0431 \u0432\u0438 \u043D\u0435 \u0432\u0438\u0442\u0440\u0430\u0447\u0430\u043B\u0438 \u0447\u0430\u0441 \u043D\u0430 \u043D\u0435\u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u0438\u0445 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432, \u043D\u0430\u043F\u0438\u0448\u0456\u0442\u044C \u043D\u0430\u0439\u0432\u0430\u0436\u043B\u0438\u0432\u0456\u0448\u0456 \u0432\u0438\u043C\u043E\u0433\u0438 \u0434\u043E \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0430, \u0431\u0435\u0437 \u0447\u043E\u0433\u043E \u0432\u0438 \u043D\u0435 \u0437\u043C\u043E\u0436\u0435\u0442\u0435 \u0432\u0437\u044F\u0442\u0438 \u0439\u043E\u0433\u043E \u043D\u0430 \u0440\u043E\u0431\u043E\u0442\u0443: \u0449\u043E \u043F\u043E\u0432\u0438\u043D\u0435\u043D \u0437\u043D\u0430\u0442\u0438 \u0442\u0430 \u0432\u043C\u0456\u0442\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442; \u044F\u043A\u0456 \u043E\u0441\u043E\u0431\u0438\u0441\u0442\u0456 \u044F\u043A\u043E\u0441\u0442\u0456 \u0432\u043E\u043B\u043E\u0434\u0456\u0442\u0438; \u044F\u043A\u043E\u044E \u043E\u0441\u0432\u0456\u0442\u043E\u044E \u0432\u043E\u043B\u043E\u0434\u0456\u0442\u0438, \u044F\u043A\u0456 \u043A\u0443\u0440\u0441\u0438 \u043C\u0430\u0454 \u0432\u0436\u0435 \u043F\u0440\u043E\u0439\u0442\u0438.",
     "title_salary": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0440\u0435\u0430\u043B\u044C\u043D\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443, \u044F\u043A\u0443 \u0437\u043C\u043E\u0436\u0435 \u0437\u0430\u0440\u043E\u0431\u0438\u0442\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442. \u041F\u0440\u0438 \u0432\u043A\u0430\u0437\u0456\u0432\u0446\u0456 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0438, \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0438 \u0431\u0456\u043B\u044C\u0448 \u0443\u0441\u0432\u0456\u0434\u043E\u043C\u043B\u0435\u043D\u043E \u0432\u0456\u0434\u0433\u0443\u043A\u0443\u044E\u0442\u044C\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u0422\u0430\u043A \u0432\u0438 \u0448\u0432\u0438\u0434\u0448\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u043E\u0433\u043E \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0430.",
     "title_search_city": "\u042F\u043A\u0449\u043E \u0432\u0430\u0448\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u043C\u0430\u0454 \u043D\u0430 \u0443\u0432\u0430\u0437\u0456 \u043D\u0435 \u0432\u0456\u0434\u0434\u0430\u043B\u0435\u043D\u0443 \u0440\u043E\u0431\u043E\u0442\u0443 \u0456 \u0432\u0438 \u0445\u043E\u0447\u0435\u0442\u0435 \u0437\u0434\u0456\u0439\u0441\u043D\u044E\u0432\u0430\u0442\u0438 \u043F\u043E\u0448\u0443\u043A \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0432 \u0456\u043D\u0448\u043E\u043C\u0443 \u043C\u0456\u0441\u0442\u0456 \u043A\u0440\u0430\u0457\u043D\u0438. \u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0443 \u044F\u043A\u043E\u043C\u0443 \u043C\u0456\u0441\u0442\u0456 \u0437\u0434\u0456\u0439\u0441\u043D\u044E\u0432\u0430\u0442\u0438 \u043F\u043E\u0448\u0443\u043A.",
+    "title_vacancy_description": "\u0414\u043B\u044F \u0442\u043E\u0433\u043E \u0449\u043E\u0431 \u0437\u0430\u043B\u0443\u0447\u0438\u0442\u0438 \u043F\u043E\u0442\u0440\u0456\u0431\u043D\u0443 \u0432\u0430\u043C \u043B\u044E\u0434\u0438\u043D\u0443 \u0456 \u0440\u043E\u0437\u0442\u0430\u0448\u0443\u0432\u0430\u0442\u0438 \u0457\u0457 \u0434\u043E \u0432\u0430\u0448\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457: \u043F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044F \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043E\u043F\u0438\u0441\u0430\u0442\u0438 \u0441\u0432\u043E\u044E \u043F\u0440\u043E\u043F\u043E\u0437\u0438\u0446\u0456\u044E. \u0420\u043E\u0437\u043A\u0430\u0436\u0456\u0442\u044C, \u044F\u043A\u0430 \u0443 \u0432\u0430\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044F, \u0445\u0442\u043E \u0432 \u043D\u0456\u0439 \u043F\u0440\u0430\u0446\u044E\u0454, \u0447\u0438\u043C \u0432\u0438 \u0437\u0430\u0439\u043C\u0430\u0454\u0442\u0435\u0441\u044F \u0456 \u0434\u043B\u044F \u0447\u043E\u0433\u043E \u0448\u0443\u043A\u0430\u0454\u0442\u0435 \u043D\u043E\u0432\u0443 \u043B\u044E\u0434\u0438\u043D\u0443.",
     "title_working_conditions": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0456 \u0437\u043D\u0430\u0439\u0442\u0438 \u043D\u0430\u0439\u043A\u0440\u0430\u0449\u0438\u0445, \u043E\u043F\u0438\u0448\u0456\u0442\u044C \u0443\u0441\u0456 \u043F\u0435\u0440\u0435\u0432\u0430\u0433\u0438 \u0440\u043E\u0431\u043E\u0442\u0438 \u0443 \u0432\u0430\u0448\u0456\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457 \u0442\u0430 \u0447\u043E\u043C\u0443 \u043A\u0440\u0430\u0449\u0435 \u043F\u0440\u0438\u0439\u0442\u0438 \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u0442\u0438 \u0441\u0430\u043C\u0435 \u0434\u043E \u0432\u0430\u0441, \u043D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434: \u0434\u0440\u0443\u0436\u043D\u044F \u0442\u0430 \u0432\u0435\u0441\u0435\u043B\u0430 \u043A\u043E\u043C\u0430\u043D\u0434\u0430; \u043E\u0444\u0456\u0446\u0456\u0439\u043D\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u043D\u044F; \u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0434\u0435\u043D\u044C \u0437 9 \u0434\u043E 18; \u0441\u0443\u0447\u0430\u0441\u043D\u0438\u0439 \u043E\u0444\u0456\u0441 \u0443 \u0446\u0435\u043D\u0442\u0440\u0456 \u043C\u0456\u0441\u0442\u0430; \u043A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u0435 \u0441\u0443\u0447\u0430\u0441\u043D\u0435 \u0440\u043E\u0431\u043E\u0447\u0435 \u043C\u0456\u0441\u0446\u0435; \u0432\u043B\u0430\u0441\u043D\u0430 \u043A\u0443\u0445\u043D\u044F \u0442\u0430 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B.",
     "to": "\u0434\u043E",
     "top_management": "\u0422\u043E\u043F-\u043C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442, \u043A\u0435\u0440\u0456\u0432\u043D\u0438\u0446\u0442\u0432\u043E \u0432\u0438\u0449\u043E\u0457 \u043B\u0430\u043D\u043A\u0438",
@@ -65869,6 +66092,7 @@ module.exports = {
     "update": "\u041E\u043D\u043E\u0432\u0438\u0442\u0438",
     "update_job": "\u0420\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u0442\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E",
     "update_vacancy": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438",
+    "vacancy_description": "\u041E\u043F\u0438\u0441 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "without_experience": "\u0433\u043E\u0442\u043E\u0432\u0456 \u0432\u0437\u044F\u0442\u0438 \u0431\u0435\u0437 \u0434\u043E\u0441\u0432\u0456\u0434\u0443",
     "without_resume": "\u041C\u043E\u0436\u043D\u0430 \u0456 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435",
     "work_conditions": "\u0423\u043C\u043E\u0432\u0438 \u0440\u043E\u0431\u043E\u0442\u0438",

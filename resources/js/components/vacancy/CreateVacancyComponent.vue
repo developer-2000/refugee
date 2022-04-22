@@ -346,13 +346,13 @@
                                     <div class="card-body">
                                         <input type="number" min="0" max="100000000"
                                                :placeholder="`${trans('vacancies',this.settings.salary.range[0])}`"
-                                               v-model="objSalary.salary_from"
+                                               v-model="objSalary.from"
                                                @change="checkSalary"
                                         >
                                         -
                                         <input type="number" min="0" max="100000000"
                                                :placeholder="`${trans('vacancies',this.settings.salary.range[1])}`"
-                                               v-model="objSalary.salary_to"
+                                               v-model="objSalary.to"
                                                @blur="checkSalary"
                                         >
                                         <i>{{trans('vacancies','euro_per_month')}}</i>
@@ -518,9 +518,10 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>
-                            {{trans('vacancies','requirements_candidate')}}
+<!--                            requirements_candidate-->
+                            {{trans('vacancies','vacancy_description')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_requirements_candidate')}`"
+                                  :title="`${trans('vacancies','title_vacancy_description')}`"
                             >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
@@ -712,8 +713,8 @@
                 job_posting: 0,
                 objSalary: {
                     salary_but: "range",
-                    salary_from: null,
-                    salary_to: null,
+                    from: null,
+                    to: null,
                     salary_sum: null,
                     switchSalary: false,
                     salary_comment: null,
@@ -849,7 +850,7 @@
                 // если выбран сектор а поля не заполнены
                 if(
                     (this.objSalary.salary_but == "range" &&
-                        (!this.objSalary.salary_from || this.objSalary.salary_from == '' || !this.objSalary.salary_to || this.objSalary.salary_to == '')) ||
+                        (!this.objSalary.from || this.objSalary.from == '' || !this.objSalary.to || this.objSalary.to == '')) ||
                     (this.objSalary.salary_but == "single_value" &&
                         (!this.objSalary.salary_sum || this.objSalary.salary_sum == ''))
                 ){
@@ -881,9 +882,9 @@
             },
             alignNumbers() {
                 // выровнять последнее число по первому если оно меньше
-                if(this.checkingInteger(this.objSalary.salary_from) && this.checkingInteger(this.objSalary.salary_to)){
-                    if(parseInt(this.objSalary.salary_from) > parseInt(this.objSalary.salary_to)){
-                        this.objSalary.salary_to = this.objSalary.salary_from
+                if(this.checkingInteger(this.objSalary.from) && this.checkingInteger(this.objSalary.to)){
+                    if(parseInt(this.objSalary.from) > parseInt(this.objSalary.to)){
+                        this.objSalary.to = this.objSalary.from
                     }
                 }
                 if(this.checkingInteger(this.objSuitable.suitable_from) && this.checkingInteger(this.objSuitable.suitable_to)){
@@ -934,15 +935,15 @@
                     suitable_commentary: this.objSuitable.suitable_commentary,
                     type_employment: this.type_employment,              // Вид занятости
                     salary_but: this.objSalary.salary_but,              // Зарплата
-                    salary_from: this.objSalary.salary_from,
-                    salary_to: this.objSalary.salary_to,
+                    from: this.objSalary.from,
+                    to: this.objSalary.to,
                     salary_sum: this.objSalary.salary_sum,
                     salary_comment: this.objSalary.salary_comment,
                     experience: this.experience,                        // Опыт работы
                     education: this.education,                          // Образование
                     checkbox_city: this.objCity.checkbox_city,          // Город для поиска
                     search_city: this.objCity.search_city,
-                    text_requirements: this.objTextarea.textarea_candidate,             // Требования к кандидату
+                    text_description: this.objTextarea.textarea_candidate,             // Требования к кандидату
                     text_working: this.objTextarea.textarea_conditions,                 // Условия работы
                     text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
                     contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
@@ -989,8 +990,8 @@
                 this.type_employment = this.vacancy.type_employment
                 // Зарплата
                 this.objSalary.salary_but = this.vacancy.salary.radio_name
-                this.objSalary.salary_from = this.vacancy.salary.inputs.salary_from
-                this.objSalary.salary_to = this.vacancy.salary.inputs.salary_to
+                this.objSalary.from = this.vacancy.salary.inputs.from
+                this.objSalary.to = this.vacancy.salary.inputs.to
                 this.objSalary.salary_sum = this.vacancy.salary.inputs.salary_sum
                 this.objSalary.salary_comment = this.vacancy.salary.comment
                 $('#'+this.objSalary.salary_but).collapse('show');
@@ -999,10 +1000,7 @@
                 // Город для поиска
                 this.objCity.checkbox_city = this.vacancy.search_city.bool
                 this.objCity.search_city = this.vacancy.search_city.code
-
-                this.objTextarea.textarea_candidate = this.vacancy.text_requirements
-                this.a1 = this.vacancy.text_requirements
-
+                this.objTextarea.textarea_candidate = this.vacancy.text_description
                 this.objTextarea.textarea_conditions = this.vacancy.text_working
                 this.objTextarea.textarea_responsibilities = this.vacancy.text_responsibilities
                 // Контакты работодателя

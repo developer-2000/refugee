@@ -195,14 +195,14 @@
                                type="number" min="0" max="100000000"
                                @blur="salaryLineToEmpty"
                                @change="salaryLineToEmpty"
-                               v-model="objSalary.salary_from"
+                               v-model="objSalary.from"
                         >
                         -
                         <input :placeholder="`${trans('vacancies','to')}`"
                                max="100000000" min="0" type="number"
                                @blur="salaryLineToEmpty"
                                @change="salaryLineToEmpty"
-                               v-model="objSalary.salary_to"
+                               v-model="objSalary.to"
                         >
                     </div>
 
@@ -290,8 +290,8 @@
         data() {
             return {
                 objSalary: {
-                    salary_from: null,
-                    salary_to: null,
+                    from: null,
+                    to: null,
                     salary_checkbox: false,
                 },
                 objCheckSuitable:{

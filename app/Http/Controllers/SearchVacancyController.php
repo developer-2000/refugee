@@ -22,10 +22,9 @@ class SearchVacancyController extends Controller
             $settings['obj_countries'] = $objCountries['country']['EN'];
         }
 
-        $vacancies = Vacancy::with('position','employer.logo')
+        $vacancies = Vacancy::with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
             ->paginate(10)->toArray();
-
-//        dd($vacancies['data'][1]);
+//        dd($vacancies['data'][0]);
         return view('index', compact('settings', 'vacancies'));
     }
 

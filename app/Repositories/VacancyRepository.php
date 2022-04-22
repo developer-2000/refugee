@@ -58,8 +58,8 @@ class VacancyRepository extends CoreRepository {
             'salary'=>[
                 'radio_name'=>$request->salary_but,
                 'inputs'=>[
-                    'salary_from'=>$request->salary_from,
-                    'salary_to'=>$request->salary_to,
+                    'from'=>$request->from,
+                    'to'=>$request->to,
                     'salary_sum'=>$request->salary_sum,
                 ],
                 'comment'=>$request->salary_comment,
@@ -70,7 +70,7 @@ class VacancyRepository extends CoreRepository {
                 'bool'=>$request->checkbox_city,
                 'code'=>$request->search_city,
             ],
-            'text_requirements'=>$request->text_requirements,
+            'text_description'=>$request->text_description,
             'text_working'=>$request->text_working,
             'text_responsibilities'=>$request->text_responsibilities,
             'contacts'=>$request->contacts,
