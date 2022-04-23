@@ -62,19 +62,24 @@ Route::group([
         });
     });
 
-    // vacancies
     Route::group(['middleware'=>['auth']], function () {
-        Route::group(['prefix'=>'vacancy'], function (){
-            Route::post('search-vacancy', 'VacancyController@searchVacancy');
-            Route::get('my-vacancies', 'VacancyController@myVacancies');
-            Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
-            Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
-            Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
-            Route::post('hide-vacancy-search', 'VacancyController@hideVacancyInSearch');
+        Route::group(['prefix'=>'private-office'], function (){
+
+            Route::get('/', 'PrivateOfficeController@index');
+
+            // vacancies
+            Route::group(['prefix'=>'vacancy'], function (){
+                Route::post('search-vacancy', 'VacancyController@searchVacancy');
+                Route::get('my-vacancies', 'VacancyController@myVacancies');
+                Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
+                Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
+                Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
+                Route::post('hide-vacancy-search', 'VacancyController@hideVacancyInSearch');
+            });
+            Route::resource('vacancy', 'VacancyController')->only([
+                'create', 'store', 'destroy', 'edit', 'update',
+            ]);
         });
-        Route::resource('vacancy', 'VacancyController')->only([
-            'create', 'store', 'destroy', 'edit', 'update',
-        ]);
     });
 
     // select localisation
@@ -84,8 +89,7 @@ Route::group([
     });
 
     // change language
-    Route::get('language/{name}', 'LanguageController@changeLanguage')
-        ->name('language');
+    Route::get('language/{name}', 'LanguageController@changeLanguage')->name('language');
 
     Route::resource('country', 'CountryController')->only([
         'show'

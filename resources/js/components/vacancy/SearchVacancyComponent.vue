@@ -15,11 +15,9 @@
             </div>
         </div>
 
-
         <div class="bottom-search">
             <!-- vacancies -->
             <div class="left-site">
-
                 <!-- item -->
                 <div class="box-vacancy"
                      v-for="(vacancy, key) in vacancies.data" :key="key"
@@ -150,7 +148,6 @@
 
                     </div>
                 </div>
-
             </div>
 
             <!-- search panel -->
@@ -199,7 +196,7 @@
                     vacancy_id: vacancy_id,
                     action: action,
                 };
-                const response = await this.$http.post(`/vacancy/bookmark-vacancy`, data)
+                const response = await this.$http.post(`/private-office/vacancy/bookmark-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             // console.log(res)
@@ -219,7 +216,7 @@
                     vacancy_id: vacancy_id,
                     action: action,
                 };
-                const response = await this.$http.post(`/vacancy/hide-vacancy-search`, data)
+                const response = await this.$http.post(`/private-office/vacancy/hide-vacancy-search`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             // console.log(res)
@@ -307,8 +304,14 @@
             // меняет кнопки Сохранить на В меню сохраненных и обратно
             // меняет кнопки Не показывать на Показывать вакансию и обратно
             changeButton(event, but1, but2, but3, action){
-                let vacancy_id = $(event.target).attr('data-id')
+                // не авторизован
+                if(this.user == null){
+                    this.checkAuth(this.lang.prefix_lang+'job-search')
+                    event.stopPropagation()
+                    return false
+                }
 
+                let vacancy_id = $(event.target).attr('data-id')
                 // спрятал другие, себя изменил
                 if($(event.target).attr('data-bool') == '1'){
                     $("#"+but2+vacancy_id).css('display','flex')
@@ -355,6 +358,7 @@
             'lang',
             'settings',
             'vacancies',
+            'user',
         ],
         mounted() {
             console.log(this.vacancies)

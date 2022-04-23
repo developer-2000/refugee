@@ -82,7 +82,7 @@
                             </a>
                             <!-- редактировать -->
                             <a class="dropdown-item"
-                               :href="`${lang.prefix_lang}vacancy/${objVacancy.id}/edit`"
+                               :href="`${lang.prefix_lang}private-office/vacancy/${objVacancy.id}/edit`"
                             >
                                 {{trans('vacancies','edit')}}
                             </a>
@@ -191,7 +191,7 @@
                     id: id,
                     index: index
                 };
-                const response = await this.$http.post(`/vacancy/up-vacancy-status`, data)
+                const response = await this.$http.post(`/private-office/vacancy/up-vacancy-status`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.reload()
@@ -210,7 +210,7 @@
                 let data = {
                     id: id,
                 };
-                const response = await this.$http.post(`/vacancy/duplicate-vacancy`, data)
+                const response = await this.$http.post(`/private-office/vacancy/duplicate-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.reload()
@@ -226,7 +226,7 @@
                     })
             },
             async deleteVacancy(id){
-                const response = await this.$http.destroy(`/vacancy/` + id, {})
+                const response = await this.$http.destroy(`/private-office/vacancy/` + id, {})
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.reload()

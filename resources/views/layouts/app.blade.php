@@ -31,10 +31,18 @@
             <!-- left menu -->
             <aside class="main-sidebar sidebar-white elevation-1">
                 <!-- Logo -->
-                <a href="{{ route('index') }}" class="brand-link">
-                    <span class="brand-text font-weight-light">{{ env('APP_NAME_UK') }}</span>
-                    <span class="brand-text font-weight-light">{{ env('APP_NAME_EN') }}</span>
+                <a href="{{$lang['prefix_lang']}}" class="brand-link">
+                    <img alt="" src="/img/custom/logo-site.gif">
+                    <div class="box-logo-title">
+                        <div class="brand-text font-weight-light">
+                            {{ env('APP_NAME_UK') }}
+                        </div>
+                        <div class="brand-text font-weight-light">
+                            {{ env('APP_NAME_EN') }}
+                        </div>
+                    </div>
                 </a>
+
                 <!-- Menu -->
                 <div class="sidebar">
                     <nav class="mt-2">
@@ -108,7 +116,7 @@
             <!-- / Content body -->
 
             <footer class="main-footer">
-                <strong>Copyright &copy; 2022 <a href="/">{{ env('APP_NAME_EN') }}</a></strong>
+                <strong>Copyright &copy; 2022 <a href="{{$lang['prefix_lang']}}">{{ env('APP_NAME_EN') }}</a></strong>
             </footer>
         </div>
     </div>

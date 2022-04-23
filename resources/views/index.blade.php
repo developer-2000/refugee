@@ -25,6 +25,7 @@
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
         :vacancies="{{json_encode($vacancies)}}"
+        :user="{{json_encode($user)}}"
     ></search-vacancy>
     @endif
 

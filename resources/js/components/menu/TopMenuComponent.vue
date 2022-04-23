@@ -7,12 +7,15 @@
                 <!-- Logo -->
                 <li class="nav-item d-sm-inline-block">
                     <a :href="`${lang.prefix_lang}`" class="brand-link">
-                        <span class="brand-text font-weight-light">
-                            {{this.logo_text.uk}}
-                        </span>
-                        <span class="brand-text font-weight-light">
-                            {{this.logo_text.en}}
-                        </span>
+                        <img alt="" src="/img/custom/logo-site.gif">
+                        <div class="box-logo-title">
+                            <div class="brand-text font-weight-light">
+                                {{this.logo_text.uk}}
+                            </div>
+                            <div class="brand-text font-weight-light">
+                                {{this.logo_text.en}}
+                            </div>
+                        </div>
                     </a>
                 </li>
                 <!-- button open/close sidebar-->
@@ -33,7 +36,7 @@
                         Работа
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'vacancy/create')">Добавить вакансию</a>
+                        <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">Добавить вакансию</a>
                         <a class="dropdown-item" :href="`${lang.prefix_lang}job-search`">Найти вакансию</a>
                         <a class="dropdown-item" href="#">Добавить резюме</a>
                         <a class="dropdown-item" href="#">Найти резюме</a>
@@ -86,17 +89,21 @@
                     <!-- dropdown -->
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <a class="dropdown-item"
-                               :href="`${lang.prefix_lang}vacancy/my-vacancies`"
+                               :href="`${lang.prefix_lang}private-office/vacancy/my-vacancies`"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M320 336c0 8.844-7.156 16-16 16h-96C199.2 352 192 344.8 192 336V288H0v144C0 457.6 22.41 480 48 480h416c25.59 0 48-22.41 48-48V288h-192V336zM464 96H384V48C384 22.41 361.6 0 336 0h-160C150.4 0 128 22.41 128 48V96H48C22.41 96 0 118.4 0 144V256h512V144C512 118.4 489.6 96 464 96zM336 96h-160V48h160V96z"/></svg>
                                 Мои вакансии
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <!-- Private office -->
+                            <a class="dropdown-item"
+                               :href="`${lang.prefix_lang}private-office`"
+                            >
                                 <span class="svg-cabinet">
                                     <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="m224 224c0-35.3 28.7-64 64-64s64 28.7 64 64-28.7 64-64 64-64-28.7-64-64zm-48 176c0-44.2 35.8-80 80-80h64c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16h-192c-8.8 0-16-7.2-16-16zm288-258.1v-85.9c0-13.25 10.7-24.9 24-24.9s24 11.65 24 24.9v126.6l55.5 47.1c10.1 8.6 11.4 23.7 2.8 33.8s-23.7 11.4-33.8 2.8l-24.5-20.8v186.5c0 44.2-35.8 80-80 80h-288c-44.18 0-80-35.8-80-80v-186.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8l264.03-224c8.9-7.6 22.1-7.6 31 0l160.5 136.2zm-320 322.1h288c17.7 0 32-14.3 32-32v-227.2l-176-149.33-176 149.33v227.2c0 17.7 14.3 32 32 32z"/></svg>
                                 </span>
                                 Личный кабинет
                             </a>
+                            <!-- Logout -->
                             <a class="dropdown-item"
                                :href="`${lang.prefix_lang}user/logout`"
                             >
@@ -132,7 +139,7 @@
 </template>
 
 <script>
-    import translation from '../../mixins/translation'
+    import translation_mixin from '../../mixins/translation'
 
     import ImpAuth from '../auth/ExampleAuth.vue'
     import ImpSign from '../auth/ExampleSign.vue'
@@ -147,7 +154,7 @@
             'comChangePassword': ImpChangePassword,
         },
         mixins: [
-            translation
+            translation_mixin,
         ],
         data() {
             return {
@@ -234,6 +241,7 @@
     .dropdown-item{
         padding: 8px 10px;
         display: flex;
+        align-items: center;
         svg{
             margin-right: 7px;
             path{
@@ -268,7 +276,5 @@
             width:auto;
         }
     }
-
-    /*min-width: 175px;*/
 
 </style>

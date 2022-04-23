@@ -18,6 +18,13 @@ export default {
             }
 
             return bool
-        }
+        },
+        // открытие модалки авторизации в случае не авторизованности
+        checkAuth(url) {
+            // 0 = авторизация
+            this.$store.commit('tpSetComponent', 0)
+            $('#authModal').modal('toggle')
+            localStorage.setItem('url_click_no_auth', url)
+        },
     },
 }

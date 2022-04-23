@@ -20,7 +20,7 @@ Vue.use( CKEditor );
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
 Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
-// Vue.component('search-panel-vacancy', require('./components/search_vacancy/SearchPanelVacancyComponent').default);
+Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('search-vacancy', require('./components/vacancy/SearchVacancyComponent').default);
 
 const app = new Vue({

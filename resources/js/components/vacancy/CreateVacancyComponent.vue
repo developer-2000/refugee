@@ -671,7 +671,7 @@
                     </template>
                     <!-- button update -->
                     <template v-else>
-                        <a href="/vacancy/my-vacancies" class="btn btn-block btn-outline-danger btn-lg">
+                        <a href="/private-office/vacancy/my-vacancies" class="btn btn-block btn-outline-danger btn-lg">
                             {{trans('vacancies','cancel')}}
                         </a>
                         <button type="submit" class="btn btn-block btn-primary btn-lg"
@@ -770,7 +770,7 @@
                 let data = {
                     value: value,
                 };
-                const response = await this.$http.post(`/vacancy/search-vacancy`, data)
+                const response = await this.$http.post(`/private-office/vacancy/search-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             // вернет только опубликованные
@@ -798,7 +798,7 @@
                 const response = await this.$http.post(`/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            location.href = this.lang.prefix_lang+'vacancy/my-vacancies'
+                            location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
                         }
                         // custom ошибки
                         else{
@@ -813,10 +813,10 @@
             async updateVacancy(){
                 this.alignNumbers()
                 let data = this.getValuesFields()
-                const response = await this.$http.put(`/vacancy/`+this.vacancy_id, data)
+                const response = await this.$http.put(`/private-office/vacancy/`+this.vacancy_id, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            location.href = this.lang.prefix_lang+'vacancy/my-vacancies'
+                            location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
                         }
                         // custom ошибки
                         else{

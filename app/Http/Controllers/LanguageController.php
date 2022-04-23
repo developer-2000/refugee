@@ -21,12 +21,12 @@ class LanguageController extends Controller
         // переданый язык являетса дополнительным языком сайта
         if( in_array($name, config("app.alternative_lang")) ){
             // префикс из URL есть в дополнительных языках - замена префикса
-            // http://refugee/ru/vacancy/my-vacancies
+            // http://refugee/ru/private-office/private-office/vacancy/my-vacancies
             if(isset($arrPath[3]) && in_array($arrPath[3], config("app.alternative_lang"))){
                 $arrPath[3] = $name;
             }
             // префикс из URL не являетса языком - добавить к префиксу
-            // request - http://refugee/uk/vacancy/my-vacancies
+            // request - http://refugee/uk/private-office/vacancy/my-vacancies
             elseif(isset($arrPath[3]) && !in_array($arrPath[3], config("app.all_lang"))){
                 $arrPath[3] = "$name/".$arrPath[3];
             }
