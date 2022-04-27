@@ -7,9 +7,20 @@ h1{
     font-weight: 600;
     font-size: 1.7rem;
 }
-a:hover {
+a:hover,
+.callout .title-vacancy:hover{
    text-decoration: none;
    color: #1d68a7;
+}
+.title-vacancy,
+.callout .title-vacancy{
+    font-size: 23px;
+    color: #3490dc;
+    text-decoration: none;
+    background-color: transparent;
+}
+b{
+    color: black;
 }
 .button-menu{
     background: #f1f1f1;
@@ -31,6 +42,24 @@ a:hover {
     padding: 0;
     list-style: none;
 }
+.link-back {
+    display: flex;
+    color: #3490dc;
+    font-size: 20px;
+    padding-top: 10px;
+    width: 100px;
+}
+.link-back svg {
+    width: 10px;
+    margin-right: 5px;
+}
+.link-back svg path{
+    fill:#3490dc;
+}
+.link-back:hover svg path{
+    fill:#1d68a7;
+}
+
 
 /* sidebar left */
 .brand-link{
@@ -248,7 +277,17 @@ label{
 .btn-outline-danger path{
     fill: #e3342f;
 }
-
+.btn-warning {
+    color: #1f2d3d;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    box-shadow: none;
+}
+.btn-warning:hover {
+    color: #1f2d3d;
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
 
 /* select 2 */
 .select2-container {
@@ -321,12 +360,24 @@ label{
 .mode-vacancy .standard{
     background: #38c172;
 }
-.title-vacancy{
-    font-size: 23px;
-    color: #3490dc;
-    text-decoration: none;
-    background-color: transparent;
+.box-vacancy {
+    outline: 2px solid #dee2e6;
+    cursor: pointer;
+    padding: 20px;
+    margin-right: 0;
+    margin-top: 2px;
 }
+.box-vacancy:hover {
+    outline: 2px solid #c0ddfb;
+    position: relative;
+    z-index: 9;
+}
+.box-vacancy:hover .title-vacancy,
+.box-vacancy:hover .link-vacancy{
+      color: #1d68a7;
+  }
+
+
 
 
 @media (max-width: 575px) {

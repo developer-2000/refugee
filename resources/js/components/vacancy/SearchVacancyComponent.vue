@@ -23,7 +23,6 @@
                      v-for="(vacancy, key) in vacancies.data" :key="key"
                      :id="`v${key}`"
                      @click.prevent="selectVacancy"
-                     @mouseenter="hoverVacancy($event)"
                 >
                     <!-- title -->
                     <div class="box-title-logo">
@@ -105,17 +104,20 @@
                             Сохранить
                         </button>
                         <!-- 2 -->
-                        <button class="btn btn-block btn-outline-success btn-sm save-two" type="button"
-                                @click.prevent="changeButton($event, 'save_', 'save-two_', 'show_', 0)"
-                                data-bool="0"
-                                :data-id="vacancy.id"
-                                :id="`save-two_${vacancy.id}`"
+                        <!--
+                        @click.prevent="changeButton($event, 'save_', 'save-two_', 'show_', 0)"
+                           data-bool="0"
+                           :data-id="vacancy.id"
+                        -->
+                        <a class="btn btn-block btn-outline-success btn-sm save-two"
+                           @click="transitionBookmark($event)"
+                           :id="`save-two_${vacancy.id}`"
                         >
                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z"/>
                             </svg>
                             В меню сохраненных
-                        </button>
+                        </a>
 
                         <!-- Не показывать -->
                         <!-- 1 -->
@@ -178,7 +180,6 @@
         data() {
             return {
                 reactive_state_variable: '1',
-                hover_id: '',
                 search_value: '',
                 description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠',
             }
@@ -186,6 +187,10 @@
         methods: {
             updateData(data){
                 console.log(data)
+            },
+            transitionBookmark(event){
+                location.href = this.lang.prefix_lang+'private-office/vacancy/bookmark-vacancies'
+                event.stopPropagation()
             },
             selectVacancy(){
 
@@ -230,22 +235,6 @@
                     .catch(err => {
                         this.messageError(err)
                     })
-            },
-            hoverVacancy(e){
-                let vacancy_id = e.target.id;
-                if(this.hover_id == vacancy_id){
-                    return false
-                }
-                // все сбросить
-                let box_vacancy = document.querySelectorAll(".box-vacancy");
-                box_vacancy.forEach(function(element) {
-                    element.style.zIndex = "unset"
-                    element.style.position = "static"
-                });
-                // все поднять target
-                e.target.style.zIndex = "9"
-                e.target.style.position = "relative"
-                this.hover_id = vacancy_id
             },
             salaryView(salaryObj){
                 let salary_string = ''
@@ -306,7 +295,7 @@
             changeButton(event, but1, but2, but3, action){
                 // не авторизован
                 if(this.user == null){
-                    this.checkAuth(this.lang.prefix_lang+'job-search')
+                    this.checkAuth(this.lang.prefix_lang+'vacancy')
                     event.stopPropagation()
                     return false
                 }
@@ -414,18 +403,7 @@
     }
 
     .box-vacancy{
-        outline: 2px solid #dee2e6;
-        cursor: pointer;
-        padding: 15px 30px 15px;
         margin-right: 15px;
-        margin-top: 2px;
-        &:hover{
-            outline: 2px solid $border-style-blue;
-            & .title-vacancy,
-            & .link-vacancy{
-                color: #1d68a7;
-            }
-        }
         .box-title-logo{
             display: flex;
             justify-content: space-between;
@@ -471,10 +449,7 @@
             display: flex;
             justify-content: flex-end;
             margin: 15px 0 0;
-            & > button:nth-child(1) {
-                margin-right: 15px;
-            }
-            button{
+            button, a{
                 width: auto;
                 display: flex;
                 justify-content: center;
@@ -490,27 +465,23 @@
                 }
             }
             button:nth-child(1){
+                margin-right: 15px;
                 svg{
                     width: 14px;
                 }
             }
-            button.save-two {
+            .save-two {
                 svg{
                     width: 14px;
                 }
             }
-            button.show-two {
+            .show-two {
                 svg{
                     width: 15px;
                 }
             }
         }
     }
-
-    /*.box-vacancy .panel-button button.save-two,*/
-    /*.box-vacancy .panel-button button.show-two{*/
-    /*    display: none;*/
-    /*}*/
 
 </style>
 

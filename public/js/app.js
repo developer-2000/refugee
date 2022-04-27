@@ -2765,12 +2765,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2903,20 +2897,219 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [],
   data: function data() {
     return {};
   },
   methods: {},
-  props: [],
+  props: ['lang' // масив названий и url языка
+  ],
   mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  data: function data() {
+    return {
+      arrVacancies: []
+    };
+  },
+  methods: {
+    salaryView: function salaryView(salaryObj) {
+      var salary_string = '';
+      var arr_field = this.settings.salary[salaryObj.radio_name];
+      $.each(arr_field, function (key, name) {
+        salary_string += salaryObj.inputs[name];
+
+        if (key + 1 < arr_field.length) {
+          salary_string += ' - ';
+        }
+      });
+      salary_string = salary_string == '' ? 0 : salary_string;
+      return salary_string;
+    },
+    addressView: function addressView(vacancyObj) {
+      var address_string = '';
+
+      if (vacancyObj.country !== null) {
+        address_string += vacancyObj.country.name + '.';
+      }
+
+      if (vacancyObj.region !== null) {
+        address_string += ' ' + vacancyObj.region.name + '.';
+      }
+
+      if (vacancyObj.city !== null) {
+        address_string += ' ' + vacancyObj.city.name + '.';
+      }
+
+      address_string += ' ' + vacancyObj.rest_address + '.';
+      return address_string;
+    },
+    transitionToVacancy: function transitionToVacancy(url) {
+      console.log(url); // location.href = '/'
+    },
+    bookmarkVacancy: function bookmarkVacancy(event, vacancy_id) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.stopPropagation();
+                data = {
+                  vacancy_id: vacancy_id,
+                  action: 0
+                };
+                _context.next = 4;
+                return _this.$http.post("/private-office/vacancy/bookmark-vacancy", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    var _response = _this.vacancies.findIndex(function (obj) {
+                      return obj['vacancy']['id'] == vacancy_id;
+                    });
+
+                    if (_response != -1) {
+                      _this.vacancies.splice(_response, 1);
+
+                      _this.arrVacancies = _this.vacancies;
+                    }
+                  } // custom ошибки
+                  else {
+                    _this.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this.messageError(err);
+                });
+
+              case 4:
+                response = _context.sent;
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  props: ['lang', // масив названий и url языка
+  'vacancies', 'settings'],
+  mounted: function mounted() {
+    this.arrVacancies = this.vacancies;
+    console.log(this.vacancies);
+  }
 });
 
 /***/ }),
@@ -3716,7 +3909,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   value: value
                 };
                 _context.next = 6;
-                return _this.$http.post("/private-office/vacancy/search-vacancy", data).then(function (res) {
+                return _this.$http.post("/private-office/vacancy/search-position", data).then(function (res) {
                   if (_this.checkSuccess(res)) {
                     // вернет только опубликованные
                     if (res.data.message.position.length) {
@@ -3755,7 +3948,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 data = _this2.getValuesFields();
                 _context2.next = 4;
-                return _this2.$http.post("/vacancy", data).then(function (res) {
+                return _this2.$http.post("private-office/vacancy", data).then(function (res) {
                   if (_this2.checkSuccess(res)) {
                     location.href = _this2.lang.prefix_lang + 'private-office/vacancy/my-vacancies';
                   } // custom ошибки
@@ -4070,6 +4263,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4901,6 +5100,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -4912,7 +5113,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       reactive_state_variable: '1',
-      hover_id: '',
       search_value: '',
       description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠'
     };
@@ -4920,6 +5120,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     updateData: function updateData(data) {
       console.log(data);
+    },
+    transitionBookmark: function transitionBookmark(event) {
+      location.href = this.lang.prefix_lang + 'private-office/vacancy/bookmark-vacancies';
+      event.stopPropagation();
     },
     selectVacancy: function selectVacancy() {
       console.log('select');
@@ -4996,24 +5200,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    hoverVacancy: function hoverVacancy(e) {
-      var vacancy_id = e.target.id;
-
-      if (this.hover_id == vacancy_id) {
-        return false;
-      } // все сбросить
-
-
-      var box_vacancy = document.querySelectorAll(".box-vacancy");
-      box_vacancy.forEach(function (element) {
-        element.style.zIndex = "unset";
-        element.style.position = "static";
-      }); // все поднять target
-
-      e.target.style.zIndex = "9";
-      e.target.style.position = "relative";
-      this.hover_id = vacancy_id;
-    },
     salaryView: function salaryView(salaryObj) {
       var salary_string = '';
       var arr_field = this.settings.salary[salaryObj.radio_name];
@@ -5073,7 +5259,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     changeButton: function changeButton(event, but1, but2, but3, action) {
       // не авторизован
       if (this.user == null) {
-        this.checkAuth(this.lang.prefix_lang + 'job-search');
+        this.checkAuth(this.lang.prefix_lang + 'vacancy');
         event.stopPropagation();
         return false;
       }
@@ -9616,7 +9802,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "h1[data-v-1be63316] {\n  padding-left: 15px;\n}\n.inline-ul > li[data-v-1be63316] {\n  display: block;\n  float: left;\n  background-color: #fff;\n  border: 1px solid #e9ebed;\n  margin: 0 0 -1px -1px;\n  max-width: 33.33333333%;\n  padding: 0;\n  width: 100%;\n}\n.inline-ul > li a[data-v-1be63316] {\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  font-size: 18px;\n}\n.inline-ul > li svg[data-v-1be63316] {\n  width: 35px;\n  margin-right: 15px;\n}\n@media (max-width: 767px) {\n.box-settings li[data-v-1be63316] {\n    border-left: none;\n    border-right: none;\n    max-width: 100%;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, "h1[data-v-1be63316] {\n  padding-left: 15px;\n}\n.box-settings li[data-v-1be63316] {\n  display: block;\n  float: left;\n  background-color: #fff;\n  outline: 1px solid #e9ebed;\n  margin: 0 0 -1px -1px;\n  max-width: 33.33333333%;\n  padding: 0;\n  width: 100%;\n}\n.box-settings li[data-v-1be63316]:hover {\n  outline: 1px solid #c0ddfb;\n  position: relative;\n  z-index: 9;\n}\n.box-settings li a[data-v-1be63316] {\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  font-size: 18px;\n}\n.box-settings li a svg[data-v-1be63316] {\n  width: 35px;\n  margin-right: 15px;\n}\n.box-settings li a svg path[data-v-1be63316] {\n  fill: #3490dc;\n}\n.box-settings li a:hover svg path[data-v-1be63316] {\n  fill: #1d68a7;\n}\n@media (max-width: 767px) {\n.box-settings li[data-v-1be63316] {\n    border-left: none;\n    border-right: none;\n    max-width: 100%;\n    width: 100%;\n}\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".box-vacancies[data-v-4f4c2539] {\n  background-color: #fff;\n  padding: 0 15px 15px;\n}\n.box-vacancies .callout[data-v-4f4c2539] {\n  color: #666;\n  line-height: 30px;\n}\n.box-vacancies .callout svg path[data-v-4f4c2539] {\n  fill: #666;\n}\n.box-vacancies .callout a[data-v-4f4c2539] {\n  font-size: 17px;\n}\n.box-vacancies .box-vacancy .box-title-logo[data-v-4f4c2539] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancies .box-vacancy .box-title-logo .title-vacancy[data-v-4f4c2539] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancies .box-vacancy .box-title-logo .img-logo[data-v-4f4c2539] {\n  width: 100px;\n}\n.box-vacancies .box-vacancy .line-div[data-v-4f4c2539] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancies .box-vacancy .line-div .font-weight-bold[data-v-4f4c2539] {\n  font-weight: bold;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy[data-v-4f4c2539] {\n  color: #1d68a7;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy svg[data-v-4f4c2539] {\n  margin: 0 5px 0 0;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy svg path[data-v-4f4c2539] {\n  fill: #1d68a7;\n}\n.box-vacancies .box-vacancy .address-comment[data-v-4f4c2539] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancies .box-vacancy .address-comment svg[data-v-4f4c2539] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancies .box-vacancy .display-inline[data-v-4f4c2539] {\n  display: inline;\n}\n.box-vacancies .box-vacancy .panel-button[data-v-4f4c2539] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancies .box-vacancy .panel-button > button[data-v-4f4c2539]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancies .box-vacancy .panel-button button[data-v-4f4c2539] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancies .box-vacancy .panel-button button:hover svg path[data-v-4f4c2539] {\n  fill: white;\n}\n.box-vacancies .box-vacancy .panel-button button svg[data-v-4f4c2539] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancies .box-vacancy .panel-button button svg path[data-v-4f4c2539] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancies .box-vacancy .panel-button button:nth-child(1) svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-vacancies .box-vacancy .panel-button button.save-two svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-vacancies .box-vacancy .panel-button button.show-two svg[data-v-4f4c2539] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -9654,7 +9859,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancy[data-v-12dab04d] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-content: flex-start;\n  align-items: flex-start;\n  border-bottom: 1px solid #adb5bd;\n  color: #666;\n  line-height: 30px;\n  padding: 15px 0px;\n}\n.box-vacancy .box-title[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .box-title > div[data-v-12dab04d] {\n  margin-left: 10px;\n}\n.box-vacancy .box-title > div svg[data-v-12dab04d] {\n  width: 16px;\n}\n.box-vacancy .no-verified[data-v-12dab04d] {\n  color: #f6993f;\n}\n.box-vacancy .no-verified svg[data-v-12dab04d] {\n  fill: #f6993f;\n}\n.box-vacancy .verified[data-v-12dab04d] {\n  color: #38c172;\n}\n.box-vacancy .verified svg[data-v-12dab04d] {\n  fill: #38c172;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, ".box-vacancies[data-v-12dab04d] {\n  background-color: #fff;\n  padding: 0 15px 15px;\n}\n.box-vacancy[data-v-12dab04d] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title[data-v-12dab04d] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .box-title > div[data-v-12dab04d] {\n  margin-left: 10px;\n}\n.box-vacancy .box-title > div svg[data-v-12dab04d] {\n  width: 16px;\n}\n.box-vacancy .no-verified[data-v-12dab04d] {\n  color: #f6993f;\n}\n.box-vacancy .no-verified svg[data-v-12dab04d] {\n  fill: #f6993f;\n}\n.box-vacancy .verified[data-v-12dab04d] {\n  color: #38c172;\n}\n.box-vacancy .verified svg[data-v-12dab04d] {\n  fill: #38c172;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -9692,7 +9897,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  outline: 2px solid #dee2e6;\n  cursor: pointer;\n  padding: 15px 30px 15px;\n  margin-right: 15px;\n  margin-top: 2px;\n}\n.box-vacancy[data-v-fbaa726e]:hover {\n  outline: 2px solid #c0ddfb;\n}\n.box-vacancy:hover .title-vacancy[data-v-fbaa726e], .box-vacancy:hover .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button > button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.save-two svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button button.show-two svg[data-v-fbaa726e] {\n  width: 15px;\n}\n\n/*.box-vacancy .panel-button button.save-two,*/\n/*.box-vacancy .panel-button button.show-two{*/\n/*    display: none;*/\n/*}*/", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  min-width: 75%;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .line-div .link-vacancy[data-v-fbaa726e] {\n  color: #1d68a7;\n}\n.box-vacancy .line-div .link-vacancy svg[data-v-fbaa726e] {\n  margin: 0 5px 0 0;\n}\n.box-vacancy .line-div .link-vacancy svg path[data-v-fbaa726e] {\n  fill: #1d68a7;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancy .display-inline[data-v-fbaa726e] {\n  display: inline;\n}\n.box-vacancy .panel-button[data-v-fbaa726e] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e], .box-vacancy .panel-button a[data-v-fbaa726e] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancy .panel-button button:hover svg path[data-v-fbaa726e], .box-vacancy .panel-button a:hover svg path[data-v-fbaa726e] {\n  fill: white;\n}\n.box-vacancy .panel-button button svg[data-v-fbaa726e], .box-vacancy .panel-button a svg[data-v-fbaa726e] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancy .panel-button button svg path[data-v-fbaa726e], .box-vacancy .panel-button a svg path[data-v-fbaa726e] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancy .panel-button button[data-v-fbaa726e]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancy .panel-button button:nth-child(1) svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button .save-two svg[data-v-fbaa726e] {\n  width: 14px;\n}\n.box-vacancy .panel-button .show-two svg[data-v-fbaa726e] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -42578,6 +42783,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/CreateVacancyComponent.vue?vue&type=style&index=0&id=3249dfc6&scoped=true&lang=scss&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vacancy/CreateVacancyComponent.vue?vue&type=style&index=0&id=3249dfc6&scoped=true&lang=scss& ***!
@@ -44500,7 +44735,7 @@ var render = function () {
                   "a",
                   {
                     staticClass: "dropdown-item",
-                    attrs: { href: _vm.lang.prefix_lang + "job-search" },
+                    attrs: { href: _vm.lang.prefix_lang + "vacancy" },
                   },
                   [_vm._v("Найти вакансию")]
                 ),
@@ -44668,39 +44903,6 @@ var render = function () {
                       "dropdown-menu dropdown-menu-lg dropdown-menu-right",
                   },
                   [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-item",
-                        attrs: {
-                          href:
-                            _vm.lang.prefix_lang +
-                            "private-office/vacancy/my-vacancies",
-                        },
-                      },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 512 512",
-                            },
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d: "M320 336c0 8.844-7.156 16-16 16h-96C199.2 352 192 344.8 192 336V288H0v144C0 457.6 22.41 480 48 480h416c25.59 0 48-22.41 48-48V288h-192V336zM464 96H384V48C384 22.41 361.6 0 336 0h-160C150.4 0 128 22.41 128 48V96H48C22.41 96 0 118.4 0 144V256h512V144C512 118.4 489.6 96 464 96zM336 96h-160V48h160V96z",
-                              },
-                            }),
-                          ]
-                        ),
-                        _vm._v(
-                          "\n                            Мои вакансии\n                        "
-                        ),
-                      ]
-                    ),
-                    _vm._v(" "),
                     _c(
                       "a",
                       {
@@ -44896,7 +45098,148 @@ var render = function () {
       _c("div", { staticClass: "container-fluid" }, [
         _c("ul", { staticClass: "inline-ul" }, [
           _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
+            _c(
+              "a",
+              {
+                attrs: {
+                  href:
+                    _vm.lang.prefix_lang +
+                    "private-office/vacancy/bookmark-vacancies",
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      viewBox: "0 0 512 512",
+                      xmlns: "http://www.w3.org/2000/svg",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "m462.3 62.71c-54.5-46.5-136.1-38.99-186.6 13.27l-19.69 20.61-19.71-20.61c-40.7-42.13-123-67.27-186.54-13.27-62.87 53.49-66.07 149.79-9.95 207.79l193.2 199.7c6.29 6.5 14.79 9.8 22.89 9.8 8.25 0 16.33-3.25 22.58-9.751l193.6-199.8c56.42-57.949 53.02-154.25-9.78-207.74zm-13 185.49-192.9 199.9-193.64-199.9c-38.37-39.5-46.37-115 7.75-161.11 54.79-46.88 119.29-12.87 142.79 11.5l42.75 44.13 42.75-44.13c23.13-24 88.13-58 142.8-11.5 53.9 46.01 46 121.51 7.7 161.11z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v(
+                    "\n                            Закладки вакансий\n                        "
+                  ),
+                ]),
+              ]
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                attrs: {
+                  href:
+                    _vm.lang.prefix_lang +
+                    "private-office/vacancy/my-vacancies",
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M448 96h-64V48c0-26.47-21.5-48-48-48H176c-26.5 0-48 21.53-48 48v48H64c-35.35 0-64 28.7-64 64v256c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V160c0-35.3-28.7-64-64-64zM160 48c0-8.83 7.2-16 16-16h160c8.8 0 16 7.17 16 16v48H160V48zm320 368c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V288h144v64c0 8.844 7.156 16 16 16h128c8.844 0 16-7.156 16-16v-64h144v128zm-272-80v-48h96v48h-96zm272-80H32v-96c0-17.64 14.36-32 32-32h384c17.64 0 32 14.36 32 32v96z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v(
+                    "\n                            Мои вакансии\n                        "
+                  ),
+                ]),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "box-vacancies" },
+    [
+      _c(
+        "a",
+        {
+          staticClass: "link-back",
+          attrs: { href: _vm.lang.prefix_lang + "private-office" },
+        },
+        [
+          _c(
+            "svg",
+            {
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 256 512",
+              },
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+                },
+              }),
+            ]
+          ),
+          _vm._v("\n        Кабинет\n    "),
+        ]
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "title_page card-body" }, [
+        _vm._v("Закладки вакансий"),
+      ]),
+      _vm._v(" "),
+      !_vm.vacancies.length
+        ? _c("div", { staticClass: "callout callout-warning" }, [
+            _c("b", [_vm._v("Вакансии отсутствуют.")]),
+            _vm._v(" "),
+            _c("div", [
+              _vm._v(
+                "\n            В этом разделе хранятся вакансии, которые вы добавили на странице поиска вакансий при нажатии на иконку в виде\n            «"
+              ),
               _c(
                 "svg",
                 {
@@ -44908,29 +45251,155 @@ var render = function () {
                 [
                   _c("path", {
                     attrs: {
-                      d: "m462.3 62.71c-54.5-46.5-136.1-38.99-186.6 13.27l-19.69 20.61-19.71-20.61c-40.7-42.13-123-67.27-186.54-13.27-62.87 53.49-66.07 149.79-9.95 207.79l193.2 199.7c6.29 6.5 14.79 9.8 22.89 9.8 8.25 0 16.33-3.25 22.58-9.751l193.6-199.8c56.42-57.949 53.02-154.25-9.78-207.74zm-13 185.49-192.9 199.9-193.64-199.9c-38.37-39.5-46.37-115 7.75-161.11 54.79-46.88 119.29-12.87 142.79 11.5l42.75 44.13 42.75-44.13c23.13-24 88.13-58 142.8-11.5 53.9 46.01 46 121.51 7.7 161.11z",
+                      d: "M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z",
                     },
                   }),
                 ]
               ),
-              _vm._v(" "),
-              _c("span", [
+              _vm._v(
+                "».\n            Добавление вакансий, помогает отслеживать и иметь быстрый доступ. Это удобно когда вы ведете переписки с работодателем, обращаясь к нужной вам информации.\n            "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n            Чтобы сохранить вакансию, перейдите на страницу\n            "
+              ),
+              _c(
+                "a",
+                {
+                  staticClass: "title-vacancy",
+                  attrs: {
+                    target: "_blank",
+                    href: _vm.lang.prefix_lang + "vacancy",
+                  },
+                },
+                [_vm._v("поиска вакансий.")]
+              ),
+            ]),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.arrVacancies, function (array, key) {
+        return _c(
+          "div",
+          {
+            key: key,
+            staticClass: "box-vacancy",
+            on: {
+              click: function ($event) {
+                return _vm.transitionToVacancy(_vm.lang.prefix_lang + "vacancy")
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "box-title-logo" }, [
+              _c("h2", { staticClass: "title-vacancy" }, [
                 _vm._v(
-                  "\n                                Сохраненные вакансии\n                            "
+                  "\n                " +
+                    _vm._s(array.vacancy.position.title) +
+                    "\n            "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "img-logo",
+                attrs: {
+                  src: array.vacancy.employer.logo.url,
+                  alt: "Test image",
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "line-div" }, [
+              _c("div", { staticClass: "font-weight-bold" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.salaryView(array.vacancy.salary)) +
+                    " euro\n            "
+                ),
+              ]),
+              _vm._v(" "),
+              array.vacancy.salary.comment !== null
+                ? _c("div", { staticClass: "address-comment" }, [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          viewBox: "0 0 512 512",
+                          xmlns: "http://www.w3.org/2000/svg",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(array.vacancy.salary.comment) +
+                        "\n            "
+                    ),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "line-div" }, [
+              _c("div", { staticClass: "font-weight-bold" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(array.vacancy.employer.title) +
+                    "\n            "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "address-comment" }, [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      viewBox: "0 0 512 512",
+                      xmlns: "http://www.w3.org/2000/svg",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.addressView(array.vacancy)) +
+                    "\n            "
                 ),
               ]),
             ]),
-          ]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Одна из трёх колонок")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Одна из трёх колонок")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Одна из трёх колонок")]),
-        ]),
-      ]),
-    ]),
-  ])
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-button" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-block btn-outline-danger",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.bookmarkVacancy($event, array.vacancy.id)
+                    },
+                  },
+                },
+                [_vm._v("\n                Убрать\n            ")]
+              ),
+            ]),
+          ]
+        )
+      }),
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47318,8 +47787,35 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "forms" },
+    { staticClass: "box-vacancies" },
     [
+      _c(
+        "a",
+        {
+          staticClass: "link-back",
+          attrs: { href: _vm.lang.prefix_lang + "private-office" },
+        },
+        [
+          _c(
+            "svg",
+            {
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 256 512",
+              },
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+                },
+              }),
+            ]
+          ),
+          _vm._v("\n        Кабинет\n    "),
+        ]
+      ),
+      _vm._v(" "),
       _c("h1", { staticClass: "title_page card-body" }, [
         _vm._v(_vm._s(_vm.trans("vacancies", "my_vacancies"))),
       ]),
@@ -48485,9 +48981,6 @@ var render = function () {
                   $event.preventDefault()
                   return _vm.selectVacancy.apply(null, arguments)
                 },
-                mouseenter: function ($event) {
-                  return _vm.hoverVacancy($event)
-                },
               },
             },
             [
@@ -48705,26 +49198,14 @@ var render = function () {
                 ),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "a",
                   {
                     staticClass:
                       "btn btn-block btn-outline-success btn-sm save-two",
-                    attrs: {
-                      type: "button",
-                      "data-bool": "0",
-                      "data-id": vacancy.id,
-                      id: "save-two_" + vacancy.id,
-                    },
+                    attrs: { id: "save-two_" + vacancy.id },
                     on: {
                       click: function ($event) {
-                        $event.preventDefault()
-                        return _vm.changeButton(
-                          $event,
-                          "save_",
-                          "save-two_",
-                          "show_",
-                          0
-                        )
+                        return _vm.transitionBookmark($event)
                       },
                     },
                   },
@@ -64349,6 +64830,7 @@ Vue.use(ckeditor4_vue__WEBPACK_IMPORTED_MODULE_4___default.a);
 Vue.component('top-menu-component', __webpack_require__(/*! ./components/menu/TopMenuComponent */ "./resources/js/components/menu/TopMenuComponent.vue")["default"]);
 Vue.component('create-vacancy-component', __webpack_require__(/*! ./components/vacancy/CreateVacancyComponent */ "./resources/js/components/vacancy/CreateVacancyComponent.vue")["default"]);
 Vue.component('my-vacancy-component', __webpack_require__(/*! ./components/vacancy/MyVacancyComponent */ "./resources/js/components/vacancy/MyVacancyComponent.vue")["default"]);
+Vue.component('bookmark-vacancies-component', __webpack_require__(/*! ./components/vacancy/BookmarkVacanciesComponent */ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue")["default"]);
 Vue.component('office-component', __webpack_require__(/*! ./components/private_office/OfficeComponent */ "./resources/js/components/private_office/OfficeComponent.vue")["default"]);
 Vue.component('search-vacancy', __webpack_require__(/*! ./components/vacancy/SearchVacancyComponent */ "./resources/js/components/vacancy/SearchVacancyComponent.vue")["default"]);
 var app = new Vue({
@@ -64920,6 +65402,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OfficeComponent_vue_vue_type_template_id_1be63316_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OfficeComponent_vue_vue_type_template_id_1be63316_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/vacancy/BookmarkVacanciesComponent.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BookmarkVacanciesComponent_vue_vue_type_template_id_4f4c2539_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true& */ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true&");
+/* harmony import */ var _BookmarkVacanciesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookmarkVacanciesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _BookmarkVacanciesComponent_vue_vue_type_style_index_0_id_4f4c2539_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss& */ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _BookmarkVacanciesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BookmarkVacanciesComponent_vue_vue_type_template_id_4f4c2539_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BookmarkVacanciesComponent_vue_vue_type_template_id_4f4c2539_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4f4c2539",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/vacancy/BookmarkVacanciesComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BookmarkVacanciesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss&":
+/*!**********************************************************************************************************************************!*\
+  !*** ./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss& ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_style_index_0_id_4f4c2539_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=style&index=0&id=4f4c2539&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_style_index_0_id_4f4c2539_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_style_index_0_id_4f4c2539_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_style_index_0_id_4f4c2539_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_style_index_0_id_4f4c2539_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_template_id_4f4c2539_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vacancy/BookmarkVacanciesComponent.vue?vue&type=template&id=4f4c2539&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_template_id_4f4c2539_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkVacanciesComponent_vue_vue_type_template_id_4f4c2539_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -27,15 +27,21 @@ class VacancyController extends BaseController {
         $this->repository = new VacancyRepository();
     }
 
+    public function index()
+    {
+        $settings = $this->getSettingsVacanciesAndCountries();
+        $vacancies = Vacancy::with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
+            ->paginate(10)->toArray();
+
+        return view('index', compact('settings', 'vacancies'));
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
-            $settings['obj_countries'] = $objCountries[0]['EN'];
-        }
+        $settings = $this->getSettingsVacanciesAndCountries();
         return view('vacancies/create_vacancy', compact('settings'));
     }
 
@@ -123,7 +129,7 @@ class VacancyController extends BaseController {
      * @param  SearchVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function searchVacancy(SearchVacancyRequest $request)
+    public function searchPosition(SearchVacancyRequest $request)
     {
         $position = Position::where('active',1)
             ->where('title', 'like', $request->value.'%')
@@ -200,6 +206,20 @@ class VacancyController extends BaseController {
     }
 
     /**
+     * показ вакансий в закладках
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bookmarkVacancies()
+    {
+        $settings = $this->getSettingsVacanciesAndCountries();
+        $vacancies = UserSaveVacancy::where('user_id', Auth::user()->id)
+            ->with('vacancy.position','vacancy.employer.logo')
+            ->get();
+
+        return view('vacancies.bookmark_vacancies', compact('settings','vacancies'));
+    }
+
+    /**
      * скрыть выбранную вакансию в поиске
      * @param  SaveVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
@@ -233,18 +253,21 @@ class VacancyController extends BaseController {
         }
     }
 
+    /**
+     * настройки вакансий и страны сайта
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    private function getSettingsVacanciesAndCountries(){
+        $settings = config('site.settings_vacancy');
+        if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
+            $settings['obj_countries'] = $objCountries['country']['EN'];
+        }
+        return $settings;
+    }
 
 
 
-    //    /**
-//     * Display a listing of the resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function index()
-//    {
-//        //
-//    }
+
 //    /**
 //     * Display the specified resource.
 //     *

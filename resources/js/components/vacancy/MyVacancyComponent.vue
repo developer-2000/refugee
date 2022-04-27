@@ -1,5 +1,11 @@
 <template>
-    <div class="forms">
+    <div class="box-vacancies">
+        <a  class="link-back"
+            :href="`${lang.prefix_lang}private-office`"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+            Кабинет
+        </a>
         <h1 class="title_page card-body">{{trans('vacancies','my_vacancies')}}</h1>
 
         <div class="box-vacancy"
@@ -257,19 +263,18 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .box-vacancies{
+        background-color: #fff;
+        padding: 0 15px 15px;
+    }
+
+
 .box-vacancy{
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
     justify-content: space-between;
-    align-content: flex-start;
-    align-items: flex-start;
-    border-bottom: 1px solid $border-style-grey;
-    color: #666;
-    line-height: 30px;
-    padding: 15px 0px;
     .box-title{
         display: flex;
+        align-items: center;
         & > div{
             margin-left: 10px;
             svg{

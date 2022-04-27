@@ -18,8 +18,6 @@
 @section('content')
 <div class="container">
 
-{{--    <a href="{{ route('index') }}">111</a>--}}
-
     @if(isset($settings))
     <search-vacancy
         :lang="{{json_encode($lang)}}"

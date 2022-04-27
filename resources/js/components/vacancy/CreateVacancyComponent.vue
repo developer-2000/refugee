@@ -770,7 +770,7 @@
                 let data = {
                     value: value,
                 };
-                const response = await this.$http.post(`/private-office/vacancy/search-vacancy`, data)
+                const response = await this.$http.post(`/private-office/vacancy/search-position`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             // вернет только опубликованные
@@ -795,7 +795,7 @@
             async createVacancy(){
                 this.alignNumbers()
                 let data = this.getValuesFields()
-                const response = await this.$http.post(`/vacancy`, data)
+                const response = await this.$http.post(`private-office/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'

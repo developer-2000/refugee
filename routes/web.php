@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use \App\Services\LocalizationService;
 
+//<a href="{{ route('index') }}">111</a>
+//<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
+
 // технический роут
 Route::group(['prefix'=>'technical'], function (){
     // /technical/artisan/clear_all
@@ -43,11 +46,6 @@ Route::group([
 
     Route::get('/', 'IndexController@index')->name('index');
 
-//    Route::get('/job-search/{country?}/{region?}/{city?}', 'SearchVacancyController@jobSearch');
-    Route::resource('job-search', 'SearchVacancyController')->only([
-        'index',
-    ]);
-
     // Auth
     Route::middleware('throttle:10,1')->group(function () {
         Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
@@ -62,22 +60,26 @@ Route::group([
         });
     });
 
+    //    Route::get('/private-office/vacancy/{country?}/{region?}/{city?}', 'SearchVacancyController@jobSearch');
+    Route::resource('vacancy', 'VacancyController')->only([
+        'index',
+    ]);
     Route::group(['middleware'=>['auth']], function () {
         Route::group(['prefix'=>'private-office'], function (){
-
+            // office
             Route::get('/', 'PrivateOfficeController@index');
-
             // vacancies
             Route::group(['prefix'=>'vacancy'], function (){
-                Route::post('search-vacancy', 'VacancyController@searchVacancy');
+                Route::post('search-position', 'VacancyController@searchPosition');
                 Route::get('my-vacancies', 'VacancyController@myVacancies');
+                Route::get('bookmark-vacancies', 'VacancyController@bookmarkVacancies');
                 Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
                 Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
                 Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
                 Route::post('hide-vacancy-search', 'VacancyController@hideVacancyInSearch');
             });
             Route::resource('vacancy', 'VacancyController')->only([
-                'create', 'store', 'destroy', 'edit', 'update',
+                'create', 'store', 'destroy', 'edit', 'update'
             ]);
         });
     });
