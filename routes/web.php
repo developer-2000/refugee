@@ -62,7 +62,7 @@ Route::group([
 
     //    Route::get('/private-office/vacancy/{country?}/{region?}/{city?}', 'SearchVacancyController@jobSearch');
     Route::resource('vacancy', 'VacancyController')->only([
-        'index',
+        'index','show',
     ]);
     Route::group(['middleware'=>['auth']], function () {
         Route::group(['prefix'=>'private-office'], function (){

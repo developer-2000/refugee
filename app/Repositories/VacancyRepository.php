@@ -20,10 +20,8 @@ class VacancyRepository extends CoreRepository {
         $position = Position::firstOrCreate(
             ['title' => mb_strtolower($request->position, 'UTF-8')]
         );
-
         $arr = $this->makeArrayVacancy($request, $position);
         $arr['user_id'] = Auth::user()->id;
-
         return $this->model->create($arr);
     }
 
@@ -49,8 +47,8 @@ class VacancyRepository extends CoreRepository {
             'vacancy_suitable'=>[
                 'radio_name'=>$request->vacancy_suitable,
                 'inputs'=>[
-                    'suitable_from'=>$request->suitable_from,
-                    'suitable_to'=>$request->suitable_to,
+                    'from'=>$request->suitable_from,
+                    'to'=>$request->suitable_to,
                 ],
                 'comment'=>$request->suitable_commentary,
             ],

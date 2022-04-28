@@ -22,7 +22,7 @@
                 <div class="box-vacancy"
                      v-for="(vacancy, key) in vacancies.data" :key="key"
                      :id="`v${key}`"
-                     @click.prevent="selectVacancy"
+                     @click.prevent="transitionToVacancy(vacancy.alias)"
                 >
                     <!-- title -->
                     <div class="box-title-logo">
@@ -197,9 +197,8 @@
                 location.href = this.lang.prefix_lang+'private-office/vacancy/hidden-vacancies'
                 event.stopPropagation()
             },
-            selectVacancy(){
-
-                console.log('select')
+            transitionToVacancy(vacancy_alias){
+                location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias+'?country=US'
             },
             async bookmarkVacancy(vacancy_id, action){
                 let data = {

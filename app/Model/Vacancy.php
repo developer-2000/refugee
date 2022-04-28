@@ -19,6 +19,11 @@ class Vacancy extends Model
         'job_posting' => 'json',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'alias';
+    }
+
     // заголовок вакансии
     public function position() {
         return $this->belongsTo(Position::class, 'position_id', 'id');

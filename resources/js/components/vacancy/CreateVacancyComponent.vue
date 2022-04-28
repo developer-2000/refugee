@@ -795,7 +795,7 @@
             async createVacancy(){
                 this.alignNumbers()
                 let data = this.getValuesFields()
-                const response = await this.$http.post(`private-office/vacancy`, data)
+                const response = await this.$http.post(`/private-office/vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
@@ -983,8 +983,8 @@
                 this.rest_address = this.vacancy.rest_address
                 // Вакансия подходит для
                 this.objSuitable.suitable = this.vacancy.vacancy_suitable.radio_name;
-                this.objSuitable.suitable_from = this.vacancy.vacancy_suitable.inputs.suitable_from;
-                this.objSuitable.suitable_to = this.vacancy.vacancy_suitable.inputs.suitable_to;
+                this.objSuitable.suitable_from = this.vacancy.vacancy_suitable.inputs.from;
+                this.objSuitable.suitable_to = this.vacancy.vacancy_suitable.inputs.to;
                 this.objSuitable.suitable_commentary = this.vacancy.vacancy_suitable.comment;
                 $('#'+this.objSuitable.suitable).collapse('show');
                 this.type_employment = this.vacancy.type_employment

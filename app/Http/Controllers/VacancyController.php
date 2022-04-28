@@ -5,7 +5,8 @@ use App\Http\Requests\Vacancy\DeleteVacancyRequest;
 use App\Http\Requests\Vacancy\DuplicateVacancyRequest;
 use App\Http\Requests\Vacancy\EditVacancyRequest;
 use App\Http\Requests\Vacancy\SaveVacancyRequest;
-use App\Http\Requests\Vacancy\SearchVacancyRequest;
+use App\Http\Requests\Vacancy\SearchPositionRequest;
+use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
@@ -34,6 +35,16 @@ class VacancyController extends BaseController {
             ->paginate(10)->toArray();
 
         return view('index', compact('settings', 'vacancies'));
+    }
+
+    public function show(Vacancy $vacancy, ShowVacancyRequest $request)
+    {
+//        dd($request->all());
+        $settings = $this->getSettingsVacanciesAndCountries();
+        $vacancy = Vacancy::where('id', $request->vacancy_id)
+            ->with('position','employer.logo')
+            ->first();
+        return view('vacancies.show_vacancy', compact('settings','vacancy'));
     }
 
     /**
@@ -126,10 +137,10 @@ class VacancyController extends BaseController {
 
     /**
      * найти должность по первым символам
-     * @param  SearchVacancyRequest  $request
+     * @param  SearchPositionRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function searchPosition(SearchVacancyRequest $request)
+    public function searchPosition(SearchPositionRequest $request)
     {
         $position = Position::where('active',1)
             ->where('title', 'like', $request->value.'%')
@@ -278,21 +289,5 @@ class VacancyController extends BaseController {
         }
         return $settings;
     }
-
-
-
-
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param  \App\Model\Vacancy  $vacancy
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function show(Vacancy $vacancy)
-//    {
-//        //
-//    }
-
-
 
 }
