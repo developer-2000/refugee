@@ -12,27 +12,25 @@
             <!-- title -->
             <div class="box-title-logo container-fluid">
                 <div class="row">
-                    <h2 class="col-sm-8 title-vacancy">
-                        {{vacancy.position.title}}
+                    <h2 class="col-sm-9 title-vacancy">
+                        {{UpperCaseFirstCharacter(vacancy.position.title)}}
                     </h2>
-                    <div class="col-sm-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"/></svg>
-<!--                            Onsite, Remote-->
-                        {{settings.type_employment[vacancy.type_employment]}}
-                    </div>
-                    <div class="col-sm-2">
+                    <!-- company -->
+                    <div class="col-sm-3 company-vacancy">
                         <img :src="vacancy.employer.logo.url" alt="Test image" class="img-logo">
+                        <div class="font-weight-bold">
+                            {{vacancy.employer.title}}
+                        </div>
                     </div>
                 </div>
-
-
             </div>
             <!-- salary -->
             <div class="line-div">
-                <div class="font-weight-bold">
-                    {{salaryView(vacancy.salary)}} euro
+                <div class="font-weight-bold salary-vacancy">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M64 240C46.33 240 32 225.7 32 208C32 190.3 46.33 176 64 176H92.29C121.9 92.11 201.1 32 296 32H320C337.7 32 352 46.33 352 64C352 81.67 337.7 96 320 96H296C238.1 96 187.8 128.4 162.1 176H288C305.7 176 320 190.3 320 208C320 225.7 305.7 240 288 240H144.2C144.1 242.6 144 245.3 144 248V264C144 266.7 144.1 269.4 144.2 272H288C305.7 272 320 286.3 320 304C320 321.7 305.7 336 288 336H162.1C187.8 383.6 238.1 416 296 416H320C337.7 416 352 430.3 352 448C352 465.7 337.7 480 320 480H296C201.1 480 121.9 419.9 92.29 336H64C46.33 336 32 321.7 32 304C32 286.3 46.33 272 64 272H80.15C80.05 269.3 80 266.7 80 264V248C80 245.3 80.05 242.7 80.15 240H64z"/></svg>
+                    {{salaryView(vacancy.salary)}}
                 </div>
-                <div class="address-comment"
+                <div class="comment-vacancy"
                      v-if="vacancy.salary.comment !== null"
                 >
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -42,12 +40,14 @@
                     {{vacancy.salary.comment}}
                 </div>
             </div>
-            <!-- company -->
+            <!-- address -->
             <div class="line-div">
-                <div class="font-weight-bold">
-                    {{vacancy.employer.title}}
+                <div class="font-weight-bold address-vacancy">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"/></svg>
+                    <!--                            Onsite, Remote-->
+                    {{settings.type_employment[vacancy.type_employment]}}
                 </div>
-                <div class="address-comment">
+                <div class="comment-vacancy">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/>
@@ -68,7 +68,7 @@
                 >
                     {{vacancy.vacancy_suitable.inputs.from}} - {{vacancy.vacancy_suitable.inputs.to}} years
                 </div>
-                <div class="address-comment"
+                <div class="comment-vacancy"
                      v-if="vacancy.vacancy_suitable.comment !== null"
                 >
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -102,8 +102,11 @@
 </template>
 
 <script>
+    import general_functions_mixin from "../../mixins/general_functions_mixin.js";
+
     export default {
         mixins: [
+            general_functions_mixin
         ],
         data() {
             return {
@@ -177,6 +180,11 @@
                 height: 25px;
                 font-size: 26px;
             }
+            .company-vacancy{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
             .img-logo{
                 width: 100px;
                 float: right;
@@ -215,7 +223,7 @@
                 }
             }
         }
-        .address-comment{
+        .comment-vacancy{
             display: flex;
             align-items: center;
             svg{
@@ -230,7 +238,9 @@
             margin-bottom: 15px;
         }
         .education-vacancy,
-        .experience{
+        .experience,
+        .address-vacancy,
+        .salary-vacancy{
             svg{
                 width: 18px;
                 margin-right: 13px;

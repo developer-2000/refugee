@@ -469,45 +469,21 @@
                         </select>
                     </div>
                 </div>
-                <!-- Город для поиска -->
-                <div class="col-sm-4" v-if="objLocations.load_cities">
+                <!-- Язык вакансии -->
+                <div class="col-sm-4">
                     <div class="form-group">
-                        <!-- 1 -->
-                        <div class="checkbox-box">
-                            <input class="form-check-input" id="checkbox_city" type="checkbox"
-                                   v-model="objCity.checkbox_city"
-                            >
-                            <label for="checkbox_city">
-                                {{trans('vacancies','search_candidates')}}
-                            </label>
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_search_city')}`"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
-                        </div>
-                        <!-- 2 -->
-                        <div class="search-city" v-if="objCity.checkbox_city">
-                            <label for="search_city">
-                                {{trans('vacancies','city_search')}}
-                            </label>
-                            <select class="form-control select2" id="search_city"
-                                    @change="changeSelect($event.target.value, 'search_city')"
-                            >
-                                <option disabled="disabled" selected>
-                                    {{trans('vacancies','select_search_city')}}
-                                </option>
-                                <template v-for="(array, key) in objLocations.load_cities">
-                                    <!-- в случае редиктирования -->
-                                    <template v-if="objCity.search_city == array.code" >
-                                        <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                                    </template>
-                                    <template v-else>
-                                        <option :value="array.code" :key="key">{{array.name}}</option>
-                                    </template>
+                        <label for="language">Язык вакансии</label>
+                        <select class="form-control select2" id="language" multiple="multiple" data-placeholder="Выбрать">
+                            <template v-for="(obj, index) in lang.lang">
+                                <!-- в случае редиктирования -->
+                                <template v-if="objLanguage.languages.indexOf(''+index) !== -1" >
+                                    <option :value="index" :key="index" selected>{{obj.title}}</option>
                                 </template>
-                            </select>
-                        </div>
+                                <template v-else>
+                                    <option :value="index" :key="index">{{obj.title}}</option>
+                                </template>
+                            </template>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -691,6 +667,7 @@
 <script>
     import {required} from 'vuelidate/lib/validators'
     import localisation_functions_mixin from '../../mixins/localisation_functions_mixin'
+    import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
 
@@ -699,6 +676,7 @@
             localisation_functions_mixin,
             translation,
             response_methods_mixin,
+            general_functions_mixin
         ],
         data() {
             return {
@@ -723,6 +701,9 @@
                     categories: [],
                     categoriesArray: '',
                     boolChecked: false,
+                },
+                objLanguage: {
+                    languages: [],
                 },
                 objSuitable: {
                     suitable: 'it_not_matter',
@@ -753,10 +734,6 @@
                 objDisplayEmpContVacancy: {
                     contacts: [],
                     boolDisplay: false,
-                },
-                objCity: {
-                    checkbox_city: false,
-                    search_city: null,
                 },
             }
         },
@@ -925,6 +902,7 @@
                 return {
                     position: this.position,
                     categories: this.objCategory.categories,
+                    languages: this.objLanguage.languages,
                     country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
                     region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
                     city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
@@ -941,8 +919,6 @@
                     salary_comment: this.objSalary.salary_comment,
                     experience: this.experience,                        // Опыт работы
                     education: this.education,                          // Образование
-                    checkbox_city: this.objCity.checkbox_city,          // Город для поиска
-                    search_city: this.objCity.search_city,
                     text_description: this.objTextarea.textarea_candidate,             // Требования к кандидату
                     text_working: this.objTextarea.textarea_conditions,                 // Условия работы
                     text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
@@ -966,6 +942,11 @@
                     input.checked = true;
                 }
                 this.objCategory.boolChecked = true;
+
+                this.objLanguage.languages = this.vacancy.languages,
+
+
+
                 // Location
                 this.objLocations.load_countries = this.settings.obj_countries
                 this.objLocations.country = this.vacancy.country.code
@@ -997,9 +978,6 @@
                 $('#'+this.objSalary.salary_but).collapse('show');
                 this.experience = this.vacancy.experience
                 this.education = this.vacancy.education
-                // Город для поиска
-                this.objCity.checkbox_city = this.vacancy.search_city.bool
-                this.objCity.search_city = this.vacancy.search_city.code
                 this.objTextarea.textarea_candidate = this.vacancy.text_description
                 this.objTextarea.textarea_conditions = this.vacancy.text_working
                 this.objTextarea.textarea_responsibilities = this.vacancy.text_responsibilities
@@ -1014,8 +992,24 @@
                 // Размещение вакансии
                 this.job_posting = this.settings.job_status.indexOf(this.vacancy.job_posting.status_name)
             },
+            fillingLanguages(){
+                // language
+                $('#language').on('select2:select', (e) => {
+                    this.objLanguage.languages.push(e.params.data.id);
+                })
+                $('#language').on("select2:unselect", (e) => {
+                    // удалить этот елемент
+                    this.objLanguage.languages.splice(this.objLanguage.languages.indexOf(e.params.data.id), 1)
+                    // отключить раскрытие после удаления
+                    if (!e.params.originalEvent) {
+                        return;
+                    }
+                    e.params.originalEvent.stopPropagation();
+                });
+            },
             initializationFunc() {
                 this.createArrayCategories()
+                this.fillingLanguages()
                 this.objLocations.load_countries = this.settings.obj_countries
             },
         },
@@ -1028,6 +1022,8 @@
             this.initializationFunc()
             // инициализация всплывающих подсказок
             $('[data-toggle="tooltip"]').tooltip();
+
+            console.log(this.lang)
 
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {

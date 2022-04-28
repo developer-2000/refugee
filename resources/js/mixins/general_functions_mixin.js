@@ -26,5 +26,19 @@ export default {
             $('#authModal').modal('toggle')
             localStorage.setItem('url_click_no_auth', url)
         },
+        // проверка на integer
+        checkingInteger(value) {
+            if(parseInt(value) >= 0){
+                return true;
+            }
+            return false;
+        },
+        // первый в Верхний регистр
+        UpperCaseFirstCharacter(value) {
+            if (typeof value !== 'string') {
+                return ''
+            }
+            return value.charAt(0).toUpperCase() + value.slice(1)
+        },
     },
 }

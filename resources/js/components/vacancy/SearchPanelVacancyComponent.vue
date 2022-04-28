@@ -271,13 +271,13 @@
             </div>
         </div>
 
-
-<!--        <button type="button" @click="returnParent">Передать родителю</button>-->
+<!-- <button type="button" @click="returnParent">Передать родителю</button> -->
     </div>
 </template>
 
 <script>
     import localisation_functions_mixin from '../../mixins/localisation_functions_mixin'
+    import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
 
@@ -286,6 +286,7 @@
             localisation_functions_mixin,
             translation,
             response_methods_mixin,
+            general_functions_mixin
         ],
         data() {
             return {

@@ -20,6 +20,7 @@ class CreateVacanciesTable extends Migration
             $table->unsignedBigInteger('position_id')->comment('должность');
             $table->foreign('position_id')->references('id')->on('positions');
             $table->string('categories')->index()->nullable()->default(null)->comment('категории вакансии');
+            $table->string('languages')->index()->nullable()->default(null)->comment('языки вакансии');
             $table->string('country')->index()->comment('страна');
             $table->string('region')->index()->nullable()->default(null)->comment('регион');
             $table->string('city')->index()->nullable()->default(null)->comment('город');
@@ -29,7 +30,6 @@ class CreateVacanciesTable extends Migration
             $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, не указано, коментарий');
             $table->tinyInteger('experience')->index()->comment('опыт работы');
             $table->tinyInteger('education')->index()->comment('образование');
-            $table->string('search_city')->index()->nullable()->default(null)->comment('поиск кандидатов в другом городе');
             $table->text('text_description')->nullable()->default(null)->comment('описание вакансии');
             $table->text('text_working')->nullable()->default(null)->comment('условия работы');
             $table->text('text_responsibilities')->nullable()->default(null)->comment('обязанности работника');

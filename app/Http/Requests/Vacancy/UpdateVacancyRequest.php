@@ -53,8 +53,6 @@ class UpdateVacancyRequest extends FormRequest
             'salary_comment' => 'sometimes|nullable|string|max:255',
             'experience' => 'required|integer|in:0,1,2,3',
             'education' => 'required|integer|in:0,1,2,3,4',
-            'checkbox_city' => 'required|boolean',
-            'search_city' => 'sometimes|nullable|integer',
             'text_description' => 'sometimes|nullable|string',
             'text_working' => 'sometimes|nullable|string',
             'text_responsibilities' => 'sometimes|nullable|string',

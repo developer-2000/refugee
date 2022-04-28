@@ -69,9 +69,6 @@ export default {
                 this.objLocations.city = value
                 this.objLocations.bool_rest_address = true
             }
-            else if(name == 'search_city'){
-                this.objCity.search_city = value
-            }
             else if(name == 'employment'){
                 this.index_employment = value
             }
@@ -96,20 +93,6 @@ export default {
                     this.objLocations.load_regions = null
                     this.objLocations.load_cities = null
             }
-        },
-        // проверка на integer
-        checkingInteger(value) {
-            if(parseInt(value) >= 0){
-                return true;
-            }
-            return false;
-        },
-        // в Верхний регистр
-        UpperCaseFirstCharacter(value) {
-            if (typeof value !== 'string') {
-                return ''
-            }
-            return value.charAt(0).toUpperCase() + value.slice(1)
         },
         // конвертация строки
         salaryLineToEmpty() {

@@ -40,6 +40,7 @@ class VacancyRepository extends CoreRepository {
         return [
             'position_id'=>$position->id,
             'categories'=>$request->categories,
+            'languages'=>$request->languages,
             'country'=>$request->country !== null ? $request->country[0] : null,
             'region'=>$request->region !== null ? $request->region[0] : null,
             'city'=>$request->city !== null ? $request->city[0] : null,
@@ -64,10 +65,6 @@ class VacancyRepository extends CoreRepository {
             ],
             'experience'=>$request->experience,
             'education'=>$request->education,
-            'search_city'=>[
-                'bool'=>$request->checkbox_city,
-                'code'=>$request->search_city,
-            ],
             'text_description'=>$request->text_description,
             'text_working'=>$request->text_working,
             'text_responsibilities'=>$request->text_responsibilities,
