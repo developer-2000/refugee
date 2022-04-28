@@ -72,11 +72,12 @@ Route::group([
             Route::group(['prefix'=>'vacancy'], function (){
                 Route::post('search-position', 'VacancyController@searchPosition');
                 Route::get('my-vacancies', 'VacancyController@myVacancies');
-                Route::get('bookmark-vacancies', 'VacancyController@bookmarkVacancies');
                 Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
                 Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
                 Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
+                Route::get('bookmark-vacancies', 'VacancyController@bookmarkVacancies');
                 Route::post('hide-vacancy-search', 'VacancyController@hideVacancyInSearch');
+                Route::get('hidden-vacancies', 'VacancyController@hiddenVacancies');
             });
             Route::resource('vacancy', 'VacancyController')->only([
                 'create', 'store', 'destroy', 'edit', 'update'

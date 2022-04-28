@@ -21,6 +21,7 @@ Vue.component('top-menu-component', require('./components/menu/TopMenuComponent'
 Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
 Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
 Vue.component('bookmark-vacancies-component', require('./components/vacancy/BookmarkVacanciesComponent').default);
+Vue.component('hidden-vacancies-component', require('./components/vacancy/HiddenVacanciesComponent').default);
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('search-vacancy', require('./components/vacancy/SearchVacancyComponent').default);
 

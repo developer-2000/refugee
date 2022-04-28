@@ -13,7 +13,7 @@ use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\User;
 use App\Model\UserSaveVacancy;
-use App\Model\UserShowVacancy;
+use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use Illuminate\Http\Request;
@@ -206,7 +206,7 @@ class VacancyController extends BaseController {
     }
 
     /**
-     * показ вакансий в закладках
+     * показ сохраненных вакансий в закладках
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bookmarkVacancies()
@@ -220,13 +220,27 @@ class VacancyController extends BaseController {
     }
 
     /**
+     * показ скрытых вакансий в закладках
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function hiddenVacancies()
+    {
+        $settings = $this->getSettingsVacanciesAndCountries();
+        $vacancies = UserHideVacancy::where('user_id', Auth::user()->id)
+            ->with('vacancy.position','vacancy.employer.logo')
+            ->get();
+
+        return view('vacancies.hidden_vacancies', compact('settings','vacancies'));
+    }
+
+    /**
      * скрыть выбранную вакансию в поиске
      * @param  SaveVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function hideVacancyInSearch(SaveVacancyRequest $request)
     {
-        $this->switchActionVacancy($request, new UserShowVacancy());
+        $this->switchActionVacancy($request, new UserHideVacancy());
         return $this->getResponse();
     }
 

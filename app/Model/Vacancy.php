@@ -76,10 +76,10 @@ class Vacancy extends Model
         );
     }
 
-    // масив UserShowVacancy через User
+    // масив UserHideVacancy через User
     public function id_not_shown_vacancies() {
         return $this->hasManyThrough(
-            UserShowVacancy::class,
+            UserHideVacancy::class,
             User::class,
             'id',
             'user_id',
