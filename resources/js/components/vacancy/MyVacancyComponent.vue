@@ -10,9 +10,11 @@
 
         <div class="box-vacancy"
              v-for="(objVacancy, key) in user_data.vacancies" :key="key"
+             :data-alias="objVacancy.alias"
         >
             <!-- left -->
             <div class="left-site">
+                <!-- title -->
                 <div class="box-title">
                     <a href="#" class="title-vacancy">
                         {{objVacancy.position.title}}
@@ -27,7 +29,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"/></svg>
                     </div>
                 </div>
-
+                <!-- salary -->
                 <div class="salary-vacancy">
                     <div class="salary">
                         {{salaryView(objVacancy.salary)}}
@@ -60,13 +62,14 @@
                 </div>
                 <!-- button -->
                 <div class="button-vacancy">
-                    <!-- hidden to standard -->
+                    <!-- Разместить -->
                     <button type="button" class="btn btn-block btn-outline-primary"
                             v-if="objVacancy.job_posting.status_name == 'hidden'"
-                            @click="changeStatus(objVacancy.id, 0)"
+                            @click="changeStatus($event, objVacancy.id, 0)"
                     >
                         {{trans('vacancies','post')}}
                     </button>
+                    <!-- menu -->
                     <div class="btn-group dropleft">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{trans('vacancies','functions')}}
@@ -75,14 +78,14 @@
                             <!-- скрыть -->
                             <a class="dropdown-item" href="#"
                                v-if="objVacancy.job_posting.status_name == 'standard'"
-                               @click="changeStatus(objVacancy.id, 1)"
+                               @click="changeStatus($event, objVacancy.id, 1)"
                             >
                                 {{trans('vacancies','hide')}}
                             </a>
                             <!-- обновить -->
                             <a class="dropdown-item" href="#"
                                v-if="objVacancy.job_posting.status_name == 'standard'"
-                               @click="changeStatus(objVacancy.id, 0)"
+                               @click="changeStatus($event, objVacancy.id, 0)"
                             >
                                 {{trans('vacancies','update')}}
                             </a>
@@ -92,13 +95,15 @@
                             >
                                 {{trans('vacancies','edit')}}
                             </a>
+                            <!-- скопировать -->
                             <a class="dropdown-item" href="#"
-                               @click="duplicateVacancy(objVacancy.id)"
+                               @click="duplicateVacancy($event, objVacancy.id)"
                             >
                                 {{trans('vacancies','copy')}}
                             </a>
+                            <!-- удалить -->
                             <a class="dropdown-item" href="#"
-                               @click="deleteVacancy(objVacancy.id)"
+                               @click="deleteVacancy($event, objVacancy.id)"
                             >
                                 {{trans('vacancies','delete')}}
                             </a>
@@ -107,24 +112,83 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
+    import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
 
     export default {
         mixins: [
             translation,
             response_methods_mixin,
+            bookmark_vacancies_mixin
         ],
         data() {
             return {
             }
         },
         methods: {
+            async changeStatus(event, id, index){
+                event.stopPropagation()
+                let data = {
+                    id: id,
+                    index: index
+                };
+                const response = await this.$http.post(`/private-office/vacancy/up-vacancy-status`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            async duplicateVacancy(event, id){
+                event.stopPropagation()
+                let data = {
+                    id: id,
+                };
+                const response = await this.$http.post(`/private-office/vacancy/duplicate-vacancy`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            async deleteVacancy(event, id){
+                event.stopPropagation()
+                const response = await this.$http.destroy(`/private-office/vacancy/` + id, {})
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
             salaryView(salaryObj){
                 let salary_string = ''
                 let arr_field = this.settings.salary[salaryObj.radio_name]
@@ -192,60 +256,16 @@
 
                 return html_status
             },
-            async changeStatus(id, index){
-                let data = {
-                    id: id,
-                    index: index
-                };
-                const response = await this.$http.post(`/private-office/vacancy/up-vacancy-status`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            async duplicateVacancy(id){
-                let data = {
-                    id: id,
-                };
-                const response = await this.$http.post(`/private-office/vacancy/duplicate-vacancy`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            async deleteVacancy(id){
-                const response = await this.$http.destroy(`/private-office/vacancy/` + id, {})
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
+            initialData(){
+                // click menu vacancy
+                $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
+                    e.stopPropagation();
+                });
+                // click vacancy
+                $(document).on('click', '.box-vacancy', (e) => {
+                    let alias = $(e.target).attr('data-alias')
+                    this.transitionToVacancy(alias)
+                });
             }
         },
         props: [
@@ -254,6 +274,7 @@
             'user_data',
         ],
         mounted() {
+            this.initialData()
             // console.log(this.user_data)
             // console.log(this.settings)
         },

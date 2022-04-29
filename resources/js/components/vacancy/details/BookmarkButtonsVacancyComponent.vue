@@ -7,7 +7,8 @@
     <div class="panel-button">
         <!-- Сохранить -->
         <!-- 1 -->
-        <button class="btn btn-block btn-outline-primary first-btn btn-sm" type="button"
+        <button class="btn btn-block btn-outline-primary first-btn" type="button"
+                :class="{'btn-sm': which_button_show == 'search_vacancy'}"
                 @click.prevent="changeButton($event, 'save_', 'save-two_', 'show_', 1)"
                 data-bool="1"
                 :data-id="vacancy.id"
@@ -44,7 +45,8 @@
         </button>
         <!-- Не показывать -->
         <!-- 1 -->
-        <button class="btn btn-block btn-outline-primary btn-sm" type="button"
+        <button class="btn btn-block btn-outline-primary" type="button"
+                :class="{'btn-sm': which_button_show == 'search_vacancy'}"
                 @click.prevent="changeButton($event, 'show_', 'show-two_', 'save_', 1)"
                 data-bool="1"
                 :data-id="vacancy.id"
