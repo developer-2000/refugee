@@ -42,7 +42,7 @@ class VacancyController extends BaseController {
 //        dd($request->all());
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancy = Vacancy::where('id', $request->vacancy_id)
-            ->with('position','employer.logo')
+            ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
             ->first();
         return view('vacancies.show_vacancy', compact('settings','vacancy'));
     }

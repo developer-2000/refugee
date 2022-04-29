@@ -278,6 +278,11 @@ label{
 .btn-outline-danger path{
     fill: #e3342f;
 }
+.btn-primary path,
+.btn-danger path,
+.btn-success path{
+    fill: white;
+}
 .btn-warning {
     color: #1f2d3d;
     background-color: #ffc107;

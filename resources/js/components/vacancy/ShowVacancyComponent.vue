@@ -3,8 +3,19 @@
         <!-- top panel -->
         <div class="top-panel">
             <button class="btn btn-block btn-outline-primary" type="button">
-                Button
+                Откликнуться
             </button>
+            <button class="btn btn-block btn-outline-primary" type="button">
+                Найти похожие вакансии
+            </button>
+
+            <!-- кнопки закладок вакансий -->
+            <bookmark_buttons
+                :lang="lang"
+                :vacancy="vacancy"
+                :user="user"
+                :which_button_show="'show_vacancy'"
+            ></bookmark_buttons>
         </div>
 
         <!-- vacancy -->
@@ -38,6 +49,15 @@
                             d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/>
                     </svg>
                     {{vacancy.salary.comment}}
+                </div>
+            </div>
+            <!-- languages -->
+            <div class="line-div">
+                <div class="font-weight-bold languages-vacancy">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M448 164C459 164 468 172.1 468 184V188H528C539 188 548 196.1 548 208C548 219 539 228 528 228H526L524.4 232.5C515.5 256.1 501.9 279.1 484.7 297.9C485.6 298.4 486.5 298.1 487.4 299.5L506.3 310.8C515.8 316.5 518.8 328.8 513.1 338.3C507.5 347.8 495.2 350.8 485.7 345.1L466.8 333.8C462.4 331.1 457.1 328.3 453.7 325.3C443.2 332.8 431.8 339.3 419.8 344.7L416.1 346.3C406 350.8 394.2 346.2 389.7 336.1C385.2 326 389.8 314.2 399.9 309.7L403.5 308.1C409.9 305.2 416.1 301.1 422 298.3L409.9 286.1C402 278.3 402 265.7 409.9 257.9C417.7 250 430.3 250 438.1 257.9L452.7 272.4L453.3 272.1C465.7 259.9 475.8 244.7 483.1 227.1H376C364.1 227.1 356 219 356 207.1C356 196.1 364.1 187.1 376 187.1H428V183.1C428 172.1 436.1 163.1 448 163.1L448 164zM160 233.2L179 276H140.1L160 233.2zM0 128C0 92.65 28.65 64 64 64H576C611.3 64 640 92.65 640 128V384C640 419.3 611.3 448 576 448H64C28.65 448 0 419.3 0 384V128zM320 384H576V128H320V384zM178.3 175.9C175.1 168.7 167.9 164 160 164C152.1 164 144.9 168.7 141.7 175.9L77.72 319.9C73.24 329.1 77.78 341.8 87.88 346.3C97.97 350.8 109.8 346.2 114.3 336.1L123.2 315.1H196.8L205.7 336.1C210.2 346.2 222 350.8 232.1 346.3C242.2 341.8 246.8 329.1 242.3 319.9L178.3 175.9z"/></svg>
+                    <template v-for="(value, key) in vacancy.languages">
+                        {{lang.lang[value].title}},
+                    </template>
                 </div>
             </div>
             <!-- address -->
@@ -103,10 +123,14 @@
 
 <script>
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
+    import bookmark_buttons from "./details/BookmarkButtonsVacancyComponent";
 
     export default {
+        components: {
+            'bookmark_buttons': bookmark_buttons,
+        },
         mixins: [
-            general_functions_mixin
+            general_functions_mixin,
         ],
         data() {
             return {
@@ -147,9 +171,11 @@
             'lang',   // масив названий и url языка
             'vacancy',
             'settings',
+            'user',
         ],
         mounted() {
             console.log(this.vacancy)
+            // console.log(this.lang)
         },
     }
 </script>
@@ -164,8 +190,11 @@
         border-bottom: 1px solid #dee2e6;
         background-color: #fff;
         padding: 15px 25px;
+        display: flex;
+        z-index: 1;
         button{
             width: auto;
+            margin-right: 15px;
         }
     }
     .box-vacancies {
@@ -249,12 +278,16 @@
                 }
             }
         }
+        .languages-vacancy{
+            svg{
+                width: 23px;
+                margin-right: 8px;
+                path{
+                    fill: #1d68a7;
+                }
+            }
+        }
     }
-
-
-
-
-
 
 </style>
 
