@@ -22,6 +22,7 @@ class VacancyRepository extends CoreRepository {
         );
         $arr = $this->makeArrayVacancy($request, $position);
         $arr['user_id'] = Auth::user()->id;
+        $arr['alias'] = sha1(time());
         return $this->model->create($arr);
     }
 
@@ -30,10 +31,9 @@ class VacancyRepository extends CoreRepository {
             ['title' => mb_strtolower($request->position, 'UTF-8')]
         );
 
-        return $this->model->where('id', $request->id)
+        return $this->model->where('id', $request->vacancy_id)
             ->where('user_id', Auth::user()->id)
             ->update($this->makeArrayVacancy($request, $position));
-
     }
 
     private function makeArrayVacancy($request, $position){
@@ -74,7 +74,6 @@ class VacancyRepository extends CoreRepository {
                 'status_name'=> $this->settings->job_status[$request->job_posting],
                 'create_time'=>now(),
             ],
-            'alias'=>sha1(time()),
         ];
     }
 }

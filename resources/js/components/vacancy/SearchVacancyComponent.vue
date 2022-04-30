@@ -24,66 +24,14 @@
                      :id="`v${key}`"
                      @click.prevent="transitionToVacancy(vacancy.alias)"
                 >
-                    <!-- title -->
-                    <div class="box-title-logo">
-                        <h2 class="title-vacancy">
-                            {{vacancy.position.title}}
-                        </h2>
-                        <img :src="vacancy.employer.logo.url" alt="Test image" class="img-logo">
-                    </div>
-                    <!-- salary -->
-                    <div class="line-div">
-                        <div class="font-weight-bold">
-                            {{salaryView(vacancy.salary)}} euro
-                        </div>
-                        <div class="address-comment"
-                             v-if="vacancy.salary.comment !== null"
-                        >
-                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/>
-                            </svg>
-                            {{vacancy.salary.comment}}
-                        </div>
-                    </div>
-                    <!-- company -->
-                    <div class="line-div">
-                        <div class="font-weight-bold">
-                            {{vacancy.employer.title}}
-                        </div>
-                        <div class="address-comment">
-                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/>
-                            </svg>
-                            {{addressView(vacancy)}}
-                        </div>
-                    </div>
-                    <!-- experience -->
-                    <div class="line-div">
-                        <div class="address-comment">
-                            {{settings.type_employment[vacancy.type_employment]}}
-                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/>
-                            </svg>
-                            {{settings.work_experience[vacancy.experience]}}
-                        </div>
-                    </div>
-                    <!-- description -->
-                    <div class="line-div">
-                        <div class="address-comment display-inline">
-                            <template v-if="vacancy.text_description">
-                                {{ cutTags(vacancy.text_description).slice(0, 150) }}
-                                <div class="link-vacancy display-inline">
-                                    ...
-                                    <svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/>
-                                    </svg>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
+                    <!-- vacancy -->
+                    <vacancy_template
+                        :vacancy="vacancy"
+                        :settings="settings"
+                        :lang="lang"
+                        :page="'search'"
+                    ></vacancy_template>
+
                     <!-- кнопки закладок вакансий -->
                     <bookmark_buttons
                         :lang="lang"
@@ -110,11 +58,13 @@
     import search_panel from './SearchPanelVacancyComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
+    import vacancy_template from "./details/VacancyTemplateComponent";
 
     export default {
         components: {
             'search_panel': search_panel,
             'bookmark_buttons': bookmark_buttons,
+            'vacancy_template': vacancy_template,
         },
         mixins: [
             general_functions_mixin,
@@ -243,15 +193,6 @@
             .font-weight-bold{
                 font-weight: bold;
             }
-            .link-vacancy{
-                color: #1d68a7;
-                svg{
-                    margin: 0 5px 0 0;
-                    path{
-                        fill: #1d68a7;
-                    }
-                }
-            }
         }
         .address-comment{
             display: flex;
@@ -261,9 +202,7 @@
                 margin: 0 5px;
             }
         }
-        .display-inline{
-            display: inline;
-        }
+
     }
 
 </style>

@@ -10,6 +10,7 @@ use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
+use App\Http\Traits\BreadcrumbsVacancyTraite;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\User;
@@ -19,14 +20,18 @@ use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class VacancyController extends BaseController {
+    use BreadcrumbsVacancyTraite;
 
     protected $repository;
 
     public function __construct() {
         $this->repository = new VacancyRepository();
+        $this->setElementsBread();
     }
+
 
     public function index()
     {
@@ -39,12 +44,12 @@ class VacancyController extends BaseController {
 
     public function show(Vacancy $vacancy, ShowVacancyRequest $request)
     {
-//        dd($request->all());
+        $back_url = $this->getElementsBread();
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancy = Vacancy::where('id', $request->vacancy_id)
             ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
             ->first();
-        return view('vacancies.show_vacancy', compact('settings','vacancy'));
+        return view('vacancies.show_vacancy', compact('settings','vacancy','back_url'));
     }
 
     /**
@@ -65,30 +70,6 @@ class VacancyController extends BaseController {
     {
         $store = $this->repository->storeVacancy($request);
         return $this->getResponse();
-    }
-
-    /**
-     * delete vacancy
-     * @param  DeleteVacancyRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(DeleteVacancyRequest $request)
-    {
-        $vacancy = Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
-        if(!$vacancy){
-            return $this->getErrorResponse('Not found!');
-        }
-
-        $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
-
-        $vacancy->delete();
-        if($count_position === 1){
-            Position::where('id', $vacancy->position_id)->delete();
-        }
-
-        return $this->getResponse($count_position);
     }
 
     /**
@@ -122,9 +103,8 @@ class VacancyController extends BaseController {
     public function update(UpdateVacancyRequest $request)
     {
         // моя вакансия
-        $vacancy = Vacancy::where('id', $request->id)
+        $vacancy = Vacancy::where('id', $request->vacancy_id)
             ->where('user_id', Auth::user()->id)
-            ->with('position')
             ->first();
         if(!$vacancy){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
@@ -133,6 +113,30 @@ class VacancyController extends BaseController {
         $update = $this->repository->updateVacancy($request);
 
         return $this->getResponse();
+    }
+
+    /**
+     * delete vacancy
+     * @param  DeleteVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(DeleteVacancyRequest $request)
+    {
+        $vacancy = Vacancy::where('id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+        if(!$vacancy){
+            return $this->getErrorResponse('Not found!');
+        }
+
+        $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
+
+        $vacancy->delete();
+        if($count_position === 1){
+            Position::where('id', $vacancy->position_id)->delete();
+        }
+
+        return $this->getResponse($count_position);
     }
 
     /**
@@ -157,8 +161,11 @@ class VacancyController extends BaseController {
     {
         $settings = config('site.settings_vacancy');
         $user_data = User::where('id', Auth::user()->id)
-            ->with('vacancies.position')
+            ->with('vacancies.position', 'vacancies.employer.logo')
             ->first();
+
+//        dd($user_data->toArray()['vacancies'][0]);
+
         return view('vacancies/my_vacancies', compact('user_data','settings'));
     }
 

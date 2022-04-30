@@ -18,7 +18,7 @@ class UpdateVacancyRequest extends FormRequest
 
     public function all($keys = null) {
         $data = parent::all($keys);
-        $data['id'] = $this->route('vacancy');
+        $data['vacancy_id'] = $this->route('vacancy');
         return $data;
     }
 
@@ -30,7 +30,7 @@ class UpdateVacancyRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|exists:vacancies,id',
+            'vacancy_id' => 'required|integer|exists:vacancies,id',
             'position' => 'required|string|max:255',
             'categories' => 'sometimes|array',
             'categories.*' => 'integer',
