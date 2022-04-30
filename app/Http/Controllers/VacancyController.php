@@ -129,14 +129,14 @@ class VacancyController extends BaseController {
             return $this->getErrorResponse('Not found!');
         }
 
+        // если название только у этой вакансии - удалить
         $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
-
-        $vacancy->delete();
         if($count_position === 1){
             Position::where('id', $vacancy->position_id)->delete();
         }
+        $vacancy->delete();
 
-        return $this->getResponse($count_position);
+        return $this->getResponse();
     }
 
     /**

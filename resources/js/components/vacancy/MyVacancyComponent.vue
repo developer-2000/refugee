@@ -160,6 +160,7 @@
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.reload()
+                            // console.log(res)
                         }
                         // custom ошибки
                         else{
@@ -212,8 +213,8 @@
             initialData(){
                 // зарплата
                 $('.box-salary').css('margin-top','0')
-
-                $('.title-vacancy').removeClass("col-sm-9")
+                // h2 заголовок в моих вакансиях
+                $('.title-vacancy').removeClass("col-sm-9").css('margin','0px 0 10px')
                 // click menu vacancy
                 $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
                     e.stopPropagation();
@@ -221,6 +222,11 @@
                 // click vacancy
                 document.querySelectorAll('.box-vacancy').forEach( (el) => {
                     el.addEventListener('click', (e) => {
+                        // клик по родителю
+                        if ( $(e.target).hasClass("dropdown-toggle") ) {
+                            return false
+                        }
+                        // переход по url
                         let target = e.target;
                         // с дочернего на .box-vacancy
                         let parent = target.closest('.box-vacancy');

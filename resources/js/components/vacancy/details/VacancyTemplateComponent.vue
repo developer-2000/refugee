@@ -218,7 +218,7 @@
     .box-title-logo {
         padding: 0;
         .title-vacancy {
-            margin: 5px 0 10px;
+            margin: -35px 0 10px;
             padding: 0;
             line-height: 25px;
             height: 25px;
@@ -244,7 +244,7 @@
         .verified{
             color: #f6993f;
             margin-left: 10px;
-            height: 30px;
+            height: 35px;
             svg {
                 width: 16px;
                 path{
@@ -288,7 +288,7 @@
         align-items: center;
     }
     .box-salary {
-        margin-top: -15px;
+        margin-top: -35px;
     }
     .salary-vacancy {
         svg {
