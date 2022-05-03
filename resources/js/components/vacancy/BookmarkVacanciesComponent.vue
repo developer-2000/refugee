@@ -45,7 +45,7 @@
 
             <!-- buttons -->
             <div class="panel-button">
-                <button class="btn btn-block btn-outline-danger btn-sm" type="button"
+                <button class="btn btn-block btn-outline-danger" type="button"
                         @click="bookmarkVacancy($event,array.vacancy.id)"
                 >
                     Убрать

@@ -60,8 +60,9 @@ b{
 .link-back:hover svg path{
     fill:#1d68a7;
 }
-
-
+.card-primary:not(.card-outline) > .card-header {
+    background-color: #1d68a7;
+}
 /* sidebar left */
 .brand-link{
     display: flex;
@@ -343,8 +344,6 @@ label{
     padding-top: 2px;
 }
 
-
-
 /* my vacation */
 .mode-vacancy{
     display: flex;
@@ -382,9 +381,6 @@ label{
 .box-vacancy:hover .link-vacancy{
       color: #1d68a7;
   }
-
-
-
 
 @media (max-width: 575px) {
     #left-sidebar{

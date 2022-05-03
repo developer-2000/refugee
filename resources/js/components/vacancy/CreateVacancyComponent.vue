@@ -36,12 +36,12 @@
                         >
                         <div class="block_position_list">
                             <div class="dropdown-menu" id="position_list">
-                                    <div class="dropdown-item"
-                                         v-for="(value, key) in position_list" :key="key"
-                                         @click="setValuePosition(value)"
-                                    >
-                                        {{value}}
-                                    </div>
+                                <div class="dropdown-item"
+                                     v-for="(value, key) in position_list" :key="key"
+                                     @click="setValuePosition(value)"
+                                >
+                                    {{value}}
+                                </div>
                             </div>
                         </div>
                         <div class="invalid-feedback" v-if="!$v.position.required">{{trans('vacancies','job_title')}}</div>

@@ -2,6 +2,9 @@
 
  * документация функционала в documents/localization url смена из фронта.doc
 
+#### custom pagination laravel + vue.js
+https://medium.com/introcept-hub/create-pagination-component-using-laravel-and-vue-js-e5709aac2724
+
 #### переключатель bootstrap switch
 https://gitbrent.github.io/bootstrap4-toggle/
 

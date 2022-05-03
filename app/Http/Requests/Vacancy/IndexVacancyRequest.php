@@ -3,7 +3,7 @@ namespace App\Http\Requests\Vacancy;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowVacancyRequest extends FormRequest
+class IndexVacancyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,8 +17,7 @@ class ShowVacancyRequest extends FormRequest
 
     public function all($keys = null) {
         $data = parent::all($keys);
-        $data['vacancy_id'] = $this->route('vacancy.id');
-//        $data['country'] = $this->query('country');
+        $data['position'] = $this->query('position');
         return $data;
     }
 
@@ -30,8 +29,7 @@ class ShowVacancyRequest extends FormRequest
     public function rules()
     {
         return [
-            'vacancy_id' => 'required|integer|exists:vacancies,id',
-//            'country' => 'sometimes|string|max:2',
+            'position' => 'sometimes|nullable|string|max:100',
         ];
     }
 }

@@ -7,11 +7,26 @@
         <!-- search line -->
         <div class="top-search">
             <div class="form-group">
-                <input type="text" class="form-control" maxlength="100" autocomplete="off"
-                       placeholder="Поиск"
-                       v-model="search_value"
-                >
-                <button type="button" class="btn btn-block btn-primary">Искать</button>
+                <div class="box-position">
+                    <input type="text" class="form-control" maxlength="100" autocomplete="off"
+                           placeholder="Поиск"
+                           v-model="position"
+                           @keyup="searchPosition($event.target.value)"
+                    >
+                    <div class="block_position_list">
+                        <div class="dropdown-menu" id="position_list">
+                            <div class="dropdown-item"
+                                 v-for="(value, key) in position_list" :key="key"
+                                 @click="setValuePosition(value)"
+                            >
+                                {{value}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-block btn-primary"
+                        @click="getVacancies({page:null})"
+                >Искать</button>
             </div>
         </div>
 
@@ -40,6 +55,15 @@
                         :which_button_show="'search_vacancy'"
                     ></bookmark_buttons>
                 </div>
+
+                <pagination
+                    :pagination="vacancies"
+                    @paginate="getVacancies"
+                    :offset="1"
+                >
+                </pagination>
+
+
             </div>
 
             <!-- search panel -->
@@ -55,32 +79,88 @@
 </template>
 
 <script>
+    import pagination from "./details/PaginationComponent";
     import search_panel from './SearchPanelVacancyComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import vacancy_template from "./details/VacancyTemplateComponent";
+    import response_methods_mixin from "../../mixins/response_methods_mixin";
 
     export default {
         components: {
+            'pagination': pagination,
             'search_panel': search_panel,
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
         },
         mixins: [
             general_functions_mixin,
+            response_methods_mixin,
         ],
         data() {
             return {
-                search_value: '',
+                position: '',
+                position_list: [],
                 description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠',
             }
         },
         methods: {
+            getVacancies(obj){
+                let params = new URLSearchParams(window.location.search)
+                params.delete('page')
+                params.delete('position')
+
+                // page
+                if(obj.page != undefined && obj.page != null){
+                    params.set('page',obj.page)
+                }
+                // position
+                if(this.position != ''){
+                    params.set('position',this.position)
+                }
+
+                location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
+            },
+            async searchPosition(value){
+                if(!value.length){
+                    $('#position_list').removeClass('show')
+                    return false
+                }
+                let data = {
+                    value: value,
+                };
+                const response = await this.$http.post(`/private-office/vacancy/search-position`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            console.log(res)
+                            // вернет только опубликованные
+                            if(res.data.message.position.length){
+                                this.position_list = res.data.message.position
+                                $('#position_list').addClass('show')
+                            }
+                            else{
+                                $('#position_list').removeClass('show')
+                            }
+                        }
+                        // custom ошибки
+                        else{
+
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        // this.messageError(err)
+                    })
+            },
+            setValuePosition(value){
+                $('#position_list').removeClass('show')
+                this.position = value
+            },
             updateData(data){
                 console.log(data)
             },
             transitionToVacancy(vacancy_alias){
-                location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias+'?country=US'
+                location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias
             },
             salaryView(salaryObj){
                 let salary_string = ''
@@ -120,6 +200,14 @@
         ],
         mounted() {
             console.log(this.vacancies)
+
+            // https://flaviocopes.com/urlsearchparams/
+            const params = new URLSearchParams(window.location.search)
+            if(params.has('position')){
+                // console.log( params.get('position') )
+                this.position = params.get('position')
+            }
+
         },
     }
 </script>
@@ -143,12 +231,14 @@
             .form-group{
                 display: flex;
                 margin: 0;
-                input{
-                    border-radius: 4px 0 0 4px;
+                .box-position{
                     min-width: 75%;
-                    font-size: 18px;
-                    height: 38px;
-                    padding-right: 30px;
+                    input{
+                        border-radius: 4px 0 0 4px;
+                        font-size: 18px;
+                        height: 38px;
+                        padding-right: 30px;
+                    }
                 }
                 button{
                     border-radius: 0 4px 4px 0;
@@ -156,6 +246,18 @@
                     font-size: 18px;
                     height: 38px;
                     line-height: 0;
+                }
+            }
+            .block_position_list{
+                position: relative;
+                #position_list{
+                    width: 100%;
+                    padding: 0;
+                    cursor: pointer;
+                    top: -3px;
+                    & > div{
+                        padding: 1px 12px;
+                    }
                 }
             }
         }

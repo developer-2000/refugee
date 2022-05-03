@@ -76,4 +76,16 @@ class VacancyRepository extends CoreRepository {
             ],
         ];
     }
+
+    public function initialDataForSampling($request, $model){
+        $coll = collect([]);
+        if (isset($request->position)) {
+            $coll = (new Position())->where('title', 'like', '%' . $request->position . '%')
+                ->select('id')
+                ->get();
+        }
+        $model = $model->whereIn('position_id',$coll->toArray());
+
+        return $model;
+    }
 }

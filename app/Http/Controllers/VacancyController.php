@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Vacancy\DeleteVacancyRequest;
 use App\Http\Requests\Vacancy\DuplicateVacancyRequest;
 use App\Http\Requests\Vacancy\EditVacancyRequest;
+use App\Http\Requests\Vacancy\IndexVacancyRequest;
 use App\Http\Requests\Vacancy\SaveVacancyRequest;
 use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Http\Requests\Vacancy\ShowVacancyRequest;
@@ -33,12 +34,16 @@ class VacancyController extends BaseController {
     }
 
 
-    public function index()
+    public function index(IndexVacancyRequest $request)
     {
         $settings = $this->getSettingsVacanciesAndCountries();
-        $vacancies = Vacancy::with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
-            ->paginate(10)->toArray();
+//        dd($request->all());
 
+        $vacancies = $this->repository->initialDataForSampling($request, new Vacancy())
+            ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
+            ->paginate(1);
+
+//        dd($vacancies->toArray());
         return view('index', compact('settings', 'vacancies'));
     }
 

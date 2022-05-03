@@ -35,7 +35,7 @@ export default {
             return address_string
         },
         transitionToVacancy(vacancy_alias){
-            location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias+'?country=US'
+            location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias
         },
     },
 }
