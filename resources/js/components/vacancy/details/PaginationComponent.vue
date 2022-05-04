@@ -22,7 +22,9 @@
         <li class="page-item"
             v-if="pagination.current_page < pagination.last_page"
         >
-            <a class="page-link" href="javascript:void(0)" aria-label="Next" @click.prevent="changePage(pagination.current_page + 1)">
+            <a class="page-link" href="javascript:void(0)" aria-label="Next"
+               @click.prevent="changePage(pagination.current_page + 1)"
+            >
                 <span aria-hidden="true">Слудующая</span>
             </a>
         </li>

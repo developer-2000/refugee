@@ -12,7 +12,9 @@
                            placeholder="Поиск"
                            v-model="position"
                            @keyup="searchPosition($event.target.value)"
+                           @keydown="enterKey"
                     >
+                    <!-- подсказка -->
                     <div class="block_position_list">
                         <div class="dropdown-menu" id="position_list">
                             <div class="dropdown-item"
@@ -25,7 +27,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-block btn-primary"
-                        @click="getVacancies({page:null})"
+                        @click="searchVacancies"
                 >Искать</button>
             </div>
         </div>
@@ -57,13 +59,12 @@
                 </div>
 
                 <pagination
+                    v-if="vacancies.last_page > 1"
                     :pagination="vacancies"
-                    @paginate="getVacancies"
+                    @paginate="searchVacancies"
                     :offset="1"
                 >
                 </pagination>
-
-
             </div>
 
             <!-- search panel -->
@@ -71,7 +72,7 @@
                 <search_panel
                     :lang="lang"
                     :settings="settings"
-                    @returnParent="updateData"
+                    @returnParent="getVacancies"
                 ></search_panel>
             </div>
         </div>
@@ -105,22 +106,60 @@
             }
         },
         methods: {
-            getVacancies(obj){
+            enterKey(e){
+                if(e.code == 'Enter'){
+                    this.searchVacancies({})
+                }
+            },
+            searchVacancies(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
-                params.delete('position')
-
                 // page
                 if(obj.page != undefined && obj.page != null){
                     params.set('page',obj.page)
                 }
                 // position
-                if(this.position != ''){
+                if(this.position == ''){
+                    params.delete('position')
+                }
+                else{
                     params.set('position',this.position)
                 }
-
-                location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
+                params.sort()
+                let query = (params.toString() == '') ? '' : '?'+params.toString()
+                location.href = this.lang.prefix_lang+'vacancy'+query
             },
+            getVacancies(obj){
+                let params = new URLSearchParams(window.location.search)
+                params.delete('page')
+                params.delete('country')
+                params.delete('region')
+                params.delete('city')
+                params.delete('categories')
+
+                // country
+                if(obj.country != undefined && obj.country != null){
+                    params.set('country',obj.country)
+                }
+                // region
+                if(obj.region != undefined && obj.region != null){
+                    params.set('region',obj.region)
+                }
+                // city
+                if(obj.city != undefined && obj.city != null){
+                    params.set('city',obj.city)
+                }
+                // categories
+                if(obj.categories != undefined && obj.categories.length){
+                    params.set('categories',obj.categories.toString())
+                }
+
+                params.sort()
+                let query = (params.toString() == '') ? '' : '?'+params.toString()
+
+                location.href = this.lang.prefix_lang+'vacancy'+query
+            },
+            // поиск похожих заголовков
             async searchPosition(value){
                 if(!value.length){
                     $('#position_list').removeClass('show')
@@ -132,7 +171,6 @@
                 const response = await this.$http.post(`/private-office/vacancy/search-position`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            console.log(res)
                             // вернет только опубликованные
                             if(res.data.message.position.length){
                                 this.position_list = res.data.message.position
@@ -204,10 +242,8 @@
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)
             if(params.has('position')){
-                // console.log( params.get('position') )
                 this.position = params.get('position')
             }
-
         },
     }
 </script>

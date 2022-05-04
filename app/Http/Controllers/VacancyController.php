@@ -39,11 +39,11 @@ class VacancyController extends BaseController {
         $settings = $this->getSettingsVacanciesAndCountries();
 //        dd($request->all());
 
-        $vacancies = $this->repository->initialDataForSampling($request, new Vacancy())
+        $vacancies = $this->repository->initialDataForSampling($request)
             ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
-            ->paginate(1);
-
+            ->paginate(2);
 //        dd($vacancies->toArray());
+
         return view('index', compact('settings', 'vacancies'));
     }
 

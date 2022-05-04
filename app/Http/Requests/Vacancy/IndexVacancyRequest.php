@@ -18,6 +18,10 @@ class IndexVacancyRequest extends FormRequest
     public function all($keys = null) {
         $data = parent::all($keys);
         $data['position'] = $this->query('position');
+        $data['country'] = $this->query('country');
+        $data['region'] = $this->query('region');
+        $data['city'] = $this->query('city');
+        $data['categories'] = $this->query('categories');
         return $data;
     }
 
@@ -30,6 +34,10 @@ class IndexVacancyRequest extends FormRequest
     {
         return [
             'position' => 'sometimes|nullable|string|max:100',
+            'country' => 'sometimes|nullable|string|max:2',
+            'region' => 'sometimes|nullable|string|max:8',
+            'city' => 'sometimes|nullable|string|max:8',
+            'categories' => 'sometimes|nullable|string|max:200',
         ];
     }
 }

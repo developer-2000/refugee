@@ -106,6 +106,11 @@ export default {
         // страна
         $('#country').on('select2:select', (e) => {
             this.clearLocation()
+            // выбрано "Выбрать"
+            if(e.params.data.id == ''){
+                return false
+            }
+
             this.objLocations.country = e.params.data.id
             this.loadRegions();
         })

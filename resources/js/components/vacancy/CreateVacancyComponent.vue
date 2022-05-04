@@ -942,10 +942,7 @@
                     input.checked = true;
                 }
                 this.objCategory.boolChecked = true;
-
                 this.objLanguage.languages = this.vacancy.languages,
-
-
 
                 // Location
                 this.objLocations.load_countries = this.settings.obj_countries

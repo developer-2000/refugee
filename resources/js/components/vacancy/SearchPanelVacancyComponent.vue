@@ -1,5 +1,11 @@
 <template>
     <div class="box-search">
+        <!-- сбросить все-->
+        <a v-if="locationSearch != ''"
+            class="but-reset-all"
+            :href="`${lang.prefix_lang}vacancy`">
+            сбросить все
+        </a>
 
         <!-- Location -->
         <div class="card card-primary">
@@ -14,7 +20,6 @@
             </div>
             <!-- body -->
             <div class="card-body">
-
                 <div class="form-group location-grope">
                     <!-- Country -->
                     <div class="box-div">
@@ -22,43 +27,57 @@
                             Страна поиска
                         </label>
                         <select class="form-control select2" id="country">
-                            <option disabled="disabled" selected>
+                            <option :value="null" selected>
                                 Выбрать
                             </option>
                             <template v-for="(array, key) in settings.obj_countries">
-                                <option :value="array.code" :key="key">{{array.name}}</option>
+                                <!-- в случае обновления страницы -->
+                                <template v-if="objLocations.country == array.code" >
+                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                </template>
                             </template>
                         </select>
                     </div>
                     <!-- Region -->
-                    <div class="box-div" v-if="objLocations.load_regions">
+                    <div class="box-div" v-show="objLocations.load_regions">
                         <label for="region">
                             Регион поиска
                         </label>
-                        <select class="form-control select2" id="region"
-                                @change="changeSelect($event.target.value, 'region')"
-                        >
-                            <option disabled="disabled" selected>
+                        <select class="form-control select2" id="region">
+                            <option :value="null" selected>
                                 Выбрать
                             </option>
                             <template v-for="(array, key) in objLocations.load_regions">
-                                <option :value="array.code" :key="key">{{array.name}}</option>
+                                <!-- в случае обновления страницы -->
+                                <template v-if="objLocations.region == array.code" >
+                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                </template>
                             </template>
                         </select>
                     </div>
                     <!-- City -->
-                    <div v-if="objLocations.load_cities">
+                    <div class="box-div" v-show="objLocations.load_cities != null">
                         <label for="city">
                             Город поиска
                         </label>
-                        <select class="form-control select2" id="city"
-                                @change="changeSelect($event.target.value, 'city')"
-                        >
-                            <option disabled="disabled" selected>
+                        <select class="form-control select2" id="city">
+                            <option :value="null" selected>
                                 Выбрать
                             </option>
                             <template v-for="(array, key) in objLocations.load_cities">
-                                <option :value="array.code" :key="key">{{array.name}}</option>
+                                <!-- в случае обновления страницы -->
+                                <template v-if="objLocations.city == array.code" >
+                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="array.code" :key="key">{{array.name}}</option>
+                                </template>
                             </template>
                         </select>
                     </div>
@@ -82,7 +101,13 @@
                 <div class="form-group">
                     <select class="form-control select2" id="categories" multiple="multiple" data-placeholder="Выбрать">
                         <template v-for="(value, index) in settings.categories">
-                            <option :value="index" :key="index">{{value}}</option>
+                            <!-- в случае обновления страницы -->
+                            <template v-if="objCategory.categories.indexOf(index) !== -1" >
+                                <option :value="index" :key="index" selected>{{value}}</option>
+                            </template>
+                            <template v-else>
+                                <option :value="index" :key="index">{{value}}</option>
+                            </template>
                         </template>
                     </select>
                 </div>
@@ -271,7 +296,6 @@
             </div>
         </div>
 
-<!-- <button type="button" @click="returnParent">Передать родителю</button> -->
     </div>
 </template>
 
@@ -290,6 +314,7 @@
         ],
         data() {
             return {
+                locationSearch: window.location.search,
                 objSalary: {
                     from: null,
                     to: null,
@@ -306,9 +331,15 @@
             }
         },
         methods: {
-            returnParent() {
-                this.$emit('returnParent', {
-                    objLocations: this.objLocations,
+            returnParent(obj) {
+                this.$emit('returnParent', obj)
+            },
+            setReturnParent() {
+                this.returnParent({
+                    region: this.objLocations.region,
+                    country: this.objLocations.country,
+                    city: this.objLocations.city,
+                    categories: this.objCategory.categories,
                 })
             },
             checkSuitable() {
@@ -319,26 +350,85 @@
                     this.objCheckSuitable.suitable_to = 0
                 }
             },
+            // после обновления страницы
+            setValuesFields(){
+                const params = new URLSearchParams(window.location.search)
+
+                // Location
+                this.objLocations.load_countries = this.settings.obj_countries
+                if(params.has('country')){
+                    this.objLocations.country = params.get('country')
+                    this.loadRegions();
+                }
+                if(params.has('region')){
+                    this.objLocations.region = params.get('region')
+                    setTimeout(() => {
+                        this.loadCity()
+                    }, 1000);
+                }
+                if(params.has('city')){
+                    this.objLocations.city = params.get('city')
+                }
+                if(params.has('categories')){
+                    let arr = JSON.parse("[" + params.get('categories') + "]");
+                    this.objCategory.categories = arr
+                }
+            },
         },
         props: [
             'lang',   // масив названий и url языка
             'settings'
         ],
         mounted() {
-
             // категории
             $('#categories').on('select2:select', (e) => {
-                this.objCategory.categories.push(e.params.data.id);
+                this.objCategory.categories.push( parseInt(e.params.data.id) );
+                this.setReturnParent()
+                console.log(this.objCategory.categories)
             })
             $('#categories').on("select2:unselect", (e) => {
                 // удалить этот елемент
-                this.objCategory.categories.splice(this.objCategory.categories.indexOf(e.params.data.id), 1)
+                this.objCategory.categories.splice(this.objCategory.categories.indexOf( parseInt(e.params.data.id) ), 1)
+                this.setReturnParent()
                 // отключить раскрытие после удаления
                 if (!e.params.originalEvent) {
                     return;
                 }
+
                 e.params.originalEvent.stopPropagation();
             });
+            // страна
+            $('#country').on('select2:select', (e) => {
+                this.setReturnParent()
+            })
+            // region
+            $('#region').on('select2:select', (e) => {
+                // выбрано "Выбрать"
+                if(e.params.data.id == ''){
+                    this.objLocations.region = null
+                }
+                else{
+                    this.objLocations.region = e.params.data.id
+                }
+                this.objLocations.city = null
+                this.setReturnParent()
+            })
+            // city
+            $('#city').on('select2:select', (e) => {
+                // выбрано "Выбрать"
+                if(e.params.data.id == ''){
+                    this.objLocations.city = null
+                }
+                else{
+                    this.objLocations.city = e.params.data.id
+                }
+                this.setReturnParent()
+            })
+
+            // Код, который будет запущен только после отрисовки всех представлений
+            this.$nextTick(function () {
+                this.setValuesFields()
+            })
         },
     }
 </script>
@@ -346,6 +436,21 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .but-reset-all{
+        width: 150px;
+        text-align: center;
+        display: block;
+        margin: -25px auto 10px;
+        font-size: 19px;
+        color: #3490dc;
+        text-decoration: none;
+        border-bottom: 1px dashed #3490dc;
+        line-height: 25px;
+        &:hover{
+            border-bottom: 1px dashed #0268bc;
+            color: #0268bc;
+        }
+    }
     .form-group{
         margin: 0 0 4px 0;
     }
