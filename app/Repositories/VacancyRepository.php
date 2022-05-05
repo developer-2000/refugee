@@ -43,6 +43,10 @@ class VacancyRepository extends CoreRepository {
         $this->model = $this->regionSearch($request);
         $this->model = $this->citySearch($request);
         $this->model = $this->categorySearch($request);
+        $this->model = $this->suitableSearch($request);
+        $this->model = $this->employmentSearch($request);
+        $this->model = $this->salarySearch($request);
+        $this->model = $this->experienceSearch($request);
 
         return $this->model;
     }
@@ -54,16 +58,24 @@ class VacancyRepository extends CoreRepository {
      */
     private function searchByPositionWithSorting($request){
         if (isset($request->position)) {
-            $coll = (new Position())->where('title', 'like', '%' . $request->position . '%')
-                ->orderBy('title', 'asc')
-                ->get();
+            $stroke = '0';
+            $arrPosition = explode(" ", $request->position);
+
+            $coll = Position::when($arrPosition , function($query) use ($arrPosition) {
+                $query->where(function ($query) use ($arrPosition) {
+                    foreach($arrPosition as $word) {
+                        $query->orWhere('title', 'like', '%' . $word . '%');
+                    }
+                });
+            })->orderBy('title', 'asc')->get();
 
             if($coll->count()){
                 $coll = $coll->pluck('id')->toArray();
                 $stroke = implode(',',$coll);
-                $this->model = $this->model->whereIn('position_id', $coll)
-                    ->orderByRaw("field(position_id,{$stroke})", $coll);
             }
+
+            $this->model = $this->model->whereIn('position_id', $coll)
+                ->orderByRaw("field(position_id,{$stroke})", $coll);
         }
 
         return $this->model;
@@ -124,6 +136,89 @@ class VacancyRepository extends CoreRepository {
                     }
                 });
             });
+        }
+
+        return $this->model;
+    }
+
+    /**
+     * выбрать возраст - диапозон больше меньше
+     * @param $request
+     * @return \Illuminate\Contracts\Container\ContextualBindingBuilder|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function suitableSearch($request){
+        if (isset($request->suitable)) {
+            $arrSuitable = explode(",", $request->suitable);
+            $arrSuitable[0] = isset($arrSuitable[0]) ? intval($arrSuitable[0]) : 0;
+            $arrSuitable[1] = isset($arrSuitable[1]) ? intval($arrSuitable[1]) : 100;
+
+            $this->model = $this->model->when($arrSuitable , function($query) use ($arrSuitable) {
+                $query->where(function ($query) use ($arrSuitable) {
+                    $query->where("vacancy_suitable->inputs->from", ">=", $arrSuitable[0])
+                        ->where("vacancy_suitable->inputs->to", "<=", $arrSuitable[1]);
+                });
+            });
+        }
+
+        return $this->model;
+    }
+
+    /**
+     * полная или удаженная работа
+     * @param $request
+     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function employmentSearch($request){
+        if (isset($request->employment)) {
+            $this->model = $this->model->where('type_employment', $request->employment);
+        }
+
+        return $this->model;
+    }
+
+    /**
+     * зарплата вакансии
+     * @param $request
+     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function salarySearch($request){
+        if (isset($request->salary)) {
+            $arrStroke = explode(",", $request->salary);
+            $arrStroke[0] = isset($arrStroke[0]) ? intval($arrStroke[0]) : 0;
+            $arrStroke[1] = isset($arrStroke[1]) ? intval($arrStroke[1]) : 0;
+            $arrStroke[2] = isset($arrStroke[2]) ? intval($arrStroke[2]) : 99999;
+
+            // поиск по - ЗП не указана
+            if($arrStroke[0] === 1){
+                $this->model = $this->model->where("salary->radio_name", 'dont_specify');
+            }
+            // поиск по интервал от и до либо фиксированная ЗП
+            else{
+                $this->model = $this->model->where(function($query) use ($arrStroke) {
+                    $query->where(function ($query) use ($arrStroke) {
+                        $query->where("salary->radio_name", 'range')
+                            ->where("salary->inputs->from", ">=", $arrStroke[1])
+                            ->where("salary->inputs->to", "<=", $arrStroke[2]);
+                    })->orWhere(function ($query) use ($arrStroke) {
+                        $query->where("salary->radio_name", 'single_value')
+                            ->where("salary->inputs->salary_sum", ">=", $arrStroke[1])
+                            ->where("salary->inputs->salary_sum", "<=", $arrStroke[2]);
+                    });
+                });
+            }
+        }
+
+        return $this->model;
+    }
+
+    /**
+     * опыт работы
+     * @param $request
+     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function experienceSearch($request){
+        if (isset($request->experience)) {
+            $this->model = $this->model->where('experience', $request->experience);
         }
 
         return $this->model;

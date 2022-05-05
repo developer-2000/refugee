@@ -136,6 +136,10 @@
                 params.delete('region')
                 params.delete('city')
                 params.delete('categories')
+                params.delete('suitable')
+                params.delete('employment')
+                params.delete('salary')
+                params.delete('experience')
 
                 // country
                 if(obj.country != undefined && obj.country != null){
@@ -153,9 +157,31 @@
                 if(obj.categories != undefined && obj.categories.length){
                     params.set('categories',obj.categories.toString())
                 }
+                // suitable
+                if(obj.suitable != undefined && obj.suitable.check){
+                    params.set('suitable',[obj.suitable.suitable_from,obj.suitable.suitable_to].toString())
+                }
+                // employment
+                if(obj.employment != undefined && obj.employment){
+                    params.set('employment',obj.employment)
+                }
+                // salary
+                if(obj.salary != undefined && obj.salary.check){
+                    params.set('salary',[
+                        obj.salary.without_salary_checkbox ? 1 : 0,
+                        obj.salary.from,
+                        obj.salary.to
+                    ].toString())
+                }
+                // experience
+                if(obj.experience != undefined && obj.experience){
+                    params.set('experience',obj.experience)
+                }
 
                 params.sort()
                 let query = (params.toString() == '') ? '' : '?'+params.toString()
+
+                // console.log(query)
 
                 location.href = this.lang.prefix_lang+'vacancy'+query
             },
@@ -193,9 +219,6 @@
             setValuePosition(value){
                 $('#position_list').removeClass('show')
                 this.position = value
-            },
-            updateData(data){
-                console.log(data)
             },
             transitionToVacancy(vacancy_alias){
                 location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias

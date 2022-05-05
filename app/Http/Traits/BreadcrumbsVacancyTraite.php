@@ -48,6 +48,7 @@ trait BreadcrumbsVacancyTraite {
     }
 
     /**
+     * масив с обратными url страниц
      * @return mixed
      */
     public function getElementsBread()

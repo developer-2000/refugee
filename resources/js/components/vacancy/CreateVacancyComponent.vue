@@ -267,8 +267,8 @@
                                         <label for="suitable_commentary">
                                             {{trans('vacancies',value)}}
                                         </label>
-                                        <input :placeholder="`${trans('vacancies','data_entry')}`" class="form-control" id="suitable_commentary" maxlength="100"
-                                               type="text"
+                                        <input class="form-control" id="suitable_commentary" maxlength="100" type="text"
+                                               :placeholder="`${trans('vacancies','data_entry')}`"
                                                v-model="objSuitable.suitable_commentary"
                                         >
                                     </div>

@@ -127,34 +127,32 @@
             </div>
             <!-- body -->
             <div class="card-body">
-
                 <div class="form-group">
-                    <!-- 1 -->
-                    <div class="checkbox-box">
-                        <input class="form-check-input" id="checkbox_suit" type="checkbox"
-                               v-model="objCheckSuitable.check"
-                        >
-                        <label for="checkbox_suit" class="target-label">
-                            установить возраст
-                        </label>
-                    </div>
-                    <!-- 2 -->
-                    <div class="box-suitable" v-if="objCheckSuitable.check">
+                    <label for="suitable"> Лет отроду </label>
+                    <div id="suitable" class="box-suitable">
                         <input :placeholder="`${trans('vacancies','from')}`"
-                               max="100000000" min="0" type="number"
-                               @blur="checkSuitable"
+                               max="100" min="0" type="number"
                                v-model="objCheckSuitable.suitable_from"
                         >
-                        -
+                        <span>-</span>
                         <input :placeholder="`${trans('vacancies','to')}`"
-                               max="100000000" min="0" type="number"
-                               @blur="checkSuitable"
+                               max="150" min="0" type="number"
                                v-model="objCheckSuitable.suitable_to"
                         >
-                        лет
+                        <!-- check -->
+                        <svg type="button" class="svg-button svg-button-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                             @click="checkSuitable(true)"
+                        >
+                            <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/>
+                        </svg>
+                        <!-- clear -->
+                        <svg type="button" class="svg-button svg-button-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                             @click="checkSuitable(false)"
+                        >
+                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z"/>
+                        </svg>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -173,13 +171,19 @@
             <div class="card-body">
                 <div class="form-group">
                     <select class="form-control" id="employment"
-                            @change="changeSelect($event.target.value, 'employment')"
+                            @change="changeEmployment($event.target.value)"
                     >
                         <option :value="null" selected>
                             Выбрать
                         </option>
                         <template v-for="(value, key) in settings.type_employment">
-                            <option :value="key" :key="key">{{value}}</option>
+                            <!-- в случае обновления страницы -->
+                            <template v-if="key == index_employment" >
+                                <option :value="key" :key="key" selected>{{value}}</option>
+                            </template>
+                            <template v-else>
+                                <option :value="key" :key="key">{{value}}</option>
+                            </template>
                         </template>
                     </select>
                 </div>
@@ -205,7 +209,8 @@
                     <!-- 1 -->
                     <div class="checkbox-box">
                         <input class="form-check-input" id="salary_checkbox" type="checkbox"
-                               v-model="objSalary.salary_checkbox"
+                               @change="checkSalary(true, 'check')"
+                               v-model="objSalary.without_salary_checkbox"
                         >
                         <label for="salary_checkbox" class="target-label">
                            c не указанной зарплатой
@@ -218,20 +223,30 @@
                     <div class="box-suitable" id="salary">
                         <input :placeholder="`${trans('vacancies','from')}`"
                                type="number" min="0" max="100000000"
-                               @blur="salaryLineToEmpty"
-                               @change="salaryLineToEmpty"
                                v-model="objSalary.from"
+                               :disabled="objSalary.without_salary_checkbox ? true : false"
                         >
-                        -
+                        <span>-</span>
                         <input :placeholder="`${trans('vacancies','to')}`"
                                max="100000000" min="0" type="number"
-                               @blur="salaryLineToEmpty"
-                               @change="salaryLineToEmpty"
                                v-model="objSalary.to"
+                               :disabled="objSalary.without_salary_checkbox ? true : false"
                         >
+                        <!-- check -->
+                        <svg type="button" class="svg-button svg-button-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                             @click="checkSalary(true)"
+                             v-if="!objSalary.without_salary_checkbox"
+                        >
+                            <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/>
+                        </svg>
+                        <!-- clear -->
+                        <svg type="button" class="svg-button svg-button-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                             @click="checkSalary(false)"
+                             v-if="!objSalary.without_salary_checkbox"
+                        >
+                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z"/>
+                        </svg>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -251,15 +266,23 @@
             <div class="card-body">
                 <div class="form-group">
                     <select class="form-control"
-                            v-model="experience"
+                            @change="changeExperience($event.target.value)"
                     >
                         <option :value="null" selected>
                             Выбрать
                         </option>
                         <template v-for="(value, key) in this.settings.work_experience">
-                            <option :value="`${key}`">
-                                {{trans('vacancies',value)}}
-                            </option>
+                            <!-- в случае обновления страницы -->
+                            <template v-if="key == experience" >
+                                <option :value="key" selected>
+                                    {{trans('vacancies',value)}}
+                                </option>
+                            </template>
+                            <template v-else>
+                                <option :value="key">
+                                    {{trans('vacancies',value)}}
+                                </option>
+                            </template>
                         </template>
                     </select>
                 </div>
@@ -314,11 +337,15 @@
         ],
         data() {
             return {
+                timerId: 1,
                 locationSearch: window.location.search,
                 objSalary: {
-                    from: null,
-                    to: null,
-                    salary_checkbox: false,
+                    // переключатель поиска и отмены у 2 типов - checkbox и кнопки
+                    check: false,
+                    // искать по checkbox - true по нему, false по цифрам
+                    without_salary_checkbox: false,
+                    from: 0,
+                    to: 99999,
                 },
                 objCheckSuitable:{
                     check:false,
@@ -340,15 +367,97 @@
                     country: this.objLocations.country,
                     city: this.objLocations.city,
                     categories: this.objCategory.categories,
+                    suitable: this.objCheckSuitable,
+                    employment: this.index_employment,
+                    salary: this.objSalary,
+                    experience: this.experience,
                 })
             },
-            checkSuitable() {
+            eventSelect2(){
+                // категории
+                $('#categories').on('select2:select', (e) => {
+                    this.objCategory.categories.push( parseInt(e.params.data.id) );
+                    this.setReturnParent()
+                })
+                $('#categories').on("select2:unselect", (e) => {
+                    // удалить этот елемент
+                    this.objCategory.categories.splice(this.objCategory.categories.indexOf( parseInt(e.params.data.id) ), 1)
+                    this.setReturnParent()
+                    // отключить раскрытие после удаления
+                    if (!e.params.originalEvent) {
+                        return;
+                    }
+
+                    e.params.originalEvent.stopPropagation();
+                });
+                // страна
+                $('#country').on('select2:select', (e) => {
+                    this.setReturnParent()
+                })
+                // region
+                $('#region').on('select2:select', (e) => {
+                    // выбрано "Выбрать"
+                    if(e.params.data.id == ''){
+                        this.objLocations.region = null
+                    }
+                    else{
+                        this.objLocations.region = e.params.data.id
+                    }
+                    this.objLocations.city = null
+                    this.setReturnParent()
+                })
+                // city
+                $('#city').on('select2:select', (e) => {
+                    // выбрано "Выбрать"
+                    if(e.params.data.id == ''){
+                        this.objLocations.city = null
+                    }
+                    else{
+                        this.objLocations.city = e.params.data.id
+                    }
+                    this.setReturnParent()
+                })
+            },
+            changeEmployment(value){
+                this.index_employment = value
+                this.setReturnParent()
+            },
+            changeExperience(value){
+                this.experience = value
+                this.setReturnParent()
+            },
+            checkSuitable(bool) {
                 if(!this.checkingInteger(this.objCheckSuitable.suitable_from)){
                     this.objCheckSuitable.suitable_from = 0
                 }
                 else if(!this.checkingInteger(this.objCheckSuitable.suitable_to)){
                     this.objCheckSuitable.suitable_to = 0
                 }
+
+                this.objCheckSuitable.check = bool
+                this.setReturnParent()
+            },
+            checkSalary(bool, caller=null) {
+                this.objSalary.from = isNaN(parseInt(this.objSalary.from)) ? 0 : this.objSalary.from
+                this.objSalary.to = isNaN(parseInt(this.objSalary.to)) ? 99999 : this.objSalary.to
+
+                // вызвал checkbox
+                if(caller != null){
+                    // поиск по - ЗП не указано
+                    if(this.objSalary.without_salary_checkbox){
+                        this.objSalary.check = true
+                    }
+                    // очистить поиск
+                    else{
+                        this.objSalary.check = false
+                    }
+                }
+                // вызвал кнопки возраста
+                else{
+                    this.objSalary.check = bool
+                }
+
+                this.setReturnParent()
             },
             // после обновления страницы
             setValuesFields(){
@@ -373,6 +482,25 @@
                     let arr = JSON.parse("[" + params.get('categories') + "]");
                     this.objCategory.categories = arr
                 }
+                if(params.has('suitable')){
+                    let arr = JSON.parse("[" + params.get('suitable') + "]");
+                    this.objCheckSuitable.check = true
+                    this.objCheckSuitable.suitable_from = (arr[0] != undefined) ? parseInt(arr[0]) : 0
+                    this.objCheckSuitable.suitable_to = (arr[1] != undefined) ? parseInt(arr[1]) : 100
+                }
+                if(params.has('employment')){
+                    this.index_employment = params.get('employment')
+                }
+                if(params.has('salary')){
+                    let arr = JSON.parse("[" + params.get('salary') + "]");
+                    this.objSalary.without_salary_checkbox = (arr[0] == undefined) ? false : (parseInt(arr[0]) === 0) ? false : true
+                    this.objSalary.from = (arr[1] == undefined) ? 0 : (!Number.isInteger(parseInt(arr[1]))) ? 0 : parseInt(arr[1])
+                    this.objSalary.to = (arr[2] == undefined) ? 99999 : (!Number.isInteger(parseInt(arr[2]))) ? 99999 : parseInt(arr[2])
+                    this.objSalary.check = true
+                }
+                if(params.has('experience')){
+                    this.experience = params.get('experience')
+                }
             },
         },
         props: [
@@ -380,51 +508,7 @@
             'settings'
         ],
         mounted() {
-            // категории
-            $('#categories').on('select2:select', (e) => {
-                this.objCategory.categories.push( parseInt(e.params.data.id) );
-                this.setReturnParent()
-                console.log(this.objCategory.categories)
-            })
-            $('#categories').on("select2:unselect", (e) => {
-                // удалить этот елемент
-                this.objCategory.categories.splice(this.objCategory.categories.indexOf( parseInt(e.params.data.id) ), 1)
-                this.setReturnParent()
-                // отключить раскрытие после удаления
-                if (!e.params.originalEvent) {
-                    return;
-                }
-
-                e.params.originalEvent.stopPropagation();
-            });
-            // страна
-            $('#country').on('select2:select', (e) => {
-                this.setReturnParent()
-            })
-            // region
-            $('#region').on('select2:select', (e) => {
-                // выбрано "Выбрать"
-                if(e.params.data.id == ''){
-                    this.objLocations.region = null
-                }
-                else{
-                    this.objLocations.region = e.params.data.id
-                }
-                this.objLocations.city = null
-                this.setReturnParent()
-            })
-            // city
-            $('#city').on('select2:select', (e) => {
-                // выбрано "Выбрать"
-                if(e.params.data.id == ''){
-                    this.objLocations.city = null
-                }
-                else{
-                    this.objLocations.city = e.params.data.id
-                }
-                this.setReturnParent()
-            })
-
+            this.eventSelect2()
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {
                 this.setValuesFields()
@@ -436,6 +520,42 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    #suitable,
+    #salary {
+        display: flex;
+        align-items: center;
+        input {
+            width: 83px;
+            margin: 0 5px;
+            &:nth-child(1) {
+                margin-left: 0;
+            }
+        }
+    }
+    .svg-button{
+        width: 25px;
+        margin-left: 10px;
+    }
+    .svg-button-check{
+        path{
+            fill: #28a745;
+        }
+        &:hover{
+            path{
+                fill: #23923c;
+            }
+        }
+    }
+    .svg-button-clear{
+        path{
+            fill: #dc3545;
+        }
+        &:hover{
+            path{
+                fill: #ad2733;
+            }
+        }
+    }
     .but-reset-all{
         width: 150px;
         text-align: center;
@@ -481,9 +601,6 @@
     .suitable{
         .card-body{
             padding: 10px 12px 7px;
-        }
-        .box-suitable{
-            margin-top: 5px;
         }
     }
     .checkbox-box {

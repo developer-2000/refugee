@@ -22,6 +22,10 @@ class IndexVacancyRequest extends FormRequest
         $data['region'] = $this->query('region');
         $data['city'] = $this->query('city');
         $data['categories'] = $this->query('categories');
+        $data['suitable'] = $this->query('suitable');
+        $data['employment'] = $this->query('employment');
+        $data['salary'] = $this->query('salary');
+        $data['experience'] = $this->query('experience');
         return $data;
     }
 
@@ -37,7 +41,11 @@ class IndexVacancyRequest extends FormRequest
             'country' => 'sometimes|nullable|string|max:2',
             'region' => 'sometimes|nullable|string|max:8',
             'city' => 'sometimes|nullable|string|max:8',
-            'categories' => 'sometimes|nullable|string|max:200',
+            'categories' => 'sometimes|nullable|string|max:20',
+            'suitable' => 'sometimes|nullable|string|max:20',
+            'employment' => 'sometimes|nullable|integer|in:0,1,2,3',
+            'salary' => 'sometimes|nullable|string|max:50',
+            'experience' => 'sometimes|nullable|integer|in:0,1,2,3',
         ];
     }
 }

@@ -42,13 +42,21 @@ class VacancyController extends BaseController {
         $vacancies = $this->repository->initialDataForSampling($request)
             ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
             ->paginate(2);
+
 //        dd($vacancies->toArray());
 
         return view('index', compact('settings', 'vacancies'));
     }
 
+    /**
+     * показ указанной вакансии
+     * @param  Vacancy  $vacancy
+     * @param  ShowVacancyRequest  $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Vacancy $vacancy, ShowVacancyRequest $request)
     {
+        // масив с обратными url страниц
         $back_url = $this->getElementsBread();
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancy = Vacancy::where('id', $request->vacancy_id)
@@ -58,6 +66,7 @@ class VacancyController extends BaseController {
     }
 
     /**
+     * форма для создания
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
