@@ -27,12 +27,15 @@ class VacancyRepository extends CoreRepository {
         return $this->model->create($arr);
     }
 
-    public function updateVacancy($request){
+    public function updateVacancy($request, $position_id){
+        // удалить старое название, если оно не будет никем использоватся
+        Vacancy::deleteUnwantedVacancyTitle($request, $position_id);
+        // создать или взять имеющееся название
         $position = Position::firstOrCreate(
             ['title' => mb_strtolower($request->position, 'UTF-8')]
         );
 
-        return $this->model->where('id', $request->vacancy_id)
+        return $this->model->where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->update($this->makeArrayVacancy($request, $position));
     }
@@ -134,7 +137,7 @@ class VacancyRepository extends CoreRepository {
             $this->model = $this->model->when($categories , function($query) use ($categories) {
                 $query->where(function ($query) use ($categories) {
                     foreach($categories as $id) {
-                        $query->orWhereJsonContains('categories', $id);
+                        $query->orWhereJsonContains('categories', intval($id));
                     }
                 });
             });
@@ -155,7 +158,7 @@ class VacancyRepository extends CoreRepository {
             $this->model = $this->model->when($languages , function($query) use ($languages) {
                 $query->where(function ($query) use ($languages) {
                     foreach($languages as $id) {
-                        $query->orWhereJsonContains('languages', $id);
+                        $query->orWhereJsonContains('languages', intval($id));
                     }
                 });
             });
@@ -165,7 +168,7 @@ class VacancyRepository extends CoreRepository {
     }
 
     /**
-     * выбрать возраст - диапозон больше меньше
+     * выбрать возраст - диапозон больше меньше или статус - не важно
      * @param $request
      * @return \Illuminate\Contracts\Container\ContextualBindingBuilder|\Illuminate\Contracts\Foundation\Application|mixed
      */
@@ -175,10 +178,13 @@ class VacancyRepository extends CoreRepository {
             $arrSuitable[0] = isset($arrSuitable[0]) ? intval($arrSuitable[0]) : 0;
             $arrSuitable[1] = isset($arrSuitable[1]) ? intval($arrSuitable[1]) : 100;
 
-            $this->model = $this->model->when($arrSuitable , function($query) use ($arrSuitable) {
+            $this->model = $this->model->where(function($query) use ($arrSuitable) {
                 $query->where(function ($query) use ($arrSuitable) {
-                    $query->where("vacancy_suitable->inputs->from", ">=", $arrSuitable[0])
+                    $query->where("vacancy_suitable->radio_name", "set_age")
+                        ->where("vacancy_suitable->inputs->from", ">=", $arrSuitable[0])
                         ->where("vacancy_suitable->inputs->to", "<=", $arrSuitable[1]);
+                })->orWhere(function ($query) {
+                    $query->where("vacancy_suitable->radio_name", "it_not_matter");
                 });
             });
         }

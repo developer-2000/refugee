@@ -97,7 +97,8 @@ return [
 
 
     // my vacancies
-    'my_vacancies'=>"Мои вакансии",
+    'my'=>"Мои",
+    'vacancies'=>"вакансии",
     'pending'=>"на проверке",
     'responses'=>"откликов",
     'post'=>"Разместить",

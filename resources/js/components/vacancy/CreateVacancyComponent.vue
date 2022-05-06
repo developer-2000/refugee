@@ -160,9 +160,9 @@
                                     <template v-for="(array, key) in this.objCategory.categoriesArray">
                                         <div class="col-xl">
                                             <div v-for="(valueArr, key2) in array" :key="key2">
-                                                <input @change="checkCategory" class="form-check-input" name="category"
+                                                <input class="form-check-input" name="category" type="checkbox"
+                                                       @change="checkCategory"
                                                        :id="`category_${valueArr[0]}`"
-                                                       type="checkbox"
                                                        :value="valueArr[0]"
                                                 >
                                                 <label class="target-label"
@@ -299,7 +299,7 @@
                 </div>
                 <!-- Зарплата -->
                 <div class="col-sm-4">
-                    <div class="form-group" :class="{border_error: this.objSalary.switchSalary }">
+                    <div class="form-group" :class="{border_error: objSalary.switchSalary }">
                         <label for="salary_accordion">
                             {{trans('vacancies','salary')}}
                             <span class="mandatory-filling">
@@ -323,11 +323,7 @@
                                         aria-expanded="true"
                                         aria-controls="collapseOne"
                                     >
-                                        <input
-                                            type="radio"
-                                            id="range_1"
-                                            name="salary_but"
-                                            value="range"
+                                        <input type="radio" id="range_1" name="salary_but" value="range"
                                             v-model="objSalary.salary_but"
                                             @change="checkSalary"
                                         >
@@ -430,7 +426,7 @@
                                    v-model="objSalary.salary_comment"
                             >
                         </div>
-                        <div class="invalid-feedback" :class="{'is-invalid visible': this.objSalary.switchSalary}">
+                        <div class="invalid-feedback" :class="{'is-invalid visible': objSalary.switchSalary}">
                             {{trans('vacancies','salary_vacancy')}}
                         </div>
                     </div>
@@ -471,12 +467,23 @@
                 </div>
                 <!-- Язык вакансии -->
                 <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="language">Язык вакансии</label>
+                    <div class="form-group" :class="{border_error: !objLanguage.languages.length }">
+                        <label for="language">
+                            Язык вакансии
+                            <span class="mandatory-filling">
+                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                                  title="Укажите требуемые языки владения для этой вакансии. Примите решение оптимально, для того чтобы соискатель зря вас не беспокоил."
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                            </span>
+                        </label>
+
                         <select class="form-control select2" id="language" multiple="multiple" data-placeholder="Выбрать">
                             <template v-for="(obj, index) in lang.lang">
                                 <!-- в случае редиктирования -->
-                                <template v-if="objLanguage.languages.indexOf(''+index) !== -1" >
+                                <template v-if="objLanguage.languages.indexOf(index) !== -1" >
                                     <option :value="index" :key="index" selected>{{obj.title}}</option>
                                 </template>
                                 <template v-else>
@@ -484,6 +491,9 @@
                                 </template>
                             </template>
                         </select>
+                        <div class="invalid-feedback" :class="{'is-invalid visible': !objLanguage.languages.length}">
+                            Пожалуйста укажите необходимые языки для вакансии
+                        </div>
                     </div>
                 </div>
             </div>
@@ -691,9 +701,9 @@
                 job_posting: 0,
                 objSalary: {
                     salary_but: "range",
-                    from: null,
-                    to: null,
-                    salary_sum: null,
+                    from: 0,
+                    to: 1000,
+                    salary_sum: 0,
                     switchSalary: false,
                     salary_comment: null,
                 },
@@ -703,7 +713,7 @@
                     boolChecked: false,
                 },
                 objLanguage: {
-                    languages: [],
+                    languages: [0],
                 },
                 objSuitable: {
                     suitable: 'it_not_matter',
@@ -819,17 +829,15 @@
                 let checked = document.querySelectorAll('[name="category"]:checked');
                 let selected = [];
                 for (let i=0; i<checked.length; i++) {
-                    selected.push(checked[i].value);
+                    selected.push(parseInt(checked[i].value));
                 }
                 this.objCategory.categories = selected;
             },
             checkSalary() {
                 // если выбран сектор а поля не заполнены
                 if(
-                    (this.objSalary.salary_but == "range" &&
-                        (!this.objSalary.from || this.objSalary.from == '' || !this.objSalary.to || this.objSalary.to == '')) ||
-                    (this.objSalary.salary_but == "single_value" &&
-                        (!this.objSalary.salary_sum || this.objSalary.salary_sum == ''))
+                    (this.objSalary.salary_but == "range" && (this.objSalary.from === '' || this.objSalary.to === '') ) ||
+                    (this.objSalary.salary_but == "single_value" && this.objSalary.salary_sum === '')
                 ){
                     this.objSalary.switchSalary = true
                     return true;
@@ -851,7 +859,8 @@
                     !this.objCategory.categories.length ||
                     !this.objSuitable.suitable.length ||
                     this.rest_address == null ||
-                    this.checkSalary()
+                    this.checkSalary() ||
+                    !this.objLanguage.languages.length
                 ){
                     return true;
                 }
@@ -950,7 +959,9 @@
                 this.loadRegions();
                 if(this.vacancy.region != null){
                     this.objLocations.region = this.vacancy.region.code
-                    this.loadCity()
+                    setTimeout(() => {
+                        this.loadCity()
+                    }, 500);
                 }
                 if(this.vacancy.city != null){
                     this.objLocations.city = this.vacancy.city.code
@@ -992,11 +1003,11 @@
             fillingLanguages(){
                 // language
                 $('#language').on('select2:select', (e) => {
-                    this.objLanguage.languages.push(e.params.data.id);
+                    this.objLanguage.languages.push( parseInt(e.params.data.id) );
                 })
                 $('#language').on("select2:unselect", (e) => {
                     // удалить этот елемент
-                    this.objLanguage.languages.splice(this.objLanguage.languages.indexOf(e.params.data.id), 1)
+                    this.objLanguage.languages.splice(this.objLanguage.languages.indexOf( parseInt(e.params.data.id) ), 1)
                     // отключить раскрытие после удаления
                     if (!e.params.originalEvent) {
                         return;
@@ -1019,8 +1030,6 @@
             this.initializationFunc()
             // инициализация всплывающих подсказок
             $('[data-toggle="tooltip"]').tooltip();
-
-            console.log(this.lang)
 
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {
@@ -1048,15 +1057,12 @@
         cursor: pointer;
     }
     .form-group{
-        padding: 5px 10px 20px;
+        padding: 5px 10px 15px;
         background: $back-form-group;
         position: relative;
-
-        /*height: calc(100% - 16px);*/
-
         .invalid-feedback{
-            position: absolute;
-            bottom: 2px;
+            margin-bottom: -13px;
+            padding: 3px 0px 1px 0px;
         }
     }
     .collection-checkbox{

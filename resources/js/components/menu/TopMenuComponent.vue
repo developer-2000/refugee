@@ -1,93 +1,94 @@
 <template>
-    <div>
-        <!-- top menu -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Menu -->
-            <ul class="navbar-nav">
-                <!-- Logo -->
-                <li class="nav-item d-sm-inline-block">
-                    <a :href="`${lang.prefix_lang}`" class="brand-link">
-                        <img alt="" src="/img/custom/logo-site.gif">
-                        <div class="box-logo-title">
-                            <div class="brand-text font-weight-light">
-                                {{this.logo_text.uk}}
-                            </div>
-                            <div class="brand-text font-weight-light">
-                                {{this.logo_text.en}}
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <!-- button open/close sidebar-->
-                <li id="left-sidebar" class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
-                    </a>
-                </li>
+    <div class="background-top-menu">
+        <div class="container">
+            <!-- top menu -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <!-- Menu -->
-                <li class="nav-item d-none d-sm-inline-block button-navbar">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block button-navbar">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item dropdown nav-item d-none d-sm-inline-block button-navbar">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Работа
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">Добавить вакансию</a>
-                        <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
-                        <a class="dropdown-item" href="#">Добавить резюме</a>
-                        <a class="dropdown-item" href="#">Найти резюме</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- / Menu -->
-
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Language menu -->
-                <li class="nav-item dropdown button-menu">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <div v-for="item in this.lang_sort" :key="item.title">
-                            <a class="dropdown-item"
-                               :href="`${lang.prefix_lang}language/${item.alias}`"
-                            >
-                                <img :src="item.avatar" class="lang_flag" alt="flag language">
-                                {{item.title}}
-                            </a>
-                            <div class="dropdown-divider"></div>
+                <ul class="navbar-nav">
+                    <!-- Logo -->
+                    <li class="nav-item d-sm-inline-block">
+                        <a :href="`${lang.prefix_lang}`" class="brand-link">
+                            <img alt="" src="/img/custom/logo-site.gif">
+                            <div class="box-logo-title">
+                                <div class="brand-text font-weight-light">
+                                    {{this.logo_text.uk}}
+                                </div>
+                                <div class="brand-text font-weight-light">
+                                    {{this.logo_text.en}}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- button open/close sidebar-->
+                    <li id="left-sidebar" class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <!-- Menu -->
+                    <li class="nav-item d-none d-sm-inline-block button-navbar">
+                        <a href="index3.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block button-navbar">
+                        <a href="#" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown nav-item d-none d-sm-inline-block button-navbar">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Работа
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">Добавить вакансию</a>
+                            <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
+                            <a class="dropdown-item" href="#">Добавить резюме</a>
+                            <a class="dropdown-item" href="#">Найти резюме</a>
                         </div>
-                    </div>
-                </li>
-                <!-- Authorization -->
-                <li class="nav-item button-menu button-auth"
-                v-if="!user"
-                >
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
-                       @click.prevent="reset_array(0)"
-                    > {{ trans('menu.top','authorization') }} </a>
-                    <span>/</span>
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
-                       @click.prevent="reset_array(1)"
-                    > {{ trans('menu.top','registration') }} </a>
-                </li>
+                    </li>
+                </ul>
+                <!-- / Menu -->
 
-                <!-- user menu -->
-                <li class="nav-item dropdown user-menu"
-                    v-if="user"
-                >
-                    <a class="nav-link user-avatar" data-toggle="dropdown" href="#">
-                        <img v-if="user.path_avatar" :src="user.path_avatar" alt="">
-                        <img v-else src="/img/avatars/man.jpg" alt="">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
-                    </a>
-                    <!-- dropdown -->
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Language menu -->
+                    <li class="nav-item dropdown button-menu">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <div v-for="item in this.lang_sort" :key="item.title">
+                                <a class="dropdown-item"
+                                   :href="`${lang.prefix_lang}language/${item.alias}`"
+                                >
+                                    <img :src="item.avatar" class="lang_flag" alt="flag language">
+                                    {{item.title}}
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Authorization -->
+                    <li class="nav-item button-menu button-auth"
+                        v-if="!user"
+                    >
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
+                           @click.prevent="reset_array(0)"
+                        > {{ trans('menu.top','authorization') }} </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
+                           @click.prevent="reset_array(1)"
+                        > {{ trans('menu.top','registration') }} </a>
+                    </li>
+
+                    <!-- user menu -->
+                    <li class="nav-item dropdown user-menu"
+                        v-if="user"
+                    >
+                        <a class="nav-link user-avatar" data-toggle="dropdown" href="#">
+                            <img v-if="user.path_avatar" :src="user.path_avatar" alt="">
+                            <img v-else src="/img/avatars/man.jpg" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
+                        </a>
+                        <!-- dropdown -->
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <!-- Private office -->
                             <a class="dropdown-item"
                                :href="`${lang.prefix_lang}private-office`"
@@ -104,12 +105,13 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64c17.67 0 32-14.33 32-32S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256c0 53.02 42.98 96 96 96h64c17.67 0 32-14.33 32-32S177.7 416 160 416zM502.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L402.8 224H192C174.3 224 160 238.3 160 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C515.1 266.1 515.1 245.9 502.6 233.4z"/></svg>
                                 Sign out
                             </a>
-                    </div>
-                </li>
+                        </div>
+                    </li>
 
-            </ul>
-        </nav>
-        <!-- / top menu -->
+                </ul>
+            </nav>
+            <!-- / top menu -->
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalTitle" aria-hidden="true" data-backdrop="static">
@@ -229,6 +231,17 @@
 
 <style scoped lang="scss">
     @import "resources/sass/_variables";
+
+    .background-top-menu{
+        background-color: #fff;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .main-header {
+        border: none;
+    }
+    .navbar {
+        padding: 0.5rem 5px;
+    }
     .dropdown-menu{
         padding: 0!important;
     }

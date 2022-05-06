@@ -96,7 +96,8 @@ return [
     'update_vacancy'=>"Change",
 
     // my vacancies
-    'my_vacancies'=>"My vacancies",
+    'my'=>"My",
+    'vacancies'=>"vacancies",
     'pending'=>"pending",
     'responses'=>"responses",
     'post'=>"Post",

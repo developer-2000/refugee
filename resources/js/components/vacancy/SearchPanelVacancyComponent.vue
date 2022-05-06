@@ -575,7 +575,6 @@
             'settings'
         ],
         mounted() {
-            console.log(this.lang)
             this.eventSelect2()
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {

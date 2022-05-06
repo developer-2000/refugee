@@ -41,7 +41,7 @@ class VacancyController extends BaseController {
 
         $vacancies = $this->repository->initialDataForSampling($request)
             ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
-            ->paginate(2);
+            ->paginate(5);
 
 //        dd($vacancies->toArray());
 
@@ -116,17 +116,13 @@ class VacancyController extends BaseController {
      */
     public function update(UpdateVacancyRequest $request)
     {
-        // моя вакансия
-        $vacancy = Vacancy::where('id', $request->vacancy_id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
-        if(!$vacancy){
+        if(!$vacancy = $this->checkMyVacancy($request)){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
+        $update = $this->repository->updateVacancy($request, $vacancy->position_id);
 
-        $update = $this->repository->updateVacancy($request);
 
-        return $this->getResponse();
+        return $this->getResponse($update);
     }
 
     /**
@@ -136,22 +132,12 @@ class VacancyController extends BaseController {
      */
     public function destroy(DeleteVacancyRequest $request)
     {
-        $vacancy = Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
-        if(!$vacancy){
+        if(!$vacancy = $this->checkMyVacancy($request)){
             return $this->getErrorResponse('Not found!');
         }
-
-        // если название только у этой вакансии - удалить
-        $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
-        $position_id = $vacancy->position_id;
-        // 1 vacancy
+        // удалить старое название, если оно не будет никем использоватся
+        Vacancy::deleteUnwantedVacancyTitle($request, $vacancy->position_id);
         $vacancy->delete();
-        // 2 position
-        if($count_position === 1){
-            Position::where('id', $position_id)->delete();
-        }
 
         return $this->getResponse();
     }
@@ -213,10 +199,7 @@ class VacancyController extends BaseController {
      */
     public function duplicateVacancy(DuplicateVacancyRequest $request)
     {
-        $vacancy = Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
-        if(!$vacancy){
+        if(!$vacancy = $this->checkMyVacancy($request)){
             return $this->getErrorResponse('Not found!');
         }
 
@@ -312,6 +295,17 @@ class VacancyController extends BaseController {
             $settings['obj_countries'] = $objCountries['country']['EN'];
         }
         return $settings;
+    }
+
+    /**
+     * проверка на мою вакансию
+     * @param $request
+     * @return mixed
+     */
+    private function checkMyVacancy($request){
+        return Vacancy::where('id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
     }
 
 }

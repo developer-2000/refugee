@@ -20,6 +20,14 @@ a:hover,
     text-decoration: none;
     background-color: transparent;
 }
+.link-a{
+    color: #3490dc!important;
+    text-decoration: none!important;
+    background-color: transparent;
+}
+.link-a:hover{
+    color: #1d68a7!important;
+}
 b{
     color: black;
 }

@@ -94,7 +94,8 @@ return [
 
 
     // my vacancies
-    'my_vacancies'=>"Мої вакансії",
+    'my'=>"Мої",
+    'vacancies'=>"вакансії",
     'pending'=>"на перевірці",
     'responses'=>"відгуків",
     'post'=>"Розмістити",
