@@ -145,10 +145,13 @@ class VacancyController extends BaseController {
 
         // если название только у этой вакансии - удалить
         $count_position = Vacancy::where('position_id', $vacancy->position_id)->count();
-        if($count_position === 1){
-            Position::where('id', $vacancy->position_id)->delete();
-        }
+        $position_id = $vacancy->position_id;
+        // 1 vacancy
         $vacancy->delete();
+        // 2 position
+        if($count_position === 1){
+            Position::where('id', $position_id)->delete();
+        }
 
         return $this->getResponse();
     }

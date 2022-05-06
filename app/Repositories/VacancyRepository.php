@@ -43,10 +43,12 @@ class VacancyRepository extends CoreRepository {
         $this->model = $this->regionSearch($request);
         $this->model = $this->citySearch($request);
         $this->model = $this->categorySearch($request);
+        $this->model = $this->languageSearch($request);
         $this->model = $this->suitableSearch($request);
         $this->model = $this->employmentSearch($request);
         $this->model = $this->salarySearch($request);
         $this->model = $this->experienceSearch($request);
+        $this->model = $this->educationSearch($request);
 
         return $this->model;
     }
@@ -142,6 +144,27 @@ class VacancyRepository extends CoreRepository {
     }
 
     /**
+     * переберает ['7', '28', '63'] и выбирает каждый в котором есть хоть один
+     * @param $request
+     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function languageSearch($request){
+        if (isset($request->languages)) {
+            $languages = explode(",", $request->languages);
+
+            $this->model = $this->model->when($languages , function($query) use ($languages) {
+                $query->where(function ($query) use ($languages) {
+                    foreach($languages as $id) {
+                        $query->orWhereJsonContains('languages', $id);
+                    }
+                });
+            });
+        }
+
+        return $this->model;
+    }
+
+    /**
      * выбрать возраст - диапозон больше меньше
      * @param $request
      * @return \Illuminate\Contracts\Container\ContextualBindingBuilder|\Illuminate\Contracts\Foundation\Application|mixed
@@ -219,6 +242,19 @@ class VacancyRepository extends CoreRepository {
     private function experienceSearch($request){
         if (isset($request->experience)) {
             $this->model = $this->model->where('experience', $request->experience);
+        }
+
+        return $this->model;
+    }
+
+    /**
+     * образование соискателя
+     * @param $request
+     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function educationSearch($request){
+        if (isset($request->education)) {
+            $this->model = $this->model->where('education', $request->education);
         }
 
         return $this->model;

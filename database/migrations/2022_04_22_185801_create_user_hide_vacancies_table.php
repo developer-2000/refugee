@@ -16,9 +16,9 @@ class CreateUserHideVacanciesTable extends Migration
         Schema::create('user_hide_vacancies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('vacancy_id');
-            $table->foreign('vacancy_id')->references('id')->on('vacancies');
+            $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
         });
     }
 

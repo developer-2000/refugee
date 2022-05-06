@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Vacancy\JobSearchRequest;
 use App\Model\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller {
 

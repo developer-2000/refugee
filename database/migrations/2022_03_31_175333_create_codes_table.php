@@ -15,7 +15,7 @@ class CreateCodesTable extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->nullable()->default(null);
+            $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->string('code',30);
             $table->string('email')->nullable()->default(null);
         });

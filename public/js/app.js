@@ -4971,6 +4971,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4996,7 +5033,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       index_employment: null,
       experience: null,
-      education: null
+      education: null,
+      arrLanguages: []
     };
   },
   methods: {
@@ -5009,16 +5047,18 @@ __webpack_require__.r(__webpack_exports__);
         country: this.objLocations.country,
         city: this.objLocations.city,
         categories: this.objCategory.categories,
+        languages: this.arrLanguages,
         suitable: this.objCheckSuitable,
         employment: this.index_employment,
         salary: this.objSalary,
-        experience: this.experience
+        experience: this.experience,
+        education: this.education
       });
     },
     eventSelect2: function eventSelect2() {
       var _this = this;
 
-      // категории
+      // categories
       $('#categories').on('select2:select', function (e) {
         _this.objCategory.categories.push(parseInt(e.params.data.id));
 
@@ -5027,6 +5067,25 @@ __webpack_require__.r(__webpack_exports__);
       $('#categories').on("select2:unselect", function (e) {
         // удалить этот елемент
         _this.objCategory.categories.splice(_this.objCategory.categories.indexOf(parseInt(e.params.data.id)), 1);
+
+        _this.setReturnParent(); // отключить раскрытие после удаления
+
+
+        if (!e.params.originalEvent) {
+          return;
+        }
+
+        e.params.originalEvent.stopPropagation();
+      }); // languages
+
+      $('#languages').on('select2:select', function (e) {
+        _this.arrLanguages.push(parseInt(e.params.data.id));
+
+        _this.setReturnParent();
+      });
+      $('#languages').on("select2:unselect", function (e) {
+        // удалить этот елемент
+        _this.arrLanguages.splice(_this.arrLanguages.indexOf(parseInt(e.params.data.id)), 1);
 
         _this.setReturnParent(); // отключить раскрытие после удаления
 
@@ -5072,6 +5131,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeExperience: function changeExperience(value) {
       this.experience = value;
+      this.setReturnParent();
+    },
+    changeEducation: function changeEducation(value) {
+      this.education = value;
       this.setReturnParent();
     },
     checkSuitable: function checkSuitable(bool) {
@@ -5133,12 +5196,18 @@ __webpack_require__.r(__webpack_exports__);
         this.objCategory.categories = arr;
       }
 
+      if (params.has('languages')) {
+        var _arr = JSON.parse("[" + params.get('languages') + "]");
+
+        this.arrLanguages = _arr;
+      }
+
       if (params.has('suitable')) {
-        var _arr = JSON.parse("[" + params.get('suitable') + "]");
+        var _arr2 = JSON.parse("[" + params.get('suitable') + "]");
 
         this.objCheckSuitable.check = true;
-        this.objCheckSuitable.suitable_from = _arr[0] != undefined ? parseInt(_arr[0]) : 0;
-        this.objCheckSuitable.suitable_to = _arr[1] != undefined ? parseInt(_arr[1]) : 100;
+        this.objCheckSuitable.suitable_from = _arr2[0] != undefined ? parseInt(_arr2[0]) : 0;
+        this.objCheckSuitable.suitable_to = _arr2[1] != undefined ? parseInt(_arr2[1]) : 100;
       }
 
       if (params.has('employment')) {
@@ -5146,22 +5215,27 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (params.has('salary')) {
-        var _arr2 = JSON.parse("[" + params.get('salary') + "]");
+        var _arr3 = JSON.parse("[" + params.get('salary') + "]");
 
-        this.objSalary.without_salary_checkbox = _arr2[0] == undefined ? false : parseInt(_arr2[0]) === 0 ? false : true;
-        this.objSalary.from = _arr2[1] == undefined ? 0 : !Number.isInteger(parseInt(_arr2[1])) ? 0 : parseInt(_arr2[1]);
-        this.objSalary.to = _arr2[2] == undefined ? 99999 : !Number.isInteger(parseInt(_arr2[2])) ? 99999 : parseInt(_arr2[2]);
+        this.objSalary.without_salary_checkbox = _arr3[0] == undefined ? false : parseInt(_arr3[0]) === 0 ? false : true;
+        this.objSalary.from = _arr3[1] == undefined ? 0 : !Number.isInteger(parseInt(_arr3[1])) ? 0 : parseInt(_arr3[1]);
+        this.objSalary.to = _arr3[2] == undefined ? 99999 : !Number.isInteger(parseInt(_arr3[2])) ? 99999 : parseInt(_arr3[2]);
         this.objSalary.check = true;
       }
 
       if (params.has('experience')) {
         this.experience = params.get('experience');
       }
+
+      if (params.has('education')) {
+        this.education = params.get('education');
+      }
     }
   },
   props: ['lang', // масив названий и url языка
   'settings'],
   mounted: function mounted() {
+    console.log(this.lang);
     this.eventSelect2(); // Код, который будет запущен только после отрисовки всех представлений
 
     this.$nextTick(function () {
@@ -5329,10 +5403,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       params["delete"]('region');
       params["delete"]('city');
       params["delete"]('categories');
+      params["delete"]('languages');
       params["delete"]('suitable');
       params["delete"]('employment');
       params["delete"]('salary');
-      params["delete"]('experience'); // country
+      params["delete"]('experience');
+      params["delete"]('education'); // country
 
       if (obj.country != undefined && obj.country != null) {
         params.set('country', obj.country);
@@ -5351,6 +5427,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (obj.categories != undefined && obj.categories.length) {
         params.set('categories', obj.categories.toString());
+      } // languages
+
+
+      if (obj.languages != undefined && obj.languages.length) {
+        params.set('languages', obj.languages.toString());
       } // suitable
 
 
@@ -5371,6 +5452,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (obj.experience != undefined && obj.experience) {
         params.set('experience', obj.experience);
+      } // education
+
+
+      if (obj.education != undefined && obj.education) {
+        params.set('education', obj.education);
       }
 
       params.sort();
@@ -5468,8 +5554,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   props: ['lang', 'settings', 'vacancies', 'user'],
   mounted: function mounted() {
-    console.log(this.vacancies); // https://flaviocopes.com/urlsearchparams/
-
+    // console.log(this.vacancies)
+    // https://flaviocopes.com/urlsearchparams/
     var params = new URLSearchParams(window.location.search);
 
     if (params.has('position')) {
@@ -49349,187 +49435,6 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card card-primary suitable" }, [
-      _vm._m(2),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "suitable" } }, [_vm._v(" Лет отроду ")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "box-suitable", attrs: { id: "suitable" } },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.objCheckSuitable.suitable_from,
-                    expression: "objCheckSuitable.suitable_from",
-                  },
-                ],
-                attrs: {
-                  placeholder: "" + _vm.trans("vacancies", "from"),
-                  max: "100",
-                  min: "0",
-                  type: "number",
-                },
-                domProps: { value: _vm.objCheckSuitable.suitable_from },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.objCheckSuitable,
-                      "suitable_from",
-                      $event.target.value
-                    )
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("span", [_vm._v("-")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.objCheckSuitable.suitable_to,
-                    expression: "objCheckSuitable.suitable_to",
-                  },
-                ],
-                attrs: {
-                  placeholder: "" + _vm.trans("vacancies", "to"),
-                  max: "150",
-                  min: "0",
-                  type: "number",
-                },
-                domProps: { value: _vm.objCheckSuitable.suitable_to },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.objCheckSuitable,
-                      "suitable_to",
-                      $event.target.value
-                    )
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c(
-                "svg",
-                {
-                  staticClass: "svg-button svg-button-check",
-                  attrs: {
-                    type: "button",
-                    xmlns: "http://www.w3.org/2000/svg",
-                    viewBox: "0 0 512 512",
-                  },
-                  on: {
-                    click: function ($event) {
-                      return _vm.checkSuitable(true)
-                    },
-                  },
-                },
-                [
-                  _c("path", {
-                    attrs: {
-                      d: "M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z",
-                    },
-                  }),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "svg",
-                {
-                  staticClass: "svg-button svg-button-clear",
-                  attrs: {
-                    type: "button",
-                    xmlns: "http://www.w3.org/2000/svg",
-                    viewBox: "0 0 512 512",
-                  },
-                  on: {
-                    click: function ($event) {
-                      return _vm.checkSuitable(false)
-                    },
-                  },
-                },
-                [
-                  _c("path", {
-                    attrs: {
-                      d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z",
-                    },
-                  }),
-                ]
-              ),
-            ]
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card card-primary suitable" }, [
-      _vm._m(3),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              attrs: { id: "employment" },
-              on: {
-                change: function ($event) {
-                  return _vm.changeEmployment($event.target.value)
-                },
-              },
-            },
-            [
-              _c(
-                "option",
-                { attrs: { selected: "" }, domProps: { value: null } },
-                [
-                  _vm._v(
-                    "\n                        Выбрать\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.settings.type_employment, function (value, key) {
-                return [
-                  key == _vm.index_employment
-                    ? [
-                        _c(
-                          "option",
-                          {
-                            key: key,
-                            attrs: { selected: "" },
-                            domProps: { value: key },
-                          },
-                          [_vm._v(_vm._s(value))]
-                        ),
-                      ]
-                    : [
-                        _c("option", { key: key, domProps: { value: key } }, [
-                          _vm._v(_vm._s(value)),
-                        ]),
-                      ],
-                ]
-              }),
-            ],
-            2
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "card card-primary salary" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("h3", { staticClass: "card-title" }, [
@@ -49540,7 +49445,7 @@ var render = function () {
           ),
         ]),
         _vm._v(" "),
-        _vm._m(4),
+        _vm._m(2),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
@@ -49605,7 +49510,7 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                       c не указанной зарплатой\n                    "
+                  "\n                        c не указанной зарплатой\n                    "
                 ),
               ]
             ),
@@ -49736,6 +49641,107 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
+    _c("div", { staticClass: "card card-primary" }, [
+      _vm._m(3),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              staticClass: "form-control select2",
+              attrs: {
+                id: "languages",
+                multiple: "multiple",
+                "data-placeholder": "Выбрать",
+              },
+            },
+            [
+              _vm._l(_vm.lang.lang, function (obj, index) {
+                return [
+                  _vm.arrLanguages.indexOf(index) !== -1
+                    ? [
+                        _c(
+                          "option",
+                          {
+                            key: index,
+                            attrs: { selected: "" },
+                            domProps: { value: index },
+                          },
+                          [_vm._v(_vm._s(obj.title))]
+                        ),
+                      ]
+                    : [
+                        _c(
+                          "option",
+                          { key: index, domProps: { value: index } },
+                          [_vm._v(_vm._s(obj.title))]
+                        ),
+                      ],
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card card-primary suitable" }, [
+      _vm._m(4),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: { id: "employment" },
+              on: {
+                change: function ($event) {
+                  return _vm.changeEmployment($event.target.value)
+                },
+              },
+            },
+            [
+              _c(
+                "option",
+                { attrs: { selected: "" }, domProps: { value: null } },
+                [
+                  _vm._v(
+                    "\n                        Выбрать\n                    "
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.settings.type_employment, function (value, key) {
+                return [
+                  key == _vm.index_employment
+                    ? [
+                        _c(
+                          "option",
+                          {
+                            key: key,
+                            attrs: { selected: "" },
+                            domProps: { value: key },
+                          },
+                          [_vm._v(_vm._s(value))]
+                        ),
+                      ]
+                    : [
+                        _c("option", { key: key, domProps: { value: key } }, [
+                          _vm._v(_vm._s(value)),
+                        ]),
+                      ],
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "card card-primary suitable" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("h3", { staticClass: "card-title" }, [
@@ -49803,12 +49809,138 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card card-primary suitable" }, [
+      _vm._m(6),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "suitable" } }, [_vm._v(" Лет отроду ")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "box-suitable", attrs: { id: "suitable" } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.objCheckSuitable.suitable_from,
+                    expression: "objCheckSuitable.suitable_from",
+                  },
+                ],
+                attrs: {
+                  placeholder: "" + _vm.trans("vacancies", "from"),
+                  max: "100",
+                  min: "0",
+                  type: "number",
+                },
+                domProps: { value: _vm.objCheckSuitable.suitable_from },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.objCheckSuitable,
+                      "suitable_from",
+                      $event.target.value
+                    )
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("-")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.objCheckSuitable.suitable_to,
+                    expression: "objCheckSuitable.suitable_to",
+                  },
+                ],
+                attrs: {
+                  placeholder: "" + _vm.trans("vacancies", "to"),
+                  max: "150",
+                  min: "0",
+                  type: "number",
+                },
+                domProps: { value: _vm.objCheckSuitable.suitable_to },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.objCheckSuitable,
+                      "suitable_to",
+                      $event.target.value
+                    )
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                {
+                  staticClass: "svg-button svg-button-check",
+                  attrs: {
+                    type: "button",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.checkSuitable(true)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "svg",
+                {
+                  staticClass: "svg-button svg-button-clear",
+                  attrs: {
+                    type: "button",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.checkSuitable(false)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z",
+                    },
+                  }),
+                ]
+              ),
+            ]
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card card-primary suitable" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("h3", { staticClass: "card-title" }, [
           _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
         ]),
         _vm._v(" "),
-        _vm._m(6),
+        _vm._m(7),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
@@ -49816,28 +49948,10 @@ var render = function () {
           _c(
             "select",
             {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.education,
-                  expression: "education",
-                },
-              ],
               staticClass: "form-control",
               on: {
                 change: function ($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function (o) {
-                      return o.selected
-                    })
-                    .map(function (o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.education = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  return _vm.changeEducation($event.target.value)
                 },
               },
             },
@@ -49854,13 +49968,29 @@ var render = function () {
               _vm._v(" "),
               _vm._l(this.settings.education, function (value, key) {
                 return [
-                  _c("option", { domProps: { value: "" + key } }, [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(_vm.trans("vacancies", value)) +
-                        "\n                        "
-                    ),
-                  ]),
+                  key == _vm.education
+                    ? [
+                        _c(
+                          "option",
+                          { attrs: { selected: "" }, domProps: { value: key } },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.trans("vacancies", value)) +
+                                "\n                            "
+                            ),
+                          ]
+                        ),
+                      ]
+                    : [
+                        _c("option", { domProps: { value: key } }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.trans("vacancies", value)) +
+                              "\n                            "
+                          ),
+                        ]),
+                      ],
                 ]
               }),
             ],
@@ -49922,8 +50052,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-tools" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-tool",
+          attrs: {
+            type: "button",
+            "data-card-widget": "collapse",
+            "data-toggle": "tooltip",
+          },
+        },
+        [_c("i", { staticClass: "fas fa-minus" })]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Возраст соискателя")]),
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Язык")]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" }, [
         _c(
@@ -49987,19 +50136,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-tools" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-tool",
-          attrs: {
-            type: "button",
-            "data-card-widget": "collapse",
-            "data-toggle": "tooltip",
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Возраст соискателя")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-tool",
+            attrs: {
+              type: "button",
+              "data-card-widget": "collapse",
+              "data-toggle": "tooltip",
+            },
           },
-        },
-        [_c("i", { staticClass: "fas fa-minus" })]
-      ),
+          [_c("i", { staticClass: "fas fa-minus" })]
+        ),
+      ]),
     ])
   },
   function () {

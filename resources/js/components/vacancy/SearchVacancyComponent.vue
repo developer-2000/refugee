@@ -136,10 +136,12 @@
                 params.delete('region')
                 params.delete('city')
                 params.delete('categories')
+                params.delete('languages')
                 params.delete('suitable')
                 params.delete('employment')
                 params.delete('salary')
                 params.delete('experience')
+                params.delete('education')
 
                 // country
                 if(obj.country != undefined && obj.country != null){
@@ -156,6 +158,10 @@
                 // categories
                 if(obj.categories != undefined && obj.categories.length){
                     params.set('categories',obj.categories.toString())
+                }
+                // languages
+                if(obj.languages != undefined && obj.languages.length){
+                    params.set('languages',obj.languages.toString())
                 }
                 // suitable
                 if(obj.suitable != undefined && obj.suitable.check){
@@ -176,6 +182,10 @@
                 // experience
                 if(obj.experience != undefined && obj.experience){
                     params.set('experience',obj.experience)
+                }
+                // education
+                if(obj.education != undefined && obj.education){
+                    params.set('education',obj.education)
                 }
 
                 params.sort()
@@ -260,7 +270,7 @@
             'user',
         ],
         mounted() {
-            console.log(this.vacancies)
+            // console.log(this.vacancies)
 
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)
