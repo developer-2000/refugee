@@ -33,17 +33,12 @@ class VacancyController extends BaseController {
         $this->setElementsBread();
     }
 
-
     public function index(IndexVacancyRequest $request)
     {
         $settings = $this->getSettingsVacanciesAndCountries();
-//        dd($request->all());
-
         $vacancies = $this->repository->initialDataForSampling($request)
             ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
             ->paginate(5);
-
-//        dd($vacancies->toArray());
 
         return view('index', compact('settings', 'vacancies'));
     }

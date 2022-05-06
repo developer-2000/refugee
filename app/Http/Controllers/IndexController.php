@@ -16,32 +16,6 @@ class IndexController extends Controller {
 //        $data = Vacancy::whereJsonContains('categories', '7')->get();
 //        $data = Vacancy::whereJsonContains('categories', ['7', '28', '63'])->get();
 
-//        $suitable = "19,60";
-//
-//        $arrSuitable = explode(",", $suitable);
-//        $arrSuitable[0] = isset($arrSuitable[0]) ? intval($arrSuitable[0]) : 0;
-//        $arrSuitable[1] = isset($arrSuitable[1]) ? intval($arrSuitable[1]) : 100;
-//
-////        dd($arrSuitable);
-//
-////        $model = Vacancy::when($arrSuitable , function($query) use ($arrSuitable) {
-//        $model = Vacancy::where(function($query) use ($arrSuitable) {
-//            $query->where(function ($query) use ($arrSuitable) {
-//                $query->where("vacancy_suitable->radio_name", "set_age")
-//                    ->where("vacancy_suitable->inputs->from", ">=", $arrSuitable[0])
-//                    ->where("vacancy_suitable->inputs->to", "<=", $arrSuitable[1]);
-//            })->orWhere(function ($query) {
-//                $query->where("vacancy_suitable->radio_name", "it_not_matter");
-//            });
-//        })->get();
-//
-//
-//        dd($model->toArray());
-
-
-
-
-
         return view('index');
     }
 

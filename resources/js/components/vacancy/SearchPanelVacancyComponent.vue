@@ -7,14 +7,22 @@
             сбросить все
         </a>
 
-        <!-- Location -->
-        <div class="card card-primary">
+        <!-- Location card-primary -->
+        <div class="card"
+             :class="{'collapsed-card': !objLocations.country}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">Локация</h3>
+            <div class="card-header" id="card-location"
+                 :class="{'card-header-active': objLocations.country}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-location"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">Локация</h3>
+                        <template v-if="!objLocations.country"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -86,13 +94,20 @@
         </div>
 
         <!-- Categories -->
-        <div class="card card-primary">
+        <div class="card"
+             :class="{'collapsed-card': !objCategory.categories.length}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">Категории</h3>
+            <div class="card-header" id="card-categories"
+                 :class="{'card-header-active': objCategory.categories.length}">
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-categories"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">Категории</h3>
+                        <template v-if="!objCategory.categories.length"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -115,15 +130,23 @@
         </div>
 
         <!-- Salary -->
-        <div class="card card-primary salary">
+        <div class="card salary"
+             :class="{'collapsed-card': !objSalary.check}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">
-                    {{trans('vacancies','salary')}}
-                </h3>
+            <div class="card-header" id="card-salary"
+                 :class="{'card-header-active': objSalary.check}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-salary"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">
+                            {{trans('vacancies','salary')}}
+                        </h3>
+                        <template v-if="!objSalary.check"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -396,6 +419,17 @@
             }
         },
         methods: {
+            // переключение стиля card header
+            changeCardStatus(e){
+                let str_id = $(e.currentTarget).attr("data-id")
+                let header_elem = $("#"+str_id)
+                if (! header_elem.hasClass("card-header-active") ) {
+                    header_elem.addClass( "card-header-active" )
+                }
+                else{
+                    header_elem.removeClass( "card-header-active" )
+                }
+            },
             returnParent(obj) {
                 this.$emit('returnParent', obj)
             },
@@ -575,6 +609,7 @@
             'settings'
         ],
         mounted() {
+
             this.eventSelect2()
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {
@@ -587,6 +622,60 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .card-header > .card-tools {
+        float: none;
+        margin: 0;
+    }
+    .box-search{
+        .card-header{
+            padding: 8px 13px;
+            border-radius: 0;
+            border: 1px solid #2176bd;
+            height: 50px;
+            .card-tools{
+                float: none;
+                margin: 0;
+                height: 100%;
+                button{
+                    height: 100%;
+                    color: #2176bd;
+                    position: static;
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-content: center;
+                    align-items: center;
+                    i{
+                        color: #2176bd;
+                    }
+                    &:hover i{
+                        color: #165a93;
+                    }
+                    h3{
+                        margin: 0;
+                    }
+                }
+            }
+        }
+        .card-header-active{
+            border: none;
+            background-color: #1d68a7;
+            .card-tools{
+                button{
+                    color: #fff;
+                    i{
+                        color: rgba(255,255,255,.8);
+                    }
+                    &:hover i{
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
     #suitable,
     #salary {
         display: flex;
@@ -643,21 +732,12 @@
     }
     .card{
         width: 100%;
-        border-radius: 3px 3px 0px 0px;
+        /*border-radius: 3px 3px 0px 0px;*/
         border: none;
         /*border-bottom: 1px solid #ffdf9b;*/
         /*border-right: 1px solid #c0ddfb;*/
         box-shadow: none;
-        .card-header{
-            padding: 4px 13px;
-            h3{
-                margin: 2px 0 0 0;
-            }
-            button{
-                margin: 0;
-                padding: 0 10px 0 5px;
-            }
-        }
+
         .card-body{
             padding: 10px 12px 8px;
             border-left: 1px solid #c0ddfb;

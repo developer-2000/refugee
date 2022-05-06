@@ -5039,6 +5039,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5069,6 +5092,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    // переключение стиля card header
+    changeCardStatus: function changeCardStatus(e) {
+      var str_id = $(e.currentTarget).attr("data-id");
+      var header_elem = $("#" + str_id);
+
+      if (!header_elem.hasClass("card-header-active")) {
+        header_elem.addClass("card-header-active");
+      } else {
+        header_elem.removeClass("card-header-active");
+      }
+    },
     returnParent: function returnParent(obj) {
       this.$emit('returnParent', obj);
     },
@@ -10850,7 +10884,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#suitable[data-v-45ef9922],\n#salary[data-v-45ef9922] {\n  display: flex;\n  align-items: center;\n}\n#suitable input[data-v-45ef9922],\n#salary input[data-v-45ef9922] {\n  width: 83px;\n  margin: 0 5px;\n}\n#suitable input[data-v-45ef9922]:nth-child(1),\n#salary input[data-v-45ef9922]:nth-child(1) {\n  margin-left: 0;\n}\n.svg-button[data-v-45ef9922] {\n  width: 25px;\n  margin-left: 10px;\n}\n.svg-button-check path[data-v-45ef9922] {\n  fill: #28a745;\n}\n.svg-button-check:hover path[data-v-45ef9922] {\n  fill: #23923c;\n}\n.svg-button-clear path[data-v-45ef9922] {\n  fill: #dc3545;\n}\n.svg-button-clear:hover path[data-v-45ef9922] {\n  fill: #ad2733;\n}\n.but-reset-all[data-v-45ef9922] {\n  width: 150px;\n  text-align: center;\n  display: block;\n  margin: -25px auto 10px;\n  font-size: 19px;\n  color: #3490dc;\n  text-decoration: none;\n  border-bottom: 1px dashed #3490dc;\n  line-height: 25px;\n}\n.but-reset-all[data-v-45ef9922]:hover {\n  border-bottom: 1px dashed #0268bc;\n  color: #0268bc;\n}\n.form-group[data-v-45ef9922] {\n  margin: 0 0 4px 0;\n}\n.card[data-v-45ef9922] {\n  width: 100%;\n  border-radius: 3px 3px 0px 0px;\n  border: none;\n  /*border-bottom: 1px solid #ffdf9b;*/\n  /*border-right: 1px solid #c0ddfb;*/\n  box-shadow: none;\n}\n.card .card-header[data-v-45ef9922] {\n  padding: 4px 13px;\n}\n.card .card-header h3[data-v-45ef9922] {\n  margin: 2px 0 0 0;\n}\n.card .card-header button[data-v-45ef9922] {\n  margin: 0;\n  padding: 0 10px 0 5px;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 8px;\n  border-left: 1px solid #c0ddfb;\n  border-right: 1px solid #c0ddfb;\n  border-bottom: 1px solid #c0ddfb;\n}\n.suitable .card-body[data-v-45ef9922] {\n  padding: 10px 12px 7px;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin: 0 0 0 6px;\n}\n.box-div[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.salary .checkbox-box[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.target-label[data-v-45ef9922] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
+exports.push([module.i, ".card-header > .card-tools[data-v-45ef9922] {\n  float: none;\n  margin: 0;\n}\n.box-search .card-header[data-v-45ef9922] {\n  padding: 8px 13px;\n  border-radius: 0;\n  border: 1px solid #2176bd;\n  height: 50px;\n}\n.box-search .card-header .card-tools[data-v-45ef9922] {\n  float: none;\n  margin: 0;\n  height: 100%;\n}\n.box-search .card-header .card-tools button[data-v-45ef9922] {\n  height: 100%;\n  color: #2176bd;\n  position: static;\n  padding: 0;\n  margin: 0;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-content: center;\n  align-items: center;\n}\n.box-search .card-header .card-tools button i[data-v-45ef9922] {\n  color: #2176bd;\n}\n.box-search .card-header .card-tools button:hover i[data-v-45ef9922] {\n  color: #165a93;\n}\n.box-search .card-header .card-tools button h3[data-v-45ef9922] {\n  margin: 0;\n}\n.box-search .card-header-active[data-v-45ef9922] {\n  border: none;\n  background-color: #1d68a7;\n}\n.box-search .card-header-active .card-tools button[data-v-45ef9922] {\n  color: #fff;\n}\n.box-search .card-header-active .card-tools button i[data-v-45ef9922] {\n  color: rgba(255, 255, 255, 0.8);\n}\n.box-search .card-header-active .card-tools button:hover i[data-v-45ef9922] {\n  color: #fff;\n}\n#suitable[data-v-45ef9922],\n#salary[data-v-45ef9922] {\n  display: flex;\n  align-items: center;\n}\n#suitable input[data-v-45ef9922],\n#salary input[data-v-45ef9922] {\n  width: 83px;\n  margin: 0 5px;\n}\n#suitable input[data-v-45ef9922]:nth-child(1),\n#salary input[data-v-45ef9922]:nth-child(1) {\n  margin-left: 0;\n}\n.svg-button[data-v-45ef9922] {\n  width: 25px;\n  margin-left: 10px;\n}\n.svg-button-check path[data-v-45ef9922] {\n  fill: #28a745;\n}\n.svg-button-check:hover path[data-v-45ef9922] {\n  fill: #23923c;\n}\n.svg-button-clear path[data-v-45ef9922] {\n  fill: #dc3545;\n}\n.svg-button-clear:hover path[data-v-45ef9922] {\n  fill: #ad2733;\n}\n.but-reset-all[data-v-45ef9922] {\n  width: 150px;\n  text-align: center;\n  display: block;\n  margin: -25px auto 10px;\n  font-size: 19px;\n  color: #3490dc;\n  text-decoration: none;\n  border-bottom: 1px dashed #3490dc;\n  line-height: 25px;\n}\n.but-reset-all[data-v-45ef9922]:hover {\n  border-bottom: 1px dashed #0268bc;\n  color: #0268bc;\n}\n.form-group[data-v-45ef9922] {\n  margin: 0 0 4px 0;\n}\n.card[data-v-45ef9922] {\n  width: 100%;\n  /*border-radius: 3px 3px 0px 0px;*/\n  border: none;\n  /*border-bottom: 1px solid #ffdf9b;*/\n  /*border-right: 1px solid #c0ddfb;*/\n  box-shadow: none;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 8px;\n  border-left: 1px solid #c0ddfb;\n  border-right: 1px solid #c0ddfb;\n  border-bottom: 1px solid #c0ddfb;\n}\n.suitable .card-body[data-v-45ef9922] {\n  padding: 10px 12px 7px;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin: 0 0 0 6px;\n}\n.box-div[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.salary .checkbox-box[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.target-label[data-v-45ef9922] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
 
 // exports
 
@@ -49362,51 +49396,323 @@ var render = function () {
         )
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "card card-primary" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group location-grope" }, [
-          _c("div", { staticClass: "box-div" }, [
-            _c("label", { attrs: { for: "country" } }, [
-              _vm._v(
-                "\n                        Страна поиска\n                    "
+    _c(
+      "div",
+      {
+        staticClass: "card",
+        class: { "collapsed-card": !_vm.objLocations.country },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.objLocations.country },
+            attrs: { id: "card-location" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-location",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
+                },
+                [
+                  _c("h3", { staticClass: "card-title" }, [_vm._v("Локация")]),
+                  _vm._v(" "),
+                  !_vm.objLocations.country
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group location-grope" }, [
+            _c("div", { staticClass: "box-div" }, [
+              _c("label", { attrs: { for: "country" } }, [
+                _vm._v(
+                  "\n                        Страна поиска\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "form-control select2",
+                  attrs: { id: "country" },
+                },
+                [
+                  _c(
+                    "option",
+                    { attrs: { selected: "" }, domProps: { value: null } },
+                    [
+                      _vm._v(
+                        "\n                            Выбрать\n                        "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.settings.obj_countries, function (array, key) {
+                    return [
+                      _vm.objLocations.country == array.code
+                        ? [
+                            _c(
+                              "option",
+                              {
+                                key: key,
+                                attrs: { selected: "" },
+                                domProps: { value: array.code },
+                              },
+                              [_vm._v(_vm._s(array.name))]
+                            ),
+                          ]
+                        : [
+                            _c(
+                              "option",
+                              { key: key, domProps: { value: array.code } },
+                              [_vm._v(_vm._s(array.name))]
+                            ),
+                          ],
+                    ]
+                  }),
+                ],
+                2
               ),
             ]),
             _vm._v(" "),
             _c(
-              "select",
-              { staticClass: "form-control select2", attrs: { id: "country" } },
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.objLocations.load_regions,
+                    expression: "objLocations.load_regions",
+                  },
+                ],
+                staticClass: "box-div",
+              },
               [
-                _c(
-                  "option",
-                  { attrs: { selected: "" }, domProps: { value: null } },
-                  [
-                    _vm._v(
-                      "\n                            Выбрать\n                        "
-                    ),
-                  ]
-                ),
+                _c("label", { attrs: { for: "region" } }, [
+                  _vm._v(
+                    "\n                        Регион поиска\n                    "
+                  ),
+                ]),
                 _vm._v(" "),
-                _vm._l(_vm.settings.obj_countries, function (array, key) {
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control select2",
+                    attrs: { id: "region" },
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { selected: "" }, domProps: { value: null } },
+                      [
+                        _vm._v(
+                          "\n                            Выбрать\n                        "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(
+                      _vm.objLocations.load_regions,
+                      function (array, key) {
+                        return [
+                          _vm.objLocations.region == array.code
+                            ? [
+                                _c(
+                                  "option",
+                                  {
+                                    key: key,
+                                    attrs: { selected: "" },
+                                    domProps: { value: array.code },
+                                  },
+                                  [_vm._v(_vm._s(array.name))]
+                                ),
+                              ]
+                            : [
+                                _c(
+                                  "option",
+                                  { key: key, domProps: { value: array.code } },
+                                  [_vm._v(_vm._s(array.name))]
+                                ),
+                              ],
+                        ]
+                      }
+                    ),
+                  ],
+                  2
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.objLocations.load_cities != null,
+                    expression: "objLocations.load_cities != null",
+                  },
+                ],
+                staticClass: "box-div",
+              },
+              [
+                _c("label", { attrs: { for: "city" } }, [
+                  _vm._v(
+                    "\n                        Город поиска\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control select2",
+                    attrs: { id: "city" },
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { selected: "" }, domProps: { value: null } },
+                      [
+                        _vm._v(
+                          "\n                            Выбрать\n                        "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.objLocations.load_cities, function (array, key) {
+                      return [
+                        _vm.objLocations.city == array.code
+                          ? [
+                              _c(
+                                "option",
+                                {
+                                  key: key,
+                                  attrs: { selected: "" },
+                                  domProps: { value: array.code },
+                                },
+                                [_vm._v(_vm._s(array.name))]
+                              ),
+                            ]
+                          : [
+                              _c(
+                                "option",
+                                { key: key, domProps: { value: array.code } },
+                                [_vm._v(_vm._s(array.name))]
+                              ),
+                            ],
+                      ]
+                    }),
+                  ],
+                  2
+                ),
+              ]
+            ),
+          ]),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card",
+        class: { "collapsed-card": !_vm.objCategory.categories.length },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.objCategory.categories.length },
+            attrs: { id: "card-categories" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-categories",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
+                },
+                [
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v("Категории"),
+                  ]),
+                  _vm._v(" "),
+                  !_vm.objCategory.categories.length
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                staticClass: "form-control select2",
+                attrs: {
+                  id: "categories",
+                  multiple: "multiple",
+                  "data-placeholder": "Выбрать",
+                },
+              },
+              [
+                _vm._l(_vm.settings.categories, function (value, index) {
                   return [
-                    _vm.objLocations.country == array.code
+                    _vm.objCategory.categories.indexOf(index) !== -1
                       ? [
                           _c(
                             "option",
                             {
-                              key: key,
+                              key: index,
                               attrs: { selected: "" },
-                              domProps: { value: array.code },
+                              domProps: { value: index },
                             },
-                            [_vm._v(_vm._s(array.name))]
+                            [_vm._v(_vm._s(value))]
                           ),
                         ]
                       : [
                           _c(
                             "option",
-                            { key: key, domProps: { value: array.code } },
-                            [_vm._v(_vm._s(array.name))]
+                            { key: index, domProps: { value: index } },
+                            [_vm._v(_vm._s(value))]
                           ),
                         ],
                   ]
@@ -49415,393 +49721,265 @@ var render = function () {
               2
             ),
           ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.objLocations.load_regions,
-                  expression: "objLocations.load_regions",
-                },
-              ],
-              staticClass: "box-div",
-            },
-            [
-              _c("label", { attrs: { for: "region" } }, [
-                _vm._v(
-                  "\n                        Регион поиска\n                    "
-                ),
-              ]),
-              _vm._v(" "),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card salary",
+        class: { "collapsed-card": !_vm.objSalary.check },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.objSalary.check },
+            attrs: { id: "card-salary" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
               _c(
-                "select",
+                "button",
                 {
-                  staticClass: "form-control select2",
-                  attrs: { id: "region" },
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-salary",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
                 },
                 [
-                  _c(
-                    "option",
-                    { attrs: { selected: "" }, domProps: { value: null } },
-                    [
-                      _vm._v(
-                        "\n                            Выбрать\n                        "
-                      ),
-                    ]
-                  ),
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "salary")) +
+                        "\n                    "
+                    ),
+                  ]),
                   _vm._v(" "),
-                  _vm._l(_vm.objLocations.load_regions, function (array, key) {
-                    return [
-                      _vm.objLocations.region == array.code
-                        ? [
-                            _c(
-                              "option",
-                              {
-                                key: key,
-                                attrs: { selected: "" },
-                                domProps: { value: array.code },
-                              },
-                              [_vm._v(_vm._s(array.name))]
-                            ),
-                          ]
-                        : [
-                            _c(
-                              "option",
-                              { key: key, domProps: { value: array.code } },
-                              [_vm._v(_vm._s(array.name))]
-                            ),
-                          ],
-                    ]
-                  }),
+                  !_vm.objSalary.check
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
                 ],
                 2
               ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.objLocations.load_cities != null,
-                  expression: "objLocations.load_cities != null",
-                },
-              ],
-              staticClass: "box-div",
-            },
-            [
-              _c("label", { attrs: { for: "city" } }, [
-                _vm._v(
-                  "\n                        Город поиска\n                    "
-                ),
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                { staticClass: "form-control select2", attrs: { id: "city" } },
-                [
-                  _c(
-                    "option",
-                    { attrs: { selected: "" }, domProps: { value: null } },
-                    [
-                      _vm._v(
-                        "\n                            Выбрать\n                        "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.objLocations.load_cities, function (array, key) {
-                    return [
-                      _vm.objLocations.city == array.code
-                        ? [
-                            _c(
-                              "option",
-                              {
-                                key: key,
-                                attrs: { selected: "" },
-                                domProps: { value: array.code },
-                              },
-                              [_vm._v(_vm._s(array.name))]
-                            ),
-                          ]
-                        : [
-                            _c(
-                              "option",
-                              { key: key, domProps: { value: array.code } },
-                              [_vm._v(_vm._s(array.name))]
-                            ),
-                          ],
-                    ]
-                  }),
-                ],
-                2
-              ),
-            ]
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card card-primary" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control select2",
-              attrs: {
-                id: "categories",
-                multiple: "multiple",
-                "data-placeholder": "Выбрать",
-              },
-            },
-            [
-              _vm._l(_vm.settings.categories, function (value, index) {
-                return [
-                  _vm.objCategory.categories.indexOf(index) !== -1
-                    ? [
-                        _c(
-                          "option",
-                          {
-                            key: index,
-                            attrs: { selected: "" },
-                            domProps: { value: index },
-                          },
-                          [_vm._v(_vm._s(value))]
-                        ),
-                      ]
-                    : [
-                        _c(
-                          "option",
-                          { key: index, domProps: { value: index } },
-                          [_vm._v(_vm._s(value))]
-                        ),
-                      ],
-                ]
-              }),
-            ],
-            2
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card card-primary salary" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.trans("vacancies", "salary")) +
-              "\n            "
-          ),
-        ]),
+            ]),
+          ]
+        ),
         _vm._v(" "),
-        _vm._m(2),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "checkbox-box" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.objSalary.without_salary_checkbox,
-                  expression: "objSalary.without_salary_checkbox",
-                },
-              ],
-              staticClass: "form-check-input",
-              attrs: { id: "salary_checkbox", type: "checkbox" },
-              domProps: {
-                checked: Array.isArray(_vm.objSalary.without_salary_checkbox)
-                  ? _vm._i(_vm.objSalary.without_salary_checkbox, null) > -1
-                  : _vm.objSalary.without_salary_checkbox,
-              },
-              on: {
-                change: [
-                  function ($event) {
-                    var $$a = _vm.objSalary.without_salary_checkbox,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(
-                            _vm.objSalary,
-                            "without_salary_checkbox",
-                            $$a.concat([$$v])
-                          )
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.objSalary,
-                            "without_salary_checkbox",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.objSalary, "without_salary_checkbox", $$c)
-                    }
-                  },
-                  function ($event) {
-                    return _vm.checkSalary(true, "check")
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "checkbox-box" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.objSalary.without_salary_checkbox,
+                    expression: "objSalary.without_salary_checkbox",
                   },
                 ],
-              },
-            }),
+                staticClass: "form-check-input",
+                attrs: { id: "salary_checkbox", type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.objSalary.without_salary_checkbox)
+                    ? _vm._i(_vm.objSalary.without_salary_checkbox, null) > -1
+                    : _vm.objSalary.without_salary_checkbox,
+                },
+                on: {
+                  change: [
+                    function ($event) {
+                      var $$a = _vm.objSalary.without_salary_checkbox,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.objSalary,
+                              "without_salary_checkbox",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.objSalary,
+                              "without_salary_checkbox",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.objSalary, "without_salary_checkbox", $$c)
+                      }
+                    },
+                    function ($event) {
+                      return _vm.checkSalary(true, "check")
+                    },
+                  ],
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "target-label",
+                  attrs: { for: "salary_checkbox" },
+                },
+                [
+                  _vm._v(
+                    "\n                        c не указанной зарплатой\n                    "
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "salary" } }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(
+                    _vm.UpperCaseFirstCharacter(
+                      _vm.trans("vacancies", "euro_per_month")
+                    )
+                  ) +
+                  "\n                "
+              ),
+            ]),
             _vm._v(" "),
             _c(
-              "label",
-              {
-                staticClass: "target-label",
-                attrs: { for: "salary_checkbox" },
-              },
+              "div",
+              { staticClass: "box-suitable", attrs: { id: "salary" } },
               [
-                _vm._v(
-                  "\n                        c не указанной зарплатой\n                    "
-                ),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.objSalary.from,
+                      expression: "objSalary.from",
+                    },
+                  ],
+                  attrs: {
+                    placeholder: "" + _vm.trans("vacancies", "from"),
+                    type: "number",
+                    min: "0",
+                    max: "100000000",
+                    disabled: _vm.objSalary.without_salary_checkbox
+                      ? true
+                      : false,
+                  },
+                  domProps: { value: _vm.objSalary.from },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.objSalary, "from", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v("-")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.objSalary.to,
+                      expression: "objSalary.to",
+                    },
+                  ],
+                  attrs: {
+                    placeholder: "" + _vm.trans("vacancies", "to"),
+                    max: "100000000",
+                    min: "0",
+                    type: "number",
+                    disabled: _vm.objSalary.without_salary_checkbox
+                      ? true
+                      : false,
+                  },
+                  domProps: { value: _vm.objSalary.to },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.objSalary, "to", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                !_vm.objSalary.without_salary_checkbox
+                  ? _c(
+                      "svg",
+                      {
+                        staticClass: "svg-button svg-button-check",
+                        attrs: {
+                          type: "button",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                        on: {
+                          click: function ($event) {
+                            return _vm.checkSalary(true)
+                          },
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z",
+                          },
+                        }),
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.objSalary.without_salary_checkbox
+                  ? _c(
+                      "svg",
+                      {
+                        staticClass: "svg-button svg-button-clear",
+                        attrs: {
+                          type: "button",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                        on: {
+                          click: function ($event) {
+                            return _vm.checkSalary(false)
+                          },
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z",
+                          },
+                        }),
+                      ]
+                    )
+                  : _vm._e(),
               ]
             ),
           ]),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "salary" } }, [
-            _vm._v(
-              "\n                    " +
-                _vm._s(
-                  _vm.UpperCaseFirstCharacter(
-                    _vm.trans("vacancies", "euro_per_month")
-                  )
-                ) +
-                "\n                "
-            ),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "box-suitable", attrs: { id: "salary" } }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.objSalary.from,
-                  expression: "objSalary.from",
-                },
-              ],
-              attrs: {
-                placeholder: "" + _vm.trans("vacancies", "from"),
-                type: "number",
-                min: "0",
-                max: "100000000",
-                disabled: _vm.objSalary.without_salary_checkbox ? true : false,
-              },
-              domProps: { value: _vm.objSalary.from },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.objSalary, "from", $event.target.value)
-                },
-              },
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v("-")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.objSalary.to,
-                  expression: "objSalary.to",
-                },
-              ],
-              attrs: {
-                placeholder: "" + _vm.trans("vacancies", "to"),
-                max: "100000000",
-                min: "0",
-                type: "number",
-                disabled: _vm.objSalary.without_salary_checkbox ? true : false,
-              },
-              domProps: { value: _vm.objSalary.to },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.objSalary, "to", $event.target.value)
-                },
-              },
-            }),
-            _vm._v(" "),
-            !_vm.objSalary.without_salary_checkbox
-              ? _c(
-                  "svg",
-                  {
-                    staticClass: "svg-button svg-button-check",
-                    attrs: {
-                      type: "button",
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                    on: {
-                      click: function ($event) {
-                        return _vm.checkSalary(true)
-                      },
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z",
-                      },
-                    }),
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.objSalary.without_salary_checkbox
-              ? _c(
-                  "svg",
-                  {
-                    staticClass: "svg-button svg-button-clear",
-                    attrs: {
-                      type: "button",
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                    on: {
-                      click: function ($event) {
-                        return _vm.checkSalary(false)
-                      },
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z",
-                      },
-                    }),
-                  ]
-                )
-              : _vm._e(),
-          ]),
         ]),
-      ]),
-    ]),
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "card card-primary" }, [
-      _vm._m(3),
+      _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "form-group" }, [
@@ -49847,7 +50025,7 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card card-primary suitable" }, [
-      _vm._m(4),
+      _vm._m(1),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "form-group" }, [
@@ -49907,7 +50085,7 @@ var render = function () {
           _vm._v(_vm._s(_vm.trans("vacancies", "work_experience"))),
         ]),
         _vm._v(" "),
-        _vm._m(5),
+        _vm._m(2),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
@@ -49968,7 +50146,7 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card card-primary suitable" }, [
-      _vm._m(6),
+      _vm._m(3),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "form-group" }, [
@@ -50099,7 +50277,7 @@ var render = function () {
           _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
         ]),
         _vm._v(" "),
-        _vm._m(7),
+        _vm._m(4),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
@@ -50161,71 +50339,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Локация")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: {
-              type: "button",
-              "data-card-widget": "collapse",
-              "data-toggle": "tooltip",
-            },
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Категории")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: {
-              type: "button",
-              "data-card-widget": "collapse",
-              "data-toggle": "tooltip",
-            },
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-tools" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-tool",
-          attrs: {
-            type: "button",
-            "data-card-widget": "collapse",
-            "data-toggle": "tooltip",
-          },
-        },
-        [_c("i", { staticClass: "fas fa-minus" })]
-      ),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
