@@ -5062,6 +5062,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10884,7 +10924,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card-header > .card-tools[data-v-45ef9922] {\n  float: none;\n  margin: 0;\n}\n.box-search .card-header[data-v-45ef9922] {\n  padding: 8px 13px;\n  border-radius: 0;\n  border: 1px solid #2176bd;\n  height: 50px;\n}\n.box-search .card-header .card-tools[data-v-45ef9922] {\n  float: none;\n  margin: 0;\n  height: 100%;\n}\n.box-search .card-header .card-tools button[data-v-45ef9922] {\n  height: 100%;\n  color: #2176bd;\n  position: static;\n  padding: 0;\n  margin: 0;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-content: center;\n  align-items: center;\n}\n.box-search .card-header .card-tools button i[data-v-45ef9922] {\n  color: #2176bd;\n}\n.box-search .card-header .card-tools button:hover i[data-v-45ef9922] {\n  color: #165a93;\n}\n.box-search .card-header .card-tools button h3[data-v-45ef9922] {\n  margin: 0;\n}\n.box-search .card-header-active[data-v-45ef9922] {\n  border: none;\n  background-color: #1d68a7;\n}\n.box-search .card-header-active .card-tools button[data-v-45ef9922] {\n  color: #fff;\n}\n.box-search .card-header-active .card-tools button i[data-v-45ef9922] {\n  color: rgba(255, 255, 255, 0.8);\n}\n.box-search .card-header-active .card-tools button:hover i[data-v-45ef9922] {\n  color: #fff;\n}\n#suitable[data-v-45ef9922],\n#salary[data-v-45ef9922] {\n  display: flex;\n  align-items: center;\n}\n#suitable input[data-v-45ef9922],\n#salary input[data-v-45ef9922] {\n  width: 83px;\n  margin: 0 5px;\n}\n#suitable input[data-v-45ef9922]:nth-child(1),\n#salary input[data-v-45ef9922]:nth-child(1) {\n  margin-left: 0;\n}\n.svg-button[data-v-45ef9922] {\n  width: 25px;\n  margin-left: 10px;\n}\n.svg-button-check path[data-v-45ef9922] {\n  fill: #28a745;\n}\n.svg-button-check:hover path[data-v-45ef9922] {\n  fill: #23923c;\n}\n.svg-button-clear path[data-v-45ef9922] {\n  fill: #dc3545;\n}\n.svg-button-clear:hover path[data-v-45ef9922] {\n  fill: #ad2733;\n}\n.but-reset-all[data-v-45ef9922] {\n  width: 150px;\n  text-align: center;\n  display: block;\n  margin: -25px auto 10px;\n  font-size: 19px;\n  color: #3490dc;\n  text-decoration: none;\n  border-bottom: 1px dashed #3490dc;\n  line-height: 25px;\n}\n.but-reset-all[data-v-45ef9922]:hover {\n  border-bottom: 1px dashed #0268bc;\n  color: #0268bc;\n}\n.form-group[data-v-45ef9922] {\n  margin: 0 0 4px 0;\n}\n.card[data-v-45ef9922] {\n  width: 100%;\n  /*border-radius: 3px 3px 0px 0px;*/\n  border: none;\n  /*border-bottom: 1px solid #ffdf9b;*/\n  /*border-right: 1px solid #c0ddfb;*/\n  box-shadow: none;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 8px;\n  border-left: 1px solid #c0ddfb;\n  border-right: 1px solid #c0ddfb;\n  border-bottom: 1px solid #c0ddfb;\n}\n.suitable .card-body[data-v-45ef9922] {\n  padding: 10px 12px 7px;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin: 0 0 0 6px;\n}\n.box-div[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.salary .checkbox-box[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.target-label[data-v-45ef9922] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
+exports.push([module.i, ".card-header > .card-tools[data-v-45ef9922] {\n  float: none;\n  margin: 0;\n}\n.box-search .card-header[data-v-45ef9922] {\n  padding: 8px 13px;\n  border-radius: 0;\n  border: 1px solid #2176bd;\n  height: 50px;\n}\n.box-search .card-header .card-tools[data-v-45ef9922] {\n  float: none;\n  margin: 0;\n  height: 100%;\n}\n.box-search .card-header .card-tools button[data-v-45ef9922] {\n  height: 100%;\n  color: #2176bd;\n  position: static;\n  padding: 0;\n  margin: 0;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-content: center;\n  align-items: center;\n}\n.box-search .card-header .card-tools button i[data-v-45ef9922] {\n  color: #2176bd;\n}\n.box-search .card-header .card-tools button:hover i[data-v-45ef9922] {\n  color: #165a93;\n}\n.box-search .card-header .card-tools button h3[data-v-45ef9922] {\n  margin: 0;\n}\n.box-search .card-header-active[data-v-45ef9922] {\n  border: none;\n  background-color: #1d68a7;\n}\n.box-search .card-header-active .card-tools button[data-v-45ef9922] {\n  color: #fff;\n}\n.box-search .card-header-active .card-tools button i[data-v-45ef9922] {\n  color: rgba(255, 255, 255, 0.8);\n}\n.box-search .card-header-active .card-tools button:hover i[data-v-45ef9922] {\n  color: #fff;\n}\n#suitable[data-v-45ef9922],\n#salary[data-v-45ef9922] {\n  display: flex;\n  align-items: center;\n}\n#suitable input[data-v-45ef9922],\n#salary input[data-v-45ef9922] {\n  width: 83px;\n  margin: 0 5px;\n}\n#suitable input[data-v-45ef9922]:nth-child(1),\n#salary input[data-v-45ef9922]:nth-child(1) {\n  margin-left: 0;\n}\n.svg-button[data-v-45ef9922] {\n  width: 25px;\n  margin-left: 10px;\n}\n.svg-button-check path[data-v-45ef9922] {\n  fill: #28a745;\n}\n.svg-button-check:hover path[data-v-45ef9922] {\n  fill: #23923c;\n}\n.svg-button-clear path[data-v-45ef9922] {\n  fill: #dc3545;\n}\n.svg-button-clear:hover path[data-v-45ef9922] {\n  fill: #ad2733;\n}\n.but-reset-all[data-v-45ef9922] {\n  width: 150px;\n  text-align: center;\n  display: block;\n  margin: -25px auto 10px;\n  font-size: 19px;\n  color: #3490dc;\n  text-decoration: none;\n  border-bottom: 1px dashed #3490dc;\n  line-height: 25px;\n}\n.but-reset-all[data-v-45ef9922]:hover {\n  border-bottom: 1px dashed #0268bc;\n  color: #0268bc;\n}\n.form-group[data-v-45ef9922] {\n  margin: 0 0 4px 0;\n}\n.card[data-v-45ef9922] {\n  width: 100%;\n  border: none;\n  box-shadow: none;\n  margin-bottom: 3px;\n}\n.card .card-body[data-v-45ef9922] {\n  padding: 10px 12px 8px;\n  border-left: 1px solid #c0ddfb;\n  border-right: 1px solid #c0ddfb;\n  border-bottom: 1px solid #c0ddfb;\n}\n.checkbox-box[data-v-45ef9922] {\n  margin: 0;\n  display: flex;\n}\n.checkbox-box label[data-v-45ef9922] {\n  cursor: pointer;\n  margin: 0 0 0 6px;\n}\n.box-div[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.salary .checkbox-box[data-v-45ef9922] {\n  margin-bottom: 10px;\n}\n.target-label[data-v-45ef9922] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
 
 // exports
 
@@ -49978,475 +50018,580 @@ var render = function () {
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "card card-primary" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control select2",
-              attrs: {
-                id: "languages",
-                multiple: "multiple",
-                "data-placeholder": "Выбрать",
-              },
-            },
-            [
-              _vm._l(_vm.lang.lang, function (obj, index) {
-                return [
-                  _vm.arrLanguages.indexOf(index) !== -1
-                    ? [
-                        _c(
-                          "option",
-                          {
-                            key: index,
-                            attrs: { selected: "" },
-                            domProps: { value: index },
-                          },
-                          [_vm._v(_vm._s(obj.title))]
-                        ),
-                      ]
-                    : [
-                        _c(
-                          "option",
-                          { key: index, domProps: { value: index } },
-                          [_vm._v(_vm._s(obj.title))]
-                        ),
-                      ],
-                ]
-              }),
-            ],
-            2
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card card-primary suitable" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              attrs: { id: "employment" },
-              on: {
-                change: function ($event) {
-                  return _vm.changeEmployment($event.target.value)
-                },
-              },
-            },
-            [
+    _c(
+      "div",
+      {
+        staticClass: "card",
+        class: { "collapsed-card": !_vm.arrLanguages.length },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.arrLanguages.length },
+            attrs: { id: "card-language" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
               _c(
-                "option",
-                { attrs: { selected: "" }, domProps: { value: null } },
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-language",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
+                },
                 [
-                  _vm._v(
-                    "\n                        Выбрать\n                    "
-                  ),
-                ]
+                  _c("h3", { staticClass: "card-title" }, [_vm._v("Язык")]),
+                  _vm._v(" "),
+                  !_vm.arrLanguages.length
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
               ),
-              _vm._v(" "),
-              _vm._l(_vm.settings.type_employment, function (value, key) {
-                return [
-                  key == _vm.index_employment
-                    ? [
-                        _c(
-                          "option",
-                          {
-                            key: key,
-                            attrs: { selected: "" },
-                            domProps: { value: key },
-                          },
-                          [_vm._v(_vm._s(value))]
-                        ),
-                      ]
-                    : [
-                        _c("option", { key: key, domProps: { value: key } }, [
-                          _vm._v(_vm._s(value)),
-                        ]),
-                      ],
-                ]
-              }),
-            ],
-            2
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card card-primary suitable" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [
-          _vm._v(_vm._s(_vm.trans("vacancies", "work_experience"))),
-        ]),
+            ]),
+          ]
+        ),
         _vm._v(" "),
-        _vm._m(2),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              on: {
-                change: function ($event) {
-                  return _vm.changeExperience($event.target.value)
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                staticClass: "form-control select2",
+                attrs: {
+                  id: "languages",
+                  multiple: "multiple",
+                  "data-placeholder": "Выбрать",
                 },
               },
-            },
-            [
+              [
+                _vm._l(_vm.lang.lang, function (obj, index) {
+                  return [
+                    _vm.arrLanguages.indexOf(index) !== -1
+                      ? [
+                          _c(
+                            "option",
+                            {
+                              key: index,
+                              attrs: { selected: "" },
+                              domProps: { value: index },
+                            },
+                            [_vm._v(_vm._s(obj.title))]
+                          ),
+                        ]
+                      : [
+                          _c(
+                            "option",
+                            { key: index, domProps: { value: index } },
+                            [_vm._v(_vm._s(obj.title))]
+                          ),
+                        ],
+                  ]
+                }),
+              ],
+              2
+            ),
+          ]),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card",
+        class: { "collapsed-card": !_vm.index_employment },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.index_employment },
+            attrs: { id: "card-employment" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
               _c(
-                "option",
-                { attrs: { selected: "" }, domProps: { value: null } },
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-employment",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
+                },
                 [
-                  _vm._v(
-                    "\n                        Выбрать\n                    "
-                  ),
-                ]
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v("Вид занятости"),
+                  ]),
+                  _vm._v(" "),
+                  !_vm.index_employment
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
               ),
-              _vm._v(" "),
-              _vm._l(this.settings.work_experience, function (value, key) {
-                return [
-                  key == _vm.experience
-                    ? [
-                        _c(
-                          "option",
-                          { attrs: { selected: "" }, domProps: { value: key } },
-                          [
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                attrs: { id: "employment" },
+                on: {
+                  change: function ($event) {
+                    return _vm.changeEmployment($event.target.value)
+                  },
+                },
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { selected: "" }, domProps: { value: null } },
+                  [
+                    _vm._v(
+                      "\n                        Выбрать\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.settings.type_employment, function (value, key) {
+                  return [
+                    key == _vm.index_employment
+                      ? [
+                          _c(
+                            "option",
+                            {
+                              key: key,
+                              attrs: { selected: "" },
+                              domProps: { value: key },
+                            },
+                            [_vm._v(_vm._s(value))]
+                          ),
+                        ]
+                      : [
+                          _c("option", { key: key, domProps: { value: key } }, [
+                            _vm._v(_vm._s(value)),
+                          ]),
+                        ],
+                  ]
+                }),
+              ],
+              2
+            ),
+          ]),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "card", class: { "collapsed-card": !_vm.experience } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.experience },
+            attrs: { id: "card-experience" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-experience",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
+                },
+                [
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(_vm.trans("vacancies", "work_experience"))),
+                  ]),
+                  _vm._v(" "),
+                  !_vm.experience
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                on: {
+                  change: function ($event) {
+                    return _vm.changeExperience($event.target.value)
+                  },
+                },
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { selected: "" }, domProps: { value: null } },
+                  [
+                    _vm._v(
+                      "\n                        Выбрать\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._l(this.settings.work_experience, function (value, key) {
+                  return [
+                    key == _vm.experience
+                      ? [
+                          _c(
+                            "option",
+                            {
+                              attrs: { selected: "" },
+                              domProps: { value: key },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("vacancies", value)) +
+                                  "\n                            "
+                              ),
+                            ]
+                          ),
+                        ]
+                      : [
+                          _c("option", { domProps: { value: key } }, [
                             _vm._v(
                               "\n                                " +
                                 _vm._s(_vm.trans("vacancies", value)) +
                                 "\n                            "
                             ),
-                          ]
-                        ),
-                      ]
-                    : [
-                        _c("option", { domProps: { value: key } }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.trans("vacancies", value)) +
-                              "\n                            "
-                          ),
-                        ]),
-                      ],
-                ]
-              }),
-            ],
-            2
-          ),
+                          ]),
+                        ],
+                  ]
+                }),
+              ],
+              2
+            ),
+          ]),
         ]),
-      ]),
-    ]),
+      ]
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "card card-primary suitable" }, [
-      _vm._m(3),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "suitable" } }, [_vm._v(" Лет отроду ")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "box-suitable", attrs: { id: "suitable" } },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.objCheckSuitable.suitable_from,
-                    expression: "objCheckSuitable.suitable_from",
-                  },
-                ],
-                attrs: {
-                  placeholder: "" + _vm.trans("vacancies", "from"),
-                  max: "100",
-                  min: "0",
-                  type: "number",
-                },
-                domProps: { value: _vm.objCheckSuitable.suitable_from },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.objCheckSuitable,
-                      "suitable_from",
-                      $event.target.value
-                    )
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("span", [_vm._v("-")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.objCheckSuitable.suitable_to,
-                    expression: "objCheckSuitable.suitable_to",
-                  },
-                ],
-                attrs: {
-                  placeholder: "" + _vm.trans("vacancies", "to"),
-                  max: "150",
-                  min: "0",
-                  type: "number",
-                },
-                domProps: { value: _vm.objCheckSuitable.suitable_to },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.objCheckSuitable,
-                      "suitable_to",
-                      $event.target.value
-                    )
-                  },
-                },
-              }),
-              _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card",
+        class: { "collapsed-card": !_vm.objCheckSuitable.check },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.objCheckSuitable.check },
+            attrs: { id: "card-suitable" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
               _c(
-                "svg",
+                "button",
                 {
-                  staticClass: "svg-button svg-button-check",
+                  staticClass: "btn btn-tool",
                   attrs: {
                     type: "button",
-                    xmlns: "http://www.w3.org/2000/svg",
-                    viewBox: "0 0 512 512",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-suitable",
                   },
                   on: {
                     click: function ($event) {
-                      return _vm.checkSuitable(true)
+                      return _vm.changeCardStatus($event)
                     },
                   },
                 },
                 [
-                  _c("path", {
-                    attrs: {
-                      d: "M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z",
-                    },
-                  }),
-                ]
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v("Возраст соискателя"),
+                  ]),
+                  _vm._v(" "),
+                  !_vm.objCheckSuitable.check
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
               ),
-              _vm._v(" "),
-              _c(
-                "svg",
-                {
-                  staticClass: "svg-button svg-button-clear",
-                  attrs: {
-                    type: "button",
-                    xmlns: "http://www.w3.org/2000/svg",
-                    viewBox: "0 0 512 512",
-                  },
-                  on: {
-                    click: function ($event) {
-                      return _vm.checkSuitable(false)
-                    },
-                  },
-                },
-                [
-                  _c("path", {
-                    attrs: {
-                      d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z",
-                    },
-                  }),
-                ]
-              ),
-            ]
-          ),
-        ]),
-      ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card card-primary suitable" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [
-          _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
-        ]),
+            ]),
+          ]
+        ),
         _vm._v(" "),
-        _vm._m(4),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              on: {
-                change: function ($event) {
-                  return _vm.changeEducation($event.target.value)
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "suitable" } }, [
+              _vm._v(" Лет отроду "),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "box-suitable", attrs: { id: "suitable" } },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.objCheckSuitable.suitable_from,
+                      expression: "objCheckSuitable.suitable_from",
+                    },
+                  ],
+                  attrs: {
+                    placeholder: "" + _vm.trans("vacancies", "from"),
+                    max: "100",
+                    min: "0",
+                    type: "number",
+                  },
+                  domProps: { value: _vm.objCheckSuitable.suitable_from },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.objCheckSuitable,
+                        "suitable_from",
+                        $event.target.value
+                      )
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v("-")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.objCheckSuitable.suitable_to,
+                      expression: "objCheckSuitable.suitable_to",
+                    },
+                  ],
+                  attrs: {
+                    placeholder: "" + _vm.trans("vacancies", "to"),
+                    max: "150",
+                    min: "0",
+                    type: "number",
+                  },
+                  domProps: { value: _vm.objCheckSuitable.suitable_to },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.objCheckSuitable,
+                        "suitable_to",
+                        $event.target.value
+                      )
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "svg",
+                  {
+                    staticClass: "svg-button svg-button-check",
+                    attrs: {
+                      type: "button",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                    on: {
+                      click: function ($event) {
+                        return _vm.checkSuitable(true)
+                      },
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "svg",
+                  {
+                    staticClass: "svg-button svg-button-clear",
+                    attrs: {
+                      type: "button",
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                    on: {
+                      click: function ($event) {
+                        return _vm.checkSuitable(false)
+                      },
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "card", class: { "collapsed-card": !_vm.education } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "card-header",
+            class: { "card-header-active": _vm.education },
+            attrs: { id: "card-education" },
+          },
+          [
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-tool",
+                  attrs: {
+                    type: "button",
+                    "data-card-widget": "collapse",
+                    "data-toggle": "tooltip",
+                    "data-id": "card-education",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.changeCardStatus($event)
+                    },
+                  },
+                },
+                [
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
+                  ]),
+                  _vm._v(" "),
+                  !_vm.education
+                    ? [_c("i", { staticClass: "fas fa-plus" })]
+                    : [_c("i", { staticClass: "fas fa-minus" })],
+                ],
+                2
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                on: {
+                  change: function ($event) {
+                    return _vm.changeEducation($event.target.value)
+                  },
                 },
               },
-            },
-            [
-              _c(
-                "option",
-                { attrs: { selected: "" }, domProps: { value: null } },
-                [
-                  _vm._v(
-                    "\n                        Выбрать\n                    "
-                  ),
-                ]
-              ),
-              _vm._v(" "),
-              _vm._l(this.settings.education, function (value, key) {
-                return [
-                  key == _vm.education
-                    ? [
-                        _c(
-                          "option",
-                          { attrs: { selected: "" }, domProps: { value: key } },
-                          [
+              [
+                _c(
+                  "option",
+                  { attrs: { selected: "" }, domProps: { value: null } },
+                  [
+                    _vm._v(
+                      "\n                        Выбрать\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._l(this.settings.education, function (value, key) {
+                  return [
+                    key == _vm.education
+                      ? [
+                          _c(
+                            "option",
+                            {
+                              attrs: { selected: "" },
+                              domProps: { value: key },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("vacancies", value)) +
+                                  "\n                            "
+                              ),
+                            ]
+                          ),
+                        ]
+                      : [
+                          _c("option", { domProps: { value: key } }, [
                             _vm._v(
                               "\n                                " +
                                 _vm._s(_vm.trans("vacancies", value)) +
                                 "\n                            "
                             ),
-                          ]
-                        ),
-                      ]
-                    : [
-                        _c("option", { domProps: { value: key } }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.trans("vacancies", value)) +
-                              "\n                            "
-                          ),
-                        ]),
-                      ],
-                ]
-              }),
-            ],
-            2
-          ),
+                          ]),
+                        ],
+                  ]
+                }),
+              ],
+              2
+            ),
+          ]),
         ]),
-      ]),
-    ]),
+      ]
+    ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Язык")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: {
-              type: "button",
-              "data-card-widget": "collapse",
-              "data-toggle": "tooltip",
-            },
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Вид занятости")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: {
-              type: "button",
-              "data-card-widget": "collapse",
-              "data-toggle": "tooltip",
-            },
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-tools" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-tool",
-          attrs: {
-            type: "button",
-            "data-card-widget": "collapse",
-            "data-toggle": "tooltip",
-          },
-        },
-        [_c("i", { staticClass: "fas fa-minus" })]
-      ),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Возраст соискателя")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: {
-              type: "button",
-              "data-card-widget": "collapse",
-              "data-toggle": "tooltip",
-            },
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-tools" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-tool",
-          attrs: {
-            type: "button",
-            "data-card-widget": "collapse",
-            "data-toggle": "tooltip",
-          },
-        },
-        [_c("i", { staticClass: "fas fa-minus" })]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

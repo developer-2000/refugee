@@ -199,13 +199,21 @@
         </div>
 
         <!-- Language -->
-        <div class="card card-primary">
+        <div class="card"
+             :class="{'collapsed-card': !arrLanguages.length}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">Язык</h3>
+            <div class="card-header" id="card-language"
+                 :class="{'card-header-active': arrLanguages.length}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-language"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">Язык</h3>
+                        <template v-if="!arrLanguages.length"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -228,13 +236,21 @@
         </div>
 
         <!-- Employment -->
-        <div class="card card-primary suitable">
+        <div class="card"
+             :class="{'collapsed-card': !index_employment}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">Вид занятости</h3>
+            <div class="card-header" id="card-employment"
+                 :class="{'card-header-active': index_employment}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-employment"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">Вид занятости</h3>
+                        <template v-if="!index_employment"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -262,13 +278,21 @@
         </div>
 
         <!-- Experience -->
-        <div class="card card-primary suitable">
+        <div class="card"
+             :class="{'collapsed-card': !experience}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">{{trans('vacancies','work_experience')}}</h3>
+            <div class="card-header" id="card-experience"
+                 :class="{'card-header-active': experience}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-experience"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">{{trans('vacancies','work_experience')}}</h3>
+                        <template v-if="!experience"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -300,13 +324,21 @@
         </div>
 
         <!-- Suitable -->
-        <div class="card card-primary suitable">
+        <div class="card"
+             :class="{'collapsed-card': !objCheckSuitable.check}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">Возраст соискателя</h3>
+            <div class="card-header" id="card-suitable"
+                 :class="{'card-header-active': objCheckSuitable.check}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-suitable"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">Возраст соискателя</h3>
+                        <template v-if="!objCheckSuitable.check"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -342,13 +374,21 @@
         </div>
 
         <!-- Education -->
-        <div class="card card-primary suitable">
+        <div class="card"
+             :class="{'collapsed-card': !education}"
+        >
             <!-- header -->
-            <div class="card-header">
-                <h3 class="card-title">{{trans('vacancies','education_1')}}</h3>
+            <div class="card-header" id="card-education"
+                 :class="{'card-header-active': education}"
+            >
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip">
-                        <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                            data-id="card-education"
+                            @click="changeCardStatus($event)"
+                    >
+                        <h3 class="card-title">{{trans('vacancies','education_1')}}</h3>
+                        <template v-if="!education"><i class="fas fa-plus"></i></template>
+                        <template v-else><i class="fas fa-minus"></i></template>
                     </button>
                 </div>
             </div>
@@ -732,22 +772,14 @@
     }
     .card{
         width: 100%;
-        /*border-radius: 3px 3px 0px 0px;*/
         border: none;
-        /*border-bottom: 1px solid #ffdf9b;*/
-        /*border-right: 1px solid #c0ddfb;*/
         box-shadow: none;
-
+        margin-bottom: 3px;
         .card-body{
             padding: 10px 12px 8px;
             border-left: 1px solid #c0ddfb;
             border-right: 1px solid #c0ddfb;
             border-bottom: 1px solid #c0ddfb;
-        }
-    }
-    .suitable{
-        .card-body{
-            padding: 10px 12px 7px;
         }
     }
     .checkbox-box {
