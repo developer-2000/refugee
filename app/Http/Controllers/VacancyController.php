@@ -289,6 +289,7 @@ class VacancyController extends BaseController {
         if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
             $settings['obj_countries'] = $objCountries['country']['EN'];
         }
+        $settings['categories'] = config('site.categories.categories');
         return $settings;
     }
 

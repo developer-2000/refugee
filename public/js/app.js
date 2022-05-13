@@ -2615,6 +2615,618 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/company/MyCompanyComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+/* harmony import */ var _mixins_localisation_functions_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/localisation_functions_mixin */ "./resources/js/mixins/localisation_functions_mixin.js");
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_localisation_functions_mixin__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  data: function data() {
+    return {
+      objTextarea: {
+        about_company: '',
+        editorConfig1: {
+          toolbar: [['Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList']]
+        }
+      },
+      company_id: null,
+      company_tax_number: '',
+      twitter_input: '',
+      telegram_input: '',
+      instagram_input: '',
+      facebook_input: '',
+      position: '',
+      site_company: '',
+      position_transliteration: '',
+      rest_address: null,
+      count_working: 0,
+      foundationDate: {
+        yearArr: [],
+        monthArr: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"],
+        dayArr: [],
+        year: null,
+        month: null,
+        day: null
+      }
+    };
+  },
+  methods: {
+    fillYear: function fillYear() {
+      var date = new Date();
+      var year_now = date.getFullYear();
+
+      for (var i = 0; i <= 100; i++) {
+        this.foundationDate.yearArr.push(year_now--);
+      }
+    },
+    fillDay: function fillDay() {
+      var value = '';
+
+      for (var i = 1; i <= 31; i++) {
+        value = ('' + i).length === 1 ? '0' + i : '' + i;
+        this.foundationDate.dayArr.push(value);
+      }
+    },
+    transliteration: function transliteration(original) {
+      var arrEn = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+      var arrNum = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+      var arrSymbols = ['_', '-', ' '];
+      var string = '';
+      var symbol = '';
+
+      for (var i = 0; i < original.length; ++i) {
+        symbol = original[i].toLowerCase();
+
+        if (arrEn.indexOf(symbol) !== -1 || arrNum.indexOf(symbol) !== -1 || arrSymbols.indexOf(symbol) !== -1) {
+          string += symbol == ' ' ? '-' : symbol;
+        }
+      }
+
+      this.position_transliteration = string;
+      this.$v.position_transliteration.$touch();
+    },
+    switchSvg: function switchSvg(e) {
+      var element = $(e.currentTarget);
+
+      if (element.hasClass('svg-action')) {
+        element.removeClass('svg-action');
+      } else {
+        element.addClass('svg-action');
+      }
+    },
+    disableButton: function disableButton(v) {
+      if (v.$invalid || !this.objCategory.categories.length // !this.objSuitable.suitable.length ||
+      // this.rest_address == null ||
+      // this.checkSalary() ||
+      // !this.objLanguage.languages.length
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+  },
+  computed: {
+    initializationFunc: function initializationFunc() {
+      this.createArrayCategories();
+      this.fillYear();
+      this.fillDay();
+      this.objLocations.load_countries = this.settings.obj_countries;
+    }
+  },
+  props: ['lang', 'settings'],
+  mounted: function mounted() {
+    this.initializationFunc;
+  },
+  validations: {
+    position: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    },
+    position_transliteration: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    },
+    rest_address: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    },
+    company_tax_number: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menu/TopMenuComponent.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menu/TopMenuComponent.vue?vue&type=script&lang=js& ***!
@@ -2631,8 +3243,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_ChangePassword_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../auth/ChangePassword.vue */ "./resources/js/components/auth/ChangePassword.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-//
-//
 //
 //
 //
@@ -2865,6 +3475,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3759,6 +4376,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -3951,17 +4570,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.objDisplayEmpContVacancy.contacts = selected;
     },
-    checkCategory: function checkCategory() {
-      this.objCategory.boolChecked = true;
-      var checked = document.querySelectorAll('[name="category"]:checked');
-      var selected = [];
-
-      for (var i = 0; i < checked.length; i++) {
-        selected.push(parseInt(checked[i].value));
-      }
-
-      this.objCategory.categories = selected;
-    },
     checkSalary: function checkSalary() {
       // если выбран сектор а поля не заполнены
       if (this.objSalary.salary_but == "range" && (this.objSalary.from === '' || this.objSalary.to === '') || this.objSalary.salary_but == "single_value" && this.objSalary.salary_sum === '') {
@@ -3999,23 +4607,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           this.objSuitable.suitable_to = this.objSuitable.suitable_from;
         }
       }
-    },
-    // разбить масив категорий на несколько
-    createArrayCategories: function createArrayCategories() {
-      var _this4 = this;
-
-      var count = 15;
-      var tick = 0;
-      this.objCategory.categoriesArray = [];
-      this.settings.categories.forEach(function (value, index) {
-        // дележка на массивы
-        if (index % count == 0) {
-          _this4.objCategory.categoriesArray[tick] = [];
-          tick++;
-        }
-
-        _this4.objCategory.categoriesArray[tick - 1].push([index, value]);
-      });
     },
     setValuePosition: function setValuePosition(value) {
       $('#position_list').removeClass('show');
@@ -4074,7 +4665,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // в случае редактирования вакансии
     setValuesFields: function setValuesFields() {
-      var _this5 = this;
+      var _this4 = this;
 
       if (this.vacancy == null) {
         return false;
@@ -4099,7 +4690,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.vacancy.region != null) {
         this.objLocations.region = this.vacancy.region.code;
         setTimeout(function () {
-          _this5.loadCity();
+          _this4.loadCity();
         }, 500);
       }
 
@@ -4108,7 +4699,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       setTimeout(function () {
-        _this5.objLocations.bool_rest_address = true;
+        _this4.objLocations.bool_rest_address = true;
       }, 1000);
       this.rest_address = this.vacancy.rest_address; // Вакансия подходит для
 
@@ -4144,15 +4735,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.job_posting = this.settings.job_status.indexOf(this.vacancy.job_posting.status_name);
     },
     fillingLanguages: function fillingLanguages() {
-      var _this6 = this;
+      var _this5 = this;
 
       // language
       $('#language').on('select2:select', function (e) {
-        _this6.objLanguage.languages.push(parseInt(e.params.data.id));
+        _this5.objLanguage.languages.push(parseInt(e.params.data.id));
       });
       $('#language').on("select2:unselect", function (e) {
         // удалить этот елемент
-        _this6.objLanguage.languages.splice(_this6.objLanguage.languages.indexOf(parseInt(e.params.data.id)), 1); // отключить раскрытие после удаления
+        _this5.objLanguage.languages.splice(_this5.objLanguage.languages.indexOf(parseInt(e.params.data.id)), 1); // отключить раскрытие после удаления
 
 
         if (!e.params.originalEvent) {
@@ -6124,9 +6715,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/general_functions_mixin */ "./resources/js/mixins/general_functions_mixin.js");
-//
-//
-//
 //
 //
 //
@@ -10798,6 +11386,25 @@ exports.push([module.i, ".block_auth .soc[data-v-7f8afaea] {\n  display: flex;\n
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".visible[data-v-ff513d6e] {\n  display: block;\n}\n.border_error[data-v-ff513d6e] {\n  border: 1px solid red;\n}\n.row-about-company[data-v-ff513d6e] {\n  margin-top: 10px;\n}\n.height-element[data-v-ff513d6e] {\n  height: 95%;\n}\n#social-network svg[data-v-ff513d6e] {\n  width: 27px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n#social-network svg path[data-v-ff513d6e] {\n  fill: #444;\n}\n#social-network svg:hover path[data-v-ff513d6e] {\n  fill: #2e4961;\n}\n#social-network .instagram-svg[data-v-ff513d6e] {\n  width: 25px;\n}\n#social-network .twitter-svg[data-v-ff513d6e] {\n  width: 28px;\n}\n#social-network .svg-action path[data-v-ff513d6e] {\n  fill: #0057a5;\n}\n.card[data-v-ff513d6e] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .multi-collapse[data-v-ff513d6e] {\n  margin-top: 10px;\n}\n.card .card-body[data-v-ff513d6e] {\n  padding: 0 0 0 2px;\n  min-height: 31px;\n}\n.box-card-header[data-v-ff513d6e] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: flex-start;\n  align-content: flex-start;\n  align-items: flex-start;\n}\n.form-group[data-v-ff513d6e] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-ff513d6e] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\nlabel[data-v-ff513d6e] {\n  cursor: pointer;\n}\n.target-label[data-v-ff513d6e] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}\n.one-one-box[data-v-ff513d6e] {\n  display: flex;\n  flex-direction: column;\n}\n.one-one-box > div[data-v-ff513d6e]:last-child {\n  flex-grow: 3;\n}\n.one-one-box > div[data-v-ff513d6e]:last-child {\n  flex-grow: 3;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menu/TopMenuComponent.vue?vue&type=style&index=0&id=61d2081e&scoped=true&lang=scss&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menu/TopMenuComponent.vue?vue&type=style&index=0&id=61d2081e&scoped=true&lang=scss& ***!
@@ -10810,7 +11417,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".background-top-menu[data-v-61d2081e] {\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.main-header[data-v-61d2081e] {\n  border: none;\n}\n.navbar[data-v-61d2081e] {\n  padding: 0.5rem 5px;\n}\n.dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n  align-items: center;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item .svg-cabinet svg[data-v-61d2081e] {\n  width: 25px;\n  margin-left: -3px;\n  margin-right: 5px;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n}\n.user-menu .user-avatar img[data-v-61d2081e] {\n  width: 38px;\n}\n.user-menu .user-avatar svg[data-v-61d2081e] {\n  width: 9px;\n  margin-left: 4px;\n}\n.user-menu .user-avatar svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}", ""]);
+exports.push([module.i, ".background-top-menu[data-v-61d2081e] {\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.main-header[data-v-61d2081e] {\n  border: none;\n}\n.navbar[data-v-61d2081e] {\n  padding: 0.5rem 5px;\n}\n.dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n  align-items: center;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item .svg-cabinet svg[data-v-61d2081e] {\n  width: 25px;\n  margin-left: -3px;\n  margin-right: 5px;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.private-office svg[data-v-61d2081e] {\n  width: 25px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n}\n.user-menu .user-avatar img[data-v-61d2081e] {\n  width: 38px;\n}\n.user-menu .user-avatar svg[data-v-61d2081e] {\n  width: 9px;\n  margin-left: 4px;\n}\n.user-menu .user-avatar svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}", ""]);
 
 // exports
 
@@ -10829,7 +11436,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "h1[data-v-1be63316] {\n  padding-left: 15px;\n}\n.box-settings li[data-v-1be63316] {\n  display: block;\n  float: left;\n  background-color: #fff;\n  outline: 1px solid #e9ebed;\n  margin: 0 0 -1px -1px;\n  max-width: 33.33333333%;\n  padding: 0;\n  width: 100%;\n}\n.box-settings li[data-v-1be63316]:hover {\n  outline: 1px solid #c0ddfb;\n  position: relative;\n  z-index: 9;\n}\n.box-settings li a[data-v-1be63316] {\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  font-size: 18px;\n  min-height: 65px;\n}\n.box-settings li a svg[data-v-1be63316] {\n  width: 35px;\n  margin-right: 15px;\n}\n.box-settings li a svg path[data-v-1be63316] {\n  fill: #3490dc;\n}\n.box-settings li a:hover svg path[data-v-1be63316] {\n  fill: #1d68a7;\n}\n@media (max-width: 767px) {\n.box-settings li[data-v-1be63316] {\n    border-left: none;\n    border-right: none;\n    max-width: 100%;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, "h1[data-v-1be63316] {\n  padding-left: 15px;\n}\n.box-settings li[data-v-1be63316] {\n  display: block;\n  float: left;\n  background-color: #fff;\n  outline: 1px solid #e9ebed;\n  margin: 0;\n  max-width: 33.33333333%;\n  padding: 0;\n  width: 100%;\n}\n.box-settings li[data-v-1be63316]:hover {\n  outline: 1px solid #c0ddfb;\n  position: relative;\n  z-index: 9;\n}\n.box-settings li a[data-v-1be63316] {\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  font-size: 18px;\n  min-height: 65px;\n}\n.box-settings li a svg[data-v-1be63316] {\n  width: 35px;\n  margin-right: 15px;\n}\n.box-settings li a svg path[data-v-1be63316] {\n  fill: #3490dc;\n}\n.box-settings li a:hover svg path[data-v-1be63316] {\n  fill: #1d68a7;\n}\n.box-settings li .my-company svg[data-v-1be63316] {\n  width: 28px;\n}\n@media (max-width: 767px) {\n.box-settings li[data-v-1be63316] {\n    border-left: none;\n    border-right: none;\n    max-width: 100%;\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -10848,7 +11455,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancies[data-v-4f4c2539] {\n  background-color: #fff;\n  padding: 0 15px 15px;\n}\n.box-vacancies .callout[data-v-4f4c2539] {\n  color: #666;\n  line-height: 30px;\n}\n.box-vacancies .callout svg path[data-v-4f4c2539] {\n  fill: #666;\n}\n.box-vacancies .box-vacancy .box-title-logo[data-v-4f4c2539] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancies .box-vacancy .box-title-logo .title-vacancy[data-v-4f4c2539] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancies .box-vacancy .box-title-logo .img-logo[data-v-4f4c2539] {\n  width: 100px;\n}\n.box-vacancies .box-vacancy .line-div[data-v-4f4c2539] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancies .box-vacancy .line-div .font-weight-bold[data-v-4f4c2539] {\n  font-weight: bold;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy[data-v-4f4c2539] {\n  color: #1d68a7;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy svg[data-v-4f4c2539] {\n  margin: 0 5px 0 0;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy svg path[data-v-4f4c2539] {\n  fill: #1d68a7;\n}\n.box-vacancies .box-vacancy .address-comment[data-v-4f4c2539] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancies .box-vacancy .address-comment svg[data-v-4f4c2539] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancies .box-vacancy .display-inline[data-v-4f4c2539] {\n  display: inline;\n}\n.box-vacancies .box-vacancy .panel-button[data-v-4f4c2539] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancies .box-vacancy .panel-button > button[data-v-4f4c2539]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancies .box-vacancy .panel-button button[data-v-4f4c2539] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancies .box-vacancy .panel-button button:hover svg path[data-v-4f4c2539] {\n  fill: white;\n}\n.box-vacancies .box-vacancy .panel-button button svg[data-v-4f4c2539] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancies .box-vacancy .panel-button button svg path[data-v-4f4c2539] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancies .box-vacancy .panel-button button:nth-child(1) svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-vacancies .box-vacancy .panel-button button.save-two svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-vacancies .box-vacancy .panel-button button.show-two svg[data-v-4f4c2539] {\n  width: 15px;\n}\n.box-vacancies .desc-helper-italic[data-v-4f4c2539] {\n  font-style: italic;\n  margin-bottom: 10px;\n}", ""]);
+exports.push([module.i, ".box-page .callout[data-v-4f4c2539] {\n  color: #666;\n  line-height: 30px;\n}\n.box-page .callout svg path[data-v-4f4c2539] {\n  fill: #666;\n}\n.box-page .box-vacancy .box-title-logo[data-v-4f4c2539] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-page .box-vacancy .box-title-logo .title-vacancy[data-v-4f4c2539] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-page .box-vacancy .box-title-logo .img-logo[data-v-4f4c2539] {\n  width: 100px;\n}\n.box-page .box-vacancy .line-div[data-v-4f4c2539] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-page .box-vacancy .line-div .font-weight-bold[data-v-4f4c2539] {\n  font-weight: bold;\n}\n.box-page .box-vacancy .line-div .link-vacancy[data-v-4f4c2539] {\n  color: #1d68a7;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg[data-v-4f4c2539] {\n  margin: 0 5px 0 0;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg path[data-v-4f4c2539] {\n  fill: #1d68a7;\n}\n.box-page .box-vacancy .address-comment[data-v-4f4c2539] {\n  display: flex;\n  align-items: center;\n}\n.box-page .box-vacancy .address-comment svg[data-v-4f4c2539] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-page .box-vacancy .display-inline[data-v-4f4c2539] {\n  display: inline;\n}\n.box-page .box-vacancy .panel-button[data-v-4f4c2539] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-page .box-vacancy .panel-button > button[data-v-4f4c2539]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-page .box-vacancy .panel-button button[data-v-4f4c2539] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-page .box-vacancy .panel-button button:hover svg path[data-v-4f4c2539] {\n  fill: white;\n}\n.box-page .box-vacancy .panel-button button svg[data-v-4f4c2539] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-page .box-vacancy .panel-button button svg path[data-v-4f4c2539] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-page .box-vacancy .panel-button button:nth-child(1) svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.save-two svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.show-two svg[data-v-4f4c2539] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -10867,7 +11474,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "label[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n.card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n.card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n.card .card-body[data-v-3249dfc6] {\n  padding: 0 0 0 2px;\n  min-height: 31px;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}\n.target-label[data-v-3249dfc6] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
+exports.push([module.i, ".title_page[data-v-3249dfc6] {\n  padding: 10px 4px;\n}\n.height-element[data-v-3249dfc6] {\n  height: 95%;\n}\n.height-element2[data-v-3249dfc6] {\n  height: 90%;\n}\n.one-one-box[data-v-3249dfc6] {\n  display: flex;\n  flex-direction: column;\n}\n.one-one-box > div[data-v-3249dfc6]:last-child {\n  flex-grow: 3;\n}\nlabel[data-v-3249dfc6] {\n  cursor: pointer;\n}\n.form-group[data-v-3249dfc6] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-3249dfc6] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\n.collection-checkbox[data-v-3249dfc6] {\n  padding: 0;\n  margin-left: -8px;\n}\n.visible[data-v-3249dfc6] {\n  display: block;\n}\n.search-city[data-v-3249dfc6] {\n  margin-top: 18px;\n}\n.search-city > span[data-v-3249dfc6] {\n  width: 100% !important;\n}\n.border_error[data-v-3249dfc6] {\n  border: 1px solid red;\n}\n.card[data-v-3249dfc6] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .card-header[data-v-3249dfc6] {\n  background: none;\n  border-radius: 0;\n  padding: 0;\n  border: none;\n}\n.card .card-header button[data-v-3249dfc6] {\n  border-radius: 0;\n  width: 100%;\n  text-align: left;\n  padding: 0;\n}\n.card .card-body[data-v-3249dfc6] {\n  padding: 0 0 0 2px;\n  min-height: 31px;\n}\n.bg-warning[data-v-3249dfc6] {\n  background: #ffefbf !important;\n  padding: 10px 14px;\n  border: 1px solid #a3baff;\n  border-radius: 3px;\n}\n#range input[data-v-3249dfc6]:nth-child(2),\n#single_value input[data-v-3249dfc6] {\n  margin-right: 7px;\n}\n.line_select[data-v-3249dfc6] {\n  display: initial;\n}\n.block_position_list[data-v-3249dfc6] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-3249dfc6] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-3249dfc6] {\n  padding: 1px 12px;\n}\n.target-label[data-v-3249dfc6] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}", ""]);
 
 // exports
 
@@ -10886,7 +11493,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancies[data-v-7f9ea726] {\n  background-color: #fff;\n  padding: 0 15px 15px;\n}\n.box-vacancies .callout[data-v-7f9ea726] {\n  color: #666;\n  line-height: 30px;\n}\n.box-vacancies .callout svg path[data-v-7f9ea726] {\n  fill: #666;\n}\n.box-vacancies .callout a[data-v-7f9ea726] {\n  font-size: 17px;\n}\n.box-vacancies .box-vacancy .box-title-logo[data-v-7f9ea726] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancies .box-vacancy .box-title-logo .title-vacancy[data-v-7f9ea726] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancies .box-vacancy .box-title-logo .img-logo[data-v-7f9ea726] {\n  width: 100px;\n}\n.box-vacancies .box-vacancy .line-div[data-v-7f9ea726] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancies .box-vacancy .line-div .font-weight-bold[data-v-7f9ea726] {\n  font-weight: bold;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy[data-v-7f9ea726] {\n  color: #1d68a7;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy svg[data-v-7f9ea726] {\n  margin: 0 5px 0 0;\n}\n.box-vacancies .box-vacancy .line-div .link-vacancy svg path[data-v-7f9ea726] {\n  fill: #1d68a7;\n}\n.box-vacancies .box-vacancy .address-comment[data-v-7f9ea726] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancies .box-vacancy .address-comment svg[data-v-7f9ea726] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-vacancies .box-vacancy .display-inline[data-v-7f9ea726] {\n  display: inline;\n}\n.box-vacancies .box-vacancy .panel-button[data-v-7f9ea726] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-vacancies .box-vacancy .panel-button > button[data-v-7f9ea726]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-vacancies .box-vacancy .panel-button button[data-v-7f9ea726] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-vacancies .box-vacancy .panel-button button:hover svg path[data-v-7f9ea726] {\n  fill: white;\n}\n.box-vacancies .box-vacancy .panel-button button svg[data-v-7f9ea726] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-vacancies .box-vacancy .panel-button button svg path[data-v-7f9ea726] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-vacancies .box-vacancy .panel-button button:nth-child(1) svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-vacancies .box-vacancy .panel-button button.save-two svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-vacancies .box-vacancy .panel-button button.show-two svg[data-v-7f9ea726] {\n  width: 15px;\n}\n.box-vacancies .desc-helper-italic[data-v-7f9ea726] {\n  font-style: italic;\n  margin-bottom: 10px;\n}", ""]);
+exports.push([module.i, ".box-page .callout[data-v-7f9ea726] {\n  color: #666;\n  line-height: 30px;\n}\n.box-page .callout svg path[data-v-7f9ea726] {\n  fill: #666;\n}\n.box-page .callout a[data-v-7f9ea726] {\n  font-size: 17px;\n}\n.box-page .box-vacancy .box-title-logo[data-v-7f9ea726] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-page .box-vacancy .box-title-logo .title-vacancy[data-v-7f9ea726] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-page .box-vacancy .box-title-logo .img-logo[data-v-7f9ea726] {\n  width: 100px;\n}\n.box-page .box-vacancy .line-div[data-v-7f9ea726] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-page .box-vacancy .line-div .font-weight-bold[data-v-7f9ea726] {\n  font-weight: bold;\n}\n.box-page .box-vacancy .line-div .link-vacancy[data-v-7f9ea726] {\n  color: #1d68a7;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg[data-v-7f9ea726] {\n  margin: 0 5px 0 0;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg path[data-v-7f9ea726] {\n  fill: #1d68a7;\n}\n.box-page .box-vacancy .address-comment[data-v-7f9ea726] {\n  display: flex;\n  align-items: center;\n}\n.box-page .box-vacancy .address-comment svg[data-v-7f9ea726] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-page .box-vacancy .display-inline[data-v-7f9ea726] {\n  display: inline;\n}\n.box-page .box-vacancy .panel-button[data-v-7f9ea726] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-page .box-vacancy .panel-button > button[data-v-7f9ea726]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-page .box-vacancy .panel-button button[data-v-7f9ea726] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-page .box-vacancy .panel-button button:hover svg path[data-v-7f9ea726] {\n  fill: white;\n}\n.box-page .box-vacancy .panel-button button svg[data-v-7f9ea726] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-page .box-vacancy .panel-button button svg path[data-v-7f9ea726] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-page .box-vacancy .panel-button button:nth-child(1) svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.save-two svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.show-two svg[data-v-7f9ea726] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -10905,7 +11512,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancies[data-v-12dab04d] {\n  background-color: #fff;\n  padding: 0 15px 15px;\n}\n.box-vacancy[data-v-12dab04d] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .left-site[data-v-12dab04d] {\n  width: 100%;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, ".box-vacancy[data-v-12dab04d] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .left-site[data-v-12dab04d] {\n  width: 100%;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -10962,7 +11569,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".top-panel[data-v-33a63d5e] {\n  display: flex;\n  align-items: center;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px 25px;\n  z-index: 1;\n  font-size: 17px;\n}\n.top-panel button[data-v-33a63d5e] {\n  width: auto;\n  margin-right: 15px;\n}\n.bread-top[data-v-33a63d5e] {\n  padding: 10px 25px;\n}\n.box-vacancies[data-v-33a63d5e] {\n  background-color: #fff;\n  padding: 25px;\n}\n.bread-slash[data-v-33a63d5e] {\n  height: 26px;\n  margin: 0 5px;\n  color: #a7a8a9;\n  font-size: 19px;\n}\na[data-v-33a63d5e] {\n  display: block;\n  position: relative;\n  padding: 0;\n  line-height: 16px;\n}\na[data-v-33a63d5e]::after {\n  content: \"\";\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 0.1em;\n  background-color: #3490dc;\n  opacity: 0;\n  transition: opacity 100ms, transform 100ms;\n}\na[data-v-33a63d5e]:hover::after,\na[data-v-33a63d5e]:focus::after {\n  opacity: 1;\n  transform: translate3d(0, 0.2em, 0);\n}", ""]);
+exports.push([module.i, ".top-panel[data-v-33a63d5e] {\n  display: flex;\n  align-items: center;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px 25px;\n  z-index: 1;\n  font-size: 17px;\n}\n.top-panel button[data-v-33a63d5e] {\n  width: auto;\n  margin-right: 15px;\n}\n.bread-top[data-v-33a63d5e] {\n  padding: 10px 25px;\n}\n.box-page[data-v-33a63d5e] {\n  padding: 25px;\n}\n.bread-slash[data-v-33a63d5e] {\n  height: 26px;\n  margin: 0 5px;\n  color: #a7a8a9;\n  font-size: 19px;\n}\na[data-v-33a63d5e] {\n  display: block;\n  position: relative;\n  padding: 0;\n  line-height: 16px;\n}\na[data-v-33a63d5e]::after {\n  content: \"\";\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 0.1em;\n  background-color: #3490dc;\n  opacity: 0;\n  transition: opacity 100ms, transform 100ms;\n}\na[data-v-33a63d5e]:hover::after,\na[data-v-33a63d5e]:focus::after {\n  opacity: 1;\n  transform: translate3d(0, 0.2em, 0);\n}", ""]);
 
 // exports
 
@@ -11019,7 +11626,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.box-title-logo[data-v-50b8b194] {\n  padding: 0;\n}\n.box-title-logo .title-vacancy[data-v-50b8b194] {\n  margin: -35px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-title-logo .company-vacancy[data-v-50b8b194] {\n  display: flex;\n  justify-content: flex-end;\n}\n.box-title-logo .company-vacancy span[data-v-50b8b194] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.box-title-logo .company-vacancy span .img-logo[data-v-50b8b194] {\n  width: 100px;\n}\n.box-title[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-title .no-verified[data-v-50b8b194],\n.box-title .verified[data-v-50b8b194] {\n  color: #f6993f;\n  margin-left: 10px;\n  height: 35px;\n}\n.box-title .no-verified svg[data-v-50b8b194],\n.box-title .verified svg[data-v-50b8b194] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-50b8b194],\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #38c172;\n}\n.line-div[data-v-50b8b194] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-50b8b194] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.languages-vacancy[data-v-50b8b194],\n.salary-vacancy[data-v-50b8b194],\n.address-vacancy[data-v-50b8b194],\n.experience[data-v-50b8b194],\n.age-vacancy[data-v-50b8b194],\n.education-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-salary[data-v-50b8b194] {\n  margin-top: -35px;\n}\n.salary-vacancy svg[data-v-50b8b194] {\n  width: 18px;\n}\n.languages-vacancy svg[data-v-50b8b194] {\n  width: 23px;\n}\n.education-vacancy[data-v-50b8b194] {\n  margin-bottom: 15px;\n}\n.comment-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.textarea-vacancy .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n  display: inline;\n}\n.textarea-vacancy .link-vacancy svg[data-v-50b8b194] {\n  width: 10px;\n}\n.box-svg[data-v-50b8b194] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}\n.first_half svg[data-v-50b8b194] {\n  width: 7px;\n  margin: 0 5px 0 1px;\n}", ""]);
+exports.push([module.i, "svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.box-title-logo[data-v-50b8b194] {\n  padding: 0;\n}\n.box-title-logo .title-vacancy[data-v-50b8b194] {\n  margin: -35px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-title-logo .company-vacancy[data-v-50b8b194] {\n  display: flex;\n  justify-content: flex-end;\n}\n.box-title-logo .company-vacancy span[data-v-50b8b194] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.box-title-logo .company-vacancy span .img-logo[data-v-50b8b194] {\n  width: 100px;\n}\n.box-title[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-title .no-verified[data-v-50b8b194],\n.box-title .verified[data-v-50b8b194] {\n  color: #f6993f;\n  margin-left: 10px;\n  height: 35px;\n}\n.box-title .no-verified svg[data-v-50b8b194],\n.box-title .verified svg[data-v-50b8b194] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-50b8b194],\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #38c172;\n}\n.line-div[data-v-50b8b194] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-50b8b194] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.languages-vacancy[data-v-50b8b194],\n.salary-vacancy[data-v-50b8b194],\n.address-vacancy[data-v-50b8b194],\n.experience[data-v-50b8b194],\n.age-vacancy[data-v-50b8b194],\n.education-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-salary[data-v-50b8b194] {\n  margin-top: -35px;\n}\n.salary-vacancy svg[data-v-50b8b194] {\n  width: 18px;\n}\n.languages-vacancy svg[data-v-50b8b194] {\n  width: 23px;\n}\n.education-vacancy[data-v-50b8b194] {\n  margin-bottom: 15px;\n}\n.comment-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-50b8b194] {\n  width: 7px;\n  margin: 0 5px;\n}\n.textarea-vacancy .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n  display: inline;\n}\n.textarea-vacancy .link-vacancy svg[data-v-50b8b194] {\n  width: 10px;\n}\n.box-svg[data-v-50b8b194] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}", ""]);
 
 // exports
 
@@ -43845,6 +44452,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menu/TopMenuComponent.vue?vue&type=style&index=0&id=61d2081e&scoped=true&lang=scss&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menu/TopMenuComponent.vue?vue&type=style&index=0&id=61d2081e&scoped=true&lang=scss& ***!
@@ -45902,6 +46539,1519 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/company/MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "box-page" }, [
+    _c(
+      "a",
+      {
+        staticClass: "link-back",
+        attrs: { href: _vm.lang.prefix_lang + "private-office" },
+      },
+      [
+        _c(
+          "svg",
+          {
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 256 512",
+            },
+          },
+          [
+            _c("path", {
+              attrs: {
+                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              },
+            }),
+          ]
+        ),
+        _vm._v(
+          "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+        ),
+      ]
+    ),
+    _vm._v(" "),
+    _c("h1", { staticClass: "title_page card-body" }, [
+      _vm._v(
+        "\n        " +
+          _vm._s(_vm.trans("company", "create_your_company")) +
+          "\n    "
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "desc-helper-italic" }, [
+      _vm._v(
+        "\n        " + _vm._s(_vm.trans("company", "about_company")) + "\n    "
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-4 one-one-box" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "position" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_name")) +
+                "\n                        "
+            ),
+            _c("span", { staticClass: "mandatory-filling" }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                    },
+                  }),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "info-tooltip",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  "data-trigger": "click",
+                  title: "sss",
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.position,
+                expression: "position",
+              },
+            ],
+            staticClass: "form-control",
+            class: { "is-invalid": _vm.$v.position.$error },
+            attrs: {
+              type: "text",
+              id: "position",
+              maxlength: "100",
+              autocomplete: "off",
+              placeholder: _vm.trans("company", "for_example_star"),
+            },
+            domProps: { value: _vm.position },
+            on: {
+              blur: function ($event) {
+                return _vm.$v.position.$touch()
+              },
+              keyup: function ($event) {
+                return _vm.transliteration($event.target.value)
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.position = $event.target.value
+              },
+            },
+          }),
+          _vm._v(" "),
+          !_vm.$v.position.required
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "please_enter_name")) +
+                    "\n                    "
+                ),
+              ])
+            : _vm._e(),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "position_transliteration" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_name_transliteration")) +
+                "\n                        "
+            ),
+            _c("span", { staticClass: "mandatory-filling" }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                    },
+                  }),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "info-tooltip",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  "data-trigger": "click",
+                  title: "sss",
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.position_transliteration,
+                expression: "position_transliteration",
+              },
+            ],
+            staticClass: "form-control",
+            class: { "is-invalid": _vm.$v.position_transliteration.$error },
+            attrs: {
+              type: "text",
+              id: "position_transliteration",
+              maxlength: "100",
+              autocomplete: "off",
+              placeholder: _vm.trans("company", "enter_transliteration"),
+            },
+            domProps: { value: _vm.position_transliteration },
+            on: {
+              blur: function ($event) {
+                return _vm.$v.position_transliteration.$touch()
+              },
+              keyup: function ($event) {
+                return _vm.transliteration($event.target.value)
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.position_transliteration = $event.target.value
+              },
+            },
+          }),
+          _vm._v(" "),
+          !_vm.$v.position_transliteration.required
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "please_enter_least")) +
+                    "\n                    "
+                ),
+              ])
+            : _vm._e(),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "country" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_country")) +
+                "\n                        "
+            ),
+            _c("span", { staticClass: "mandatory-filling" }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                    },
+                  }),
+                ]
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "form-control select2", attrs: { id: "country" } },
+            [
+              _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.trans("vacancies", "select_country")) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.objLocations.load_countries, function (array, key) {
+                return [
+                  _vm.objLocations.country == array.code
+                    ? [
+                        _c(
+                          "option",
+                          {
+                            key: key,
+                            attrs: { selected: "" },
+                            domProps: { value: array.code },
+                          },
+                          [_vm._v(_vm._s(array.name))]
+                        ),
+                      ]
+                    : [
+                        _c(
+                          "option",
+                          { key: key, domProps: { value: array.code } },
+                          [_vm._v(_vm._s(array.name))]
+                        ),
+                      ],
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _vm.objLocations.load_regions
+          ? _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "region" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "company_region")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "form-control select2",
+                  attrs: { id: "region" },
+                  on: {
+                    change: function ($event) {
+                      return _vm.changeSelect($event.target.value, "region")
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "option",
+                    { attrs: { disabled: "disabled", selected: "" } },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans("vacancies", "select_region")) +
+                          "\n                        "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.objLocations.load_regions, function (array, key) {
+                    return [
+                      _vm.objLocations.region == array.code
+                        ? [
+                            _c(
+                              "option",
+                              {
+                                key: key,
+                                attrs: { selected: "" },
+                                domProps: { value: array.code },
+                              },
+                              [_vm._v(_vm._s(array.name))]
+                            ),
+                          ]
+                        : [
+                            _c(
+                              "option",
+                              { key: key, domProps: { value: array.code } },
+                              [_vm._v(_vm._s(array.name))]
+                            ),
+                          ],
+                    ]
+                  }),
+                ],
+                2
+              ),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.objLocations.load_cities
+          ? _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "city" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "company_city")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "form-control select2",
+                  attrs: { id: "city" },
+                  on: {
+                    change: function ($event) {
+                      return _vm.changeSelect($event.target.value, "city")
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "option",
+                    { attrs: { disabled: "disabled", selected: "" } },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans("vacancies", "select_city")) +
+                          "\n                        "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.objLocations.load_cities, function (array, key) {
+                    return [
+                      _vm.objLocations.city == array.code
+                        ? [
+                            _c(
+                              "option",
+                              {
+                                key: key,
+                                attrs: { selected: "" },
+                                domProps: { value: array.code },
+                              },
+                              [_vm._v(_vm._s(array.name))]
+                            ),
+                          ]
+                        : [
+                            _c(
+                              "option",
+                              { key: key, domProps: { value: array.code } },
+                              [_vm._v(_vm._s(array.name))]
+                            ),
+                          ],
+                    ]
+                  }),
+                ],
+                2
+              ),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.objLocations.bool_rest_address
+          ? _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "rest_address" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "remaining_address")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.rest_address,
+                    expression: "rest_address",
+                  },
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": _vm.$v.rest_address.$error },
+                attrs: {
+                  type: "text",
+                  id: "rest_address",
+                  maxlength: "100",
+                  placeholder: _vm.trans("company", "specify"),
+                },
+                domProps: { value: _vm.rest_address },
+                on: {
+                  blur: function ($event) {
+                    return _vm.$v.rest_address.$touch()
+                  },
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.rest_address = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              !_vm.$v.rest_address.required
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("company", "please_indicate_street")) +
+                        "\n                    "
+                    ),
+                  ])
+                : _vm._e(),
+            ])
+          : _vm._e(),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c(
+          "div",
+          {
+            staticClass: "form-group",
+            class: {
+              border_error:
+                !this.objCategory.categories.length &&
+                this.objCategory.boolChecked == true,
+            },
+          },
+          [
+            _c("div", [
+              _c("label", { attrs: { for: "categories" } }, [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(
+                      _vm.trans("company", "categories_activity_company")
+                    ) +
+                    "\n                            "
+                ),
+                _c("span", { staticClass: "mandatory-filling" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "info-tooltip",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      "data-trigger": "click",
+                      title: "" + _vm.trans("vacancies", "title_categories"),
+                    },
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "container-fluid collection-checkbox",
+                  attrs: { id: "categories" },
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    [
+                      _vm._l(
+                        this.objCategory.categoriesArray,
+                        function (array, key) {
+                          return [
+                            _c(
+                              "div",
+                              { staticClass: "col-xl" },
+                              _vm._l(array, function (valueArr, key2) {
+                                return _c("div", { key: key2 }, [
+                                  _c("input", {
+                                    staticClass: "form-check-input",
+                                    attrs: {
+                                      name: "category",
+                                      type: "checkbox",
+                                      id: "category_" + valueArr[0],
+                                    },
+                                    domProps: { value: valueArr[0] },
+                                    on: { change: _vm.checkCategory },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "target-label",
+                                      attrs: { for: "category_" + valueArr[0] },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                " +
+                                          _vm._s(
+                                            _vm.trans("vacancies", valueArr[1])
+                                          ) +
+                                          "\n                                            "
+                                      ),
+                                    ]
+                                  ),
+                                ])
+                              }),
+                              0
+                            ),
+                          ]
+                        }
+                      ),
+                    ],
+                    2
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "invalid-feedback",
+                class: {
+                  "is-invalid visible":
+                    !this.objCategory.categories.length &&
+                    this.objCategory.boolChecked == true,
+                },
+              },
+              [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "please_select_category")) +
+                    "\n                    "
+                ),
+              ]
+            ),
+          ]
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "position" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_tax_number")) +
+                "\n                        "
+            ),
+            _c("span", { staticClass: "mandatory-filling" }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                    },
+                  }),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "info-tooltip",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  "data-trigger": "click",
+                  title: "" + _vm.trans("vacancies", "title_position"),
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.company_tax_number,
+                expression: "company_tax_number",
+              },
+            ],
+            staticClass: "form-control",
+            class: { "is-invalid": _vm.$v.company_tax_number.$error },
+            attrs: {
+              type: "text",
+              id: "company_tax_number",
+              maxlength: "100",
+              autocomplete: "off",
+              placeholder: _vm.trans("company", "enter_number"),
+            },
+            domProps: { value: _vm.company_tax_number },
+            on: {
+              blur: function ($event) {
+                return _vm.$v.company_tax_number.$touch()
+              },
+              keyup: function ($event) {
+                return _vm.transliteration($event.target.value)
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.company_tax_number = $event.target.value
+              },
+            },
+          }),
+          _vm._v(" "),
+          !_vm.$v.company_tax_number.required
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("company", "please_enter_your_number")) +
+                    "\n                    "
+                ),
+              ])
+            : _vm._e(),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "year" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "year_foundation")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "form-control select2", attrs: { id: "year" } },
+            [
+              _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.trans("company", "select_year")) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.foundationDate.yearArr, function (num, key) {
+                return [
+                  _vm.foundationDate.year == num
+                    ? [
+                        _c(
+                          "option",
+                          {
+                            key: key,
+                            attrs: { selected: "" },
+                            domProps: { value: num },
+                          },
+                          [_vm._v(_vm._s(num))]
+                        ),
+                      ]
+                    : [
+                        _c("option", { key: key, domProps: { value: num } }, [
+                          _vm._v(_vm._s(num)),
+                        ]),
+                      ],
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "month" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_foundation_month")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "form-control select2", attrs: { id: "month" } },
+            [
+              _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.trans("company", "select_month")) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.foundationDate.monthArr, function (value, key) {
+                return [
+                  _vm.foundationDate.month == value
+                    ? [
+                        _c(
+                          "option",
+                          {
+                            key: key,
+                            attrs: { selected: "" },
+                            domProps: { value: value },
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.trans("company", value)) +
+                                "\n                                "
+                            ),
+                          ]
+                        ),
+                      ]
+                    : [
+                        _c("option", { key: key, domProps: { value: value } }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.trans("company", value)) +
+                              "\n                                "
+                          ),
+                        ]),
+                      ],
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "day" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_foundation_day")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "form-control select2", attrs: { id: "day" } },
+            [
+              _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
+                _vm._v(
+                  "\n                            " +
+                    _vm._s(_vm.trans("company", "select_day")) +
+                    "\n                        "
+                ),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.foundationDate.dayArr, function (value, key) {
+                return [
+                  _vm.foundationDate.day == value
+                    ? [
+                        _c(
+                          "option",
+                          {
+                            key: key,
+                            attrs: { selected: "" },
+                            domProps: { value: value },
+                          },
+                          [_vm._v(_vm._s(value))]
+                        ),
+                      ]
+                    : [
+                        _c("option", { key: key, domProps: { value: value } }, [
+                          _vm._v(_vm._s(value)),
+                        ]),
+                      ],
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
+          _c("label", { attrs: { for: "social-network" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "social_networks_company")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card", attrs: { id: "social-network" } }, [
+            _c("div", { staticClass: "box-card-header" }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                    "aria-controls": "facebook_box",
+                    "data-target": "#facebook_box",
+                    "aria-expanded": "false",
+                    "data-toggle": "collapse",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.switchSvg($event)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "svg",
+                {
+                  staticClass: "instagram-svg",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 448 512",
+                    "aria-controls": "instagram_box",
+                    "data-target": "#instagram_box",
+                    "aria-expanded": "false",
+                    "data-toggle": "collapse",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.switchSvg($event)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 496 512",
+                    "aria-controls": "telegram_box",
+                    "data-target": "#telegram_box",
+                    "aria-expanded": "false",
+                    "data-toggle": "collapse",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.switchSvg($event)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "svg",
+                {
+                  staticClass: "twitter-svg",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                    "aria-controls": "twitter_box",
+                    "data-target": "#twitter_box",
+                    "aria-expanded": "false",
+                    "data-toggle": "collapse",
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.switchSvg($event)
+                    },
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z",
+                    },
+                  }),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-card-collapse" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "collapse multi-collapse",
+                  attrs: { id: "facebook_box" },
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("label", { attrs: { for: "facebook_input" } }, [
+                      _vm._v(
+                        "\n                                        Facebook\n                                    "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.facebook_input,
+                          expression: "facebook_input",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "facebook_input",
+                        maxlength: "150",
+                        autocomplete: "off",
+                        placeholder: _vm.trans("company", "enter_link_account"),
+                      },
+                      domProps: { value: _vm.facebook_input },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.facebook_input = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "collapse multi-collapse",
+                  attrs: { id: "instagram_box" },
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("label", { attrs: { for: "instagram_input" } }, [
+                      _vm._v(
+                        "\n                                        Instagram\n                                    "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.instagram_input,
+                          expression: "instagram_input",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "instagram_input",
+                        maxlength: "150",
+                        autocomplete: "off",
+                        placeholder: _vm.trans("company", "enter_link_account"),
+                      },
+                      domProps: { value: _vm.instagram_input },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.instagram_input = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "collapse multi-collapse",
+                  attrs: { id: "telegram_box" },
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("label", { attrs: { for: "telegram_input" } }, [
+                      _vm._v(
+                        "\n                                        Telegram\n                                    "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.telegram_input,
+                          expression: "telegram_input",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "telegram_input",
+                        maxlength: "150",
+                        autocomplete: "off",
+                        placeholder: _vm.trans("company", "enter_link_account"),
+                      },
+                      domProps: { value: _vm.telegram_input },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.telegram_input = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "collapse multi-collapse",
+                  attrs: { id: "twitter_box" },
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("label", { attrs: { for: "Twitter_input" } }, [
+                      _vm._v(
+                        "\n                                        Twitter\n                                    "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.twitter_input,
+                          expression: "twitter_input",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "twitter_input",
+                        maxlength: "150",
+                        autocomplete: "off",
+                        placeholder: _vm.trans("company", "enter_link_account"),
+                      },
+                      domProps: { value: _vm.twitter_input },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.twitter_input = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                ]
+              ),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
+          _c("label", { attrs: { for: "site_company" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_website")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.site_company,
+                expression: "site_company",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "site_company",
+              maxlength: "150",
+              autocomplete: "off",
+              placeholder: _vm.trans("company", "for_example_great"),
+            },
+            domProps: { value: _vm.site_company },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.site_company = $event.target.value
+              },
+            },
+          }),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
+          _c("label", { attrs: { for: "work_experience" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "number_employees_company")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.count_working,
+                  expression: "count_working",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: { id: "work_experience" },
+              on: {
+                change: function ($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function (o) {
+                      return o.selected
+                    })
+                    .map(function (o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.count_working = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+              },
+            },
+            [
+              _vm._l(this.settings.count_working, function (value, key) {
+                return [
+                  _c("option", { domProps: { value: "" + key } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.trans("company", value)) +
+                        "\n                            "
+                    ),
+                  ]),
+                ]
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row row-about-company" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("label", [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.trans("company", "company_description")) +
+                  "\n                        "
+              ),
+              _c(
+                "span",
+                {
+                  staticClass: "info-tooltip",
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-trigger": "click",
+                    title:
+                      "" + _vm.trans("vacancies", "title_vacancy_description"),
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c("ckeditor", {
+              attrs: { config: _vm.objTextarea.editorConfig1 },
+              model: {
+                value: _vm.objTextarea.about_company,
+                callback: function ($$v) {
+                  _vm.$set(_vm.objTextarea, "about_company", $$v)
+                },
+                expression: "objTextarea.about_company",
+              },
+            }),
+          ],
+          1
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row footer-form" }, [
+      _c(
+        "div",
+        { staticClass: "col-sm-4 offset-4 but-box" },
+        [
+          _vm.company_id == null
+            ? [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-block btn-outline-danger btn-lg",
+                    attrs: { href: _vm.lang.prefix_lang + "private-office" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "cancel")) +
+                        "\n                    "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-primary btn-lg",
+                    class: { disabled: _vm.disableButton(_vm.$v) },
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.disableButton(_vm.$v),
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.createVacancy.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "save")) +
+                        "\n                    "
+                    ),
+                  ]
+                ),
+              ]
+            : _vm._e(),
+        ],
+        2
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menu/TopMenuComponent.vue?vue&type=template&id=61d2081e&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menu/TopMenuComponent.vue?vue&type=template&id=61d2081e&scoped=true& ***!
@@ -46107,7 +48257,7 @@ var render = function () {
                     [
                       _vm._v(
                         " " +
-                          _vm._s(_vm.trans("menu.top", "authorization")) +
+                          _vm._s(_vm.trans("menu.menu", "authorization")) +
                           " "
                       ),
                     ]
@@ -46134,7 +48284,7 @@ var render = function () {
                     [
                       _vm._v(
                         " " +
-                          _vm._s(_vm.trans("menu.top", "registration")) +
+                          _vm._s(_vm.trans("menu.menu", "registration")) +
                           " "
                       ),
                     ]
@@ -46188,30 +48338,28 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticClass: "dropdown-item",
+                          staticClass: "dropdown-item private-office",
                           attrs: {
                             href: _vm.lang.prefix_lang + "private-office",
                           },
                         },
                         [
-                          _c("span", { staticClass: "svg-cabinet" }, [
-                            _c(
-                              "svg",
-                              {
-                                attrs: {
-                                  viewBox: "0 0 576 512",
-                                  xmlns: "http://www.w3.org/2000/svg",
-                                },
+                          _c(
+                            "svg",
+                            {
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 576 512",
                               },
-                              [
-                                _c("path", {
-                                  attrs: {
-                                    d: "m224 224c0-35.3 28.7-64 64-64s64 28.7 64 64-28.7 64-64 64-64-28.7-64-64zm-48 176c0-44.2 35.8-80 80-80h64c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16h-192c-8.8 0-16-7.2-16-16zm288-258.1v-85.9c0-13.25 10.7-24.9 24-24.9s24 11.65 24 24.9v126.6l55.5 47.1c10.1 8.6 11.4 23.7 2.8 33.8s-23.7 11.4-33.8 2.8l-24.5-20.8v186.5c0 44.2-35.8 80-80 80h-288c-44.18 0-80-35.8-80-80v-186.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8l264.03-224c8.9-7.6 22.1-7.6 31 0l160.5 136.2zm-320 322.1h288c17.7 0 32-14.3 32-32v-227.2l-176-149.33-176 149.33v227.2c0 17.7 14.3 32 32 32z",
-                                  },
-                                }),
-                              ]
-                            ),
-                          ]),
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d: "M352 224c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64zm-32 96c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16H192c-8.8 0-16-7.2-16-16 0-44.2 35.8-80 80-80h64zM272.5 5.7c8.9-7.6 22.1-7.6 31 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8-8.6 10.1-23.7 11.4-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.18 0-80-35.8-80-80V245.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8L272.5 5.7zM112 204.8V432c0 17.7 14.3 32 32 32h288c17.7 0 32-14.3 32-32V204.8L288 55.47 112 204.8z",
+                                },
+                              }),
+                            ]
+                          ),
                           _vm._v(
                             "\n                            Личный кабинет\n                        "
                           ),
@@ -46481,6 +48629,39 @@ var render = function () {
               ]
             ),
           ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "my-company",
+                attrs: {
+                  href: _vm.lang.prefix_lang + "private-office/my-company",
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 384 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M104 216c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H72c-13.25 0-24-10.7-24-24v-32c0-13.3 10.75-24 24-24h32zm-40 56c0 4.4 3.58 8 8 8h32c4.4 0 8-3.6 8-8v-32c0-4.4-3.6-8-8-8H72c-4.42 0-8 3.6-8 8v32zm88-32c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24v-32zm24-8c-4.4 0-8 3.6-8 8v32c0 4.4 3.6 8 8 8h32c4.4 0 8-3.6 8-8v-32c0-4.4-3.6-8-8-8h-32zm136-16c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h32zm-40 56c0 4.4 3.6 8 8 8h32c4.4 0 8-3.6 8-8v-32c0-4.4-3.6-8-8-8h-32c-4.4 0-8 3.6-8 8v32zM48 112c0-13.25 10.75-24 24-24h32c13.3 0 24 10.75 24 24v32c0 13.3-10.7 24-24 24H72c-13.25 0-24-10.7-24-24v-32zm24-8c-4.42 0-8 3.6-8 8v32c0 4.4 3.58 8 8 8h32c4.4 0 8-3.6 8-8v-32c0-4.4-3.6-8-8-8H72zm136-16c13.3 0 24 10.75 24 24v32c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24v-32c0-13.25 10.7-24 24-24h32zm-40 56c0 4.4 3.6 8 8 8h32c4.4 0 8-3.6 8-8v-32c0-4.4-3.6-8-8-8h-32c-4.4 0-8 3.6-8 8v32zm88-32c0-13.25 10.7-24 24-24h32c13.3 0 24 10.75 24 24v32c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24v-32zm24-8c-4.4 0-8 3.6-8 8v32c0 4.4 3.6 8 8 8h32c4.4 0 8-3.6 8-8v-32c0-4.4-3.6-8-8-8h-32zM48 512c-26.51 0-48-21.5-48-48V48C0 21.49 21.49 0 48 0h288c26.5 0 48 21.49 48 48v416c0 26.5-21.5 48-48 48H48zM16 48v416c0 17.7 14.33 32 32 32h96v-80c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c17.7 0 32-14.3 32-32V48c0-17.67-14.3-32-32-32H48c-17.67 0-32 14.33-32 32zm144 448h64v-80c0-17.7-14.3-32-32-32s-32 14.3-32 32v80z",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(
+                  "\n                        Информация о компании\n                    "
+                ),
+              ]
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -46510,7 +48691,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "box-vacancies" },
+    { staticClass: "box-page" },
     [
       _c(
         "a",
@@ -46669,32 +48850,32 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "forms create-page" }, [
+  return _c("div", { staticClass: "forms box-page" }, [
     this.vacancy == null
       ? _c("h1", { staticClass: "title_page card-body" }, [
           _vm._v(
-            "\n            " +
+            "\n        " +
               _vm._s(_vm.trans("vacancies", "create_job")) +
-              "\n        "
+              "\n    "
           ),
         ])
       : _c("h1", { staticClass: "title_page card-body" }, [
           _vm._v(
-            "\n            " +
+            "\n        " +
               _vm._s(_vm.trans("vacancies", "update_job")) +
-              "\n        "
+              "\n    "
           ),
         ]),
     _vm._v(" "),
     _c("form", { attrs: { action: "", method: "post" } }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "col-sm-4 one-one-box" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "position" } }, [
               _vm._v(
-                "\n                            " +
+                "\n                        " +
                   _vm._s(_vm.trans("vacancies", "job_name")) +
-                  "\n                            "
+                  "\n                        "
               ),
               _c("span", { staticClass: "mandatory-filling" }, [
                 _c(
@@ -46802,9 +48983,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(value) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]
                   )
@@ -46824,7 +49005,7 @@ var render = function () {
             _c("label", { attrs: { for: "country" } }, [
               _vm._v(
                 _vm._s(_vm.trans("vacancies", "country_job")) +
-                  "\n                            "
+                  "\n                        "
               ),
               _c("span", { staticClass: "mandatory-filling" }, [
                 _c(
@@ -46855,9 +49036,9 @@ var render = function () {
                   { attrs: { disabled: "disabled", selected: "" } },
                   [
                     _vm._v(
-                      "\n                                " +
+                      "\n                            " +
                         _vm._s(_vm.trans("vacancies", "select_country")) +
-                        "\n                            "
+                        "\n                        "
                     ),
                   ]
                 ),
@@ -46895,7 +49076,7 @@ var render = function () {
                 _c("label", { attrs: { for: "region" } }, [
                   _vm._v(
                     _vm._s(_vm.trans("vacancies", "job_region")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -46934,9 +49115,9 @@ var render = function () {
                       { attrs: { disabled: "disabled", selected: "" } },
                       [
                         _vm._v(
-                          "\n                                " +
+                          "\n                            " +
                             _vm._s(_vm.trans("vacancies", "select_region")) +
-                            "\n                            "
+                            "\n                        "
                         ),
                       ]
                     ),
@@ -46978,7 +49159,7 @@ var render = function () {
                 _c("label", { attrs: { for: "city" } }, [
                   _vm._v(
                     _vm._s(_vm.trans("vacancies", "city_job")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -47017,9 +49198,9 @@ var render = function () {
                       { attrs: { disabled: "disabled", selected: "" } },
                       [
                         _vm._v(
-                          "\n                                " +
+                          "\n                            " +
                             _vm._s(_vm.trans("vacancies", "select_city")) +
-                            "\n                            "
+                            "\n                        "
                         ),
                       ]
                     ),
@@ -47057,9 +49238,9 @@ var render = function () {
             ? _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "rest_address" } }, [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "other_job_address")) +
-                      "\n                            "
+                      "\n                        "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -47137,9 +49318,9 @@ var render = function () {
               _c("div", [
                 _c("label", { attrs: { for: "categories" } }, [
                   _vm._v(
-                    "\n                                " +
+                    "\n                            " +
                       _vm._s(_vm.trans("vacancies", "category_job_posting")) +
-                      "\n                                "
+                      "\n                            "
                   ),
                   _c("span", { staticClass: "mandatory-filling" }, [
                     _c(
@@ -47232,14 +49413,14 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                    " +
+                                          "\n                                                " +
                                             _vm._s(
                                               _vm.trans(
                                                 "vacancies",
                                                 valueArr[1]
                                               )
                                             ) +
-                                            "\n                                                "
+                                            "\n                                            "
                                         ),
                                       ]
                                     ),
@@ -47269,9 +49450,9 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "least_category")) +
-                      "\n                        "
+                      "\n                    "
                   ),
                 ]
               ),
@@ -47282,12 +49463,12 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element" }, [
             _c("label", { attrs: { for: "vacancy_suitable" } }, [
               _vm._v(
-                "\n                            " +
+                "\n                        " +
                   _vm._s(_vm.trans("vacancies", "job_suitable_for")) +
-                  "\n                        "
+                  "\n                    "
               ),
             ]),
             _vm._v(" "),
@@ -47363,11 +49544,11 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                    " +
+                                          "\n                                                " +
                                             _vm._s(
                                               _vm.trans("vacancies", value)
                                             ) +
-                                            "\n                                                "
+                                            "\n                                            "
                                         ),
                                       ]
                                     ),
@@ -47450,11 +49631,11 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                    " +
+                                          "\n                                                " +
                                             _vm._s(
                                               _vm.trans("vacancies", "set_age")
                                             ) +
-                                            "\n                                                "
+                                            "\n                                            "
                                         ),
                                       ]
                                     ),
@@ -47513,7 +49694,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(
-                                    "\n                                                -\n                                                "
+                                    "\n                                            -\n                                            "
                                   ),
                                   _c("input", {
                                     directives: [
@@ -47553,7 +49734,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(
-                                    "\n                                                лет\n                                            "
+                                    "\n                                            лет\n                                        "
                                   ),
                                 ]),
                               ]
@@ -47566,9 +49747,9 @@ var render = function () {
                               { attrs: { for: "suitable_commentary" } },
                               [
                                 _vm._v(
-                                  "\n                                            " +
+                                  "\n                                        " +
                                     _vm._s(_vm.trans("vacancies", value)) +
-                                    "\n                                        "
+                                    "\n                                    "
                                 ),
                               ]
                             ),
@@ -47618,7 +49799,7 @@ var render = function () {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element" }, [
             _c("label", { attrs: { for: "type_employment" } }, [
               _vm._v(_vm._s(_vm.trans("vacancies", "type_employment"))),
             ]),
@@ -47661,9 +49842,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]
                   ),
@@ -47684,9 +49865,9 @@ var render = function () {
             [
               _c("label", { attrs: { for: "salary_accordion" } }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "salary")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -47799,9 +49980,9 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(_vm.trans("vacancies", "range")) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]
                           ),
@@ -47858,7 +50039,7 @@ var render = function () {
                           },
                         }),
                         _vm._v(
-                          "\n                                        -\n                                        "
+                          "\n                                    -\n                                    "
                         ),
                         _c("input", {
                           directives: [
@@ -47962,11 +50143,11 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(
                                     _vm.trans("vacancies", "single_value")
                                   ) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]
                           ),
@@ -48096,11 +50277,11 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                                        " +
                                   _vm._s(
                                     _vm.trans("vacancies", "dont_specify")
                                   ) +
-                                  "\n                                        "
+                                  "\n                                    "
                               ),
                             ]
                           ),
@@ -48130,11 +50311,11 @@ var render = function () {
                     [
                       _c("div", { staticClass: "bg-warning color-palette" }, [
                         _vm._v(
-                          "\n                                        " +
+                          "\n                                    " +
                             _vm._s(
                               _vm.trans("vacancies", "get_more_responses")
                             ) +
-                            "\n                                    "
+                            "\n                                "
                         ),
                       ]),
                     ]
@@ -48187,9 +50368,9 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("vacancies", "salary_vacancy")) +
-                      "\n                        "
+                      "\n                    "
                   ),
                 ]
               ),
@@ -48200,7 +50381,7 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element2" }, [
             _c("label", { attrs: { for: "work_experience" } }, [
               _vm._v(_vm._s(_vm.trans("vacancies", "work_experience"))),
             ]),
@@ -48239,9 +50420,9 @@ var render = function () {
                   return [
                     _c("option", { domProps: { value: "" + key } }, [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]),
                   ]
@@ -48253,7 +50434,7 @@ var render = function () {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element2" }, [
             _c("label", { attrs: { for: "education" } }, [
               _vm._v(_vm._s(_vm.trans("vacancies", "education_1"))),
             ]),
@@ -48292,9 +50473,9 @@ var render = function () {
                   return [
                     _c("option", { domProps: { value: "" + key } }, [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]),
                   ]
@@ -48309,13 +50490,13 @@ var render = function () {
           _c(
             "div",
             {
-              staticClass: "form-group",
+              staticClass: "form-group height-element2",
               class: { border_error: !_vm.objLanguage.languages.length },
             },
             [
               _c("label", { attrs: { for: "language" } }, [
                 _vm._v(
-                  "\n                            Язык вакансии\n                            "
+                  "\n                        Язык вакансии\n                        "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -48416,7 +50597,7 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                            Пожалуйста укажите необходимые языки для вакансии\n                        "
+                    "\n                        Пожалуйста укажите необходимые языки для вакансии\n                    "
                   ),
                 ]
               ),
@@ -48426,16 +50607,16 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
           _c(
             "div",
             { staticClass: "form-group" },
             [
               _c("label", [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "vacancy_description")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c(
                   "span",
@@ -48485,16 +50666,16 @@ var render = function () {
           ),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
           _c(
             "div",
             { staticClass: "form-group" },
             [
               _c("label", [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "work_conditions")) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c(
                   "span",
@@ -48543,18 +50724,18 @@ var render = function () {
           ),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
           _c(
             "div",
             { staticClass: "form-group" },
             [
               _c("label", [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(
                       _vm.trans("vacancies", "candidate_responsibilities")
                     ) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c(
                   "span",
@@ -48606,12 +50787,12 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element" }, [
             _c("label", [
               _vm._v(
-                "\n                            " +
+                "\n                        " +
                   _vm._s(_vm.trans("vacancies", "display_employer_jobs")) +
-                  "\n                            "
+                  "\n                        "
               ),
               _c(
                 "span",
@@ -48669,9 +50850,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(value) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]
                   ),
@@ -48683,12 +50864,12 @@ var render = function () {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element" }, [
             _c("label", { attrs: { for: "how_respond" } }, [
               _vm._v(
-                "\n                            " +
+                "\n                        " +
                   _vm._s(_vm.trans("vacancies", "how_can_apply")) +
-                  "\n                            "
+                  "\n                        "
               ),
               _c(
                 "span",
@@ -48759,9 +50940,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]
                   ),
@@ -48773,12 +50954,12 @@ var render = function () {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "form-group height-element" }, [
             _c("label", { attrs: { for: "job_posting" } }, [
               _vm._v(
-                "\n                            " +
+                "\n                        " +
                   _vm._s(_vm.trans("vacancies", "posting_job")) +
-                  "\n                            "
+                  "\n                        "
               ),
               _c(
                 "span",
@@ -48849,9 +51030,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    " +
+                        "\n                                " +
                           _vm._s(_vm.trans("vacancies", value)) +
-                          "\n                                "
+                          "\n                            "
                       ),
                     ]
                   ),
@@ -48882,9 +51063,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                            " +
+                        "\n                        " +
                           _vm._s(_vm.trans("vacancies", "cancel")) +
-                          "\n                        "
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -48907,9 +51088,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                            " +
+                        "\n                        " +
                           _vm._s(_vm.trans("vacancies", "save")) +
-                          "\n                        "
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -48919,13 +51100,17 @@ var render = function () {
                     "a",
                     {
                       staticClass: "btn btn-block btn-outline-danger btn-lg",
-                      attrs: { href: "/private-office/vacancy/my-vacancies" },
+                      attrs: {
+                        href:
+                          _vm.lang.prefix_lang +
+                          "/private-office/vacancy/my-vacancies",
+                      },
                     },
                     [
                       _vm._v(
-                        "\n                            " +
+                        "\n                        " +
                           _vm._s(_vm.trans("vacancies", "cancel")) +
-                          "\n                        "
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -48948,9 +51133,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                            " +
+                        "\n                        " +
                           _vm._s(_vm.trans("vacancies", "update_vacancy")) +
-                          "\n                        "
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -48986,7 +51171,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "box-vacancies" },
+    { staticClass: "box-page" },
     [
       _c(
         "a",
@@ -49123,7 +51308,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "box-vacancies" },
+    { staticClass: "box-page" },
     [
       _c(
         "a",
@@ -49153,8 +51338,8 @@ var render = function () {
       ),
       _vm._v(" "),
       _c("h1", { staticClass: "title_page card-body" }, [
-        _vm._v(_vm._s(_vm.trans("vacancies", "my")) + " "),
-        _c("u", [_vm._v(_vm._s(_vm.trans("vacancies", "vacancies")))]),
+        _c("u", [_vm._v(_vm._s(_vm.trans("vacancies", "my")))]),
+        _vm._v(" " + _vm._s(_vm.trans("vacancies", "vacancies"))),
       ]),
       _vm._v(" "),
       !_vm.user_data.vacancies.length
@@ -50836,7 +53021,7 @@ var render = function () {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "box-vacancies" },
+      { staticClass: "box-page" },
       [
         _c("vacancy_template", {
           attrs: {
@@ -51376,31 +53561,31 @@ var render = function () {
             _vm._v(
               "\n                " +
                 _vm._s(_vm.salaryView(_vm.vacancy.salary)) +
-                "\n                "
-            ),
-            _c(
-              "svg",
-              {
-                attrs: {
-                  viewBox: "0 0 512 512",
-                  xmlns: "http://www.w3.org/2000/svg",
-                },
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                  },
-                }),
-              ]
+                "\n            "
             ),
           ]),
         ]),
         _vm._v(" "),
         _vm.vacancy.salary.comment !== null
           ? _c("div", { staticClass: "comment-vacancy" }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    viewBox: "0 0 512 512",
+                    xmlns: "http://www.w3.org/2000/svg",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                    },
+                  }),
+                ]
+              ),
               _vm._v(
-                "\n\n            " +
+                "\n            " +
                   _vm._s(_vm.vacancy.salary.comment) +
                   "\n        "
               ),
@@ -51473,28 +53658,28 @@ var render = function () {
                 _vm._s(
                   _vm.settings.type_employment[_vm.vacancy.type_employment]
                 ) +
-                "\n                "
-            ),
-            _c(
-              "svg",
-              {
-                attrs: {
-                  viewBox: "0 0 512 512",
-                  xmlns: "http://www.w3.org/2000/svg",
-                },
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                  },
-                }),
-              ]
+                "\n            "
             ),
           ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "comment-vacancy" }, [
+          _c(
+            "svg",
+            {
+              attrs: {
+                viewBox: "0 0 512 512",
+                xmlns: "http://www.w3.org/2000/svg",
+              },
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
+                },
+              }),
+            ]
+          ),
           _vm._v(
             "\n            " +
               _vm._s(_vm.addressView(_vm.vacancy)) +
@@ -51558,23 +53743,7 @@ var render = function () {
                         _vm._s(_vm.vacancy.vacancy_suitable.inputs.from) +
                         " - " +
                         _vm._s(_vm.vacancy.vacancy_suitable.inputs.to) +
-                        " years\n                "
-                    ),
-                    _c(
-                      "svg",
-                      {
-                        attrs: {
-                          viewBox: "0 0 512 512",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        },
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d: "M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z",
-                          },
-                        }),
-                      ]
+                        " years\n            "
                     ),
                   ])
                 : _vm.vacancy.vacancy_suitable.radio_name == "it_not_matter"
@@ -51582,8 +53751,13 @@ var render = function () {
                     _vm._v(
                       "\n                " +
                         _vm._s(_vm.vacancy.vacancy_suitable.radio_name) +
-                        "\n                "
+                        "\n            "
                     ),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.vacancy.vacancy_suitable.comment !== null
+                ? _c("div", { staticClass: "comment-vacancy" }, [
                     _c(
                       "svg",
                       {
@@ -51600,11 +53774,6 @@ var render = function () {
                         }),
                       ]
                     ),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.vacancy.vacancy_suitable.comment !== null
-                ? _c("div", { staticClass: "comment-vacancy" }, [
                     _vm._v(
                       "\n                " +
                         _vm._s(_vm.vacancy.vacancy_suitable.comment) +
@@ -67191,6 +69360,7 @@ Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a); // редакт
 Vue.use(ckeditor4_vue__WEBPACK_IMPORTED_MODULE_4___default.a);
 Vue.component('top-menu-component', __webpack_require__(/*! ./components/menu/TopMenuComponent */ "./resources/js/components/menu/TopMenuComponent.vue")["default"]);
 Vue.component('create-vacancy-component', __webpack_require__(/*! ./components/vacancy/CreateVacancyComponent */ "./resources/js/components/vacancy/CreateVacancyComponent.vue")["default"]);
+Vue.component('my-company-component', __webpack_require__(/*! ./components/company/MyCompanyComponent */ "./resources/js/components/company/MyCompanyComponent.vue")["default"]);
 Vue.component('my-vacancy-component', __webpack_require__(/*! ./components/vacancy/MyVacancyComponent */ "./resources/js/components/vacancy/MyVacancyComponent.vue")["default"]);
 Vue.component('bookmark-vacancies-component', __webpack_require__(/*! ./components/vacancy/BookmarkVacanciesComponent */ "./resources/js/components/vacancy/BookmarkVacanciesComponent.vue")["default"]);
 Vue.component('hidden-vacancies-component', __webpack_require__(/*! ./components/vacancy/HiddenVacanciesComponent */ "./resources/js/components/vacancy/HiddenVacanciesComponent.vue")["default"]);
@@ -67592,6 +69762,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleSign_vue_vue_type_template_id_7f8afaea_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleSign_vue_vue_type_template_id_7f8afaea_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/company/MyCompanyComponent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/company/MyCompanyComponent.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MyCompanyComponent_vue_vue_type_template_id_ff513d6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true& */ "./resources/js/components/company/MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true&");
+/* harmony import */ var _MyCompanyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyCompanyComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/company/MyCompanyComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MyCompanyComponent_vue_vue_type_style_index_0_id_ff513d6e_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss& */ "./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MyCompanyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MyCompanyComponent_vue_vue_type_template_id_ff513d6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MyCompanyComponent_vue_vue_type_template_id_ff513d6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "ff513d6e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/company/MyCompanyComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/company/MyCompanyComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/company/MyCompanyComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MyCompanyComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss& ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_style_index_0_id_ff513d6e_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=style&index=0&id=ff513d6e&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_style_index_0_id_ff513d6e_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_style_index_0_id_ff513d6e_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_style_index_0_id_ff513d6e_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_style_index_0_id_ff513d6e_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/company/MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/company/MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_template_id_ff513d6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/company/MyCompanyComponent.vue?vue&type=template&id=ff513d6e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_template_id_ff513d6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCompanyComponent_vue_vue_type_template_id_ff513d6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -68957,23 +71214,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     salaryLineToEmpty: function salaryLineToEmpty() {
       this.objSalary.from = isNaN(parseInt(this.objSalary.from)) || parseInt(this.objSalary.from) == 0 ? null : this.objSalary.from;
       this.objSalary.to = isNaN(parseInt(this.objSalary.to)) || parseInt(this.objSalary.to) == 0 ? null : this.objSalary.to;
+    },
+    // разбить масив категорий на несколько
+    createArrayCategories: function createArrayCategories() {
+      var _this3 = this;
+
+      var count = 15;
+      var tick = 0;
+      this.objCategory.categoriesArray = [];
+      this.settings.categories.forEach(function (value, index) {
+        // дележка на массивы
+        if (index % count == 0) {
+          _this3.objCategory.categoriesArray[tick] = [];
+          tick++;
+        }
+
+        _this3.objCategory.categoriesArray[tick - 1].push([index, value]);
+      });
+    },
+    checkCategory: function checkCategory() {
+      this.objCategory.boolChecked = true;
+      var checked = document.querySelectorAll('[name="category"]:checked');
+      var selected = [];
+
+      for (var i = 0; i < checked.length; i++) {
+        selected.push(parseInt(checked[i].value));
+      }
+
+      this.objCategory.categories = selected;
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this4 = this;
 
     // страна
     $('#country').on('select2:select', function (e) {
-      _this3.clearLocation(); // выбрано "Выбрать"
+      _this4.clearLocation(); // выбрано "Выбрать"
 
 
       if (e.params.data.id == '') {
         return false;
       }
 
-      _this3.objLocations.country = e.params.data.id;
+      _this4.objLocations.country = e.params.data.id;
 
-      _this3.loadRegions();
+      _this4.loadRegions();
     });
   }
 });
@@ -69389,8 +71674,59 @@ module.exports = {
     "terms_use": "Terms of Use",
     "throttle": "Too many login attempts. Please try again in :seconds seconds."
   },
-  "en.menu.top": {
+  "en.company": {
+    "August": "august",
+    "about_company": "Information about the company, this is the face of the employer. Try to provide information about her as extensively as possible, without dwelling only on what she does. For the applicant, this can be a decisive factor.",
+    "april": "april",
+    "categories_activity_company": "Categories of the activity of the company",
+    "change company details": "Change company details",
+    "company_city": "Company city",
+    "company_country": "Company country",
+    "company_description": "Company description",
+    "company_foundation_day": "Company foundation day",
+    "company_foundation_month": "Company foundation month",
+    "company_name": "Company name",
+    "company_name_transliteration": "Company name transliteration",
+    "company_region": "Company region",
+    "company_tax_number": "Company tax number",
+    "company_website": "Company website",
+    "create_your_company": "Create your company",
+    "december": "december",
+    "enter_link_account": "Enter a link to your account",
+    "enter_number": "Enter number",
+    "enter_transliteration": "Enter transliteration",
+    "february": "february",
+    "for_example_great": "For example great.com",
+    "for_example_star": "For example 'Star LTD'",
+    "from_100_to_250_employees": "from 100 to 250 employees",
+    "january": "january",
+    "july": "july",
+    "june": "june",
+    "less_than_10_employees": "less than 10 employees",
+    "march": "march",
+    "may": "may",
+    "more_than_500_employees": "more than 500 employees",
+    "november": "november",
+    "number_employees_company": "Number of employees in the company",
+    "october": "october",
+    "please_enter_least": "Please enter at least 1 Latin letter, optionally with dash, hyphen and numbers.",
+    "please_enter_name": "Please enter a company name.",
+    "please_enter_your_number": "Please enter your Company Tax Number.",
+    "please_indicate_street": "Please indicate the street and house of the company.",
+    "please_select_category": "Please select the category your company belongs to.",
+    "remaining_address": "Remaining address of the company",
+    "select_day": "Select day",
+    "select_month": "Select month",
+    "select_year": "Select year",
+    "september": "september",
+    "social_networks_company": "Company social networks",
+    "specify": "Specify address",
+    "up_to_50_employees": "up to 50 employees",
+    "year_foundation": "Year of foundation of the company"
+  },
+  "en.menu.menu": {
     "authorization": "Sign in",
+    "cabinet": "Cabinet",
     "registration": "Sign up"
   },
   "en.vacancies": {
@@ -69544,8 +71880,59 @@ module.exports = {
     "sign_out": "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430",
     "terms_use": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F"
   },
-  "ru.menu.top": {
+  "ru.company": {
+    "about_company": "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438, \u044D\u0442\u043E \u043B\u0438\u0446\u043E \u0440\u0430\u0431\u043E\u0442\u043E\u0434\u0430\u0442\u0435\u043B\u044F. \u041F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044C \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0441\u0432\u0435\u0434\u0435\u043D\u044C\u044F \u043E \u043D\u0435\u0439 \u043D\u0430\u0438\u0431\u043E\u043B\u0435\u0435 \u043E\u0431\u0448\u0438\u0440\u043D\u043E, \u043D\u0435 \u043E\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u044F\u0441\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0430 \u0442\u043E\u043C, \u0447\u0435\u043C \u043E\u043D\u0430 \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0441\u044F. \u0414\u043B\u044F \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F \u044D\u0442\u043E \u0431\u044B\u0432\u0430\u0435\u0442 \u0440\u0435\u0448\u0430\u044E\u0449\u0435\u043C \u0444\u0430\u043A\u0442\u043E\u0440\u043E\u043C.",
+    "april": "\u0430\u043F\u0440\u0435\u043B\u044C",
+    "august": "\u0430\u0432\u0433\u0443\u0441\u0442",
+    "categories_activity_company": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u0441\u0444\u0435\u0440\u044B \u0434\u0435\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "change company details": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_city": "\u0413\u043E\u0440\u043E\u0434 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_country": "\u0421\u0442\u0440\u0430\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_description": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_foundation_day": "\u0414\u0435\u043D\u044C \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_foundation_month": "\u041C\u0435\u0441\u044F\u0446 \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_name": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_name_transliteration": "\u0422\u0440\u0430\u043D\u0441\u043B\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_region": "\u0420\u0435\u0433\u0438\u043E\u043D \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_tax_number": "\u041D\u0430\u043B\u043E\u0433\u043E\u0432\u044B\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_website": "\u0421\u0430\u0439\u0442 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "create_your_company": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u0432\u043E\u044E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044E",
+    "december": "\u0434\u0435\u043A\u0430\u0431\u0440\u044C",
+    "enter_link_account": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0441\u0441\u044B\u043B\u043A\u0443 \u043D\u0430 \u0432\u0430\u0448 \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
+    "enter_number": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043D\u043E\u043C\u0435\u0440",
+    "enter_transliteration": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0442\u0440\u0430\u043D\u0441\u043B\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044E",
+    "february": "\u0444\u0435\u0432\u0440\u0430\u043B\u044C",
+    "for_example_great": "\u041D\u0430\u043F\u0440\u0438\u043C\u0435\u0440 great.com",
+    "for_example_star": "\u041D\u0430\u043F\u0440\u0438\u043C\u0435\u0440 'Star LTD'",
+    "from_100_to_250_employees": "\u043E\u0442 100 \u0434\u043E 250 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "january": "\u044F\u043D\u0432\u0430\u0440\u044C",
+    "july": "\u0438\u044E\u043B\u044C",
+    "june": "\u0438\u044E\u043D\u044C",
+    "less_than_10_employees": "\u043C\u0435\u043D\u044C\u0448\u0435 10 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "march": "\u043C\u0430\u0440\u0442",
+    "may": "\u043C\u0430\u0439",
+    "more_than_500_employees": "\u0431\u043E\u043B\u044C\u0448\u0435 500 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "november": "\u043D\u043E\u044F\u0431\u0440\u044C",
+    "number_employees_company": "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432 \u0432 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "october": "\u043E\u043A\u0442\u044F\u0431\u0440\u044C",
+    "please_enter_least": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430 \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C 1 \u043B\u0430\u0442\u0438\u043D\u0441\u043A\u0443\u044E \u0431\u0443\u043A\u0432\u0443, \u0441 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u043C \u0434\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435\u043C \u0442\u0438\u0440\u0435, \u0434\u0435\u0444\u0438\u0441 \u0438 \u0446\u0438\u0444\u0440\u044B.",
+    "please_enter_name": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438.",
+    "please_enter_your_number": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u041D\u0430\u043B\u043E\u0433\u043E\u0432\u044B\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438.",
+    "please_indicate_street": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u0443\u043B\u0438\u0446\u0443 \u0438 \u0434\u043E\u043C \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438.",
+    "please_select_category": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E \u043A \u043A\u043E\u0442\u043E\u0440\u043E\u0439 \u043E\u0442\u043D\u043E\u0441\u0438\u0442\u0441\u044F \u0432\u0430\u0448\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F.",
+    "remaining_address": "\u041E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0430\u0434\u0440\u0435\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "select_day": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0434\u0435\u043D\u044C",
+    "select_month": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u043C\u0435\u0441\u044F\u0446",
+    "select_year": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0433\u043E\u0434",
+    "september": "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C",
+    "social_networks_company": "\u0421\u043E\u0446\u0441\u0435\u0442\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "specify": "\u0423\u043A\u0430\u0437\u0430\u0442\u044C \u0430\u0434\u0440\u0435\u0441",
+    "up_to_50_employees": "\u0434\u043E 50 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "year_foundation": "\u0413\u043E\u0434 \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438"
+  },
+  "ru.menu.menu": {
     "authorization": "\u0412\u0445\u043E\u0434",
+    "cabinet": "\u041A\u0430\u0431\u0438\u043D\u0435\u0442",
     "registration": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F"
   },
   "ru.vacancies": {
@@ -69699,8 +72086,59 @@ module.exports = {
     "sign_out": "\u0412\u0438\u0445\u0456\u0434 \u0437 \u0430\u043A\u0430\u0443\u043D\u0442\u0443",
     "terms_use": "\u0423\u043C\u043E\u0432\u0438 \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F"
   },
-  "uk.menu.top": {
+  "uk.company": {
+    "about_company": "\u0406\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044F \u043F\u0440\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E, \u0446\u0435 \u043E\u0441\u043E\u0431\u0430 \u0440\u043E\u0431\u043E\u0442\u043E\u0434\u0430\u0432\u0446\u044F. \u041F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044F \u043D\u0430\u0434\u0430\u0442\u0438 \u0432\u0456\u0434\u043E\u043C\u043E\u0441\u0442\u0456 \u043F\u0440\u043E \u043D\u0435\u0457 \u043D\u0430\u0439\u0431\u0456\u043B\u044C\u0448\u0435, \u043D\u0435 \u0437\u0443\u043F\u0438\u043D\u044F\u044E\u0447\u0438\u0441\u044C \u0442\u0456\u043B\u044C\u043A\u0438 \u043D\u0430 \u0442\u043E\u043C\u0443, \u0447\u0438\u043C \u0432\u043E\u043D\u0430 \u0437\u0430\u0439\u043C\u0430\u0454\u0442\u044C\u0441\u044F. \u0414\u043B\u044F \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430 \u0446\u0435 \u0431\u0443\u0432\u0430\u0454 \u0432\u0438\u0440\u0456\u0448\u0430\u043B\u044C\u043D\u0438\u043C \u0444\u0430\u043A\u0442\u043E\u0440\u043E\u043C.",
+    "april": "\u043A\u0432\u0456\u0442\u0435\u043D\u044C",
+    "august": "\u0441\u0435\u0440\u043F\u0435\u043D\u044C",
+    "categories_activity_company": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u0457 \u0441\u0444\u0435\u0440\u0438 \u0434\u0456\u044F\u043B\u044C\u043D\u043E\u0441\u0442\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "change company details": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438 \u0434\u0430\u043D\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_city": "\u041C\u0456\u0441\u0442\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_country": "\u041A\u0440\u0430\u0457\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_description": "\u041E\u043F\u0438\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_foundation_day": "\u0414\u0435\u043D\u044C \u0437\u0430\u0441\u043D\u0443\u0432\u0430\u043D\u043D\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_foundation_month": "\u041C\u0456\u0441\u044F\u0446\u044C \u0437\u0430\u0441\u043D\u0443\u0432\u0430\u043D\u043D\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_name": "\u041D\u0430\u0437\u0432\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_name_transliteration": "\u0422\u0440\u0430\u043D\u0441\u043B\u0456\u0442\u0435\u0440\u0430\u0446\u0456\u044F \u043D\u0430\u0437\u0432\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_region": "\u0420\u0435\u0433\u0456\u043E\u043D \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_tax_number": "\u041F\u043E\u0434\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_website": "\u0421\u0430\u0439\u0442 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "create_your_company": "\u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438 \u0441\u0432\u043E\u044E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E",
+    "december": "\u0433\u0440\u0443\u0434\u0435\u043D\u044C",
+    "enter_link_account": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F \u043D\u0430 \u0432\u0430\u0448 \u043E\u0431\u043B\u0456\u043A\u043E\u0432\u0438\u0439 \u0437\u0430\u043F\u0438\u0441",
+    "enter_number": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043D\u043E\u043C\u0435\u0440",
+    "enter_transliteration": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0442\u0440\u0430\u043D\u0441\u043B\u0456\u0442\u0435\u0440\u0430\u0446\u0456\u044E",
+    "february": "\u043B\u044E\u0442\u0438\u0439",
+    "for_example_great": "\u041D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434, great.com",
+    "for_example_star": "\u041D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434 'Star LTD'",
+    "from_100_to_250_employees": "\u0432\u0456\u0434 100 \u0434\u043E 250 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "january": "\u0441\u0456\u0447\u0435\u043D\u044C",
+    "july": "\u043B\u0438\u043F\u0435\u043D\u044C",
+    "june": "\u0447\u0435\u0440\u0432\u0435\u043D\u044C",
+    "less_than_10_employees": "\u043C\u0435\u043D\u0448\u0435 10 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "march": "\u0431\u0435\u0440\u0435\u0437\u0435\u043D\u044C",
+    "may": "\u0442\u0440\u0430\u0432\u0435\u043D\u044C",
+    "more_than_500_employees": "\u0431\u0456\u043B\u044C\u0448\u0435 500 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "november": "\u043B\u0438\u0441\u0442\u043E\u043F\u0430\u0434",
+    "number_employees_company": "\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432 \u0443 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "october": "\u0436\u043E\u0432\u0442\u0435\u043D\u044C",
+    "please_enter_least": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u044F\u043A \u043C\u0456\u043D\u0456\u043C\u0443\u043C 1 \u043B\u0430\u0442\u0438\u043D\u0441\u044C\u043A\u0443 \u043B\u0456\u0442\u0435\u0440\u0443, \u0437 \u043C\u043E\u0436\u043B\u0438\u0432\u0438\u043C \u0434\u043E\u043F\u043E\u0432\u043D\u0435\u043D\u043D\u044F\u043C \u0442\u0438\u0440\u0435, \u0434\u0435\u0444\u0456\u0441 \u0442\u0430 \u0446\u0438\u0444\u0440\u0438.",
+    "please_enter_name": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u043D\u0430\u0437\u0432\u0443 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457.",
+    "please_enter_your_number": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u041F\u043E\u0434\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457.",
+    "please_indicate_street": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0432\u0443\u043B\u0438\u0446\u044E \u0442\u0430 \u0431\u0443\u0434\u0438\u043D\u043E\u043A \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457.",
+    "please_select_category": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u044E, \u0434\u043E \u044F\u043A\u043E\u0457 \u043D\u0430\u043B\u0435\u0436\u0438\u0442\u044C \u0432\u0430\u0448\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044F.",
+    "remaining_address": "\u0406\u043D\u0448\u0430 \u0430\u0434\u0440\u0435\u0441\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "select_day": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0434\u0435\u043D\u044C",
+    "select_month": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043C\u0456\u0441\u044F\u0446\u044C",
+    "select_year": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0440\u0456\u043A",
+    "september": "\u0432\u0435\u0440\u0435\u0441\u0435\u043D\u044C",
+    "social_networks_company": "\u0421\u043E\u0446\u043C\u0435\u0440\u0435\u0436\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "specify": "\u0412\u043A\u0430\u0437\u0430\u0442\u0438 \u0430\u0434\u0440\u0435\u0441\u0443",
+    "up_to_50_employees": "\u0434\u043E 50 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "year_foundation": "\u0420\u0456\u043A \u0437\u0430\u0441\u043D\u0443\u0432\u0430\u043D\u043D\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457"
+  },
+  "uk.menu.menu": {
     "authorization": "\u0412\u0445\u0456\u0434",
+    "cabinet": "\u041A\u0430\u0431\u0456\u043D\u0435\u0442",
     "registration": "\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F"
   },
   "uk.vacancies": {

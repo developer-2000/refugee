@@ -14,9 +14,10 @@ return [
      * php artisan lang:js --quiet --no-lib
      */
     'messages' => [
-        'menu/top',
+        'menu/menu',
         'auth',
         'vacancies',
+        'company',
     ],
 
     /*

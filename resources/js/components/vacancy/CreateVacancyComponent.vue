@@ -1,5 +1,5 @@
 <template>
-    <div class="forms create-page">
+    <div class="forms box-page">
 
         <h1 v-if="this.vacancy == null" class="title_page card-body">
             {{trans('vacancies','create_job')}}
@@ -12,7 +12,7 @@
 
             <!-- первый row -->
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-4 one-one-box">
 
                     <!-- Position -->
                     <div class="form-group">
@@ -185,9 +185,9 @@
 
             <!-- второй row -->
             <div class="row">
-                <!-- Вакансия подходит для -->
+                <!-- Возраст соискателя  -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element">
                         <label for="vacancy_suitable">
                             {{trans('vacancies','job_suitable_for')}}
                         </label>
@@ -280,7 +280,7 @@
                 </div>
                 <!-- Вид занятости -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element">
                         <label for="type_employment">{{trans('vacancies','type_employment')}}</label>
                         <div id="type_employment">
                             <div class="icheck-primary" v-for="(value, key) in this.settings.type_employment" :key="key">
@@ -437,7 +437,7 @@
             <div class="row">
                 <!-- Опыт работы -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element2">
                         <label for="work_experience">{{trans('vacancies','work_experience')}}</label>
                         <select class="form-control" id="work_experience"
                                 v-model="experience"
@@ -452,7 +452,7 @@
                 </div>
                 <!-- Образование -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element2">
                         <label for="education">{{trans('vacancies','education_1')}}</label>
                         <select class="form-control" id="education"
                                 v-model="education"
@@ -467,7 +467,9 @@
                 </div>
                 <!-- Язык вакансии -->
                 <div class="col-sm-4">
-                    <div class="form-group" :class="{border_error: !objLanguage.languages.length }">
+                    <div class="form-group height-element2"
+                         :class="{border_error: !objLanguage.languages.length }"
+                    >
                         <label for="language">
                             Язык вакансии
                             <span class="mandatory-filling">
@@ -501,10 +503,9 @@
             <!-- четвертый row -->
             <div class="row">
                 <!-- Требования к кандидату -->
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label>
-<!--                            requirements_candidate-->
                             {{trans('vacancies','vacancy_description')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
                                   :title="`${trans('vacancies','title_vacancy_description')}`"
@@ -518,7 +519,7 @@
                     </div>
                 </div>
                 <!-- Условия работы -->
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label>
                             {{trans('vacancies','work_conditions')}}
@@ -534,7 +535,7 @@
                     </div>
                 </div>
                 <!-- Обязанности кандидата -->
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label>
                             {{trans('vacancies','candidate_responsibilities')}}
@@ -555,7 +556,7 @@
             <div class="row">
                 <!-- Контакты работодателя -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element">
                         <label>
                             {{trans('vacancies','display_employer_jobs')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
@@ -582,7 +583,7 @@
                 </div>
                 <!-- Как можно откликнуться -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element">
                         <label for="how_respond">
                             {{trans('vacancies','how_can_apply')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
@@ -610,7 +611,7 @@
                 </div>
                 <!-- Размещение вакансии -->
                 <div class="col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group height-element">
                         <label for="job_posting">
                             {{trans('vacancies','posting_job')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
@@ -657,7 +658,8 @@
                     </template>
                     <!-- button update -->
                     <template v-else>
-                        <a href="/private-office/vacancy/my-vacancies" class="btn btn-block btn-outline-danger btn-lg">
+                        <a :href="`${lang.prefix_lang}/private-office/vacancy/my-vacancies`"
+                           class="btn btn-block btn-outline-danger btn-lg">
                             {{trans('vacancies','cancel')}}
                         </a>
                         <button type="submit" class="btn btn-block btn-primary btn-lg"
@@ -824,15 +826,7 @@
                 }
                 this.objDisplayEmpContVacancy.contacts = selected;
             },
-            checkCategory(){
-                this.objCategory.boolChecked = true;
-                let checked = document.querySelectorAll('[name="category"]:checked');
-                let selected = [];
-                for (let i=0; i<checked.length; i++) {
-                    selected.push(parseInt(checked[i].value));
-                }
-                this.objCategory.categories = selected;
-            },
+
             checkSalary() {
                 // если выбран сектор а поля не заполнены
                 if(
@@ -878,20 +872,6 @@
                         this.objSuitable.suitable_to = this.objSuitable.suitable_from
                     }
                 }
-            },
-            // разбить масив категорий на несколько
-            createArrayCategories(){
-                let count = 15
-                let tick = 0
-                this.objCategory.categoriesArray = [];
-                this.settings.categories.forEach((value, index) => {
-                    // дележка на массивы
-                    if((index % count) == 0){
-                        this.objCategory.categoriesArray[tick] = [];
-                        tick++
-                    }
-                    this.objCategory.categoriesArray[(tick-1)].push([index, value]);
-                });
             },
             setValuePosition(value){
                 $('#position_list').removeClass('show')
@@ -1053,6 +1033,22 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .title_page{
+        padding: 10px 4px;
+    }
+    .height-element{
+        height: 95%;
+    }
+    .height-element2{
+        height: 90%;
+    }
+    .one-one-box{
+        display: flex;
+        flex-direction: column;
+        & > div:last-child {
+            flex-grow: 3;
+        }
+    }
     label{
         cursor: pointer;
     }
@@ -1133,6 +1129,7 @@
         color: $color-a-blue;
         font-weight: 500!important;
     }
+
 </style>
 
 

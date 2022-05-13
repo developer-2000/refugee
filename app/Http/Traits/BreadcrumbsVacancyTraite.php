@@ -16,13 +16,16 @@ trait BreadcrumbsVacancyTraite {
 
     protected function makeBackUrlLink()
     {
-        $last_page = URL::previous();
-        $array = explode("/", $last_page);
+        $last_url = URL::previous();
+        $query = explode("?", $last_url);
+        $array = explode("/", $query[0]);
 
         if($this->LastElementArray($array)[0] == 'vacancy'){
+            // добавить query url
+            $query[0] = isset($query[1]) ? "?$query[1]" : "";
             return [
                 'name'=>'vacancy',
-                'url'=>App::getLocale()."/vacancy",
+                'url'=>App::getLocale()."/vacancy$query[0]",
             ];
         }
         elseif($this->LastElementArray($array)[0] == 'bookmark-vacancies'){

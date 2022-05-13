@@ -25,7 +25,7 @@
             ></bookmark_buttons>
         </div>
 
-        <div class="box-vacancies">
+        <div class="box-page">
             <!-- vacancy -->
             <vacancy_template
                 :vacancy="vacancy"
@@ -86,8 +86,7 @@
     .bread-top{
         padding: 10px 25px;
     }
-    .box-vacancies {
-        background-color: #fff;
+    .box-page {
         padding: 25px;
     }
     .bread-slash{

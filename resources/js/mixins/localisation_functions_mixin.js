@@ -100,6 +100,29 @@ export default {
 
             this.objSalary.to = (isNaN(parseInt(this.objSalary.to)) || parseInt(this.objSalary.to) == 0) ? null : this.objSalary.to
         },
+        // разбить масив категорий на несколько
+        createArrayCategories(){
+            let count = 15
+            let tick = 0
+            this.objCategory.categoriesArray = [];
+            this.settings.categories.forEach((value, index) => {
+                // дележка на массивы
+                if((index % count) == 0){
+                    this.objCategory.categoriesArray[tick] = [];
+                    tick++
+                }
+                this.objCategory.categoriesArray[(tick-1)].push([index, value]);
+            });
+        },
+        checkCategory(){
+            this.objCategory.boolChecked = true;
+            let checked = document.querySelectorAll('[name="category"]:checked');
+            let selected = [];
+            for (let i=0; i<checked.length; i++) {
+                selected.push(parseInt(checked[i].value));
+            }
+            this.objCategory.categories = selected;
+        },
     },
     mounted() {
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="box-vacancies">
+    <div class="box-page">
         <a  class="link-back"
             :href="`${lang.prefix_lang}private-office`"
         >
@@ -109,9 +109,7 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-    .box-vacancies{
-        background-color: #fff;
-        padding: 0 15px 15px;
+    .box-page{
         .callout{
             color: #666;
             line-height: 30px;
@@ -205,15 +203,7 @@
                 }
             }
         }
-        .desc-helper-italic{
-            font-style: italic;
-            margin-bottom: 10px;
-        }
     }
-
-
-
-
 
 </style>
 

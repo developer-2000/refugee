@@ -71,11 +71,11 @@
                     >
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
                            @click.prevent="reset_array(0)"
-                        > {{ trans('menu.top','authorization') }} </a>
+                        > {{ trans('menu.menu','authorization') }} </a>
                         <span>/</span>
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal"
                            @click.prevent="reset_array(1)"
-                        > {{ trans('menu.top','registration') }} </a>
+                        > {{ trans('menu.menu','registration') }} </a>
                     </li>
 
                     <!-- user menu -->
@@ -90,12 +90,10 @@
                         <!-- dropdown -->
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <!-- Private office -->
-                            <a class="dropdown-item"
+                            <a class="dropdown-item private-office"
                                :href="`${lang.prefix_lang}private-office`"
                             >
-                                <span class="svg-cabinet">
-                                    <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="m224 224c0-35.3 28.7-64 64-64s64 28.7 64 64-28.7 64-64 64-64-28.7-64-64zm-48 176c0-44.2 35.8-80 80-80h64c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16h-192c-8.8 0-16-7.2-16-16zm288-258.1v-85.9c0-13.25 10.7-24.9 24-24.9s24 11.65 24 24.9v126.6l55.5 47.1c10.1 8.6 11.4 23.7 2.8 33.8s-23.7 11.4-33.8 2.8l-24.5-20.8v186.5c0 44.2-35.8 80-80 80h-288c-44.18 0-80-35.8-80-80v-186.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8l264.03-224c8.9-7.6 22.1-7.6 31 0l160.5 136.2zm-320 322.1h288c17.7 0 32-14.3 32-32v-227.2l-176-149.33-176 149.33v227.2c0 17.7 14.3 32 32 32z"/></svg>
-                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352 224c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64zm-32 96c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16H192c-8.8 0-16-7.2-16-16 0-44.2 35.8-80 80-80h64zM272.5 5.7c8.9-7.6 22.1-7.6 31 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8-8.6 10.1-23.7 11.4-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.18 0-80-35.8-80-80V245.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8L272.5 5.7zM112 204.8V432c0 17.7 14.3 32 32 32h288c17.7 0 32-14.3 32-32V204.8L288 55.47 112 204.8z"/></svg>
                                 Личный кабинет
                             </a>
                             <!-- Logout -->
@@ -262,6 +260,11 @@
         }
         img{
             margin-right: 7px;
+        }
+    }
+    .private-office{
+        svg{
+            width: 25px;
         }
     }
     .user-menu{

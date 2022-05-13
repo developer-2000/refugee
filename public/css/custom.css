@@ -71,6 +71,11 @@ b{
 .card-primary:not(.card-outline) > .card-header {
     background-color: #1d68a7;
 }
+.box-page {
+    background-color: #fff;
+    padding: 0 15px 15px;
+}
+
 /* sidebar left */
 .brand-link{
     display: flex;
@@ -265,7 +270,7 @@ svg{
     margin: 0;
 }
 .footer-form{
-    margin: 50px 0 70px;
+    padding: 50px 0 70px;
 }
 .but-box{
     display: flex;
@@ -352,7 +357,7 @@ label{
     padding-top: 2px;
 }
 
-/* my vacation */
+/* my vacancies */
 .mode-vacancy{
     display: flex;
     margin-top: 10px;
@@ -389,6 +394,11 @@ label{
 .box-vacancy:hover .link-vacancy{
       color: #1d68a7;
   }
+.desc-helper-italic{
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
 
 @media (max-width: 575px) {
     #left-sidebar{
