@@ -217,7 +217,7 @@
             <!-- второй row -->
             <div class="row">
                 <div class="col-sm-12">
-                        <!-- налоговый номер -->
+                    <!-- налоговый номер -->
                     <div class="form-group">
                         <label for="position">
                             {{trans('company','company_tax_number')}}
@@ -241,87 +241,32 @@
                             {{trans('company','please_enter_your_number')}}
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <!-- третий row -->
             <div class="row">
-                <div class="col-sm-4">
-                    <!-- Year -->
+                <div class="col-sm-12">
+                    <!-- Дата основания компании -->
                     <div class="form-group">
-                        <label for="year">
-                            {{trans('company','year_foundation')}}
+                        <label for="data_foundation">
+                            {{trans('company','data_foundation')}}
                         </label>
-                        <select class="form-control select2" id="year">
-                            <option disabled="disabled" selected>
-                                {{trans('company','select_year')}}
-                            </option>
-                            <template v-for="(num, key) in foundationDate.yearArr">
-                                <!-- в случае редиктирования -->
-                                <template v-if="foundationDate.year == num" >
-                                    <option :value="num" :key="key" selected>{{num}}</option>
-                                </template>
-                                <template v-else>
-                                    <option :value="num" :key="key">{{num}}</option>
-                                </template>
-                            </template>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <!-- Month -->
-                    <div class="form-group">
-                        <label for="month">
-                            {{trans('company','company_foundation_month')}}
-                        </label>
-                        <select class="form-control select2" id="month">
-                            <option disabled="disabled" selected>
-                                {{trans('company','select_month')}}
-                            </option>
-                            <template v-for="(value, key) in foundationDate.monthArr">
-                                <!-- в случае редиктирования -->
-                                <template v-if="foundationDate.month == value" >
-                                    <option :value="value" :key="key" selected>
-                                        {{trans('company',value)}}
-                                    </option>
-                                </template>
-                                <template v-else>
-                                    <option :value="value" :key="key">
-                                        {{trans('company',value)}}
-                                    </option>
-                                </template>
-                            </template>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <!-- Day -->
-                    <div class="form-group">
-                        <label for="day">
-                            {{trans('company','company_foundation_day')}}
-                        </label>
-                        <select class="form-control select2" id="day">
-                            <option disabled="disabled" selected>
-                                {{trans('company','select_day')}}
-                            </option>
-                            <template v-for="(value, key) in foundationDate.dayArr">
-                                <!-- в случае редиктирования -->
-                                <template v-if="foundationDate.day == value" >
-                                    <option :value="value" :key="key" selected>{{value}}</option>
-                                </template>
-                                <template v-else>
-                                    <option :value="value" :key="key">{{value}}</option>
-                                </template>
-                            </template>
-                        </select>
+                        <div class="input-group" id="data_foundation">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input id="datemask" type="text" class="form-control" data-inputmask-alias="datetime"
+                                   data-inputmask-inputformat="mm/dd/yyyy" data-mask
+                                   @keyup="checkInsertDate($event)"
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- четвертый row -->
             <div class="row">
-
                 <!-- Соц сети -->
                 <div class="col-sm-4">
                     <div class="form-group height-element">
@@ -452,6 +397,21 @@
                 </div>
             </div>
 
+            <!-- logotype -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>
+                            Логотип компании
+                        </label>
+                        <load_logotype_component
+                            @load_logotype='addLogotype'
+                            :lang="lang"
+                        ></load_logotype_component>
+                    </div>
+                </div>
+            </div>
+
             <!-- button -->
             <div class="row footer-form">
                 <div class="col-sm-4 offset-4 but-box">
@@ -464,7 +424,7 @@
                         <button type="submit" class="btn btn-block btn-primary btn-lg"
                                 :class="{'disabled': disableButton($v)}"
                                 :disabled="disableButton($v)"
-                                @click.prevent="createVacancy"
+                                @click.prevent="createCompany"
                         >
                             {{trans('vacancies','save')}}
                         </button>
@@ -480,6 +440,7 @@
     import translation from "../../mixins/translation";
     import localisation_functions_mixin from "../../mixins/localisation_functions_mixin";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
+    import load_logotype_component from '../load_image/LoadLogotypeComponent'
 
     export default {
         mixins: [
@@ -487,6 +448,9 @@
             localisation_functions_mixin,
             response_methods_mixin,
         ],
+        components: {
+            load_logotype_component
+        },
         data() {
             return {
                 objTextarea: {
@@ -497,6 +461,7 @@
                         ],
                     },
                 },
+                load_logotype: null,
                 company_id: null,
                 company_tax_number: '',
                 twitter_input: '',
@@ -508,30 +473,27 @@
                 position_transliteration: '',
                 rest_address: null,
                 count_working: 0,
-                foundationDate: {
-                    yearArr: [],
-                    monthArr: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"],
-                    dayArr: [],
-                    year: null,
-                    month: null,
-                    day: null,
-                },
+                founding_date: null,
             }
         },
         methods: {
-            fillYear() {
-                let date = new Date()
-                let year_now = date.getFullYear()
-                for(let i=0; i<=100; i++){
-                    this.foundationDate.yearArr.push(year_now--);
-                }
-            },
-            fillDay() {
-                let value = ''
-                for(let i=1; i<=31; i++){
-                    value = ((''+i).length === 1) ? '0'+i : ''+i
-                    this.foundationDate.dayArr.push(value);
-                }
+            async createCompany(){
+                let data = this.getValuesFields()
+                console.log(data)
+                // const response = await this.$http.post(`/private-office/vacancy`, data)
+                //     .then(res => {
+                //         if(this.checkSuccess(res)){
+                //             location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                //         }
+                //         // custom ошибки
+                //         else{
+                //             this.message(res.data.message, 'error', 10000, true);
+                //         }
+                //     })
+                //     // ошибки сервера
+                //     .catch(err => {
+                //         this.messageError(err)
+                //     })
             },
             transliteration(original) {
                 let arrEn = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -559,24 +521,60 @@
                 }
             },
             disableButton(v) {
-                if(
-                    v.$invalid ||
-                    !this.objCategory.categories.length
-                    // !this.objSuitable.suitable.length ||
-                    // this.rest_address == null ||
-                    // this.checkSalary() ||
-                    // !this.objLanguage.languages.length
-                ){
+                if( v.$invalid || !this.objCategory.categories.length ){
                     return true;
                 }
                 return false;
+            },
+            returnFoundObject(data, value){
+                let obj = []
+                if(data !== null){
+                    obj = data.filter((val) => {
+                        return val.code == value
+                    });
+                }
+
+                return !obj.length ? null : obj
+            },
+            getValuesFields(){
+                return {
+                    title: this.position,
+                    alias: this.position_transliteration,
+                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+                    rest_address: this.rest_address,
+                    categories: this.objCategory.categories,
+                    tax_number: this.company_tax_number,
+                    founding_date: this.founding_date,
+                    facebook_social: this.facebook_input,
+                    instagram_social: this.instagram_input,
+                    telegram_social: this.telegram_input,
+                    twitter_social: this.twitter_input,
+                    site_company: this.site_company,
+                    count_working: this.count_working,
+                    about_company: this.objTextarea.about_company,
+                    load_logotype: this.load_logotype,
+                };
+            },
+            checkInsertDate(e){
+                let value = e.target.value
+                let IPOdate = new Date()
+                if( !isNaN( IPOdate.setTime(Date.parse(value)) ) ){
+                    // let date = new Date(value)
+                    this.founding_date = value
+                }
+                else{
+                    this.founding_date = null
+                }
+            },
+            addLogotype(data){
+                this.load_logotype = data.file
             },
         },
         computed: {
             initializationFunc: function () {
                 this.createArrayCategories()
-                this.fillYear()
-                this.fillDay()
                 this.objLocations.load_countries = this.settings.obj_countries
             }
         },

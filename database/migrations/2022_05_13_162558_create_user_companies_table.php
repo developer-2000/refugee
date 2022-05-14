@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateUserCompaniesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('user_companies', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('logo_id')->comment('логотип компании');
+            $table->foreign('logo_id')->references('id')->on('images');
+            $table->string('title', 100)->nullable()->default(null);
+            $table->string('alias', 100)->unique()->comment('уникальный url');
+            $table->string('country', 100)->nullable()->default(null)->comment('страна');
+            $table->string('region', 100)->nullable()->default(null)->comment('регион');
+            $table->string('city', 100)->nullable()->default(null)->comment('город');
+            $table->string('rest_address', 100)->nullable()->default(null)->comment('остальной адрес');
+            $table->string('categories', 100)->nullable()->default(null)->comment('категории компании');
+            $table->string('tax_number', 100)->nullable()->default(null)->comment('налоговый номер');
+            $table->string('founding_date', 10)->nullable()->default(null)->comment('дата основания');
+            $table->string('facebook_social', 150)->nullable()->default(null)->comment('акаунт компании');
+            $table->string('instagram_social', 150)->nullable()->default(null)->comment('акаунт компании');
+            $table->string('telegram_social', 150)->nullable()->default(null)->comment('акаунт компании');
+            $table->string('twitter_social', 150)->nullable()->default(null)->comment('акаунт компании');
+            $table->string('site_company', 150)->nullable()->default(null);
+            // шаблон из \config\site\company.php
+            $table->tinyInteger('count_working_company')->default(0)->comment('количество сотрудников');
+            $table->text('about_company')->nullable()->default(null)->comment('описание компании');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('user_companies');
+    }
+}

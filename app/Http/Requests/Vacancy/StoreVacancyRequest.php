@@ -36,12 +36,10 @@ class StoreVacancyRequest extends FormRequest
             'city' => 'sometimes|nullable|array',
             'city.*code' => 'string',
             'rest_address' => 'required|string|max:255',
-
             'vacancy_suitable' => 'required|string|max:255',
             'suitable_from' => 'required|integer',
             'suitable_to' => 'required|integer',
             'suitable_commentary' => 'sometimes|nullable|string|max:255',
-
             'type_employment' => 'required|integer|in:0,1,2,3',
             'salary_but' => 'required|string|max:15',
             'from' => 'sometimes|nullable|integer',

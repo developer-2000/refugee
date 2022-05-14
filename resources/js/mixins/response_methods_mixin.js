@@ -12,13 +12,14 @@ export default {
             }
             return false;
         },
-        message(msg = '', icon, time = 3000, button_bool = false) {
+        message(msg = '', icon, time = 3000, button_bool = false, button_close = false) {
             const Toast = this.$swal.mixin({
                 toast: true,
-                position: 'top',
+                position: 'top-right',
                 timer: time,
                 showConfirmButton: button_bool,
                 confirmButtonColor: '#3085d6',
+                showCloseButton: button_close,
             });
             Toast.fire({
                 icon: icon,

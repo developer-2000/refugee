@@ -826,7 +826,6 @@
                 }
                 this.objDisplayEmpContVacancy.contacts = selected;
             },
-
             checkSalary() {
                 // если выбран сектор а поля не заполнены
                 if(
