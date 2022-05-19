@@ -16,421 +16,471 @@
             {{trans('company','about_company')}}
         </div>
 
-            <!-- первый row -->
-            <div class="row">
-                <div class="col-sm-4 one-one-box">
+        <!-- первый row -->
+        <div class="row">
+            <div class="col-sm-4 one-one-box">
 
-                    <!-- Название компании -->
-                    <div class="form-group">
-                        <label for="position">
-                            {{trans('company','company_name')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  title="sss"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
-                        </label>
-                        <input type="text" id="position" class="form-control" maxlength="100" autocomplete="off"
-                               :placeholder="trans('company','for_example_star')"
-                               :class="{'is-invalid': $v.position.$error}"
-                               v-model="position"
-                               @blur="$v.position.$touch()"
-                               @keyup="transliteration($event.target.value)"
+                <!-- Название компании -->
+                <div class="form-group">
+                    <label for="position">
+                        {{trans('company','company_name')}}
+                        <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                        <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                              title="sss"
                         >
-                        <div class="invalid-feedback" v-if="!$v.position.required">
-                            {{trans('company','please_enter_name')}}
-                        </div>
-                    </div>
-
-                    <!-- Транслитерация названия -->
-                    <div class="form-group">
-                        <label for="position_transliteration">
-                            {{trans('company','company_name_transliteration')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  title="sss"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
-                        </label>
-                        <input type="text" id="position_transliteration" class="form-control" maxlength="100" autocomplete="off"
-                               :placeholder="trans('company','enter_transliteration')"
-                               :class="{'is-invalid': $v.position_transliteration.$error}"
-                               v-model="position_transliteration"
-                               @blur="$v.position_transliteration.$touch()"
-                               @keyup="transliteration($event.target.value)"
-                        >
-                        <div class="invalid-feedback" v-if="!$v.position_transliteration.required">
-                            {{trans('company','please_enter_least')}}
-                        </div>
-                    </div>
-
-                    <!-- Country -->
-                    <div class="form-group">
-                        <label for="country">
-                            {{trans('company','company_country')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                        </label>
-                        <select class="form-control select2" id="country">
-                            <option disabled="disabled" selected>
-                                {{trans('vacancies','select_country')}}
-                            </option>
-                            <template v-for="(array, key) in objLocations.load_countries">
-                                <!-- в случае редиктирования -->
-                                <template v-if="objLocations.country == array.code" >
-                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                                </template>
-                                <template v-else>
-                                    <option :value="array.code" :key="key">{{array.name}}</option>
-                                </template>
-                            </template>
-                        </select>
-                    </div>
-
-                    <!-- Region -->
-                    <div class="form-group" v-if="objLocations.load_regions">
-                        <label for="region">
-                            {{trans('company','company_region')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                        </label>
-                        <select class="form-control select2" id="region"
-                                @change="changeSelect($event.target.value, 'region')"
-                        >
-                            <option disabled="disabled" selected>
-                                {{trans('vacancies','select_region')}}
-                            </option>
-                            <template v-for="(array, key) in objLocations.load_regions">
-                                <!-- в случае редиктирования -->
-                                <template v-if="objLocations.region == array.code" >
-                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                                </template>
-                                <template v-else>
-                                    <option :value="array.code" :key="key">{{array.name}}</option>
-                                </template>
-                            </template>
-                        </select>
-                    </div>
-
-                    <!-- City -->
-                    <div class="form-group" v-if="objLocations.load_cities">
-                        <label for="city">
-                            {{trans('company','company_city')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                        </label>
-                        <select class="form-control select2" id="city"
-                                @change="changeSelect($event.target.value, 'city')"
-                        >
-                            <option disabled="disabled" selected>
-                                {{trans('vacancies','select_city')}}
-                            </option>
-                            <template v-for="(array, key) in objLocations.load_cities">
-                                <!-- в случае редиктирования -->
-                                <template v-if="objLocations.city == array.code" >
-                                    <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                                </template>
-                                <template v-else>
-                                    <option :value="array.code" :key="key">{{array.name}}</option>
-                                </template>
-                            </template>
-                        </select>
-                    </div>
-
-                    <!-- Остальной адрес -->
-                    <div class="form-group" v-if="objLocations.bool_rest_address">
-                        <label for="rest_address">
-                            {{trans('company','remaining_address')}}
-                            <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
-                        </label>
-                        <input type="text" id="rest_address" class="form-control" maxlength="100"
-                               :placeholder="trans('company','specify')"
-                               :class="{'is-invalid': $v.rest_address.$error}"
-                               v-model="rest_address"
-                               @blur="$v.rest_address.$touch()"
-                        >
-                        <div class="invalid-feedback" v-if="!$v.rest_address.required">
-                            {{trans('company','please_indicate_street')}}
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-8">
-                    <!-- Categories -->
-                    <div class="form-group"
-                         :class="{'border_error': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                        </span>
+                    </label>
+                    <input type="text" id="position" class="form-control" maxlength="100" autocomplete="off"
+                           :placeholder="trans('company','for_example_star')"
+                           :class="{'is-invalid': $v.position.$error}"
+                           v-model="position"
+                           @blur="$v.position.$touch()"
+                           @keyup="transliteration($event.target.value)"
                     >
-                        <div>
-                            <label for="categories">
-                                {{trans('company','categories_activity_company')}}
-                                <span class="mandatory-filling">
+                    <div class="invalid-feedback" v-if="!$v.position.required">
+                        {{trans('company','please_enter_name')}}
+                    </div>
+                </div>
+
+                <!-- Транслитерация названия -->
+                <div class="form-group">
+                    <label for="position_transliteration">
+                        {{trans('company','company_name_transliteration')}}
+                        <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                        <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                              title="sss"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                        </span>
+                    </label>
+                    <input type="text" id="position_transliteration" class="form-control" maxlength="100" autocomplete="off"
+                           :placeholder="trans('company','enter_transliteration')"
+                           :class="{'is-invalid': $v.position_transliteration.$error}"
+                           v-model="position_transliteration"
+                           @blur="$v.position_transliteration.$touch()"
+                           @keyup="transliteration($event.target.value)"
+                    >
+                    <div class="invalid-feedback" v-if="!$v.position_transliteration.required">
+                        {{trans('company','please_enter_least')}}
+                    </div>
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label for="country">
+                        {{trans('company','company_country')}}
+                        <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                    </label>
+                    <select class="form-control select2" id="country">
+                        <option disabled="disabled" selected>
+                            {{trans('vacancies','select_country')}}
+                        </option>
+                        <template v-for="(array, key) in objLocations.load_countries">
+                            <!-- в случае редиктирования -->
+                            <template v-if="objLocations.country == array.code" >
+                                <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                            </template>
+                            <template v-else>
+                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            </template>
+                        </template>
+                    </select>
+                </div>
+
+                <!-- Region -->
+                <div class="form-group" v-if="objLocations.load_regions">
+                    <label for="region">
+                        {{trans('company','company_region')}}
+                        <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                    </label>
+                    <select class="form-control select2" id="region"
+                            @change="changeSelect($event.target.value, 'region')"
+                    >
+                        <option disabled="disabled" selected>
+                            {{trans('vacancies','select_region')}}
+                        </option>
+                        <template v-for="(array, key) in objLocations.load_regions">
+                            <!-- в случае редиктирования -->
+                            <template v-if="objLocations.region == array.code" >
+                                <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                            </template>
+                            <template v-else>
+                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            </template>
+                        </template>
+                    </select>
+                </div>
+
+                <!-- City -->
+                <div class="form-group" v-if="objLocations.load_cities">
+                    <label for="city">
+                        {{trans('company','company_city')}}
+                        <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                    </label>
+                    <select class="form-control select2" id="city"
+                            @change="changeSelect($event.target.value, 'city')"
+                    >
+                        <option disabled="disabled" selected>
+                            {{trans('vacancies','select_city')}}
+                        </option>
+                        <template v-for="(array, key) in objLocations.load_cities">
+                            <!-- в случае редиктирования -->
+                            <template v-if="objLocations.city == array.code" >
+                                <option :value="array.code" :key="key" selected>{{array.name}}</option>
+                            </template>
+                            <template v-else>
+                                <option :value="array.code" :key="key">{{array.name}}</option>
+                            </template>
+                        </template>
+                    </select>
+                </div>
+
+                <!-- Остальной адрес -->
+                <div class="form-group" v-if="objLocations.bool_rest_address">
+                    <label for="rest_address">
+                        {{trans('company','remaining_address')}}
+                        <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                    </label>
+                    <input type="text" id="rest_address" class="form-control" maxlength="100"
+                           :placeholder="trans('company','specify')"
+                           :class="{'is-invalid': $v.rest_address.$error}"
+                           v-model="rest_address"
+                           @blur="$v.rest_address.$touch()"
+                    >
+                    <div class="invalid-feedback" v-if="!$v.rest_address.required">
+                        {{trans('company','please_indicate_street')}}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-8">
+                <!-- Categories -->
+                <div class="form-group"
+                     :class="{'border_error': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
+                >
+                    <div>
+                        <label for="categories">
+                            {{trans('company','categories_activity_company')}}
+                            <span class="mandatory-filling">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
+                        </span>
+                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                                  :title="`${trans('vacancies','title_categories')}`"
+                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                        </span>
+                        </label>
+                        <div class="container-fluid collection-checkbox" id="categories">
+                            <div class="row">
+                                <template v-for="(array, key) in this.objCategory.categoriesArray">
+                                    <div class="col-xl">
+                                        <div v-for="(valueArr, key2) in array" :key="key2">
+                                            <input class="form-check-input" name="category" type="checkbox"
+                                                   @change="checkCategory"
+                                                   :id="`category_${valueArr[0]}`"
+                                                   :value="valueArr[0]"
+                                            >
+                                            <label class="target-label"
+                                                   :for="`category_${valueArr[0]}`"
+                                            >
+                                                {{trans('vacancies',valueArr[1])}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback"
+                         :class="{'is-invalid visible': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
+                    >
+                        {{trans('company','please_select_category')}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- второй row -->
+        <div class="row two-row">
+            <!-- Налоговый номер -->
+            <div class="col-sm-4">
+                <div class="form-group height-element">
+                    <label for="position">
+                        {{trans('company','company_tax_number')}}
+                        <span class="mandatory-filling">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                             </span>
-                                <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                      :title="`${trans('vacancies','title_categories')}`"
-                                >
+                        <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                              :title="`${trans('vacancies','title_position')}`"
+                        >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
-                            </label>
-                            <div class="container-fluid collection-checkbox" id="categories">
-                                <div class="row">
-                                    <template v-for="(array, key) in this.objCategory.categoriesArray">
-                                        <div class="col-xl">
-                                            <div v-for="(valueArr, key2) in array" :key="key2">
-                                                <input class="form-check-input" name="category" type="checkbox"
-                                                       @change="checkCategory"
-                                                       :id="`category_${valueArr[0]}`"
-                                                       :value="valueArr[0]"
-                                                >
-                                                <label class="target-label"
-                                                       :for="`category_${valueArr[0]}`"
-                                                >
-                                                    {{trans('vacancies',valueArr[1])}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </div>
-                            </div>
+                    </label>
+                    <input type="text" id="company_tax_number" class="form-control" maxlength="100" autocomplete="off"
+                           :placeholder="trans('company','enter_number')"
+                           :class="{'is-invalid': $v.company_tax_number.$error}"
+                           v-model="company_tax_number"
+                           @blur="$v.company_tax_number.$touch()"
+                    >
+                    <div class="invalid-feedback" v-if="!$v.company_tax_number.required">
+                        {{trans('company','please_enter_your_number')}}
+                    </div>
+                </div>
+            </div>
+            <!-- Сайт компании -->
+            <div class="col-sm-4">
+                <div class="form-group height-element">
+                    <label for="site_company">
+                        {{trans('company','company_website')}}
+                    </label>
+                    <input type="text" id="site_company" class="form-control" maxlength="150" autocomplete="off"
+                           :placeholder="trans('company','for_example_great')"
+                           v-model="site_company"
+                    >
+                </div>
+            </div>
+            <!-- Дата основания-->
+            <div class="col-sm-4">
+                <div class="form-group height-element">
+                    <label for="data_foundation">
+                        {{trans('company','data_foundation')}}
+                    </label>
+                    <div class="input-group" id="data_foundation">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <div class="invalid-feedback"
-                             :class="{'is-invalid visible': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
+                        <input id="datemask" type="text" class="form-control" data-inputmask-alias="datetime"
+                               data-inputmask-inputformat="mm/dd/yyyy" data-mask
+                               @keyup="checkInsertDate($event)"
                         >
-                            {{trans('company','please_select_category')}}
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- второй row -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <!-- налоговый номер -->
-                    <div class="form-group">
-                        <label for="position">
-                            {{trans('company','company_tax_number')}}
-                            <span class="mandatory-filling">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                                </span>
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_position')}`"
-                            >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                                </span>
-                        </label>
-                        <input type="text" id="company_tax_number" class="form-control" maxlength="100" autocomplete="off"
-                               :placeholder="trans('company','enter_number')"
-                               :class="{'is-invalid': $v.company_tax_number.$error}"
-                               v-model="company_tax_number"
-                               @blur="$v.company_tax_number.$touch()"
-                               @keyup="transliteration($event.target.value)"
-                        >
-                        <div class="invalid-feedback" v-if="!$v.company_tax_number.required">
-                            {{trans('company','please_enter_your_number')}}
+        <!-- третий row -->
+        <div class="row">
+            <!-- Соц сети -->
+            <div class="col-sm-6">
+                <div class="form-group height-element">
+                    <label for="social-network">
+                        {{trans('company','social_networks_company')}}
+                    </label>
+
+                    <div class="card" id="social-network">
+                        <!-- buttons -->
+                        <div class="box-card-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                     aria-controls="facebook_box" data-target="#facebook_box" aria-expanded="false" data-toggle="collapse"
+                                     @click="switchSvg($event)"
+                                ><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="instagram-svg"
+                                     aria-controls="instagram_box" data-target="#instagram_box" aria-expanded="false" data-toggle="collapse"
+                                     @click="switchSvg($event)"
+                                ><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
+                                     aria-controls="telegram_box" data-target="#telegram_box" aria-expanded="false" data-toggle="collapse"
+                                     @click="switchSvg($event)"
+                                ><path d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="twitter-svg"
+                                     aria-controls="twitter_box" data-target="#twitter_box" aria-expanded="false" data-toggle="collapse"
+                                     @click="switchSvg($event)"
+                                ><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- третий row -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <!-- Дата основания компании -->
-                    <div class="form-group">
-                        <label for="data_foundation">
-                            {{trans('company','data_foundation')}}
-                        </label>
-                        <div class="input-group" id="data_foundation">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        <!-- inputs -->
+                        <div class="box-card-collapse">
+                            <!-- facebook -->
+                            <div class="collapse multi-collapse" id="facebook_box" >
+                                <div class="card-body">
+                                    <label for="facebook_input">
+                                        Facebook
+                                    </label>
+                                    <input type="text" id="facebook_input" class="form-control" maxlength="150" autocomplete="off"
+                                           :placeholder="trans('company','enter_link_account')"
+                                           v-model="facebook_input"
+                                           @change="checkInvalid($event, 'facebook.com')"
+                                    >
+                                    <div class="invalid-feedback">
+                                        Поле предназначено только для Facebook ссылок
+                                    </div>
+                                </div>
                             </div>
-                            <input id="datemask" type="text" class="form-control" data-inputmask-alias="datetime"
-                                   data-inputmask-inputformat="mm/dd/yyyy" data-mask
-                                   @keyup="checkInsertDate($event)"
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- четвертый row -->
-            <div class="row">
-                <!-- Соц сети -->
-                <div class="col-sm-4">
-                    <div class="form-group height-element">
-                        <label for="social-network">
-                            {{trans('company','social_networks_company')}}
-                        </label>
-
-                        <div class="card" id="social-network">
-                            <!-- buttons -->
-                            <div class="box-card-header">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                         aria-controls="facebook_box" data-target="#facebook_box" aria-expanded="false" data-toggle="collapse"
-                                         @click="switchSvg($event)"
-                                    ><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="instagram-svg"
-                                         aria-controls="instagram_box" data-target="#instagram_box" aria-expanded="false" data-toggle="collapse"
-                                         @click="switchSvg($event)"
-                                    ><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
-                                         aria-controls="telegram_box" data-target="#telegram_box" aria-expanded="false" data-toggle="collapse"
-                                         @click="switchSvg($event)"
-                                    ><path d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="twitter-svg"
-                                         aria-controls="twitter_box" data-target="#twitter_box" aria-expanded="false" data-toggle="collapse"
-                                         @click="switchSvg($event)"
-                                    ><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                            <!-- Instagram -->
+                            <div class="collapse multi-collapse" id="instagram_box" >
+                                <div class="card-body">
+                                    <label for="instagram_input">
+                                        Instagram
+                                    </label>
+                                    <input type="text" id="instagram_input" class="form-control" maxlength="150" autocomplete="off"
+                                           :placeholder="trans('company','enter_link_account')"
+                                           v-model="instagram_input"
+                                           @change="checkInvalid($event, 'instagram.com')"
+                                    >
+                                    <div class="invalid-feedback">
+                                        Поле предназначено только для Instagram ссылок
+                                    </div>
+                                </div>
                             </div>
-                            <!-- inputs -->
-                            <div class="box-card-collapse">
-                                <!-- facebook -->
-                                <div class="collapse multi-collapse" id="facebook_box" >
-                                    <div class="card-body">
-                                        <label for="facebook_input">
-                                            Facebook
-                                        </label>
-                                        <input type="text" id="facebook_input" class="form-control" maxlength="150" autocomplete="off"
-                                               :placeholder="trans('company','enter_link_account')"
-                                               v-model="facebook_input"
-                                        >
+                            <!-- Telegram -->
+                            <div class="collapse multi-collapse" id="telegram_box" >
+                                <div class="card-body">
+                                    <label for="telegram_input">
+                                        Telegram
+                                    </label>
+                                    <input type="text" id="telegram_input" class="form-control" maxlength="150" autocomplete="off"
+                                           :placeholder="trans('company','enter_link_account')"
+                                           v-model="telegram_input"
+                                           @change="checkInvalid($event, 't.me')"
+                                    >
+                                    <div class="invalid-feedback">
+                                        Поле предназначено только для Telegram ссылок
                                     </div>
                                 </div>
-                                <div class="collapse multi-collapse" id="instagram_box" >
-                                    <div class="card-body">
-                                        <label for="instagram_input">
-                                            Instagram
-                                        </label>
-                                        <input type="text" id="instagram_input" class="form-control" maxlength="150" autocomplete="off"
-                                               :placeholder="trans('company','enter_link_account')"
-                                               v-model="instagram_input"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="collapse multi-collapse" id="telegram_box" >
-                                    <div class="card-body">
-                                        <label for="telegram_input">
-                                            Telegram
-                                        </label>
-                                        <input type="text" id="telegram_input" class="form-control" maxlength="150" autocomplete="off"
-                                               :placeholder="trans('company','enter_link_account')"
-                                               v-model="telegram_input"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="collapse multi-collapse" id="twitter_box" >
-                                    <div class="card-body">
-                                        <label for="Twitter_input">
-                                            Twitter
-                                        </label>
-                                        <input type="text" id="twitter_input" class="form-control" maxlength="150" autocomplete="off"
-                                               :placeholder="trans('company','enter_link_account')"
-                                               v-model="twitter_input"
-                                        >
+                            </div>
+                            <!-- Twitter -->
+                            <div class="collapse multi-collapse" id="twitter_box" >
+                                <div class="card-body">
+                                    <label for="Twitter_input">
+                                        Twitter
+                                    </label>
+                                    <input type="text" id="twitter_input" class="form-control" maxlength="150" autocomplete="off"
+                                           :placeholder="trans('company','enter_link_account')"
+                                           v-model="twitter_input"
+                                           @change="checkInvalid($event, 'twitter.com')"
+                                    >
+                                    <div class="invalid-feedback">
+                                        Поле предназначено только для Twitter ссылок
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-                <!-- Сайт компании -->
-                <div class="col-sm-4">
-                    <div class="form-group height-element">
-                        <label for="site_company">
-                            {{trans('company','company_website')}}
-                        </label>
-                        <input type="text" id="site_company" class="form-control" maxlength="150" autocomplete="off"
-                               :placeholder="trans('company','for_example_great')"
-                               v-model="site_company"
-                        >
-                    </div>
-                </div>
-                <!-- Количество сотрудников -->
-                <div class="col-sm-4">
-                    <div class="form-group height-element">
-                        <label for="work_experience">
-                            {{trans('company','number_employees_company')}}
-                        </label>
-                        <select class="form-control" id="work_experience"
-                                v-model="count_working"
-                        >
-                            <template v-for="(value, key) in this.settings.count_working">
-                                <option :value="`${key}`">
-                                    {{trans('company',value)}}
-                                </option>
-                            </template>
-                        </select>
                     </div>
                 </div>
             </div>
+            <!-- Количество сотрудников -->
+            <div class="col-sm-6">
+                <div class="form-group height-element">
+                    <label for="work_experience">
+                        {{trans('company','number_employees_company')}}
+                    </label>
+                    <select class="form-control" id="work_experience"
+                            v-model="count_working"
+                    >
+                        <template v-for="(value, key) in this.settings.count_working">
+                            <option :value="`${key}`">
+                                {{trans('company',value)}}
+                            </option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-            <!-- пятый row -->
-            <div class="row row-about-company">
-                <!-- Описание компании -->
-                <div class="col-sm-12">
-                    <div class="form-group">
+        <!-- четвертый row -->
+        <div class="row row-youtube">
+            <!-- youtube address -->
+            <div class="col-sm-12">
+                <div class="form-group height-element">
+                    <div class="box-link-youtube">
                         <label>
-                            {{trans('company','company_description')}}
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_vacancy_description')}`"
-                            >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
+                            Видео компании (Youtube)
                         </label>
-                        <ckeditor v-model="objTextarea.about_company"
-                                  :config="objTextarea.editorConfig1"
-                        ></ckeditor>
+                        <div id="input_youtube">
+                            <div class="input-group input-group">
+                                <input type="text" class="form-control input_youtube" maxlength="100" autocomplete="off" placeholder="Ввести адрес">
+                                <span class="input-group-append">
+                                    <button class="btn btn-warning btn-flat" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 64h-96l-33.63-44.75C293.4 7.125 279.1 0 264 0h-80c-15.1 0-29.4 7.125-38.4 19.25L112 64H16C7.201 64 0 71.2 0 80c0 8.799 7.201 16 16 16h416c8.801 0 16-7.201 16-16 0-8.8-7.2-16-16-16zm-280 0 19.25-25.62C174.3 34.38 179 32 184 32h80c5 0 9.75 2.375 12.75 6.375L296 64H152zm248 64c-8.8 0-16 7.2-16 16v288c0 26.47-21.53 48-48 48H112c-26.47 0-48-21.5-48-48V144c0-8.8-7.16-16-16-16s-16 7.2-16 16v288c0 44.1 35.89 80 80 80h224c44.11 0 80-35.89 80-80V144c0-8.8-7.2-16-16-16zM144 416V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16zm96 0V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16zm96 0V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16z"/></svg>
+                                    </button>
+                                </span>
+                                <div class="invalid-feedback">
+                                    Поле предназначено только для youtube ссылок
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Добавить адрес -->
+                    <div class="add-address"
+                         v-if="youtubeObj.tick_youtube < 3"
+                         @click="addInputYoutube()"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
+                        Добавить адрес
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- logotype -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>
-                            Логотип компании
-                        </label>
-                        <load_logotype_component
-                            @load_logotype='addLogotype'
-                            :lang="lang"
-                        ></load_logotype_component>
-                    </div>
-                </div>
-            </div>
-
-            <!-- button -->
-            <div class="row footer-form">
-                <div class="col-sm-4 offset-4 but-box">
-                    <!-- button create -->
-                    <template v-if="company_id == null">
-                        <a :href="`${lang.prefix_lang}private-office`"
-                           class="btn btn-block btn-outline-danger btn-lg">
-                            {{trans('vacancies','cancel')}}
-                        </a>
-                        <button type="submit" class="btn btn-block btn-primary btn-lg"
-                                :class="{'disabled': disableButton($v)}"
-                                :disabled="disableButton($v)"
-                                @click.prevent="createCompany"
+        <!-- пятый row -->
+        <div class="row row-about-company">
+            <!-- Описание компании -->
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>
+                        {{trans('company','company_description')}}
+                        <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                              :title="`${trans('vacancies','title_vacancy_description')}`"
                         >
-                            {{trans('vacancies','save')}}
-                        </button>
-                    </template>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                        </span>
+                    </label>
+                    <ckeditor v-model="objTextarea.about_company"
+                              :config="objTextarea.editorConfig1"
+                    ></ckeditor>
                 </div>
             </div>
+        </div>
+
+        <!-- logotype -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>
+                        Логотип компании
+                    </label>
+                    <load_logotype_component
+                        @load_logotype='addLogotype'
+                        :lang="lang"
+                    ></load_logotype_component>
+                </div>
+            </div>
+        </div>
+
+        <!-- button -->
+        <div class="row footer-form">
+            <div class="col-sm-4 offset-4 but-box">
+                <!-- button create -->
+                <template v-if="company_id == null">
+                    <a :href="`${lang.prefix_lang}private-office`"
+                       class="btn btn-block btn-outline-danger btn-lg">
+                        {{trans('vacancies','cancel')}}
+                    </a>
+<!--                    :disabled="disableButton($v)"-->
+                    <button type="submit" class="btn btn-block btn-primary btn-lg"
+                            :class="{'disabled': disableButton($v)}"
+
+                            @click.prevent="createCompany"
+                    >
+                        {{trans('vacancies','save')}}
+                    </button>
+                </template>
+            </div>
+        </div>
 
     </div>
 </template>
@@ -473,27 +523,35 @@
                 position_transliteration: '',
                 rest_address: null,
                 count_working: 0,
-                founding_date: null,
+                founding_date: '',
+                youtubeObj: {
+                    bool_youtube: false,
+                    input_youtube: {},
+                    tick_youtube: 0,
+                    dynamic_id: 0,
+                },
             }
         },
         methods: {
             async createCompany(){
                 let data = this.getValuesFields()
                 console.log(data)
-                // const response = await this.$http.post(`/private-office/vacancy`, data)
-                //     .then(res => {
-                //         if(this.checkSuccess(res)){
-                //             location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
-                //         }
-                //         // custom ошибки
-                //         else{
-                //             this.message(res.data.message, 'error', 10000, true);
-                //         }
-                //     })
-                //     // ошибки сервера
-                //     .catch(err => {
-                //         this.messageError(err)
-                //     })
+                console.log('---')
+                const response = await this.$http.post(`/private-office/my-company/store`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            console.log(res.data.message)
+                            // location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
             },
             transliteration(original) {
                 let arrEn = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -537,25 +595,75 @@
                 return !obj.length ? null : obj
             },
             getValuesFields(){
-                return {
-                    title: this.position,
-                    alias: this.position_transliteration,
-                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
-                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
-                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
-                    rest_address: this.rest_address,
-                    categories: this.objCategory.categories,
-                    tax_number: this.company_tax_number,
-                    founding_date: this.founding_date,
-                    facebook_social: this.facebook_input,
-                    instagram_social: this.instagram_input,
-                    telegram_social: this.telegram_input,
-                    twitter_social: this.twitter_input,
-                    site_company: this.site_company,
-                    count_working: this.count_working,
-                    about_company: this.objTextarea.about_company,
-                    load_logotype: this.load_logotype,
-                };
+                let formData = new FormData;
+
+                let country = this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country)
+                if(country !== null){
+                    country.forEach(function(value) {
+                        formData.append("country[]", JSON.stringify(value))
+                    })
+                }
+
+                let region = this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region)
+                if(region !== null){
+                    region.forEach(function(value) {
+                        formData.append("region[]", JSON.stringify(value))
+                    })
+                }
+                else{
+                    formData.append("region", '')
+                }
+
+                let city = this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city)
+                if(city !== null){
+                    city.forEach(function(value) {
+                        formData.append("city[]", JSON.stringify(value))
+                    })
+                }
+                else{
+                    formData.append("city", '')
+                }
+
+                let categories = this.objCategory.categories
+                if(categories !== null){
+                    categories.forEach(function(value) {
+                        formData.append("categories[]", value)
+                    })
+                }
+
+                let youtube_arr = this.addYoutubeArr()
+                if(youtube_arr.length){
+                    youtube_arr.forEach(function(value) {
+                        formData.append("youtube_links[]", value)
+                    })
+                }
+                else{
+                    formData.append("youtube_links", '')
+                }
+
+                formData.append('title', this.position);
+                formData.append('alias', this.position_transliteration);
+                formData.append('rest_address', this.rest_address);
+                formData.append('tax_number', this.company_tax_number);
+                formData.append('founding_date', this.founding_date);
+                formData.append('facebook_social', this.checkDomain(this.facebook_input, 'facebook.com') ? this.facebook_input : '');
+                formData.append('instagram_social', this.checkDomain(this.instagram_input, 'instagram.com') ? this.instagram_input : '');
+                formData.append('telegram_social', this.checkDomain(this.telegram_input, 't.me') ? this.telegram_input : '');
+                formData.append('twitter_social', this.checkDomain(this.twitter_input, 'twitter.com') ? this.twitter_input : '');
+                formData.append('site_company', this.site_company);
+                formData.append('count_working', this.count_working);
+                formData.append('about_company', this.objTextarea.about_company);
+
+                if(this.load_logotype !== null){
+                    formData.append('load_logotype', this.load_logotype);
+                }
+                else{
+                    formData.append('load_logotype', '');
+                }
+
+                console.log(country)
+
+                return formData
             },
             checkInsertDate(e){
                 let value = e.target.value
@@ -565,17 +673,86 @@
                     this.founding_date = value
                 }
                 else{
-                    this.founding_date = null
+                    this.founding_date = ''
                 }
             },
-            addLogotype(data){
-                this.load_logotype = data.file
+            addLogotype(file){
+                this.load_logotype = file.file
+            },
+            // проверка строки на корректный url с нужным деменом
+            checkDomain(address, searched_domain){
+                let prefixArray = [
+                    ['https://'],
+                    ['www.'],
+                ]
+                prefixArray.push([searched_domain.toLowerCase()])
+                let first, check = ''
+                let bool_youtube = false
+
+                for(let i = 0; i < prefixArray.length; i++){
+                    first = address.substring(0,prefixArray[i][0].length)
+                    check = address.substring(prefixArray[i][0].length)
+                    // первый префикс сопоставлен
+                    if(first.toLowerCase() == prefixArray[i][0]){
+                        address = check
+                        if(first == searched_domain){
+                            bool_youtube = true
+                        }
+                    }
+                }
+
+            return bool_youtube
+            },
+            checkInvalid(e, searched_domain){
+                let bool_youtube = this.checkDomain(e.target.value, searched_domain)
+
+                if(!bool_youtube){
+                    $(e.target).addClass('is-invalid')
+                }
+                else{
+                    $(e.target).removeClass('is-invalid')
+                }
+            },
+            // добавить поле youtube по событию add
+            addInputYoutube(){
+                if(this.youtubeObj.tick_youtube >= 3){
+                    return false
+                }
+
+                let elem = this.youtubeObj.input_youtube.attr('id', "input_youtube_"+this.youtubeObj.dynamic_id)
+                $(elem).children('.input-group').children('.input-group-append').children('button').attr('data-id', "input_youtube_"+this.youtubeObj.dynamic_id)
+
+                $('.box-link-youtube').append( elem.clone() );
+                this.youtubeObj.tick_youtube++
+                this.youtubeObj.dynamic_id++
+            },
+            addYoutubeArr(){
+                let arr = []
+                for (const item of document.querySelectorAll('.input_youtube')) {
+                    if(this.checkDomain(item.value, 'youtube.com')){
+                        arr.push(item.value)
+                    }
+                }
+
+                return arr
             },
         },
         computed: {
             initializationFunc: function () {
                 this.createArrayCategories()
                 this.objLocations.load_countries = this.settings.obj_countries
+                this.youtubeObj.input_youtube = $('#input_youtube').remove()
+                this.addInputYoutube()
+                // проверка вводимых данных в поле youtube
+                $(document).on("input", "input.input_youtube", (e) => {
+                    this.checkInvalid(e, 'youtube.com')
+                });
+                // удалить youtube link по событию delete
+                $(document).on("click", ".box-link-youtube button", (e) => {
+                    let id = $(e.currentTarget).attr('data-id')
+                    $("#"+id).remove()
+                    this.youtubeObj.tick_youtube--
+                });
             }
         },
         props: [
@@ -605,19 +782,64 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .input-group-append{
+        svg{
+            width: 15px;
+            path{
+                fill: #393939;
+            }
+        }
+    }
+    .box-link-youtube{
+        & > div{
+            margin-bottom: 13px;
+        }
+        .invalid-feedback{
+            margin-bottom: -7px!important;
+        }
+    }
+    .add-address{
+        width: 155px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #495057;
+        display: flex;
+        align-items: center;
+        margin: 8px 0 -16px 0;
+        cursor: pointer;
+        padding-bottom: 7px;
+        svg{
+            width: 18px;
+            margin-right: 5px;
+            path{
+                fill: #495057;
+            }
+        }
+        &:hover{
+            color: #1e5da1;
+            svg{
+                path{
+                    fill: #1e5da1;
+                }
+            }
+        }
+    }
+    .two-row{
+        padding-bottom: 10px;
+    }
     .visible {
         display: block;
     }
     .border_error{
         border:1px solid red;
     }
-    .row-about-company{
+    .row-about-company,
+    .row-youtube{
         margin-top: 10px;
     }
     .height-element{
         height: 95%;
     }
-
     #social-network{
         svg{
             width: 27px;
@@ -692,6 +914,7 @@
     .one-one-box > div:last-child {
         flex-grow: 3;
     }
+
 </style>
 
 

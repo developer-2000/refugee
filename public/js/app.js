@@ -2632,12 +2632,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_localisation_functions_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/localisation_functions_mixin */ "./resources/js/mixins/localisation_functions_mixin.js");
 /* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
 /* harmony import */ var _load_image_LoadLogotypeComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../load_image/LoadLogotypeComponent */ "./resources/js/components/load_image/LoadLogotypeComponent.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3105,7 +3161,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       position_transliteration: '',
       rest_address: null,
       count_working: 0,
-      founding_date: null
+      founding_date: '',
+      youtubeObj: {
+        bool_youtube: false,
+        input_youtube: {},
+        tick_youtube: 0,
+        dynamic_id: 0
+      }
     };
   },
   methods: {
@@ -3113,28 +3175,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data;
+        var data, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 data = _this.getValuesFields();
-                console.log(data); // const response = await this.$http.post(`/private-office/vacancy`, data)
-                //     .then(res => {
-                //         if(this.checkSuccess(res)){
-                //             location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
-                //         }
-                //         // custom ошибки
-                //         else{
-                //             this.message(res.data.message, 'error', 10000, true);
-                //         }
-                //     })
-                //     // ошибки сервера
-                //     .catch(err => {
-                //         this.messageError(err)
-                //     })
+                console.log(data);
+                console.log('---');
+                _context.next = 5;
+                return _this.$http.post("/private-office/my-company/store", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    console.log(res.data.message); // location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                  } // custom ошибки
+                  else {
+                    _this.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this.messageError(err);
+                });
 
-              case 2:
+              case 5:
+                response = _context.sent;
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -3188,25 +3253,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return !obj.length ? null : obj;
     },
     getValuesFields: function getValuesFields() {
-      return {
-        title: this.position,
-        alias: this.position_transliteration,
-        country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
-        region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
-        city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
-        rest_address: this.rest_address,
-        categories: this.objCategory.categories,
-        tax_number: this.company_tax_number,
-        founding_date: this.founding_date,
-        facebook_social: this.facebook_input,
-        instagram_social: this.instagram_input,
-        telegram_social: this.telegram_input,
-        twitter_social: this.twitter_input,
-        site_company: this.site_company,
-        count_working: this.count_working,
-        about_company: this.objTextarea.about_company,
-        load_logotype: this.load_logotype
-      };
+      var formData = new FormData();
+      var country = this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country);
+
+      if (country !== null) {
+        country.forEach(function (value) {
+          formData.append("country[]", JSON.stringify(value));
+        });
+      }
+
+      var region = this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region);
+
+      if (region !== null) {
+        region.forEach(function (value) {
+          formData.append("region[]", JSON.stringify(value));
+        });
+      } else {
+        formData.append("region", '');
+      }
+
+      var city = this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city);
+
+      if (city !== null) {
+        city.forEach(function (value) {
+          formData.append("city[]", JSON.stringify(value));
+        });
+      } else {
+        formData.append("city", '');
+      }
+
+      var categories = this.objCategory.categories;
+
+      if (categories !== null) {
+        categories.forEach(function (value) {
+          formData.append("categories[]", value);
+        });
+      }
+
+      var youtube_arr = this.addYoutubeArr();
+
+      if (youtube_arr.length) {
+        youtube_arr.forEach(function (value) {
+          formData.append("youtube_links[]", value);
+        });
+      } else {
+        formData.append("youtube_links", '');
+      }
+
+      formData.append('title', this.position);
+      formData.append('alias', this.position_transliteration);
+      formData.append('rest_address', this.rest_address);
+      formData.append('tax_number', this.company_tax_number);
+      formData.append('founding_date', this.founding_date);
+      formData.append('facebook_social', this.checkDomain(this.facebook_input, 'facebook.com') ? this.facebook_input : '');
+      formData.append('instagram_social', this.checkDomain(this.instagram_input, 'instagram.com') ? this.instagram_input : '');
+      formData.append('telegram_social', this.checkDomain(this.telegram_input, 't.me') ? this.telegram_input : '');
+      formData.append('twitter_social', this.checkDomain(this.twitter_input, 'twitter.com') ? this.twitter_input : '');
+      formData.append('site_company', this.site_company);
+      formData.append('count_working', this.count_working);
+      formData.append('about_company', this.objTextarea.about_company);
+
+      if (this.load_logotype !== null) {
+        formData.append('load_logotype', this.load_logotype);
+      } else {
+        formData.append('load_logotype', '');
+      }
+
+      console.log(country);
+      return formData;
     },
     checkInsertDate: function checkInsertDate(e) {
       var value = e.target.value;
@@ -3216,17 +3330,97 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // let date = new Date(value)
         this.founding_date = value;
       } else {
-        this.founding_date = null;
+        this.founding_date = '';
       }
     },
-    addLogotype: function addLogotype(data) {
-      this.load_logotype = data.file;
+    addLogotype: function addLogotype(file) {
+      this.load_logotype = file.file;
+    },
+    // проверка строки на корректный url с нужным деменом
+    checkDomain: function checkDomain(address, searched_domain) {
+      var prefixArray = [['https://'], ['www.']];
+      prefixArray.push([searched_domain.toLowerCase()]);
+      var first,
+          check = '';
+      var bool_youtube = false;
+
+      for (var i = 0; i < prefixArray.length; i++) {
+        first = address.substring(0, prefixArray[i][0].length);
+        check = address.substring(prefixArray[i][0].length); // первый префикс сопоставлен
+
+        if (first.toLowerCase() == prefixArray[i][0]) {
+          address = check;
+
+          if (first == searched_domain) {
+            bool_youtube = true;
+          }
+        }
+      }
+
+      return bool_youtube;
+    },
+    checkInvalid: function checkInvalid(e, searched_domain) {
+      var bool_youtube = this.checkDomain(e.target.value, searched_domain);
+
+      if (!bool_youtube) {
+        $(e.target).addClass('is-invalid');
+      } else {
+        $(e.target).removeClass('is-invalid');
+      }
+    },
+    // добавить поле youtube по событию add
+    addInputYoutube: function addInputYoutube() {
+      if (this.youtubeObj.tick_youtube >= 3) {
+        return false;
+      }
+
+      var elem = this.youtubeObj.input_youtube.attr('id', "input_youtube_" + this.youtubeObj.dynamic_id);
+      $(elem).children('.input-group').children('.input-group-append').children('button').attr('data-id', "input_youtube_" + this.youtubeObj.dynamic_id);
+      $('.box-link-youtube').append(elem.clone());
+      this.youtubeObj.tick_youtube++;
+      this.youtubeObj.dynamic_id++;
+    },
+    addYoutubeArr: function addYoutubeArr() {
+      var arr = [];
+
+      var _iterator = _createForOfIteratorHelper(document.querySelectorAll('.input_youtube')),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var item = _step.value;
+
+          if (this.checkDomain(item.value, 'youtube.com')) {
+            arr.push(item.value);
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return arr;
     }
   },
   computed: {
     initializationFunc: function initializationFunc() {
+      var _this2 = this;
+
       this.createArrayCategories();
       this.objLocations.load_countries = this.settings.obj_countries;
+      this.youtubeObj.input_youtube = $('#input_youtube').remove();
+      this.addInputYoutube(); // проверка вводимых данных в поле youtube
+
+      $(document).on("input", "input.input_youtube", function (e) {
+        _this2.checkInvalid(e, 'youtube.com');
+      }); // удалить youtube link по событию delete
+
+      $(document).on("click", ".box-link-youtube button", function (e) {
+        var id = $(e.currentTarget).attr('data-id');
+        $("#" + id).remove();
+        _this2.youtubeObj.tick_youtube--;
+      });
     }
   },
   props: ['lang', 'settings'],
@@ -3261,6 +3455,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+//
 //
 //
 //
@@ -3342,8 +3537,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   props: ['lang'],
-  mounted: function mounted() {// this.resizeableImage($('.resize-image'));
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -11519,7 +11713,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".visible[data-v-ff513d6e] {\n  display: block;\n}\n.border_error[data-v-ff513d6e] {\n  border: 1px solid red;\n}\n.row-about-company[data-v-ff513d6e] {\n  margin-top: 10px;\n}\n.height-element[data-v-ff513d6e] {\n  height: 95%;\n}\n#social-network svg[data-v-ff513d6e] {\n  width: 27px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n#social-network svg path[data-v-ff513d6e] {\n  fill: #444;\n}\n#social-network svg:hover path[data-v-ff513d6e] {\n  fill: #2e4961;\n}\n#social-network .instagram-svg[data-v-ff513d6e] {\n  width: 25px;\n}\n#social-network .twitter-svg[data-v-ff513d6e] {\n  width: 28px;\n}\n#social-network .svg-action path[data-v-ff513d6e] {\n  fill: #0057a5;\n}\n.card[data-v-ff513d6e] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .multi-collapse[data-v-ff513d6e] {\n  margin-top: 10px;\n}\n.card .card-body[data-v-ff513d6e] {\n  padding: 0 0 0 2px;\n  min-height: 31px;\n}\n.box-card-header[data-v-ff513d6e] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: flex-start;\n  align-content: flex-start;\n  align-items: flex-start;\n}\n.form-group[data-v-ff513d6e] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-ff513d6e] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\nlabel[data-v-ff513d6e] {\n  cursor: pointer;\n}\n.target-label[data-v-ff513d6e] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}\n.one-one-box[data-v-ff513d6e] {\n  display: flex;\n  flex-direction: column;\n}\n.one-one-box > div[data-v-ff513d6e]:last-child {\n  flex-grow: 3;\n}\n.one-one-box > div[data-v-ff513d6e]:last-child {\n  flex-grow: 3;\n}", ""]);
+exports.push([module.i, ".input-group-append svg[data-v-ff513d6e] {\n  width: 15px;\n}\n.input-group-append svg path[data-v-ff513d6e] {\n  fill: #393939;\n}\n.box-link-youtube > div[data-v-ff513d6e] {\n  margin-bottom: 13px;\n}\n.box-link-youtube .invalid-feedback[data-v-ff513d6e] {\n  margin-bottom: -7px !important;\n}\n.add-address[data-v-ff513d6e] {\n  width: 155px;\n  font-weight: 600;\n  font-size: 14px;\n  color: #495057;\n  display: flex;\n  align-items: center;\n  margin: 8px 0 -16px 0;\n  cursor: pointer;\n  padding-bottom: 7px;\n}\n.add-address svg[data-v-ff513d6e] {\n  width: 18px;\n  margin-right: 5px;\n}\n.add-address svg path[data-v-ff513d6e] {\n  fill: #495057;\n}\n.add-address[data-v-ff513d6e]:hover {\n  color: #1e5da1;\n}\n.add-address:hover svg path[data-v-ff513d6e] {\n  fill: #1e5da1;\n}\n.two-row[data-v-ff513d6e] {\n  padding-bottom: 10px;\n}\n.visible[data-v-ff513d6e] {\n  display: block;\n}\n.border_error[data-v-ff513d6e] {\n  border: 1px solid red;\n}\n.row-about-company[data-v-ff513d6e],\n.row-youtube[data-v-ff513d6e] {\n  margin-top: 10px;\n}\n.height-element[data-v-ff513d6e] {\n  height: 95%;\n}\n#social-network svg[data-v-ff513d6e] {\n  width: 27px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n#social-network svg path[data-v-ff513d6e] {\n  fill: #444;\n}\n#social-network svg:hover path[data-v-ff513d6e] {\n  fill: #2e4961;\n}\n#social-network .instagram-svg[data-v-ff513d6e] {\n  width: 25px;\n}\n#social-network .twitter-svg[data-v-ff513d6e] {\n  width: 28px;\n}\n#social-network .svg-action path[data-v-ff513d6e] {\n  fill: #0057a5;\n}\n.card[data-v-ff513d6e] {\n  border: none;\n  margin: 0 0 9px;\n  border-radius: 0;\n  box-shadow: none;\n  background: none;\n}\n.card .multi-collapse[data-v-ff513d6e] {\n  margin-top: 10px;\n}\n.card .card-body[data-v-ff513d6e] {\n  padding: 0 0 0 2px;\n  min-height: 31px;\n}\n.box-card-header[data-v-ff513d6e] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: flex-start;\n  align-content: flex-start;\n  align-items: flex-start;\n}\n.form-group[data-v-ff513d6e] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-ff513d6e] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\nlabel[data-v-ff513d6e] {\n  cursor: pointer;\n}\n.target-label[data-v-ff513d6e] {\n  color: #035ba4;\n  font-weight: 500 !important;\n}\n.one-one-box[data-v-ff513d6e] {\n  display: flex;\n  flex-direction: column;\n}\n.one-one-box > div[data-v-ff513d6e]:last-child {\n  flex-grow: 3;\n}\n.one-one-box > div[data-v-ff513d6e]:last-child {\n  flex-grow: 3;\n}", ""]);
 
 // exports
 
@@ -46749,22 +46943,26 @@ var render = function () {
           ]
         ),
         _vm._v(
-          "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+          "\n            " +
+            _vm._s(_vm.trans("menu.menu", "cabinet")) +
+            "\n        "
         ),
       ]
     ),
     _vm._v(" "),
     _c("h1", { staticClass: "title_page card-body" }, [
       _vm._v(
-        "\n        " +
+        "\n            " +
           _vm._s(_vm.trans("company", "create_your_company")) +
-          "\n    "
+          "\n        "
       ),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "desc-helper-italic" }, [
       _vm._v(
-        "\n        " + _vm._s(_vm.trans("company", "about_company")) + "\n    "
+        "\n            " +
+          _vm._s(_vm.trans("company", "about_company")) +
+          "\n        "
       ),
     ]),
     _vm._v(" "),
@@ -47432,9 +47630,9 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
-        _c("div", { staticClass: "form-group" }, [
+    _c("div", { staticClass: "row two-row" }, [
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "position" } }, [
             _vm._v(
               "\n                        " +
@@ -47514,9 +47712,6 @@ var render = function () {
               blur: function ($event) {
                 return _vm.$v.company_tax_number.$touch()
               },
-              keyup: function ($event) {
-                return _vm.transliteration($event.target.value)
-              },
               input: function ($event) {
                 if ($event.target.composing) {
                   return
@@ -47537,11 +47732,49 @@ var render = function () {
             : _vm._e(),
         ]),
       ]),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
-        _c("div", { staticClass: "form-group" }, [
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
+          _c("label", { attrs: { for: "site_company" } }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.trans("company", "company_website")) +
+                "\n                    "
+            ),
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.site_company,
+                expression: "site_company",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "site_company",
+              maxlength: "150",
+              autocomplete: "off",
+              placeholder: _vm.trans("company", "for_example_great"),
+            },
+            domProps: { value: _vm.site_company },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.site_company = $event.target.value
+              },
+            },
+          }),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "data_foundation" } }, [
             _vm._v(
               "\n                        " +
@@ -47578,7 +47811,7 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-4" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "social-network" } }, [
             _vm._v(
@@ -47731,6 +47964,9 @@ var render = function () {
                       },
                       domProps: { value: _vm.facebook_input },
                       on: {
+                        change: function ($event) {
+                          return _vm.checkInvalid($event, "facebook.com")
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -47739,6 +47975,12 @@ var render = function () {
                         },
                       },
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(
+                        "\n                                        Поле предназначено только для Facebook ссылок\n                                    "
+                      ),
+                    ]),
                   ]),
                 ]
               ),
@@ -47776,6 +48018,9 @@ var render = function () {
                       },
                       domProps: { value: _vm.instagram_input },
                       on: {
+                        change: function ($event) {
+                          return _vm.checkInvalid($event, "instagram.com")
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -47784,6 +48029,12 @@ var render = function () {
                         },
                       },
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(
+                        "\n                                        Поле предназначено только для Instagram ссылок\n                                    "
+                      ),
+                    ]),
                   ]),
                 ]
               ),
@@ -47821,6 +48072,9 @@ var render = function () {
                       },
                       domProps: { value: _vm.telegram_input },
                       on: {
+                        change: function ($event) {
+                          return _vm.checkInvalid($event, "t.me")
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -47829,6 +48083,12 @@ var render = function () {
                         },
                       },
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(
+                        "\n                                        Поле предназначено только для Telegram ссылок\n                                    "
+                      ),
+                    ]),
                   ]),
                 ]
               ),
@@ -47866,6 +48126,9 @@ var render = function () {
                       },
                       domProps: { value: _vm.twitter_input },
                       on: {
+                        change: function ($event) {
+                          return _vm.checkInvalid($event, "twitter.com")
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -47874,6 +48137,12 @@ var render = function () {
                         },
                       },
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(
+                        "\n                                        Поле предназначено только для Twitter ссылок\n                                    "
+                      ),
+                    ]),
                   ]),
                 ]
               ),
@@ -47882,47 +48151,7 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-sm-4" }, [
-        _c("div", { staticClass: "form-group height-element" }, [
-          _c("label", { attrs: { for: "site_company" } }, [
-            _vm._v(
-              "\n                        " +
-                _vm._s(_vm.trans("company", "company_website")) +
-                "\n                    "
-            ),
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.site_company,
-                expression: "site_company",
-              },
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "site_company",
-              maxlength: "150",
-              autocomplete: "off",
-              placeholder: _vm.trans("company", "for_example_great"),
-            },
-            domProps: { value: _vm.site_company },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.site_company = $event.target.value
-              },
-            },
-          }),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-4" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "work_experience" } }, [
             _vm._v(
@@ -47976,6 +48205,103 @@ var render = function () {
             ],
             2
           ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row row-youtube" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("div", { staticClass: "form-group height-element" }, [
+          _c("div", { staticClass: "box-link-youtube" }, [
+            _c("label", [
+              _vm._v(
+                "\n                            Видео компании (Youtube)\n                        "
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { attrs: { id: "input_youtube" } }, [
+              _c("div", { staticClass: "input-group input-group" }, [
+                _c("input", {
+                  staticClass: "form-control input_youtube",
+                  attrs: {
+                    type: "text",
+                    maxlength: "100",
+                    autocomplete: "off",
+                    placeholder: "Ввести адрес",
+                  },
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning btn-flat",
+                      attrs: { type: "button" },
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 448 512",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M432 64h-96l-33.63-44.75C293.4 7.125 279.1 0 264 0h-80c-15.1 0-29.4 7.125-38.4 19.25L112 64H16C7.201 64 0 71.2 0 80c0 8.799 7.201 16 16 16h416c8.801 0 16-7.201 16-16 0-8.8-7.2-16-16-16zm-280 0 19.25-25.62C174.3 34.38 179 32 184 32h80c5 0 9.75 2.375 12.75 6.375L296 64H152zm248 64c-8.8 0-16 7.2-16 16v288c0 26.47-21.53 48-48 48H112c-26.47 0-48-21.5-48-48V144c0-8.8-7.16-16-16-16s-16 7.2-16 16v288c0 44.1 35.89 80 80 80h224c44.11 0 80-35.89 80-80V144c0-8.8-7.2-16-16-16zM144 416V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16zm96 0V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16zm96 0V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16z",
+                            },
+                          }),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                                    Поле предназначено только для youtube ссылок\n                                "
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _vm.youtubeObj.tick_youtube < 3
+            ? _c(
+                "div",
+                {
+                  staticClass: "add-address",
+                  on: {
+                    click: function ($event) {
+                      return _vm.addInputYoutube()
+                    },
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z",
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                        Добавить адрес\n                    "
+                  ),
+                ]
+              )
+            : _vm._e(),
         ]),
       ]),
     ]),
@@ -48089,10 +48415,7 @@ var render = function () {
                   {
                     staticClass: "btn btn-block btn-primary btn-lg",
                     class: { disabled: _vm.disableButton(_vm.$v) },
-                    attrs: {
-                      type: "submit",
-                      disabled: _vm.disableButton(_vm.$v),
-                    },
+                    attrs: { type: "submit" },
                     on: {
                       click: function ($event) {
                         $event.preventDefault()
@@ -48186,7 +48509,7 @@ var render = function () {
           ]
         ),
         _vm._v(" "),
-        _c("span", [_vm._v("200х100px в .jpg, .jpeg, .png")]),
+        _c("span", [_vm._v("200pх100px в .jpg, .jpeg, .png")]),
       ]
     ),
     _vm._v(" "),
@@ -48221,7 +48544,7 @@ var render = function () {
         },
       },
       [
-        _c("div", [_vm._v("200х100px в .jpg, .jpeg, .png")]),
+        _c("div", [_vm._v("200pх100px в .jpg, .jpeg, .png")]),
         _vm._v(" "),
         _c("div", { staticClass: "update_logo" }, [
           _c(

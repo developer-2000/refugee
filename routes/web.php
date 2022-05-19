@@ -69,6 +69,8 @@ Route::group([
             // office
             Route::get('/', 'PrivateOfficeController@index');
             Route::get('my-company', 'PrivateOfficeController@myCompany');
+            Route::post('my-company/store', 'PrivateOfficeController@store');
+
             // vacancies
             Route::group(['prefix'=>'vacancy'], function (){
                 Route::post('search-position', 'VacancyController@searchPosition');

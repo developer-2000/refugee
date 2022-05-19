@@ -1,10 +1,17 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Model\MakeGeographyDb;
+use App\Repositories\CompanyRepository;
 
-class PrivateOfficeController extends Controller
+class PrivateOfficeController extends BaseController
 {
+    protected $repository;
+
+    public function __construct() {
+        $this->repository = new CompanyRepository();
+    }
 
     public function index()
     {
@@ -18,6 +25,11 @@ class PrivateOfficeController extends Controller
         return view('company', compact('settings'));
     }
 
+    public function store(StoreCompanyRequest $request)
+    {
+        $store = $this->repository->storeCompany($request);
+        return $this->getResponse($store);
+    }
 
     /**
      * настройки категорий и страны сайта
@@ -32,4 +44,5 @@ class PrivateOfficeController extends Controller
 
         return $settings;
     }
+
 }

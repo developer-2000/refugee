@@ -19,9 +19,7 @@ use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 class VacancyController extends BaseController {
     use BreadcrumbsVacancyTraite;
