@@ -14,4 +14,8 @@ class UserCompany extends Model
         'region' => 'json',
         'city' => 'json',
     ];
+
+    public function image() {
+        return $this->belongsTo(Image::class, 'logo_id', 'id');
+    }
 }

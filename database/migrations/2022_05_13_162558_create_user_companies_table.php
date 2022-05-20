@@ -17,8 +17,9 @@ class CreateUserCompaniesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->unsignedBigInteger('logo_id')->nullable()->default(null)->comment('логотип компании');
-            $table->foreign('logo_id')->references('id')->on('images');
+
             $table->string('title', 100)->nullable()->default(null);
             $table->string('alias', 100)->unique()->comment('уникальный url');
             $table->string('country', 200)->nullable()->default(null)->comment('страна');

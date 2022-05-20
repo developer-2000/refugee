@@ -26,6 +26,7 @@
     <my-company-component
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
+        :company="{{json_encode($company)}}"
     ></my-company-component>
 
 </div>

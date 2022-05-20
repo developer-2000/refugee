@@ -26,32 +26,108 @@ class CompanyRepository extends CoreRepository {
         // 1
         $arr['user_id'] = Auth::user()->id;
 
-        // сохранить логотип
+        // 2 сохранить логотип
         if(!is_null($path = $this->saveImage($request))){
-            // запись в базу
+            // 3 запись в базу
             $arrPath = explode("/", $path);
             $image = Image::create([
                 "title"=>$arrPath[count($arrPath)-1],
                 "url"=>$path,
                 "type"=>0,
             ]);
-            // 2
             $arr['logo_id'] = $image->id;
         }
 
-        $count = UserCompany::where('alias', 'like', $request->alias . '%')->count();
-        // 3
-        $arr['alias'] = $count > 0 ? $request->alias.'-'.$count : $request->alias;
+        // 4 существует чужой alias
+        if(!is_null($this->checkTransliteration($request->alias))){
+            $arr['alias'] = $request->alias.'-'.$this->renderIndexTransliteration($request->alias);
+        }
+        else{
+            $arr['alias'] = $request->alias;
+        }
 
         return $this->model->create($arr);
+    }
+
+    public function updateCompany($request, $company){
+        $arr = $this->makeArrayCompany($request);
+
+        // добавление / замена
+        // с фронта пришел файл image
+        if(!is_null($request->load_logotype)){
+            // 1 существует logotype у company
+            if(!is_null($company->logo_id)){
+                $coll = Image::find($company->logo_id);
+                // удалить физически и из базы
+                if (Storage::disk('app_public')->has($coll->url)){
+                    Storage::disk('app_public')->delete($coll->url);
+                    Image::where('id',$company->logo_id)->delete();
+                }
+            }
+            // 2 сохранить новый логотип
+            if(!is_null($path = $this->saveImage($request))){
+                // запись в базу
+                $arrPath = explode("/", $path);
+                $image = Image::create([
+                    "title"=>$arrPath[count($arrPath)-1],
+                    "url"=>$path,
+                    "type"=>0,
+                ]);
+                $arr['logo_id'] = $image->id;
+            }
+        }
+
+        // замена alias
+        // существует чужой alias
+        if(!is_null($this->checkTransliteration($request->alias))){
+            $arr['alias'] = $request->alias.'-'.$this->renderIndexTransliteration($request->alias);
+        }
+        else{
+            $arr['alias'] = $request->alias;
+        }
+
+        return $this->model->where('id', $request->company_id)
+            ->where('user_id', Auth::user()->id)
+            ->update($arr);
+    }
+
+    /**
+     * проверка на существования такого translit title company
+     * @param $alias
+     * @return mixed
+     */
+    public function checkTransliteration($alias){
+        return $this->model->where('alias', $alias)
+            ->where('user_id', '!=', Auth::user()->id)
+            ->first();
+    }
+
+    /**
+     * Генерирует уникальный index translit title company
+     * @param $alias
+     * @return int
+     */
+    private function renderIndexTransliteration($alias){
+        $index = 1;
+
+        while(true){
+            if(is_null($this->checkTransliteration("$alias-$index"))){
+                break;
+            }
+            else{
+                $index++;
+            }
+        }
+
+        return $index;
     }
 
     private function makeArrayCompany($request){
         return [
             'title'=>$request->title,
-            'country'=>json_decode($request->country[0]),
-            'region'=>$request->region != null ? json_decode($request->region[0]) : null,
-            'city'=>$request->city != null ? json_decode($request->city[0]) : null,
+            'country'=>$this->convertingToJson($request->country[0]),
+            'region'=> ($request->region != null) ? $this->convertingToJson($request->region[0]) : null,
+            'city'=> ($request->city != null) ? $this->convertingToJson($request->city[0]) : null,
             'rest_address'=>$request->rest_address,
             'categories'=>$request->categories,
             'youtube_links'=>$request->youtube_links,
@@ -65,6 +141,16 @@ class CompanyRepository extends CoreRepository {
             'count_working_company'=>$request->count_working,
             'about_company'=>$request->about_company,
         ];
+    }
+
+    private function convertingToJson($value){
+        $result = json_decode($value, true);
+        // ошибки нет
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $result;
+        }
+
+        return $value;
     }
 
     private function saveImage($request){

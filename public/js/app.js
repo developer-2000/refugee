@@ -3131,6 +3131,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3143,6 +3176,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      company_id: null,
       objTextarea: {
         about_company: '',
         editorConfig1: {
@@ -3150,7 +3184,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       },
       load_logotype: null,
-      company_id: null,
+      update_logotype_url: null,
       company_tax_number: '',
       twitter_input: '',
       telegram_input: '',
@@ -3181,12 +3215,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 data = _this.getValuesFields();
-                console.log(data);
-                console.log('---');
-                _context.next = 5;
+                _context.next = 3;
                 return _this.$http.post("/private-office/my-company/store", data).then(function (res) {
                   if (_this.checkSuccess(res)) {
-                    console.log(res.data.message); // location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                    location.href = _this.lang.prefix_lang + 'private-office';
                   } // custom ошибки
                   else {
                     _this.message(res.data.message, 'error', 10000, true);
@@ -3196,15 +3228,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.messageError(err);
                 });
 
-              case 5:
+              case 3:
                 response = _context.sent;
 
-              case 6:
+              case 4:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
+      }))();
+    },
+    updateCompany: function updateCompany() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = _this2.getValuesFields();
+                data.append('company_id', _this2.company_id);
+                _context2.next = 4;
+                return _this2.$http.post("/private-office/my-company/update", data).then(function (res) {
+                  if (_this2.checkSuccess(res)) {
+                    location.href = _this2.lang.prefix_lang + 'private-office';
+                  } // custom ошибки
+                  else {
+                    _this2.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this2.messageError(err);
+                });
+
+              case 4:
+                response = _context2.sent;
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     },
     transliteration: function transliteration(original) {
@@ -3319,9 +3386,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         formData.append('load_logotype', '');
       }
 
-      console.log(country);
       return formData;
     },
+    // коррекция даты
     checkInsertDate: function checkInsertDate(e) {
       var value = e.target.value;
       var IPOdate = new Date();
@@ -3336,9 +3403,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addLogotype: function addLogotype(file) {
       this.load_logotype = file.file;
     },
-    // проверка строки на корректный url с нужным деменом
+    // проверка строки на корректный url с нужным доменом
     checkDomain: function checkDomain(address, searched_domain) {
       var prefixArray = [['https://'], ['www.']];
+      address = address === null ? '' : address;
       prefixArray.push([searched_domain.toLowerCase()]);
       var first,
           check = '';
@@ -3405,7 +3473,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     initializationFunc: function initializationFunc() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.createArrayCategories();
       this.objLocations.load_countries = this.settings.obj_countries;
@@ -3413,26 +3481,142 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.addInputYoutube(); // проверка вводимых данных в поле youtube
 
       $(document).on("input", "input.input_youtube", function (e) {
-        _this2.checkInvalid(e, 'youtube.com');
+        _this3.checkInvalid(e, 'youtube.com');
       }); // удалить youtube link по событию delete
 
       $(document).on("click", ".box-link-youtube button", function (e) {
         var id = $(e.currentTarget).attr('data-id');
         $("#" + id).remove();
-        _this2.youtubeObj.tick_youtube--;
+        _this3.youtubeObj.tick_youtube--;
       });
+    },
+    // в случае редактирования company
+    setValuesFields: function setValuesFields() {
+      var _this4 = this;
+
+      if (this.company == null) {
+        return false;
+      }
+
+      this.company_id = this.company.id;
+      this.position = this.company.title;
+      this.position_transliteration = this.company.alias;
+      this.rest_address = this.company.rest_address;
+      this.company_tax_number = this.company.tax_number;
+      this.founding_date = this.company.founding_date === null ? '' : this.company.founding_date;
+      this.facebook_input = this.company.facebook_social;
+      this.instagram_input = this.company.instagram_social;
+      this.telegram_input = this.company.telegram_social;
+      this.twitter_input = this.company.twitter_social;
+      this.site_company = this.company.site_company === null ? '' : this.company.site_company;
+      this.count_working = this.company.count_working_company;
+      this.objTextarea.about_company = this.company.about_company;
+
+      if (this.company.image !== null) {
+        this.update_logotype_url = this.company.image.url;
+      } // Location
+
+
+      this.objLocations.load_countries = this.settings.obj_countries;
+      this.objLocations.country = this.company.country.code;
+      this.loadRegions();
+
+      if (this.company.region != null) {
+        this.objLocations.region = this.company.region.code;
+        setTimeout(function () {
+          _this4.loadCity();
+        }, 500);
+      }
+
+      if (this.company.city != null) {
+        this.objLocations.city = this.company.city.code;
+      }
+
+      setTimeout(function () {
+        _this4.objLocations.bool_rest_address = true;
+      }, 1000);
+      this.rest_address = this.company.rest_address; // categories
+
+      this.objCategory.categories = this.company.categories;
+      var input = '';
+
+      for (var i = 0; i < this.objCategory.categories.length; i++) {
+        input = document.querySelector('#category_' + this.objCategory.categories[i]);
+        input.checked = true;
+      }
+
+      this.objCategory.boolChecked = true; // youtube
+
+      if (Array.isArray(this.company.youtube_links) && this.company.youtube_links.length) {
+        // добавить поля
+        for (var _i = 1; _i < this.company.youtube_links.length; _i++) {
+          this.addInputYoutube();
+        } // заполнить поля
+
+
+        var tick = 0;
+
+        var _iterator2 = _createForOfIteratorHelper(document.querySelectorAll('.input_youtube')),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var item = _step2.value;
+            item.value = this.company.youtube_links[tick];
+            tick++;
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      }
     }
   },
-  props: ['lang', 'settings'],
+  props: ['lang', 'settings', 'company'],
   mounted: function mounted() {
-    this.initializationFunc;
+    var _this5 = this;
+
+    this.initializationFunc; // Код, который будет запущен только после отрисовки всех представлений
+
+    this.$nextTick(function () {
+      _this5.setValuesFields;
+    });
   },
   validations: {
     position: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
     },
     position_transliteration: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      // проверка на повторение в базе
+      uniqTranslit: function uniqTranslit(newEmail) {
+        var _this6 = this;
+
+        // если поле пустое - не выводи эту ошибку
+        if (newEmail === '') return true;
+        return new Promise(function (resolve, reject) {
+          $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          $.ajax({
+            url: "/private-office/my-company/check-transliteration",
+            method: "POST",
+            data: {
+              alias: _this6.position_transliteration
+            },
+            success: function success(response) {
+              if (response !== null && response !== void 0 && response.message && response.message) {
+                resolve(false);
+              } else {
+                resolve(true);
+              }
+            }
+          });
+        });
+      }
     },
     rest_address: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
@@ -3484,13 +3668,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
       format_files: ['.jpg', '.jpeg', '.png'],
-      bool_logo: false
+      bool_logo: false,
+      logotype_url: ''
     };
   },
   methods: {
@@ -3536,8 +3724,15 @@ __webpack_require__.r(__webpack_exports__);
       return new RegExp('(' + this.format_files.join('|').replace(/\./g, '\\.') + ')$').test(name);
     }
   },
-  props: ['lang'],
-  mounted: function mounted() {}
+  props: ['lang', 'update_logotype_url'],
+  watch: {
+    update_logotype_url: function update_logotype_url(val) {
+      this.logotype_url = val;
+    }
+  },
+  mounted: function mounted() {
+    this.logotype_url = this.update_logotype_url === null ? '' : this.update_logotype_url;
+  }
 });
 
 /***/ }),
@@ -46943,26 +47138,26 @@ var render = function () {
           ]
         ),
         _vm._v(
-          "\n            " +
-            _vm._s(_vm.trans("menu.menu", "cabinet")) +
-            "\n        "
+          "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
         ),
       ]
     ),
     _vm._v(" "),
-    _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v(
-        "\n            " +
-          _vm._s(_vm.trans("company", "create_your_company")) +
-          "\n        "
-      ),
-    ]),
+    this.company_id == null
+      ? _c("h1", { staticClass: "title_page card-body" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.trans("company", "create_your_company")) +
+              "\n    "
+          ),
+        ])
+      : _c("h1", { staticClass: "title_page card-body" }, [
+          _vm._v("\n        Обновить данные компании\n    "),
+        ]),
     _vm._v(" "),
     _c("div", { staticClass: "desc-helper-italic" }, [
       _vm._v(
-        "\n            " +
-          _vm._s(_vm.trans("company", "about_company")) +
-          "\n        "
+        "\n        " + _vm._s(_vm.trans("company", "about_company")) + "\n    "
       ),
     ]),
     _vm._v(" "),
@@ -46971,9 +47166,9 @@ var render = function () {
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "position" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "company_name")) +
-                "\n                        "
+                "\n                    "
             ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
@@ -47063,9 +47258,9 @@ var render = function () {
           !_vm.$v.position.required
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "please_enter_name")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ])
             : _vm._e(),
@@ -47074,9 +47269,9 @@ var render = function () {
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "position_transliteration" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "company_name_transliteration")) +
-                "\n                        "
+                "\n                    "
             ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
@@ -47166,9 +47361,17 @@ var render = function () {
           !_vm.$v.position_transliteration.required
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "please_enter_least")) +
-                    "\n                    "
+                    "\n                "
+                ),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.$v.position_transliteration.uniqTranslit
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  '\n                    Эта транслитерация уже занята!"\n                '
                 ),
               ])
             : _vm._e(),
@@ -47177,9 +47380,9 @@ var render = function () {
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "country" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "company_country")) +
-                "\n                        "
+                "\n                    "
             ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
@@ -47207,9 +47410,9 @@ var render = function () {
             [
               _c("option", { attrs: { disabled: "disabled", selected: "" } }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(_vm.trans("vacancies", "select_country")) +
-                    "\n                        "
+                    "\n                    "
                 ),
               ]),
               _vm._v(" "),
@@ -47245,9 +47448,9 @@ var render = function () {
           ? _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "region" } }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "company_region")) +
-                    "\n                        "
+                    "\n                    "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -47286,9 +47489,9 @@ var render = function () {
                     { attrs: { disabled: "disabled", selected: "" } },
                     [
                       _vm._v(
-                        "\n                            " +
+                        "\n                        " +
                           _vm._s(_vm.trans("vacancies", "select_region")) +
-                          "\n                        "
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -47326,9 +47529,9 @@ var render = function () {
           ? _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "city" } }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "company_city")) +
-                    "\n                        "
+                    "\n                    "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -47367,9 +47570,9 @@ var render = function () {
                     { attrs: { disabled: "disabled", selected: "" } },
                     [
                       _vm._v(
-                        "\n                            " +
+                        "\n                        " +
                           _vm._s(_vm.trans("vacancies", "select_city")) +
-                          "\n                        "
+                          "\n                    "
                       ),
                     ]
                   ),
@@ -47407,9 +47610,9 @@ var render = function () {
           ? _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "rest_address" } }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "remaining_address")) +
-                    "\n                        "
+                    "\n                    "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -47465,9 +47668,9 @@ var render = function () {
               !_vm.$v.rest_address.required
                 ? _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(
-                      "\n                        " +
+                      "\n                    " +
                         _vm._s(_vm.trans("company", "please_indicate_street")) +
-                        "\n                    "
+                        "\n                "
                     ),
                   ])
                 : _vm._e(),
@@ -47490,11 +47693,11 @@ var render = function () {
             _c("div", [
               _c("label", { attrs: { for: "categories" } }, [
                 _vm._v(
-                  "\n                            " +
+                  "\n                        " +
                     _vm._s(
                       _vm.trans("company", "categories_activity_company")
                     ) +
-                    "\n                            "
+                    "\n                        "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -47585,11 +47788,11 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                                            " +
                                           _vm._s(
                                             _vm.trans("vacancies", valueArr[1])
                                           ) +
-                                          "\n                                            "
+                                          "\n                                        "
                                       ),
                                     ]
                                   ),
@@ -47619,9 +47822,9 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "please_select_category")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ]
             ),
@@ -47635,9 +47838,9 @@ var render = function () {
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "position" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "company_tax_number")) +
-                "\n                        "
+                "\n                    "
             ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
@@ -47724,9 +47927,9 @@ var render = function () {
           !_vm.$v.company_tax_number.required
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("company", "please_enter_your_number")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ])
             : _vm._e(),
@@ -47737,9 +47940,9 @@ var render = function () {
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "site_company" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "company_website")) +
-                "\n                    "
+                "\n                "
             ),
           ]),
           _vm._v(" "),
@@ -47777,9 +47980,9 @@ var render = function () {
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "data_foundation" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "data_foundation")) +
-                "\n                    "
+                "\n                "
             ),
           ]),
           _vm._v(" "),
@@ -47798,6 +48001,7 @@ var render = function () {
                   "data-inputmask-inputformat": "mm/dd/yyyy",
                   "data-mask": "",
                 },
+                domProps: { value: _vm.founding_date },
                 on: {
                   keyup: function ($event) {
                     return _vm.checkInsertDate($event)
@@ -47815,9 +48019,9 @@ var render = function () {
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "social-network" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "social_networks_company")) +
-                "\n                    "
+                "\n                "
             ),
           ]),
           _vm._v(" "),
@@ -47826,6 +48030,7 @@ var render = function () {
               _c(
                 "svg",
                 {
+                  class: { "svg-action": _vm.facebook_input },
                   attrs: {
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: "0 0 512 512",
@@ -47853,6 +48058,7 @@ var render = function () {
                 "svg",
                 {
                   staticClass: "instagram-svg",
+                  class: { "svg-action": _vm.instagram_input },
                   attrs: {
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: "0 0 448 512",
@@ -47879,6 +48085,7 @@ var render = function () {
               _c(
                 "svg",
                 {
+                  class: { "svg-action": _vm.telegram_input },
                   attrs: {
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: "0 0 496 512",
@@ -47906,6 +48113,7 @@ var render = function () {
                 "svg",
                 {
                   staticClass: "twitter-svg",
+                  class: { "svg-action": _vm.twitter_input },
                   attrs: {
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: "0 0 512 512",
@@ -47935,13 +48143,14 @@ var render = function () {
                 "div",
                 {
                   staticClass: "collapse multi-collapse",
+                  class: { show: _vm.facebook_input },
                   attrs: { id: "facebook_box" },
                 },
                 [
                   _c("div", { staticClass: "card-body" }, [
                     _c("label", { attrs: { for: "facebook_input" } }, [
                       _vm._v(
-                        "\n                                        Facebook\n                                    "
+                        "\n                                    Facebook\n                                "
                       ),
                     ]),
                     _vm._v(" "),
@@ -47978,7 +48187,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                        Поле предназначено только для Facebook ссылок\n                                    "
+                        "\n                                    Поле предназначено только для Facebook ссылок\n                                "
                       ),
                     ]),
                   ]),
@@ -47989,13 +48198,14 @@ var render = function () {
                 "div",
                 {
                   staticClass: "collapse multi-collapse",
+                  class: { show: _vm.instagram_input },
                   attrs: { id: "instagram_box" },
                 },
                 [
                   _c("div", { staticClass: "card-body" }, [
                     _c("label", { attrs: { for: "instagram_input" } }, [
                       _vm._v(
-                        "\n                                        Instagram\n                                    "
+                        "\n                                    Instagram\n                                "
                       ),
                     ]),
                     _vm._v(" "),
@@ -48032,7 +48242,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                        Поле предназначено только для Instagram ссылок\n                                    "
+                        "\n                                    Поле предназначено только для Instagram ссылок\n                                "
                       ),
                     ]),
                   ]),
@@ -48043,13 +48253,14 @@ var render = function () {
                 "div",
                 {
                   staticClass: "collapse multi-collapse",
+                  class: { show: _vm.telegram_input },
                   attrs: { id: "telegram_box" },
                 },
                 [
                   _c("div", { staticClass: "card-body" }, [
                     _c("label", { attrs: { for: "telegram_input" } }, [
                       _vm._v(
-                        "\n                                        Telegram\n                                    "
+                        "\n                                    Telegram\n                                "
                       ),
                     ]),
                     _vm._v(" "),
@@ -48086,7 +48297,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                        Поле предназначено только для Telegram ссылок\n                                    "
+                        "\n                                    Поле предназначено только для Telegram ссылок\n                                "
                       ),
                     ]),
                   ]),
@@ -48097,13 +48308,14 @@ var render = function () {
                 "div",
                 {
                   staticClass: "collapse multi-collapse",
+                  class: { show: _vm.twitter_input },
                   attrs: { id: "twitter_box" },
                 },
                 [
                   _c("div", { staticClass: "card-body" }, [
                     _c("label", { attrs: { for: "Twitter_input" } }, [
                       _vm._v(
-                        "\n                                        Twitter\n                                    "
+                        "\n                                    Twitter\n                                "
                       ),
                     ]),
                     _vm._v(" "),
@@ -48140,7 +48352,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                        Поле предназначено только для Twitter ссылок\n                                    "
+                        "\n                                    Поле предназначено только для Twitter ссылок\n                                "
                       ),
                     ]),
                   ]),
@@ -48155,9 +48367,9 @@ var render = function () {
         _c("div", { staticClass: "form-group height-element" }, [
           _c("label", { attrs: { for: "work_experience" } }, [
             _vm._v(
-              "\n                        " +
+              "\n                    " +
                 _vm._s(_vm.trans("company", "number_employees_company")) +
-                "\n                    "
+                "\n                "
             ),
           ]),
           _vm._v(" "),
@@ -48195,9 +48407,9 @@ var render = function () {
                 return [
                   _c("option", { domProps: { value: "" + key } }, [
                     _vm._v(
-                      "\n                                " +
+                      "\n                            " +
                         _vm._s(_vm.trans("company", value)) +
-                        "\n                            "
+                        "\n                        "
                     ),
                   ]),
                 ]
@@ -48215,7 +48427,7 @@ var render = function () {
           _c("div", { staticClass: "box-link-youtube" }, [
             _c("label", [
               _vm._v(
-                "\n                            Видео компании (Youtube)\n                        "
+                "\n                        Видео компании (Youtube)\n                    "
               ),
             ]),
             _vm._v(" "),
@@ -48261,7 +48473,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(
-                    "\n                                    Поле предназначено только для youtube ссылок\n                                "
+                    "\n                                Поле предназначено только для youtube ссылок\n                            "
                   ),
                 ]),
               ]),
@@ -48297,7 +48509,7 @@ var render = function () {
                     ]
                   ),
                   _vm._v(
-                    "\n                        Добавить адрес\n                    "
+                    "\n                    Добавить адрес\n                "
                   ),
                 ]
               )
@@ -48314,9 +48526,9 @@ var render = function () {
           [
             _c("label", [
               _vm._v(
-                "\n                        " +
+                "\n                    " +
                   _vm._s(_vm.trans("company", "company_description")) +
-                  "\n                        "
+                  "\n                    "
               ),
               _c(
                 "span",
@@ -48374,12 +48586,15 @@ var render = function () {
           [
             _c("label", [
               _vm._v(
-                "\n                        Логотип компании\n                    "
+                "\n                    Логотип компании\n                "
               ),
             ]),
             _vm._v(" "),
             _c("load_logotype_component", {
-              attrs: { lang: _vm.lang },
+              attrs: {
+                lang: _vm.lang,
+                update_logotype_url: _vm.update_logotype_url,
+              },
               on: { load_logotype: _vm.addLogotype },
             }),
           ],
@@ -48393,29 +48608,32 @@ var render = function () {
         "div",
         { staticClass: "col-sm-4 offset-4 but-box" },
         [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-block btn-outline-danger btn-lg",
+              attrs: { href: _vm.lang.prefix_lang + "private-office" },
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.trans("vacancies", "cancel")) +
+                  "\n            "
+              ),
+            ]
+          ),
+          _vm._v(" "),
           _vm.company_id == null
             ? [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-block btn-outline-danger btn-lg",
-                    attrs: { href: _vm.lang.prefix_lang + "private-office" },
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans("vacancies", "cancel")) +
-                        "\n                    "
-                    ),
-                  ]
-                ),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
                     staticClass: "btn btn-block btn-primary btn-lg",
                     class: { disabled: _vm.disableButton(_vm.$v) },
-                    attrs: { type: "submit" },
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.disableButton(_vm.$v),
+                    },
                     on: {
                       click: function ($event) {
                         $event.preventDefault()
@@ -48425,14 +48643,39 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                        " +
+                      "\n                    " +
                         _vm._s(_vm.trans("vacancies", "save")) +
-                        "\n                    "
+                        "\n                "
                     ),
                   ]
                 ),
               ]
-            : _vm._e(),
+            : [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-primary btn-lg",
+                    class: { disabled: _vm.disableButton(_vm.$v) },
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.disableButton(_vm.$v),
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.updateCompany.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans("vacancies", "update_vacancy")) +
+                        "\n                "
+                    ),
+                  ]
+                ),
+              ],
         ],
         2
       ),
@@ -48480,8 +48723,8 @@ var render = function () {
           {
             name: "show",
             rawName: "v-show",
-            value: !_vm.bool_logo,
-            expression: "!bool_logo",
+            value: !_vm.bool_logo && !_vm.logotype_url,
+            expression: "!bool_logo && !logotype_url",
           },
         ],
         staticClass: "box-logo",
@@ -48518,11 +48761,11 @@ var render = function () {
         {
           name: "show",
           rawName: "v-show",
-          value: _vm.bool_logo,
-          expression: "bool_logo",
+          value: _vm.bool_logo || _vm.logotype_url,
+          expression: "bool_logo || logotype_url",
         },
       ],
-      attrs: { id: "preload_img", src: "" },
+      attrs: { id: "preload_img", src: "/" + _vm.logotype_url },
     }),
     _vm._v(" "),
     _c(
@@ -48532,8 +48775,8 @@ var render = function () {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.bool_logo,
-            expression: "bool_logo",
+            value: _vm.bool_logo || _vm.logotype_url,
+            expression: "bool_logo || logotype_url",
           },
         ],
         staticClass: "help-load-logo",

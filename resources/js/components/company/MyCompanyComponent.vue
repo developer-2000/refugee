@@ -9,9 +9,15 @@
             {{trans('menu.menu','cabinet')}}
         </a>
         <!-- title -->
-        <h1 class="title_page card-body">
+        <h1 class="title_page card-body"
+            v-if="this.company_id == null"
+        >
             {{trans('company','create_your_company')}}
         </h1>
+        <h1 v-else class="title_page card-body">
+            Обновить данные компании
+        </h1>
+
         <div class="desc-helper-italic">
             {{trans('company','about_company')}}
         </div>
@@ -67,6 +73,9 @@
                     >
                     <div class="invalid-feedback" v-if="!$v.position_transliteration.required">
                         {{trans('company','please_enter_least')}}
+                    </div>
+                    <div class="invalid-feedback" v-if="!$v.position_transliteration.uniqTranslit">
+                        Эта транслитерация уже занята!"
                     </div>
                 </div>
 
@@ -265,6 +274,7 @@
                         </div>
                         <input id="datemask" type="text" class="form-control" data-inputmask-alias="datetime"
                                data-inputmask-inputformat="mm/dd/yyyy" data-mask
+                               :value="founding_date"
                                @keyup="checkInsertDate($event)"
                         >
                     </div>
@@ -287,24 +297,30 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                      aria-controls="facebook_box" data-target="#facebook_box" aria-expanded="false" data-toggle="collapse"
                                      @click="switchSvg($event)"
+                                     :class="{'svg-action': facebook_input}"
                                 ><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="instagram-svg"
                                      aria-controls="instagram_box" data-target="#instagram_box" aria-expanded="false" data-toggle="collapse"
                                      @click="switchSvg($event)"
+                                     :class="{'svg-action': instagram_input}"
                                 ><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
                                      aria-controls="telegram_box" data-target="#telegram_box" aria-expanded="false" data-toggle="collapse"
                                      @click="switchSvg($event)"
+                                     :class="{'svg-action': telegram_input}"
                                 ><path d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="twitter-svg"
                                      aria-controls="twitter_box" data-target="#twitter_box" aria-expanded="false" data-toggle="collapse"
                                      @click="switchSvg($event)"
+                                     :class="{'svg-action': twitter_input}"
                                 ><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
                         </div>
                         <!-- inputs -->
                         <div class="box-card-collapse">
                             <!-- facebook -->
-                            <div class="collapse multi-collapse" id="facebook_box" >
+                            <div class="collapse multi-collapse" id="facebook_box"
+                                 :class="{'show': facebook_input}"
+                            >
                                 <div class="card-body">
                                     <label for="facebook_input">
                                         Facebook
@@ -320,7 +336,9 @@
                                 </div>
                             </div>
                             <!-- Instagram -->
-                            <div class="collapse multi-collapse" id="instagram_box" >
+                            <div class="collapse multi-collapse" id="instagram_box"
+                                 :class="{'show': instagram_input}"
+                            >
                                 <div class="card-body">
                                     <label for="instagram_input">
                                         Instagram
@@ -336,7 +354,9 @@
                                 </div>
                             </div>
                             <!-- Telegram -->
-                            <div class="collapse multi-collapse" id="telegram_box" >
+                            <div class="collapse multi-collapse" id="telegram_box"
+                                 :class="{'show': telegram_input}"
+                            >
                                 <div class="card-body">
                                     <label for="telegram_input">
                                         Telegram
@@ -352,7 +372,9 @@
                                 </div>
                             </div>
                             <!-- Twitter -->
-                            <div class="collapse multi-collapse" id="twitter_box" >
+                            <div class="collapse multi-collapse" id="twitter_box"
+                                 :class="{'show': twitter_input}"
+                            >
                                 <div class="card-body">
                                     <label for="Twitter_input">
                                         Twitter
@@ -456,6 +478,7 @@
                     <load_logotype_component
                         @load_logotype='addLogotype'
                         :lang="lang"
+                        :update_logotype_url="update_logotype_url"
                     ></load_logotype_component>
                 </div>
             </div>
@@ -464,19 +487,29 @@
         <!-- button -->
         <div class="row footer-form">
             <div class="col-sm-4 offset-4 but-box">
+                <!-- cancel -->
+                <a :href="`${lang.prefix_lang}private-office`"
+                   class="btn btn-block btn-outline-danger btn-lg">
+                    {{trans('vacancies','cancel')}}
+                </a>
                 <!-- button create -->
                 <template v-if="company_id == null">
-                    <a :href="`${lang.prefix_lang}private-office`"
-                       class="btn btn-block btn-outline-danger btn-lg">
-                        {{trans('vacancies','cancel')}}
-                    </a>
-<!--                    :disabled="disableButton($v)"-->
                     <button type="submit" class="btn btn-block btn-primary btn-lg"
                             :class="{'disabled': disableButton($v)}"
-
+                            :disabled="disableButton($v)"
                             @click.prevent="createCompany"
                     >
                         {{trans('vacancies','save')}}
+                    </button>
+                </template>
+                <!-- button update -->
+                <template v-else>
+                    <button type="submit" class="btn btn-block btn-primary btn-lg"
+                            :class="{'disabled': disableButton($v)}"
+                            :disabled="disableButton($v)"
+                            @click.prevent="updateCompany"
+                    >
+                        {{trans('vacancies','update_vacancy')}}
                     </button>
                 </template>
             </div>
@@ -503,6 +536,7 @@
         },
         data() {
             return {
+                company_id: null,
                 objTextarea: {
                     about_company: '',
                     editorConfig1: {
@@ -512,7 +546,7 @@
                     },
                 },
                 load_logotype: null,
-                company_id: null,
+                update_logotype_url: null,
                 company_tax_number: '',
                 twitter_input: '',
                 telegram_input: '',
@@ -535,13 +569,29 @@
         methods: {
             async createCompany(){
                 let data = this.getValuesFields()
-                console.log(data)
-                console.log('---')
                 const response = await this.$http.post(`/private-office/my-company/store`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            console.log(res.data.message)
-                            // location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                            location.href = this.lang.prefix_lang+'private-office'
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            async updateCompany(){
+                let data = this.getValuesFields()
+                data.append('company_id', this.company_id);
+
+                const response = await this.$http.post(`/private-office/my-company/update`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.href = this.lang.prefix_lang+'private-office'
                         }
                         // custom ошибки
                         else{
@@ -661,10 +711,9 @@
                     formData.append('load_logotype', '');
                 }
 
-                console.log(country)
-
                 return formData
             },
+            // коррекция даты
             checkInsertDate(e){
                 let value = e.target.value
                 let IPOdate = new Date()
@@ -679,12 +728,13 @@
             addLogotype(file){
                 this.load_logotype = file.file
             },
-            // проверка строки на корректный url с нужным деменом
+            // проверка строки на корректный url с нужным доменом
             checkDomain(address, searched_domain){
                 let prefixArray = [
                     ['https://'],
                     ['www.'],
                 ]
+                address = address === null ? '' : address
                 prefixArray.push([searched_domain.toLowerCase()])
                 let first, check = ''
                 let bool_youtube = false
@@ -738,7 +788,7 @@
             },
         },
         computed: {
-            initializationFunc: function () {
+            initializationFunc() {
                 this.createArrayCategories()
                 this.objLocations.load_countries = this.settings.obj_countries
                 this.youtubeObj.input_youtube = $('#input_youtube').remove()
@@ -753,14 +803,86 @@
                     $("#"+id).remove()
                     this.youtubeObj.tick_youtube--
                 });
-            }
+            },
+            // в случае редактирования company
+            setValuesFields(){
+                if(this.company == null){
+                    return false
+                }
+
+                this.company_id = this.company.id
+                this.position = this.company.title
+                this.position_transliteration = this.company.alias
+                this.rest_address = this.company.rest_address
+                this.company_tax_number = this.company.tax_number
+                this.founding_date = this.company.founding_date === null ? '' : this.company.founding_date
+                this.facebook_input = this.company.facebook_social
+                this.instagram_input = this.company.instagram_social
+                this.telegram_input = this.company.telegram_social
+                this.twitter_input = this.company.twitter_social
+                this.site_company = this.company.site_company === null ? '' : this.company.site_company
+                this.count_working = this.company.count_working_company
+                this.objTextarea.about_company = this.company.about_company
+
+                if(this.company.image !== null){
+                    this.update_logotype_url = this.company.image.url
+                }
+
+                // Location
+                this.objLocations.load_countries = this.settings.obj_countries
+                this.objLocations.country = this.company.country.code
+                this.loadRegions();
+                if(this.company.region != null){
+                    this.objLocations.region = this.company.region.code
+                    setTimeout(() => {
+                        this.loadCity()
+                    }, 500);
+                }
+                if(this.company.city != null){
+                    this.objLocations.city = this.company.city.code
+                }
+                setTimeout(() => {
+                    this.objLocations.bool_rest_address = true
+                }, 1000);
+                this.rest_address = this.company.rest_address
+
+                // categories
+                this.objCategory.categories = this.company.categories
+                var input = '';
+                for(let i=0; i<this.objCategory.categories.length; i++) {
+                    input = document.querySelector('#category_'+this.objCategory.categories[i]);
+                    input.checked = true;
+                }
+                this.objCategory.boolChecked = true;
+
+                // youtube
+                if(Array.isArray(this.company.youtube_links) && this.company.youtube_links.length){
+                    // добавить поля
+                    for(let i = 1; i < this.company.youtube_links.length; i++){
+                        this.addInputYoutube()
+                    }
+                    // заполнить поля
+                    let tick = 0
+                    for (const item of document.querySelectorAll('.input_youtube')) {
+                        item.value = this.company.youtube_links[tick]
+                        tick++
+                    }
+                }
+
+            },
         },
         props: [
             'lang',
             'settings',
+            'company',
         ],
         mounted() {
             this.initializationFunc
+
+            // Код, который будет запущен только после отрисовки всех представлений
+            this.$nextTick( () => {
+                this.setValuesFields
+            })
         },
         validations: {
             position: {
@@ -768,6 +890,30 @@
             },
             position_transliteration: {
                 required,
+                // проверка на повторение в базе
+                uniqTranslit: function(newEmail) {
+                    // если поле пустое - не выводи эту ошибку
+                    if (newEmail === '') return true
+
+                    return new Promise((resolve, reject) => {
+                        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
+                        $.ajax({
+                            url: "/private-office/my-company/check-transliteration",
+                            method: "POST",
+                            data: {
+                                alias: this.position_transliteration
+                            },
+                            success: (response) => {
+                                if(response?.message && response.message){
+                                    resolve(false)
+                                }
+                                else{
+                                    resolve(true)
+                                }
+                            }
+                        });
+                    })
+                }
             },
             rest_address: {
                 required,

@@ -68,8 +68,14 @@ Route::group([
         Route::group(['prefix'=>'private-office'], function (){
             // office
             Route::get('/', 'PrivateOfficeController@index');
-            Route::get('my-company', 'PrivateOfficeController@myCompany');
-            Route::post('my-company/store', 'PrivateOfficeController@store');
+
+            // company
+            Route::group(['prefix'=>'my-company'], function (){
+                Route::get('/', 'MyCompanyController@index');
+                Route::post('store', 'MyCompanyController@store');
+                Route::post('update', 'MyCompanyController@update');
+                Route::post('check-transliteration', 'MyCompanyController@checkTransliteration');
+            });
 
             // vacancies
             Route::group(['prefix'=>'vacancy'], function (){
