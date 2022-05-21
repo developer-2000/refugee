@@ -20,6 +20,7 @@ Vue.use( CKEditor );
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
 Vue.component('my-company-component', require('./components/company/MyCompanyComponent').default);
+Vue.component('company-component', require('./components/company/CompanyComponent').default);
 Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
 Vue.component('bookmark-vacancies-component', require('./components/vacancy/BookmarkVacanciesComponent').default);
 Vue.component('hidden-vacancies-component', require('./components/vacancy/HiddenVacanciesComponent').default);

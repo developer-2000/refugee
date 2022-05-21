@@ -26,8 +26,8 @@ class User extends Authenticatable
         return $this->hasMany(Vacancy::class, 'user_id', 'id');
     }
 
-    public function employer() {
-        return $this->hasOne(Employer::class, 'user_id', 'id');
+    public function company() {
+        return $this->hasOne(UserCompany::class, 'user_id', 'id');
     }
 
 }

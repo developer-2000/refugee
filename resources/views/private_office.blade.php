@@ -5,6 +5,7 @@
 
     <office-component
         :lang="{{json_encode($lang)}}"
+        :company="{{json_encode($company)}}"
     ></office-component>
 
 </div>

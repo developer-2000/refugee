@@ -1,8 +1,9 @@
 <template>
     <div>
-        <!-- title -->
+        <!-- title company logo status -->
         <div class="box-title-logo container-fluid">
             <div class="row box-title">
+                <!-- title -->
                 <h2 class="col-sm-9 title-vacancy">
                     {{UpperCaseFirstCharacter(vacancy.position.title)}}
                 </h2>
@@ -11,9 +12,9 @@
                     class="col-sm-3 company-vacancy"
                 >
                     <span>
-                        <img :src="vacancy.employer.logo.url" alt="Test image" class="img-logo">
+                        <img :src="`/${vacancy.company.image.url}`" alt="Test image" class="img-logo">
                         <div class="font-weight-bold">
-                            {{vacancy.employer.title}}
+                            {{vacancy.company.title}}
                         </div>
                     </span>
                 </div>
@@ -241,7 +242,8 @@
                 flex-direction: column;
                 align-items: center;
                 .img-logo {
-                    width: 100px;
+                    width: 200px;
+                    height: 100px;
                 }
             }
         }

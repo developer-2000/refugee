@@ -35,7 +35,7 @@ class VacancyController extends BaseController {
     {
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancies = $this->repository->initialDataForSampling($request)
-            ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
+            ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
             ->paginate(5);
 
         return view('index', compact('settings', 'vacancies'));
@@ -53,7 +53,7 @@ class VacancyController extends BaseController {
         $back_url = $this->getElementsBread();
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancy = Vacancy::where('id', $request->vacancy_id)
-            ->with('position','employer.logo','id_saved_vacancies','id_not_shown_vacancies')
+            ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
             ->first();
         return view('vacancies.show_vacancy', compact('settings','vacancy','back_url'));
     }
@@ -94,10 +94,7 @@ class VacancyController extends BaseController {
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
 
-        $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::find(1)->first()->pluck('country')){
-            $settings['obj_countries'] = $objCountries[0]['EN'];
-        }
+        $settings = $this->getSettingsVacanciesAndCountries();
 
         return view('vacancies/create_vacancy', compact('vacancy','settings'));
     }
@@ -157,7 +154,7 @@ class VacancyController extends BaseController {
     {
         $settings = config('site.settings_vacancy');
         $user_data = User::where('id', Auth::user()->id)
-            ->with('vacancies.position', 'vacancies.employer.logo')
+            ->with('vacancies.position', 'vacancies.company.image')
             ->first();
 
 //        dd($user_data->toArray()['vacancies'][0]);
@@ -224,7 +221,7 @@ class VacancyController extends BaseController {
     {
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancies = UserSaveVacancy::where('user_id', Auth::user()->id)
-            ->with('vacancy.position','vacancy.employer.logo')
+            ->with('vacancy.position','vacancy.company.image')
             ->get();
 
         return view('vacancies.bookmark_vacancies', compact('settings','vacancies'));
@@ -238,7 +235,7 @@ class VacancyController extends BaseController {
     {
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancies = UserHideVacancy::where('user_id', Auth::user()->id)
-            ->with('vacancy.position','vacancy.employer.logo')
+            ->with('vacancy.position','vacancy.company.image')
             ->get();
 
         return view('vacancies.hidden_vacancies', compact('settings','vacancies'));

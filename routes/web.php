@@ -60,16 +60,22 @@ Route::group([
         });
     });
 
-    //    Route::get('/private-office/vacancy/{country?}/{region?}/{city?}', 'SearchVacancyController@jobSearch');
+    // vacancy
     Route::resource('vacancy', 'VacancyController')->only([
         'index','show',
     ]);
+
+    // company
+    Route::get('/company/{alias}', 'CompanyController@show')
+        ->where('alias', '[0-9a-z_-]+');
+
+    // private-office
     Route::group(['middleware'=>['auth']], function () {
         Route::group(['prefix'=>'private-office'], function (){
             // office
             Route::get('/', 'PrivateOfficeController@index');
 
-            // company
+            // my company
             Route::group(['prefix'=>'my-company'], function (){
                 Route::get('/', 'MyCompanyController@index');
                 Route::post('store', 'MyCompanyController@store');
@@ -94,14 +100,15 @@ Route::group([
         });
     });
 
-    // select localisation
+    // localisation
     Route::group(['prefix'=>'localisation'], function (){
         Route::post('/get-region', 'CountryController@getRegion');
         Route::post('/get-city', 'CountryController@getCity');
     });
 
     // change language
-    Route::get('language/{name}', 'LanguageController@changeLanguage')->name('language');
+    Route::get('language/{name}', 'LanguageController@changeLanguage')
+        ->name('language');
 
     Route::resource('country', 'CountryController')->only([
         'show'

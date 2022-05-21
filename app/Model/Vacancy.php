@@ -33,27 +33,27 @@ class Vacancy extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    // Image чарез Employer
-    // цепочка = Vacancy user_id, Employer user_id, Employer logo_id,
-    public function logo_employer() {
+    // Image чарез company
+    // цепочка = Vacancy user_id, company user_id, company logo_id,
+    public function logo_company() {
         return $this->hasOneThrough(
             Image::class,      // доступ
-            Employer::class,  // промежуточная
+            UserCompany::class,  // промежуточная
             'user_id',         // мой локальный
             'id',           // доступ
             'user_id',        // внешний промежуточная
             'logo_id'   // внешний промежуточная
         )->withDefault(function ($data) {
             $data->title = 'Default logo';
-            $data->url = '/img/employer/employer-default.jpg';
+            $data->url = '/img/company/company-default.jpg';
         });
     }
 
-    // Employer через User
-    // цепочка = Vacancy user_id, User id, Employer user_id,
-    public function employer() {
+    // company через User
+    // цепочка = Vacancy user_id, User id, company user_id,
+    public function company() {
         return $this->hasOneThrough(
-            Employer::class,
+            UserCompany::class,
             User::class,
             'id',
             'user_id',
@@ -63,10 +63,9 @@ class Vacancy extends Model
             $data->title = 'Default company title';
             $data->logo = [
                 "title" => "Default logo",
-                "url" => "/img/employer/employer-default.jpg",
+                "url" => "/img/company/company-default.jpg",
             ];
         });
-
     }
 
     // масив UserSaveVacancy через User
