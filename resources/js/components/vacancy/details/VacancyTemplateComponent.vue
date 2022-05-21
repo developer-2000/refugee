@@ -12,7 +12,10 @@
                     class="col-sm-3 company-vacancy"
                 >
                     <span>
-                        <img :src="`/${vacancy.company.image.url}`" alt="Test image" class="img-logo">
+                        <img class="img-logo"
+                             :src="`/${vacancy.company.image.url}`"
+                             :alt="vacancy.company.image.title"
+                        >
                         <div class="font-weight-bold">
                             {{vacancy.company.title}}
                         </div>
