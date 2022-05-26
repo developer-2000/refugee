@@ -18,6 +18,7 @@ return [
         'auth',
         'vacancies',
         'company',
+        'office',
     ],
 
     /*

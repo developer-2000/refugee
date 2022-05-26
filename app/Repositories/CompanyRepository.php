@@ -129,7 +129,7 @@ class CompanyRepository extends CoreRepository {
             'region'=> ($request->region != null) ? $this->convertingToJson($request->region[0]) : null,
             'city'=> ($request->city != null) ? $this->convertingToJson($request->city[0]) : null,
             'rest_address'=>$request->rest_address,
-            'categories'=>$request->categories,
+            'categories'=>array_map('intval', $request->categories),
             'youtube_links'=>$request->youtube_links,
             'tax_number'=>$request->tax_number,
             'founding_date'=>$request->founding_date,

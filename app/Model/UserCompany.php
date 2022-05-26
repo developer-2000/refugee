@@ -18,4 +18,8 @@ class UserCompany extends Model
     public function image() {
         return $this->belongsTo(Image::class, 'logo_id', 'id');
     }
+
+    public function vacancies() {
+        return $this->hasMany(Vacancy::class, 'user_id', 'user_id');
+    }
 }

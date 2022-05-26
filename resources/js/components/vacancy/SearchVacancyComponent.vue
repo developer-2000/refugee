@@ -1,7 +1,7 @@
 <template>
     <div class="search-panel">
         <h1 class="title_page">
-            Поиск вакансий
+            {{trans('vacancies','job_search')}}
         </h1>
 
         <!-- search line -->
@@ -9,7 +9,7 @@
             <div class="form-group">
                 <div class="box-position">
                     <input type="text" class="form-control" maxlength="100" autocomplete="off"
-                           placeholder="Поиск"
+                           :placeholder="trans('vacancies','search')"
                            v-model="position"
                            @keyup="searchPosition($event.target.value)"
                            @keydown="enterKey"
@@ -28,7 +28,9 @@
                 </div>
                 <button type="button" class="btn btn-block btn-primary"
                         @click="searchVacancies"
-                >Искать</button>
+                >
+                    {{trans('vacancies','search_2')}}
+                </button>
             </div>
         </div>
 
@@ -86,6 +88,7 @@
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import vacancy_template from "./details/VacancyTemplateComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
+    import translation from "../../mixins/translation";
 
     export default {
         components: {
@@ -97,6 +100,7 @@
         mixins: [
             general_functions_mixin,
             response_methods_mixin,
+            translation,
         ],
         data() {
             return {

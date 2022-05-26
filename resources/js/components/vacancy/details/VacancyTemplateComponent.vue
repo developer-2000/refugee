@@ -3,36 +3,52 @@
         <!-- title company logo status -->
         <div class="box-title-logo container-fluid">
             <div class="row box-title">
-                <!-- title -->
-                <h2 class="col-sm-9 title-vacancy">
-                    {{UpperCaseFirstCharacter(vacancy.position.title)}}
-                </h2>
-                <!-- company logo -->
-                <div v-if="page !== 'my_vacancy'"
-                    class="col-sm-3 company-vacancy"
-                >
-                    <span>
-                        <img class="img-logo"
-                             :src="`/${vacancy.company.image.url}`"
-                             :alt="vacancy.company.image.title"
-                        >
-                        <div class="font-weight-bold">
-                            {{vacancy.company.title}}
-                        </div>
-                    </span>
-                </div>
-                <!-- status public -->
-                <template v-else>
-                    <div class="no-verified"
-                         v-if="!vacancy.published"
+                    <!-- title vacancy -->
+                    <h2 class="col-sm-9 title-vacancy">
+                        {{UpperCaseFirstCharacter(vacancy.position.title)}}
+                    </h2>
+                    <!-- company logo -->
+                    <a class="col-sm-3 link-a" target="_blank"
+                       :href="`${lang.prefix_lang}company/${vacancy.company.alias}`"
+                       v-if="page === 'show'"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM223.1 149.5L313.4 220.3C317.6 211.8 320 202.2 320 191.1C320 180.5 316.1 169.7 311.6 160.4C314.4 160.1 317.2 159.1 320 159.1C373 159.1 416 202.1 416 255.1C416 269.7 413.1 282.7 407.1 294.5L446.6 324.7C457.7 304.3 464 280.9 464 255.1C464 176.5 399.5 111.1 320 111.1C282.7 111.1 248.6 126.2 223.1 149.5zM320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L177.4 235.8C176.5 242.4 176 249.1 176 255.1C176 335.5 240.5 400 320 400C338.7 400 356.6 396.4 373 389.9L446.2 447.5C409.9 467.1 367.8 480 320 480H320z"/></svg>
-                        на проверке
+                        <div class="company-vacancy">
+                            <span>
+                                <div class="font-weight-bold">
+                                    {{vacancy.company.title}}
+                                </div>
+                                <img class="img-logo"
+                                     :src="`/${vacancy.company.image.url}`"
+                                     :alt="vacancy.company.image.title"
+                                >
+                            </span>
+                        </div>
+                    </a>
+                    <div class="col-sm-3 company-vacancy"
+                         v-if="page === 'search'"
+                    >
+                        <span>
+                            <div class="font-weight-bold">
+                                {{vacancy.company.title}}
+                            </div>
+                            <img class="img-logo"
+                                 :src="`/${vacancy.company.image.url}`"
+                                 :alt="vacancy.company.image.title"
+                            >
+                        </span>
                     </div>
-                    <div class="verified" v-else>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"/></svg>
-                    </div>
-                </template>
+                    <!-- status public -->
+                    <template v-else-if="page === 'my_vacancy'">
+                        <div class="no-verified"
+                             v-if="!vacancy.published"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM223.1 149.5L313.4 220.3C317.6 211.8 320 202.2 320 191.1C320 180.5 316.1 169.7 311.6 160.4C314.4 160.1 317.2 159.1 320 159.1C373 159.1 416 202.1 416 255.1C416 269.7 413.1 282.7 407.1 294.5L446.6 324.7C457.7 304.3 464 280.9 464 255.1C464 176.5 399.5 111.1 320 111.1C282.7 111.1 248.6 126.2 223.1 149.5zM320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L177.4 235.8C176.5 242.4 176 249.1 176 255.1C176 335.5 240.5 400 320 400C338.7 400 356.6 396.4 373 389.9L446.2 447.5C409.9 467.1 367.8 480 320 480H320z"/></svg>
+                            {{trans('vacancies','checking')}}
+                        </div>
+                        <div class="verified" v-else>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"/></svg>
+                        </div>
+                    </template>
             </div>
         </div>
         <!-- salary -->
@@ -74,7 +90,7 @@
                 </span>
                 <span class="first_half">
                     <!-- Onsite, Remote-->
-                    {{settings.type_employment[vacancy.type_employment]}}
+                    {{trans('vacancies',settings.type_employment[vacancy.type_employment])}}
                 </span>
             </div>
             <div class="comment-vacancy">
@@ -92,7 +108,9 @@
             <span class="box-svg">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 80V128C448 172.2 347.7 208 224 208C100.3 208 0 172.2 0 128V80C0 35.82 100.3 0 224 0C347.7 0 448 35.82 448 80zM393.2 214.7C413.1 207.3 433.1 197.8 448 186.1V288C448 332.2 347.7 368 224 368C100.3 368 0 332.2 0 288V186.1C14.93 197.8 34.02 207.3 54.85 214.7C99.66 230.7 159.5 240 224 240C288.5 240 348.3 230.7 393.2 214.7V214.7zM54.85 374.7C99.66 390.7 159.5 400 224 400C288.5 400 348.3 390.7 393.2 374.7C413.1 367.3 433.1 357.8 448 346.1V432C448 476.2 347.7 512 224 512C100.3 512 0 476.2 0 432V346.1C14.93 357.8 34.02 367.3 54.85 374.7z"/></svg>
             </span>
-                {{settings.work_experience[vacancy.experience]}}
+            <span class="font-weight-bold">
+                {{UpperCaseFirstCharacter( trans('vacancies',settings.work_experience[vacancy.experience]) )}}
+            </span>
             </div>
             <!-- возраст -->
             <div class="line-div age-vacancy">
@@ -103,13 +121,13 @@
                 <div v-if="vacancy.vacancy_suitable.radio_name == 'set_age'"
                      class="font-weight-bold first_half"
                 >
-                    {{vacancy.vacancy_suitable.inputs.from}} - {{vacancy.vacancy_suitable.inputs.to}} years
+                    {{vacancy.vacancy_suitable.inputs.from}} - {{vacancy.vacancy_suitable.inputs.to}} {{trans('vacancies','years')}}
                 </div>
                 <!-- не имеет значения -->
                 <div v-else-if="vacancy.vacancy_suitable.radio_name == 'it_not_matter'"
                      class="font-weight-bold first_half"
                 >
-                    {{vacancy.vacancy_suitable.radio_name}}
+                    {{UpperCaseFirstCharacter( trans('vacancies',vacancy.vacancy_suitable.radio_name) )}}
                 </div>
                 <!-- comment -->
                 <div class="comment-vacancy"
@@ -128,20 +146,20 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M288 358.3c13.98-8.088 17.53-30.04 28.88-41.39c11.35-11.35 33.3-14.88 41.39-28.87c7.98-13.79 .1658-34.54 4.373-50.29C366.7 222.5 383.1 208.5 383.1 192c0-16.5-17.27-30.52-21.34-45.73c-4.207-15.75 3.612-36.5-4.365-50.29c-8.086-13.98-30.03-17.52-41.38-28.87c-11.35-11.35-14.89-33.3-28.87-41.39c-13.79-7.979-34.54-.1637-50.29-4.375C222.5 17.27 208.5 0 192 0C175.5 0 161.5 17.27 146.3 21.34C130.5 25.54 109.8 17.73 95.98 25.7C82 33.79 78.46 55.74 67.11 67.08C55.77 78.43 33.81 81.97 25.72 95.95C17.74 109.7 25.56 130.5 21.35 146.2C17.27 161.5 .0008 175.5 .0008 192c0 16.5 17.27 30.52 21.34 45.73c4.207 15.75-3.615 36.5 4.361 50.29C33.8 302 55.74 305.5 67.08 316.9c11.35 11.35 14.89 33.3 28.88 41.4c13.79 7.979 34.53 .1582 50.28 4.369C161.5 366.7 175.5 384 192 384c16.5 0 30.52-17.27 45.74-21.34C253.5 358.5 274.2 366.3 288 358.3zM112 192c0-44.27 35.81-80 80-80s80 35.73 80 80c0 44.17-35.81 80-80 80S112 236.2 112 192zM1.719 433.2c-3.25 8.188-1.781 17.48 3.875 24.25c5.656 6.75 14.53 9.898 23.12 8.148l45.19-9.035l21.43 42.27C99.46 507 107.6 512 116.7 512c.3438 0 .6641-.0117 1.008-.0273c9.5-.375 17.65-6.082 21.24-14.88l33.58-82.08c-53.71-4.639-102-28.12-138.2-63.95L1.719 433.2zM349.6 351.1c-36.15 35.83-84.45 59.31-138.2 63.95l33.58 82.08c3.594 8.797 11.74 14.5 21.24 14.88C266.6 511.1 266.1 512 267.3 512c9.094 0 17.23-4.973 21.35-13.14l21.43-42.28l45.19 9.035c8.594 1.75 17.47-1.398 23.12-8.148c5.656-6.766 7.125-16.06 3.875-24.25L349.6 351.1z"/></svg>
             </span>
                 <div class="font-weight-bold">
-                    {{settings.education[vacancy.education]}}
+                    {{UpperCaseFirstCharacter( trans('vacancies',settings.education[vacancy.education]) )}}
                 </div>
             </div>
             <!-- Описание вакансии -->
             <div v-if="page == 'show'"
                  class="textarea-vacancy"
             >
-                <b>Описание вакансии</b>
+                <b>{{trans('vacancies','job_description')}}</b>
                 <div v-html="vacancy.text_description"></div>
             </div>
             <div v-else-if="page == 'search' && vacancy.text_description"
                  class="textarea-vacancy"
             >
-                <b>Описание вакансии</b><br>
+                <b>{{trans('vacancies','job_description')}}</b><br>
                 {{ cutTags(vacancy.text_description).slice(0, 150) }}
                 <div class="link-vacancy">
                     ...
@@ -154,12 +172,12 @@
             <template v-if="page == 'show'">
                 <!-- Условия работы -->
                 <div class="textarea-vacancy">
-                    <b>Условия работы</b>
+                    <b>{{trans('vacancies','working_conditions')}}</b>
                     <div v-html="vacancy.text_working"></div>
                 </div>
                 <!-- Обязанности кандидата -->
                 <div class="textarea-vacancy">
-                    <b>Обязанности кандидата</b>
+                    <b>{{trans('vacancies','candidate_responsibilities')}}</b>
                     <div v-html="vacancy.text_responsibilities"></div>
                 </div>
             </template>
@@ -170,9 +188,11 @@
 
 <script>
     import general_functions_mixin from "../../../mixins/general_functions_mixin";
+    import translation from "../../../mixins/translation";
 
     export default {
         mixins: [
+            translation,
             general_functions_mixin,
         ],
         data() {

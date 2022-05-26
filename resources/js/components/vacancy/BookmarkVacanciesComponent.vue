@@ -4,29 +4,35 @@
             :href="`${lang.prefix_lang}private-office`"
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-            Кабинет
+            {{trans('menu.menu','cabinet')}}
         </a>
-        <h1 class="title_page card-body">Закладки <u>сохраненных</u> вакансий</h1>
+        <h1 class="title_page card-body">
+            {{trans('vacancies','bookmarks')}}
+            <u>{{trans('vacancies','saved')}}</u>
+            {{trans('vacancies','vacancies_2')}}
+        </h1>
         <!-- No vacancies -->
         <div class="callout callout-warning"
              v-if="!vacancies.length"
         >
-            <b>Вакансии отсутствуют.</b>
+            <b>{{trans('vacancies','no_vacancies')}}</b>
             <div>
-                В этом разделе хранятся вакансии, которые вы добавили на странице поиска вакансий при нажатии на иконку в виде
+                {{trans('vacancies','this_section_stores')}}
                 «<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <path d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"/>
                 </svg>».
-                Добавление вакансий, помогает отслеживать и иметь быстрый доступ. Это удобно когда вы ведете переписки с работодателем, обращаясь к нужной вам информации.
+                {{trans('vacancies','adding_vacancies_helps_track')}}
                 <br>
-                Чтобы сохранить вакансию, перейдите на страницу
+                {{trans('vacancies','to_save_job_page')}}
                 <a class="link-a" target="_blank"
                    :href="`${lang.prefix_lang}vacancy`"
-                >поиска вакансий.</a>
+                >
+                    {{trans('vacancies','search_vacancies')}}
+                </a>
             </div>
         </div>
         <div v-else class="desc-helper-italic">
-            Помогает отслеживать и иметь быстрый доступ к необходимой вакансии.
+            {{trans('vacancies','helps_track_have_quick')}}
         </div>
 
         <!-- vacancies -->
@@ -48,7 +54,7 @@
                 <button class="btn btn-block btn-outline-danger" type="button"
                         @click="bookmarkVacancy($event,array.vacancy.id)"
                 >
-                    Убрать
+                    {{trans('vacancies','remove')}}
                 </button>
             </div>
 

@@ -2,6 +2,30 @@
 
 return [
 
+    'on_site_from'=>'на сайті з',
+    'years'=>'року',
+    'company_information'=>'Інформація про компанію',
+    'jobs'=>'Вакансії',
+    'about_company_2'=>'Про компанію',
+    'company_description_empty'=>'Опис про Компанію не заповнено !',
+    'media_files'=>'Медіафайли',
+    'company_vacancies'=>'Вакансії компанії',
+    'no_vacancies_created'=>'Не одна вакансія не створена!',
+
+
+    'update_company_data'=>'Оновити дані компанії',
+    'this_transliteration'=>'Ця транслітерація вже зайнята!',
+    'field_only_for'=>'Поле призначене лише для ',
+    'facebook_links'=>'Facebook посилань',
+    'instagram_links'=>'Instagram посилань',
+    'telegram_links'=>'Telegram посилань',
+    'twitter_links'=>'Twitter посилань',
+    'company_video'=>'Відео компанії',
+    'youtube_links'=>'youtube посилань',
+    'add_address'=>'Додати адресу',
+    'company_logo'=>'Логотип компанії',
+    'change_logo'=>'Змінити логотип',
+
     // info
     'create_your_company'=>'Створити свою компанію',
     'change company details'=>'Змінити дані компанії',

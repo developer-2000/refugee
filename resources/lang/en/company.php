@@ -2,6 +2,30 @@
 
 return [
 
+    'on_site_from'=>'on site from',
+    'years'=>'years',
+    'company_information'=>'Company information',
+    'jobs'=>'Jobs',
+    'about_company_2'=>'About company',
+    'company_description_empty'=>'Company description is empty!',
+    'media_files'=>'Media files',
+    'company_vacancies'=>'Company vacancies',
+    'no_vacancies_created'=>'No vacancies have been created!',
+
+
+    'update_company_data'=>'Update company data',
+    'this_transliteration'=>'This transliteration is already taken!',
+    'field_only_for'=>'Field is only for ',
+    'facebook_links'=>'Facebook links',
+    'instagram_links'=>'Instagram links',
+    'telegram_links'=>'Telegram links',
+    'twitter_links'=>'Twitter links',
+    'company_video'=>'Company video',
+    'youtube_links'=>'youtube links',
+    'add_address'=>'Add address',
+    'company_logo'=>'Company logo',
+    'change_logo'=>'Change logo',
+
 // info
     'create_your_company'=>'Create your company',
     'change company details'=>'Change company details',

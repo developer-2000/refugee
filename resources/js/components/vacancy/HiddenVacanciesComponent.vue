@@ -4,22 +4,26 @@
             :href="`${lang.prefix_lang}private-office`"
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-            Кабинет
+            {{trans('menu.menu','cabinet')}}
         </a>
-        <h1 class="title_page card-body">Закладки <u>скрытых</u> вакансий</h1>
+        <h1 class="title_page card-body">
+            {{trans('vacancies','bookmarks')}}
+            <u>{{trans('vacancies','hidden_2')}}</u>
+            {{trans('vacancies','vacancies_2')}}
+        </h1>
         <!-- No vacancies -->
         <div class="callout callout-warning"
              v-if="!vacancies.length"
         >
-            <b>Вакансии отсутствуют.</b>
+            <b>{{trans('vacancies','no_vacancies')}}</b>
             <div>
-                В этом разделе хранятся вакансии, которые вы скрыли на странице поиска вакансий. Они не будут отображаться на странице поиска, предоставляя возможность увидеть новое и интересное.
+                {{trans('vacancies','this_section_you_hidden')}}
                 <br>
-                Скрывайте вакансии всякий раз, когда точно знаете, что она вам не подходит.
+                {{trans('vacancies','hide_vacancies_whenever')}}
             </div>
         </div>
         <div v-else class="desc-helper-italic">
-            Они не будут отображаться на странице поиска, предоставляя возможность увидеть новое и интересное.
+            {{trans('vacancies','they_not_show_up')}}
         </div>
 
         <!-- vacancies -->
@@ -40,7 +44,7 @@
                 <button class="btn btn-block btn-outline-danger" type="button"
                         @click="bookmarkVacancy($event, array.vacancy.id)"
                 >
-                    Убрать
+                    {{trans('vacancies','remove')}}
                 </button>
             </div>
 

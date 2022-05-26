@@ -2624,6 +2624,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _vacancy_details_BookmarkButtonsVacancyComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../vacancy/details/BookmarkButtonsVacancyComponent */ "./resources/js/components/vacancy/details/BookmarkButtonsVacancyComponent.vue");
+/* harmony import */ var _vacancy_details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../vacancy/details/VacancyTemplateComponent */ "./resources/js/components/vacancy/details/VacancyTemplateComponent.vue");
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+/* harmony import */ var _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/general_functions_mixin */ "./resources/js/mixins/general_functions_mixin.js");
 //
 //
 //
@@ -2736,15 +2741,162 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [],
-  components: {},
+  mixins: [_mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_4__["default"]],
+  components: {
+    'bookmark_buttons': _vacancy_details_BookmarkButtonsVacancyComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'vacancy_template': _vacancy_details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {};
   },
-  methods: {},
-  props: ['lang', 'company'],
-  mounted: function mounted() {}
+  methods: {
+    addressView: function addressView(companyObj) {
+      var address_string = '';
+
+      if (companyObj.country !== null) {
+        address_string += companyObj.country.name + '.';
+      }
+
+      if (companyObj.region !== null) {
+        address_string += ' ' + companyObj.region.name + '.';
+      }
+
+      if (companyObj.city !== null) {
+        address_string += ' ' + companyObj.city.name + '.';
+      }
+
+      address_string += ' ' + companyObj.rest_address + '.';
+      return address_string;
+    },
+    getDate: function getDate(value) {
+      var string,
+          date = new Date(value);
+      string = date.toLocaleString('default', {
+        month: 'long'
+      });
+      string = string.charAt(0).toUpperCase() + string.slice(1);
+      string = string + ' ' + date.getFullYear();
+      return string;
+    },
+    getIfFrame: function getIfFrame(url) {
+      var id = null;
+      var youtubeRegExp = /(?:[?&]vi?=|\/embed\/|\/\d\d?\/|\/vi?\/|https?:\/\/(?:www\.)?youtu\.be\/)([^&\n?#]+)/;
+      var match = url.match(youtubeRegExp);
+
+      if (match && match[1].length == 11) {
+        id = match[1];
+      } else {
+        this.message('В ссылке id видео не корректно!', 'error', 10000, false);
+        return false;
+      }
+
+      return id;
+    },
+    transitionToVacancy: function transitionToVacancy(vacancy_alias) {
+      location.href = this.lang.prefix_lang + 'vacancy/' + vacancy_alias;
+    },
+    scrollToAbout: function scrollToAbout() {
+      var el = document.getElementById('box-about-company');
+      $('html,body').animate({
+        scrollTop: $(el).offset().top + "px"
+      }, 500, 'linear');
+    },
+    scrollToVacancies: function scrollToVacancies() {
+      var el = document.getElementById('box-company-vacancies');
+      $('html,body').animate({
+        scrollTop: $(el).offset().top + "px"
+      }, 500, 'linear');
+    }
+  },
+  props: ['lang', 'company', 'settings', 'user'],
+  mounted: function mounted() {
+    console.log(this.company);
+  }
 });
 
 /***/ }),
@@ -2778,6 +2930,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -3487,7 +3640,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (categories !== null) {
         categories.forEach(function (value) {
-          formData.append("categories[]", value);
+          formData.append("categories[]", parseInt(value));
         });
       }
 
@@ -3858,7 +4011,7 @@ __webpack_require__.r(__webpack_exports__);
       return new RegExp('(' + this.format_files.join('|').replace(/\./g, '\\.') + ')$').test(name);
     }
   },
-  props: ['lang', 'update_logotype_url'],
+  props: ['lang', 'update_logotype_url', 'update_logotype_text'],
   watch: {
     update_logotype_url: function update_logotype_url(val) {
       this.logotype_url = val;
@@ -4119,6 +4272,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 //
 //
 //
@@ -4166,7 +4320,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {};
   },
@@ -4199,6 +4355,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5507,6 +5669,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -6343,6 +6509,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6608,6 +6798,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/general_functions_mixin.js */ "./resources/js/mixins/general_functions_mixin.js");
 /* harmony import */ var _details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./details/VacancyTemplateComponent */ "./resources/js/components/vacancy/details/VacancyTemplateComponent.vue");
 /* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6695,6 +6886,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+
 
 
 
@@ -6708,7 +6902,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'bookmark_buttons': _details_BookmarkButtonsVacancyComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     'vacancy_template': _details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__["default"]],
+  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_7__["default"]],
   data: function data() {
     return {
       position: '',
@@ -6995,6 +7189,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/general_functions_mixin.js */ "./resources/js/mixins/general_functions_mixin.js");
 /* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../mixins/translation */ "./resources/js/mixins/translation.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7093,8 +7288,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_3__["default"]],
   data: function data() {
     return {
       reactive_state_variable: '1'
@@ -7365,6 +7561,25 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/general_functions_mixin */ "./resources/js/mixins/general_functions_mixin.js");
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/translation */ "./resources/js/mixins/translation.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7536,8 +7751,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {};
   },
@@ -12052,7 +12268,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".font-weight-bold[data-v-4885e2bd] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-4885e2bd] {\n  display: flex;\n  padding: 0;\n}\n.box-page .left-site[data-v-4885e2bd] {\n  border-right: 1px solid #dee2e6;\n  width: 400px;\n  padding: 20px 10px;\n}\n.box-page .left-site svg path[data-v-4885e2bd] {\n  fill: #1d68a7;\n}\n.box-page .left-site .box-title[data-v-4885e2bd] {\n  text-align: center;\n  margin-bottom: 15px;\n}\n.box-page .left-site .box-title img[data-v-4885e2bd] {\n  width: 200px;\n  height: 100px;\n}\n.box-page .left-site .box-properties[data-v-4885e2bd] {\n  padding: 10px 0;\n}\n.box-page .left-site .box-properties .line-property[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n  white-space: nowrap;\n}\n.box-page .left-site .box-properties .line-property .box-svg[data-v-4885e2bd] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n  margin: 0 5px 5px 0;\n  text-align: center;\n  padding: 2px 0;\n}\n.box-page .left-site .box-properties .property-category svg[data-v-4885e2bd] {\n  width: 22px;\n}\n.box-page .left-site .box-properties .property-location svg[data-v-4885e2bd] {\n  width: 17px;\n}\n.box-page .left-site .box-properties .property-mobile svg[data-v-4885e2bd] {\n  width: 18px;\n}\n.box-page .left-site .box-properties .property-employees svg[data-v-4885e2bd] {\n  width: 26px;\n}\n.box-page .right-site[data-v-4885e2bd] {\n  width: 100%;\n  padding: 0 15px;\n}\n.box-page .right-site > div[data-v-4885e2bd] {\n  margin-bottom: 40px;\n}\n.box-page .right-site .top-panel[data-v-4885e2bd] {\n  display: flex;\n  justify-content: space-between;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px;\n  margin: 0 -15px;\n  z-index: 1;\n  font-size: 17px;\n}\n.box-page .right-site .top-panel .box-soc-button[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd] {\n  width: 30px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-facebook path[data-v-4885e2bd] {\n  fill: #0268e2;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-instagram path[data-v-4885e2bd] {\n  fill: #b542e1;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-telegram path[data-v-4885e2bd] {\n  fill: #2197d0;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-twitter path[data-v-4885e2bd] {\n  fill: #1c99e6;\n}\n.box-page .right-site .top-panel .box-scroll-button[data-v-4885e2bd] {\n  display: flex;\n}\n.box-page .right-site .top-panel .box-scroll-button button[data-v-4885e2bd] {\n  width: auto;\n  margin-left: 15px;\n}\n.box-page .right-site .box-about-company[data-v-4885e2bd] {\n  padding: 20px 0 0;\n}\n.box-page .right-site .box-media-files .block-media-files[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -2px;\n}\n.box-page .right-site .box-media-files .block-media-files img[data-v-4885e2bd] {\n  width: 150px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -5px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies img[data-v-4885e2bd] {\n  width: 150px;\n}", ""]);
+exports.push([module.i, ".font-weight-bold[data-v-4885e2bd] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-4885e2bd] {\n  display: flex;\n  padding: 0;\n}\n.box-page .left-site[data-v-4885e2bd] {\n  border-right: 1px solid #dee2e6;\n  width: 400px;\n  padding: 20px 15px;\n}\n.box-page .left-site svg path[data-v-4885e2bd] {\n  fill: #1d68a7;\n}\n.box-page .left-site .box-title[data-v-4885e2bd] {\n  text-align: center;\n  margin-bottom: 15px;\n}\n.box-page .left-site .box-title img[data-v-4885e2bd] {\n  width: 200px;\n  height: 100px;\n}\n.box-page .left-site .box-properties[data-v-4885e2bd] {\n  padding: 10px 0;\n}\n.box-page .left-site .box-properties .line-property[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n  line-height: 18px;\n  margin-bottom: 5px;\n}\n.box-page .left-site .box-properties .line-property .box-svg[data-v-4885e2bd] {\n  min-width: 30px;\n  display: block;\n  line-height: 16px;\n  margin-right: 5px;\n  text-align: center;\n  padding: 2px 0;\n}\n.box-page .left-site .box-properties .property-category svg[data-v-4885e2bd] {\n  width: 22px;\n}\n.box-page .left-site .box-properties .property-location svg[data-v-4885e2bd] {\n  width: 17px;\n}\n.box-page .left-site .box-properties .property-mobile svg[data-v-4885e2bd] {\n  width: 18px;\n}\n.box-page .left-site .box-properties .property-employees svg[data-v-4885e2bd] {\n  width: 26px;\n}\n.box-page .right-site[data-v-4885e2bd] {\n  width: 100%;\n  padding: 0 15px;\n}\n.box-page .right-site > div[data-v-4885e2bd] {\n  margin-bottom: 40px;\n}\n.box-page .right-site > div[data-v-4885e2bd]:last-child {\n  margin-bottom: 15px;\n}\n.box-page .right-site .top-panel[data-v-4885e2bd] {\n  display: flex;\n  justify-content: space-between;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px;\n  margin: 0 -15px;\n  z-index: 10;\n  font-size: 17px;\n}\n.box-page .right-site .top-panel .box-soc-button[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd] {\n  width: 30px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd]:hover {\n  outline: 1px solid #acddfb;\n  border-radius: 7px;\n  padding: 1px;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-facebook path[data-v-4885e2bd] {\n  fill: #0268e2;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-instagram path[data-v-4885e2bd] {\n  fill: #b542e1;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-telegram path[data-v-4885e2bd] {\n  fill: #2197d0;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-twitter path[data-v-4885e2bd] {\n  fill: #1c99e6;\n}\n.box-page .right-site .top-panel .box-scroll-button[data-v-4885e2bd] {\n  display: flex;\n}\n.box-page .right-site .top-panel .box-scroll-button button[data-v-4885e2bd] {\n  width: auto;\n  margin-left: 15px;\n}\n.box-page .right-site .box-about-company[data-v-4885e2bd] {\n  padding: 20px 0 0;\n}\n.box-page .right-site .box-media-files .block-media-files[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -2px;\n}\n.box-page .right-site .box-media-files .block-media-files img[data-v-4885e2bd] {\n  width: 150px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies[data-v-4885e2bd] {\n  padding: 0;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies img[data-v-4885e2bd] {\n  width: 150px;\n}", ""]);
 
 // exports
 
@@ -47308,7 +47524,20 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-page" }, [
     _c("div", { staticClass: "left-site" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "box-title" }, [
+        _c("h3", { staticClass: "font-weight-bold" }, [
+          _vm._v(
+            "\n                " + _vm._s(_vm.company.title) + "\n            "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("img", {
+          attrs: {
+            src: "/" + _vm.company.image.url,
+            alt: _vm.company.image.title,
+          },
+        }),
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "box-properties" }, [
         _c("div", { staticClass: "line-property property-category" }, [
@@ -47330,7 +47559,24 @@ var render = function () {
               ]
             ),
           ]),
-          _vm._v("\n                Разработка и проектирование\n            "),
+          _vm._v(" "),
+          _c(
+            "span",
+            [
+              _vm._l(_vm.company.categories, function (value, key) {
+                return [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(
+                        _vm.trans("vacancies", _vm.settings.categories[value])
+                      ) +
+                      ",\n                    "
+                  ),
+                ]
+              }),
+            ],
+            2
+          ),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "line-property property-location" }, [
@@ -47352,7 +47598,14 @@ var render = function () {
               ]
             ),
           ]),
-          _vm._v("\n                Украина\n            "),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.addressView(_vm.company)) +
+                "\n                "
+            ),
+          ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "line-property property-mobile" }, [
@@ -47377,27 +47630,43 @@ var render = function () {
           _vm._v("\n                +38(063)688-34-39\n            "),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "line-property" }, [
-          _c("span", { staticClass: "box-svg" }, [
-            _c(
-              "svg",
-              {
-                attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  viewBox: "0 0 512 512",
-                },
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    d: "M256 16C123.5 16 16 123.5 16 256s107.5 240 240 240 239.1-107.5 239.1-240S388.5 16 256 16zm166 144h-48.7c-6.391-27.41-15.39-52.18-26.48-73.1C378.2 103.8 404.2 129.2 422 160zm-86 96c0 16.98-1.295 32.82-3.176 48H179.2c-1.9-15.2-3.2-31.9-3.2-48s1.295-32.82 3.176-48h153.6C334.7 223.2 336 239 336 256zm-80 192c-21.79 0-50.87-36.42-67.28-96h134.6c-16.42 59.6-45.52 96-67.32 96zm-67.3-288c16.4-59.6 45.5-96 67.3-96s50.87 36.42 67.28 96H188.7zm-23.5-73.1c-11.1 20.9-20.1 45.7-26.5 73.1H89.98c17.82-30.8 43.82-56.2 75.22-73.1zM70.32 208h60.25c-1.67 15.5-2.57 31.6-2.57 48s.9 32.5 2.6 48H70.32C66.34 288.6 64 272.6 64 256s2.34-32.6 6.32-48zm19.66 144h48.72c6.391 27.41 15.39 52.18 26.48 73.1-31.38-16.9-57.38-42.3-75.2-73.1zm256.82 73.1c11.1-20.9 20.1-45.7 26.5-73.1h48.74c-17.84 30.8-43.84 56.2-75.24 73.1zM441.7 304h-60.25c1.68-15.51 2.57-31.56 2.57-48s-.89-32.49-2.57-48h60.25c4 15.4 6.3 31.4 6.3 48s-2.3 32.6-6.3 48z",
+        _vm.company.site_company
+          ? _c("div", { staticClass: "line-property" }, [
+              _c("span", { staticClass: "box-svg" }, [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
                   },
-                }),
-              ]
-            ),
-          ]),
-          _vm._v("\n                Сайт компании\n            "),
-        ]),
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M256 16C123.5 16 16 123.5 16 256s107.5 240 240 240 239.1-107.5 239.1-240S388.5 16 256 16zm166 144h-48.7c-6.391-27.41-15.39-52.18-26.48-73.1C378.2 103.8 404.2 129.2 422 160zm-86 96c0 16.98-1.295 32.82-3.176 48H179.2c-1.9-15.2-3.2-31.9-3.2-48s1.295-32.82 3.176-48h153.6C334.7 223.2 336 239 336 256zm-80 192c-21.79 0-50.87-36.42-67.28-96h134.6c-16.42 59.6-45.52 96-67.32 96zm-67.3-288c16.4-59.6 45.5-96 67.3-96s50.87 36.42 67.28 96H188.7zm-23.5-73.1c-11.1 20.9-20.1 45.7-26.5 73.1H89.98c17.82-30.8 43.82-56.2 75.22-73.1zM70.32 208h60.25c-1.67 15.5-2.57 31.6-2.57 48s.9 32.5 2.6 48H70.32C66.34 288.6 64 272.6 64 256s2.34-32.6 6.32-48zm19.66 144h48.72c6.391 27.41 15.39 52.18 26.48 73.1-31.38-16.9-57.38-42.3-75.2-73.1zm256.82 73.1c11.1-20.9 20.1-45.7 26.5-73.1h48.74c-17.84 30.8-43.84 56.2-75.24 73.1zM441.7 304h-60.25c1.68-15.51 2.57-31.56 2.57-48s-.89-32.49-2.57-48h60.25c4 15.4 6.3 31.4 6.3 48s-2.3 32.6-6.3 48z",
+                      },
+                    }),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "link-a",
+                  attrs: { href: _vm.company.site_company, target: "_blank" },
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.trans("company", "company_website")) +
+                      "\n                "
+                  ),
+                ]
+              ),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "line-property property-employees" }, [
           _c("span", { staticClass: "box-svg" }, [
@@ -47424,7 +47693,20 @@ var render = function () {
               ]
             ),
           ]),
-          _vm._v("\n                50–250 сотрудников\n            "),
+          _vm._v(
+            "\n                " +
+              _vm._s(
+                _vm.UpperCaseFirstCharacter(
+                  _vm.trans(
+                    "company",
+                    _vm.settings.count_working[
+                      _vm.company.count_working_company
+                    ]
+                  )
+                )
+              ) +
+              "\n            "
+          ),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "line-property" }, [
@@ -47446,29 +47728,19 @@ var render = function () {
               ]
             ),
           ]),
-          _vm._v("\n                На JOBITT с июнь 2021\n            "),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "line-property" }, [
-          _c("span", { staticClass: "box-svg" }, [
-            _c(
-              "svg",
-              {
-                attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  viewBox: "0 0 512 512",
-                },
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    d: "M448 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V96c0-35.35-28.7-64-64-64zM112 432H64c-8.822 0-16-7.178-16-16v-72h64v88zm0-136H48v-80h64v80zm0-128H48V96c0-8.822 7.178-16 16-16h48v88zm240 264H160V280h192v152zm0-200H160V80h192v152zm112 184c0 8.822-7.178 16-16 16h-48v-88h64v72zm0-120h-64v-80h64v80zm0-128h-64V80h48c8.822 0 16 7.178 16 16v72z",
-                  },
-                }),
-              ]
-            ),
-          ]),
-          _vm._v("\n                Видео компании\n            "),
+          _vm._v(
+            "\n                " +
+              _vm._s(
+                _vm.UpperCaseFirstCharacter(
+                  _vm.trans("company", "on_site_from") +
+                    " " +
+                    _vm.getDate(_vm.company.created_at) +
+                    " " +
+                    _vm.trans("company", "years")
+                )
+              ) +
+              "\n            "
+          ),
         ]),
       ]),
     ]),
@@ -47476,204 +47748,318 @@ var render = function () {
     _c("div", { staticClass: "right-site" }, [
       _c("div", { staticClass: "top-panel" }, [
         _c("div", { staticClass: "box-soc-button" }, [
+          _vm.company.facebook_social
+            ? _c(
+                "a",
+                {
+                  attrs: {
+                    href: _vm.company.facebook_social,
+                    target: "_blank",
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "svg-facebook",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.company.instagram_social
+            ? _c(
+                "a",
+                {
+                  attrs: {
+                    href: _vm.company.instagram_social,
+                    target: "_blank",
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "svg-instagram",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 448 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.company.telegram_social
+            ? _c(
+                "a",
+                {
+                  attrs: {
+                    href: _vm.company.telegram_social,
+                    target: "_blank",
+                  },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "svg-telegram",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 496 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.company.twitter_social
+            ? _c(
+                "a",
+                {
+                  attrs: { href: _vm.company.twitter_social, target: "_blank" },
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "svg-twitter",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              )
+            : _vm._e(),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "box-scroll-button" }, [
           _c(
-            "svg",
+            "button",
             {
-              staticClass: "svg-facebook",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 512 512",
+              staticClass: "btn btn-block btn-outline-primary",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.scrollToAbout()
+                },
               },
             },
             [
-              _c("path", {
-                attrs: {
-                  d: "M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z",
-                },
-              }),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("company", "company_information")) +
+                  "\n                "
+              ),
             ]
           ),
           _vm._v(" "),
           _c(
-            "svg",
+            "button",
             {
-              staticClass: "svg-instagram",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 448 512",
+              staticClass: "btn btn-block btn-outline-primary",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.scrollToVacancies()
+                },
               },
             },
             [
-              _c("path", {
-                attrs: {
-                  d: "M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z",
-                },
-              }),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "svg",
-            {
-              staticClass: "svg-telegram",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 496 512",
-              },
-            },
-            [
-              _c("path", {
-                attrs: {
-                  d: "M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z",
-                },
-              }),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "svg",
-            {
-              staticClass: "svg-twitter",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 512 512",
-              },
-            },
-            [
-              _c("path", {
-                attrs: {
-                  d: "M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z",
-                },
-              }),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("company", "jobs")) +
+                  "\n                "
+              ),
             ]
           ),
         ]),
-        _vm._v(" "),
-        _vm._m(1),
       ]),
       _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3),
-      _vm._v(" "),
-      _vm._m(4),
-    ]),
-  ])
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-title" }, [
-      _c("img", {
-        attrs: { src: "/img/company/company-default.jpg", alt: "Test image" },
-      }),
-      _vm._v(" "),
-      _c("h3", { staticClass: "font-weight-bold" }, [
-        _vm._v("\n                Title company\n            "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-scroll-button" }, [
       _c(
-        "button",
+        "div",
         {
-          staticClass: "btn btn-block btn-outline-primary",
-          attrs: { type: "button" },
+          staticClass: "box-about-company",
+          attrs: { id: "box-about-company" },
         },
         [
-          _vm._v(
-            "\n                    Информация о компании\n                "
-          ),
+          _c("h3", { staticClass: "font-weight-bold" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.trans("company", "about_company_2")) +
+                "\n            "
+            ),
+          ]),
+          _vm._v(" "),
+          _vm.company.about_company
+            ? _c("div", {
+                staticClass: "about-company",
+                domProps: { innerHTML: _vm._s(_vm.company.about_company) },
+              })
+            : _c("div", { staticClass: "about-company" }, [
+                _c("i", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(
+                        _vm.trans("company", "company_description_empty")
+                      ) +
+                      "\n                "
+                  ),
+                ]),
+              ]),
         ]
       ),
       _vm._v(" "),
+      _vm.company.youtube_links
+        ? _c("div", { staticClass: "box-media-files" }, [
+            _c("h3", { staticClass: "font-weight-bold" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.trans("company", "media_files")) +
+                  "\n            "
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid block-media-files " }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _vm._l(_vm.company.youtube_links, function (url, key) {
+                    return [
+                      _c("iframe", {
+                        staticClass: "col-sm-4",
+                        attrs: {
+                          src:
+                            "https://www.youtube.com/embed/" +
+                            _vm.getIfFrame(url),
+                          srcdoc:
+                            "<style>\n                        *{padding:0;margin:0;overflow:hidden}\n                        html,body{height:100%}\n                        img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}\n                        span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black;}\n                        .img{width: 52px;left: calc((100% / 2) - 25px);}\n                        </style>\n                        <a href=https://www.youtube.com/embed/" +
+                            _vm.getIfFrame(url) +
+                            "?autoplay=1>\n                        <img src=https://img.youtube.com/vi/" +
+                            _vm.getIfFrame(url) +
+                            "/hqdefault.jpg alt='Demo video'>\n                        <span class='span'><img class='img' src=/img/custom/youtube_button.png alt='Demo video'></span>\n                        </a>",
+                          frameborder: "0",
+                          allow:
+                            "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+                          allowfullscreen: "",
+                          title: "Demo video",
+                        },
+                      }),
+                    ]
+                  }),
+                ],
+                2
+              ),
+            ]),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
-        "button",
+        "div",
         {
-          staticClass: "btn btn-block btn-outline-primary",
-          attrs: { type: "button" },
+          staticClass: "box-company-vacancies",
+          attrs: { id: "box-company-vacancies" },
         },
-        [_vm._v("\n                    Вакансии\n                ")]
+        [
+          _c("h3", { staticClass: "font-weight-bold" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.trans("company", "company_vacancies")) +
+                "\n            "
+            ),
+          ]),
+          _vm._v(" "),
+          _vm.company.vacancies.length
+            ? _c(
+                "div",
+                { staticClass: "block-company-vacancies" },
+                _vm._l(_vm.company.vacancies, function (vacancy, key) {
+                  return _c(
+                    "div",
+                    {
+                      key: key,
+                      staticClass: "box-vacancy",
+                      attrs: { id: "v" + key },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.transitionToVacancy(vacancy.alias)
+                        },
+                      },
+                    },
+                    [
+                      _c("vacancy_template", {
+                        attrs: {
+                          vacancy: vacancy,
+                          settings: _vm.settings,
+                          lang: _vm.lang,
+                          page: "search",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("bookmark_buttons", {
+                        attrs: {
+                          lang: _vm.lang,
+                          vacancy: vacancy,
+                          user: _vm.user,
+                          which_button_show: "search_vacancy",
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                }),
+                0
+              )
+            : _c("div", { staticClass: "block-company-vacancies" }, [
+                _c("i", [
+                  _vm._v(_vm._s(_vm.trans("company", "no_vacancies_created"))),
+                ]),
+              ]),
+        ]
       ),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-about-company" }, [
-      _c("h3", { staticClass: "font-weight-bold" }, [_vm._v("О компании")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "about-company" }, [
-        _vm._v(
-          "\n                онлайн клуб спілкування Haute Couture. Ми надаємо послуги менеджерів-перекладачів для онлайн знайомства та спілкування наших клієнток із заможними та успішними чоловіками.\n                Наша робота — створювати теплу та захоплюючу атмосферу та незабутній післясмак від спілкування в онлайн чаті.\n            "
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-media-files" }, [
-      _c("h3", { staticClass: "font-weight-bold" }, [_vm._v("Медиафайлы")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid block-media-files " }, [
-        _c("div", { staticClass: "row" }, [
-          _c("img", {
-            staticClass: "col-sm-4",
-            attrs: { src: "/img/company/media_file.png", alt: "Test image" },
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "col-sm-4",
-            attrs: { src: "/img/company/media_file.png", alt: "Test image" },
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "col-sm-4",
-            attrs: { src: "/img/company/media_file.png", alt: "Test image" },
-          }),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-company-vacancies" }, [
-      _c("h3", { staticClass: "font-weight-bold" }, [
-        _vm._v("Вакансии компании"),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid block-company-vacancies" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("img", {
-            staticClass: "col-sm-12",
-            attrs: { src: "/img/company/vacancy.png", alt: "Test image" },
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "col-sm-12",
-            attrs: { src: "/img/company/vacancy.png", alt: "Test image" },
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "col-sm-12",
-            attrs: { src: "/img/company/vacancy.png", alt: "Test image" },
-          }),
-        ]),
-      ]),
-    ])
-  },
-]
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47734,7 +48120,11 @@ var render = function () {
           ),
         ])
       : _c("h1", { staticClass: "title_page card-body" }, [
-          _vm._v("\n        Обновить данные компании\n    "),
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.trans("company", "update_company_data")) +
+              "\n    "
+          ),
         ]),
     _vm._v(" "),
     _c("div", { staticClass: "desc-helper-italic" }, [
@@ -47953,7 +48343,9 @@ var render = function () {
           !_vm.$v.position_transliteration.uniqTranslit
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  '\n                    Эта транслитерация уже занята!"\n                '
+                  "\n                    " +
+                    _vm._s(_vm.trans("company", "this_transliteration")) +
+                    "\n                "
                 ),
               ])
             : _vm._e(),
@@ -48769,7 +49161,10 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                    Поле предназначено только для Facebook ссылок\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("company", "field_only_for")) +
+                          _vm._s(_vm.trans("company", "facebook_links")) +
+                          "\n                                "
                       ),
                     ]),
                   ]),
@@ -48824,7 +49219,10 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                    Поле предназначено только для Instagram ссылок\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("company", "field_only_for")) +
+                          _vm._s(_vm.trans("company", "instagram_links")) +
+                          "\n                                "
                       ),
                     ]),
                   ]),
@@ -48879,7 +49277,10 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                    Поле предназначено только для Telegram ссылок\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("company", "field_only_for")) +
+                          _vm._s(_vm.trans("company", "telegram_links")) +
+                          "\n                                "
                       ),
                     ]),
                   ]),
@@ -48934,7 +49335,10 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
                       _vm._v(
-                        "\n                                    Поле предназначено только для Twitter ссылок\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("company", "field_only_for")) +
+                          _vm._s(_vm.trans("company", "twitter_links")) +
+                          "\n                                "
                       ),
                     ]),
                   ]),
@@ -49009,7 +49413,9 @@ var render = function () {
           _c("div", { staticClass: "box-link-youtube" }, [
             _c("label", [
               _vm._v(
-                "\n                        Видео компании (Youtube)\n                    "
+                "\n                        " +
+                  _vm._s(_vm.trans("company", "company_video")) +
+                  " (Youtube)\n                    "
               ),
             ]),
             _vm._v(" "),
@@ -49055,7 +49461,10 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(
-                    "\n                                Поле предназначено только для youtube ссылок\n                            "
+                    "\n                                " +
+                      _vm._s(_vm.trans("company", "field_only_for")) +
+                      _vm._s(_vm.trans("company", "youtube_links")) +
+                      "\n                            "
                   ),
                 ]),
               ]),
@@ -49091,7 +49500,9 @@ var render = function () {
                     ]
                   ),
                   _vm._v(
-                    "\n                    Добавить адрес\n                "
+                    "\n                    " +
+                      _vm._s(_vm.trans("company", "add_address")) +
+                      "\n                "
                   ),
                 ]
               )
@@ -49168,7 +49579,9 @@ var render = function () {
           [
             _c("label", [
               _vm._v(
-                "\n                    Логотип компании\n                "
+                "\n                    " +
+                  _vm._s(_vm.trans("company", "company_logo")) +
+                  "\n                "
               ),
             ]),
             _vm._v(" "),
@@ -49176,6 +49589,7 @@ var render = function () {
               attrs: {
                 lang: _vm.lang,
                 update_logotype_url: _vm.update_logotype_url,
+                update_logotype_text: _vm.trans("company", "change_logo"),
               },
               on: { load_logotype: _vm.addLogotype },
             }),
@@ -49388,7 +49802,9 @@ var render = function () {
               }),
             ]
           ),
-          _vm._v("\n            Изменить логотип\n        "),
+          _vm._v(
+            "\n            " + _vm._s(_vm.update_logotype_text) + "\n        "
+          ),
         ]),
       ]
     ),
@@ -49878,7 +50294,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "forms office" }, [
     _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v("Личный кабинет"),
+      _vm._v(_vm._s(_vm.trans("office", "personal_account"))),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "box-settings" }, [
@@ -49912,7 +50328,9 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                        Вакансии в закладках\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.trans("office", "jobs_bookmarks")) +
+                    "\n                    "
                 ),
               ]
             ),
@@ -49946,7 +50364,9 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                        Скрытые вакансии\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.trans("office", "hidden_jobs")) +
+                    "\n                    "
                 ),
               ]
             ),
@@ -49980,7 +50400,9 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                        Мои вакансии\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.trans("office", "my_jobs")) +
+                    "\n                    "
                 ),
               ]
             ),
@@ -50013,7 +50435,9 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                        Создать / Обновить Компанию\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.trans("office", "create_update")) +
+                    "\n                    "
                 ),
               ]
             ),
@@ -50046,7 +50470,9 @@ var render = function () {
                   ]
                 ),
                 _vm._v(
-                  "\n                        Смотреть публично компанию\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.trans("office", "view_company_publicly")) +
+                    "\n                    "
                 ),
               ]
             ),
@@ -50105,19 +50531,35 @@ var render = function () {
               }),
             ]
           ),
-          _vm._v("\n        Кабинет\n    "),
+          _vm._v(
+            "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+          ),
         ]
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c("h1", { staticClass: "title_page card-body" }, [
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm.trans("vacancies", "bookmarks")) +
+            "\n        "
+        ),
+        _c("u", [_vm._v(_vm._s(_vm.trans("vacancies", "saved")))]),
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm.trans("vacancies", "vacancies_2")) +
+            "\n    "
+        ),
+      ]),
       _vm._v(" "),
       !_vm.vacancies.length
         ? _c("div", { staticClass: "callout callout-warning" }, [
-            _c("b", [_vm._v("Вакансии отсутствуют.")]),
+            _c("b", [_vm._v(_vm._s(_vm.trans("vacancies", "no_vacancies")))]),
             _vm._v(" "),
             _c("div", [
               _vm._v(
-                "\n            В этом разделе хранятся вакансии, которые вы добавили на странице поиска вакансий при нажатии на иконку в виде\n            «"
+                "\n            " +
+                  _vm._s(_vm.trans("vacancies", "this_section_stores")) +
+                  "\n            «"
               ),
               _c(
                 "svg",
@@ -50136,11 +50578,17 @@ var render = function () {
                 ]
               ),
               _vm._v(
-                "».\n            Добавление вакансий, помогает отслеживать и иметь быстрый доступ. Это удобно когда вы ведете переписки с работодателем, обращаясь к нужной вам информации.\n            "
+                "».\n            " +
+                  _vm._s(
+                    _vm.trans("vacancies", "adding_vacancies_helps_track")
+                  ) +
+                  "\n            "
               ),
               _c("br"),
               _vm._v(
-                "\n            Чтобы сохранить вакансию, перейдите на страницу\n            "
+                "\n            " +
+                  _vm._s(_vm.trans("vacancies", "to_save_job_page")) +
+                  "\n            "
               ),
               _c(
                 "a",
@@ -50151,13 +50599,21 @@ var render = function () {
                     href: _vm.lang.prefix_lang + "vacancy",
                   },
                 },
-                [_vm._v("поиска вакансий.")]
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.trans("vacancies", "search_vacancies")) +
+                      "\n            "
+                  ),
+                ]
               ),
             ]),
           ])
         : _c("div", { staticClass: "desc-helper-italic" }, [
             _vm._v(
-              "\n        Помогает отслеживать и иметь быстрый доступ к необходимой вакансии.\n    "
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "helps_track_have_quick")) +
+                "\n    "
             ),
           ]),
       _vm._v(" "),
@@ -50195,7 +50651,13 @@ var render = function () {
                     },
                   },
                 },
-                [_vm._v("\n                Убрать\n            ")]
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.trans("vacancies", "remove")) +
+                      "\n            "
+                  ),
+                ]
               ),
             ]),
           ],
@@ -50206,18 +50668,7 @@ var render = function () {
     2
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v("Закладки "),
-      _c("u", [_vm._v("сохраненных")]),
-      _vm._v(" вакансий"),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -52585,21 +53036,49 @@ var render = function () {
               }),
             ]
           ),
-          _vm._v("\n        Кабинет\n    "),
+          _vm._v(
+            "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+          ),
         ]
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c("h1", { staticClass: "title_page card-body" }, [
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm.trans("vacancies", "bookmarks")) +
+            "\n        "
+        ),
+        _c("u", [_vm._v(_vm._s(_vm.trans("vacancies", "hidden_2")))]),
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm.trans("vacancies", "vacancies_2")) +
+            "\n    "
+        ),
+      ]),
       _vm._v(" "),
       !_vm.vacancies.length
         ? _c("div", { staticClass: "callout callout-warning" }, [
-            _c("b", [_vm._v("Вакансии отсутствуют.")]),
+            _c("b", [_vm._v(_vm._s(_vm.trans("vacancies", "no_vacancies")))]),
             _vm._v(" "),
-            _vm._m(1),
+            _c("div", [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.trans("vacancies", "this_section_you_hidden")) +
+                  "\n            "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.trans("vacancies", "hide_vacancies_whenever")) +
+                  "\n        "
+              ),
+            ]),
           ])
         : _c("div", { staticClass: "desc-helper-italic" }, [
             _vm._v(
-              "\n        Они не будут отображаться на странице поиска, предоставляя возможность увидеть новое и интересное.\n    "
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "they_not_show_up")) +
+                "\n    "
             ),
           ]),
       _vm._v(" "),
@@ -52637,7 +53116,13 @@ var render = function () {
                     },
                   },
                 },
-                [_vm._v("\n                Убрать\n            ")]
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.trans("vacancies", "remove")) +
+                      "\n            "
+                  ),
+                ]
               ),
             ]),
           ],
@@ -52648,32 +53133,7 @@ var render = function () {
     2
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v("Закладки "),
-      _c("u", [_vm._v("скрытых")]),
-      _vm._v(" вакансий"),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _vm._v(
-        "\n            В этом разделе хранятся вакансии, которые вы скрыли на странице поиска вакансий. Они не будут отображаться на странице поиска, предоставляя возможность увидеть новое и интересное.\n            "
-      ),
-      _c("br"),
-      _vm._v(
-        "\n            Скрывайте вакансии всякий раз, когда точно знаете, что она вам не подходит.\n        "
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -53006,7 +53466,13 @@ var render = function () {
             staticClass: "but-reset-all",
             attrs: { href: _vm.lang.prefix_lang + "vacancy" },
           },
-          [_vm._v("\n        сбросить все\n    ")]
+          [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "reset_all")) +
+                "\n    "
+            ),
+          ]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -53043,7 +53509,13 @@ var render = function () {
                   },
                 },
                 [
-                  _c("h3", { staticClass: "card-title" }, [_vm._v("Локация")]),
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "location")) +
+                        "\n                    "
+                    ),
+                  ]),
                   _vm._v(" "),
                   !_vm.objLocations.country
                     ? [_c("i", { staticClass: "fas fa-plus" })]
@@ -53060,7 +53532,9 @@ var render = function () {
             _c("div", { staticClass: "box-div" }, [
               _c("label", { attrs: { for: "country" } }, [
                 _vm._v(
-                  "\n                        Страна поиска\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.trans("vacancies", "search_country")) +
+                    "\n                    "
                 ),
               ]),
               _vm._v(" "),
@@ -53076,7 +53550,9 @@ var render = function () {
                     { attrs: { selected: "" }, domProps: { value: null } },
                     [
                       _vm._v(
-                        "\n                            Выбрать\n                        "
+                        "\n                            " +
+                          _vm._s(_vm.trans("vacancies", "select")) +
+                          "\n                        "
                       ),
                     ]
                   ),
@@ -53125,7 +53601,9 @@ var render = function () {
               [
                 _c("label", { attrs: { for: "region" } }, [
                   _vm._v(
-                    "\n                        Регион поиска\n                    "
+                    "\n                        " +
+                      _vm._s(_vm.trans("vacancies", "search_region")) +
+                      "\n                    "
                   ),
                 ]),
                 _vm._v(" "),
@@ -53141,7 +53619,9 @@ var render = function () {
                       { attrs: { selected: "" }, domProps: { value: null } },
                       [
                         _vm._v(
-                          "\n                            Выбрать\n                        "
+                          "\n                            " +
+                            _vm._s(_vm.trans("vacancies", "select")) +
+                            "\n                        "
                         ),
                       ]
                     ),
@@ -53194,7 +53674,9 @@ var render = function () {
               [
                 _c("label", { attrs: { for: "city" } }, [
                   _vm._v(
-                    "\n                        Город поиска\n                    "
+                    "\n                        " +
+                      _vm._s(_vm.trans("vacancies", "search_city")) +
+                      "\n                    "
                   ),
                 ]),
                 _vm._v(" "),
@@ -53210,7 +53692,9 @@ var render = function () {
                       { attrs: { selected: "" }, domProps: { value: null } },
                       [
                         _vm._v(
-                          "\n                            Выбрать\n                        "
+                          "\n                            " +
+                            _vm._s(_vm.trans("vacancies", "select")) +
+                            "\n                        "
                         ),
                       ]
                     ),
@@ -53282,7 +53766,11 @@ var render = function () {
                 },
                 [
                   _c("h3", { staticClass: "card-title" }, [
-                    _vm._v("Категории"),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "categories")) +
+                        "\n                    "
+                    ),
                   ]),
                   _vm._v(" "),
                   !_vm.objCategory.categories.length
@@ -53304,7 +53792,7 @@ var render = function () {
                 attrs: {
                   id: "categories",
                   multiple: "multiple",
-                  "data-placeholder": "Выбрать",
+                  "data-placeholder": _vm.trans("vacancies", "select"),
                 },
               },
               [
@@ -53319,14 +53807,26 @@ var render = function () {
                               attrs: { selected: "" },
                               domProps: { value: index },
                             },
-                            [_vm._v(_vm._s(value))]
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("vacancies", value)) +
+                                  "\n                            "
+                              ),
+                            ]
                           ),
                         ]
                       : [
                           _c(
                             "option",
                             { key: index, domProps: { value: index } },
-                            [_vm._v(_vm._s(value))]
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("vacancies", value)) +
+                                  "\n                            "
+                              ),
+                            ]
                           ),
                         ],
                   ]
@@ -53452,7 +53952,11 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                        c не указанной зарплатой\n                    "
+                    "\n                        " +
+                      _vm._s(
+                        _vm.trans("vacancies", "with_unspecified_salary")
+                      ) +
+                      "\n                    "
                   ),
                 ]
               ),
@@ -53625,7 +54129,13 @@ var render = function () {
                   },
                 },
                 [
-                  _c("h3", { staticClass: "card-title" }, [_vm._v("Язык")]),
+                  _c("h3", { staticClass: "card-title" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "language")) +
+                        "\n                    "
+                    ),
+                  ]),
                   _vm._v(" "),
                   !_vm.arrLanguages.length
                     ? [_c("i", { staticClass: "fas fa-plus" })]
@@ -53646,7 +54156,7 @@ var render = function () {
                 attrs: {
                   id: "languages",
                   multiple: "multiple",
-                  "data-placeholder": "Выбрать",
+                  "data-placeholder": _vm.trans("vacancies", "select"),
                 },
               },
               [
@@ -53715,7 +54225,11 @@ var render = function () {
                 },
                 [
                   _c("h3", { staticClass: "card-title" }, [
-                    _vm._v("Вид занятости"),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "type_employment")) +
+                        "\n                    "
+                    ),
                   ]),
                   _vm._v(" "),
                   !_vm.index_employment
@@ -53747,7 +54261,9 @@ var render = function () {
                   { attrs: { selected: "" }, domProps: { value: null } },
                   [
                     _vm._v(
-                      "\n                        Выбрать\n                    "
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "select")) +
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -53763,12 +54279,22 @@ var render = function () {
                               attrs: { selected: "" },
                               domProps: { value: key },
                             },
-                            [_vm._v(_vm._s(value))]
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("vacancies", value)) +
+                                  "\n                            "
+                              ),
+                            ]
                           ),
                         ]
                       : [
                           _c("option", { key: key, domProps: { value: key } }, [
-                            _vm._v(_vm._s(value)),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.trans("vacancies", value)) +
+                                "\n                            "
+                            ),
                           ]),
                         ],
                   ]
@@ -53843,7 +54369,9 @@ var render = function () {
                   { attrs: { selected: "" }, domProps: { value: null } },
                   [
                     _vm._v(
-                      "\n                        Выбрать\n                    "
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "select")) +
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -53920,7 +54448,11 @@ var render = function () {
                 },
                 [
                   _c("h3", { staticClass: "card-title" }, [
-                    _vm._v("Возраст соискателя"),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "applicant_age")) +
+                        "\n                    "
+                    ),
                   ]),
                   _vm._v(" "),
                   !_vm.objCheckSuitable.check
@@ -53936,7 +54468,11 @@ var render = function () {
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "suitable" } }, [
-              _vm._v(" Лет отроду "),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("vacancies", "years_age")) +
+                  "\n                "
+              ),
             ]),
             _vm._v(" "),
             _c(
@@ -54121,7 +54657,9 @@ var render = function () {
                   { attrs: { selected: "" }, domProps: { value: null } },
                   [
                     _vm._v(
-                      "\n                        Выбрать\n                    "
+                      "\n                        " +
+                        _vm._s(_vm.trans("vacancies", "select")) +
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -54189,7 +54727,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "search-panel" }, [
     _c("h1", { staticClass: "title_page" }, [
-      _vm._v("\n        Поиск вакансий\n    "),
+      _vm._v(
+        "\n        " + _vm._s(_vm.trans("vacancies", "job_search")) + "\n    "
+      ),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "top-search" }, [
@@ -54209,7 +54749,7 @@ var render = function () {
               type: "text",
               maxlength: "100",
               autocomplete: "off",
-              placeholder: "Поиск",
+              placeholder: _vm.trans("vacancies", "search"),
             },
             domProps: { value: _vm.position },
             on: {
@@ -54263,7 +54803,13 @@ var render = function () {
             attrs: { type: "button" },
             on: { click: _vm.searchVacancies },
           },
-          [_vm._v("Искать")]
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.trans("vacancies", "search_2")) +
+                "\n            "
+            ),
+          ]
         ),
       ]),
     ]),
@@ -54483,7 +55029,9 @@ var render = function () {
             }),
           ]
         ),
-        _vm._v("\n        Сохранить\n    "),
+        _vm._v(
+          "\n        " + _vm._s(_vm.trans("vacancies", "save")) + "\n    "
+        ),
       ]
     ),
     _vm._v(" "),
@@ -54517,7 +55065,11 @@ var render = function () {
                 }),
               ]
             ),
-            _vm._v("\n        В меню сохраненных\n    "),
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "in_saved_menu")) +
+                "\n    "
+            ),
           ]
         )
       : _vm.which_button_show == "show_vacancy"
@@ -54561,7 +55113,11 @@ var render = function () {
                 }),
               ]
             ),
-            _vm._v("\n        В меню сохраненных\n    "),
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "in_saved_menu")) +
+                "\n    "
+            ),
           ]
         )
       : _vm._e(),
@@ -54601,7 +55157,11 @@ var render = function () {
             }),
           ]
         ),
-        _vm._v("\n        Не показывать\n    "),
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm.trans("vacancies", "do_not_show")) +
+            "\n    "
+        ),
       ]
     ),
     _vm._v(" "),
@@ -54634,7 +55194,11 @@ var render = function () {
                 }),
               ]
             ),
-            _vm._v("\n        В меню спрятанных\n    "),
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "in_hidden_menu")) +
+                "\n    "
+            ),
           ]
         )
       : _vm.which_button_show == "show_vacancy"
@@ -54678,7 +55242,11 @@ var render = function () {
                 }),
               ]
             ),
-            _vm._v("\n        В меню спрятанных\n    "),
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "in_hidden_menu")) +
+                "\n    "
+            ),
           ]
         )
       : _vm._e(),
@@ -54850,17 +55418,62 @@ var render = function () {
           [
             _c("h2", { staticClass: "col-sm-9 title-vacancy" }, [
               _vm._v(
-                "\n                " +
+                "\n                    " +
                   _vm._s(
                     _vm.UpperCaseFirstCharacter(_vm.vacancy.position.title)
                   ) +
-                  "\n            "
+                  "\n                "
               ),
             ]),
             _vm._v(" "),
-            _vm.page !== "my_vacancy"
+            _vm.page === "show"
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "col-sm-3 link-a",
+                    attrs: {
+                      target: "_blank",
+                      href:
+                        _vm.lang.prefix_lang +
+                        "company/" +
+                        _vm.vacancy.company.alias,
+                    },
+                  },
+                  [
+                    _c("div", { staticClass: "company-vacancy" }, [
+                      _c("span", [
+                        _c("div", { staticClass: "font-weight-bold" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.vacancy.company.title) +
+                              "\n                            "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticClass: "img-logo",
+                          attrs: {
+                            src: "/" + _vm.vacancy.company.image.url,
+                            alt: _vm.vacancy.company.image.title,
+                          },
+                        }),
+                      ]),
+                    ]),
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.page === "search"
               ? _c("div", { staticClass: "col-sm-3 company-vacancy" }, [
                   _c("span", [
+                    _c("div", { staticClass: "font-weight-bold" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.vacancy.company.title) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
                     _c("img", {
                       staticClass: "img-logo",
                       attrs: {
@@ -54868,17 +55481,10 @@ var render = function () {
                         alt: _vm.vacancy.company.image.title,
                       },
                     }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "font-weight-bold" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.vacancy.company.title) +
-                          "\n                    "
-                      ),
-                    ]),
                   ]),
                 ])
-              : [
+              : _vm.page === "my_vacancy"
+              ? [
                   !_vm.vacancy.published
                     ? _c("div", { staticClass: "no-verified" }, [
                         _c(
@@ -54898,7 +55504,9 @@ var render = function () {
                           ]
                         ),
                         _vm._v(
-                          "\n                    на проверке\n                "
+                          "\n                        " +
+                            _vm._s(_vm.trans("vacancies", "checking")) +
+                            "\n                    "
                         ),
                       ])
                     : _c("div", { staticClass: "verified" }, [
@@ -54919,7 +55527,8 @@ var render = function () {
                           ]
                         ),
                       ]),
-                ],
+                ]
+              : _vm._e(),
           ],
           2
         ),
@@ -55045,7 +55654,10 @@ var render = function () {
             _vm._v(
               "\n                " +
                 _vm._s(
-                  _vm.settings.type_employment[_vm.vacancy.type_employment]
+                  _vm.trans(
+                    "vacancies",
+                    _vm.settings.type_employment[_vm.vacancy.type_employment]
+                  )
                 ) +
                 "\n            "
             ),
@@ -55098,11 +55710,21 @@ var render = function () {
                   ]
                 ),
               ]),
-              _vm._v(
-                "\n            " +
-                  _vm._s(_vm.settings.work_experience[_vm.vacancy.experience]) +
-                  "\n        "
-              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "font-weight-bold" }, [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(
+                      _vm.UpperCaseFirstCharacter(
+                        _vm.trans(
+                          "vacancies",
+                          _vm.settings.work_experience[_vm.vacancy.experience]
+                        )
+                      )
+                    ) +
+                    "\n        "
+                ),
+              ]),
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "line-div age-vacancy" }, [
@@ -55132,14 +55754,23 @@ var render = function () {
                         _vm._s(_vm.vacancy.vacancy_suitable.inputs.from) +
                         " - " +
                         _vm._s(_vm.vacancy.vacancy_suitable.inputs.to) +
-                        " years\n            "
+                        " " +
+                        _vm._s(_vm.trans("vacancies", "years")) +
+                        "\n            "
                     ),
                   ])
                 : _vm.vacancy.vacancy_suitable.radio_name == "it_not_matter"
                 ? _c("div", { staticClass: "font-weight-bold first_half" }, [
                     _vm._v(
                       "\n                " +
-                        _vm._s(_vm.vacancy.vacancy_suitable.radio_name) +
+                        _vm._s(
+                          _vm.UpperCaseFirstCharacter(
+                            _vm.trans(
+                              "vacancies",
+                              _vm.vacancy.vacancy_suitable.radio_name
+                            )
+                          )
+                        ) +
                         "\n            "
                     ),
                   ])
@@ -55195,7 +55826,14 @@ var render = function () {
               _c("div", { staticClass: "font-weight-bold" }, [
                 _vm._v(
                   "\n                " +
-                    _vm._s(_vm.settings.education[_vm.vacancy.education]) +
+                    _vm._s(
+                      _vm.UpperCaseFirstCharacter(
+                        _vm.trans(
+                          "vacancies",
+                          _vm.settings.education[_vm.vacancy.education]
+                        )
+                      )
+                    ) +
                     "\n            "
                 ),
               ]),
@@ -55203,7 +55841,9 @@ var render = function () {
             _vm._v(" "),
             _vm.page == "show"
               ? _c("div", { staticClass: "textarea-vacancy" }, [
-                  _c("b", [_vm._v("Описание вакансии")]),
+                  _c("b", [
+                    _vm._v(_vm._s(_vm.trans("vacancies", "job_description"))),
+                  ]),
                   _vm._v(" "),
                   _c("div", {
                     domProps: {
@@ -55213,7 +55853,9 @@ var render = function () {
                 ])
               : _vm.page == "search" && _vm.vacancy.text_description
               ? _c("div", { staticClass: "textarea-vacancy" }, [
-                  _c("b", [_vm._v("Описание вакансии")]),
+                  _c("b", [
+                    _vm._v(_vm._s(_vm.trans("vacancies", "job_description"))),
+                  ]),
                   _c("br"),
                   _vm._v(
                     "\n            " +
@@ -55247,7 +55889,11 @@ var render = function () {
             _vm.page == "show"
               ? [
                   _c("div", { staticClass: "textarea-vacancy" }, [
-                    _c("b", [_vm._v("Условия работы")]),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(_vm.trans("vacancies", "working_conditions"))
+                      ),
+                    ]),
                     _vm._v(" "),
                     _c("div", {
                       domProps: { innerHTML: _vm._s(_vm.vacancy.text_working) },
@@ -55255,7 +55901,13 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "textarea-vacancy" }, [
-                    _c("b", [_vm._v("Обязанности кандидата")]),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.trans("vacancies", "candidate_responsibilities")
+                        )
+                      ),
+                    ]),
                     _vm._v(" "),
                     _c("div", {
                       domProps: {
@@ -73243,16 +73895,24 @@ module.exports = {
   "en.company": {
     "August": "august",
     "about_company": "Information about the company, this is the face of the employer. Try to provide information about her as extensively as possible, without dwelling only on what she does. For the applicant, this can be a decisive factor.",
+    "about_company_2": "About company",
+    "add_address": "Add address",
     "april": "april",
     "categories_activity_company": "Categories of the activity of the company",
     "change company details": "Change company details",
+    "change_logo": "Change logo",
     "company_city": "Company city",
     "company_country": "Company country",
     "company_description": "Company description",
+    "company_description_empty": "Company description is empty!",
+    "company_information": "Company information",
+    "company_logo": "Company logo",
     "company_name": "Company name",
     "company_name_transliteration": "Company name transliteration",
     "company_region": "Company region",
     "company_tax_number": "Company tax number",
+    "company_vacancies": "Company vacancies",
+    "company_video": "Company video",
     "company_website": "Company website",
     "create_your_company": "Create your company",
     "data_foundation": "Company foundation date",
@@ -73260,20 +73920,27 @@ module.exports = {
     "enter_link_account": "Enter a link to your account",
     "enter_number": "Enter number",
     "enter_transliteration": "Enter transliteration",
+    "facebook_links": "Facebook links",
     "february": "february",
+    "field_only_for": "Field is only for ",
     "for_example_great": "For example great.com",
     "for_example_star": "For example 'Star LTD'",
     "from_100_to_250_employees": "from 100 to 250 employees",
+    "instagram_links": "Instagram links",
     "january": "january",
+    "jobs": "Jobs",
     "july": "july",
     "june": "june",
     "less_than_10_employees": "less than 10 employees",
     "march": "march",
     "may": "may",
+    "media_files": "Media files",
     "more_than_500_employees": "more than 500 employees",
+    "no_vacancies_created": "No vacancies have been created!",
     "november": "november",
     "number_employees_company": "Number of employees in the company",
     "october": "october",
+    "on_site_from": "on site from",
     "please_enter_least": "Please enter at least 1 Latin letter, optionally with dash, hyphen and numbers.",
     "please_enter_name": "Please enter a company name.",
     "please_enter_your_number": "Please enter your Company Tax Number.",
@@ -73286,23 +73953,42 @@ module.exports = {
     "september": "september",
     "social_networks_company": "Company social networks",
     "specify": "Specify address",
-    "up_to_50_employees": "up to 50 employees"
+    "telegram_links": "Telegram links",
+    "this_transliteration": "This transliteration is already taken!",
+    "twitter_links": "Twitter links",
+    "up_to_50_employees": "up to 50 employees",
+    "update_company_data": "Update company data",
+    "years": "years",
+    "youtube_links": "youtube links"
   },
   "en.menu.menu": {
     "authorization": "Sign in",
     "cabinet": "Cabinet",
     "registration": "Sign up"
   },
+  "en.office": {
+    "create_update": "Create \/ Update Company",
+    "hidden_jobs": "Hidden jobs",
+    "jobs_bookmarks": "Jobs in bookmarks",
+    "my_jobs": "My jobs",
+    "personal_account": "Personal account",
+    "view_company_publicly": "View company publicly"
+  },
   "en.vacancies": {
     "accounting": "Accounting, audit",
+    "adding_vacancies_helps_track": "Adding vacancies helps track and have quick access. This is useful when you are in correspondence with the employer, referring to the information you need.",
     "administration": "Administration, middle management",
     "age_comment": "Age comment",
     "age_group": "Please enter an appropriate age group option.",
     "agriculture": "Agriculture, agribusiness",
+    "applicant_age": "Applicant's age",
     "beauty": "Beauty, fitness, sports",
+    "bookmarks": "Bookmarks",
     "cancel": "Cancel",
     "candidate_responsibilities": "Candidate's responsibilities",
+    "categories": "Categories",
     "category_job_posting": "Category for job posting",
+    "checking": "checking",
     "city_job": "City of job",
     "city_search": "City to search",
     "construction": "Construction, architecture",
@@ -73314,6 +74000,7 @@ module.exports = {
     "delete": "Delete",
     "design": "Design, creativity",
     "display_employer_jobs": "Display employer contacts",
+    "do_not_show": "Do not show",
     "does_not_matter": "doesn't matter",
     "dont_specify": "Don't specify",
     "edit": "Edit",
@@ -73328,29 +74015,39 @@ module.exports = {
     "from_5_years": "from 5 years and more",
     "functions": "Functions",
     "get_more_responses": "Enter your salary to get more responses. When job seekers know what salary you offer, they are more conscious of responding to jobs. This will help you find the right employee faster.",
+    "helps_track_have_quick": "Helps you track and have quick access to the job you need.",
     "hidden": "Hidden ",
+    "hidden_2": "hidden",
     "hidden_comment": "(vacancy will be hidden from applicants)",
     "hide": "Hide",
+    "hide_vacancies_whenever": "Hide vacancies whenever you know for sure that they are not suitable for you.",
     "higher": "higher",
     "hotel": "Hotel and restaurant business, tourism",
     "how_can_apply": "How can I apply",
+    "in_hidden_menu": "In the hidden menu",
+    "in_saved_menu": "In the saved menu",
     "incomplete_higher": "incomplete higher",
     "insurance": "Insurance",
     "internet": "IT, computers, internet",
     "it_not_matter": "It doesn't matter",
+    "job_description": "Job Description",
     "job_name": "Job name",
     "job_region": "Job region",
+    "job_search": "Job search",
     "job_suitable_for": "Applicant's age",
     "job_title": "Please enter a job title.",
     "jurisprudence": "Jurisprudence",
+    "language": "Language",
     "least_category": "Please select at least one category.",
     "locally_full_time": "Locally, full time",
     "locally_part_time": "Locally, part time",
+    "location": "Location",
     "logistics": "Logistics, warehouse",
     "marketing": "Marketing, advertising, PR",
     "media": "Mass media, publishing house, polygraphy",
     "medicine": "Medicine, pharmaceuticals",
     "my": "My",
+    "no_vacancies": "There are no vacancies.",
     "not_recommended": "not recommended",
     "other": "Other",
     "other_job_address": "Other job address",
@@ -73363,6 +74060,8 @@ module.exports = {
     "remaining_address": "Remaining address",
     "remote_full_time": "Remote, full time",
     "remote_part_time": "Remote, part time",
+    "remove": "Remove",
+    "reset_all": "reset all",
     "responses": "responses",
     "resume_required": "Resume is required",
     "retail": "Retail",
@@ -73372,10 +74071,18 @@ module.exports = {
     "salary_vacancy": "Please indicate the estimated salary of the vacancy.",
     "sales": "Sales, purchases",
     "save": "Save",
+    "saved": "saved",
+    "search": "Search",
+    "search_2": "Search",
     "search_candidates": "Search candidates in another city",
+    "search_city": "Search city",
+    "search_country": "Search country",
+    "search_region": "Search region",
+    "search_vacancies": "search for vacancies.",
     "secondary": "secondary",
     "secretariat": "Secretariat, office work",
     "security": "Security, security",
+    "select": "Select",
     "select_city": "Select city",
     "select_country": "Select country",
     "select_region": "Select region",
@@ -73388,6 +74095,9 @@ module.exports = {
     "standard_comment": "(vacancy will be posted for a month)",
     "street_house": "Please indicate the street and house of the vacancy.",
     "telecommunications": "Telecommunications and communications",
+    "they_not_show_up": "They won't show up on the search page, allowing you to see what's new and interesting.",
+    "this_section_stores": "This section stores jobs that you have added on the job search page when you click on the ",
+    "this_section_you_hidden": "This section stores jobs that you have hidden from the job search page. They will not appear on the search page, providing an opportunity to see what's new and interesting.",
     "title_candidate_resp": "To receive resumes of candidates who are ready to perform your tasks, describe these tasks in more detail, for example: make 50 outgoing calls per day; deliver employees to the right bank; manage construction projects; order supplies to the office.",
     "title_categories": "Enter only the categories that match your job posting.",
     "title_display_employer": "Provide your contacts to the job seeker so that you can get in touch faster and easier. To change your details in this block, go to the Settings section.",
@@ -73399,6 +74109,7 @@ module.exports = {
     "title_vacancy_description": "In order to attract the person you need and position him for your vacancy: try to describe your offer as much as possible. Tell us what kind of company you have, who works in it, what you do and why you are looking for a new person.",
     "title_working_conditions": "To get more candidates and find the best, describe all the benefits of working in your company and why it is better to come to work for you, for example: friendly and cheerful team; official registration; working hours from 9 to 18; modern office in city center; comfortable modern workplace; own kitchen and gym.",
     "to": "before",
+    "to_save_job_page": "Go to the page to save the job",
     "top_management": "Top management, top management",
     "transport": "Transport, auto business",
     "type_employment": "Type of employment",
@@ -73406,12 +74117,17 @@ module.exports = {
     "update_job": "Edit Job",
     "update_vacancy": "Change",
     "vacancies": "vacancies",
+    "vacancies_2": "vacancies",
     "vacancy_description": "Vacancy description",
+    "with_unspecified_salary": "with unspecified salary",
     "without_experience": "ready to take without experience",
     "without_resume": "Possible without resume",
     "work_conditions": "Work conditions",
     "work_experience": "Work experience",
-    "working": "Working professions, production"
+    "working": "Working professions, production",
+    "working_conditions": "Working conditions",
+    "years": "years",
+    "years_age": "Years of age"
   },
   "ru.auth": {
     "agree_with_that": "\u041D\u0430\u0436\u0438\u043C\u0430\u044F \xAB\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\xBB, \u044F \u0441\u043E\u0433\u043B\u0430\u0448\u0430\u044E\u0441\u044C \u0441 \u0442\u0435\u043C, \u0447\u0442\u043E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u043B \u0438 \u043F\u0440\u0438\u043D\u044F\u043B",
@@ -73446,17 +74162,25 @@ module.exports = {
   },
   "ru.company": {
     "about_company": "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438, \u044D\u0442\u043E \u043B\u0438\u0446\u043E \u0440\u0430\u0431\u043E\u0442\u043E\u0434\u0430\u0442\u0435\u043B\u044F. \u041F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044C \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0441\u0432\u0435\u0434\u0435\u043D\u044C\u044F \u043E \u043D\u0435\u0439 \u043D\u0430\u0438\u0431\u043E\u043B\u0435\u0435 \u043E\u0431\u0448\u0438\u0440\u043D\u043E, \u043D\u0435 \u043E\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u044F\u0441\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0430 \u0442\u043E\u043C, \u0447\u0435\u043C \u043E\u043D\u0430 \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0441\u044F. \u0414\u043B\u044F \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F \u044D\u0442\u043E \u0431\u044B\u0432\u0430\u0435\u0442 \u0440\u0435\u0448\u0430\u044E\u0449\u0435\u043C \u0444\u0430\u043A\u0442\u043E\u0440\u043E\u043C.",
+    "about_company_2": "\u041E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "add_address": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0430\u0434\u0440\u0435\u0441",
     "april": "\u0430\u043F\u0440\u0435\u043B\u044C",
     "august": "\u0430\u0432\u0433\u0443\u0441\u0442",
     "categories_activity_company": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u0441\u0444\u0435\u0440\u044B \u0434\u0435\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "change company details": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "change_logo": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043B\u043E\u0433\u043E\u0442\u0438\u043F",
     "company_city": "\u0413\u043E\u0440\u043E\u0434 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_country": "\u0421\u0442\u0440\u0430\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_description": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_description_empty": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043E \u041A\u043E\u043C\u043F\u0430\u043D\u0438\u0438 \u043D\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u043E !",
+    "company_information": "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_logo": "\u041B\u043E\u0433\u043E\u0442\u0438\u043F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_name": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_name_transliteration": "\u0422\u0440\u0430\u043D\u0441\u043B\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_region": "\u0420\u0435\u0433\u0438\u043E\u043D \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_tax_number": "\u041D\u0430\u043B\u043E\u0433\u043E\u0432\u044B\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_vacancies": "\u0412\u0430\u043A\u0430\u043D\u0441\u0438\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "company_video": "\u0412\u0438\u0434\u0435\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "company_website": "\u0421\u0430\u0439\u0442 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "create_your_company": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u0432\u043E\u044E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044E",
     "data_foundation": "\u0414\u0430\u0442\u0430 \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
@@ -73464,20 +74188,27 @@ module.exports = {
     "enter_link_account": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0441\u0441\u044B\u043B\u043A\u0443 \u043D\u0430 \u0432\u0430\u0448 \u0430\u043A\u043A\u0430\u0443\u043D\u0442",
     "enter_number": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043D\u043E\u043C\u0435\u0440",
     "enter_transliteration": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0442\u0440\u0430\u043D\u0441\u043B\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044E",
+    "facebook_links": "Facebook \u0441\u0441\u044B\u043B\u043E\u043A",
     "february": "\u0444\u0435\u0432\u0440\u0430\u043B\u044C",
+    "field_only_for": "\u041F\u043E\u043B\u0435 \u043F\u0440\u0435\u0434\u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F ",
     "for_example_great": "\u041D\u0430\u043F\u0440\u0438\u043C\u0435\u0440 great.com",
     "for_example_star": "\u041D\u0430\u043F\u0440\u0438\u043C\u0435\u0440 'Star LTD'",
     "from_100_to_250_employees": "\u043E\u0442 100 \u0434\u043E 250 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "instagram_links": "Instagram \u0441\u0441\u044B\u043B\u043E\u043A",
     "january": "\u044F\u043D\u0432\u0430\u0440\u044C",
+    "jobs": "\u0412\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "july": "\u0438\u044E\u043B\u044C",
     "june": "\u0438\u044E\u043D\u044C",
     "less_than_10_employees": "\u043C\u0435\u043D\u044C\u0448\u0435 10 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
     "march": "\u043C\u0430\u0440\u0442",
     "may": "\u043C\u0430\u0439",
+    "media_files": "\u041C\u0435\u0434\u0438\u0430\u0444\u0430\u0439\u043B\u044B",
     "more_than_500_employees": "\u0431\u043E\u043B\u044C\u0448\u0435 500 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "no_vacancies_created": "\u041D\u0435 \u043E\u0434\u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u043D\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u0430 !",
     "november": "\u043D\u043E\u044F\u0431\u0440\u044C",
     "number_employees_company": "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432 \u0432 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "october": "\u043E\u043A\u0442\u044F\u0431\u0440\u044C",
+    "on_site_from": "\u043D\u0430 \u0441\u0430\u0439\u0442\u0435 \u0441",
     "please_enter_least": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430 \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C 1 \u043B\u0430\u0442\u0438\u043D\u0441\u043A\u0443\u044E \u0431\u0443\u043A\u0432\u0443, \u0441 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u043C \u0434\u043E\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435\u043C \u0442\u0438\u0440\u0435, \u0434\u0435\u0444\u0438\u0441 \u0438 \u0446\u0438\u0444\u0440\u044B.",
     "please_enter_name": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438.",
     "please_enter_your_number": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u041D\u0430\u043B\u043E\u0433\u043E\u0432\u044B\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438.",
@@ -73490,23 +74221,42 @@ module.exports = {
     "september": "\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C",
     "social_networks_company": "\u0421\u043E\u0446\u0441\u0435\u0442\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
     "specify": "\u0423\u043A\u0430\u0437\u0430\u0442\u044C \u0430\u0434\u0440\u0435\u0441",
-    "up_to_50_employees": "\u0434\u043E 50 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432"
+    "telegram_links": "Telegram \u0441\u0441\u044B\u043B\u043E\u043A",
+    "this_transliteration": "\u042D\u0442\u0430 \u0442\u0440\u0430\u043D\u0441\u043B\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F \u0443\u0436\u0435 \u0437\u0430\u043D\u044F\u0442\u0430!",
+    "twitter_links": "Twitter \u0441\u0441\u044B\u043B\u043E\u043A",
+    "up_to_50_employees": "\u0434\u043E 50 \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+    "update_company_data": "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438",
+    "years": "\u0433\u043E\u0434\u0430",
+    "youtube_links": "youtube \u0441\u0441\u044B\u043B\u043E\u043A"
   },
   "ru.menu.menu": {
     "authorization": "\u0412\u0445\u043E\u0434",
     "cabinet": "\u041A\u0430\u0431\u0438\u043D\u0435\u0442",
     "registration": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F"
   },
+  "ru.office": {
+    "create_update": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C / \u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044E",
+    "hidden_jobs": "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "jobs_bookmarks": "\u0412\u0430\u043A\u0430\u043D\u0441\u0438\u0438 \u0432 \u0437\u0430\u043A\u043B\u0430\u0434\u043A\u0430\u0445",
+    "my_jobs": "\u041C\u043E\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "personal_account": "\u041B\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0431\u0438\u043D\u0435\u0442",
+    "view_company_publicly": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043F\u0443\u0431\u043B\u0438\u0447\u043D\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044E"
+  },
   "ru.vacancies": {
     "accounting": "\u0411\u0443\u0445\u0433\u0430\u043B\u0442\u0435\u0440\u0438\u044F, \u0430\u0443\u0434\u0438\u0442",
+    "adding_vacancies_helps_track": "\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439, \u043F\u043E\u043C\u043E\u0433\u0430\u0435\u0442 \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0442\u044C \u0438 \u0438\u043C\u0435\u0442\u044C \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F. \u042D\u0442\u043E \u0443\u0434\u043E\u0431\u043D\u043E \u043A\u043E\u0433\u0434\u0430 \u0432\u044B \u0432\u0435\u0434\u0435\u0442\u0435 \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u043A\u0438 \u0441 \u0440\u0430\u0431\u043E\u0442\u043E\u0434\u0430\u0442\u0435\u043B\u0435\u043C, \u043E\u0431\u0440\u0430\u0449\u0430\u044F\u0441\u044C \u043A \u043D\u0443\u0436\u043D\u043E\u0439 \u0432\u0430\u043C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438.",
     "administration": "\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F, \u0440\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u043D\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430",
     "age_comment": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043A \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0443",
     "age_group": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u043D\u043E\u0439 \u0433\u0440\u0443\u043F\u043F\u044B.",
     "agriculture": "\u0421\u0435\u043B\u044C\u0441\u043A\u043E\u0435 \u0445\u043E\u0437\u044F\u0439\u0441\u0442\u0432\u043E, \u0430\u0433\u0440\u043E\u0431\u0438\u0437\u043D\u0435\u0441",
+    "applicant_age": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F",
     "beauty": "\u041A\u0440\u0430\u0441\u043E\u0442\u0430, \u0444\u0438\u0442\u043D\u0435\u0441, \u0441\u043F\u043E\u0440\u0442",
+    "bookmarks": "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438",
     "cancel": "\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C",
     "candidate_responsibilities": "\u041E\u0431\u044F\u0437\u0430\u043D\u043D\u043E\u0441\u0442\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0430",
+    "categories": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438",
     "category_job_posting": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F \u0440\u0430\u0437\u043C\u0435\u0449\u0435\u043D\u0438\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "checking": "\u043D\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0435",
     "city_job": "\u0413\u043E\u0440\u043E\u0434 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "city_search": "\u0413\u043E\u0440\u043E\u0434 \u0434\u043B\u044F \u043F\u043E\u0438\u0441\u043A\u0430",
     "construction": "\u0421\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u043E, \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u0430",
@@ -73518,6 +74268,7 @@ module.exports = {
     "delete": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C",
     "design": "\u0414\u0438\u0437\u0430\u0439\u043D, \u0442\u0432\u043E\u0440\u0447\u0435\u0441\u0442\u0432\u043E",
     "display_employer_jobs": "\u041E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043E\u0432 \u0440\u0430\u0431\u043E\u0442\u043E\u0434\u0430\u0442\u0435\u043B\u044F",
+    "do_not_show": "\u041D\u0435 \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C",
     "does_not_matter": "\u043D\u0435 \u0438\u043C\u0435\u0435\u0442 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F",
     "dont_specify": "\u041D\u0435 \u0443\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C",
     "edit": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C",
@@ -73532,29 +74283,39 @@ module.exports = {
     "from_5_years": "\u043E\u0442 5 \u043B\u0435\u0442 \u0438 \u0431\u043E\u043B\u044C\u0448\u0435",
     "functions": "\u0424\u0443\u043D\u043A\u0446\u0438\u0438",
     "get_more_responses": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043E\u0442\u043A\u043B\u0438\u043A\u043E\u0432, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443. \u041A\u043E\u0433\u0434\u0430 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0438 \u0437\u043D\u0430\u044E\u0442, \u043A\u0430\u043A\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u044B \u043F\u0440\u0435\u0434\u043B\u0430\u0433\u0430\u0435\u0442\u0435, \u043E\u043D\u0438 \u0431\u043E\u043B\u0435\u0435 \u043E\u0441\u043E\u0437\u043D\u0430\u043D\u043D\u043E \u043E\u0442\u043A\u043B\u0438\u043A\u0430\u044E\u0442\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u0422\u0430\u043A \u0432\u044B \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430.",
+    "helps_track_have_quick": "\u041F\u043E\u043C\u043E\u0433\u0430\u0435\u0442 \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0442\u044C \u0438 \u0438\u043C\u0435\u0442\u044C \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "hidden": "\u0421\u043A\u0440\u044B\u0442\u0430\u044F ",
+    "hidden_2": "\u0441\u043A\u0440\u044B\u0442\u044B\u0445",
     "hidden_comment": "(\u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u0431\u0443\u0434\u0435\u0442 \u0441\u043A\u0440\u044B\u0442\u0430 \u043E\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0435\u0439)",
     "hide": "\u0421\u043A\u0440\u044B\u0442\u044C",
+    "hide_vacancies_whenever": "\u0421\u043A\u0440\u044B\u0432\u0430\u0439\u0442\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438 \u0432\u0441\u044F\u043A\u0438\u0439 \u0440\u0430\u0437, \u043A\u043E\u0433\u0434\u0430 \u0442\u043E\u0447\u043D\u043E \u0437\u043D\u0430\u0435\u0442\u0435, \u0447\u0442\u043E \u043E\u043D\u0430 \u0432\u0430\u043C \u043D\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u0438\u0442.",
     "higher": "\u0432\u044B\u0441\u0448\u0435\u0435",
     "hotel": "\u0413\u043E\u0441\u0442\u0438\u043D\u0438\u0447\u043D\u043E-\u0440\u0435\u0441\u0442\u043E\u0440\u0430\u043D\u043D\u044B\u0439 \u0431\u0438\u0437\u043D\u0435\u0441, \u0442\u0443\u0440\u0438\u0437\u043C",
     "how_can_apply": "\u041A\u0430\u043A \u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043A\u043B\u0438\u043A\u043D\u0443\u0442\u044C\u0441\u044F",
+    "in_hidden_menu": "\u0412 \u043C\u0435\u043D\u044E \u0441\u043A\u0440\u044B\u0442\u044B\u0445",
+    "in_saved_menu": "\u0412 \u043C\u0435\u043D\u044E \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0445",
     "incomplete_higher": "\u043D\u0435\u043E\u043A\u043E\u043D\u0447\u0435\u043D\u043D\u043E\u0435 \u0432\u044B\u0441\u0448\u0435\u0435",
     "insurance": "\u0421\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u043D\u0438\u0435",
     "internet": "IT, \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440\u044B, \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442",
     "it_not_matter": "\u042D\u0442\u043E \u043D\u0435 \u0438\u043C\u0435\u0435\u0442 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F",
+    "job_description": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "job_name": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u0438",
     "job_region": "\u0420\u0435\u0433\u0438\u043E\u043D \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "job_search": "\u041F\u043E\u0438\u0441\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439",
     "job_suitable_for": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F",
     "job_title": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u0438.",
     "jurisprudence": "\u042E\u0440\u0438\u0441\u043F\u0440\u0443\u0434\u0435\u043D\u0446\u0438\u044F",
+    "language": "\u042F\u0437\u044B\u043A",
     "least_category": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0445\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u0443 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E.",
     "locally_full_time": "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u043E, \u043F\u043E\u043B\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C",
     "locally_part_time": "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u043E, \u043D\u0435 \u043F\u043E\u043B\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C",
+    "location": "\u041B\u043E\u043A\u0430\u0446\u0438\u044F",
     "logistics": "\u041B\u043E\u0433\u0438\u0441\u0442\u0438\u043A\u0430, \u0441\u043A\u043B\u0430\u0434",
     "marketing": "\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433, \u0440\u0435\u043A\u043B\u0430\u043C\u0430, PR",
     "media": "\u0421\u041C\u0418, \u0438\u0437\u0434\u0430\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u043E, \u043F\u043E\u043B\u0438\u0433\u0440\u0430\u0444\u0438\u044F",
     "medicine": "\u041C\u0435\u0434\u0438\u0446\u0438\u043D\u0430, \u0444\u0430\u0440\u043C\u0430\u0446\u0435\u0432\u0442\u0438\u043A\u0430",
     "my": "\u041C\u043E\u0438",
+    "no_vacancies": "\u0412\u0430\u043A\u0430\u043D\u0441\u0438\u0438 \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044E\u0442.",
     "not_recommended": "\u043D\u0435 \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F",
     "other": "\u0414\u0440\u0443\u0433\u043E\u0435",
     "other_job_address": "\u041E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0430\u0434\u0440\u0435\u0441 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
@@ -73567,6 +74328,8 @@ module.exports = {
     "remaining_address": "\u041E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u0430\u0434\u0440\u0435\u0441",
     "remote_full_time": "\u0423\u0434\u0430\u043B\u0435\u043D\u043D\u043E, \u043F\u043E\u043B\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C",
     "remote_part_time": "\u0423\u0434\u0430\u043B\u0435\u043D\u043D\u043E, \u043D\u0435 \u043F\u043E\u043B\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C",
+    "remove": "\u0423\u0431\u0440\u0430\u0442\u044C",
+    "reset_all": "\u0441\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u0432\u0441\u0435",
     "responses": "\u043E\u0442\u043A\u043B\u0438\u043A\u043E\u0432",
     "resume_required": "\u0420\u0435\u0437\u044E\u043C\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E",
     "retail": "\u0420\u043E\u0437\u043D\u0438\u0447\u043D\u0430\u044F \u0442\u043E\u0440\u0433\u043E\u0432\u043B\u044F",
@@ -73576,10 +74339,18 @@ module.exports = {
     "salary_vacancy": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043F\u0440\u0435\u0434\u043F\u043E\u043B\u0430\u0433\u0430\u0435\u043C\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "sales": "\u041F\u0440\u043E\u0434\u0430\u0436\u0438, \u0437\u0430\u043A\u0443\u043F\u043A\u0438",
     "save": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C",
+    "saved": "\u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0445",
+    "search": "\u041F\u043E\u0438\u0441\u043A",
+    "search_2": "\u0418\u0441\u043A\u0430\u0442\u044C",
     "search_candidates": "\u0418\u0441\u043A\u0430\u0442\u044C \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u0433\u043E\u0440\u043E\u0434\u0435",
+    "search_city": "\u0413\u043E\u0440\u043E\u0434 \u043F\u043E\u0438\u0441\u043A\u0430",
+    "search_country": "\u0421\u0442\u0440\u0430\u043D\u0430 \u043F\u043E\u0438\u0441\u043A\u0430",
+    "search_region": "\u0420\u0435\u0433\u0438\u043E\u043D \u043F\u043E\u0438\u0441\u043A\u0430",
+    "search_vacancies": "\u043F\u043E\u0438\u0441\u043A\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439.",
     "secondary": "\u0441\u0440\u0435\u0434\u043D\u0435\u0435",
     "secretariat": "\u0421\u0435\u043A\u0440\u0435\u0442\u0430\u0440\u0438\u0430\u0442, \u0434\u0435\u043B\u043E\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E",
     "security": "\u041E\u0445\u0440\u0430\u043D\u0430, \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C",
+    "select": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C",
     "select_city": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0433\u043E\u0440\u043E\u0434",
     "select_country": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0441\u0442\u0440\u0430\u043D\u0443",
     "select_region": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0440\u0435\u0433\u0438\u043E\u043D",
@@ -73592,6 +74363,9 @@ module.exports = {
     "standard_comment": "(\u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u0431\u0443\u0434\u0435\u0442 \u0440\u0430\u0437\u043C\u0435\u0449\u0435\u043D\u0430 \u043D\u0430 \u043C\u0435\u0441\u044F\u0446)",
     "street_house": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u0443\u043B\u0438\u0446\u0443 \u0438 \u0434\u043E\u043C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "telecommunications": "\u0422\u0435\u043B\u0435\u043A\u043E\u043C\u043C\u0443\u043D\u0438\u043A\u0430\u0446\u0438\u0438 \u0438 \u0441\u0432\u044F\u0437\u044C",
+    "they_not_show_up": "\u041E\u043D\u0438 \u043D\u0435 \u0431\u0443\u0434\u0443\u0442 \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 \u043F\u043E\u0438\u0441\u043A\u0430, \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u044F \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0443\u0432\u0438\u0434\u0435\u0442\u044C \u043D\u043E\u0432\u043E\u0435 \u0438 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u043E\u0435.",
+    "this_section_stores": "\u0412 \u044D\u0442\u043E\u043C \u0440\u0430\u0437\u0434\u0435\u043B\u0435 \u0445\u0440\u0430\u043D\u044F\u0442\u0441\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0432\u044B \u0434\u043E\u0431\u0430\u0432\u0438\u043B\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 \u043F\u043E\u0438\u0441\u043A\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439 \u043F\u0440\u0438 \u043D\u0430\u0436\u0430\u0442\u0438\u0438 \u043D\u0430 \u0438\u043A\u043E\u043D\u043A\u0443 \u0432 \u0432\u0438\u0434\u0435",
+    "this_section_you_hidden": "\u0412 \u044D\u0442\u043E\u043C \u0440\u0430\u0437\u0434\u0435\u043B\u0435 \u0445\u0440\u0430\u043D\u044F\u0442\u0441\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0432\u044B \u0441\u043A\u0440\u044B\u043B\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 \u043F\u043E\u0438\u0441\u043A\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439. \u041E\u043D\u0438 \u043D\u0435 \u0431\u0443\u0434\u0443\u0442 \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 \u043F\u043E\u0438\u0441\u043A\u0430, \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u044F \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0443\u0432\u0438\u0434\u0435\u0442\u044C \u043D\u043E\u0432\u043E\u0435 \u0438 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u043E\u0435.",
     "title_candidate_resp": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0440\u0435\u0437\u044E\u043C\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0433\u043E\u0442\u043E\u0432\u044B \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u0442\u044C \u0432\u0430\u0448\u0438 \u0437\u0430\u0434\u0430\u0447\u0438, \u043E\u043F\u0438\u0448\u0438\u0442\u0435 \u044D\u0442\u0438 \u0437\u0430\u0434\u0430\u0447\u0438 \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435, \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440: \u0441\u043E\u0432\u0435\u0440\u0448\u0430\u0442\u044C 50 \u0438\u0441\u0445\u043E\u0434\u044F\u0449\u0438\u0445 \u0437\u0432\u043E\u043D\u043A\u043E\u0432 \u0432 \u0434\u0435\u043D\u044C; \u0440\u0430\u0437\u0432\u043E\u0437\u0438\u0442\u044C \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432 \u043F\u043E \u043F\u0440\u0430\u0432\u043E\u043C\u0443 \u0431\u0435\u0440\u0435\u0433\u0443; \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u043C\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430\u043C\u0438; \u0437\u0430\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u0440\u0430\u0441\u0445\u043E\u0434\u043D\u044B\u0435 \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B\u044B \u0432 \u043E\u0444\u0438\u0441.",
     "title_categories": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0441\u043E\u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u044E\u0442 \u0432\u0430\u0448\u0435\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "title_display_employer": "\u041F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0441\u0432\u043E\u0438 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u044B \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044E, \u0447\u0442\u043E\u0431 \u0432\u044B \u043C\u043E\u0433\u043B\u0438 \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u0438 \u043B\u0435\u0433\u0447\u0435 \u0441\u0432\u044F\u0437\u0430\u0442\u044C\u0441\u044F. \u0427\u0442\u043E\u0431\u044B \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0441\u0432\u043E\u0438 \u0434\u0430\u043D\u043D\u044B\u0435 \u0432 \u044D\u0442\u043E\u043C \u0431\u043B\u043E\u043A\u0435, \u043F\u0435\u0440\u0435\u0439\u0434\u0438\u0442\u0435 \u0432 \u0440\u0430\u0437\u0434\u0435\u043B \u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438.",
@@ -73603,6 +74377,7 @@ module.exports = {
     "title_vacancy_description": "\u0414\u043B\u044F \u0442\u043E\u0433\u043E \u0447\u0442\u043E\u0431 \u043F\u0440\u0438\u0432\u043B\u0435\u0447\u044C \u043D\u0443\u0436\u043D\u043E\u0433\u043E \u0432\u0430\u043C \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430 \u0438 \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0438\u0442\u044C \u0435\u0433\u043E \u043A \u0432\u0430\u0448\u0435\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438: \u043F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044C \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043E\u043F\u0438\u0441\u0430\u0442\u044C \u0441\u0432\u043E\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435. \u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435 \u043A\u0430\u043A\u0430\u044F \u0443 \u0432\u0430\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F, \u043A\u0442\u043E \u0432 \u043D\u0435\u0439 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442, \u0447\u0435\u043C \u0432\u044B \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C \u0438 \u0434\u043B\u044F \u0447\u0435\u0433\u043E \u0438\u0449\u0435\u0442\u0435 \u043D\u043E\u0432\u043E\u0433\u043E \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430.",
     "title_working_conditions": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0438 \u043D\u0430\u0439\u0442\u0438 \u043B\u0443\u0447\u0448\u0438\u0445, \u043E\u043F\u0438\u0448\u0438\u0442\u0435 \u0432\u0441\u0435 \u043F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0432\u0430\u0448\u0435\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438 \u0438 \u043F\u043E\u0447\u0435\u043C\u0443 \u043B\u0443\u0447\u0448\u0435 \u043F\u0440\u0438\u0439\u0442\u0438 \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u0438\u043C\u0435\u043D\u043D\u043E \u043A \u0432\u0430\u043C, \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440: \u0434\u0440\u0443\u0436\u0435\u043B\u044E\u0431\u043D\u0430\u044F \u0438 \u0432\u0435\u0441\u0435\u043B\u0430\u044F \u043A\u043E\u043C\u0430\u043D\u0434\u0430; \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u0438\u0435; \u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0434\u0435\u043D\u044C \u0441 9 \u0434\u043E 18; \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0439 \u043E\u0444\u0438\u0441 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435 \u0433\u043E\u0440\u043E\u0434\u0430; \u043A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u043E\u0435 \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0435 \u0440\u0430\u0431\u043E\u0447\u0435\u0435 \u043C\u0435\u0441\u0442\u043E; \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u043A\u0443\u0445\u043D\u044F \u0438 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B.",
     "to": "\u0434\u043E",
+    "to_save_job_page": "\u0427\u0442\u043E\u0431\u044B \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E, \u043F\u0435\u0440\u0435\u0439\u0434\u0438\u0442\u0435 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443",
     "top_management": "\u0422\u043E\u043F-\u043C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442, \u0440\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u0432\u044B\u0441\u0448\u0435\u0433\u043E \u0437\u0432\u0435\u043D\u0430",
     "transport": "\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442, \u0430\u0432\u0442\u043E\u0431\u0438\u0437\u043D\u0435\u0441",
     "type_employment": "\u0412\u0438\u0434 \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u0438",
@@ -73610,12 +74385,17 @@ module.exports = {
     "update_job": "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E",
     "update_vacancy": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C",
     "vacancies": "\u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "vacancies_2": "\u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439",
     "vacancy_description": "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "with_unspecified_salary": "c \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0439 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u043E\u0439",
     "without_experience": "\u0433\u043E\u0442\u043E\u0432\u044B \u0432\u0437\u044F\u0442\u044C \u0431\u0435\u0437 \u043E\u043F\u044B\u0442\u0430",
     "without_resume": "\u041C\u043E\u0436\u043D\u043E \u0438 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435",
     "work_conditions": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0440\u0430\u0431\u043E\u0442\u044B",
     "work_experience": "\u041E\u043F\u044B\u0442 \u0440\u0430\u0431\u043E\u0442\u044B",
-    "working": "\u0420\u0430\u0431\u043E\u0447\u0438\u0435 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438, \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E"
+    "working": "\u0420\u0430\u0431\u043E\u0447\u0438\u0435 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438, \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E",
+    "working_conditions": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0440\u0430\u0431\u043E\u0442\u044B",
+    "years": "\u043B\u0435\u0442",
+    "years_age": "\u041B\u0435\u0442 \u043E\u0442\u0440\u043E\u0434\u0443"
   },
   "uk.auth": {
     "agree_with_that": "\u041D\u0430\u0442\u0438\u0441\u043A\u0430\u044E\u0447\u0438 \xAB\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F\xBB, \u044F \u043F\u043E\u0433\u043E\u0434\u0436\u0443\u044E\u0441\u044C \u0437 \u0442\u0438\u043C, \u0449\u043E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0432 \u0456 \u043F\u0440\u0438\u0439\u043D\u044F\u0432",
@@ -73650,17 +74430,25 @@ module.exports = {
   },
   "uk.company": {
     "about_company": "\u0406\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044F \u043F\u0440\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E, \u0446\u0435 \u043E\u0441\u043E\u0431\u0430 \u0440\u043E\u0431\u043E\u0442\u043E\u0434\u0430\u0432\u0446\u044F. \u041F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044F \u043D\u0430\u0434\u0430\u0442\u0438 \u0432\u0456\u0434\u043E\u043C\u043E\u0441\u0442\u0456 \u043F\u0440\u043E \u043D\u0435\u0457 \u043D\u0430\u0439\u0431\u0456\u043B\u044C\u0448\u0435, \u043D\u0435 \u0437\u0443\u043F\u0438\u043D\u044F\u044E\u0447\u0438\u0441\u044C \u0442\u0456\u043B\u044C\u043A\u0438 \u043D\u0430 \u0442\u043E\u043C\u0443, \u0447\u0438\u043C \u0432\u043E\u043D\u0430 \u0437\u0430\u0439\u043C\u0430\u0454\u0442\u044C\u0441\u044F. \u0414\u043B\u044F \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430 \u0446\u0435 \u0431\u0443\u0432\u0430\u0454 \u0432\u0438\u0440\u0456\u0448\u0430\u043B\u044C\u043D\u0438\u043C \u0444\u0430\u043A\u0442\u043E\u0440\u043E\u043C.",
+    "about_company_2": "\u041F\u0440\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E",
+    "add_address": "\u0414\u043E\u0434\u0430\u0442\u0438 \u0430\u0434\u0440\u0435\u0441\u0443",
     "april": "\u043A\u0432\u0456\u0442\u0435\u043D\u044C",
     "august": "\u0441\u0435\u0440\u043F\u0435\u043D\u044C",
     "categories_activity_company": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u0457 \u0441\u0444\u0435\u0440\u0438 \u0434\u0456\u044F\u043B\u044C\u043D\u043E\u0441\u0442\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "change company details": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438 \u0434\u0430\u043D\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "change_logo": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438 \u043B\u043E\u0433\u043E\u0442\u0438\u043F",
     "company_city": "\u041C\u0456\u0441\u0442\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_country": "\u041A\u0440\u0430\u0457\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_description": "\u041E\u043F\u0438\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_description_empty": "\u041E\u043F\u0438\u0441 \u043F\u0440\u043E \u041A\u043E\u043C\u043F\u0430\u043D\u0456\u044E \u043D\u0435 \u0437\u0430\u043F\u043E\u0432\u043D\u0435\u043D\u043E !",
+    "company_information": "\u0406\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044F \u043F\u0440\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E",
+    "company_logo": "\u041B\u043E\u0433\u043E\u0442\u0438\u043F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_name": "\u041D\u0430\u0437\u0432\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_name_transliteration": "\u0422\u0440\u0430\u043D\u0441\u043B\u0456\u0442\u0435\u0440\u0430\u0446\u0456\u044F \u043D\u0430\u0437\u0432\u0438 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_region": "\u0420\u0435\u0433\u0456\u043E\u043D \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_tax_number": "\u041F\u043E\u0434\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_vacancies": "\u0412\u0430\u043A\u0430\u043D\u0441\u0456\u0457 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "company_video": "\u0412\u0456\u0434\u0435\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "company_website": "\u0421\u0430\u0439\u0442 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "create_your_company": "\u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438 \u0441\u0432\u043E\u044E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E",
     "data_foundation": "\u0414\u0430\u0442\u0430 \u0437\u0430\u0441\u043D\u0443\u0432\u0430\u043D\u043D\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
@@ -73668,20 +74456,27 @@ module.exports = {
     "enter_link_account": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F \u043D\u0430 \u0432\u0430\u0448 \u043E\u0431\u043B\u0456\u043A\u043E\u0432\u0438\u0439 \u0437\u0430\u043F\u0438\u0441",
     "enter_number": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043D\u043E\u043C\u0435\u0440",
     "enter_transliteration": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0442\u0440\u0430\u043D\u0441\u043B\u0456\u0442\u0435\u0440\u0430\u0446\u0456\u044E",
+    "facebook_links": "Facebook \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C",
     "february": "\u043B\u044E\u0442\u0438\u0439",
+    "field_only_for": "\u041F\u043E\u043B\u0435 \u043F\u0440\u0438\u0437\u043D\u0430\u0447\u0435\u043D\u0435 \u043B\u0438\u0448\u0435 \u0434\u043B\u044F ",
     "for_example_great": "\u041D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434, great.com",
     "for_example_star": "\u041D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434 'Star LTD'",
     "from_100_to_250_employees": "\u0432\u0456\u0434 100 \u0434\u043E 250 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "instagram_links": "Instagram \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C",
     "january": "\u0441\u0456\u0447\u0435\u043D\u044C",
+    "jobs": "\u0412\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "july": "\u043B\u0438\u043F\u0435\u043D\u044C",
     "june": "\u0447\u0435\u0440\u0432\u0435\u043D\u044C",
     "less_than_10_employees": "\u043C\u0435\u043D\u0448\u0435 10 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
     "march": "\u0431\u0435\u0440\u0435\u0437\u0435\u043D\u044C",
     "may": "\u0442\u0440\u0430\u0432\u0435\u043D\u044C",
+    "media_files": "\u041C\u0435\u0434\u0456\u0430\u0444\u0430\u0439\u043B\u0438",
     "more_than_500_employees": "\u0431\u0456\u043B\u044C\u0448\u0435 500 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "no_vacancies_created": "\u041D\u0435 \u043E\u0434\u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u043D\u0435 \u0441\u0442\u0432\u043E\u0440\u0435\u043D\u0430!",
     "november": "\u043B\u0438\u0441\u0442\u043E\u043F\u0430\u0434",
     "number_employees_company": "\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432 \u0443 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "october": "\u0436\u043E\u0432\u0442\u0435\u043D\u044C",
+    "on_site_from": "\u043D\u0430 \u0441\u0430\u0439\u0442\u0456 \u0437",
     "please_enter_least": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u044F\u043A \u043C\u0456\u043D\u0456\u043C\u0443\u043C 1 \u043B\u0430\u0442\u0438\u043D\u0441\u044C\u043A\u0443 \u043B\u0456\u0442\u0435\u0440\u0443, \u0437 \u043C\u043E\u0436\u043B\u0438\u0432\u0438\u043C \u0434\u043E\u043F\u043E\u0432\u043D\u0435\u043D\u043D\u044F\u043C \u0442\u0438\u0440\u0435, \u0434\u0435\u0444\u0456\u0441 \u0442\u0430 \u0446\u0438\u0444\u0440\u0438.",
     "please_enter_name": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u043D\u0430\u0437\u0432\u0443 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457.",
     "please_enter_your_number": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u041F\u043E\u0434\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457.",
@@ -73694,23 +74489,42 @@ module.exports = {
     "september": "\u0432\u0435\u0440\u0435\u0441\u0435\u043D\u044C",
     "social_networks_company": "\u0421\u043E\u0446\u043C\u0435\u0440\u0435\u0436\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "specify": "\u0412\u043A\u0430\u0437\u0430\u0442\u0438 \u0430\u0434\u0440\u0435\u0441\u0443",
-    "up_to_50_employees": "\u0434\u043E 50 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432"
+    "telegram_links": "Telegram \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C",
+    "this_transliteration": "\u0426\u044F \u0442\u0440\u0430\u043D\u0441\u043B\u0456\u0442\u0435\u0440\u0430\u0446\u0456\u044F \u0432\u0436\u0435 \u0437\u0430\u0439\u043D\u044F\u0442\u0430!",
+    "twitter_links": "Twitter \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C",
+    "up_to_50_employees": "\u0434\u043E 50 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432",
+    "update_company_data": "\u041E\u043D\u043E\u0432\u0438\u0442\u0438 \u0434\u0430\u043D\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
+    "years": "\u0440\u043E\u043A\u0443",
+    "youtube_links": "youtube \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C"
   },
   "uk.menu.menu": {
     "authorization": "\u0412\u0445\u0456\u0434",
     "cabinet": "\u041A\u0430\u0431\u0456\u043D\u0435\u0442",
     "registration": "\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F"
   },
+  "uk.office": {
+    "create_update": "\u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438 / \u041E\u043D\u043E\u0432\u0438\u0442\u0438 \u041A\u043E\u043C\u043F\u0430\u043D\u0456\u044E",
+    "hidden_jobs": "\u041F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "jobs_bookmarks": "\u0412\u0430\u043A\u0430\u043D\u0441\u0456\u0457 \u0432 \u0437\u0430\u043A\u043B\u0430\u0434\u043A\u0430\u0445",
+    "my_jobs": "\u041C\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "personal_account": "\u041E\u0441\u043E\u0431\u0438\u0441\u0442\u0438\u0439 \u043A\u0430\u0431\u0456\u043D\u0435\u0442",
+    "view_company_publicly": "\u0414\u0438\u0432\u0438\u0442\u0438\u0441\u044C \u043F\u0443\u0431\u043B\u0456\u0447\u043D\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E"
+  },
   "uk.vacancies": {
     "accounting": "\u0411\u0443\u0445\u0433\u0430\u043B\u0442\u0435\u0440\u0456\u044F, \u0430\u0443\u0434\u0438\u0442",
+    "adding_vacancies_helps_track": "\u0414\u043E\u0434\u0430\u0432\u0430\u043D\u043D\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439 \u0434\u043E\u043F\u043E\u043C\u0430\u0433\u0430\u0454 \u0432\u0456\u0434\u0441\u0442\u0435\u0436\u0443\u0432\u0430\u0442\u0438 \u0442\u0430 \u043C\u0430\u0442\u0438 \u0448\u0432\u0438\u0434\u043A\u0438\u0439 \u0434\u043E\u0441\u0442\u0443\u043F. \u0426\u0435 \u0437\u0440\u0443\u0447\u043D\u043E, \u043A\u043E\u043B\u0438 \u0432\u0438 \u0432\u0435\u0434\u0435\u0442\u0435 \u043B\u0438\u0441\u0442\u0443\u0432\u0430\u043D\u043D\u044F \u0437 \u0440\u043E\u0431\u043E\u0442\u043E\u0434\u0430\u0432\u0446\u0435\u043C, \u0437\u0432\u0435\u0440\u0442\u0430\u044E\u0447\u0438\u0441\u044C \u0434\u043E \u043F\u043E\u0442\u0440\u0456\u0431\u043D\u043E\u0457 \u0432\u0430\u043C \u0456\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u0457.",
     "administration": "\u0410\u0434\u043C\u0456\u043D\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044F, \u043A\u0435\u0440\u0456\u0432\u043D\u0438\u0446\u0442\u0432\u043E \u0441\u0435\u0440\u0435\u0434\u043D\u044C\u043E\u0457 \u043B\u0430\u043D\u043A\u0438",
     "age_comment": "\u041A\u043E\u043C\u0435\u043D\u0442\u0430\u0440 \u0434\u043E \u0432\u0456\u043A\u0443",
     "age_group": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u0438\u0439 \u0432\u0430\u0440\u0456\u0430\u043D\u0442 \u0432\u0456\u043A\u043E\u0432\u043E\u0457 \u0433\u0440\u0443\u043F\u0438.",
     "agriculture": "\u0421\u0456\u043B\u044C\u0441\u044C\u043A\u0435 \u0433\u043E\u0441\u043F\u043E\u0434\u0430\u0440\u0441\u0442\u0432\u043E, \u0430\u0433\u0440\u043E\u0431\u0456\u0437\u043D\u0435\u0441",
+    "applicant_age": "\u0412\u0456\u043A \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430",
     "beauty": "\u041A\u0440\u0430\u0441\u0430, \u0444\u0456\u0442\u043D\u0435\u0441, \u0441\u043F\u043E\u0440\u0442",
+    "bookmarks": "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438",
     "cancel": "\u0421\u043A\u0430\u0441\u0443\u0432\u0430\u0442\u0438",
     "candidate_responsibilities": "\u041E\u0431\u043E\u0432'\u044F\u0437\u043A\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0430",
+    "categories": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u0457",
     "category_job_posting": "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u044F \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u043D\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "checking": "\u043D\u0430 \u043F\u0435\u0440\u0435\u0432\u0456\u0440\u0446\u0456",
     "city_job": "\u041C\u0456\u0441\u0442\u043E \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "city_search": "\u041C\u0456\u0441\u0442\u043E \u0434\u043B\u044F \u043F\u043E\u0448\u0443\u043A\u0443",
     "construction": "\u0411\u0443\u0434\u0456\u0432\u043D\u0438\u0446\u0442\u0432\u043E, \u0430\u0440\u0445\u0456\u0442\u0435\u043A\u0442\u0443\u0440\u0430",
@@ -73722,6 +74536,7 @@ module.exports = {
     "delete": "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438",
     "design": "\u0414\u0438\u0437\u0430\u0439\u043D, \u0442\u0432\u043E\u0440\u0447\u0456\u0441\u0442\u044C",
     "display_employer_jobs": "\u0412\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0456\u0432 \u0440\u043E\u0431\u043E\u0442\u043E\u0434\u0430\u0432\u0446\u044F",
+    "do_not_show": "\u041D\u0435 \u043F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438",
     "does_not_matter": "\u043D\u0435 \u043C\u0430\u0454 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F",
     "dont_specify": "\u041D\u0435 \u0432\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438",
     "edit": "\u0420\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u0442\u0438",
@@ -73736,29 +74551,39 @@ module.exports = {
     "from_5_years": "\u0432\u0456\u0434 5 \u0440\u043E\u043A\u0456\u0432 \u0456 \u0431\u0456\u043B\u044C\u0448\u0435",
     "functions": "\u0424\u0443\u043D\u043A\u0446\u0456\u0457",
     "get_more_responses": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u0432\u0456\u0434\u0433\u0443\u043A\u0456\u0432, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443. \u041A\u043E\u043B\u0438 \u0437\u0434\u043E\u0431\u0443\u0432\u0430\u0447\u0456 \u0437\u043D\u0430\u044E\u0442\u044C, \u044F\u043A\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0438 \u043F\u0440\u043E\u043F\u043E\u043D\u0443\u0454\u0442\u0435, \u0432\u043E\u043D\u0438 \u0431\u0456\u043B\u044C\u0448 \u0443\u0441\u0432\u0456\u0434\u043E\u043C\u043B\u0435\u043D\u043E \u0432\u0456\u0434\u0433\u0443\u043A\u0443\u044E\u0442\u044C\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u0422\u0430\u043A \u0432\u0438 \u0448\u0432\u0438\u0434\u0448\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u043E\u0433\u043E \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0430.",
+    "helps_track_have_quick": "\u0414\u043E\u043F\u043E\u043C\u0430\u0433\u0430\u0454 \u0432\u0456\u0434\u0441\u0442\u0435\u0436\u0443\u0432\u0430\u0442\u0438 \u0442\u0430 \u043C\u0430\u0442\u0438 \u0448\u0432\u0438\u0434\u043A\u0438\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u0434\u043E \u043D\u0435\u043E\u0431\u0445\u0456\u0434\u043D\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "hidden": "\u041F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0430 ",
+    "hidden_2": "\u043F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0438\u0445",
     "hidden_comment": "(\u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u0431\u0443\u0434\u0435 \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0430 \u0432\u0456\u0434 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0456\u0432)",
     "hide": "\u041F\u0440\u0438\u0445\u043E\u0432\u0430\u0442\u0438",
+    "hide_vacancies_whenever": "\u041F\u0440\u0438\u0445\u043E\u0432\u0443\u0439\u0442\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457 \u0449\u043E\u0440\u0430\u0437\u0443, \u043A\u043E\u043B\u0438 \u0442\u043E\u0447\u043D\u043E \u0437\u043D\u0430\u0454\u0442\u0435, \u0449\u043E \u0432\u043E\u043D\u0430 \u0432\u0430\u043C \u043D\u0435 \u043F\u0456\u0434\u0445\u043E\u0434\u0438\u0442\u044C.",
     "higher": "\u0432\u0438\u0449\u0435",
     "hotel": "\u0413\u043E\u0442\u0435\u043B\u044C\u043D\u043E-\u0440\u0435\u0441\u0442\u043E\u0440\u0430\u043D\u043D\u0438\u0439 \u0431\u0456\u0437\u043D\u0435\u0441, \u0442\u0443\u0440\u0438\u0437\u043C",
     "how_can_apply": "\u042F\u043A \u043C\u043E\u0436\u043D\u0430 \u0432\u0456\u0434\u0433\u0443\u043A\u043D\u0443\u0442\u0438\u0441\u044F",
+    "in_hidden_menu": "\u0423 \u043C\u0435\u043D\u044E \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0438\u0445",
+    "in_saved_menu": "\u0423 \u043C\u0435\u043D\u044E \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u0438\u0445",
     "incomplete_higher": "\u043D\u0435\u0437\u0430\u043A\u0456\u043D\u0447\u0435\u043D\u0430 \u0432\u0438\u0449\u0430",
     "insurance": "\u0421\u0442\u0440\u0430\u0445\u0443\u0432\u0430\u043D\u043D\u044F",
     "internet": "IT, \u043A\u043E\u043C\u043F'\u044E\u0442\u0435\u0440\u0438, \u0456\u043D\u0442\u0435\u0440\u043D\u0435\u0442",
     "it_not_matter": "\u0426\u0435 \u043D\u0435 \u043C\u0430\u0454 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F",
+    "job_description": "\u041E\u043F\u0438\u0441 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "job_name": "\u041D\u0430\u0437\u0432\u0430 \u043F\u043E\u0441\u0430\u0434\u0438",
     "job_region": "\u0420\u0435\u0433\u0456\u043E\u043D \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "job_search": "\u041F\u043E\u0448\u0443\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439",
     "job_suitable_for": "\u0412\u0456\u043A \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430",
     "job_title": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u043D\u0430\u0437\u0432\u0443 \u043F\u043E\u0441\u0430\u0434\u0438.",
     "jurisprudence": "\u042E\u0440\u0438\u0441\u043F\u0440\u0443\u0434\u0435\u043D\u0446\u0456\u044F",
+    "language": "\u041C\u043E\u0432\u0430",
     "least_category": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u0445\u043E\u0447\u0430 \u0431 \u043E\u0434\u043D\u0443 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u044E.",
     "locally_full_time": "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u043E, \u043F\u043E\u0432\u043D\u0430 \u0437\u0430\u0439\u043D\u044F\u0442\u0456\u0441\u0442\u044C",
     "locally_part_time": "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u043E, \u043D\u0435 \u043F\u043E\u0432\u043D\u0430 \u0437\u0430\u0439\u043D\u044F\u0442\u0456\u0441\u0442\u044C",
+    "location": "\u041B\u043E\u043A\u0430\u0446\u0456\u044F",
     "logistics": "\u041B\u043E\u0433\u0456\u0441\u0442\u0438\u043A\u0430, \u0441\u043A\u043B\u0430\u0434",
     "marketing": "\u041C\u0430\u0440\u043A\u0435\u0442\u0438\u043D\u0433, \u0440\u0435\u043A\u043B\u0430\u043C\u0430, PR",
     "media": "\u0417\u041C\u0406, \u0432\u0438\u0434\u0430\u0432\u043D\u0438\u0446\u0442\u0432\u043E, \u043F\u043E\u043B\u0456\u0433\u0440\u0430\u0444\u0456\u044F",
     "medicine": "\u041C\u0435\u0434\u0438\u0446\u0438\u043D\u0430, \u0444\u0430\u0440\u043C\u0430\u0446\u0435\u0432\u0442\u0438\u043A\u0430",
     "my": "\u041C\u043E\u0457",
+    "no_vacancies": "\u0412\u0430\u043A\u0430\u043D\u0441\u0456\u0457 \u0432\u0456\u0434\u0441\u0443\u0442\u043D\u0456.",
     "not_recommended": "\u043D\u0435 \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0454\u0442\u044C\u0441\u044F",
     "other": "\u0406\u043D\u0448\u0435",
     "other_job_address": "\u041E\u0441\u0442\u0430\u043D\u043D\u044F \u0430\u0434\u0440\u0435\u0441\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
@@ -73771,6 +74596,8 @@ module.exports = {
     "remaining_address": "\u0406\u043D\u0448\u0430 \u0430\u0434\u0440\u0435\u0441\u0430",
     "remote_full_time": "\u0412\u0456\u0434\u0434\u0430\u043B\u0435\u043D\u043E, \u043F\u043E\u0432\u043D\u0430 \u0437\u0430\u0439\u043D\u044F\u0442\u0456\u0441\u0442\u044C",
     "remote_part_time": "\u0412\u0456\u0434\u0434\u0430\u043B\u0435\u043D\u043E, \u043D\u0435 \u043F\u043E\u0432\u043D\u0430 \u0437\u0430\u0439\u043D\u044F\u0442\u0456\u0441\u0442\u044C",
+    "remove": "\u041F\u0440\u0438\u0431\u0440\u0430\u0442\u0438",
+    "reset_all": "\u0441\u043A\u0438\u043D\u0443\u0442\u0438 \u0432\u0441\u0435",
     "responses": "\u0432\u0456\u0434\u0433\u0443\u043A\u0456\u0432",
     "resume_required": "\u0420\u0435\u0437\u044E\u043C\u0435 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u043E",
     "retail": "\u0420\u043E\u0437\u0434\u0440\u0456\u0431\u043D\u0430 \u0442\u043E\u0440\u0433\u0456\u0432\u043B\u044F",
@@ -73780,10 +74607,18 @@ module.exports = {
     "salary_vacancy": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u043C\u043E\u0436\u043B\u0438\u0432\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "sales": "\u041F\u0440\u043E\u0434\u0430\u0436\u0456, \u0437\u0430\u043A\u0443\u043F\u0456\u0432\u043B\u0456",
     "save": "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438",
+    "saved": "\u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u0438\u0445",
+    "search": "\u041F\u043E\u0448\u0443\u043A",
+    "search_2": "\u0428\u0443\u043A\u0430\u0442\u0438",
     "search_candidates": "\u0428\u0443\u043A\u0430\u0442\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0432 \u0456\u043D\u0448\u043E\u043C\u0443 \u043C\u0456\u0441\u0442\u0456",
+    "search_city": "\u041C\u0456\u0441\u0442\u043E \u043F\u043E\u0448\u0443\u043A\u0443",
+    "search_country": "\u041A\u0440\u0430\u0457\u043D\u0430 \u043F\u043E\u0448\u0443\u043A\u0443",
+    "search_region": "\u0420\u0435\u0433\u0456\u043E\u043D \u043F\u043E\u0448\u0443\u043A\u0443",
+    "search_vacancies": "\u043F\u043E\u0448\u0443\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439.",
     "secondary": "\u0441\u0435\u0440\u0435\u0434\u043D\u0454",
     "secretariat": "\u0421\u0435\u043A\u0440\u0435\u0442\u0430\u0440\u0456\u0430\u0442, \u0434\u0456\u043B\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E",
     "security": "\u041E\u0445\u043E\u0440\u043E\u043D\u0430, \u0431\u0435\u0437\u043F\u0435\u043A\u0430",
+    "select": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438",
     "select_city": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043C\u0456\u0441\u0442\u043E",
     "select_country": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043A\u0440\u0430\u0457\u043D\u0443",
     "select_region": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0440\u0435\u0433\u0456\u043E\u043D",
@@ -73796,6 +74631,9 @@ module.exports = {
     "standard_comment": "(\u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u0431\u0443\u0434\u0435 \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u0430 \u043D\u0430 \u043C\u0456\u0441\u044F\u0446\u044C)",
     "street_house": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0432\u0443\u043B\u0438\u0446\u044E \u0442\u0430 \u0431\u0443\u0434\u0438\u043D\u043E\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "telecommunications": "\u0422\u0435\u043B\u0435\u043A\u043E\u043C\u0443\u043D\u0456\u043A\u0430\u0446\u0456\u0457 \u0442\u0430 \u0437\u0432'\u044F\u0437\u043E\u043A",
+    "they_not_show_up": "\u0412\u043E\u043D\u0438 \u043D\u0435 \u0431\u0443\u0434\u0443\u0442\u044C \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u0438\u0441\u044F \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u043F\u043E\u0448\u0443\u043A\u0443, \u043D\u0430\u0434\u0430\u044E\u0447\u0438 \u043C\u043E\u0436\u043B\u0438\u0432\u0456\u0441\u0442\u044C \u043F\u043E\u0431\u0430\u0447\u0438\u0442\u0438 \u043D\u043E\u0432\u0435 \u0442\u0430 \u0446\u0456\u043A\u0430\u0432\u0435.",
+    "this_section_stores": "\u0423 \u0446\u044C\u043E\u043C\u0443 \u0440\u043E\u0437\u0434\u0456\u043B\u0456 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u044E\u0442\u044C\u0441\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457, \u044F\u043A\u0456 \u0432\u0438 \u0434\u043E\u0434\u0430\u043B\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u043F\u043E\u0448\u0443\u043A\u0443 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439 \u043F\u0440\u0438 \u043D\u0430\u0442\u0438\u0441\u043A\u0430\u043D\u043D\u0456 \u043D\u0430 \u0456\u043A\u043E\u043D\u043A\u0443 \u0443 \u0432\u0438\u0433\u043B\u044F\u0434\u0456",
+    "this_section_you_hidden": "\u0423 \u0446\u044C\u043E\u043C\u0443 \u0440\u043E\u0437\u0434\u0456\u043B\u0456 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u044E\u0442\u044C\u0441\u044F \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457, \u044F\u043A\u0456 \u0432\u0438 \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u043B\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u043F\u043E\u0448\u0443\u043A\u0443 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439. \u0412\u043E\u043D\u0438 \u043D\u0435 \u0431\u0443\u0434\u0443\u0442\u044C \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u0438\u0441\u044F \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u043F\u043E\u0448\u0443\u043A\u0443, \u043D\u0430\u0434\u0430\u044E\u0447\u0438 \u043C\u043E\u0436\u043B\u0438\u0432\u0456\u0441\u0442\u044C \u043F\u043E\u0431\u0430\u0447\u0438\u0442\u0438 \u043D\u043E\u0432\u0435 \u0442\u0430 \u0446\u0456\u043A\u0430\u0432\u0435.",
     "title_candidate_resp": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0443\u0432\u0430\u0442\u0438 \u0440\u0435\u0437\u044E\u043C\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432, \u044F\u043A\u0456 \u0433\u043E\u0442\u043E\u0432\u0456 \u0432\u0438\u043A\u043E\u043D\u0443\u0432\u0430\u0442\u0438 \u0432\u0430\u0448\u0456 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F, \u043E\u043F\u0438\u0448\u0456\u0442\u044C \u0446\u0456 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F \u0434\u043E\u043A\u043B\u0430\u0434\u043D\u0456\u0448\u0435, \u043D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434: \u0437\u0434\u0456\u0439\u0441\u043D\u044E\u0432\u0430\u0442\u0438 50 \u0432\u0438\u0445\u0456\u0434\u043D\u0438\u0445 \u0434\u0437\u0432\u0456\u043D\u043A\u0456\u0432 \u043D\u0430 \u0434\u0435\u043D\u044C; \u0440\u043E\u0437\u0432\u043E\u0437\u0438\u0442\u0438 \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0456\u0432 \u043F\u043E \u043F\u0440\u0430\u0432\u043E\u043C\u0443 \u0431\u0435\u0440\u0435\u0437\u0456; \u043A\u0435\u0440\u0443\u0432\u0430\u0442\u0438 \u0431\u0443\u0434\u0456\u0432\u0435\u043B\u044C\u043D\u0438\u043C\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430\u043C\u0438; \u0437\u0430\u043C\u043E\u0432\u043B\u044F\u0442\u0438 \u0432\u0438\u0442\u0440\u0430\u0442\u043D\u0456 \u043C\u0430\u0442\u0435\u0440\u0456\u0430\u043B\u0438 \u0432 \u043E\u0444\u0456\u0441.",
     "title_categories": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u043B\u0438\u0448\u0435 \u0442\u0456 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u0457, \u044F\u043A\u0456 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u0430\u044E\u0442\u044C \u0432\u0430\u0448\u0456\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "title_display_employer": "\u041D\u0430\u0434\u0430\u0439\u0442\u0435 \u0441\u0432\u043E\u0457 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0438 \u0437\u0434\u043E\u0431\u0443\u0432\u0430\u0447\u0435\u0432\u0456, \u0449\u043E\u0431 \u0432\u0438 \u043C\u043E\u0433\u043B\u0438 \u0448\u0432\u0438\u0434\u0448\u0435 \u0456 \u043B\u0435\u0433\u0448\u0435 \u0437\u0432'\u044F\u0437\u0430\u0442\u0438\u0441\u044F. \u0429\u043E\u0431 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u0441\u0432\u043E\u0457 \u0434\u0430\u043D\u0456 \u0432 \u0446\u044C\u043E\u043C\u0443 \u0431\u043B\u043E\u0446\u0456, \u043F\u0435\u0440\u0435\u0439\u0434\u0456\u0442\u044C \u0434\u043E \u0440\u043E\u0437\u0434\u0456\u043B\u0443 \u041D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F.",
@@ -73807,6 +74645,7 @@ module.exports = {
     "title_vacancy_description": "\u0414\u043B\u044F \u0442\u043E\u0433\u043E \u0449\u043E\u0431 \u0437\u0430\u043B\u0443\u0447\u0438\u0442\u0438 \u043F\u043E\u0442\u0440\u0456\u0431\u043D\u0443 \u0432\u0430\u043C \u043B\u044E\u0434\u0438\u043D\u0443 \u0456 \u0440\u043E\u0437\u0442\u0430\u0448\u0443\u0432\u0430\u0442\u0438 \u0457\u0457 \u0434\u043E \u0432\u0430\u0448\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457: \u043F\u043E\u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044F \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043E\u043F\u0438\u0441\u0430\u0442\u0438 \u0441\u0432\u043E\u044E \u043F\u0440\u043E\u043F\u043E\u0437\u0438\u0446\u0456\u044E. \u0420\u043E\u0437\u043A\u0430\u0436\u0456\u0442\u044C, \u044F\u043A\u0430 \u0443 \u0432\u0430\u0441 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044F, \u0445\u0442\u043E \u0432 \u043D\u0456\u0439 \u043F\u0440\u0430\u0446\u044E\u0454, \u0447\u0438\u043C \u0432\u0438 \u0437\u0430\u0439\u043C\u0430\u0454\u0442\u0435\u0441\u044F \u0456 \u0434\u043B\u044F \u0447\u043E\u0433\u043E \u0448\u0443\u043A\u0430\u0454\u0442\u0435 \u043D\u043E\u0432\u0443 \u043B\u044E\u0434\u0438\u043D\u0443.",
     "title_working_conditions": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0456 \u0437\u043D\u0430\u0439\u0442\u0438 \u043D\u0430\u0439\u043A\u0440\u0430\u0449\u0438\u0445, \u043E\u043F\u0438\u0448\u0456\u0442\u044C \u0443\u0441\u0456 \u043F\u0435\u0440\u0435\u0432\u0430\u0433\u0438 \u0440\u043E\u0431\u043E\u0442\u0438 \u0443 \u0432\u0430\u0448\u0456\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457 \u0442\u0430 \u0447\u043E\u043C\u0443 \u043A\u0440\u0430\u0449\u0435 \u043F\u0440\u0438\u0439\u0442\u0438 \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u0442\u0438 \u0441\u0430\u043C\u0435 \u0434\u043E \u0432\u0430\u0441, \u043D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434: \u0434\u0440\u0443\u0436\u043D\u044F \u0442\u0430 \u0432\u0435\u0441\u0435\u043B\u0430 \u043A\u043E\u043C\u0430\u043D\u0434\u0430; \u043E\u0444\u0456\u0446\u0456\u0439\u043D\u0435 \u043E\u0444\u043E\u0440\u043C\u043B\u0435\u043D\u043D\u044F; \u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0434\u0435\u043D\u044C \u0437 9 \u0434\u043E 18; \u0441\u0443\u0447\u0430\u0441\u043D\u0438\u0439 \u043E\u0444\u0456\u0441 \u0443 \u0446\u0435\u043D\u0442\u0440\u0456 \u043C\u0456\u0441\u0442\u0430; \u043A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u0435 \u0441\u0443\u0447\u0430\u0441\u043D\u0435 \u0440\u043E\u0431\u043E\u0447\u0435 \u043C\u0456\u0441\u0446\u0435; \u0432\u043B\u0430\u0441\u043D\u0430 \u043A\u0443\u0445\u043D\u044F \u0442\u0430 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B.",
     "to": "\u0434\u043E",
+    "to_save_job_page": "\u0429\u043E\u0431 \u0437\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E, \u043F\u0435\u0440\u0435\u0439\u0434\u0456\u0442\u044C \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443",
     "top_management": "\u0422\u043E\u043F-\u043C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442, \u043A\u0435\u0440\u0456\u0432\u043D\u0438\u0446\u0442\u0432\u043E \u0432\u0438\u0449\u043E\u0457 \u043B\u0430\u043D\u043A\u0438",
     "transport": "\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442, \u0430\u0432\u0442\u043E\u0431\u0456\u0437\u043D\u0435\u0441",
     "type_employment": "\u0412\u0438\u0433\u043B\u044F\u0434 \u0437\u0430\u0439\u043D\u044F\u0442\u043E\u0441\u0442\u0456",
@@ -73814,12 +74653,17 @@ module.exports = {
     "update_job": "\u0420\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u0442\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E",
     "update_vacancy": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438",
     "vacancies": "\u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "vacancies_2": "\u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439",
     "vacancy_description": "\u041E\u043F\u0438\u0441 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "with_unspecified_salary": "c \u043D\u0435 \u0432\u043A\u0430\u0437\u0430\u043D\u043E\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u043E\u044E",
     "without_experience": "\u0433\u043E\u0442\u043E\u0432\u0456 \u0432\u0437\u044F\u0442\u0438 \u0431\u0435\u0437 \u0434\u043E\u0441\u0432\u0456\u0434\u0443",
     "without_resume": "\u041C\u043E\u0436\u043D\u0430 \u0456 \u0431\u0435\u0437 \u0440\u0435\u0437\u044E\u043C\u0435",
     "work_conditions": "\u0423\u043C\u043E\u0432\u0438 \u0440\u043E\u0431\u043E\u0442\u0438",
     "work_experience": "\u0414\u043E\u0441\u0432\u0456\u0434 \u0440\u043E\u0431\u043E\u0442\u0438",
-    "working": "\u0420\u043E\u0431\u043E\u0447\u0456 \u0441\u043F\u0435\u0446\u0456\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0456, \u0432\u0438\u0440\u043E\u0431\u043D\u0438\u0446\u0442\u0432\u043E"
+    "working": "\u0420\u043E\u0431\u043E\u0447\u0456 \u0441\u043F\u0435\u0446\u0456\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0456, \u0432\u0438\u0440\u043E\u0431\u043D\u0438\u0446\u0442\u0432\u043E",
+    "working_conditions": "\u0423\u043C\u043E\u0432\u0438 \u0440\u043E\u0431\u043E\u0442\u0438",
+    "years": "\u0440\u043E\u043A\u0456\u0432",
+    "years_age": "\u041B\u0456\u0442 \u0432\u0456\u0434\u0440\u043E\u0434\u0443"
   }
 };
 

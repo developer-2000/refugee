@@ -6,8 +6,8 @@
                 <a :href="`/${array.url}`">{{array.name}}</a>
                 <span class="bread-slash"> / </span>
             </template>
-
         </div>
+
         <!-- buttons -->
         <div class="top-panel">
             <button class="btn btn-block btn-outline-primary" type="button">

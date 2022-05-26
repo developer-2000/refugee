@@ -15,7 +15,7 @@
             {{trans('company','create_your_company')}}
         </h1>
         <h1 v-else class="title_page card-body">
-            Обновить данные компании
+            {{trans('company','update_company_data')}}
         </h1>
 
         <div class="desc-helper-italic">
@@ -75,7 +75,7 @@
                         {{trans('company','please_enter_least')}}
                     </div>
                     <div class="invalid-feedback" v-if="!$v.position_transliteration.uniqTranslit">
-                        Эта транслитерация уже занята!"
+                        {{trans('company','this_transliteration')}}
                     </div>
                 </div>
 
@@ -331,7 +331,7 @@
                                            @change="checkInvalid($event, 'facebook.com')"
                                     >
                                     <div class="invalid-feedback">
-                                        Поле предназначено только для Facebook ссылок
+                                        {{trans('company','field_only_for')}}{{trans('company','facebook_links')}}
                                     </div>
                                 </div>
                             </div>
@@ -349,7 +349,7 @@
                                            @change="checkInvalid($event, 'instagram.com')"
                                     >
                                     <div class="invalid-feedback">
-                                        Поле предназначено только для Instagram ссылок
+                                        {{trans('company','field_only_for')}}{{trans('company','instagram_links')}}
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +367,7 @@
                                            @change="checkInvalid($event, 't.me')"
                                     >
                                     <div class="invalid-feedback">
-                                        Поле предназначено только для Telegram ссылок
+                                        {{trans('company','field_only_for')}}{{trans('company','telegram_links')}}
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +385,7 @@
                                            @change="checkInvalid($event, 'twitter.com')"
                                     >
                                     <div class="invalid-feedback">
-                                        Поле предназначено только для Twitter ссылок
+                                        {{trans('company','field_only_for')}}{{trans('company','twitter_links')}}
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +419,7 @@
                 <div class="form-group height-element">
                     <div class="box-link-youtube">
                         <label>
-                            Видео компании (Youtube)
+                            {{trans('company','company_video')}} (Youtube)
                         </label>
                         <div id="input_youtube">
                             <div class="input-group input-group">
@@ -430,7 +430,7 @@
                                     </button>
                                 </span>
                                 <div class="invalid-feedback">
-                                    Поле предназначено только для youtube ссылок
+                                    {{trans('company','field_only_for')}}{{trans('company','youtube_links')}}
                                 </div>
                             </div>
                         </div>
@@ -442,7 +442,7 @@
                          @click="addInputYoutube()"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                        Добавить адрес
+                        {{trans('company','add_address')}}
                     </div>
                 </div>
             </div>
@@ -473,12 +473,13 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label>
-                        Логотип компании
+                        {{trans('company','company_logo')}}
                     </label>
                     <load_logotype_component
                         @load_logotype='addLogotype'
                         :lang="lang"
                         :update_logotype_url="update_logotype_url"
+                        :update_logotype_text="trans('company','change_logo')"
                     ></load_logotype_component>
                 </div>
             </div>
@@ -677,7 +678,7 @@
                 let categories = this.objCategory.categories
                 if(categories !== null){
                     categories.forEach(function(value) {
-                        formData.append("categories[]", value)
+                        formData.append("categories[]", parseInt(value))
                     })
                 }
 

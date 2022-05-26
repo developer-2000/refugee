@@ -4,7 +4,7 @@
         <a v-if="locationSearch != ''"
             class="but-reset-all"
             :href="`${lang.prefix_lang}vacancy`">
-            сбросить все
+            {{trans('vacancies','reset_all')}}
         </a>
 
         <!-- Location card-primary -->
@@ -20,7 +20,9 @@
                             data-id="card-location"
                             @click="changeCardStatus($event)"
                     >
-                        <h3 class="card-title">Локация</h3>
+                        <h3 class="card-title">
+                            {{trans('vacancies','location')}}
+                        </h3>
                         <template v-if="!objLocations.country"><i class="fas fa-plus"></i></template>
                         <template v-else><i class="fas fa-minus"></i></template>
                     </button>
@@ -32,11 +34,11 @@
                     <!-- Country -->
                     <div class="box-div">
                         <label for="country">
-                            Страна поиска
+                            {{trans('vacancies','search_country')}}
                         </label>
                         <select class="form-control select2" id="country">
                             <option :value="null" selected>
-                                Выбрать
+                                {{trans('vacancies','select')}}
                             </option>
                             <template v-for="(array, key) in settings.obj_countries">
                                 <!-- в случае обновления страницы -->
@@ -52,11 +54,11 @@
                     <!-- Region -->
                     <div class="box-div" v-show="objLocations.load_regions">
                         <label for="region">
-                            Регион поиска
+                            {{trans('vacancies','search_region')}}
                         </label>
                         <select class="form-control select2" id="region">
                             <option :value="null" selected>
-                                Выбрать
+                                {{trans('vacancies','select')}}
                             </option>
                             <template v-for="(array, key) in objLocations.load_regions">
                                 <!-- в случае обновления страницы -->
@@ -72,11 +74,11 @@
                     <!-- City -->
                     <div class="box-div" v-show="objLocations.load_cities != null">
                         <label for="city">
-                            Город поиска
+                            {{trans('vacancies','search_city')}}
                         </label>
                         <select class="form-control select2" id="city">
                             <option :value="null" selected>
-                                Выбрать
+                                {{trans('vacancies','select')}}
                             </option>
                             <template v-for="(array, key) in objLocations.load_cities">
                                 <!-- в случае обновления страницы -->
@@ -105,7 +107,9 @@
                             data-id="card-categories"
                             @click="changeCardStatus($event)"
                     >
-                        <h3 class="card-title">Категории</h3>
+                        <h3 class="card-title">
+                            {{trans('vacancies','categories')}}
+                        </h3>
                         <template v-if="!objCategory.categories.length"><i class="fas fa-plus"></i></template>
                         <template v-else><i class="fas fa-minus"></i></template>
                     </button>
@@ -114,14 +118,20 @@
             <!-- body -->
             <div class="card-body">
                 <div class="form-group">
-                    <select class="form-control select2" id="categories" multiple="multiple" data-placeholder="Выбрать">
+                    <select class="form-control select2" id="categories" multiple="multiple"
+                            :data-placeholder="trans('vacancies','select')"
+                    >
                         <template v-for="(value, index) in settings.categories">
                             <!-- в случае обновления страницы -->
                             <template v-if="objCategory.categories.indexOf(index) !== -1" >
-                                <option :value="index" :key="index" selected>{{value}}</option>
+                                <option :value="index" :key="index" selected>
+                                    {{trans('vacancies',value)}}
+                                </option>
                             </template>
                             <template v-else>
-                                <option :value="index" :key="index">{{value}}</option>
+                                <option :value="index" :key="index">
+                                    {{trans('vacancies',value)}}
+                                </option>
                             </template>
                         </template>
                     </select>
@@ -160,7 +170,7 @@
                                v-model="objSalary.without_salary_checkbox"
                         >
                         <label for="salary_checkbox" class="target-label">
-                            c не указанной зарплатой
+                            {{trans('vacancies','with_unspecified_salary')}}
                         </label>
                     </div>
                     <!-- 2 -->
@@ -211,7 +221,9 @@
                             data-id="card-language"
                             @click="changeCardStatus($event)"
                     >
-                        <h3 class="card-title">Язык</h3>
+                        <h3 class="card-title">
+                            {{trans('vacancies','language')}}
+                        </h3>
                         <template v-if="!arrLanguages.length"><i class="fas fa-plus"></i></template>
                         <template v-else><i class="fas fa-minus"></i></template>
                     </button>
@@ -220,7 +232,9 @@
             <!-- body -->
             <div class="card-body">
                 <div class="form-group">
-                    <select class="form-control select2" id="languages" multiple="multiple" data-placeholder="Выбрать">
+                    <select class="form-control select2" id="languages" multiple="multiple"
+                            :data-placeholder="trans('vacancies','select')"
+                    >
                         <template v-for="(obj, index) in lang.lang">
                             <!-- в случае редиктирования -->
                             <template v-if="arrLanguages.indexOf(index) !== -1" >
@@ -248,7 +262,9 @@
                             data-id="card-employment"
                             @click="changeCardStatus($event)"
                     >
-                        <h3 class="card-title">Вид занятости</h3>
+                        <h3 class="card-title">
+                            {{trans('vacancies','type_employment')}}
+                        </h3>
                         <template v-if="!index_employment"><i class="fas fa-plus"></i></template>
                         <template v-else><i class="fas fa-minus"></i></template>
                     </button>
@@ -261,15 +277,19 @@
                             @change="changeEmployment($event.target.value)"
                     >
                         <option :value="null" selected>
-                            Выбрать
+                            {{trans('vacancies','select')}}
                         </option>
                         <template v-for="(value, key) in settings.type_employment">
                             <!-- в случае обновления страницы -->
                             <template v-if="key == index_employment" >
-                                <option :value="key" :key="key" selected>{{value}}</option>
+                                <option :value="key" :key="key" selected>
+                                    {{trans('vacancies',value)}}
+                                </option>
                             </template>
                             <template v-else>
-                                <option :value="key" :key="key">{{value}}</option>
+                                <option :value="key" :key="key">
+                                    {{trans('vacancies',value)}}
+                                </option>
                             </template>
                         </template>
                     </select>
@@ -303,7 +323,7 @@
                             @change="changeExperience($event.target.value)"
                     >
                         <option :value="null" selected>
-                            Выбрать
+                            {{trans('vacancies','select')}}
                         </option>
                         <template v-for="(value, key) in this.settings.work_experience">
                             <!-- в случае обновления страницы -->
@@ -336,7 +356,9 @@
                             data-id="card-suitable"
                             @click="changeCardStatus($event)"
                     >
-                        <h3 class="card-title">Возраст соискателя</h3>
+                        <h3 class="card-title">
+                            {{trans('vacancies','applicant_age')}}
+                        </h3>
                         <template v-if="!objCheckSuitable.check"><i class="fas fa-plus"></i></template>
                         <template v-else><i class="fas fa-minus"></i></template>
                     </button>
@@ -345,7 +367,9 @@
             <!-- body -->
             <div class="card-body">
                 <div class="form-group">
-                    <label for="suitable"> Лет отроду </label>
+                    <label for="suitable">
+                        {{trans('vacancies','years_age')}}
+                    </label>
                     <div id="suitable" class="box-suitable">
                         <input :placeholder="`${trans('vacancies','from')}`"
                                max="100" min="0" type="number"
@@ -399,7 +423,7 @@
                             @change="changeEducation($event.target.value)"
                     >
                         <option :value="null" selected>
-                            Выбрать
+                            {{trans('vacancies','select')}}
                         </option>
                         <template v-for="(value, key) in this.settings.education">
                             <!-- в случае обновления страницы -->

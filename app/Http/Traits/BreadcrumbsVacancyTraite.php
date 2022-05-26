@@ -19,6 +19,7 @@ trait BreadcrumbsVacancyTraite {
         $last_url = URL::previous();
         $query = explode("?", $last_url);
         $array = explode("/", $query[0]);
+        $company = $this->PenultimateElementArray($array);
 
         if($this->LastElementArray($array)[0] == 'vacancy'){
             // добавить query url
@@ -44,6 +45,12 @@ trait BreadcrumbsVacancyTraite {
             return [
                 'name'=>'my_vacancies',
                 'url'=>App::getLocale()."/private-office/vacancy/my-vacancies",
+            ];
+        }
+        elseif($company[0] == 'company'){
+            return [
+                'name'=>'company',
+                'url'=>App::getLocale()."/company/$company[1]",
             ];
         }
 

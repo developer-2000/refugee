@@ -157,8 +157,6 @@ class VacancyController extends BaseController {
             ->with('vacancies.position', 'vacancies.company.image')
             ->first();
 
-//        dd($user_data->toArray()['vacancies'][0]);
-
         return view('vacancies/my_vacancies', compact('user_data','settings'));
     }
 
