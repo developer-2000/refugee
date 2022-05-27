@@ -1,5 +1,5 @@
 <template>
-    <div class="search-panel">
+    <div class="search-panel container">
         <h1 class="title_page">
             {{trans('vacancies','job_search')}}
         </h1>
@@ -293,6 +293,7 @@
         flex-direction: column;
         background-color: #fff;
         width: 100%;
+        padding: 0;
         .title_page {
             padding: 15px;
         }
@@ -377,7 +378,6 @@
                 margin: 0 5px;
             }
         }
-
     }
 
 </style>

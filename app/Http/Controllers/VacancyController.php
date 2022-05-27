@@ -11,7 +11,6 @@ use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
-use App\Http\Traits\BreadcrumbsVacancyTraite;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\User;
@@ -22,13 +21,13 @@ use App\Repositories\VacancyRepository;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyController extends BaseController {
-    use BreadcrumbsVacancyTraite;
 
     protected $repository;
 
     public function __construct() {
+        parent::__construct();
+
         $this->repository = new VacancyRepository();
-        $this->setElementsBread();
     }
 
     public function index(IndexVacancyRequest $request)
@@ -49,13 +48,11 @@ class VacancyController extends BaseController {
      */
     public function show(Vacancy $vacancy, ShowVacancyRequest $request)
     {
-        // масив с обратными url страниц
-        $back_url = $this->getElementsBread();
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancy = Vacancy::where('id', $request->vacancy_id)
             ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
             ->first();
-        return view('vacancies.show_vacancy', compact('settings','vacancy','back_url'));
+        return view('vacancies.show_vacancy', compact('settings','vacancy'));
     }
 
     /**

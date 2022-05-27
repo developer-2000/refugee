@@ -2,10 +2,14 @@
 
 return [
 
+    'find_similar_jobs'=>'Find similar jobs',
+
+    'your_personal_vacancies'=>'This page displays your personal vacancies. You have access to manage them and view the responses of applicants to them.',
+    'and_start_receiving'=>'and start receiving resumes from applicants.',
+    'helps_you_track_have'=>'Helps you track and have quick access to the right job.',
     'job_search'=>'Job search',
     'search'=>'Search',
     'search_2'=>'Search',
-
     'hidden_2'=>'hidden',
     'this_section_you_hidden'=>"This section stores jobs that you have hidden from the job search page. They will not appear on the search page, providing an opportunity to see what's new and interesting.",
     'hide_vacancies_whenever'=>'Hide vacancies whenever you know for sure that they are not suitable for you.',

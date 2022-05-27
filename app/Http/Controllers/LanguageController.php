@@ -1,13 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
-class LanguageController extends Controller
-{
+class LanguageController extends Controller {
 
     /**
      * изменение префикса языка в url
@@ -44,7 +40,6 @@ class LanguageController extends Controller
         }
 
         $last_page = implode("/", $arrPath);
-
         return redirect($last_page)->send();
     }
 }

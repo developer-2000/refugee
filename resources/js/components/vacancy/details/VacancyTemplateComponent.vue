@@ -1,55 +1,49 @@
 <template>
     <div>
         <!-- title company logo status -->
-        <div class="box-title-logo container-fluid">
-            <div class="row box-title">
-                    <!-- title vacancy -->
-                    <h2 class="col-sm-9 title-vacancy">
-                        {{UpperCaseFirstCharacter(vacancy.position.title)}}
-                    </h2>
-                    <!-- company logo -->
-                    <a class="col-sm-3 link-a" target="_blank"
-                       :href="`${lang.prefix_lang}company/${vacancy.company.alias}`"
-                       v-if="page === 'show'"
-                    >
-                        <div class="company-vacancy">
-                            <span>
-                                <div class="font-weight-bold">
-                                    {{vacancy.company.title}}
-                                </div>
-                                <img class="img-logo"
-                                     :src="`/${vacancy.company.image.url}`"
-                                     :alt="vacancy.company.image.title"
-                                >
-                            </span>
-                        </div>
-                    </a>
-                    <div class="col-sm-3 company-vacancy"
-                         v-if="page === 'search'"
-                    >
-                        <span>
-                            <div class="font-weight-bold">
-                                {{vacancy.company.title}}
-                            </div>
-                            <img class="img-logo"
-                                 :src="`/${vacancy.company.image.url}`"
-                                 :alt="vacancy.company.image.title"
-                            >
-                        </span>
-                    </div>
-                    <!-- status public -->
-                    <template v-else-if="page === 'my_vacancy'">
-                        <div class="no-verified"
-                             v-if="!vacancy.published"
+        <div class="box-title">
+            <!-- title vacancy -->
+            <h2 class="title-vacancy">
+                {{UpperCaseFirstCharacter(vacancy.position.title)}}
+            </h2>
+            <!-- на странице открытой вакансии -->
+            <a class="link-a" target="_blank"
+               :href="`${lang.prefix_lang}company/${vacancy.company.alias}`"
+               v-if="page === 'show'"
+            >
+                <div class="company-vacancy">
+                        <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
+                        <img class="img-logo"
+                             :src="`/${vacancy.company.image.url}`"
+                             :alt="vacancy.company.image.title"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM223.1 149.5L313.4 220.3C317.6 211.8 320 202.2 320 191.1C320 180.5 316.1 169.7 311.6 160.4C314.4 160.1 317.2 159.1 320 159.1C373 159.1 416 202.1 416 255.1C416 269.7 413.1 282.7 407.1 294.5L446.6 324.7C457.7 304.3 464 280.9 464 255.1C464 176.5 399.5 111.1 320 111.1C282.7 111.1 248.6 126.2 223.1 149.5zM320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L177.4 235.8C176.5 242.4 176 249.1 176 255.1C176 335.5 240.5 400 320 400C338.7 400 356.6 396.4 373 389.9L446.2 447.5C409.9 467.1 367.8 480 320 480H320z"/></svg>
-                            {{trans('vacancies','checking')}}
-                        </div>
-                        <div class="verified" v-else>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"/></svg>
-                        </div>
-                    </template>
+                </div>
+            </a>
+            <!-- на странице search vacancies -->
+            <div v-if="page === 'search'" class="company-vacancy" >
+                <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
+                <img class="img-logo"
+                     :src="`/${vacancy.company.image.url}`"
+                     :alt="vacancy.company.image.title"
+                >
             </div>
+            <!-- status public -->
+            <template v-else-if="page === 'my_vacancy'">
+                <!-- на проверке -->
+                <div v-if="!vacancy.published"
+                     class="no-verified"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM223.1 149.5L313.4 220.3C317.6 211.8 320 202.2 320 191.1C320 180.5 316.1 169.7 311.6 160.4C314.4 160.1 317.2 159.1 320 159.1C373 159.1 416 202.1 416 255.1C416 269.7 413.1 282.7 407.1 294.5L446.6 324.7C457.7 304.3 464 280.9 464 255.1C464 176.5 399.5 111.1 320 111.1C282.7 111.1 248.6 126.2 223.1 149.5zM320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L177.4 235.8C176.5 242.4 176 249.1 176 255.1C176 335.5 240.5 400 320 400C338.7 400 356.6 396.4 373 389.9L446.2 447.5C409.9 467.1 367.8 480 320 480H320z"/></svg>
+                    {{trans('vacancies','checking')}}
+                </div>
+                <!-- проверен -->
+                <div v-else
+                     class="verified"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"/></svg>
+                </div>
+            </template>
+            <div class="clear-float"></div>
         </div>
         <!-- salary -->
         <div class="line-div box-salary">
@@ -83,7 +77,7 @@
             </div>
         </div>
         <!-- address -->
-        <div class="line-div">
+        <div class="line-div box-address">
             <div class="font-weight-bold address-vacancy">
                 <span class="box-svg">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"/></svg>
@@ -248,36 +242,39 @@
             fill: #1d68a7;
         }
     }
-    .box-title-logo {
+    .clear-float{
+        clear: both;
+    }
+    .box-title {
         padding: 0;
         .title-vacancy {
-            margin: -35px 0 10px;
+            margin: 0 5px 10px 0!important;
             padding: 0;
             line-height: 25px;
             height: 25px;
             font-size: 26px;
+            float: left;
+            max-width: 60%;
         }
         .company-vacancy {
+            float: right;
             display: flex;
-            justify-content: flex-end;
-            span {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .img-logo {
-                    width: 200px;
-                    height: 100px;
-                }
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: -80px;
+            .img-logo {
+                width: 200px;
+                height: 100px;
+            }
+            .title-company{
+                font-size: 17px;
+                margin-bottom: 5px;
             }
         }
-    }
-    .box-title {
-        display: flex;
-        align-items: center;
         .no-verified,
         .verified{
             color: #f6993f;
-            margin-left: 10px;
+            margin-left: 0px;
             height: 35px;
             svg {
                 width: 16px;
@@ -322,7 +319,13 @@
         align-items: center;
     }
     .box-salary {
-        margin-top: -35px;
+        margin-top: 0;
+    }
+    .box-address {
+        max-width: 75%;
+        .address-vacancy{
+            white-space: nowrap;
+        }
     }
     .salary-vacancy {
         svg {

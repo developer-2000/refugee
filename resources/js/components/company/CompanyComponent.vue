@@ -1,5 +1,5 @@
 <template>
-    <div class="box-page">
+    <div class="box-page container">
         <!-- left -->
         <div class="left-site">
             <!-- company logo -->
@@ -129,7 +129,7 @@
                     <div class="row">
                         <template v-for="(url, key) in company.youtube_links">
                             <iframe
-                                class='col-sm-4'
+                                class='col-sm-4 iframe-youtube'
                                 :src="`https://www.youtube.com/embed/${getIfFrame(url)}`"
                                 :srcdoc="`<style>
                             *{padding:0;margin:0;overflow:hidden}
@@ -283,6 +283,9 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .iframe-youtube{
+        min-height: 190px;
+    }
     .font-weight-bold{
         margin-bottom: 20px;
     }

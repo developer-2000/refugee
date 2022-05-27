@@ -18,4 +18,5 @@ trait FunctionsTraite {
         }
         return array_slice($array, -2);
     }
+
 }

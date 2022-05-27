@@ -4420,6 +4420,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5673,6 +5676,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -5763,6 +5768,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -7116,6 +7123,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _details_BookmarkButtonsVacancyComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./details/BookmarkButtonsVacancyComponent */ "./resources/js/components/vacancy/details/BookmarkButtonsVacancyComponent.vue");
 /* harmony import */ var _details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./details/VacancyTemplateComponent */ "./resources/js/components/vacancy/details/VacancyTemplateComponent.vue");
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 //
 //
 //
@@ -7155,6 +7163,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7162,15 +7176,37 @@ __webpack_require__.r(__webpack_exports__);
     'bookmark_buttons': _details_BookmarkButtonsVacancyComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     'vacancy_template': _details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
     return {};
   },
-  methods: {},
+  methods: {
+    makeBackUrl: function makeBackUrl() {
+      var url = '&#060; ';
+
+      if (this.back_url !== undefined && this.back_url[0][0].name !== null) {
+        this.back_url[0].forEach(function (item, i, arr) {
+          console.log(i + ": " + item.name);
+          url += '&nbsp; <a href="/' + item.url + '">' + item.name + '</a>&nbsp; |';
+        });
+      }
+
+      return url;
+    },
+    findSimilarVacancy: function findSimilarVacancy() {
+      var params = new URLSearchParams(window.location.search);
+      params["delete"]('categories');
+      params["delete"]('position');
+      params.set('categories', this.vacancy.categories.toString());
+      params.set('position', this.vacancy.position.title);
+      params.sort();
+      location.href = this.lang.prefix_lang + 'vacancy?' + params.toString();
+    }
+  },
   props: ['lang', // масив названий и url языка
   'vacancy', 'settings', 'user', 'back_url'],
   mounted: function mounted() {
-    // console.log(this.vacancy)
-    console.log(this.back_url);
+    console.log(this.vacancy);
   }
 });
 
@@ -7562,12 +7598,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/general_functions_mixin */ "./resources/js/mixins/general_functions_mixin.js");
 /* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/translation */ "./resources/js/mixins/translation.js");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -12268,7 +12298,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".font-weight-bold[data-v-4885e2bd] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-4885e2bd] {\n  display: flex;\n  padding: 0;\n}\n.box-page .left-site[data-v-4885e2bd] {\n  border-right: 1px solid #dee2e6;\n  width: 400px;\n  padding: 20px 15px;\n}\n.box-page .left-site svg path[data-v-4885e2bd] {\n  fill: #1d68a7;\n}\n.box-page .left-site .box-title[data-v-4885e2bd] {\n  text-align: center;\n  margin-bottom: 15px;\n}\n.box-page .left-site .box-title img[data-v-4885e2bd] {\n  width: 200px;\n  height: 100px;\n}\n.box-page .left-site .box-properties[data-v-4885e2bd] {\n  padding: 10px 0;\n}\n.box-page .left-site .box-properties .line-property[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n  line-height: 18px;\n  margin-bottom: 5px;\n}\n.box-page .left-site .box-properties .line-property .box-svg[data-v-4885e2bd] {\n  min-width: 30px;\n  display: block;\n  line-height: 16px;\n  margin-right: 5px;\n  text-align: center;\n  padding: 2px 0;\n}\n.box-page .left-site .box-properties .property-category svg[data-v-4885e2bd] {\n  width: 22px;\n}\n.box-page .left-site .box-properties .property-location svg[data-v-4885e2bd] {\n  width: 17px;\n}\n.box-page .left-site .box-properties .property-mobile svg[data-v-4885e2bd] {\n  width: 18px;\n}\n.box-page .left-site .box-properties .property-employees svg[data-v-4885e2bd] {\n  width: 26px;\n}\n.box-page .right-site[data-v-4885e2bd] {\n  width: 100%;\n  padding: 0 15px;\n}\n.box-page .right-site > div[data-v-4885e2bd] {\n  margin-bottom: 40px;\n}\n.box-page .right-site > div[data-v-4885e2bd]:last-child {\n  margin-bottom: 15px;\n}\n.box-page .right-site .top-panel[data-v-4885e2bd] {\n  display: flex;\n  justify-content: space-between;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px;\n  margin: 0 -15px;\n  z-index: 10;\n  font-size: 17px;\n}\n.box-page .right-site .top-panel .box-soc-button[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd] {\n  width: 30px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd]:hover {\n  outline: 1px solid #acddfb;\n  border-radius: 7px;\n  padding: 1px;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-facebook path[data-v-4885e2bd] {\n  fill: #0268e2;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-instagram path[data-v-4885e2bd] {\n  fill: #b542e1;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-telegram path[data-v-4885e2bd] {\n  fill: #2197d0;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-twitter path[data-v-4885e2bd] {\n  fill: #1c99e6;\n}\n.box-page .right-site .top-panel .box-scroll-button[data-v-4885e2bd] {\n  display: flex;\n}\n.box-page .right-site .top-panel .box-scroll-button button[data-v-4885e2bd] {\n  width: auto;\n  margin-left: 15px;\n}\n.box-page .right-site .box-about-company[data-v-4885e2bd] {\n  padding: 20px 0 0;\n}\n.box-page .right-site .box-media-files .block-media-files[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -2px;\n}\n.box-page .right-site .box-media-files .block-media-files img[data-v-4885e2bd] {\n  width: 150px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies[data-v-4885e2bd] {\n  padding: 0;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies img[data-v-4885e2bd] {\n  width: 150px;\n}", ""]);
+exports.push([module.i, ".iframe-youtube[data-v-4885e2bd] {\n  min-height: 190px;\n}\n.font-weight-bold[data-v-4885e2bd] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-4885e2bd] {\n  display: flex;\n  padding: 0;\n}\n.box-page .left-site[data-v-4885e2bd] {\n  border-right: 1px solid #dee2e6;\n  width: 400px;\n  padding: 20px 15px;\n}\n.box-page .left-site svg path[data-v-4885e2bd] {\n  fill: #1d68a7;\n}\n.box-page .left-site .box-title[data-v-4885e2bd] {\n  text-align: center;\n  margin-bottom: 15px;\n}\n.box-page .left-site .box-title img[data-v-4885e2bd] {\n  width: 200px;\n  height: 100px;\n}\n.box-page .left-site .box-properties[data-v-4885e2bd] {\n  padding: 10px 0;\n}\n.box-page .left-site .box-properties .line-property[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n  line-height: 18px;\n  margin-bottom: 5px;\n}\n.box-page .left-site .box-properties .line-property .box-svg[data-v-4885e2bd] {\n  min-width: 30px;\n  display: block;\n  line-height: 16px;\n  margin-right: 5px;\n  text-align: center;\n  padding: 2px 0;\n}\n.box-page .left-site .box-properties .property-category svg[data-v-4885e2bd] {\n  width: 22px;\n}\n.box-page .left-site .box-properties .property-location svg[data-v-4885e2bd] {\n  width: 17px;\n}\n.box-page .left-site .box-properties .property-mobile svg[data-v-4885e2bd] {\n  width: 18px;\n}\n.box-page .left-site .box-properties .property-employees svg[data-v-4885e2bd] {\n  width: 26px;\n}\n.box-page .right-site[data-v-4885e2bd] {\n  width: 100%;\n  padding: 0 15px;\n}\n.box-page .right-site > div[data-v-4885e2bd] {\n  margin-bottom: 40px;\n}\n.box-page .right-site > div[data-v-4885e2bd]:last-child {\n  margin-bottom: 15px;\n}\n.box-page .right-site .top-panel[data-v-4885e2bd] {\n  display: flex;\n  justify-content: space-between;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px;\n  margin: 0 -15px;\n  z-index: 10;\n  font-size: 17px;\n}\n.box-page .right-site .top-panel .box-soc-button[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd] {\n  width: 30px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd]:hover {\n  outline: 1px solid #acddfb;\n  border-radius: 7px;\n  padding: 1px;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-facebook path[data-v-4885e2bd] {\n  fill: #0268e2;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-instagram path[data-v-4885e2bd] {\n  fill: #b542e1;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-telegram path[data-v-4885e2bd] {\n  fill: #2197d0;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-twitter path[data-v-4885e2bd] {\n  fill: #1c99e6;\n}\n.box-page .right-site .top-panel .box-scroll-button[data-v-4885e2bd] {\n  display: flex;\n}\n.box-page .right-site .top-panel .box-scroll-button button[data-v-4885e2bd] {\n  width: auto;\n  margin-left: 15px;\n}\n.box-page .right-site .box-about-company[data-v-4885e2bd] {\n  padding: 20px 0 0;\n}\n.box-page .right-site .box-media-files .block-media-files[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -2px;\n}\n.box-page .right-site .box-media-files .block-media-files img[data-v-4885e2bd] {\n  width: 150px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies[data-v-4885e2bd] {\n  padding: 0;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies img[data-v-4885e2bd] {\n  width: 150px;\n}", ""]);
 
 // exports
 
@@ -12363,7 +12393,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-page .callout[data-v-4f4c2539] {\n  color: #666;\n  line-height: 30px;\n}\n.box-page .callout svg path[data-v-4f4c2539] {\n  fill: #666;\n}\n.box-page .box-vacancy .box-title-logo[data-v-4f4c2539] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-page .box-vacancy .box-title-logo .title-vacancy[data-v-4f4c2539] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-page .box-vacancy .box-title-logo .img-logo[data-v-4f4c2539] {\n  width: 100px;\n}\n.box-page .box-vacancy .line-div[data-v-4f4c2539] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-page .box-vacancy .line-div .font-weight-bold[data-v-4f4c2539] {\n  font-weight: bold;\n}\n.box-page .box-vacancy .line-div .link-vacancy[data-v-4f4c2539] {\n  color: #1d68a7;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg[data-v-4f4c2539] {\n  margin: 0 5px 0 0;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg path[data-v-4f4c2539] {\n  fill: #1d68a7;\n}\n.box-page .box-vacancy .address-comment[data-v-4f4c2539] {\n  display: flex;\n  align-items: center;\n}\n.box-page .box-vacancy .address-comment svg[data-v-4f4c2539] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-page .box-vacancy .display-inline[data-v-4f4c2539] {\n  display: inline;\n}\n.box-page .box-vacancy .panel-button[data-v-4f4c2539] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-page .box-vacancy .panel-button > button[data-v-4f4c2539]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-page .box-vacancy .panel-button button[data-v-4f4c2539] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-page .box-vacancy .panel-button button:hover svg path[data-v-4f4c2539] {\n  fill: white;\n}\n.box-page .box-vacancy .panel-button button svg[data-v-4f4c2539] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-page .box-vacancy .panel-button button svg path[data-v-4f4c2539] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-page .box-vacancy .panel-button button:nth-child(1) svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.save-two svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.show-two svg[data-v-4f4c2539] {\n  width: 15px;\n}", ""]);
+exports.push([module.i, ".box-page .callout[data-v-4f4c2539] {\n  color: #666;\n  line-height: 30px;\n}\n.box-page .callout svg path[data-v-4f4c2539] {\n  fill: #666;\n}\n.box-page .box-vacancy .box-title-logo[data-v-4f4c2539] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-page .box-vacancy .box-title-logo .title-vacancy[data-v-4f4c2539] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-page .box-vacancy .box-title-logo .img-logo[data-v-4f4c2539] {\n  width: 100px;\n}\n.box-page .box-vacancy .line-div[data-v-4f4c2539] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-page .box-vacancy .line-div .font-weight-bold[data-v-4f4c2539] {\n  font-weight: bold;\n}\n.box-page .box-vacancy .line-div .link-vacancy[data-v-4f4c2539] {\n  color: #1d68a7;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg[data-v-4f4c2539] {\n  margin: 0 5px 0 0;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg path[data-v-4f4c2539] {\n  fill: #1d68a7;\n}\n.box-page .box-vacancy .address-comment[data-v-4f4c2539] {\n  display: flex;\n  align-items: center;\n}\n.box-page .box-vacancy .address-comment svg[data-v-4f4c2539] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-page .box-vacancy .display-inline[data-v-4f4c2539] {\n  display: inline;\n}\n.box-page .box-vacancy .panel-button[data-v-4f4c2539] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-page .box-vacancy .panel-button button[data-v-4f4c2539] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-page .box-vacancy .panel-button button:hover svg path[data-v-4f4c2539] {\n  fill: white;\n}\n.box-page .box-vacancy .panel-button button svg[data-v-4f4c2539] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-page .box-vacancy .panel-button button svg path[data-v-4f4c2539] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-page .box-vacancy .panel-button button:nth-child(1) svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.save-two svg[data-v-4f4c2539] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.show-two svg[data-v-4f4c2539] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -12401,7 +12431,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-page .callout[data-v-7f9ea726] {\n  color: #666;\n  line-height: 30px;\n}\n.box-page .callout svg path[data-v-7f9ea726] {\n  fill: #666;\n}\n.box-page .callout a[data-v-7f9ea726] {\n  font-size: 17px;\n}\n.box-page .box-vacancy .box-title-logo[data-v-7f9ea726] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-page .box-vacancy .box-title-logo .title-vacancy[data-v-7f9ea726] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-page .box-vacancy .box-title-logo .img-logo[data-v-7f9ea726] {\n  width: 100px;\n}\n.box-page .box-vacancy .line-div[data-v-7f9ea726] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-page .box-vacancy .line-div .font-weight-bold[data-v-7f9ea726] {\n  font-weight: bold;\n}\n.box-page .box-vacancy .line-div .link-vacancy[data-v-7f9ea726] {\n  color: #1d68a7;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg[data-v-7f9ea726] {\n  margin: 0 5px 0 0;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg path[data-v-7f9ea726] {\n  fill: #1d68a7;\n}\n.box-page .box-vacancy .address-comment[data-v-7f9ea726] {\n  display: flex;\n  align-items: center;\n}\n.box-page .box-vacancy .address-comment svg[data-v-7f9ea726] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-page .box-vacancy .display-inline[data-v-7f9ea726] {\n  display: inline;\n}\n.box-page .box-vacancy .panel-button[data-v-7f9ea726] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-page .box-vacancy .panel-button > button[data-v-7f9ea726]:nth-child(1) {\n  margin-right: 15px;\n}\n.box-page .box-vacancy .panel-button button[data-v-7f9ea726] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-page .box-vacancy .panel-button button:hover svg path[data-v-7f9ea726] {\n  fill: white;\n}\n.box-page .box-vacancy .panel-button button svg[data-v-7f9ea726] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-page .box-vacancy .panel-button button svg path[data-v-7f9ea726] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-page .box-vacancy .panel-button button:nth-child(1) svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.save-two svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.show-two svg[data-v-7f9ea726] {\n  width: 15px;\n}", ""]);
+exports.push([module.i, ".box-page .callout[data-v-7f9ea726] {\n  color: #666;\n  line-height: 30px;\n}\n.box-page .callout svg path[data-v-7f9ea726] {\n  fill: #666;\n}\n.box-page .callout a[data-v-7f9ea726] {\n  font-size: 17px;\n}\n.box-page .box-vacancy .box-title-logo[data-v-7f9ea726] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-page .box-vacancy .box-title-logo .title-vacancy[data-v-7f9ea726] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-page .box-vacancy .box-title-logo .img-logo[data-v-7f9ea726] {\n  width: 100px;\n}\n.box-page .box-vacancy .line-div[data-v-7f9ea726] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-page .box-vacancy .line-div .font-weight-bold[data-v-7f9ea726] {\n  font-weight: bold;\n}\n.box-page .box-vacancy .line-div .link-vacancy[data-v-7f9ea726] {\n  color: #1d68a7;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg[data-v-7f9ea726] {\n  margin: 0 5px 0 0;\n}\n.box-page .box-vacancy .line-div .link-vacancy svg path[data-v-7f9ea726] {\n  fill: #1d68a7;\n}\n.box-page .box-vacancy .address-comment[data-v-7f9ea726] {\n  display: flex;\n  align-items: center;\n}\n.box-page .box-vacancy .address-comment svg[data-v-7f9ea726] {\n  width: 7px;\n  margin: 0 5px;\n}\n.box-page .box-vacancy .display-inline[data-v-7f9ea726] {\n  display: inline;\n}\n.box-page .box-vacancy .panel-button[data-v-7f9ea726] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 15px 0 0;\n}\n.box-page .box-vacancy .panel-button button[data-v-7f9ea726] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n}\n.box-page .box-vacancy .panel-button button:hover svg path[data-v-7f9ea726] {\n  fill: white;\n}\n.box-page .box-vacancy .panel-button button svg[data-v-7f9ea726] {\n  width: 17px;\n  margin-right: 5px;\n}\n.box-page .box-vacancy .panel-button button svg path[data-v-7f9ea726] {\n  transition: fill 0.15s ease-in-out;\n}\n.box-page .box-vacancy .panel-button button:nth-child(1) svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.save-two svg[data-v-7f9ea726] {\n  width: 14px;\n}\n.box-page .box-vacancy .panel-button button.show-two svg[data-v-7f9ea726] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -12458,7 +12488,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group .box-position[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .top-search .form-group .box-position input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .top-search .block_position_list[data-v-fbaa726e] {\n  position: relative;\n}\n.search-panel .top-search .block_position_list #position_list[data-v-fbaa726e] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.search-panel .top-search .block_position_list #position_list > div[data-v-fbaa726e] {\n  padding: 1px 12px;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n  padding: 0;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group .box-position[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .top-search .form-group .box-position input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 25%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .top-search .block_position_list[data-v-fbaa726e] {\n  position: relative;\n}\n.search-panel .top-search .block_position_list #position_list[data-v-fbaa726e] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.search-panel .top-search .block_position_list #position_list > div[data-v-fbaa726e] {\n  padding: 1px 12px;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 75%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 25%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}", ""]);
 
 // exports
 
@@ -12477,7 +12507,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".top-panel[data-v-33a63d5e] {\n  display: flex;\n  align-items: center;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px 25px;\n  z-index: 1;\n  font-size: 17px;\n}\n.top-panel button[data-v-33a63d5e] {\n  width: auto;\n  margin-right: 15px;\n}\n.bread-top[data-v-33a63d5e] {\n  padding: 10px 25px;\n}\n.box-page[data-v-33a63d5e] {\n  padding: 25px;\n}\n.bread-slash[data-v-33a63d5e] {\n  height: 26px;\n  margin: 0 5px;\n  color: #a7a8a9;\n  font-size: 19px;\n}\na[data-v-33a63d5e] {\n  display: block;\n  position: relative;\n  padding: 0;\n  line-height: 16px;\n}\na[data-v-33a63d5e]::after {\n  content: \"\";\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 0.1em;\n  background-color: #3490dc;\n  opacity: 0;\n  transition: opacity 100ms, transform 100ms;\n}\na[data-v-33a63d5e]:hover::after,\na[data-v-33a63d5e]:focus::after {\n  opacity: 1;\n  transform: translate3d(0, 0.2em, 0);\n}", ""]);
+exports.push([module.i, ".box-page[data-v-33a63d5e] {\n  padding: 25px;\n}\na[data-v-33a63d5e] {\n  display: block;\n  position: relative;\n  padding: 0;\n  line-height: 16px;\n}\na[data-v-33a63d5e]::after {\n  content: \"\";\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 0.1em;\n  background-color: #3490dc;\n  opacity: 0;\n  transition: opacity 100ms, transform 100ms;\n}\na[data-v-33a63d5e]:hover::after,\na[data-v-33a63d5e]:focus::after {\n  opacity: 1;\n  transform: translate3d(0, 0.2em, 0);\n}", ""]);
 
 // exports
 
@@ -12496,7 +12526,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".panel-button[data-v-55dbb751] {\n  display: flex;\n  justify-content: flex-end;\n  /*margin: 15px 0 0;*/\n}\n.panel-button button[data-v-55dbb751] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.panel-button button:hover svg path[data-v-55dbb751] {\n  fill: white;\n}\n.panel-button button svg[data-v-55dbb751] {\n  width: 17px;\n  margin-right: 5px;\n}\n.panel-button button svg path[data-v-55dbb751] {\n  transition: fill 0.15s ease-in-out;\n}\n.panel-button .first-btn[data-v-55dbb751] {\n  margin-right: 15px;\n}\n.panel-button .first-btn svg[data-v-55dbb751] {\n  width: 14px;\n}\n.panel-button .save-two svg[data-v-55dbb751] {\n  width: 14px;\n}\n.panel-button .show-two svg[data-v-55dbb751] {\n  width: 15px;\n}", ""]);
+exports.push([module.i, ".panel-button[data-v-55dbb751] {\n  display: flex;\n  justify-content: flex-end;\n  /*margin: 15px 0 0;*/\n}\n.panel-button button[data-v-55dbb751] {\n  width: auto;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.panel-button button:hover svg path[data-v-55dbb751] {\n  fill: white;\n}\n.panel-button button svg[data-v-55dbb751] {\n  width: 17px;\n  margin-right: 5px;\n}\n.panel-button button svg path[data-v-55dbb751] {\n  transition: fill 0.15s ease-in-out;\n}\n.panel-button .first-btn[data-v-55dbb751] {\n  margin-right: 15px;\n}\n.panel-button .first-btn svg[data-v-55dbb751] {\n  width: 14px;\n}\n.panel-button .save-two[data-v-55dbb751] {\n  margin-right: 0;\n}\n.panel-button .save-two svg[data-v-55dbb751] {\n  width: 14px;\n}\n.panel-button .show-two svg[data-v-55dbb751] {\n  width: 15px;\n}", ""]);
 
 // exports
 
@@ -12534,7 +12564,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.box-title-logo[data-v-50b8b194] {\n  padding: 0;\n}\n.box-title-logo .title-vacancy[data-v-50b8b194] {\n  margin: -35px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-title-logo .company-vacancy[data-v-50b8b194] {\n  display: flex;\n  justify-content: flex-end;\n}\n.box-title-logo .company-vacancy span[data-v-50b8b194] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.box-title-logo .company-vacancy span .img-logo[data-v-50b8b194] {\n  width: 200px;\n  height: 100px;\n}\n.box-title[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-title .no-verified[data-v-50b8b194],\n.box-title .verified[data-v-50b8b194] {\n  color: #f6993f;\n  margin-left: 10px;\n  height: 35px;\n}\n.box-title .no-verified svg[data-v-50b8b194],\n.box-title .verified svg[data-v-50b8b194] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-50b8b194],\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #38c172;\n}\n.line-div[data-v-50b8b194] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-50b8b194] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.languages-vacancy[data-v-50b8b194],\n.salary-vacancy[data-v-50b8b194],\n.address-vacancy[data-v-50b8b194],\n.experience[data-v-50b8b194],\n.age-vacancy[data-v-50b8b194],\n.education-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-salary[data-v-50b8b194] {\n  margin-top: -35px;\n}\n.salary-vacancy svg[data-v-50b8b194] {\n  width: 18px;\n}\n.languages-vacancy svg[data-v-50b8b194] {\n  width: 23px;\n}\n.education-vacancy[data-v-50b8b194] {\n  margin-bottom: 15px;\n}\n.comment-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-50b8b194] {\n  width: 7px;\n  margin: 0 5px;\n}\n.textarea-vacancy .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n  display: inline;\n}\n.textarea-vacancy .link-vacancy svg[data-v-50b8b194] {\n  width: 10px;\n}\n.box-svg[data-v-50b8b194] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}", ""]);
+exports.push([module.i, "svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.clear-float[data-v-50b8b194] {\n  clear: both;\n}\n.box-title[data-v-50b8b194] {\n  padding: 0;\n}\n.box-title .title-vacancy[data-v-50b8b194] {\n  margin: 0 5px 10px 0 !important;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n  float: left;\n  max-width: 60%;\n}\n.box-title .company-vacancy[data-v-50b8b194] {\n  float: right;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n  margin-bottom: -80px;\n}\n.box-title .company-vacancy .img-logo[data-v-50b8b194] {\n  width: 200px;\n  height: 100px;\n}\n.box-title .company-vacancy .title-company[data-v-50b8b194] {\n  font-size: 17px;\n  margin-bottom: 5px;\n}\n.box-title .no-verified[data-v-50b8b194],\n.box-title .verified[data-v-50b8b194] {\n  color: #f6993f;\n  margin-left: 0px;\n  height: 35px;\n}\n.box-title .no-verified svg[data-v-50b8b194],\n.box-title .verified svg[data-v-50b8b194] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-50b8b194],\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #38c172;\n}\n.line-div[data-v-50b8b194] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-50b8b194] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.languages-vacancy[data-v-50b8b194],\n.salary-vacancy[data-v-50b8b194],\n.address-vacancy[data-v-50b8b194],\n.experience[data-v-50b8b194],\n.age-vacancy[data-v-50b8b194],\n.education-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-salary[data-v-50b8b194] {\n  margin-top: 0;\n}\n.box-address[data-v-50b8b194] {\n  max-width: 75%;\n}\n.box-address .address-vacancy[data-v-50b8b194] {\n  white-space: nowrap;\n}\n.salary-vacancy svg[data-v-50b8b194] {\n  width: 18px;\n}\n.languages-vacancy svg[data-v-50b8b194] {\n  width: 23px;\n}\n.education-vacancy[data-v-50b8b194] {\n  margin-bottom: 15px;\n}\n.comment-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-50b8b194] {\n  width: 7px;\n  margin: 0 5px;\n}\n.textarea-vacancy .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n  display: inline;\n}\n.textarea-vacancy .link-vacancy svg[data-v-50b8b194] {\n  width: 10px;\n}\n.box-svg[data-v-50b8b194] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}", ""]);
 
 // exports
 
@@ -47522,7 +47552,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "box-page" }, [
+  return _c("div", { staticClass: "box-page container" }, [
     _c("div", { staticClass: "left-site" }, [
       _c("div", { staticClass: "box-title" }, [
         _c("h3", { staticClass: "font-weight-bold" }, [
@@ -47965,7 +47995,7 @@ var render = function () {
                   _vm._l(_vm.company.youtube_links, function (url, key) {
                     return [
                       _c("iframe", {
-                        staticClass: "col-sm-4",
+                        staticClass: "col-sm-4 iframe-youtube",
                         attrs: {
                           src:
                             "https://www.youtube.com/embed/" +
@@ -48082,34 +48112,34 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-page" }, [
-    _c(
-      "a",
-      {
-        staticClass: "link-back",
-        attrs: { href: _vm.lang.prefix_lang + "private-office" },
-      },
-      [
-        _c(
-          "svg",
-          {
-            attrs: {
-              xmlns: "http://www.w3.org/2000/svg",
-              viewBox: "0 0 256 512",
-            },
+    _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
+      _c(
+        "svg",
+        {
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 256 512",
           },
-          [
-            _c("path", {
-              attrs: {
-                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
-              },
-            }),
-          ]
-        ),
+        },
+        [
+          _c("path", {
+            attrs: {
+              d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+            },
+          }),
+        ]
+      ),
+      _vm._v(" "),
+      _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
         _vm._v(
-          "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+          "\n            " +
+            _vm._s(_vm.trans("menu.menu", "cabinet")) +
+            "\n        "
         ),
-      ]
-    ),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+    ]),
     _vm._v(" "),
     this.company_id == null
       ? _c("h1", { staticClass: "title_page card-body" }, [
@@ -50508,34 +50538,34 @@ var render = function () {
     "div",
     { staticClass: "box-page" },
     [
-      _c(
-        "a",
-        {
-          staticClass: "link-back",
-          attrs: { href: _vm.lang.prefix_lang + "private-office" },
-        },
-        [
-          _c(
-            "svg",
-            {
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 256 512",
-              },
+      _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
+        _c(
+          "svg",
+          {
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 256 512",
             },
-            [
-              _c("path", {
-                attrs: {
-                  d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
-                },
-              }),
-            ]
-          ),
+          },
+          [
+            _c("path", {
+              attrs: {
+                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              },
+            }),
+          ]
+        ),
+        _vm._v(" "),
+        _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
           _vm._v(
-            "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+            "\n            " +
+              _vm._s(_vm.trans("menu.menu", "cabinet")) +
+              "\n        "
           ),
-        ]
-      ),
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+      ]),
       _vm._v(" "),
       _c("h1", { staticClass: "title_page card-body" }, [
         _vm._v(
@@ -53013,34 +53043,34 @@ var render = function () {
     "div",
     { staticClass: "box-page" },
     [
-      _c(
-        "a",
-        {
-          staticClass: "link-back",
-          attrs: { href: _vm.lang.prefix_lang + "private-office" },
-        },
-        [
-          _c(
-            "svg",
-            {
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 256 512",
-              },
+      _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
+        _c(
+          "svg",
+          {
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 256 512",
             },
-            [
-              _c("path", {
-                attrs: {
-                  d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
-                },
-              }),
-            ]
-          ),
+          },
+          [
+            _c("path", {
+              attrs: {
+                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              },
+            }),
+          ]
+        ),
+        _vm._v(" "),
+        _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
           _vm._v(
-            "\n        " + _vm._s(_vm.trans("menu.menu", "cabinet")) + "\n    "
+            "\n            " +
+              _vm._s(_vm.trans("menu.menu", "cabinet")) +
+              "\n        "
           ),
-        ]
-      ),
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+      ]),
       _vm._v(" "),
       _c("h1", { staticClass: "title_page card-body" }, [
         _vm._v(
@@ -53159,32 +53189,34 @@ var render = function () {
     "div",
     { staticClass: "box-page" },
     [
-      _c(
-        "a",
-        {
-          staticClass: "link-back",
-          attrs: { href: _vm.lang.prefix_lang + "private-office" },
-        },
-        [
-          _c(
-            "svg",
-            {
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 256 512",
-              },
+      _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
+        _c(
+          "svg",
+          {
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 256 512",
             },
-            [
-              _c("path", {
-                attrs: {
-                  d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
-                },
-              }),
-            ]
+          },
+          [
+            _c("path", {
+              attrs: {
+                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              },
+            }),
+          ]
+        ),
+        _vm._v(" "),
+        _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.trans("menu.menu", "cabinet")) +
+              "\n        "
           ),
-          _vm._v("\n        Кабинет\n    "),
-        ]
-      ),
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+      ]),
       _vm._v(" "),
       _c("h1", { staticClass: "title_page card-body" }, [
         _c("u", [_vm._v(_vm._s(_vm.trans("vacancies", "my")))]),
@@ -53193,11 +53225,13 @@ var render = function () {
       _vm._v(" "),
       !_vm.user_data.vacancies.length
         ? _c("div", { staticClass: "callout callout-warning" }, [
-            _c("b", [_vm._v("Вакансии отсутствуют.")]),
+            _c("b", [_vm._v(_vm._s(_vm.trans("vacancies", "no_vacancies")))]),
             _vm._v(" "),
             _c("div", [
               _vm._v(
-                "\n            На этой странице отображаются ваши личные вакансии. Имеете доступ управления ими и просматриваете отклики соискателей на них.\n            "
+                "\n            " +
+                  _vm._s(_vm.trans("vacancies", "your_personal_vacancies")) +
+                  "\n            "
               ),
               _c("br"),
               _vm._v(" "),
@@ -53211,16 +53245,20 @@ var render = function () {
                       _vm.lang.prefix_lang + "private-office/vacancy/create",
                   },
                 },
-                [_vm._v("Создайте вакансию")]
+                [_vm._v(_vm._s(_vm.trans("vacancies", "create_job")))]
               ),
               _vm._v(
-                "\n             и начните получать резюме от соискателей.\n        "
+                "\n            " +
+                  _vm._s(_vm.trans("vacancies", "and_start_receiving")) +
+                  "\n        "
               ),
             ]),
           ])
         : _c("div", { staticClass: "desc-helper-italic" }, [
             _vm._v(
-              "\n        Помогает отслеживать и иметь быстрый доступ к необходимой вакансии.\n    "
+              "\n        " +
+                _vm._s(_vm.trans("vacancies", "helps_you_track_have")) +
+                "\n    "
             ),
           ]),
       _vm._v(" "),
@@ -54725,7 +54763,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "search-panel" }, [
+  return _c("div", { staticClass: "search-panel container" }, [
     _c("h1", { staticClass: "title_page" }, [
       _vm._v(
         "\n        " + _vm._s(_vm.trans("vacancies", "job_search")) + "\n    "
@@ -54903,22 +54941,41 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "top-panel bread-top" },
-      [
-        _vm._l(_vm.back_url, function (array, key) {
-          return [
-            _c("a", { attrs: { href: "/" + array.url } }, [
-              _vm._v(_vm._s(array.name)),
-            ]),
+    _vm.back_url !== undefined && _vm.back_url[0][0].name !== null
+      ? _c(
+          "div",
+          { staticClass: "top-panel bread-top" },
+          [
+            _c(
+              "svg",
+              {
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 256 512",
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+                  },
+                }),
+              ]
+            ),
             _vm._v(" "),
-            _c("span", { staticClass: "bread-slash" }, [_vm._v(" / ")]),
-          ]
-        }),
-      ],
-      2
-    ),
+            _vm._l(_vm.back_url[0], function (obj, key) {
+              return [
+                _c("a", { attrs: { href: "/" + obj.url } }, [
+                  _vm._v(_vm._s(_vm.trans("menu.menu", obj.name))),
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+              ]
+            }),
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -54938,8 +54995,19 @@ var render = function () {
           {
             staticClass: "btn btn-block btn-outline-primary",
             attrs: { type: "button" },
+            on: {
+              click: function ($event) {
+                return _vm.findSimilarVacancy()
+              },
+            },
           },
-          [_vm._v("\n            Найти похожие вакансии\n        ")]
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.trans("vacancies", "find_similar_jobs")) +
+                "\n        "
+            ),
+          ]
         ),
         _vm._v(" "),
         _c("bookmark_buttons", {
@@ -55411,68 +55479,40 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "box-title-logo container-fluid" }, [
-        _c(
-          "div",
-          { staticClass: "row box-title" },
-          [
-            _c("h2", { staticClass: "col-sm-9 title-vacancy" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(
-                    _vm.UpperCaseFirstCharacter(_vm.vacancy.position.title)
-                  ) +
-                  "\n                "
-              ),
-            ]),
-            _vm._v(" "),
-            _vm.page === "show"
-              ? _c(
-                  "a",
-                  {
-                    staticClass: "col-sm-3 link-a",
-                    attrs: {
-                      target: "_blank",
-                      href:
-                        _vm.lang.prefix_lang +
-                        "company/" +
-                        _vm.vacancy.company.alias,
-                    },
+      _c(
+        "div",
+        { staticClass: "box-title" },
+        [
+          _c("h2", { staticClass: "title-vacancy" }, [
+            _vm._v(
+              "\n            " +
+                _vm._s(
+                  _vm.UpperCaseFirstCharacter(_vm.vacancy.position.title)
+                ) +
+                "\n        "
+            ),
+          ]),
+          _vm._v(" "),
+          _vm.page === "show"
+            ? _c(
+                "a",
+                {
+                  staticClass: "link-a",
+                  attrs: {
+                    target: "_blank",
+                    href:
+                      _vm.lang.prefix_lang +
+                      "company/" +
+                      _vm.vacancy.company.alias,
                   },
-                  [
-                    _c("div", { staticClass: "company-vacancy" }, [
-                      _c("span", [
-                        _c("div", { staticClass: "font-weight-bold" }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.vacancy.company.title) +
-                              "\n                            "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "img-logo",
-                          attrs: {
-                            src: "/" + _vm.vacancy.company.image.url,
-                            alt: _vm.vacancy.company.image.title,
-                          },
-                        }),
-                      ]),
-                    ]),
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.page === "search"
-              ? _c("div", { staticClass: "col-sm-3 company-vacancy" }, [
-                  _c("span", [
-                    _c("div", { staticClass: "font-weight-bold" }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.vacancy.company.title) +
-                          "\n                        "
-                      ),
-                    ]),
+                },
+                [
+                  _c("div", { staticClass: "company-vacancy" }, [
+                    _c(
+                      "div",
+                      { staticClass: "font-weight-bold title-company" },
+                      [_vm._v(" " + _vm._s(_vm.vacancy.company.title) + " ")]
+                    ),
                     _vm._v(" "),
                     _c("img", {
                       staticClass: "img-logo",
@@ -55482,57 +55522,75 @@ var render = function () {
                       },
                     }),
                   ]),
-                ])
-              : _vm.page === "my_vacancy"
-              ? [
-                  !_vm.vacancy.published
-                    ? _c("div", { staticClass: "no-verified" }, [
-                        _c(
-                          "svg",
-                          {
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 640 512",
-                            },
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM223.1 149.5L313.4 220.3C317.6 211.8 320 202.2 320 191.1C320 180.5 316.1 169.7 311.6 160.4C314.4 160.1 317.2 159.1 320 159.1C373 159.1 416 202.1 416 255.1C416 269.7 413.1 282.7 407.1 294.5L446.6 324.7C457.7 304.3 464 280.9 464 255.1C464 176.5 399.5 111.1 320 111.1C282.7 111.1 248.6 126.2 223.1 149.5zM320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L177.4 235.8C176.5 242.4 176 249.1 176 255.1C176 335.5 240.5 400 320 400C338.7 400 356.6 396.4 373 389.9L446.2 447.5C409.9 467.1 367.8 480 320 480H320z",
-                              },
-                            }),
-                          ]
-                        ),
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans("vacancies", "checking")) +
-                            "\n                    "
-                        ),
-                      ])
-                    : _c("div", { staticClass: "verified" }, [
-                        _c(
-                          "svg",
-                          {
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 576 512",
-                            },
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d: "M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z",
-                              },
-                            }),
-                          ]
-                        ),
-                      ]),
                 ]
-              : _vm._e(),
-          ],
-          2
-        ),
-      ]),
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.page === "search"
+            ? _c("div", { staticClass: "company-vacancy" }, [
+                _c("div", { staticClass: "font-weight-bold title-company" }, [
+                  _vm._v(" " + _vm._s(_vm.vacancy.company.title) + " "),
+                ]),
+                _vm._v(" "),
+                _c("img", {
+                  staticClass: "img-logo",
+                  attrs: {
+                    src: "/" + _vm.vacancy.company.image.url,
+                    alt: _vm.vacancy.company.image.title,
+                  },
+                }),
+              ])
+            : _vm.page === "my_vacancy"
+            ? [
+                !_vm.vacancy.published
+                  ? _c("div", { staticClass: "no-verified" }, [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 640 512",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM223.1 149.5L313.4 220.3C317.6 211.8 320 202.2 320 191.1C320 180.5 316.1 169.7 311.6 160.4C314.4 160.1 317.2 159.1 320 159.1C373 159.1 416 202.1 416 255.1C416 269.7 413.1 282.7 407.1 294.5L446.6 324.7C457.7 304.3 464 280.9 464 255.1C464 176.5 399.5 111.1 320 111.1C282.7 111.1 248.6 126.2 223.1 149.5zM320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L177.4 235.8C176.5 242.4 176 249.1 176 255.1C176 335.5 240.5 400 320 400C338.7 400 356.6 396.4 373 389.9L446.2 447.5C409.9 467.1 367.8 480 320 480H320z",
+                            },
+                          }),
+                        ]
+                      ),
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.trans("vacancies", "checking")) +
+                          "\n            "
+                      ),
+                    ])
+                  : _c("div", { staticClass: "verified" }, [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 576 512",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z",
+                            },
+                          }),
+                        ]
+                      ),
+                    ]),
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "clear-float" }),
+        ],
+        2
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "line-div box-salary" }, [
         _c("div", { staticClass: "font-weight-bold salary-vacancy" }, [
@@ -55629,7 +55687,7 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "line-div" }, [
+      _c("div", { staticClass: "line-div box-address" }, [
         _c("div", { staticClass: "font-weight-bold address-vacancy" }, [
           _c("span", { staticClass: "box-svg" }, [
             _c(
@@ -73963,8 +74021,13 @@ module.exports = {
   },
   "en.menu.menu": {
     "authorization": "Sign in",
+    "bookmark_vacancies": "Saved Jobs",
     "cabinet": "Cabinet",
-    "registration": "Sign up"
+    "company": "My company",
+    "hidden_vacancies": "Hidden vacancies",
+    "my_vacancies": "My vacancies",
+    "registration": "Sign up",
+    "vacancy": "Search jobs"
   },
   "en.office": {
     "create_update": "Create \/ Update Company",
@@ -73981,6 +74044,7 @@ module.exports = {
     "age_comment": "Age comment",
     "age_group": "Please enter an appropriate age group option.",
     "agriculture": "Agriculture, agribusiness",
+    "and_start_receiving": "and start receiving resumes from applicants.",
     "applicant_age": "Applicant's age",
     "beauty": "Beauty, fitness, sports",
     "bookmarks": "Bookmarks",
@@ -74009,6 +74073,7 @@ module.exports = {
     "euro_per_month": "euro per month",
     "example_hairdresser": "Example hairdresser",
     "finance": "Finance, bank",
+    "find_similar_jobs": "Find similar jobs",
     "from": "from",
     "from_1_year": "from 1 year",
     "from_2_years": "from 3 years",
@@ -74016,6 +74081,7 @@ module.exports = {
     "functions": "Functions",
     "get_more_responses": "Enter your salary to get more responses. When job seekers know what salary you offer, they are more conscious of responding to jobs. This will help you find the right employee faster.",
     "helps_track_have_quick": "Helps you track and have quick access to the job you need.",
+    "helps_you_track_have": "Helps you track and have quick access to the right job.",
     "hidden": "Hidden ",
     "hidden_2": "hidden",
     "hidden_comment": "(vacancy will be hidden from applicants)",
@@ -74127,7 +74193,8 @@ module.exports = {
     "working": "Working professions, production",
     "working_conditions": "Working conditions",
     "years": "years",
-    "years_age": "Years of age"
+    "years_age": "Years of age",
+    "your_personal_vacancies": "This page displays your personal vacancies. You have access to manage them and view the responses of applicants to them."
   },
   "ru.auth": {
     "agree_with_that": "\u041D\u0430\u0436\u0438\u043C\u0430\u044F \xAB\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\xBB, \u044F \u0441\u043E\u0433\u043B\u0430\u0448\u0430\u044E\u0441\u044C \u0441 \u0442\u0435\u043C, \u0447\u0442\u043E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u043B \u0438 \u043F\u0440\u0438\u043D\u044F\u043B",
@@ -74231,8 +74298,13 @@ module.exports = {
   },
   "ru.menu.menu": {
     "authorization": "\u0412\u0445\u043E\u0434",
+    "bookmark_vacancies": "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "cabinet": "\u041A\u0430\u0431\u0438\u043D\u0435\u0442",
-    "registration": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F"
+    "company": "\u041C\u043E\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F",
+    "hidden_vacancies": "\u0421\u043F\u0440\u044F\u0442\u0430\u043D\u043D\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "my_vacancies": "\u041C\u043E\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "registration": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F",
+    "vacancy": "\u041F\u043E\u0438\u0441\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439"
   },
   "ru.office": {
     "create_update": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C / \u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044E",
@@ -74249,6 +74321,7 @@ module.exports = {
     "age_comment": "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043A \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0443",
     "age_group": "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u043D\u043E\u0439 \u0433\u0440\u0443\u043F\u043F\u044B.",
     "agriculture": "\u0421\u0435\u043B\u044C\u0441\u043A\u043E\u0435 \u0445\u043E\u0437\u044F\u0439\u0441\u0442\u0432\u043E, \u0430\u0433\u0440\u043E\u0431\u0438\u0437\u043D\u0435\u0441",
+    "and_start_receiving": "\u0438 \u043D\u0430\u0447\u043D\u0438\u0442\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u044C \u0440\u0435\u0437\u044E\u043C\u0435 \u043E\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0435\u0439.",
     "applicant_age": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F",
     "beauty": "\u041A\u0440\u0430\u0441\u043E\u0442\u0430, \u0444\u0438\u0442\u043D\u0435\u0441, \u0441\u043F\u043E\u0440\u0442",
     "bookmarks": "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438",
@@ -74277,6 +74350,7 @@ module.exports = {
     "euro_per_month": "\u0435\u0432\u0440\u043E \u0432 \u043C\u0435\u0441\u044F\u0446",
     "example_hairdresser": "\u041D\u0430\u043F\u0440\u0438\u043C\u0435\u0440 \u043F\u0430\u0440\u0438\u043A\u043C\u0430\u0445\u0435\u0440",
     "finance": "\u0424\u0438\u043D\u0430\u043D\u0441\u044B, \u0431\u0430\u043D\u043A",
+    "find_similar_jobs": "\u041D\u0430\u0439\u0442\u0438 \u043F\u043E\u0445\u043E\u0436\u0438\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "from": "\u043E\u0442",
     "from_1_year": "\u043E\u0442 1 \u0433\u043E\u0434\u0430",
     "from_2_years": "\u043E\u0442 3 \u043B\u0435\u0442",
@@ -74284,6 +74358,7 @@ module.exports = {
     "functions": "\u0424\u0443\u043D\u043A\u0446\u0438\u0438",
     "get_more_responses": "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043E\u0442\u043A\u043B\u0438\u043A\u043E\u0432, \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443. \u041A\u043E\u0433\u0434\u0430 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0438 \u0437\u043D\u0430\u044E\u0442, \u043A\u0430\u043A\u0443\u044E \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u044B \u043F\u0440\u0435\u0434\u043B\u0430\u0433\u0430\u0435\u0442\u0435, \u043E\u043D\u0438 \u0431\u043E\u043B\u0435\u0435 \u043E\u0441\u043E\u0437\u043D\u0430\u043D\u043D\u043E \u043E\u0442\u043A\u043B\u0438\u043A\u0430\u044E\u0442\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u0422\u0430\u043A \u0432\u044B \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430.",
     "helps_track_have_quick": "\u041F\u043E\u043C\u043E\u0433\u0430\u0435\u0442 \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0442\u044C \u0438 \u0438\u043C\u0435\u0442\u044C \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
+    "helps_you_track_have": "\u041F\u043E\u043C\u043E\u0433\u0430\u0435\u0442 \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0442\u044C \u0438 \u0438\u043C\u0435\u0442\u044C \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0439 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438.",
     "hidden": "\u0421\u043A\u0440\u044B\u0442\u0430\u044F ",
     "hidden_2": "\u0441\u043A\u0440\u044B\u0442\u044B\u0445",
     "hidden_comment": "(\u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044F \u0431\u0443\u0434\u0435\u0442 \u0441\u043A\u0440\u044B\u0442\u0430 \u043E\u0442 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0435\u0439)",
@@ -74395,7 +74470,8 @@ module.exports = {
     "working": "\u0420\u0430\u0431\u043E\u0447\u0438\u0435 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438, \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u043E",
     "working_conditions": "\u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0440\u0430\u0431\u043E\u0442\u044B",
     "years": "\u043B\u0435\u0442",
-    "years_age": "\u041B\u0435\u0442 \u043E\u0442\u0440\u043E\u0434\u0443"
+    "years_age": "\u041B\u0435\u0442 \u043E\u0442\u0440\u043E\u0434\u0443",
+    "your_personal_vacancies": "\u041D\u0430 \u044D\u0442\u043E\u0439 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u044E\u0442\u0441\u044F \u0432\u0430\u0448\u0438 \u043B\u0438\u0447\u043D\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u0418\u043C\u0435\u0435\u0442\u0435 \u0434\u043E\u0441\u0442\u0443\u043F \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F \u0438\u043C\u0438 \u0438 \u043F\u0440\u043E\u0441\u043C\u0430\u0442\u0440\u0438\u0432\u0430\u0435\u0442\u0435 \u043E\u0442\u043A\u043B\u0438\u043A\u0438 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u0435\u0439 \u043D\u0430 \u043D\u0438\u0445."
   },
   "uk.auth": {
     "agree_with_that": "\u041D\u0430\u0442\u0438\u0441\u043A\u0430\u044E\u0447\u0438 \xAB\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F\xBB, \u044F \u043F\u043E\u0433\u043E\u0434\u0436\u0443\u044E\u0441\u044C \u0437 \u0442\u0438\u043C, \u0449\u043E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0432 \u0456 \u043F\u0440\u0438\u0439\u043D\u044F\u0432",
@@ -74499,8 +74575,13 @@ module.exports = {
   },
   "uk.menu.menu": {
     "authorization": "\u0412\u0445\u0456\u0434",
+    "bookmark_vacancies": "\u0417\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "cabinet": "\u041A\u0430\u0431\u0456\u043D\u0435\u0442",
-    "registration": "\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F"
+    "company": "\u041C\u043E\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044F",
+    "hidden_vacancies": "\u0421\u0445\u043E\u0432\u0430\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "my_vacancies": "\u041C\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "registration": "\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F",
+    "vacancy": "\u041F\u043E\u0448\u0443\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439"
   },
   "uk.office": {
     "create_update": "\u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438 / \u041E\u043D\u043E\u0432\u0438\u0442\u0438 \u041A\u043E\u043C\u043F\u0430\u043D\u0456\u044E",
@@ -74517,6 +74598,7 @@ module.exports = {
     "age_comment": "\u041A\u043E\u043C\u0435\u043D\u0442\u0430\u0440 \u0434\u043E \u0432\u0456\u043A\u0443",
     "age_group": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u0438\u0439 \u0432\u0430\u0440\u0456\u0430\u043D\u0442 \u0432\u0456\u043A\u043E\u0432\u043E\u0457 \u0433\u0440\u0443\u043F\u0438.",
     "agriculture": "\u0421\u0456\u043B\u044C\u0441\u044C\u043A\u0435 \u0433\u043E\u0441\u043F\u043E\u0434\u0430\u0440\u0441\u0442\u0432\u043E, \u0430\u0433\u0440\u043E\u0431\u0456\u0437\u043D\u0435\u0441",
+    "and_start_receiving": "\u0456 \u043F\u043E\u0447\u043D\u0456\u0442\u044C \u043E\u0442\u0440\u0438\u043C\u0443\u0432\u0430\u0442\u0438 \u0440\u0435\u0437\u044E\u043C\u0435 \u0432\u0456\u0434 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0456\u0432.",
     "applicant_age": "\u0412\u0456\u043A \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430",
     "beauty": "\u041A\u0440\u0430\u0441\u0430, \u0444\u0456\u0442\u043D\u0435\u0441, \u0441\u043F\u043E\u0440\u0442",
     "bookmarks": "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438",
@@ -74545,6 +74627,7 @@ module.exports = {
     "euro_per_month": "\u0454\u0432\u0440\u043E \u043D\u0430 \u043C\u0456\u0441\u044F\u0446\u044C",
     "example_hairdresser": "\u041D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434 \u043F\u0435\u0440\u0443\u043A\u0430\u0440",
     "finance": "\u0424\u0456\u043D\u0430\u043D\u0441\u0438, \u0431\u0430\u043D\u043A",
+    "find_similar_jobs": "\u0417\u043D\u0430\u0439\u0442\u0438 \u0441\u0445\u043E\u0436\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "from": "\u0432\u0456\u0434",
     "from_1_year": "\u0432\u0456\u0434 1 \u0440\u043E\u043A\u0443",
     "from_2_years": "\u0432\u0456\u0434 3 \u0440\u043E\u043A\u0456\u0432",
@@ -74552,6 +74635,7 @@ module.exports = {
     "functions": "\u0424\u0443\u043D\u043A\u0446\u0456\u0457",
     "get_more_responses": "\u0429\u043E\u0431 \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 \u0432\u0456\u0434\u0433\u0443\u043A\u0456\u0432, \u0432\u043A\u0430\u0436\u0456\u0442\u044C \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443. \u041A\u043E\u043B\u0438 \u0437\u0434\u043E\u0431\u0443\u0432\u0430\u0447\u0456 \u0437\u043D\u0430\u044E\u0442\u044C, \u044F\u043A\u0443 \u0437\u0430\u0440\u043F\u043B\u0430\u0442\u0443 \u0432\u0438 \u043F\u0440\u043E\u043F\u043E\u043D\u0443\u0454\u0442\u0435, \u0432\u043E\u043D\u0438 \u0431\u0456\u043B\u044C\u0448 \u0443\u0441\u0432\u0456\u0434\u043E\u043C\u043B\u0435\u043D\u043E \u0432\u0456\u0434\u0433\u0443\u043A\u0443\u044E\u0442\u044C\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u0422\u0430\u043A \u0432\u0438 \u0448\u0432\u0438\u0434\u0448\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u043E\u0433\u043E \u0441\u043F\u0456\u0432\u0440\u043E\u0431\u0456\u0442\u043D\u0438\u043A\u0430.",
     "helps_track_have_quick": "\u0414\u043E\u043F\u043E\u043C\u0430\u0433\u0430\u0454 \u0432\u0456\u0434\u0441\u0442\u0435\u0436\u0443\u0432\u0430\u0442\u0438 \u0442\u0430 \u043C\u0430\u0442\u0438 \u0448\u0432\u0438\u0434\u043A\u0438\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u0434\u043E \u043D\u0435\u043E\u0431\u0445\u0456\u0434\u043D\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
+    "helps_you_track_have": "\u0414\u043E\u043F\u043E\u043C\u0430\u0433\u0430\u0454 \u0432\u0456\u0434\u0441\u0442\u0435\u0436\u0443\u0432\u0430\u0442\u0438 \u0442\u0430 \u043C\u0430\u0442\u0438 \u0448\u0432\u0438\u0434\u043A\u0438\u0439 \u0434\u043E\u0441\u0442\u0443\u043F \u0434\u043E \u043D\u0435\u043E\u0431\u0445\u0456\u0434\u043D\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457.",
     "hidden": "\u041F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0430 ",
     "hidden_2": "\u043F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0438\u0445",
     "hidden_comment": "(\u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044F \u0431\u0443\u0434\u0435 \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0430 \u0432\u0456\u0434 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0456\u0432)",
@@ -74663,7 +74747,8 @@ module.exports = {
     "working": "\u0420\u043E\u0431\u043E\u0447\u0456 \u0441\u043F\u0435\u0446\u0456\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0456, \u0432\u0438\u0440\u043E\u0431\u043D\u0438\u0446\u0442\u0432\u043E",
     "working_conditions": "\u0423\u043C\u043E\u0432\u0438 \u0440\u043E\u0431\u043E\u0442\u0438",
     "years": "\u0440\u043E\u043A\u0456\u0432",
-    "years_age": "\u041B\u0456\u0442 \u0432\u0456\u0434\u0440\u043E\u0434\u0443"
+    "years_age": "\u041B\u0456\u0442 \u0432\u0456\u0434\u0440\u043E\u0434\u0443",
+    "your_personal_vacancies": "\u041D\u0430 \u0446\u0456\u0439 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u044E\u0442\u044C\u0441\u044F \u0432\u0430\u0448\u0456 \u043E\u0441\u043E\u0431\u0438\u0441\u0442\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u041C\u0430\u0454\u0442\u0435 \u0434\u043E\u0441\u0442\u0443\u043F \u043A\u0435\u0440\u0443\u0432\u0430\u043D\u043D\u044F \u043D\u0438\u043C\u0438 \u0442\u0430 \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0430\u0454\u0442\u0435 \u0432\u0456\u0434\u0433\u0443\u043A\u0438 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0456\u0432 \u043D\u0430 \u043D\u0438\u0445."
   }
 };
 

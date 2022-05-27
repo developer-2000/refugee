@@ -1,10 +1,13 @@
 <template>
     <div>
         <!-- Breadcrumbs stroke -->
-        <div class="top-panel bread-top">
-            <template v-for="(array, key) in back_url">
-                <a :href="`/${array.url}`">{{array.name}}</a>
-                <span class="bread-slash"> / </span>
+        <div v-if="back_url !== undefined && back_url[0][0].name !== null"
+             class="top-panel bread-top"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+            <template v-for="(obj, key) in back_url[0]">
+                <a :href="`/${obj.url}`">{{trans('menu.menu',obj.name)}}</a>
+                <span class="bread-slash"> | </span>
             </template>
         </div>
 
@@ -13,8 +16,10 @@
             <button class="btn btn-block btn-outline-primary" type="button">
                 Откликнуться
             </button>
-            <button class="btn btn-block btn-outline-primary" type="button">
-                Найти похожие вакансии
+            <button class="btn btn-block btn-outline-primary" type="button"
+                    @click="findSimilarVacancy()"
+            >
+                {{trans('vacancies','find_similar_jobs')}}
             </button>
             <!-- кнопки закладок вакансий -->
             <bookmark_buttons
@@ -40,16 +45,41 @@
 <script>
     import bookmark_buttons from "./details/BookmarkButtonsVacancyComponent";
     import vacancy_template from "./details/VacancyTemplateComponent";
+    import translation from "../../mixins/translation";
 
     export default {
         components: {
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
         },
+        mixins: [
+            translation,
+        ],
         data() {
             return { }
         },
-        methods: { },
+        methods: {
+            makeBackUrl(){
+                let url = '&#060; '
+                if(this.back_url !== undefined && this.back_url[0][0].name !== null){
+                    this.back_url[0].forEach(function(item, i, arr) {
+                        console.log( i + ": " + item.name );
+                        url += '&nbsp; <a href="/'+item.url+'">'+item.name+'</a>&nbsp; |'
+                    });
+                }
+                return url
+            },
+            findSimilarVacancy(){
+                let params = new URLSearchParams(window.location.search)
+                params.delete('categories')
+                params.delete('position')
+                params.set('categories',this.vacancy.categories.toString())
+                params.set('position',this.vacancy.position.title)
+                params.sort()
+
+                location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
+            }
+        },
         props: [
             'lang',   // масив названий и url языка
             'vacancy',
@@ -58,8 +88,7 @@
             'back_url',
         ],
         mounted() {
-            // console.log(this.vacancy)
-            console.log(this.back_url)
+            console.log(this.vacancy)
         },
     }
 </script>
@@ -67,33 +96,8 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-    .top-panel{
-        display: flex;
-        align-items: center;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        border-bottom: 1px solid #dee2e6;
-        background-color: #fff;
-        padding: 15px 25px;
-        z-index: 1;
-        font-size: 17px;
-        button{
-            width: auto;
-            margin-right: 15px;
-        }
-    }
-    .bread-top{
-        padding: 10px 25px;
-    }
     .box-page {
         padding: 25px;
-    }
-    .bread-slash{
-        height: 26px;
-        margin: 0 5px;
-        color: #a7a8a9;
-        font-size: 19px;
     }
     a {
         display: block;

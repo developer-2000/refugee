@@ -16,8 +16,6 @@
 @endsection
 
 @section('content')
-<div class="container">
-
     @if(isset($settings))
     <search-vacancy
         :lang="{{json_encode($lang)}}"
@@ -26,6 +24,4 @@
         :user="{{json_encode($user)}}"
     ></search-vacancy>
     @endif
-
-</div>
 @endsection

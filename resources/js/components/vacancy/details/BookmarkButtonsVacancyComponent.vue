@@ -271,6 +271,7 @@
             }
         }
         .save-two {
+            margin-right: 0;
             svg{
                 width: 14px;
             }

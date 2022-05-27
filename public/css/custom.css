@@ -29,6 +29,44 @@ a:hover,
 .link-a:hover{
     color: #1d68a7!important;
 }
+.top-panel{
+    display: flex;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #fff;
+    padding: 15px 25px;
+    z-index: 1;
+    font-size: 17px;
+}
+.top-panel button{
+    width: auto;
+    margin-right: 15px!important;
+}
+.bread-top-cabinet {
+    padding: 10px 15px;
+    margin: 0 -15px;
+}
+.bread-top{
+    padding: 10px 25px;
+}
+.bread-top svg,
+.bread-top-cabinet svg {
+    width: 10px;
+    margin-right: 5px;
+}
+.bread-top svg path,
+.bread-top-cabinet svg path{
+    fill: #a7a8a9;
+}
+.bread-slash{
+    height: 26px;
+    margin: 0 5px;
+    color: #a7a8a9;
+    font-size: 15px;
+}
 b{
     color: black;
 }
@@ -417,8 +455,13 @@ label{
 
 /* Media min */
 @media (min-width: 1200px){
-    .container-xl, .container-lg, .container-md, .container-sm, .container {
+    .container {
         max-width: 1200px;
+        padding: 0 15px;
+    }
+    .search-panel.container,
+    .box-page.container {
+        max-width: 1400px;
         padding: 0 15px;
     }
 }
