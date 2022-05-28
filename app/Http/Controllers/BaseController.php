@@ -13,13 +13,7 @@ class BaseController extends Controller {
     use BreadcrumbsTraite;
 
     public function __construct() {
-        $this->setElementsBread();
-
-        View::composer('*', function ($view) {
-            // масив с обратными url страниц
-            $back_url = $this->getElementsBread();
-            $view->with(compact('back_url'));
-        });
+        $this->sendBackUrl();
     }
 
     public function getResponse($message = '', $status = 'success',  $code = 200) {
@@ -28,6 +22,19 @@ class BaseController extends Controller {
 
     public function getErrorResponse($message = '', $status = 'error', $code = 200) {
         return Response::json(compact('message', 'status'), $code);
+    }
+
+    /**
+     * сформировать хлебные крошки из прошлого url и отправить в view
+     */
+    private function sendBackUrl() {
+        $this->setElementsBread();
+
+        View::composer('*', function ($view) {
+            // масив с обратными url страниц
+            $back_url = $this->getElementsBread();
+            $view->with(compact('back_url'));
+        });
     }
 
 }

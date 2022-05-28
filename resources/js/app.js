@@ -27,6 +27,7 @@ Vue.component('hidden-vacancies-component', require('./components/vacancy/Hidden
 Vue.component('show-vacancy-component', require('./components/vacancy/ShowVacancyComponent').default);
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('search-vacancy', require('./components/vacancy/SearchVacancyComponent').default);
+Vue.component('contact_information', require('./components/contact_information/ContactInformationComponent').default);
 
 
 

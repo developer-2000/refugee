@@ -1,6 +1,6 @@
 <template>
     <div class="background-top-menu">
-        <div class="container">
+<!--        <div class="container">-->
             <!-- top menu -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <!-- Menu -->
@@ -109,7 +109,7 @@
                 </ul>
             </nav>
             <!-- / top menu -->
-        </div>
+<!--        </div>-->
 
         <!-- Modal -->
         <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalTitle" aria-hidden="true" data-backdrop="static">

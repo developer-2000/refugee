@@ -409,10 +409,12 @@
                     display: flex;
                     button{
                         width: auto;
-                        margin-left: 15px;
+                        margin-left: 10px;
                     }
                 }
-
+                button {
+                    margin-right: 5px !important;
+                }
             }
             .box-about-company{
                 padding: 20px 0 0;

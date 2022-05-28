@@ -306,7 +306,7 @@
                 display: flex;
                 margin: 0;
                 .box-position{
-                    min-width: 75%;
+                    min-width: 77%;
                     input{
                         border-radius: 4px 0 0 4px;
                         font-size: 18px;
@@ -316,7 +316,7 @@
                 }
                 button{
                     border-radius: 0 4px 4px 0;
-                    min-width: 25%;
+                    min-width: 23%;
                     font-size: 18px;
                     height: 38px;
                     line-height: 0;
@@ -342,7 +342,7 @@
                 min-width: 75%;
             }
             .right-site{
-                min-width: 25%;
+                min-width: 23%;
             }
         }
     }

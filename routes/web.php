@@ -75,6 +75,11 @@ Route::group([
             // office
             Route::get('/', 'PrivateOfficeController@index');
 
+            // Contact Information
+            Route::group(['prefix'=>'contact_information'], function (){
+                Route::get('/', 'ContactInformationController@index');
+            });
+
             // my company
             Route::group(['prefix'=>'my-company'], function (){
                 Route::get('/', 'MyCompanyController@index');
