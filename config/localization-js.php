@@ -19,6 +19,7 @@ return [
         'vacancies',
         'company',
         'office',
+        'contact',
     ],
 
     /*

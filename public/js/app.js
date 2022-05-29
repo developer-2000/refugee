@@ -2820,6 +2820,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2832,7 +2854,9 @@ __webpack_require__.r(__webpack_exports__);
     'vacancy_template': _vacancy_details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      bool_show_phone: false
+    };
   },
   methods: {
     addressView: function addressView(companyObj) {
@@ -2891,12 +2915,15 @@ __webpack_require__.r(__webpack_exports__);
       $('html,body').animate({
         scrollTop: $(el).offset().top + "px"
       }, 500, 'linear');
+    },
+    // скопировать в буфер
+    copyPhone: function copyPhone(el) {
+      this.copyToClipboard(el);
+      this.message("Номер скопировать в буфер обмена", 'success', 5000, false);
     }
   },
   props: ['lang', 'company', 'settings', 'user'],
-  mounted: function mounted() {
-    console.log(this.company);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3925,11 +3952,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
-/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
-/* harmony import */ var _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/general_functions_mixin */ "./resources/js/mixins/general_functions_mixin.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/general_functions_mixin */ "./resources/js/mixins/general_functions_mixin.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4155,9 +4228,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_4__["default"]],
   data: function data() {
     return {
+      contact_id: null,
       name: '',
       surname: '',
       position: '',
@@ -4171,10 +4245,128 @@ __webpack_require__.r(__webpack_exports__);
         checkbox_messenger: [],
         bool_target_input: false,
         bool_all_filled: true
-      }
+      },
+      position_list: []
     };
   },
   methods: {
+    searchPosition: function searchPosition(value) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (value.length) {
+                  _context.next = 3;
+                  break;
+                }
+
+                $('#position_list').removeClass('show');
+                return _context.abrupt("return", false);
+
+              case 3:
+                data = {
+                  value: value
+                };
+                _context.next = 6;
+                return _this.$http.post("/private-office/vacancy/search-position", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    // вернет только опубликованные
+                    if (res.data.message.position.length) {
+                      _this.position_list = res.data.message.position;
+                      $('#position_list').addClass('show');
+                    } else {
+                      $('#position_list').removeClass('show');
+                    }
+                  } // custom ошибки
+                  else {}
+                }) // ошибки сервера
+                ["catch"](function (err) {// this.messageError(err)
+                });
+
+              case 6:
+                response = _context.sent;
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    createContact: function createContact() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = _this2.getValuesFields();
+                _context2.next = 3;
+                return _this2.$http.post("/private-office/contact_information/store", data).then(function (res) {
+                  if (_this2.checkSuccess(res)) {
+                    location.href = _this2.lang.prefix_lang + 'private-office';
+                  } // custom ошибки
+                  else {
+                    _this2.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this2.messageError(err);
+                });
+
+              case 3:
+                response = _context2.sent;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    updateContact: function updateContact() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                data = _this3.getValuesFields();
+                data.contact_id = _this3.contact_id;
+                _context3.next = 4;
+                return _this3.$http.post("/private-office/contact_information/update", data).then(function (res) {
+                  if (_this3.checkSuccess(res)) {
+                    location.href = _this3.lang.prefix_lang + 'private-office';
+                  } // custom ошибки
+                  else {
+                    _this3.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this3.messageError(err);
+                });
+
+              case 4:
+                response = _context3.sent;
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     enterCodeTelephon: function enterCodeTelephon(value, variable) {
       this.telObj.bool_target_input = true;
       this.telObj.bool_all_filled = true;
@@ -4201,21 +4393,94 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.telObj.checkbox_messenger = selected;
+    },
+    disableButton: function disableButton(v) {
+      if (v.$invalid || !this.telObj.bool_target_input || this.telObj.bool_target_input && !this.telObj.bool_all_filled) {
+        return true;
+      }
+
+      return false;
+    },
+    getValuesFields: function getValuesFields() {
+      return {
+        name: this.name,
+        surname: this.surname,
+        position: this.position,
+        email: this.email,
+        skype: this.skype,
+        phone: this.telObj.view_phone,
+        messengers: this.telObj.checkbox_messenger
+      };
+    },
+    setValuePosition: function setValuePosition(value) {
+      $('#position_list').removeClass('show');
+      this.position = value;
+    },
+    fillDataPhone: function fillDataPhone(value) {
+      if (value.indexOf('+') === -1 || value.indexOf('(') === -1 || value.indexOf(')') === -1) {
+        return true;
+      } // 1
+
+
+      var arr_phone = value.split('+').pop().split('(');
+      this.telObj.code_country = arr_phone[0];
+      $('#code_country').val(this.telObj.code_country); // 2
+
+      arr_phone = arr_phone[1].split(')');
+      this.telObj.operator_code = arr_phone[0];
+      $('#operator_code').val(this.telObj.operator_code); // 3
+
+      this.telObj.phone_number = arr_phone[1];
+      $('#phone_number').val(this.telObj.phone_number);
+      this.telObj.bool_target_input = true;
     }
   },
-  computed: {},
-  props: ['lang'],
-  mounted: function mounted() {},
+  computed: {
+    // в случае редактирования company
+    setValuesFields: function setValuesFields() {
+      if (this.contact == null) {
+        return false;
+      }
+
+      this.contact_id = this.contact.id;
+      this.name = this.contact.name;
+      this.surname = this.contact.surname;
+      this.position = this.contact.position !== null ? this.contact.position.title : '';
+      this.email = this.contact.email;
+      this.skype = this.contact.skype; // телефон
+
+      this.telObj.view_phone = this.contact.phone;
+      this.fillDataPhone(this.contact.phone); // месенджеры
+
+      var input = '';
+      this.telObj.checkbox_messenger = this.contact.messengers;
+
+      for (var i = 0; i < this.telObj.checkbox_messenger.length; i++) {
+        input = document.querySelector('#checkbox-messenger_' + this.telObj.checkbox_messenger[i]);
+        input.checked = true;
+      }
+    }
+  },
+  props: ['lang', 'contact', 'settings'],
+  mounted: function mounted() {
+    var _this4 = this;
+
+    // инициализация всплывающих подсказок
+    $('[data-toggle="tooltip"]').tooltip();
+    this.$nextTick(function () {
+      _this4.setValuesFields;
+    });
+  },
   validations: {
     name: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
     },
     surname: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
     },
     email: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-      email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
     }
   }
 });
@@ -4827,6 +5092,14 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12610,7 +12883,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".iframe-youtube[data-v-4885e2bd] {\n  min-height: 190px;\n}\n.font-weight-bold[data-v-4885e2bd] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-4885e2bd] {\n  display: flex;\n  padding: 0;\n}\n.box-page .left-site[data-v-4885e2bd] {\n  border-right: 1px solid #dee2e6;\n  width: 400px;\n  padding: 20px 15px;\n}\n.box-page .left-site svg path[data-v-4885e2bd] {\n  fill: #1d68a7;\n}\n.box-page .left-site .box-title[data-v-4885e2bd] {\n  text-align: center;\n  margin-bottom: 15px;\n}\n.box-page .left-site .box-title img[data-v-4885e2bd] {\n  width: 200px;\n  height: 100px;\n}\n.box-page .left-site .box-properties[data-v-4885e2bd] {\n  padding: 10px 0;\n}\n.box-page .left-site .box-properties .line-property[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n  line-height: 18px;\n  margin-bottom: 5px;\n}\n.box-page .left-site .box-properties .line-property .box-svg[data-v-4885e2bd] {\n  min-width: 30px;\n  display: block;\n  line-height: 16px;\n  margin-right: 5px;\n  text-align: center;\n  padding: 2px 0;\n}\n.box-page .left-site .box-properties .property-category svg[data-v-4885e2bd] {\n  width: 22px;\n}\n.box-page .left-site .box-properties .property-location svg[data-v-4885e2bd] {\n  width: 17px;\n}\n.box-page .left-site .box-properties .property-mobile svg[data-v-4885e2bd] {\n  width: 18px;\n}\n.box-page .left-site .box-properties .property-employees svg[data-v-4885e2bd] {\n  width: 26px;\n}\n.box-page .right-site[data-v-4885e2bd] {\n  width: 100%;\n  padding: 0 15px;\n}\n.box-page .right-site > div[data-v-4885e2bd] {\n  margin-bottom: 40px;\n}\n.box-page .right-site > div[data-v-4885e2bd]:last-child {\n  margin-bottom: 15px;\n}\n.box-page .right-site .top-panel[data-v-4885e2bd] {\n  display: flex;\n  justify-content: space-between;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px;\n  margin: 0 -15px;\n  z-index: 10;\n  font-size: 17px;\n}\n.box-page .right-site .top-panel .box-soc-button[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd] {\n  width: 30px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd]:hover {\n  outline: 1px solid #acddfb;\n  border-radius: 7px;\n  padding: 1px;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-facebook path[data-v-4885e2bd] {\n  fill: #0268e2;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-instagram path[data-v-4885e2bd] {\n  fill: #b542e1;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-telegram path[data-v-4885e2bd] {\n  fill: #2197d0;\n}\n.box-page .right-site .top-panel .box-soc-button .svg-twitter path[data-v-4885e2bd] {\n  fill: #1c99e6;\n}\n.box-page .right-site .top-panel .box-scroll-button[data-v-4885e2bd] {\n  display: flex;\n}\n.box-page .right-site .top-panel .box-scroll-button button[data-v-4885e2bd] {\n  width: auto;\n  margin-left: 10px;\n}\n.box-page .right-site .top-panel button[data-v-4885e2bd] {\n  margin-right: 5px !important;\n}\n.box-page .right-site .box-about-company[data-v-4885e2bd] {\n  padding: 20px 0 0;\n}\n.box-page .right-site .box-media-files .block-media-files[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -2px;\n}\n.box-page .right-site .box-media-files .block-media-files img[data-v-4885e2bd] {\n  width: 150px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies[data-v-4885e2bd] {\n  padding: 0;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies img[data-v-4885e2bd] {\n  width: 150px;\n}", ""]);
+exports.push([module.i, ".iframe-youtube[data-v-4885e2bd] {\n  min-height: 190px;\n}\n.font-weight-bold[data-v-4885e2bd] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-4885e2bd] {\n  display: flex;\n  padding: 0;\n}\n.box-page .left-site[data-v-4885e2bd] {\n  border-right: 1px solid #dee2e6;\n  width: 400px;\n  padding: 20px 15px;\n}\n.box-page .left-site .box-title[data-v-4885e2bd] {\n  text-align: center;\n  margin-bottom: 15px;\n}\n.box-page .left-site .box-title img[data-v-4885e2bd] {\n  width: 200px;\n  height: 100px;\n}\n.box-page .left-site .box-properties[data-v-4885e2bd] {\n  padding: 10px 0;\n}\n.box-page .left-site .box-properties .line-property[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n  line-height: 18px;\n  margin-bottom: 5px;\n}\n.box-page .left-site .box-properties .line-property .box-svg[data-v-4885e2bd] {\n  min-width: 30px;\n  display: block;\n  line-height: 16px;\n  margin-right: 5px;\n  text-align: center;\n  padding: 2px 0;\n}\n.box-page .left-site .box-properties .property-category svg[data-v-4885e2bd] {\n  width: 22px;\n}\n.box-page .left-site .box-properties .property-location svg[data-v-4885e2bd] {\n  width: 17px;\n}\n.box-page .left-site .box-properties .property-mobile svg[data-v-4885e2bd] {\n  width: 18px;\n}\n.box-page .left-site .box-properties .property-mobile > div svg[data-v-4885e2bd] {\n  margin-left: 5px;\n}\n.box-page .left-site .box-properties .property-employees svg[data-v-4885e2bd] {\n  width: 26px;\n}\n.box-page .right-site[data-v-4885e2bd] {\n  width: 100%;\n  padding: 0 15px;\n}\n.box-page .right-site > div[data-v-4885e2bd] {\n  margin-bottom: 40px;\n}\n.box-page .right-site > div[data-v-4885e2bd]:last-child {\n  margin-bottom: 15px;\n}\n.box-page .right-site .top-panel[data-v-4885e2bd] {\n  display: flex;\n  justify-content: space-between;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  border-bottom: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px;\n  margin: 0 -15px;\n  z-index: 10;\n  font-size: 17px;\n}\n.box-page .right-site .top-panel .box-soc-button[data-v-4885e2bd] {\n  display: flex;\n  align-items: center;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd] {\n  width: 30px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.box-page .right-site .top-panel .box-soc-button svg[data-v-4885e2bd]:hover {\n  outline: 1px solid #acddfb;\n  border-radius: 7px;\n  padding: 1px;\n}\n.box-page .right-site .top-panel .box-scroll-button[data-v-4885e2bd] {\n  display: flex;\n}\n.box-page .right-site .top-panel .box-scroll-button button[data-v-4885e2bd] {\n  width: auto;\n  margin-left: 10px;\n}\n.box-page .right-site .top-panel button[data-v-4885e2bd] {\n  margin-right: 5px !important;\n}\n.box-page .right-site .box-about-company[data-v-4885e2bd] {\n  padding: 20px 0 0;\n}\n.box-page .right-site .box-media-files .block-media-files[data-v-4885e2bd] {\n  padding: 0;\n  margin: 0 -2px;\n}\n.box-page .right-site .box-media-files .block-media-files img[data-v-4885e2bd] {\n  width: 150px;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies[data-v-4885e2bd] {\n  padding: 0;\n}\n.box-page .right-site .box-company-vacancies .block-company-vacancies img[data-v-4885e2bd] {\n  width: 150px;\n}\nsvg path[data-v-4885e2bd] {\n  fill: #1d68a7;\n}\n.svg-facebook path[data-v-4885e2bd] {\n  fill: #0268e2;\n}\n.svg-instagram path[data-v-4885e2bd] {\n  fill: #b542e1;\n}\n.svg-telegram path[data-v-4885e2bd] {\n  fill: #2197d0;\n}\n.svg-twitter path[data-v-4885e2bd] {\n  fill: #1c99e6;\n}\n.svg-viber path[data-v-4885e2bd] {\n  fill: #754d94;\n}\n.svg-whatsapp path[data-v-4885e2bd] {\n  fill: #259a16;\n}", ""]);
 
 // exports
 
@@ -12648,7 +12921,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-group[data-v-d64bd258] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-d64bd258] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\n.telephone .box-left-right[data-v-d64bd258] {\n  display: flex;\n}\n.telephone .box-left-right .left-phone[data-v-d64bd258] {\n  width: 50%;\n}\n.telephone .box-left-right .left-phone .box-input-tel[data-v-d64bd258] {\n  display: flex;\n  align-items: flex-end;\n}\n.telephone .box-left-right .left-phone .box-input-tel .minus-tel[data-v-d64bd258] {\n  line-height: 38px;\n}\n.telephone .box-left-right .left-phone .box-input-tel .code_country[data-v-d64bd258],\n.telephone .box-left-right .left-phone .box-input-tel .operator_code[data-v-d64bd258] {\n  margin: 0 10px;\n}\n.telephone .box-left-right .left-phone .box-input-tel .phone_number[data-v-d64bd258] {\n  margin-left: 10px;\n}\n.telephone .box-left-right .left-phone .box-input-tel .box-prefix-tel #code_country[data-v-d64bd258],\n.telephone .box-left-right .left-phone .box-input-tel .box-prefix-tel #phone_number[data-v-d64bd258],\n.telephone .box-left-right .left-phone .box-input-tel .box-prefix-tel #operator_code[data-v-d64bd258] {\n  width: 140px;\n}\n.telephone .box-left-right .right-phone[data-v-d64bd258] {\n  width: 50%;\n}\n.telephone .invalid-feedback[data-v-d64bd258] {\n  display: block;\n}\n.telephone .view-phone[data-v-d64bd258] {\n  border-bottom: 1px dashed #444;\n  width: 160px;\n  margin-bottom: 10px;\n}\n.target-label[data-v-d64bd258] {\n  color: #035ba4;\n  font-weight: 500 !important;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".form-group[data-v-d64bd258] {\n  padding: 5px 10px 15px;\n  background: #ededed;\n  position: relative;\n}\n.form-group .invalid-feedback[data-v-d64bd258] {\n  margin-bottom: -13px;\n  padding: 3px 0px 1px 0px;\n}\n.telephone .box-left-right[data-v-d64bd258] {\n  display: flex;\n}\n.telephone .box-left-right .left-phone[data-v-d64bd258] {\n  width: 50%;\n}\n.telephone .box-left-right .left-phone .box-input-tel[data-v-d64bd258] {\n  display: flex;\n  align-items: flex-end;\n}\n.telephone .box-left-right .left-phone .box-input-tel .minus-tel[data-v-d64bd258] {\n  line-height: 38px;\n}\n.telephone .box-left-right .left-phone .box-input-tel .code_country[data-v-d64bd258],\n.telephone .box-left-right .left-phone .box-input-tel .operator_code[data-v-d64bd258] {\n  margin: 0 10px;\n}\n.telephone .box-left-right .left-phone .box-input-tel .phone_number[data-v-d64bd258] {\n  margin-left: 10px;\n}\n.telephone .box-left-right .left-phone .box-input-tel .box-prefix-tel #code_country[data-v-d64bd258],\n.telephone .box-left-right .left-phone .box-input-tel .box-prefix-tel #phone_number[data-v-d64bd258],\n.telephone .box-left-right .left-phone .box-input-tel .box-prefix-tel #operator_code[data-v-d64bd258] {\n  width: 140px;\n}\n.telephone .box-left-right .right-phone[data-v-d64bd258] {\n  width: 50%;\n}\n.telephone .invalid-feedback[data-v-d64bd258] {\n  display: block;\n}\n.telephone .view-phone[data-v-d64bd258] {\n  border-bottom: 1px dashed #444;\n  width: 160px;\n  margin-bottom: 10px;\n}\n.target-label[data-v-d64bd258] {\n  color: #035ba4;\n  font-weight: 500 !important;\n  cursor: pointer;\n}\n.block_position_list[data-v-d64bd258] {\n  position: relative;\n}\n.block_position_list #position_list[data-v-d64bd258] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.block_position_list #position_list > div[data-v-d64bd258] {\n  padding: 1px 12px;\n}\n.desc-helper-italic[data-v-d64bd258],\nh1[data-v-d64bd258] {\n  padding-left: 4px;\n}", ""]);
 
 // exports
 
@@ -47999,27 +48272,139 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "line-property property-mobile" }, [
-          _c("span", { staticClass: "box-svg" }, [
-            _c(
-              "svg",
-              {
-                attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  viewBox: "0 0 384 512",
-                },
-              },
+        _vm.company.contact !== null
+          ? _c(
+              "div",
+              { staticClass: "line-property property-mobile" },
               [
-                _c("path", {
-                  attrs: {
-                    d: "M304 0H80C44.65 0 16 28.65 16 64v384c0 35.35 28.65 64 64 64h224c35.35 0 64-28.65 64-64V64c0-35.35-28.7-64-64-64zm16 448c0 8.822-7.178 16-16 16H80c-8.82 0-16-7.2-16-16v-80h256v80zm0-128H64V64c0-8.822 7.178-16 16-16h224c8.8 0 16 7.18 16 16v256zM160 432h64c8.836 0 16-7.164 16-16s-7.164-16-16-16h-64c-8.836 0-16 7.164-16 16s7.2 16 16 16z",
-                  },
+                _c("span", { staticClass: "box-svg" }, [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 384 512",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M304 0H80C44.65 0 16 28.65 16 64v384c0 35.35 28.65 64 64 64h224c35.35 0 64-28.65 64-64V64c0-35.35-28.7-64-64-64zm16 448c0 8.822-7.178 16-16 16H80c-8.82 0-16-7.2-16-16v-80h256v80zm0-128H64V64c0-8.822 7.178-16 16-16h224c8.8 0 16 7.18 16 16v256zM160 432h64c8.836 0 16-7.164 16-16s-7.164-16-16-16h-64c-8.836 0-16 7.164-16 16s7.2 16 16 16z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                !_vm.bool_show_phone
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "target-label",
+                        on: {
+                          click: function ($event) {
+                            _vm.bool_show_phone = true
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                    Показать номер\n                "
+                        ),
+                      ]
+                    )
+                  : _c(
+                      "a",
+                      {
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.copyPhone($event.target)
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.company.contact.phone.replaceAll(/[(-)]/gi, " ")
+                          )
+                        ),
+                      ]
+                    ),
+                _vm._v(" "),
+                _vm._l(_vm.company.contact.messengers, function (value, key) {
+                  return [
+                    _vm.settings.contact_information[value] == "Telegram"
+                      ? _c("div", [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "svg-telegram",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 496 512",
+                              },
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d: "M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z",
+                                },
+                              }),
+                            ]
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.settings.contact_information[value] == "Viber"
+                      ? _c("div", [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "svg-viber",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 512 512",
+                              },
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d: "M444 49.9C431.3 38.2 379.9.9 265.3.4c0 0-135.1-8.1-200.9 52.3C27.8 89.3 14.9 143 13.5 209.5c-1.4 66.5-3.1 191.1 117 224.9h.1l-.1 51.6s-.8 20.9 13 25.1c16.6 5.2 26.4-10.7 42.3-27.8 8.7-9.4 20.7-23.2 29.8-33.7 82.2 6.9 145.3-8.9 152.5-11.2 16.6-5.4 110.5-17.4 125.7-142 15.8-128.6-7.6-209.8-49.8-246.5zM457.9 287c-12.9 104-89 110.6-103 115.1-6 1.9-61.5 15.7-131.2 11.2 0 0-52 62.7-68.2 79-5.3 5.3-11.1 4.8-11-5.7 0-6.9.4-85.7.4-85.7-.1 0-.1 0 0 0-101.8-28.2-95.8-134.3-94.7-189.8 1.1-55.5 11.6-101 42.6-131.6 55.7-50.5 170.4-43 170.4-43 96.9.4 143.3 29.6 154.1 39.4 35.7 30.6 53.9 103.8 40.6 211.1zm-139-80.8c.4 8.6-12.5 9.2-12.9.6-1.1-22-11.4-32.7-32.6-33.9-8.6-.5-7.8-13.4.7-12.9 27.9 1.5 43.4 17.5 44.8 46.2zm20.3 11.3c1-42.4-25.5-75.6-75.8-79.3-8.5-.6-7.6-13.5.9-12.9 58 4.2 88.9 44.1 87.8 92.5-.1 8.6-13.1 8.2-12.9-.3zm47 13.4c.1 8.6-12.9 8.7-12.9.1-.6-81.5-54.9-125.9-120.8-126.4-8.5-.1-8.5-12.9 0-12.9 73.7.5 133 51.4 133.7 139.2zM374.9 329v.2c-10.8 19-31 40-51.8 33.3l-.2-.3c-21.1-5.9-70.8-31.5-102.2-56.5-16.2-12.8-31-27.9-42.4-42.4-10.3-12.9-20.7-28.2-30.8-46.6-21.3-38.5-26-55.7-26-55.7-6.7-20.8 14.2-41 33.3-51.8h.2c9.2-4.8 18-3.2 23.9 3.9 0 0 12.4 14.8 17.7 22.1 5 6.8 11.7 17.7 15.2 23.8 6.1 10.9 2.3 22-3.7 26.6l-12 9.6c-6.1 4.9-5.3 14-5.3 14s17.8 67.3 84.3 84.3c0 0 9.1.8 14-5.3l9.6-12c4.6-6 15.7-9.8 26.6-3.7 14.7 8.3 33.4 21.2 45.8 32.9 7 5.7 8.6 14.4 3.8 23.6z",
+                                },
+                              }),
+                            ]
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.settings.contact_information[value] == "WhatsApp"
+                      ? _c("div", [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "svg-whatsapp",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 448 512",
+                              },
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d: "M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z",
+                                },
+                              }),
+                            ]
+                          ),
+                        ])
+                      : _vm._e(),
+                  ]
                 }),
-              ]
-            ),
-          ]),
-          _vm._v("\n                +38(063)688-34-39\n            "),
-        ]),
+              ],
+              2
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.company.site_company
           ? _c("div", { staticClass: "line-property" }, [
@@ -50132,13 +50517,27 @@ var render = function () {
       _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
     ]),
     _vm._v(" "),
-    _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v("\n        Заполнить контактную информацию\n    "),
-    ]),
+    this.contact == null
+      ? _c("h1", { staticClass: "title_page card-body" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.trans("contact", "fill_information")) +
+              "\n    "
+          ),
+        ])
+      : _c("h1", { staticClass: "title_page card-body" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.trans("contact", "update_information")) +
+              "\n    "
+          ),
+        ]),
     _vm._v(" "),
     _c("div", { staticClass: "desc-helper-italic" }, [
       _vm._v(
-        "\n        " + _vm._s(_vm.trans("company", "about_company")) + "\n    "
+        "\n        " +
+          _vm._s(_vm.trans("contact", "specified_information_displayed")) +
+          "\n    "
       ),
     ]),
     _vm._v(" "),
@@ -50146,7 +50545,11 @@ var render = function () {
       _c("div", { staticClass: "col-sm-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "name" } }, [
-            _vm._v("\n                    Ваше имя\n                    "),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.trans("contact", "your_name")) +
+                "\n                    "
+            ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
                 "svg",
@@ -50183,7 +50586,7 @@ var render = function () {
               id: "name",
               maxlength: "100",
               autocomplete: "off",
-              placeholder: "Ввести имя",
+              placeholder: _vm.trans("contact", "enter_name"),
             },
             domProps: { value: _vm.name },
             on: {
@@ -50202,7 +50605,9 @@ var render = function () {
           !_vm.$v.name.required
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                    Пожалуста введите ваше имя\n                "
+                  "\n                    " +
+                    _vm._s(_vm.trans("contact", "enter_your_name")) +
+                    "\n                "
                 ),
               ])
             : _vm._e(),
@@ -50212,7 +50617,11 @@ var render = function () {
       _c("div", { staticClass: "col-sm-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "surname" } }, [
-            _vm._v("\n                    Ваша фамилия\n                    "),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.trans("contact", "your_last_name")) +
+                "\n                    "
+            ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
                 "svg",
@@ -50249,7 +50658,7 @@ var render = function () {
               id: "surname",
               maxlength: "100",
               autocomplete: "off",
-              placeholder: "Ввести фамилию",
+              placeholder: _vm.trans("contact", "enter_last_name"),
             },
             domProps: { value: _vm.surname },
             on: {
@@ -50268,7 +50677,9 @@ var render = function () {
           !_vm.$v.surname.required
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                    Пожалуста введите вашу фамилию\n                "
+                  "\n                    " +
+                    _vm._s(_vm.trans("contact", "please_enter_your_last")) +
+                    "\n                "
                 ),
               ])
             : _vm._e(),
@@ -50278,7 +50689,11 @@ var render = function () {
       _c("div", { staticClass: "col-sm-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "position" } }, [
-            _vm._v("\n                    Должность\n                "),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.trans("contact", "position")) +
+                "\n                "
+            ),
           ]),
           _vm._v(" "),
           _c("input", {
@@ -50296,10 +50711,13 @@ var render = function () {
               id: "position",
               maxlength: "100",
               autocomplete: "off",
-              placeholder: "Ввести должность",
+              placeholder: _vm.trans("contact", "enter_position"),
             },
             domProps: { value: _vm.position },
             on: {
+              keyup: function ($event) {
+                return _vm.searchPosition($event.target.value)
+              },
               input: function ($event) {
                 if ($event.target.composing) {
                   return
@@ -50308,6 +50726,35 @@ var render = function () {
               },
             },
           }),
+          _vm._v(" "),
+          _c("div", { staticClass: "block_position_list" }, [
+            _c(
+              "div",
+              { staticClass: "dropdown-menu", attrs: { id: "position_list" } },
+              _vm._l(_vm.position_list, function (value, key) {
+                return _c(
+                  "div",
+                  {
+                    key: key,
+                    staticClass: "dropdown-item",
+                    on: {
+                      click: function ($event) {
+                        return _vm.setValuePosition(value)
+                      },
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(value) +
+                        "\n                        "
+                    ),
+                  ]
+                )
+              }),
+              0
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -50315,9 +50762,11 @@ var render = function () {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "email" } }, [
+          _c("label", [
             _vm._v(
-              "\n                    Электронная почта\n                    "
+              "\n                    " +
+                _vm._s(_vm.trans("contact", "email")) +
+                "\n                    "
             ),
             _c("span", { staticClass: "mandatory-filling" }, [
               _c(
@@ -50337,6 +50786,36 @@ var render = function () {
                 ]
               ),
             ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "info-tooltip",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  "data-trigger": "click",
+                  title: _vm.trans("contact", "serves_job_seeker"),
+                },
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 512 512",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            ),
           ]),
           _vm._v(" "),
           _c("input", {
@@ -50355,7 +50834,7 @@ var render = function () {
               id: "email",
               maxlength: "100",
               autocomplete: "off",
-              placeholder: "Ввести email",
+              placeholder: _vm.trans("contact", "enter_email"),
             },
             domProps: { value: _vm.email },
             on: {
@@ -50374,7 +50853,9 @@ var render = function () {
           !_vm.$v.email.required
             ? _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  "\n                    Пожалуста введите электронную почту\n                "
+                  "\n                    " +
+                    _vm._s(_vm.trans("contact", "please_enter_email")) +
+                    "\n                "
                 ),
               ])
             : _vm._e(),
@@ -50402,7 +50883,7 @@ var render = function () {
               id: "skype",
               maxlength: "100",
               autocomplete: "off",
-              placeholder: "Ввести skype",
+              placeholder: _vm.trans("contact", "enter_skype"),
             },
             domProps: { value: _vm.skype },
             on: {
@@ -50425,7 +50906,9 @@ var render = function () {
             _c("div", { staticClass: "left-phone" }, [
               _c("label", [
                 _vm._v(
-                  "\n                            Телефон\n                            "
+                  "\n                            " +
+                    _vm._s(_vm.trans("contact", "phone")) +
+                    "\n                            "
                 ),
                 _c("span", { staticClass: "mandatory-filling" }, [
                   _c(
@@ -50445,6 +50928,36 @@ var render = function () {
                     ]
                   ),
                 ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "info-tooltip",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      "data-trigger": "click",
+                      title: _vm.trans("contact", "expand_way_contact"),
+                    },
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]
+                ),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "view-phone" }, [
@@ -50467,7 +50980,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    Код страны\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("contact", "country_code")) +
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -50484,7 +50999,7 @@ var render = function () {
                       id: "code_country",
                       maxlength: "100",
                       autocomplete: "off",
-                      placeholder: "Ввести код",
+                      placeholder: _vm.trans("contact", "enter_code"),
                     },
                     on: {
                       keyup: function ($event) {
@@ -50508,7 +51023,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    Код оператора\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("contact", "operator_code")) +
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -50525,7 +51042,7 @@ var render = function () {
                       id: "operator_code",
                       maxlength: "100",
                       autocomplete: "off",
-                      placeholder: "Ввести код",
+                      placeholder: _vm.trans("contact", "enter_code"),
                     },
                     on: {
                       keyup: function ($event) {
@@ -50549,7 +51066,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                                    Номер телефона\n                                "
+                        "\n                                    " +
+                          _vm._s(_vm.trans("contact", "phone_number")) +
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -50566,7 +51085,7 @@ var render = function () {
                       id: "phone_number",
                       maxlength: "100",
                       autocomplete: "off",
-                      placeholder: "Ввести телефон",
+                      placeholder: _vm.trans("contact", "enter_phone"),
                     },
                     on: {
                       keyup: function ($event) {
@@ -50583,100 +51102,144 @@ var render = function () {
               _vm.telObj.bool_target_input && !_vm.telObj.bool_all_filled
                 ? _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(
-                      "\n                            Пожалуста введите номер контактного телефона в международном формате\n                        "
+                      "\n                            " +
+                        _vm._s(
+                          _vm.trans("contact", "please_enter_phone_number")
+                        ) +
+                        "\n                        "
                     ),
                   ])
                 : _vm._e(),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "right-phone" }, [
-              _c("label", [
-                _vm._v(
-                  "\n                            Месенджеры связи этого номера\n                        "
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: {
-                    name: "checkbox-messenger",
-                    type: "checkbox",
-                    id: "checkbox-messenger_0",
-                    value: "0",
-                  },
-                  on: { change: _vm.checkboxMessenger },
-                }),
+            _c(
+              "div",
+              { staticClass: "right-phone" },
+              [
+                _c("label", [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans("contact", "messengers_communication")) +
+                      "\n                        "
+                  ),
+                ]),
                 _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "target-label",
-                    attrs: { for: "checkbox-messenger_0" },
-                  },
-                  [
-                    _vm._v(
-                      "\n                                Telegram\n                            "
-                    ),
-                  ]
+                _vm._l(
+                  this.settings.contact_information,
+                  function (value, key) {
+                    return _c("div", { key: key }, [
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          name: "checkbox-messenger",
+                          type: "checkbox",
+                          id: "checkbox-messenger_" + key,
+                        },
+                        domProps: { value: "" + key },
+                        on: { change: _vm.checkboxMessenger },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "target-label",
+                          attrs: { for: "checkbox-messenger_" + key },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(value) +
+                              "\n                            "
+                          ),
+                        ]
+                      ),
+                    ])
+                  }
                 ),
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: {
-                    name: "checkbox-messenger",
-                    type: "checkbox",
-                    id: "checkbox-messenger_1",
-                    value: "1",
-                  },
-                  on: { change: _vm.checkboxMessenger },
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "target-label",
-                    attrs: { for: "checkbox-messenger_1" },
-                  },
-                  [
-                    _vm._v(
-                      "\n                                Viber\n                            "
-                    ),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: {
-                    name: "checkbox-messenger",
-                    type: "checkbox",
-                    id: "checkbox-messenger_2",
-                    value: "2",
-                  },
-                  on: { change: _vm.checkboxMessenger },
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "target-label",
-                    attrs: { for: "checkbox-messenger_2" },
-                  },
-                  [
-                    _vm._v(
-                      "\n                                WhatsApp\n                            "
-                    ),
-                  ]
-                ),
-              ]),
-            ]),
+              ],
+              2
+            ),
           ]),
         ]),
       ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row footer-form" }, [
+      _c(
+        "div",
+        { staticClass: "col-sm-4 offset-4 but-box" },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-block btn-outline-danger btn-lg",
+              attrs: { href: _vm.lang.prefix_lang + "private-office" },
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.trans("vacancies", "cancel")) +
+                  "\n            "
+              ),
+            ]
+          ),
+          _vm._v(" "),
+          _vm.contact_id == null
+            ? [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-primary btn-lg",
+                    class: { disabled: _vm.disableButton(_vm.$v) },
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.disableButton(_vm.$v),
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.createContact.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans("vacancies", "save")) +
+                        "\n                "
+                    ),
+                  ]
+                ),
+              ]
+            : [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-primary btn-lg",
+                    class: { disabled: _vm.disableButton(_vm.$v) },
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.disableButton(_vm.$v),
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.updateContact.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans("vacancies", "update_vacancy")) +
+                        "\n                "
+                    ),
+                  ]
+                ),
+              ],
+        ],
+        2
+      ),
     ]),
   ])
 }
@@ -51711,6 +52274,43 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "forms box-page" }, [
+    _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
+      _c(
+        "svg",
+        {
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 256 512",
+          },
+        },
+        [
+          _c("path", {
+            attrs: {
+              d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+            },
+          }),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: {
+            href: _vm.lang.prefix_lang + "private-office/vacancy/my-vacancies",
+          },
+        },
+        [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.trans("menu.menu", "my_vacancies")) +
+              "\n        "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+    ]),
+    _vm._v(" "),
     this.vacancy == null
       ? _c("h1", { staticClass: "title_page card-body" }, [
           _vm._v(
@@ -74404,6 +75004,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+    // скопировать в буфер обмена
+    copyToClipboard: function copyToClipboard(el) {
+      var $tmp = $("<textarea>");
+      $("body").append($tmp);
+      $tmp.val($(el).text()).select();
+      document.execCommand("copy");
+      $tmp.remove();
     }
   }
 });
@@ -75097,6 +75705,33 @@ module.exports = {
     "years": "years",
     "youtube_links": "youtube links"
   },
+  "en.contact": {
+    "country_code": "Country code",
+    "email": "Email",
+    "enter_code": "Enter code",
+    "enter_email": "Enter email",
+    "enter_last_name": "Enter last name",
+    "enter_name": "Enter name",
+    "enter_phone": "Enter phone",
+    "enter_position": "Enter position",
+    "enter_skype": "Enter skype",
+    "enter_your_name": "Please enter your name",
+    "expand_way_contact": "Used to contact you by the job seeker. Expand the way to contact you by selecting the messengers from the list.",
+    "fill_information": "Fill in contact information",
+    "messengers_communication": "Messengers of this number",
+    "operator_code": "Operator code",
+    "phone": "Phone",
+    "phone_number": "Phone number",
+    "please_enter_email": "Please enter your email",
+    "please_enter_phone_number": "Please enter a contact phone number in international format",
+    "please_enter_your_last": "Please enter your last name",
+    "position": "Position",
+    "serves_job_seeker": "Serves the job seeker to contact you",
+    "specified_information_displayed": "The specified information will be displayed on your company or job profile. It will be available for viewing by applicants.",
+    "update_information": "Update contact information",
+    "your_last_name": "Your last name",
+    "your_name": "Your name"
+  },
   "en.menu.menu": {
     "authorization": "Sign in",
     "bookmark_vacancies": "Saved Jobs",
@@ -75374,6 +76009,33 @@ module.exports = {
     "years": "\u0433\u043E\u0434\u0430",
     "youtube_links": "youtube \u0441\u0441\u044B\u043B\u043E\u043A"
   },
+  "ru.contact": {
+    "country_code": "\u041A\u043E\u0434 \u0441\u0442\u0440\u0430\u043D\u044B",
+    "email": "\u042D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0430\u044F \u043F\u043E\u0447\u0442\u0430",
+    "enter_code": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043A\u043E\u0434",
+    "enter_email": "\u0412\u0432\u0435\u0441\u0442\u0438 email",
+    "enter_last_name": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0444\u0430\u043C\u0438\u043B\u0438\u044E",
+    "enter_name": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0438\u043C\u044F",
+    "enter_phone": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0442\u0435\u043B\u0435\u0444\u043E\u043D",
+    "enter_position": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0434\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u044C",
+    "enter_skype": "\u0412\u0432\u0435\u0441\u0442\u0438 skype",
+    "enter_your_name": "\u041F\u043E\u0436\u0430\u043B\u0443\u0441\u0442\u0430 \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0432\u0430\u0448\u0435 \u0438\u043C\u044F",
+    "expand_way_contact": "\u0421\u043B\u0443\u0436\u0438\u0442 \u0434\u043B\u044F \u0441\u0432\u044F\u0437\u0438 \u0441 \u0432\u0430\u043C\u0438 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F. \u0420\u0430\u0441\u0448\u0438\u0440\u044C\u0442\u0435 \u0441\u043F\u043E\u0441\u043E\u0431 \u0441\u0432\u044F\u0437\u0438 \u0441 \u0432\u0430\u043C\u0438, \u0443\u043A\u0430\u0437\u0430\u0432 \u043C\u0435\u0441\u0441\u0435\u043D\u0434\u0436\u0435\u0440\u044B \u0438\u0437 \u0441\u043F\u0438\u0441\u043A\u0430.",
+    "fill_information": "\u0417\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u044C \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043D\u0443\u044E \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E",
+    "messengers_communication": "\u041C\u0435\u0441\u0435\u043D\u0434\u0436\u0435\u0440\u044B \u0441\u0432\u044F\u0437\u0438 \u044D\u0442\u043E\u0433\u043E \u043D\u043E\u043C\u0435\u0440\u0430",
+    "operator_code": "\u041A\u043E\u0434 \u043E\u043F\u0435\u0440\u0430\u0442\u043E\u0440\u0430",
+    "phone": "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
+    "phone_number": "\u041D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0430",
+    "please_enter_email": "\u041F\u043E\u0436\u0430\u043B\u0443\u0441\u0442\u0430 \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0443\u044E \u043F\u043E\u0447\u0442\u0443",
+    "please_enter_phone_number": "\u041F\u043E\u0436\u0430\u043B\u0443\u0441\u0442\u0430 \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043D\u043E\u0433\u043E \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0430 \u0432 \u043C\u0435\u0436\u0434\u0443\u043D\u0430\u0440\u043E\u0434\u043D\u043E\u043C \u0444\u043E\u0440\u043C\u0430\u0442\u0435",
+    "please_enter_your_last": "\u041F\u043E\u0436\u0430\u043B\u0443\u0441\u0442\u0430 \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0432\u0430\u0448\u0443 \u0444\u0430\u043C\u0438\u043B\u0438\u044E",
+    "position": "\u0414\u043E\u043B\u0436\u043D\u043E\u0441\u0442\u044C",
+    "serves_job_seeker": "\u0421\u043B\u0443\u0436\u0438\u0442 \u0434\u043B\u044F \u0441\u0432\u044F\u0437\u0438 \u0441 \u0432\u0430\u043C\u0438 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F",
+    "specified_information_displayed": "\u0423\u043A\u0430\u0437\u0430\u043D\u043D\u0430\u044F \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u0431\u0443\u0434\u0435\u0442 \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u0435 \u0432\u0430\u0448\u0435\u0439 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438 \u0438\u043B\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438. \u041E\u043D\u0430 \u0431\u0443\u0434\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0434\u043B\u044F \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430 \u0441\u043E\u0438\u0441\u043A\u0430\u0442\u0435\u043B\u044F\u043C.",
+    "update_information": "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043D\u0443\u044E \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E",
+    "your_last_name": "\u0412\u0430\u0448\u0430 \u0444\u0430\u043C\u0438\u043B\u0438\u044F",
+    "your_name": "\u0412\u0430\u0448\u0435 \u0438\u043C\u044F"
+  },
   "ru.menu.menu": {
     "authorization": "\u0412\u0445\u043E\u0434",
     "bookmark_vacancies": "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
@@ -75650,6 +76312,33 @@ module.exports = {
     "update_company_data": "\u041E\u043D\u043E\u0432\u0438\u0442\u0438 \u0434\u0430\u043D\u0456 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457",
     "years": "\u0440\u043E\u043A\u0443",
     "youtube_links": "youtube \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C"
+  },
+  "uk.contact": {
+    "country_code": "\u041A\u043E\u0434 \u043A\u0440\u0430\u0457\u043D\u0438",
+    "email": "\u0415\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0430 \u043F\u043E\u0448\u0442\u0430",
+    "enter_code": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043A\u043E\u0434",
+    "enter_email": "\u0412\u0432\u0435\u0441\u0442\u0438 email",
+    "enter_last_name": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043F\u0440\u0456\u0437\u0432\u0438\u0449\u0435",
+    "enter_name": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0456\u043C'\u044F",
+    "enter_phone": "\u0412\u0432\u0435\u0441\u0442\u0438 \u0442\u0435\u043B\u0435\u0444\u043E\u043D",
+    "enter_position": "\u0412\u0432\u0435\u0441\u0442\u0438 \u043F\u043E\u0441\u0430\u0434\u0443",
+    "enter_skype": "\u0412\u0432\u0435\u0441\u0442\u0438 skype",
+    "enter_your_name": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0432\u0435\u0434\u0456\u0442\u044C \u0432\u0430\u0448\u0435 \u0456\u043C'\u044F",
+    "expand_way_contact": "\u0421\u043B\u0443\u0436\u0438\u0442\u044C \u0434\u043B\u044F \u0437\u0432'\u044F\u0437\u043A\u0443 \u0437 \u0432\u0430\u043C\u0438 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430. \u0420\u043E\u0437\u0448\u0438\u0440\u0442\u0435 \u0441\u043F\u043E\u0441\u0456\u0431 \u0437\u0432'\u044F\u0437\u043A\u0443 \u0437 \u0432\u0430\u043C\u0438, \u0432\u043A\u0430\u0437\u0430\u0432\u0448\u0438 \u043C\u0435\u0441\u0435\u043D\u0434\u0436\u0435\u0440\u0438 \u0437\u0456 \u0441\u043F\u0438\u0441\u043A\u0443.",
+    "fill_information": "\u0417\u0430\u043F\u043E\u0432\u043D\u0438\u0442\u0438 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043D\u0443 \u0456\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044E",
+    "messengers_communication": "\u041C\u0435\u0441\u0435\u043D\u0434\u0436\u0435\u0440\u0438 \u0437\u0432'\u044F\u0437\u043A\u0443 \u0446\u044C\u043E\u0433\u043E \u043D\u043E\u043C\u0435\u0440\u0430",
+    "operator_code": "\u041A\u043E\u0434 \u043E\u043F\u0435\u0440\u0430\u0442\u043E\u0440\u0430",
+    "phone": "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
+    "phone_number": "\u041D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443",
+    "please_enter_email": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0432\u0435\u0434\u0456\u0442\u044C \u0435\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0443 \u043F\u043E\u0448\u0442\u0443",
+    "please_enter_phone_number": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0432\u0435\u0434\u0456\u0442\u044C \u043D\u043E\u043C\u0435\u0440 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043D\u043E\u0433\u043E \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443 \u0432 \u043C\u0456\u0436\u043D\u0430\u0440\u043E\u0434\u043D\u043E\u043C\u0443 \u0444\u043E\u0440\u043C\u0430\u0442\u0456",
+    "please_enter_your_last": "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0432\u0432\u0435\u0434\u0456\u0442\u044C \u0432\u0430\u0448\u0435 \u043F\u0440\u0456\u0437\u0432\u0438\u0449\u0435",
+    "position": "\u041F\u043E\u0441\u0430\u0434\u0430",
+    "serves_job_seeker": "\u0421\u043B\u0443\u0436\u0438\u0442\u044C \u0434\u043B\u044F \u0437\u0432'\u044F\u0437\u043A\u0443 \u0437 \u0432\u0430\u043C\u0438 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430",
+    "specified_information_displayed": "\u0412\u043A\u0430\u0437\u0430\u043D\u0430 \u0456\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044F \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u0438\u043C\u0435\u0442\u044C\u0441\u044F \u0443 \u043F\u0440\u043E\u0444\u0456\u043B\u0456 \u0432\u0430\u0448\u043E\u0457 \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u0457 \u0430\u0431\u043E \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457. \u0412\u043E\u043D\u0430 \u0431\u0443\u0434\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0434\u043B\u044F \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0443 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430\u043C.",
+    "update_information": "\u041E\u043D\u043E\u0432\u0438\u0442\u0438 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u043D\u0443 \u0456\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044E",
+    "your_last_name": "\u0412\u0430\u0448\u0435 \u043F\u0440\u0456\u0437\u0432\u0438\u0449\u0435",
+    "your_name": "\u0412\u0430\u0448\u0435 \u0456\u043C'\u044F"
   },
   "uk.menu.menu": {
     "authorization": "\u0412\u0445\u0456\u0434",

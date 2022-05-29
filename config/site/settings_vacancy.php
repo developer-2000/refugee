@@ -43,7 +43,6 @@ return [
         'age_comment',
     ],
     // Какие контакты связи показать соискателю: email, tel, messenger viber, messenger telegram,
-    // Индексы ключи к файлу языка
     'contact_information' => [
         'Email',
         'Mobile tell.',

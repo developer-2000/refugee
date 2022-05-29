@@ -78,6 +78,8 @@ Route::group([
             // Contact Information
             Route::group(['prefix'=>'contact_information'], function (){
                 Route::get('/', 'ContactInformationController@index');
+                Route::post('store', 'ContactInformationController@store');
+                Route::post('update', 'ContactInformationController@update');
             });
 
             // my company

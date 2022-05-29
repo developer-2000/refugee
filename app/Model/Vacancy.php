@@ -24,7 +24,7 @@ class Vacancy extends Model
         return 'alias';
     }
 
-    // заголовок вакансии
+    // название должности
     public function position() {
         return $this->belongsTo(Position::class, 'position_id', 'id');
     }
@@ -90,23 +90,6 @@ class Vacancy extends Model
             'user_id',
             'id'
         );
-    }
-
-    /**
-     * удалить старое название, если оно не будет никем использоватся
-     * @param $request
-     * @param $position_id
-     */
-    public static function deleteUnwantedVacancyTitle($request, $position_id) {
-        $old_position = Position::where('id', $position_id)->first();
-        // название изменено
-        if($old_position && $old_position->title !== mb_strtolower($request->position, 'UTF-8')){
-            $count_position = Vacancy::where('position_id', $position_id)->count();
-            // название использовалось только в этой вакансии
-            if($count_position === 1){
-                $old_position->delete();
-            }
-        }
     }
 
 }

@@ -22,4 +22,9 @@ class UserCompany extends Model
     public function vacancies() {
         return $this->hasMany(Vacancy::class, 'user_id', 'user_id');
     }
+
+    public function contact() {
+        return $this->hasOne(UserContact::class, 'user_id', 'user_id');
+    }
+
 }

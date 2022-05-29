@@ -114,7 +114,11 @@ b{
     background-color: #fff;
     padding: 0 15px 15px;
 }
-
+.target-label {
+    color: #035ba4;
+    font-weight: 500 !important;
+    cursor: pointer;
+}
 /* sidebar left */
 .brand-link{
     display: flex;

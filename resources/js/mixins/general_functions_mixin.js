@@ -40,5 +40,13 @@ export default {
             }
             return value.charAt(0).toUpperCase() + value.slice(1)
         },
+        // скопировать в буфер обмена
+        copyToClipboard(el) {
+            let $tmp = $("<textarea>");
+            $("body").append($tmp);
+            $tmp.val($(el).text()).select();
+            document.execCommand("copy");
+            $tmp.remove();
+        },
     },
 }
