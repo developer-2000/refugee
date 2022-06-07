@@ -1,6 +1,6 @@
 <template>
     <div class="background-top-menu">
-<!--        <div class="container">-->
+
             <!-- top menu -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <!-- Menu -->
@@ -32,22 +32,37 @@
                     <li class="nav-item d-none d-sm-inline-block button-navbar">
                         <a href="#" class="nav-link">Contact</a>
                     </li>
+
+                </ul>
+                <!-- / Menu -->
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown nav-item d-none d-sm-inline-block button-navbar">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            <span class="badge badge-primary navbar-badge">3</span>
+                            Предложения
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">
+                                <span class="badge badge-primary navbar-badge">3</span>
+                                Работодателю
+                            </a>
+                        </div>
+                    </li>
+                    <!-- работа -->
+                    <li class="nav-item dropdown d-none d-sm-inline-block dropdown-button-menu">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                             Работа
                         </a>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">Добавить вакансию</a>
                             <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
                             <a class="dropdown-item" href="#">Добавить резюме</a>
                             <a class="dropdown-item" href="#">Найти резюме</a>
                         </div>
                     </li>
-                </ul>
-                <!-- / Menu -->
 
-                <!-- Right navbar links -->
-                <ul class="navbar-nav ml-auto">
                     <!-- Language menu -->
                     <li class="nav-item dropdown button-menu">
                         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -109,7 +124,6 @@
                 </ul>
             </nav>
             <!-- / top menu -->
-<!--        </div>-->
 
         <!-- Modal -->
         <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalTitle" aria-hidden="true" data-backdrop="static">
@@ -285,6 +299,9 @@
         .dropdown-menu{
             width:auto;
         }
+    }
+    .dropdown-button-menu{
+        margin-right: 10px !important;
     }
 
 </style>

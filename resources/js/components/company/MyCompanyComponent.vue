@@ -524,7 +524,7 @@
     import translation from "../../mixins/translation";
     import localisation_functions_mixin from "../../mixins/localisation_functions_mixin";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
-    import load_logotype_component from '../load_image/LoadLogotypeComponent'
+    import load_logotype_component from '../load_files/LoadLogotypeComponent'
 
     export default {
         mixins: [

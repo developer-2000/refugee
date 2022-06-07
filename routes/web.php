@@ -71,6 +71,11 @@ Route::group([
 
     // private-office
     Route::group(['middleware'=>['auth']], function () {
+
+        // respond vacancy/resume
+        Route::post('respond-vacancy', 'RespondController@respondVacancy');
+
+        // разное
         Route::group(['prefix'=>'private-office'], function (){
             // office
             Route::get('/', 'PrivateOfficeController@index');

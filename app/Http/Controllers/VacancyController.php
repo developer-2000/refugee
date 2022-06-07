@@ -13,7 +13,9 @@ use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
+use App\Model\RespondVacancy;
 use App\Model\User;
+use App\Model\UserResume;
 use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
@@ -48,11 +50,28 @@ class VacancyController extends BaseController {
      */
     public function show(Vacancy $vacancy, ShowVacancyRequest $request)
     {
+        $owner_vacancy = null;
         $settings = $this->getSettingsVacanciesAndCountries();
+        // 1 смотреть конкретную вакансию
         $vacancy = Vacancy::where('id', $request->vacancy_id)
             ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
             ->first();
-        return view('vacancies.show_vacancy', compact('settings','vacancy'));
+
+        // 2 все мои резюме
+        $respond_data['arr_resume'] = UserResume::where('user_id', Auth::user()->id)->get();
+
+        // если я подписан на эту вакансию
+        if(
+            $respondForThisVacancy = RespondVacancy::where('vacancy_id',$request->vacancy_id)
+            ->where('user_resume_id',Auth::user()->id)
+            ->first()
+        ){
+            // 3 владелец этой вакансии
+            $owner_vacancy = User::where('id',$vacancy->user_id)
+                ->with('contact')->first();
+        }
+
+        return view('vacancies.show_vacancy', compact('settings','vacancy', 'respond_data', 'owner_vacancy'));
     }
 
     /**

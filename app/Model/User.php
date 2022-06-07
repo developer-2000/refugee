@@ -30,4 +30,10 @@ class User extends Authenticatable
         return $this->hasOne(UserCompany::class, 'user_id', 'id');
     }
 
+    public function contact() {
+        return $this->hasOne(UserContact::class, 'user_id', 'id')
+            ->withDefault(function ($user) {
+            $user->name = 'No name';
+        });
+    }
 }

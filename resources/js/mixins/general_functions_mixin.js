@@ -14,7 +14,7 @@ export default {
             let bool = false
             let response = arrSearch.find(obj => obj[property_name] == property_value)
             if(response !== undefined){
-                bool = true
+                bool = response
             }
 
             return bool

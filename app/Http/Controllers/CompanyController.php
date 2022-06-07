@@ -25,4 +25,7 @@ class CompanyController extends Controller
 
         return view('company', compact('company','settings'));
     }
+
+
+
 }
