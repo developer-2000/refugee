@@ -266,7 +266,7 @@
             <div class="col-sm-4">
                 <div class="form-group height-element">
                     <label for="data_foundation">
-                        {{trans('company','data_foundation')}}
+                        {{trans('company','data_foundation')}} (месяц/день/год)
                     </label>
                     <div class="input-group" id="data_foundation">
                         <div class="input-group-prepend">

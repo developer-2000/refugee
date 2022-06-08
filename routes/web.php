@@ -110,6 +110,14 @@ Route::group([
             Route::resource('vacancy', 'VacancyController')->only([
                 'create', 'store', 'destroy', 'edit', 'update'
             ]);
+
+            // resume
+            Route::group(['prefix'=>'resume'], function (){
+                Route::get('my-resume', 'ResumeController@myResume');
+            });
+            Route::resource('resume', 'ResumeController')->only([
+                'create',
+            ]);
         });
     });
 

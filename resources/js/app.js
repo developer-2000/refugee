@@ -17,20 +17,21 @@ import CKEditor from 'ckeditor4-vue';
 Vue.use( CKEditor );
 
 
-Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
+// vacancies
 Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
-Vue.component('my-company-component', require('./components/company/MyCompanyComponent').default);
-Vue.component('company-component', require('./components/company/CompanyComponent').default);
 Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
 Vue.component('bookmark-vacancies-component', require('./components/vacancy/BookmarkVacanciesComponent').default);
 Vue.component('hidden-vacancies-component', require('./components/vacancy/HiddenVacanciesComponent').default);
 Vue.component('show-vacancy-component', require('./components/vacancy/ShowVacancyComponent').default);
-Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('search-vacancy', require('./components/vacancy/SearchVacancyComponent').default);
+// resume
+Vue.component('create-resume-component', require('./components/resume/CreateResumeComponent').default);
+// other
 Vue.component('contact_information', require('./components/contact_information/ContactInformationComponent').default);
-
-
-
+Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
+Vue.component('my-company-component', require('./components/company/MyCompanyComponent').default);
+Vue.component('company-component', require('./components/company/CompanyComponent').default);
+Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 
 
 const app = new Vue({

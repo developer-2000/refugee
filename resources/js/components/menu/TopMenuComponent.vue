@@ -70,7 +70,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">Добавить вакансию</a>
                             <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
-                            <a class="dropdown-item" href="#">Добавить резюме</a>
+                            <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')">Добавить резюме</a>
                             <a class="dropdown-item" href="#">Найти резюме</a>
                         </div>
                     </li>
