@@ -55,6 +55,22 @@ class RespondVacancyRepository extends CoreRepository {
     }
 
     /**
+     * вернет количество не прочтанных откликов на мои вакансии
+     * @param  VacancyRepository  $vacancy
+     * @return int
+     */
+    public function getCountRespondVacancies(VacancyRepository $vacancy) {
+        $count = 0;
+        if($vacancies = $vacancy->getMyVacancies(Auth::user())){
+            $arrIdVacancies = $vacancies->pluck('id');
+            $count = $this->model->whereIn('vacancy_id',$arrIdVacancies)
+                ->where('review',0)->count();
+        }
+
+        return $count;
+    }
+
+    /**
      * создать запись в базе respond
      * @param $request
      * @param $resume_id

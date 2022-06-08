@@ -17,6 +17,18 @@ class VacancyRepository extends CoreRepository {
         $this->settings = (object) config('site.settings_vacancy');
     }
 
+    /**
+     * вернет мои вакансии
+     * @return mixed
+     */
+    public function getMyVacancies($user){
+        if(!is_null($user)){
+            return $this->model->where('user_id',$user->id)
+                ->get();
+        }
+        return null;
+    }
+
     public function storeVacancy($request){
         $position = Position::firstOrCreate(
             ['title' => mb_strtolower($request->position, 'UTF-8')]

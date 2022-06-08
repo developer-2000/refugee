@@ -1,4 +1,5 @@
 <template>
+    <!-- регистрация -->
     <div>
         <!-- header modal -->
         <div class="modal-header">

@@ -77,6 +77,7 @@ Route::group([
 
         // разное
         Route::group(['prefix'=>'private-office'], function (){
+
             // office
             Route::get('/', 'PrivateOfficeController@index');
 

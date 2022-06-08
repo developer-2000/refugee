@@ -1,6 +1,6 @@
 <template>
     <div id="show-vacancy">
-        <!-- Breadcrumbs stroke -->
+        <!-- обратная ссылка -->
         <div v-if="back_url !== undefined && back_url[0][0].name !== null"
              class="top-panel bread-top"
         >
@@ -15,16 +15,17 @@
         <div class="top-panel">
 
             <button v-if="owner_vacancy == null"
-                class="btn btn-block btn-outline-primary" type="button"
+                    class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
             >
-                Откликнуться
+                {{trans('respond','respond')}}
             </button>
+
             <button v-else
                     class="btn btn-block btn-primary" type="button"
                     @click="goToConversation()"
             >
-                Открыть диалог с {{owner_vacancy.contact.name}}
+                {{trans('respond','open_dialog_with')}} {{owner_vacancy.contact.name}}
             </button>
 
             <button class="btn btn-block btn-outline-primary" type="button"
@@ -32,6 +33,7 @@
             >
                 {{trans('vacancies','find_similar_jobs')}}
             </button>
+
             <!-- кнопки закладок вакансий -->
             <bookmark_buttons
                 :lang="lang"
@@ -54,7 +56,7 @@
         <!-- откликнуться -->
         <div v-if="respond_bool" id="box-respond" >
             <h2 class="title-vacancy">
-                Откликнуться на вакансию
+                {{trans('respond','apply_to_job')}}
             </h2>
             <div class="card card-primary card-outline card-outline-tabs card-respond">
                 <!-- buttons tabs -->
@@ -64,14 +66,14 @@
                             <a class="nav-link active" id="first-card-link-tab" data-toggle="pill" href="#first-card-link" role="tab" aria-controls="first-card-link" aria-selected="true"
                                @click="resumeObj.bool_tab = 1"
                             >
-                                Резюме на сайте
+                                {{trans('respond','resume_on_site')}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="javascript:void(0)"
                                @click="resumeObj.bool_tab = 0"
                             >
-                                Загрузить файл резюме
+                                {{trans('respond','attach_resume_file')}}
                             </a>
                         </li>
                     </ul>
@@ -83,7 +85,9 @@
 
                             <!-- показ resume сайта -->
                             <template v-if="resumeObj.bool_tab">
-                                <label> Выбрать резюме </label>
+                                <label>
+                                    {{trans('respond','select_cv')}}
+                                </label>
                                 <!-- yes resume -->
                                 <div v-if="respond_data.arr_resume.length" class="box-yes-resume">
                                     <div class="form-group" id="box-radio">
@@ -107,19 +111,22 @@
                                 <div v-else class="box-no-resume">
                                     <a href="javascript:void(0)" class="link-a">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                                        Создать свое резюме
+                                        {{trans('respond','create_your_resume')}}
                                     </a>
                                 </div>
                             </template>
 
                             <!-- показ Drop file -->
                             <template v-else>
-                                <label> Файл резюме </label>
+                                <label>
+                                    {{trans('respond','resume_file')}}
+                                </label>
 
                                 <!-- если нет загруженного файла резюме -->
                                 <div v-if="!file_resume" class="block-drop-file">
                                     <drag_drop_file
                                         @load_resume='addResume'
+                                        :lang="lang"
                                         :arr_files="filelist"
                                     ></drag_drop_file>
                                 </div>
@@ -127,7 +134,7 @@
                                 <!-- есть загруженный резюме -->
                                 <a v-else
                                    class="file-load-resume" href="javascript:void(0)"
-                                   @click="targetFileLoadResume('https://cv.djinni.co/b0/a9021f369638363eec706594c8e11d/resume.pdf')"
+                                   @click="targetFileLoadResume(file_resume.url)"
                                 >
                                     {{file_resume.title}}
                                     <svg @click="removeFileLoadResume($event)" class="xmark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
@@ -136,19 +143,19 @@
                             </template>
 
                             <!-- сопроводительное -->
-                            <div class="form-group textarea-letter">{{objTextarea.bool_letter}}
+                            <div class="form-group textarea-letter">
                                 <!-- ссылка -->
                                 <div v-show="!resumeObj.bool_letter">
                                     <a href="javascript:void(0)" class="link-a"
                                        @click="resumeObj.bool_letter = !resumeObj.bool_letter"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                                        Добавить сопроводительное письмо
+                                        {{trans('respond','add_cover_letter')}}
                                     </a>
                                 </div>
                                 <div v-show="resumeObj.bool_letter">
                                     <label>
-                                        Сопроводительное письмо
+                                        {{trans('respond','cover_letter')}}
                                     </label>
                                     <ckeditor v-model="objTextarea.textarea_letter"
                                               :config="objTextarea.editorConfig1"
@@ -166,7 +173,7 @@
                                         :disabled="disableButton()"
                                         @click.prevent="respondVacancy"
                                 >
-                                    Откликнуться
+                                    {{trans('respond','respond')}}
                                 </button>
                             </div>
 
@@ -288,7 +295,7 @@
             },
             // раскрытие загруженного резюме
             targetFileLoadResume(url) {
-                window.open(url)
+                window.open("//"+location.hostname+"/"+url)
             },
             // очистка данных о загруженном резюме
             removeFileLoadResume(e) {

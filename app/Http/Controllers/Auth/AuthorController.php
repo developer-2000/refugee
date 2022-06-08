@@ -11,6 +11,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Model\Code;
 use App\Model\User;
+use App\Model\UserContact;
 use App\Services\LanguageService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,12 @@ class AuthorController extends BaseController
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password)]);
+
+        UserContact::create([
+            'user_id'=>$user->id,
+            'name'=>$request->first_name,
+            'surname'=>$request->last_name,
+        ]);
 
         $this->sendCodeEmail($request, 'id='.$user->id.'&', $user->id, 'Registration');
 
@@ -172,8 +179,7 @@ class AuthorController extends BaseController
         });
     }
 
-
-} // END
+}
 
 
 

@@ -61,9 +61,9 @@ class Vacancy extends Model
             'id'
         )->withDefault(function ($data) {
             $data->title = 'Default company title';
-            $data->logo = [
+            $data->image = [
                 "title" => "Default logo",
-                "url" => "/img/company/company-default.jpg",
+                "url" => "img/company/company-default.jpg",
             ];
         });
     }

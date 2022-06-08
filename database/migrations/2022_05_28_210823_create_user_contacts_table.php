@@ -21,9 +21,9 @@ class CreateUserContactsTable extends Migration
             $table->string('name', 100);
             $table->string('surname', 100);
             $table->unsignedBigInteger('position_id')->nullable()->default(null)->comment('должность');
-            $table->string('email', 100);
+            $table->string('email', 100)->nullable()->default(null);
             $table->string('skype', 100)->nullable()->default(null);
-            $table->string('phone', 100);
+            $table->string('phone', 100)->nullable()->default(null);
             $table->boolean('check_phone')->default(false)->comment('проверка телефона');
             $table->string('messengers', 100)->nullable()->default(null)->comment('меседжеры телефона');
             $table->timestamps();

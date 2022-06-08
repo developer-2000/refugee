@@ -1,4 +1,5 @@
 <template>
+<!-- востановление пароля -->
     <div>
         <!-- header modal -->
         <div class="modal-header">

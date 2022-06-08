@@ -38,15 +38,27 @@
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
+
+                    <!-- предложения -->
                     <li class="nav-item dropdown nav-item d-none d-sm-inline-block button-navbar">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                            <span class="badge badge-primary navbar-badge">3</span>
+                            <!-- общее кол-во respond на вакансии и резюме -->
+                            <span v-if="total_count_responses"
+                                class="badge badge-primary navbar-badge">
+                                {{total_count_responses}}
+                            </span>
                             Предложения
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">
-                                <span class="badge badge-primary navbar-badge">3</span>
-                                Работодателю
+<!--                            @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"-->
+                            <a class="dropdown-item" href="#">
+                                <!-- кол-во respond на вакансии -->
+                                <span v-if="respond.count_vacancies"
+                                      class="badge badge-primary navbar-badge"
+                                >
+                                    {{respond.count_vacancies}}
+                                </span>
+                                На вакансию
                             </a>
                         </div>
                     </li>
@@ -168,12 +180,14 @@
             return {
                 lang_sort: [],
                 reset_pass: true, // глобал для компонента ImpNewPass
+                total_count_responses: 0,
             }
         },
         props: [
             'logo_text',
             'lang',   // масив названий и url языка
             'user',
+            'respond',
             'code_change_password',
         ],
         methods: {
@@ -229,6 +243,7 @@
                 this.onlyNextLanguage()
                 this.openModalChangePassword()
                 this.urlTransitions()
+                this.total_count_responses = this.respond.count_vacancies + this.respond.count_resume
 
                 $('#authModal').on('hidden.bs.modal', (e) => {
                     this.deleteStorage()

@@ -2284,6 +2284,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -2374,6 +2375,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -4417,6 +4419,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.position = value;
     },
     fillDataPhone: function fillDataPhone(value) {
+      if (value === '') {
+        return false;
+      }
+
       if (value.indexOf('+') === -1 || value.indexOf('(') === -1 || value.indexOf(')') === -1) {
         return true;
       } // 1
@@ -4446,14 +4452,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.name = this.contact.name;
       this.surname = this.contact.surname;
       this.position = this.contact.position !== null ? this.contact.position.title : '';
-      this.email = this.contact.email;
+      this.email = this.contact.email !== null ? this.contact.email : '';
       this.skype = this.contact.skype; // телефон
 
-      this.telObj.view_phone = this.contact.phone;
-      this.fillDataPhone(this.contact.phone); // месенджеры
+      this.telObj.view_phone = this.contact.phone !== null ? this.contact.phone : '';
+      this.fillDataPhone(this.telObj.view_phone); // месенджеры
 
       var input = '';
-      this.telObj.checkbox_messenger = this.contact.messengers;
+      this.telObj.checkbox_messenger = this.contact.messengers !== null ? this.contact.messengers : [];
 
       for (var i = 0; i < this.telObj.checkbox_messenger.length; i++) {
         input = document.querySelector('#checkbox-messenger_' + this.telObj.checkbox_messenger[i]);
@@ -4497,6 +4503,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 //
 //
 //
@@ -4526,8 +4533,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
     return {
       filelist: [],
@@ -4583,7 +4591,7 @@ __webpack_require__.r(__webpack_exports__);
       e.stopPropagation();
     }
   },
-  props: ['arr_files'],
+  props: ['lang', 'arr_files'],
   mounted: function mounted() {
     this.filelist = this.arr_files;
   }
@@ -4863,6 +4871,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4879,12 +4899,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   data: function data() {
     return {
       lang_sort: [],
-      reset_pass: true // глобал для компонента ImpNewPass
-
+      reset_pass: true,
+      // глобал для компонента ImpNewPass
+      total_count_responses: 0
     };
   },
   props: ['logo_text', 'lang', // масив названий и url языка
-  'user', 'code_change_password'],
+  'user', 'respond', 'code_change_password'],
   methods: {
     deleteStorage: function deleteStorage() {
       localStorage.removeItem('url_click_no_auth');
@@ -4940,6 +4961,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this.onlyNextLanguage();
       this.openModalChangePassword();
       this.urlTransitions();
+      this.total_count_responses = this.respond.count_vacancies + this.respond.count_resume;
       $('#authModal').on('hidden.bs.modal', function (e) {
         _this.deleteStorage();
       });
@@ -4962,6 +4984,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+//
 //
 //
 //
@@ -6586,6 +6609,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8019,6 +8051,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8136,7 +8175,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // раскрытие загруженного резюме
     targetFileLoadResume: function targetFileLoadResume(url) {
-      window.open(url);
+      window.open("//" + location.hostname + "/" + url);
     },
     // очистка данных о загруженном резюме
     removeFileLoadResume: function removeFileLoadResume(e) {
@@ -13445,7 +13484,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancy[data-v-12dab04d] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .left-site[data-v-12dab04d] {\n  width: 100%;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, ".top-panel[data-v-12dab04d] {\n  display: flex;\n  justify-content: space-between;\n}\n.top-panel > div[data-v-12dab04d] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy[data-v-12dab04d] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .salary-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .salary-vacancy .salary[data-v-12dab04d] {\n  color: #202020;\n  margin-right: 4px;\n  white-space: nowrap;\n}\n.box-vacancy .salary-vacancy .salary svg[data-v-12dab04d] {\n  width: 12px;\n  margin-bottom: 2px;\n}\n.box-vacancy .salary-vacancy .salary svg path[data-v-12dab04d] {\n  fill: #00009d;\n}\n.box-vacancy .left-site[data-v-12dab04d] {\n  width: 100%;\n}\n.box-vacancy .right-site[data-v-12dab04d] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-self: stretch;\n  align-items: flex-end;\n}\n.box-vacancy .right-site .response-vacancy[data-v-12dab04d] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 5px;\n}\n.box-vacancy .right-site .button-vacancy[data-v-12dab04d] {\n  display: flex;\n}\n.box-vacancy .right-site .button-vacancy > button[data-v-12dab04d] {\n  margin-right: 10px;\n}\n#create-vacancy[data-v-12dab04d] {\n  width: 175px;\n}", ""]);
 
 // exports
 
@@ -51726,11 +51765,17 @@ var render = function () {
           !this.filelist.length
             ? _c("div", [
                 _vm._v(
-                  "\n            Выбрать файл или перенести его сюда.\n            "
+                  "\n            " +
+                    _vm._s(_vm.trans("respond", "select_file_move")) +
+                    "\n            "
                 ),
                 _c("i", { staticClass: "description-drop" }, [
                   _vm._v(
-                    "\n                Файлы .pdf, .docx, .doc, .txt до 2 Mb\n            "
+                    "\n                " +
+                      _vm._s(_vm.trans("respond", "files")) +
+                      " .pdf, .docx, .doc, .txt " +
+                      _vm._s(_vm.trans("respond", "to")) +
+                      " 2 Mb\n            "
                   ),
                 ]),
               ])
@@ -51952,17 +51997,17 @@ var render = function () {
                 _c("div", { staticClass: "box-logo-title" }, [
                   _c("div", { staticClass: "brand-text font-weight-light" }, [
                     _vm._v(
-                      "\n                                " +
+                      "\n                                    " +
                         _vm._s(this.logo_text.uk) +
-                        "\n                            "
+                        "\n                                "
                     ),
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "brand-text font-weight-light" }, [
                     _vm._v(
-                      "\n                                " +
+                      "\n                                    " +
                         _vm._s(this.logo_text.en) +
-                        "\n                            "
+                        "\n                                "
                     ),
                   ]),
                 ]),
@@ -51985,31 +52030,52 @@ var render = function () {
                 "nav-item dropdown nav-item d-none d-sm-inline-block button-navbar",
             },
             [
-              _vm._m(3),
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link dropdown-toggle",
+                  attrs: { href: "#", "data-toggle": "dropdown" },
+                },
+                [
+                  _vm.total_count_responses
+                    ? _c(
+                        "span",
+                        { staticClass: "badge badge-primary navbar-badge" },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.total_count_responses) +
+                              "\n                            "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(
+                    "\n                            Предложения\n                        "
+                  ),
+                ]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
                 _c(
                   "a",
-                  {
-                    staticClass: "dropdown-item",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function ($event) {
-                        $event.preventDefault()
-                        return _vm.checkAuth(
-                          _vm.lang.prefix_lang + "private-office/vacancy/create"
-                        )
-                      },
-                    },
-                  },
+                  { staticClass: "dropdown-item", attrs: { href: "#" } },
                   [
-                    _c(
-                      "span",
-                      { staticClass: "badge badge-primary navbar-badge" },
-                      [_vm._v("3")]
-                    ),
+                    _vm.respond.count_vacancies
+                      ? _c(
+                          "span",
+                          { staticClass: "badge badge-primary navbar-badge" },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.respond.count_vacancies) +
+                                "\n                                "
+                            ),
+                          ]
+                        )
+                      : _vm._e(),
                     _vm._v(
-                      "\n                            Работодателю\n                        "
+                      "\n                                На вакансию\n                            "
                     ),
                   ]
                 ),
@@ -52032,7 +52098,7 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\n                        Работа\n                    "
+                    "\n                            Работа\n                        "
                   ),
                 ]
               ),
@@ -52116,9 +52182,9 @@ var render = function () {
                         attrs: { src: item.avatar, alt: "flag language" },
                       }),
                       _vm._v(
-                        "\n                                " +
+                        "\n                                    " +
                           _vm._s(item.title) +
-                          "\n                            "
+                          "\n                                "
                       ),
                     ]
                   ),
@@ -52253,7 +52319,7 @@ var render = function () {
                           ]
                         ),
                         _vm._v(
-                          "\n                            Личный кабинет\n                        "
+                          "\n                                Личный кабинет\n                            "
                         ),
                       ]
                     ),
@@ -52282,7 +52348,7 @@ var render = function () {
                           ]
                         ),
                         _vm._v(
-                          "\n                            Sign out\n                        "
+                          "\n                                Sign out\n                            "
                         ),
                       ]
                     ),
@@ -52386,24 +52452,6 @@ var staticRenderFns = [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
           _vm._v("Contact"),
         ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link dropdown-toggle",
-        attrs: { href: "#", "data-toggle": "dropdown" },
-      },
-      [
-        _c("span", { staticClass: "badge badge-primary navbar-badge" }, [
-          _vm._v("3"),
-        ]),
-        _vm._v("\n                        Предложения\n                    "),
       ]
     )
   },
@@ -52580,40 +52628,43 @@ var render = function () {
             ),
           ]),
           _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "my-company",
-                attrs: {
-                  href: _vm.lang.prefix_lang + "company/" + _vm.company.alias,
-                },
-              },
-              [
+          _vm.company !== null
+            ? _c("li", [
                 _c(
-                  "svg",
+                  "a",
                   {
+                    staticClass: "my-company",
                     attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
+                      href:
+                        _vm.lang.prefix_lang + "company/" + _vm.company.alias,
                     },
                   },
                   [
-                    _c("path", {
-                      attrs: {
-                        d: "M416 0a31.785 31.785 0 0 0-19.97 7.031L311 75.06C268.3 109.2 214.7 128 160 128H64c-35.34 0-64 28.7-64 64v96c0 35.34 28.66 64 64 64h96c54.66 0 108.3 18.81 150.1 52.94L396 472.1c4.8 4.7 13.8 7.9 20 7.9 24.91 0 32-22.78 32-32V32c0-8.75-7-32-32-32zM160 320H64c-17.64 0-32-14.36-32-32v-96c0-17.64 14.36-32 32-32h96v160zm255.8 127.8-85.7-67.9c-40-32.8-87.6-51.8-138.1-57.8V157.9c50.53-6.006 98.99-25.86 138.1-57.82l84.94-67.93c.023.023-.018 0 0 0 .035 0-.012.1 0 0l.124 414.8c.836.25.736.55.636.85zm-224.1-64.3c-.3-8.8-7.4-15.3-16.5-15.5-8.828.266-15.78 7.656-15.52 16.48 1.156 38 28.36 70.55 28.61 70.83 3.594 4.203 4.688 11.11 2.641 16.86C189.3 476.9 185.8 480 182.3 480h-51.5c-2.5 0-5-1.5-6.8-4.1-1.188-1.672-29.05-41.7-27.97-91.58.19-8.82-6.81-16.12-15.65-16.32-8.406-.25-16.16 6.828-16.34 15.66-1.281 59.28 30.23 105.6 33.88 110.8C105.9 505.6 117.9 512 130.8 512h51.47c17.34 0 32.59-11.44 38.84-29.09 5.906-16.52 2.578-35.53-8.297-48.2-.213-.21-20.313-25.21-21.113-51.21zM496 192c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16v-64c0-8.8-7.2-16-16-16z",
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
                       },
-                    }),
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M416 0a31.785 31.785 0 0 0-19.97 7.031L311 75.06C268.3 109.2 214.7 128 160 128H64c-35.34 0-64 28.7-64 64v96c0 35.34 28.66 64 64 64h96c54.66 0 108.3 18.81 150.1 52.94L396 472.1c4.8 4.7 13.8 7.9 20 7.9 24.91 0 32-22.78 32-32V32c0-8.75-7-32-32-32zM160 320H64c-17.64 0-32-14.36-32-32v-96c0-17.64 14.36-32 32-32h96v160zm255.8 127.8-85.7-67.9c-40-32.8-87.6-51.8-138.1-57.8V157.9c50.53-6.006 98.99-25.86 138.1-57.82l84.94-67.93c.023.023-.018 0 0 0 .035 0-.012.1 0 0l.124 414.8c.836.25.736.55.636.85zm-224.1-64.3c-.3-8.8-7.4-15.3-16.5-15.5-8.828.266-15.78 7.656-15.52 16.48 1.156 38 28.36 70.55 28.61 70.83 3.594 4.203 4.688 11.11 2.641 16.86C189.3 476.9 185.8 480 182.3 480h-51.5c-2.5 0-5-1.5-6.8-4.1-1.188-1.672-29.05-41.7-27.97-91.58.19-8.82-6.81-16.12-15.65-16.32-8.406-.25-16.16 6.828-16.34 15.66-1.281 59.28 30.23 105.6 33.88 110.8C105.9 505.6 117.9 512 130.8 512h51.47c17.34 0 32.59-11.44 38.84-29.09 5.906-16.52 2.578-35.53-8.297-48.2-.213-.21-20.313-25.21-21.113-51.21zM496 192c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16v-64c0-8.8-7.2-16-16-16z",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans("office", "view_company_publicly")) +
+                        "\n                    "
+                    ),
                   ]
                 ),
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("office", "view_company_publicly")) +
-                    "\n                    "
-                ),
-              ]
-            ),
-          ]),
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("li", [
             _c(
@@ -55368,37 +55419,57 @@ var render = function () {
     { staticClass: "box-page" },
     [
       _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
-        _c(
-          "svg",
-          {
-            attrs: {
-              xmlns: "http://www.w3.org/2000/svg",
-              viewBox: "0 0 256 512",
-            },
-          },
-          [
-            _c("path", {
+        _c("div", [
+          _c(
+            "svg",
+            {
               attrs: {
-                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 256 512",
               },
-            }),
-          ]
-        ),
-        _vm._v(" "),
-        _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.trans("menu.menu", "cabinet")) +
-              "\n        "
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+                },
+              }),
+            ]
           ),
+          _vm._v(" "),
+          _c(
+            "a",
+            { attrs: { href: _vm.lang.prefix_lang + "private-office" } },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.trans("menu.menu", "cabinet")) +
+                  "\n            "
+              ),
+            ]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
         ]),
         _vm._v(" "),
-        _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-block btn-primary",
+            attrs: {
+              id: "create-vacancy",
+              href: _vm.lang.prefix_lang + "private-office/vacancy/create",
+            },
+          },
+          [_vm._v("Добавить вакансию")]
+        ),
       ]),
       _vm._v(" "),
       _c("h1", { staticClass: "title_page card-body" }, [
         _c("u", [_vm._v(_vm._s(_vm.trans("vacancies", "my")))]),
-        _vm._v(" " + _vm._s(_vm.trans("vacancies", "vacancies"))),
+        _vm._v(
+          "\n        " + _vm._s(_vm.trans("vacancies", "vacancies")) + "\n    "
+        ),
       ]),
       _vm._v(" "),
       !_vm.user_data.vacancies.length
@@ -57176,7 +57247,13 @@ var render = function () {
                   },
                 },
               },
-              [_vm._v("\n            Откликнуться\n        ")]
+              [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.trans("respond", "respond")) +
+                    "\n        "
+                ),
+              ]
             )
           : _c(
               "button",
@@ -57191,7 +57268,9 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n            Открыть диалог с " +
+                  "\n            " +
+                    _vm._s(_vm.trans("respond", "open_dialog_with")) +
+                    " " +
                     _vm._s(_vm.owner_vacancy.contact.name) +
                     "\n        "
                 ),
@@ -57249,7 +57328,11 @@ var render = function () {
     _vm.respond_bool
       ? _c("div", { attrs: { id: "box-respond" } }, [
           _c("h2", { staticClass: "title-vacancy" }, [
-            _vm._v("\n            Откликнуться на вакансию\n        "),
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.trans("respond", "apply_to_job")) +
+                "\n        "
+            ),
           ]),
           _vm._v(" "),
           _c(
@@ -57288,7 +57371,9 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                            Резюме на сайте\n                        "
+                            "\n                            " +
+                              _vm._s(_vm.trans("respond", "resume_on_site")) +
+                              "\n                        "
                           ),
                         ]
                       ),
@@ -57311,7 +57396,11 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                            Загрузить файл резюме\n                        "
+                            "\n                            " +
+                              _vm._s(
+                                _vm.trans("respond", "attach_resume_file")
+                              ) +
+                              "\n                        "
                           ),
                         ]
                       ),
@@ -57335,7 +57424,13 @@ var render = function () {
                     [
                       _vm.resumeObj.bool_tab
                         ? [
-                            _c("label", [_vm._v(" Выбрать резюме ")]),
+                            _c("label", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("respond", "select_cv")) +
+                                  "\n                            "
+                              ),
+                            ]),
                             _vm._v(" "),
                             _vm.respond_data.arr_resume.length
                               ? _c("div", { staticClass: "box-yes-resume" }, [
@@ -57442,14 +57537,27 @@ var render = function () {
                                         ]
                                       ),
                                       _vm._v(
-                                        "\n                                    Создать свое резюме\n                                "
+                                        "\n                                    " +
+                                          _vm._s(
+                                            _vm.trans(
+                                              "respond",
+                                              "create_your_resume"
+                                            )
+                                          ) +
+                                          "\n                                "
                                       ),
                                     ]
                                   ),
                                 ]),
                           ]
                         : [
-                            _c("label", [_vm._v(" Файл резюме ")]),
+                            _c("label", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans("respond", "resume_file")) +
+                                  "\n                            "
+                              ),
+                            ]),
                             _vm._v(" "),
                             !_vm.file_resume
                               ? _c(
@@ -57457,7 +57565,10 @@ var render = function () {
                                   { staticClass: "block-drop-file" },
                                   [
                                     _c("drag_drop_file", {
-                                      attrs: { arr_files: _vm.filelist },
+                                      attrs: {
+                                        lang: _vm.lang,
+                                        arr_files: _vm.filelist,
+                                      },
                                       on: { load_resume: _vm.addResume },
                                     }),
                                   ],
@@ -57471,7 +57582,7 @@ var render = function () {
                                     on: {
                                       click: function ($event) {
                                         return _vm.targetFileLoadResume(
-                                          "https://cv.djinni.co/b0/a9021f369638363eec706594c8e11d/resume.pdf"
+                                          _vm.file_resume.url
                                         )
                                       },
                                     },
@@ -57511,11 +57622,6 @@ var render = function () {
                           ],
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group textarea-letter" }, [
-                        _vm._v(
-                          _vm._s(_vm.objTextarea.bool_letter) +
-                            "\n                            "
-                        ),
-                        _vm._v(" "),
                         _c(
                           "div",
                           {
@@ -57559,7 +57665,11 @@ var render = function () {
                                   ]
                                 ),
                                 _vm._v(
-                                  "\n                                    Добавить сопроводительное письмо\n                                "
+                                  "\n                                    " +
+                                    _vm._s(
+                                      _vm.trans("respond", "add_cover_letter")
+                                    ) +
+                                    "\n                                "
                                 ),
                               ]
                             ),
@@ -57581,7 +57691,9 @@ var render = function () {
                           [
                             _c("label", [
                               _vm._v(
-                                "\n                                    Сопроводительное письмо\n                                "
+                                "\n                                    " +
+                                  _vm._s(_vm.trans("respond", "cover_letter")) +
+                                  "\n                                "
                               ),
                             ]),
                             _vm._v(" "),
@@ -57639,7 +57751,9 @@ var render = function () {
                           },
                           [
                             _vm._v(
-                              "\n                                Откликнуться\n                            "
+                              "\n                                " +
+                                _vm._s(_vm.trans("respond", "respond")) +
+                                "\n                            "
                             ),
                           ]
                         ),
@@ -76863,6 +76977,21 @@ module.exports = {
     "personal_account": "Personal account",
     "view_company_publicly": "View company publicly"
   },
+  "en.respond": {
+    "add_cover_letter": "Add cover letter",
+    "apply_to_job": "Apply to job",
+    "attach_resume_file": "Attach resume file",
+    "cover_letter": "Cover letter",
+    "create_your_resume": "Create your resume",
+    "files": "Files",
+    "open_dialog_with": "Open dialog with",
+    "respond": "Respond",
+    "resume_file": "Resume file",
+    "resume_on_site": "Resume on site",
+    "select_cv": "Select cv",
+    "select_file_move": "Select a file or move it here.",
+    "to": "to"
+  },
   "en.vacancies": {
     "accounting": "Accounting, audit",
     "adding_vacancies_helps_track": "Adding vacancies helps track and have quick access. This is useful when you are in correspondence with the employer, referring to the information you need.",
@@ -77167,6 +77296,21 @@ module.exports = {
     "personal_account": "\u041B\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0431\u0438\u043D\u0435\u0442",
     "view_company_publicly": "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043F\u0443\u0431\u043B\u0438\u0447\u043D\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044E"
   },
+  "ru.respond": {
+    "add_cover_letter": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u043E\u043F\u0440\u043E\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043F\u0438\u0441\u044C\u043C\u043E",
+    "apply_to_job": "\u041E\u0442\u043A\u043B\u0438\u043A\u043D\u0443\u0442\u044C\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E",
+    "attach_resume_file": "\u041F\u0440\u0438\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0444\u0430\u0439\u043B \u0440\u0435\u0437\u044E\u043C\u0435",
+    "cover_letter": "\u0421\u043E\u043F\u0440\u043E\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043F\u0438\u0441\u044C\u043C\u043E",
+    "create_your_resume": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u0432\u043E\u0435 \u0440\u0435\u0437\u044E\u043C\u0435",
+    "files": "\u0424\u0430\u0439\u043B\u044B",
+    "open_dialog_with": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0434\u0438\u0430\u043B\u043E\u0433 \u0441",
+    "respond": "\u041E\u0442\u043A\u043B\u0438\u043A\u043D\u0443\u0442\u044C\u0441\u044F",
+    "resume_file": "\u0424\u0430\u0439\u043B \u0440\u0435\u0437\u044E\u043C\u0435",
+    "resume_on_site": "\u0420\u0435\u0437\u044E\u043C\u0435 \u043D\u0430 \u0441\u0430\u0439\u0442\u0435",
+    "select_cv": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0440\u0435\u0437\u044E\u043C\u0435",
+    "select_file_move": "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0444\u0430\u0439\u043B \u0438\u043B\u0438 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0442\u0438 \u0435\u0433\u043E \u0441\u044E\u0434\u0430.",
+    "to": "\u0434\u043E"
+  },
   "ru.vacancies": {
     "accounting": "\u0411\u0443\u0445\u0433\u0430\u043B\u0442\u0435\u0440\u0438\u044F, \u0430\u0443\u0434\u0438\u0442",
     "adding_vacancies_helps_track": "\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439, \u043F\u043E\u043C\u043E\u0433\u0430\u0435\u0442 \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u0442\u044C \u0438 \u0438\u043C\u0435\u0442\u044C \u0431\u044B\u0441\u0442\u0440\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F. \u042D\u0442\u043E \u0443\u0434\u043E\u0431\u043D\u043E \u043A\u043E\u0433\u0434\u0430 \u0432\u044B \u0432\u0435\u0434\u0435\u0442\u0435 \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u043A\u0438 \u0441 \u0440\u0430\u0431\u043E\u0442\u043E\u0434\u0430\u0442\u0435\u043B\u0435\u043C, \u043E\u0431\u0440\u0430\u0449\u0430\u044F\u0441\u044C \u043A \u043D\u0443\u0436\u043D\u043E\u0439 \u0432\u0430\u043C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438.",
@@ -77470,6 +77614,21 @@ module.exports = {
     "my_jobs": "\u041C\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "personal_account": "\u041E\u0441\u043E\u0431\u0438\u0441\u0442\u0438\u0439 \u043A\u0430\u0431\u0456\u043D\u0435\u0442",
     "view_company_publicly": "\u0414\u0438\u0432\u0438\u0442\u0438\u0441\u044C \u043F\u0443\u0431\u043B\u0456\u0447\u043D\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044E"
+  },
+  "uk.respond": {
+    "add_cover_letter": "\u0414\u043E\u0434\u0430\u0442\u0438 \u0441\u0443\u043F\u0440\u043E\u0432\u0456\u0434\u043D\u0438\u0439 \u043B\u0438\u0441\u0442",
+    "apply_to_job": "\u0412\u0456\u0434\u0433\u0443\u043A\u043D\u0443\u0442\u0438\u0441\u044F \u043D\u0430 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u044E",
+    "attach_resume_file": "\u041F\u0440\u0438\u043A\u0440\u0456\u043F\u0438\u0442\u0438 \u0444\u0430\u0439\u043B \u0440\u0435\u0437\u044E\u043C\u0435",
+    "cover_letter": "\u0421\u0443\u043F\u0440\u043E\u0432\u0456\u0434\u043D\u0438\u0439 \u043B\u0438\u0441\u0442",
+    "create_your_resume": "\u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438 \u0441\u0432\u043E\u0454 \u0440\u0435\u0437\u044E\u043C\u0435",
+    "files": "\u0424\u0430\u0439\u043B\u0438",
+    "open_dialog_with": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u0434\u0456\u0430\u043B\u043E\u0433 \u0437",
+    "respond": "\u0412\u0456\u0434\u0433\u0443\u043A\u043D\u0443\u0442\u0438\u0441\u044F",
+    "resume_file": "\u0424\u0430\u0439\u043B \u0440\u0435\u0437\u044E\u043C\u0435",
+    "resume_on_site": "\u0420\u0435\u0437\u044E\u043C\u0435 \u043D\u0430 \u0441\u0430\u0439\u0442\u0456",
+    "select_cv": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0440\u0435\u0437\u044E\u043C\u0435",
+    "select_file_move": "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0444\u0430\u0439\u043B \u0430\u0431\u043E \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0442\u0438 \u0439\u043E\u0433\u043E \u0441\u044E\u0434\u0438.",
+    "to": "\u0434\u043E"
   },
   "uk.vacancies": {
     "accounting": "\u0411\u0443\u0445\u0433\u0430\u043B\u0442\u0435\u0440\u0456\u044F, \u0430\u0443\u0434\u0438\u0442",

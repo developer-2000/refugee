@@ -8,7 +8,7 @@ class PrivateOfficeController extends BaseController
 {
     public function index() {
         $company = UserCompany::where('user_id', Auth::user()->id)
-            ->with('image')->firstOrFail();
+            ->with('image')->first();
 
         return view('private_office', compact('company'));
     }

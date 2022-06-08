@@ -9,9 +9,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+//'first_name', 'last_name',
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password',
+        'email', 'password',
     ];
 
     protected $hidden = [
@@ -31,9 +31,6 @@ class User extends Authenticatable
     }
 
     public function contact() {
-        return $this->hasOne(UserContact::class, 'user_id', 'id')
-            ->withDefault(function ($user) {
-            $user->name = 'No name';
-        });
+        return $this->hasOne(UserContact::class, 'user_id', 'id');
     }
 }

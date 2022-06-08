@@ -402,6 +402,9 @@
                 this.position = value
             },
             fillDataPhone(value){
+                if(value === ''){
+                    return false
+                }
                 if(value.indexOf('+') === -1 || value.indexOf('(') === -1 || value.indexOf(')') === -1){
                     return true
                 }
@@ -431,14 +434,14 @@
                 this.name = this.contact.name
                 this.surname = this.contact.surname
                 this.position = this.contact.position !== null ? this.contact.position.title : ''
-                this.email = this.contact.email
+                this.email = this.contact.email !== null ? this.contact.email : ''
                 this.skype = this.contact.skype
                 // телефон
-                this.telObj.view_phone = this.contact.phone
-                this.fillDataPhone(this.contact.phone)
+                this.telObj.view_phone = this.contact.phone !== null ? this.contact.phone : ''
+                this.fillDataPhone(this.telObj.view_phone)
                 // месенджеры
                 let input = '';
-                this.telObj.checkbox_messenger = this.contact.messengers
+                this.telObj.checkbox_messenger = this.contact.messengers !== null ? this.contact.messengers : []
                 for(let i=0; i<this.telObj.checkbox_messenger.length; i++) {
                     input = document.querySelector('#checkbox-messenger_'+this.telObj.checkbox_messenger[i]);
                     input.checked = true;
