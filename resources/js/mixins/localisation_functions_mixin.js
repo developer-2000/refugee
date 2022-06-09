@@ -123,6 +123,17 @@ export default {
             }
             this.objCategory.categories = selected;
         },
+        // вернет обьект этого значения
+        returnFoundObject(data, value){
+            let obj = []
+            if(data !== null){
+                obj = data.filter((val) => {
+                    return val.code == value
+                });
+            }
+
+            return !obj.length ? null : obj
+        },
     },
     mounted() {
 

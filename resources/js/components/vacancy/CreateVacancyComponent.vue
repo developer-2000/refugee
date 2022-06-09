@@ -691,13 +691,15 @@
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
+    import create_resume_vacancy_mixin from "../../mixins/create_resume_vacancy_mixin";
 
     export default {
         mixins: [
             localisation_functions_mixin,
             translation,
             response_methods_mixin,
-            general_functions_mixin
+            general_functions_mixin,
+            create_resume_vacancy_mixin
         ],
         data() {
             return {
@@ -789,7 +791,8 @@
                     })
             },
             async createVacancy(){
-                this.alignNumbers()
+                this.alignNumbers(this.objSalary,'from','to')
+                this.alignNumbers(this.objSuitable,'suitable_from','suitable_to')
                 let data = this.getValuesFields()
                 const response = await this.$http.post(`/private-office/vacancy`, data)
                     .then(res => {
@@ -807,7 +810,8 @@
                     })
             },
             async updateVacancy(){
-                this.alignNumbers()
+                this.alignNumbers(this.objSalary,'from','to')
+                this.alignNumbers(this.objSuitable,'suitable_from','suitable_to')
                 let data = this.getValuesFields()
                 const response = await this.$http.put(`/private-office/vacancy/`+this.vacancy_id, data)
                     .then(res => {
@@ -824,35 +828,6 @@
                         this.messageError(err)
                     })
             },
-            displayingEmployers(){
-                this.objDisplayEmpContVacancy.boolDisplay = true;
-                let checked = document.querySelectorAll('[name="disp_emp_cont_vacancy"]:checked');
-                let selected = [];
-                for (let i=0; i<checked.length; i++) {
-                    selected.push(checked[i].value);
-                }
-                this.objDisplayEmpContVacancy.contacts = selected;
-            },
-            checkSalary() {
-                // если выбран сектор а поля не заполнены
-                if(
-                    (this.objSalary.salary_but == "range" && (this.objSalary.from === '' || this.objSalary.to === '') ) ||
-                    (this.objSalary.salary_but == "single_value" && this.objSalary.salary_sum === '')
-                ){
-                    this.objSalary.switchSalary = true
-                    return true;
-                }
-                this.objSalary.switchSalary = false
-                return false;
-            },
-            checkSuitable() {
-                if(!this.checkingInteger(this.objSuitable.suitable_from)){
-                    this.objSuitable.suitable_from = 0
-                }
-                else if(!this.checkingInteger(this.objSuitable.suitable_to)){
-                    this.objSuitable.suitable_to = 0
-                }
-            },
             disableButton(v) {
                 if(
                     v.$invalid ||
@@ -866,32 +841,13 @@
                 }
                 return false;
             },
-            alignNumbers() {
-                // выровнять последнее число по первому если оно меньше
-                if(this.checkingInteger(this.objSalary.from) && this.checkingInteger(this.objSalary.to)){
-                    if(parseInt(this.objSalary.from) > parseInt(this.objSalary.to)){
-                        this.objSalary.to = this.objSalary.from
-                    }
+            checkSuitable() {
+                if(!this.checkingInteger(this.objSuitable.suitable_from)){
+                    this.objSuitable.suitable_from = 0
                 }
-                if(this.checkingInteger(this.objSuitable.suitable_from) && this.checkingInteger(this.objSuitable.suitable_to)){
-                    if(parseInt(this.objSuitable.suitable_from) > parseInt(this.objSuitable.suitable_to)){
-                        this.objSuitable.suitable_to = this.objSuitable.suitable_from
-                    }
+                else if(!this.checkingInteger(this.objSuitable.suitable_to)){
+                    this.objSuitable.suitable_to = 0
                 }
-            },
-            setValuePosition(value){
-                $('#position_list').removeClass('show')
-                this.position = value
-            },
-            returnFoundObject(data, value){
-                let obj = []
-                if(data !== null){
-                    obj = data.filter((val) => {
-                        return val.code == value
-                    });
-                }
-
-                return !obj.length ? null : obj
             },
             getValuesFields(){
                 return {
@@ -914,10 +870,10 @@
                     salary_comment: this.objSalary.salary_comment,
                     experience: this.experience,                        // Опыт работы
                     education: this.education,                          // Образование
-                    text_description: this.objTextarea.textarea_candidate,             // Требования к кандидату
+                    text_description: this.objTextarea.textarea_candidate,              // Требования к кандидату
                     text_working: this.objTextarea.textarea_conditions,                 // Условия работы
                     text_responsibilities: this.objTextarea.textarea_responsibilities,  // Обязанности кандидата
-                    contacts: this.objDisplayEmpContVacancy.contacts,              // Контакты работодателя
+                    contacts: this.objDisplayEmpContVacancy.contacts,                   // Контакты работодателя
                     how_respond: this.how_respond,                                      // Как можно откликнуться
                     job_posting: this.job_posting,                                      // Размещение вакансии
                 };
@@ -986,26 +942,6 @@
                 // Размещение вакансии
                 this.job_posting = this.settings.job_status.indexOf(this.vacancy.job_posting.status_name)
             },
-            fillingLanguages(){
-                // language
-                $('#language').on('select2:select', (e) => {
-                    this.objLanguage.languages.push( parseInt(e.params.data.id) );
-                })
-                $('#language').on("select2:unselect", (e) => {
-                    // удалить этот елемент
-                    this.objLanguage.languages.splice(this.objLanguage.languages.indexOf( parseInt(e.params.data.id) ), 1)
-                    // отключить раскрытие после удаления
-                    if (!e.params.originalEvent) {
-                        return;
-                    }
-                    e.params.originalEvent.stopPropagation();
-                });
-            },
-            initializationFunc() {
-                this.createArrayCategories()
-                this.fillingLanguages()
-                this.objLocations.load_countries = this.settings.obj_countries
-            },
         },
         props: [
             'lang',   // масив названий и url языка
@@ -1014,9 +950,6 @@
         ],
         mounted() {
             this.initializationFunc()
-            // инициализация всплывающих подсказок
-            $('[data-toggle="tooltip"]').tooltip();
-
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick(function () {
                 this.setValuesFields()

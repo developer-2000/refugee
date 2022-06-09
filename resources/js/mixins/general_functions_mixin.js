@@ -9,7 +9,7 @@ export default {
             let regex = /<\/?[^>]+(>|$)/gi
             return text.replace(regex, "")
         },
-        // поиск значения в массиве объектов
+        // поиск значения в массиве объектов и возврат обьекта
         lookingValueInArrayObjects(property_name, property_value, arrSearch){
             let bool = false
             let response = arrSearch.find(obj => obj[property_name] == property_value)

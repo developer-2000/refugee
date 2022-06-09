@@ -82,7 +82,7 @@ Route::group([
             Route::get('/', 'PrivateOfficeController@index');
 
             // Contact Information
-            Route::group(['prefix'=>'contact_information'], function (){
+            Route::group(['prefix'=>'contact-information'], function (){
                 Route::get('/', 'ContactInformationController@index');
                 Route::post('store', 'ContactInformationController@store');
                 Route::post('update', 'ContactInformationController@update');
@@ -113,10 +113,10 @@ Route::group([
 
             // resume
             Route::group(['prefix'=>'resume'], function (){
-                Route::get('my-resume', 'ResumeController@myResume');
+                Route::get('my-resumes', 'ResumeController@myResumes');
             });
             Route::resource('resume', 'ResumeController')->only([
-                'create',
+                'create', 'store',
             ]);
         });
     });

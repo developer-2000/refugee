@@ -1,4 +1,5 @@
 <template>
+<!-- new пароль -->
     <div>
         <!-- header modal -->
         <div class="modal-header">
@@ -64,7 +65,7 @@
                 try {
                     this.clearInputValue()
                     $('#authModal').modal('toggle')
-                    const response = await this.$http.post(`user/change-password`, data);
+                    const response = await this.$http.post(`/user/change-password`, data);
                     if(this.checkSuccess(response)){
                         location.reload()
                     }

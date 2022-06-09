@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Vacancy extends Model
 {
@@ -68,28 +69,16 @@ class Vacancy extends Model
         });
     }
 
-    // масив UserSaveVacancy через User
     public function id_saved_vacancies() {
-        return $this->hasManyThrough(
-            UserSaveVacancy::class,
-            User::class,
-            'id',
-            'user_id',
-            'user_id',
-            'id'
-        );
+        $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
+        return $this->hasMany(UserSaveVacancy::class, 'vacancy_id', 'id')
+            ->where('user_id',$user_id);
     }
 
-    // масив UserHideVacancy через User
     public function id_not_shown_vacancies() {
-        return $this->hasManyThrough(
-            UserHideVacancy::class,
-            User::class,
-            'id',
-            'user_id',
-            'user_id',
-            'id'
-        );
+        $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
+        return $this->hasMany(UserHideVacancy::class, 'vacancy_id', 'id')
+            ->where('user_id',$user_id);
     }
 
 }

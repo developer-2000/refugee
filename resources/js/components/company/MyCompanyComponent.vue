@@ -635,16 +635,6 @@
                 }
                 return false;
             },
-            returnFoundObject(data, value){
-                let obj = []
-                if(data !== null){
-                    obj = data.filter((val) => {
-                        return val.code == value
-                    });
-                }
-
-                return !obj.length ? null : obj
-            },
             getValuesFields(){
                 let formData = new FormData;
 
@@ -1058,9 +1048,9 @@
             flex-grow: 3;
         }
     }
-    .one-one-box > div:last-child {
-        flex-grow: 3;
-    }
+    /*.one-one-box > div:last-child {*/
+    /*    flex-grow: 3;*/
+    /*}*/
 
 </style>
 

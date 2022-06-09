@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Resume\StoreResumeRequest;
 use App\Model\MakeGeographyDb;
+use App\Model\UserResume;
+use App\Model\Vacancy;
 use App\Repositories\ResumeRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends BaseController {
 
@@ -16,12 +20,17 @@ class ResumeController extends BaseController {
         $this->repository = new ResumeRepository();
     }
 
-
-
     public function create()
     {
         $settings = $this->getSettingsResumeAndCountries();
         return view('resume.create_resume', compact('settings'));
+    }
+
+
+    public function store(StoreResumeRequest $request)
+    {
+        $resume = $this->repository->storeResume($request);
+        return $this->getResponse($resume);
     }
 
 
@@ -35,17 +44,6 @@ class ResumeController extends BaseController {
 //        //
 //    }
 
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request  $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function store(Request $request)
-//    {
-//        //
-//    }
-//
 //    /**
 //     * Display the specified resource.
 //     *
@@ -91,6 +89,13 @@ class ResumeController extends BaseController {
 //        //
 //    }
 
+    public function myResumes()
+    {
+        $resumes = UserResume::where('user_id', Auth::user()->id)
+            ->with('position')->get();
+        return view('resume.my_resumes', compact('resumes'));
+    }
+
     /**
      * настройки параметров и страны сайта
      * @return \Illuminate\Config\Repository|mixed
@@ -104,8 +109,4 @@ class ResumeController extends BaseController {
         return $settings;
     }
 
-    public function myResume()
-    {
-        return view('resume.create_resume');
-    }
 }

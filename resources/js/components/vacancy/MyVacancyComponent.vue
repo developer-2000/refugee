@@ -20,7 +20,7 @@
 
         <!-- No vacancies -->
         <div class="callout callout-warning"
-             v-if="!user_data.vacancies.length"
+             v-if="!vacancies.length"
         >
             <b>{{trans('vacancies','no_vacancies')}}</b>
             <div>
@@ -38,7 +38,7 @@
 
 
         <div class="box-vacancy"
-             v-for="(objVacancy, key) in user_data.vacancies" :key="key"
+             v-for="(objVacancy, key) in vacancies" :key="key"
              :data-alias="objVacancy.alias"
         >
             <!-- left -->
@@ -270,7 +270,7 @@
         props: [
             'lang',   // масив названий и url языка
             'settings',
-            'user_data',
+            'vacancies',
         ],
         mounted() {
             this.initialData()

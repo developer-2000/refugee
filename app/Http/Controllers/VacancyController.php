@@ -11,6 +11,7 @@ use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
+use App\Http\Traits\CountPositionTraite;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\RespondVacancy;
@@ -23,6 +24,7 @@ use App\Repositories\VacancyRepository;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyController extends BaseController {
+    use CountPositionTraite;
 
     protected $repository;
 
@@ -51,24 +53,29 @@ class VacancyController extends BaseController {
     public function show(Vacancy $vacancy, ShowVacancyRequest $request)
     {
         $owner_vacancy = null;
+        $respond_data['arr_resume'] = [];
+        $my_user = Auth::user();
         $settings = $this->getSettingsVacanciesAndCountries();
         // 1 смотреть конкретную вакансию
         $vacancy = Vacancy::where('id', $request->vacancy_id)
             ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
             ->first();
 
-        // 2 все мои резюме
-        $respond_data['arr_resume'] = UserResume::where('user_id', Auth::user()->id)->get();
+        if(!is_null($my_user)){
+            // 2 все мои резюме
+            $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
+                ->with('position')->get();
 
-        // если я подписан на эту вакансию
-        if(
+            // если я подписан на эту вакансию
+            if(
             $respondForThisVacancy = RespondVacancy::where('vacancy_id',$request->vacancy_id)
-            ->where('user_resume_id',Auth::user()->id)
-            ->first()
-        ){
-            // 3 владелец этой вакансии
-            $owner_vacancy = User::where('id',$vacancy->user_id)
-                ->with('contact')->first();
+                ->where('user_resume_id',$my_user->id)
+                ->first()
+            ){
+                // 3 владелец этой вакансии
+                $owner_vacancy = User::where('id',$vacancy->user_id)
+                    ->with('contact')->first();
+            }
         }
 
         return view('vacancies.show_vacancy', compact('settings','vacancy', 'respond_data', 'owner_vacancy'));
@@ -142,7 +149,7 @@ class VacancyController extends BaseController {
             return $this->getErrorResponse('Not found!');
         }
         // удалить старое название, если оно не будет никем использоватся
-        Vacancy::deleteUnwantedVacancyTitle($request, $vacancy->position_id);
+        $this->deleteUnwantedVacancyTitle($request, $vacancy->position_id);
         $vacancy->delete();
 
         return $this->getResponse();
@@ -169,12 +176,12 @@ class VacancyController extends BaseController {
     public function myVacancies()
     {
         $settings = config('site.settings_vacancy');
-        $user_data = User::where('id', Auth::user()->id)
-            ->with('vacancies.position', 'vacancies.company.image')
-            ->first();
+        $vacancies = Vacancy::where('user_id', Auth::user()->id)
+            ->with('position')->get();
 
-        return view('vacancies/my_vacancies', compact('user_data','settings'));
+        return view('vacancies/my_vacancies', compact('vacancies','settings'));
     }
+
 
     /**
      * обновить статус вакансии

@@ -26,6 +26,7 @@ Vue.component('show-vacancy-component', require('./components/vacancy/ShowVacanc
 Vue.component('search-vacancy', require('./components/vacancy/SearchVacancyComponent').default);
 // resume
 Vue.component('create-resume-component', require('./components/resume/CreateResumeComponent').default);
+Vue.component('my-resume-component', require('./components/resume/MyResumeComponent').default);
 // other
 Vue.component('contact_information', require('./components/contact_information/ContactInformationComponent').default);
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);

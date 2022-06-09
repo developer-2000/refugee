@@ -204,24 +204,11 @@
 
             <!-- второй row -->
             <div class="row">
-                <!-- Образование -->
-                <div class="col-sm-4">
-                    <div class="form-group height-element2">
-                        <label for="education">{{trans('vacancies','education_1')}}</label>
-                        <select class="form-control" id="education"
-                                v-model="education"
-                        >
-                            <template v-for="(value, key) in this.settings.education">
-                                <option :value="`${key}`">
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                        </select>
-                    </div>
-                </div>
                 <!-- Зарплата -->
                 <div class="col-sm-4">
-                    <div class="form-group" :class="{border_error: objSalary.switchSalary }">
+                    <div class="form-group height-element"
+                         :class="{border_error: objSalary.switchSalary }"
+                    >
                         <label for="salary_accordion">
                             {{trans('vacancies','salary')}}
                             <span class="mandatory-filling">
@@ -332,9 +319,55 @@
 
                         <!-- error for salary -->
                         <div class="invalid-feedback" :class="{'is-invalid visible': objSalary.switchSalary}">
-                           Пожалуйста, укажите желаемую зарплату
+                            Пожалуйста, укажите желаемую зарплату
                         </div>
 
+                    </div>
+                </div>
+                <!-- Вид занятости -->
+                <div class="col-sm-4">
+                    <div class="form-group height-element">
+                        <label for="type_employment">{{trans('vacancies','type_employment')}}</label>
+                        <div id="type_employment">
+                            <div class="icheck-primary" v-for="(value, key) in this.settings.type_employment" :key="key">
+                                <input type="radio" name="type_employment"
+                                       :id="`radio_primary_${key}`"
+                                       :value="`${key}`"
+                                       v-model="type_employment">
+                                <label class="target-label"
+                                       :for="`radio_primary_${key}`"
+                                >
+                                    {{trans('vacancies',value)}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- способы связи -->
+                <div class="col-sm-4">
+                    <div class="form-group height-element">
+                        <label>
+                            Отображать способы связи
+                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                                  :title="`${trans('vacancies','title_display_employer')}`"
+                            >
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                            </span>
+                        </label>
+                        <div id="disp_emp_cont_vacancy">
+                            <div v-for="(value, key) in this.settings.contact_information" :key="key">
+                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
+                                       :id="`disp_emp_cont_vacancy_${key}`"
+                                       @change="displayingEmployers"
+                                       :value="`${key}`"
+                                >
+                                <label class="target-label"
+                                       :for="`disp_emp_cont_vacancy_${key}`"
+                                >
+                                    {{value}}
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -374,22 +407,47 @@
                         </div>
                     </div>
                 </div>
-                <!-- Вид занятости -->
+                <!-- Образование -->
                 <div class="col-sm-4">
-                    <div class="form-group height-element">
-                        <label for="type_employment">{{trans('vacancies','type_employment')}}</label>
-                        <div id="type_employment">
-                            <div class="icheck-primary" v-for="(value, key) in this.settings.type_employment" :key="key">
-                                <input type="radio" name="type_employment"
-                                       :id="`radio_primary_${key}`"
+                    <div class="form-group height-element2">
+                        <label for="education">{{trans('vacancies','education_1')}}</label>
+                        <select class="form-control" id="education"
+                                v-model="education"
+                        >
+                            <template v-for="(value, key) in this.settings.education">
+                                <option :value="`${key}`">
+                                    {{trans('vacancies',value)}}
+                                </option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+                <!-- Размещение резюме -->
+                <div class="col-sm-4">
+                    <div class="form-group height-element2">
+                        <label for="job_posting">
+                            Размещение резюме
+                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
+                                  title="Если вы пока не готовы показывать это резюме соискателям, выберете настройку Скрытая. Эту настройку всегда можно изменить в редактировании."
+                            >
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                            </span>
+                        </label>
+                        <div id="job_posting">
+                            <div class="icheck-primary"
+                                 v-for="(value, key) in this.settings.job_status" :key="key"
+                            >
+                                <input type="radio" name="job_posting"
+                                       :id="`job_posting_${key}`"
                                        :value="`${key}`"
-                                       v-model="type_employment">
+                                       v-model="job_posting">
                                 <label class="target-label"
-                                       :for="`radio_primary_${key}`"
+                                       :for="`job_posting_${key}`"
                                 >
                                     {{trans('vacancies',value)}}
                                 </label>
                             </div>
+                            <!--                            Размещено на сайте и Скрытая -->
                         </div>
                     </div>
                 </div>
@@ -440,7 +498,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
-                        <ckeditor v-model="objTextarea.textarea_expectations"
+                        <ckeditor v-model="objTextarea.textarea_wait"
                                   :config="objTextarea.editorConfig2"
                         ></ckeditor>
                     </div>
@@ -459,67 +517,6 @@
                         <ckeditor v-model="objTextarea.textarea_achievements"
                                   :config="objTextarea.editorConfig3"
                         ></ckeditor>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- пятый row -->
-            <div class="row">
-                <!-- способы связи -->
-                <div class="col-sm-4">
-                    <div class="form-group height-element">
-                        <label>
-                            Отображать способы связи
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_display_employer')}`"
-                            >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
-                        </label>
-                        <div id="disp_emp_cont_vacancy">
-                            <div v-for="(value, key) in this.settings.contact_information" :key="key">
-                                <input class="form-check-input" name="disp_emp_cont_vacancy" type="checkbox"
-                                       :id="`disp_emp_cont_vacancy_${key}`"
-                                       @change="displayingEmployers"
-                                       :value="`${key}`"
-                                >
-                                <label class="target-label"
-                                       :for="`disp_emp_cont_vacancy_${key}`"
-                                >
-                                    {{value}}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Размещение резюме -->
-                <div class="col-sm-4">
-                    <div class="form-group height-element">
-                        <label for="job_posting">
-                            Размещение резюме
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  title="Если вы пока не готовы показывать это резюме соискателям, выберете настройку Скрытая. Эту настройку всегда можно изменить в редактировании."
-                            >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
-                        </label>
-                        <div id="job_posting">
-                            <div class="icheck-primary"
-                                 v-for="(value, key) in this.settings.job_status" :key="key"
-                            >
-                                <input type="radio" name="job_posting"
-                                       :id="`job_posting_${key}`"
-                                       :value="`${key}`"
-                                       v-model="job_posting">
-                                <label class="target-label"
-                                       :for="`job_posting_${key}`"
-                                >
-                                    {{trans('vacancies',value)}}
-                                </label>
-                            </div>
-<!--                            Размещено на сайте и Скрытая -->
-                        </div>
                     </div>
                 </div>
             </div>
@@ -542,6 +539,7 @@
                     </template>
                 </div>
             </div>
+
         </form>
     </div>
 </template>
@@ -551,12 +549,16 @@
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import localisation_functions_mixin from "../../mixins/localisation_functions_mixin";
+    import create_resume_vacancy_mixin from "../../mixins/create_resume_vacancy_mixin";
+    import general_functions_mixin from "../../mixins/general_functions_mixin";
 
     export default {
         mixins: [
             translation,
             response_methods_mixin,
             localisation_functions_mixin,
+            general_functions_mixin,
+            create_resume_vacancy_mixin
         ],
         data() {
             return {
@@ -570,7 +572,7 @@
                 job_posting: 0,
                 objTextarea: {
                     textarea_experience: '',
-                    textarea_expectations: '',
+                    textarea_wait: '',
                     textarea_achievements: '',
                     editorConfig1: {
                         toolbar: [
@@ -606,21 +608,25 @@
             }
         },
         methods: {
-            createResume(){
-
-            },
-            disableButton(v) {
-                // if(
-                //     v.$invalid ||
-                //     !this.objCategory.categories.length ||
-                //     !this.objSuitable.suitable.length ||
-                //     this.rest_address == null ||
-                //     this.checkSalary() ||
-                //     !this.objLanguage.languages.length
-                // ){
-                //     return true;
-                // }
-                return false;
+            async createResume(){
+                this.alignNumbers(this.objSalary,'from','to')
+                let data = this.getValuesFields()
+                console.log(data)
+                const response = await this.$http.post(`/private-office/resume`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            console.log(res)
+                            // location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
             },
             async searchPosition(value){
                 if(!value.length){
@@ -651,18 +657,41 @@
                         // this.messageError(err)
                     })
             },
-            setValuePosition(value){
-                $('#position_list').removeClass('show')
-                this.position = value
-            },
-            displayingEmployers(){
-                this.objDisplayEmpContVacancy.boolDisplay = true;
-                let checked = document.querySelectorAll('[name="disp_emp_cont_vacancy"]:checked');
-                let selected = [];
-                for (let i=0; i<checked.length; i++) {
-                    selected.push(checked[i].value);
+            disableButton(v) {
+                if(
+                    v.$invalid ||
+                    this.objLocations.country === null ||
+                    !this.objCategory.categories.length ||
+                    this.checkSalary() ||
+                    !this.objLanguage.languages.length
+                ){
+                    return true;
                 }
-                this.objDisplayEmpContVacancy.contacts = selected;
+                return false;
+            },
+            getValuesFields(){
+                return {
+                    position: this.position,
+                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+                    data_birth: this.data_birth,
+                    categories: this.objCategory.categories,
+                    salary_but: this.objSalary.salary_but,              // Зарплата
+                    from: this.objSalary.from,
+                    to: this.objSalary.to,
+                    salary_sum: this.objSalary.salary_sum,
+                    salary_comment: this.objSalary.salary_comment,
+                    type_employment: this.type_employment,              // Вид занятости
+                    contacts: this.objDisplayEmpContVacancy.contacts,   // Отображение контактов
+                    languages: this.objLanguage.languages,              // языки
+                    education: this.education,                          // Образование
+                    job_posting: this.job_posting,                      // Размещение резюме
+                    experience: this.experience,                        // опыт работы
+                    text_experience: this.objTextarea.textarea_experience,
+                    text_wait: this.objTextarea.textarea_wait,                 // Ожидания от вакансии
+                    text_achievements: this.objTextarea.textarea_achievements, // Свои достижения
+                };
             },
             // коррекция даты
             checkInsertDate(e){
@@ -676,38 +705,6 @@
                     this.data_birth = ''
                 }
             },
-            checkSalary() {
-                // если выбран сектор а поля не заполнены
-                if(
-                    (this.objSalary.salary_but == "range" && (this.objSalary.from === '' || this.objSalary.to === '') ) ||
-                    (this.objSalary.salary_but == "single_value" && this.objSalary.salary_sum === '')
-                ){
-                    this.objSalary.switchSalary = true
-                    return true;
-                }
-                this.objSalary.switchSalary = false
-                return false;
-            },
-            fillingLanguages(){
-                // language
-                $('#language').on('select2:select', (e) => {
-                    this.objLanguage.languages.push( parseInt(e.params.data.id) );
-                })
-                $('#language').on("select2:unselect", (e) => {
-                    // удалить этот елемент
-                    this.objLanguage.languages.splice(this.objLanguage.languages.indexOf( parseInt(e.params.data.id) ), 1)
-                    // отключить раскрытие после удаления
-                    if (!e.params.originalEvent) {
-                        return;
-                    }
-                    e.params.originalEvent.stopPropagation();
-                });
-            },
-            initializationFunc() {
-                this.createArrayCategories()
-                this.fillingLanguages()
-                this.objLocations.load_countries = this.settings.obj_countries
-            },
         },
         props: [
             'lang',
@@ -715,8 +712,6 @@
         ],
         mounted() {
             this.initializationFunc()
-            // инициализация всплывающих подсказок
-            $('[data-toggle="tooltip"]').tooltip();
         },
         validations: {
             position: {
@@ -788,9 +783,19 @@
             min-height: 31px;
         }
     }
-
-
-
+    .one-one-box{
+        display: flex;
+        flex-direction: column;
+        & > div:last-child {
+            flex-grow: 3;
+        }
+    }
+    .height-element{
+        height: 95%;
+    }
+    .height-element2{
+        height: 90%;
+    }
 
 
 </style>

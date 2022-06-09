@@ -14,6 +14,7 @@
         <!-- buttons -->
         <div class="top-panel">
 
+            <!-- Откликнуться -->
             <button v-if="owner_vacancy == null"
                     class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
@@ -21,6 +22,7 @@
                 {{trans('respond','respond')}}
             </button>
 
+            <!-- общение с -->
             <button v-else
                     class="btn btn-block btn-primary" type="button"
                     @click="goToConversation()"
@@ -28,6 +30,7 @@
                 {{trans('respond','open_dialog_with')}} {{owner_vacancy.contact.name}}
             </button>
 
+            <!-- Найти похожие вакансии -->
             <button class="btn btn-block btn-outline-primary" type="button"
                     @click="findSimilarVacancy()"
             >
@@ -88,8 +91,8 @@
                                 <label>
                                     {{trans('respond','select_cv')}}
                                 </label>
-                                <!-- yes resume -->
-                                <div v-if="respond_data.arr_resume.length" class="box-yes-resume">
+                                <!-- есть resume сайтовое -->
+                                <div v-if="lookingValueInArrayObjects('type', 0, respond_data.arr_resume)" class="box-yes-resume">
                                     <div class="form-group" id="box-radio">
                                         <div v-for="(obj, key) in respond_data.arr_resume" :key="key">
                                             <template v-if="obj.type === 0">
@@ -101,7 +104,7 @@
                                                 <label class="target-label"
                                                        :for="`resume_${key}`"
                                                 >
-                                                    {{obj.title}}
+                                                    {{obj.position.title}}
                                                 </label>
                                             </template>
                                         </div>
@@ -109,7 +112,10 @@
                                 </div>
                                 <!-- no resume -->
                                 <div v-else class="box-no-resume">
-                                    <a href="javascript:void(0)" class="link-a">
+<!--                                    @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"-->
+                                    <a href="javascript:void(0)" class="link-a"
+
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
                                         {{trans('respond','create_your_resume')}}
                                     </a>
@@ -183,6 +189,7 @@
                 <!-- /.card -->
             </div>
         </div>
+
     </div>
 </template>
 
@@ -276,13 +283,15 @@
                 location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
             },
             scrollRespond(){
-                this.respond_bool = true
-                setTimeout(() => {
-                    const el = document.getElementById('box-respond');
-                    $('html,body').animate({
-                        scrollTop:$(el).offset().top+"px"
-                    }, 500, 'linear');
-                }, 500);
+                if(this.checkAuth(window.location.pathname)){
+                    this.respond_bool = true
+                    setTimeout(() => {
+                        const el = document.getElementById('box-respond');
+                        $('html,body').animate({
+                            scrollTop:$(el).offset().top+"px"
+                        }, 500, 'linear');
+                    }, 500);
+                }
             },
             disableButton() {
                 if(
@@ -305,6 +314,25 @@
             // @emit дочернего
             addResume(file){
                 this.filelist = file
+            },
+            // выбор имени компонента для динамик компонента
+            reset_array: function (a) {
+                // чилдрен присылает значение выбора компонента в масиве в виде обьекта
+                this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
+                // open/close modal
+                if (typeof a !== 'object' && a !== 3) {
+                    this.$store.commit('tpSetMenuVisi')
+                }
+            },
+            checkAuth(url) {
+                // не авторизован
+                if(this.user == null){
+                    this.reset_array(0)
+                    $('#authModal').modal('toggle')
+                    localStorage.setItem('url_click_no_auth', url)
+                    return false
+                }
+                return true
             },
         },
         computed: {

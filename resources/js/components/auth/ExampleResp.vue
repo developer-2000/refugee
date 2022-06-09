@@ -66,7 +66,7 @@
                 try {
                     this.clearInputValue()
                     $('#authModal').modal('toggle')
-                    const response = await this.$http.post(`user/send-code-password`, data);
+                    const response = await this.$http.post(`/user/send-code-password`, data);
                     if(this.checkSuccess(response)){
                         this.message(response.data.message, 'success', 10000, true);
                     }

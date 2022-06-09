@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Schema;
 class CreateUserResumesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * type=0 (site. задействует position_id)
+     * type=1 (file. задействует title, url)
      *
+     * Run the migrations.
      * @return void
      */
     public function up()
@@ -18,9 +20,26 @@ class CreateUserResumesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('title', 100);
-            $table->string('url')->nullable()->default(null);
+            $table->string('title', 100)->nullable()->default(null)->comment('название file');
+            $table->unsignedBigInteger('position_id')->nullable()->default(null)->comment('должность');
             $table->tinyInteger('type')->default(0)->comment('0=site, 1=file');
+            $table->string('url')->nullable()->default(null)->comment('url file');
+            $table->string('alias', 100)->nullable()->default(null)->comment('для url resume');
+            $table->string('country')->index()->nullable()->default(null)->comment('страна');
+            $table->string('region')->index()->nullable()->default(null)->comment('регион');
+            $table->string('city')->index()->nullable()->default(null)->comment('город');
+            $table->string('data_birth', 10)->nullable()->default(null)->comment('дата рождения');
+            $table->string('categories')->index()->nullable()->default(null)->comment('категории резюме');
+            $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, коментарий');
+            $table->tinyInteger('type_employment')->index()->nullable()->default(null)->comment('работа - полная / не полная / удаленка');
+            $table->text('contacts')->nullable()->default(null)->comment('контакты связи');
+            $table->string('languages')->index()->nullable()->default(null)->comment('языки работника');
+            $table->tinyInteger('education')->index()->nullable()->default(null)->comment('образование');
+            $table->string('job_posting')->nullable()->default(null)->comment('статус вакансии - стандарт, скрытая');
+            $table->tinyInteger('experience')->index()->nullable()->default(null)->comment('опыт работы');
+            $table->text('text_experience')->nullable()->default(null)->comment('описание опыта');
+            $table->text('text_wait')->nullable()->default(null)->comment('ожидания от вакансии');
+            $table->text('text_achievements')->nullable()->default(null)->comment('свои достижения');
 
             $table->timestamps();
         });
