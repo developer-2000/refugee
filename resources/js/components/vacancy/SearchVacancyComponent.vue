@@ -43,6 +43,12 @@
                      :id="`v${key}`"
                      @click.prevent="transitionToVacancy(vacancy.alias)"
                 >
+                    <!-- лента -->
+                    <div class="ribbon-wrapper">
+                        <div class="ribbon euro-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="euro-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
+                        </div>
+                    </div>
                     <!-- vacancy -->
                     <vacancy_template
                         :vacancy="vacancy"
@@ -50,6 +56,9 @@
                         :lang="lang"
                         :page="'search'"
                     ></vacancy_template>
+
+                    {{getDateDocumentString(vacancy.updated_at)}}
+
 
                     <!-- кнопки закладок вакансий -->
                     <bookmark_buttons
@@ -82,6 +91,28 @@
 </template>
 
 <script>
+    jQuery(document).ready(function(){
+        // let time = moment("2020-10-21 17:10:29").fromNow()
+
+        // var now = new Date();
+        // var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        // var startTime = new Date('2022-06-10 11:28:50')
+        //
+        //
+        // var timeDiff = moment.duration(utc - startTime);
+        //
+        // var timeMessege = 'Время исследования: ' +
+        //     timeDiff.years() + ' м ' +
+        //     timeDiff.months() + ' м ' +
+        //     timeDiff.days() + ' м ' +
+        //     timeDiff.hours() + ' ч ' +
+        //     timeDiff.minutes() + ' м ' +
+        //     timeDiff.seconds() + ' с';
+        //
+        // console.log(timeMessege)
+
+    });
+
     import pagination from "./details/PaginationComponent";
     import search_panel from './SearchPanelVacancyComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
@@ -110,6 +141,23 @@
             }
         },
         methods: {
+            getDateDocumentString(date){
+                var now = new Date();
+                var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+                var startTime = new Date(date)
+                // var startTime = new Date('2022-06-10 11:28:50')
+                var timeDiff = moment.duration(utc - startTime);
+
+                var timeMessege = 'Время исследования: ' +
+                    timeDiff.years() + ' м ' +
+                    timeDiff.months() + ' м ' +
+                    timeDiff.days() + ' м ' +
+                    timeDiff.hours() + ' ч ' +
+                    timeDiff.minutes() + ' м ' +
+                    timeDiff.seconds() + ' с';
+
+                return timeMessege
+            },
             enterKey(e){
                 if(e.code == 'Enter'){
                     this.searchVacancies({})
@@ -274,7 +322,7 @@
             'user',
         ],
         mounted() {
-            // console.log(this.vacancies)
+            console.log(this.vacancies)
 
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)

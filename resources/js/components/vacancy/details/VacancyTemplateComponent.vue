@@ -20,7 +20,7 @@
                 </div>
             </a>
             <!-- на странице search vacancies -->
-            <div v-if="page === 'search'" class="company-vacancy" >
+            <div v-if="page === 'search' || page === 'bookmark'" class="company-vacancy" >
                 <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
                 <img class="img-logo"
                      :src="`/${vacancy.company.image.url}`"
@@ -257,18 +257,26 @@
             max-width: 60%;
         }
         .company-vacancy {
-            float: right;
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            margin-bottom: -80px;
+            align-items: center;
+            float: right;
+            margin-bottom: -95px;
+            outline: 1px solid #dee2e6;
+            padding: 0 10px 10px;
+            max-width: 220px;
+            &:hover{
+                outline: 1px solid #c0ddfb;
+            }
             .img-logo {
                 width: 200px;
                 height: 100px;
             }
             .title-company{
                 font-size: 17px;
-                margin-bottom: 5px;
+                text-align: center;
+                line-height: 21px;
+                padding: 6px 0;
             }
         }
         .no-verified,

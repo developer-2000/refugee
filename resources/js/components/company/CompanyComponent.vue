@@ -178,6 +178,7 @@
                 <h3 class="font-weight-bold">
                     {{trans('company','company_vacancies')}}
                 </h3>
+                <!-- vacancies yes -->
                 <div class="block-company-vacancies" v-if="company.vacancies.length">
                     <!-- item -->
                     <div class="box-vacancy"
@@ -185,6 +186,12 @@
                          :id="`v${key}`"
                          @click.prevent="transitionToVacancy(vacancy.alias)"
                     >
+                        <!-- лента -->
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon euro-color">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="euro-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
+                            </div>
+                        </div>
                         <!-- vacancy -->
                         <vacancy_template
                             :vacancy="vacancy"
@@ -446,9 +453,7 @@
     }
 
     svg {
-        path {
-            fill: #1d68a7;
-        }
+        fill: #1d68a7;
     }
     .svg-facebook{
         path{
