@@ -57,13 +57,20 @@
                 :page="'bookmark'"
             ></vacancy_template>
 
-            <!-- buttons -->
-            <div class="panel-button">
-                <button class="btn btn-block btn-outline-danger" type="button"
-                        @click="bookmarkVacancy($event,array.vacancy.id)"
-                >
-                    {{trans('vacancies','remove')}}
-                </button>
+            <div class="footer-vacancy">
+                <!-- отображение прошедшего времени -->
+                <div class="date-document">
+                    {{getDateDocumentString(array.vacancy.updated_at)}} назад
+                </div>
+
+                <!-- buttons -->
+                <div class="panel-button">
+                    <button class="btn btn-block btn-outline-danger" type="button"
+                            @click="bookmarkVacancy($event,array.vacancy.id)"
+                    >
+                        {{trans('vacancies','remove')}}
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -76,6 +83,7 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import vacancy_template from "./details/VacancyTemplateComponent";
+    import date_mixin from "../../mixins/date_mixin";
 
     export default {
         components: {
@@ -84,7 +92,8 @@
         mixins: [
             translation,
             response_methods_mixin,
-            bookmark_vacancies_mixin
+            bookmark_vacancies_mixin,
+            date_mixin
         ],
         data() {
             return {
@@ -184,9 +193,9 @@
                 display: inline;
             }
             .panel-button{
-                display: flex;
-                justify-content: flex-end;
-                margin: 15px 0 0;
+                /*display: flex;*/
+                /*justify-content: flex-end;*/
+                /*margin: 15px 0 0;*/
                 button{
                     width: auto;
                     display: flex;

@@ -57,16 +57,21 @@
                         :page="'search'"
                     ></vacancy_template>
 
-                    {{getDateDocumentString(vacancy.updated_at)}}
+                    <div class="footer-vacancy">
+                        <!-- отображение прошедшего времени -->
+                        <div class="date-document">
+                            {{getDateDocumentString(vacancy.updated_at)}} назад
+                        </div>
 
+                        <!-- кнопки закладок вакансий -->
+                        <bookmark_buttons
+                            :lang="lang"
+                            :vacancy="vacancy"
+                            :user="user"
+                            :which_button_show="'search_vacancy'"
+                        ></bookmark_buttons>
+                    </div>
 
-                    <!-- кнопки закладок вакансий -->
-                    <bookmark_buttons
-                        :lang="lang"
-                        :vacancy="vacancy"
-                        :user="user"
-                        :which_button_show="'search_vacancy'"
-                    ></bookmark_buttons>
                 </div>
 
                 <pagination
@@ -91,28 +96,6 @@
 </template>
 
 <script>
-    jQuery(document).ready(function(){
-        // let time = moment("2020-10-21 17:10:29").fromNow()
-
-        // var now = new Date();
-        // var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        // var startTime = new Date('2022-06-10 11:28:50')
-        //
-        //
-        // var timeDiff = moment.duration(utc - startTime);
-        //
-        // var timeMessege = 'Время исследования: ' +
-        //     timeDiff.years() + ' м ' +
-        //     timeDiff.months() + ' м ' +
-        //     timeDiff.days() + ' м ' +
-        //     timeDiff.hours() + ' ч ' +
-        //     timeDiff.minutes() + ' м ' +
-        //     timeDiff.seconds() + ' с';
-        //
-        // console.log(timeMessege)
-
-    });
-
     import pagination from "./details/PaginationComponent";
     import search_panel from './SearchPanelVacancyComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
@@ -120,6 +103,7 @@
     import vacancy_template from "./details/VacancyTemplateComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import translation from "../../mixins/translation";
+    import date_mixin from "../../mixins/date_mixin";
 
     export default {
         components: {
@@ -132,6 +116,7 @@
             general_functions_mixin,
             response_methods_mixin,
             translation,
+            date_mixin
         ],
         data() {
             return {
@@ -141,23 +126,6 @@
             }
         },
         methods: {
-            getDateDocumentString(date){
-                var now = new Date();
-                var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-                var startTime = new Date(date)
-                // var startTime = new Date('2022-06-10 11:28:50')
-                var timeDiff = moment.duration(utc - startTime);
-
-                var timeMessege = 'Время исследования: ' +
-                    timeDiff.years() + ' м ' +
-                    timeDiff.months() + ' м ' +
-                    timeDiff.days() + ' м ' +
-                    timeDiff.hours() + ' ч ' +
-                    timeDiff.minutes() + ' м ' +
-                    timeDiff.seconds() + ' с';
-
-                return timeMessege
-            },
             enterKey(e){
                 if(e.code == 'Enter'){
                     this.searchVacancies({})
@@ -322,7 +290,7 @@
             'user',
         ],
         mounted() {
-            console.log(this.vacancies)
+            // console.log(this.vacancies)
 
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)
@@ -426,6 +394,7 @@
                 margin: 0 5px;
             }
         }
+
     }
 
 </style>

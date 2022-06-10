@@ -18,7 +18,6 @@
             {{trans('vacancies','vacancies')}}
         </h1>
 
-
     </div>
 </template>
 

@@ -126,43 +126,14 @@
     <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
     <script src="{{asset('js/admin_lte/adminlte.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="http://momentjs.com/downloads/moment.js"></script>
-    <script src="https://momentjs.com/downloads/moment-timezone-with-data.min.js"></script>
+{{--    <script src="http://momentjs.com/downloads/moment.js"></script>--}}
+{{--    <script src="https://momentjs.com/downloads/moment-timezone-with-data.min.js"></script>--}}
 
 @section('scripts')
-{{--    <script>--}}
-{{--        jQuery(document).ready(function(){--}}
-{{--            // let time = moment("2020-10-21 17:10:29").fromNow()--}}
-
-{{--            var now = new Date();--}}
-{{--            var utc = now.getTime() + (now.getTimezoneOffset() * 60000);--}}
-{{--            var startTime = new Date('2022-06-10 11:28:50')--}}
-{{--            // var timezone = startTime.getTimezoneOffset()--}}
-
-{{--            // var startTime2 = startTime.toUTCString()--}}
-{{--            // var startTime2 = moment('2022-06-10 10:05:48.000000')--}}
-
-{{--                // .getTimeZoneOffset()--}}
-
-
-{{--            // console.log(now)--}}
-{{--            console.log(startTime.getTimezoneOffset())--}}
-{{--            // console.log(startTime2)--}}
-
-{{--            var timeDiff = moment.duration(utc - startTime);--}}
-
-{{--            var timeMessege = 'Время исследования: ' +--}}
-{{--                timeDiff.years() + ' м ' +--}}
-{{--                timeDiff.months() + ' м ' +--}}
-{{--                timeDiff.days() + ' м ' +--}}
-{{--                timeDiff.hours() + ' ч ' +--}}
-{{--                timeDiff.minutes() + ' м ' +--}}
-{{--                timeDiff.seconds() + ' с';--}}
-
-{{--            console.log(timeMessege)--}}
-
-{{--        });--}}
-{{--    </script>--}}
+    <script>
+        jQuery(document).ready(function(){
+        });
+    </script>
 @show
 </body>
 </html>

@@ -200,13 +200,21 @@
                             :page="'search'"
                         ></vacancy_template>
 
-                        <!-- кнопки закладок вакансий -->
-                        <bookmark_buttons
-                            :lang="lang"
-                            :vacancy="vacancy"
-                            :user="user"
-                            :which_button_show="'search_vacancy'"
-                        ></bookmark_buttons>
+                        <div class="footer-vacancy">
+                            <!-- отображение прошедшего времени -->
+                            <div class="date-document">
+                                {{getDateDocumentString(vacancy.updated_at)}} назад
+                            </div>
+
+                            <!-- кнопки закладок вакансий -->
+                            <bookmark_buttons
+                                :lang="lang"
+                                :vacancy="vacancy"
+                                :user="user"
+                                :which_button_show="'search_vacancy'"
+                            ></bookmark_buttons>
+                        </div>
+
                     </div>
                 </div>
                 <div class="block-company-vacancies" v-else>
@@ -224,12 +232,14 @@
     import vacancy_template from "../vacancy/details/VacancyTemplateComponent";
     import translation from "../../mixins/translation";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
+    import date_mixin from "../../mixins/date_mixin";
 
     export default {
         mixins: [
             response_methods_mixin,
             translation,
             general_functions_mixin,
+            date_mixin
         ],
         components: {
             'bookmark_buttons': bookmark_buttons,

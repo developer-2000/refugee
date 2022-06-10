@@ -38,8 +38,8 @@
 
 
         <div class="box-vacancy"
-             v-for="(objVacancy, key) in vacancies" :key="key"
-             :data-alias="objVacancy.alias"
+             v-for="(vacancy, key) in vacancies" :key="key"
+             :data-alias="vacancy.alias"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -51,16 +51,23 @@
             <div class="left-site">
                 <!-- vacancy -->
                 <vacancy_template
-                    :vacancy="objVacancy"
+                    :vacancy="vacancy"
                     :settings="settings"
                     :lang="lang"
                     :page="'my_vacancy'"
                 ></vacancy_template>
 
-                <!-- статус -->
-                <div class="mode-vacancy"
-                     v-html="getStatus(objVacancy.job_posting)"
-                >
+                <div class="footer-vacancy">
+                    <!-- отображение прошедшего времени -->
+                    <div class="date-document">
+                        {{getDateDocumentString(vacancy.updated_at)}} назад
+                    </div>
+
+                    <!-- статус -->
+                    <div class="mode-vacancy"
+                         v-html="getStatus(vacancy.job_posting)"
+                    >
+                    </div>
                 </div>
 
             </div>
@@ -77,8 +84,8 @@
                 <div class="button-vacancy">
                     <!-- Разместить -->
                     <button type="button" class="btn btn-block btn-outline-primary"
-                            v-if="objVacancy.job_posting.status_name == 'hidden'"
-                            @click="changeStatus($event, objVacancy.id, 0)"
+                            v-if="vacancy.job_posting.status_name == 'hidden'"
+                            @click="changeStatus($event, vacancy.id, 0)"
                     >
                         {{trans('vacancies','post')}}
                     </button>
@@ -90,33 +97,33 @@
                         <div class="dropdown-menu">
                             <!-- скрыть -->
                             <a class="dropdown-item" href="#"
-                               v-if="objVacancy.job_posting.status_name == 'standard'"
-                               @click="changeStatus($event, objVacancy.id, 1)"
+                               v-if="vacancy.job_posting.status_name == 'standard'"
+                               @click="changeStatus($event, vacancy.id, 1)"
                             >
                                 {{trans('vacancies','hide')}}
                             </a>
                             <!-- обновить -->
                             <a class="dropdown-item" href="#"
-                               v-if="objVacancy.job_posting.status_name == 'standard'"
-                               @click="changeStatus($event, objVacancy.id, 0)"
+                               v-if="vacancy.job_posting.status_name == 'standard'"
+                               @click="changeStatus($event, vacancy.id, 0)"
                             >
                                 {{trans('vacancies','update')}}
                             </a>
                             <!-- редактировать -->
                             <a class="dropdown-item"
-                               :href="`${lang.prefix_lang}private-office/vacancy/${objVacancy.id}/edit`"
+                               :href="`${lang.prefix_lang}private-office/vacancy/${vacancy.id}/edit`"
                             >
                                 {{trans('vacancies','edit')}}
                             </a>
                             <!-- скопировать -->
                             <a class="dropdown-item" href="#"
-                               @click="duplicateVacancy($event, objVacancy.id)"
+                               @click="duplicateVacancy($event, vacancy.id)"
                             >
                                 {{trans('vacancies','copy')}}
                             </a>
                             <!-- удалить -->
                             <a class="dropdown-item" href="#"
-                               @click="deleteVacancy($event, objVacancy.id)"
+                               @click="deleteVacancy($event, vacancy.id)"
                             >
                                 {{trans('vacancies','delete')}}
                             </a>
@@ -133,6 +140,8 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import vacancy_template from "./details/VacancyTemplateComponent";
+    import general_functions_mixin from "../../mixins/general_functions_mixin";
+    import date_mixin from "../../mixins/date_mixin";
 
     export default {
         components: {
@@ -141,7 +150,8 @@
         mixins: [
             translation,
             response_methods_mixin,
-            bookmark_vacancies_mixin
+            bookmark_vacancies_mixin,
+            date_mixin
         ],
         data() {
             return {
@@ -324,17 +334,17 @@
             justify-content: space-between;
             align-self: stretch;
             align-items: flex-end;
-
             .response-vacancy {
                 text-align: center;
                 font-weight: 600;
                 line-height: 22px;
                 margin-right: 5px;
             }
-
             .button-vacancy {
                 display: flex;
-
+                margin: 0 -20px -11px 0;
+                border-top: 1px solid #dee2e6;
+                padding: 10px 20px 0 0;
                 & > button {
                     margin-right: 10px;
                 }
@@ -344,7 +354,9 @@
     #create-vacancy{
         width: 175px;
     }
-
+    .mode-vacancy{
+        margin: 0 20px 0 0;
+    }
 </style>
 
 

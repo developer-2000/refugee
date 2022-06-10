@@ -2,6 +2,12 @@
 
  * документация функционала в documents/localization url смена из фронта.doc
 
+#### package moment работа со временем в js
+https://momentjs.com/
+
+https://robert-askam.co.uk/posts/how-to-use-momentjs-in-vuejs-and-laravel-5
+
+
 #### custom pagination laravel + vue.js
 https://medium.com/introcept-hub/create-pagination-component-using-laravel-and-vue-js-e5709aac2724
 

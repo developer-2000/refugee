@@ -460,8 +460,8 @@ label{
     transform: rotate(-90deg);
 }
 .ribbon-wrapper .ribbon {
-    left: 8px;
-    top: 0px;
+    left: 5px;
+    top: 4px;
 }
 .box-vacancy .ribbon-wrapper .euro-color .euro-star-icon {
     fill: #ffa700;
@@ -478,12 +478,22 @@ label{
 .box-vacancy:hover .company-vacancy:hover{
     outline: 1px solid #dee2e6!important;
 }
-
 .desc-helper-italic{
     font-style: italic;
     margin-bottom: 10px;
 }
-
+.footer-vacancy{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #dee2e6;
+    margin: 10px -20px -5px -20px;
+    padding: 15px 20px 0 20px;
+}
+.footer-vacancy .date-document{
+    font-size: 13px;
+    font-weight: bold;
+}
 /* color */
 .euro-color{
     background-color: #003194;
