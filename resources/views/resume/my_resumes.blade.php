@@ -2,9 +2,10 @@
 
 @section('content')
 <div class="container">
-    <my-resume-component
+    <my-resumes-component
         :lang="{{json_encode($lang)}}"
         :resumes="{{json_encode($resumes)}}"
-    ></my-resume-component>
+        :settings="{{json_encode($settings)}}"
+    ></my-resumes-component>
 </div>
 @endsection

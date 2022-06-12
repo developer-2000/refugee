@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <my-vacancy-component
+    <my-vacancies-component
         :lang="{{json_encode($lang)}}"
         :vacancies="{{json_encode($vacancies)}}"
         :settings="{{json_encode($settings)}}"
-    ></my-vacancy-component>
+    ></my-vacancies-component>
 </div>
 @endsection

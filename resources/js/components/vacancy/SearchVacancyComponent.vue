@@ -42,6 +42,7 @@
                      v-for="(vacancy, key) in vacancies.data" :key="key"
                      :id="`v${key}`"
                      @click.prevent="transitionToVacancy(vacancy.alias)"
+                     :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
                 >
                     <!-- лента -->
                     <div class="ribbon-wrapper">
@@ -61,6 +62,12 @@
                         <!-- отображение прошедшего времени -->
                         <div class="date-document">
                             {{getDateDocumentString(vacancy.updated_at)}} назад
+                            <!-- вакансия закрыта -->
+                            <div class="close-document-fon"
+                                 v-if="vacancy.job_posting.status_name == 'hidden'"
+                            >
+                                Вакансия закрыта
+                            </div>
                         </div>
 
                         <!-- кнопки закладок вакансий -->

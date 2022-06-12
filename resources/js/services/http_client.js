@@ -14,4 +14,5 @@ export default {
     async put(url, data = {}, headers = {}) {
         return await axios.put(url, data, {headers: headers})
     },
+
 }

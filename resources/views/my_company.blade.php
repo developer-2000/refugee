@@ -23,11 +23,11 @@
 @section('content')
 <div class="container">
 
-    <my-company-component
+    <edit-company-component
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
         :company="{{json_encode($company)}}"
-    ></my-company-component>
+    ></edit-company-component>
 
 </div>
 @endsection

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
 trait BreadcrumbsTraite {
-    use FunctionsTraite;
+    use ArrayMethodsTraite;
 
     protected $elementsBread = [];
 

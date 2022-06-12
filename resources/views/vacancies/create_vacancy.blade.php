@@ -18,11 +18,11 @@
 @section('content')
 <div class="container">
 
-    <create-vacancy-component
+    <edit-vacancy-component
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
         :vacancy="{{isset($vacancy) ? json_encode($vacancy) : json_encode(null)}}"
-    ></create-vacancy-component>
+    ></edit-vacancy-component>
 
 </div>
 @endsection

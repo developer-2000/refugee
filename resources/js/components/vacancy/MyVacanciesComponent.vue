@@ -12,7 +12,7 @@
 
             <a class="btn btn-block btn-primary" id="create-vacancy" :href="`${lang.prefix_lang}private-office/vacancy/create`">Добавить вакансию</a>
         </div>
-
+        <!-- title -->
         <h1 class="title_page card-body">
             <u>{{trans('vacancies','my')}}</u>
             {{trans('vacancies','vacancies')}}
@@ -36,7 +36,7 @@
             {{trans('vacancies','helps_you_track_have')}}
         </div>
 
-
+        <!-- vacancies -->
         <div class="box-vacancy"
              v-for="(vacancy, key) in vacancies" :key="key"
              :data-alias="vacancy.alias"
@@ -76,7 +76,9 @@
                 <!-- отклики -->
                 <div class="response-vacancy">
                     <a href="#">
-                        <div class="response-num">0</div>
+                        <div class="response-num">
+                            {{vacancy.respond_count}}
+                        </div>
                         {{trans('vacancies','responses')}}
                     </a>
                 </div>
@@ -232,7 +234,7 @@
                     let create_date = new Date(statusObj.create_time)
                     create_date.setMonth(create_date.getMonth() + 1)
                     // сколько осталось дней у публикации
-                    let count_day = this.getNumberOfDays(create_date, Date.now())
+                    let count_day = this.getDifferenceDays(create_date, Date.now())
 
                     html_status += '<div class="balance-mode standard">'
                     html_status += '~ '+count_day+' дней'
@@ -241,19 +243,6 @@
                 html_status += '</div>'
 
                 return html_status
-            },
-            // разница в днях
-            getNumberOfDays(start, end) {
-                const date1 = new Date(start);
-                const date2 = new Date(end);
-                // One day in milliseconds
-                const oneDay = 1000 * 60 * 60 * 24;
-                // Calculating the time difference between two dates
-                const diffInTime = date1.getTime() - date2.getTime();
-                // Calculating the no. of days between two dates
-                const diffInDays = Math.round(diffInTime / oneDay);
-
-                return diffInDays;
             },
             initialData(){
                 // зарплата

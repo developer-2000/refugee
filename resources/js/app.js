@@ -18,20 +18,21 @@ Vue.use( CKEditor );
 
 
 // vacancies
-Vue.component('create-vacancy-component', require('./components/vacancy/CreateVacancyComponent').default);
-Vue.component('my-vacancy-component', require('./components/vacancy/MyVacancyComponent').default);
+Vue.component('edit-vacancy-component', require('./components/vacancy/EditVacancyComponent').default);
+Vue.component('my-vacancies-component', require('./components/vacancy/MyVacanciesComponent').default);
 Vue.component('bookmark-vacancies-component', require('./components/vacancy/BookmarkVacanciesComponent').default);
 Vue.component('hidden-vacancies-component', require('./components/vacancy/HiddenVacanciesComponent').default);
 Vue.component('show-vacancy-component', require('./components/vacancy/ShowVacancyComponent').default);
 Vue.component('search-vacancy', require('./components/vacancy/SearchVacancyComponent').default);
 // resume
-Vue.component('create-resume-component', require('./components/resume/CreateResumeComponent').default);
-Vue.component('my-resume-component', require('./components/resume/MyResumeComponent').default);
+Vue.component('edit-resume-component', require('./components/resume/EditResumeComponent').default);
+Vue.component('my-resumes-component', require('./components/resume/MyResumesComponent').default);
+// company
+Vue.component('edit-company-component', require('./components/company/EditCompanyComponent').default);
+Vue.component('company-component', require('./components/company/CompanyComponent').default);
 // other
 Vue.component('contact_information', require('./components/contact_information/ContactInformationComponent').default);
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
-Vue.component('my-company-component', require('./components/company/MyCompanyComponent').default);
-Vue.component('company-component', require('./components/company/CompanyComponent').default);
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 
 

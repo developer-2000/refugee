@@ -26,6 +26,9 @@ class CreateUserContactsTable extends Migration
             $table->string('phone', 100)->nullable()->default(null);
             $table->boolean('check_phone')->default(false)->comment('проверка телефона');
             $table->string('messengers', 100)->nullable()->default(null)->comment('меседжеры телефона');
+            $table->unsignedBigInteger('avatar_id')->nullable()->default(null)->comment('id file avatar user');
+            $table->string('default_avatar_url')->nullable()->default(null)->comment('url default file');
+
             $table->timestamps();
         });
     }

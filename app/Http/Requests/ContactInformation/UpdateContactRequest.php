@@ -32,7 +32,8 @@ class UpdateContactRequest extends FormRequest
             'skype' => 'sometimes|nullable|string|max:255',
             'phone' => 'required|string|max:255',
             'messengers' => 'sometimes|nullable|array',
-            'messengers.*' => 'integer',
+            'youtube_arr.*' => 'integer',
+            'load_avatar' => 'sometimes|nullable|file|mimes:jpeg,png,jpg|max:528',
         ];
     }
 }

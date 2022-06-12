@@ -16,7 +16,7 @@ class UserResume extends Model
         'country' => 'json',
         'region' => 'json',
         'city' => 'json',
-        'job_posting' => 'json',
+        'resume_posting' => 'json',
     ];
 
     public function getRouteKeyName()

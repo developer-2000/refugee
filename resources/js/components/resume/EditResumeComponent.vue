@@ -3,12 +3,11 @@
         <!-- обратная ссылка -->
         <div class="top-panel bread-top-cabinet">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-            <a :href="`${lang.prefix_lang}private-office/resume/my-resume`">
+            <a :href="`${lang.prefix_lang}private-office/resume/my-resumes`">
                 Мои резюме
             </a>
             <span class="bread-slash"> | </span>
         </div>
-
         <!-- title -->
         <h1 v-if="resume_id == null" class="title_page card-body">
             Создать резюме
@@ -164,7 +163,7 @@
                     >
                         <div>
                             <label for="categories">
-                                {{trans('vacancies','category_job_posting')}}
+                                {{trans('vacancies','category_resume_posting')}}
                                 <span class="mandatory-filling">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                             </span>
@@ -425,7 +424,7 @@
                 <!-- Размещение резюме -->
                 <div class="col-sm-4">
                     <div class="form-group height-element2">
-                        <label for="job_posting">
+                        <label for="resume_posting">
                             Размещение резюме
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
                                   title="Если вы пока не готовы показывать это резюме соискателям, выберете настройку Скрытая. Эту настройку всегда можно изменить в редактировании."
@@ -433,16 +432,16 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
-                        <div id="job_posting">
+                        <div id="resume_posting">
                             <div class="icheck-primary"
                                  v-for="(value, key) in this.settings.job_status" :key="key"
                             >
-                                <input type="radio" name="job_posting"
-                                       :id="`job_posting_${key}`"
+                                <input type="radio" name="resume_posting"
+                                       :id="`resume_posting_${key}`"
                                        :value="`${key}`"
-                                       v-model="job_posting">
+                                       v-model="resume_posting">
                                 <label class="target-label"
-                                       :for="`job_posting_${key}`"
+                                       :for="`resume_posting_${key}`"
                                 >
                                     {{trans('vacancies',value)}}
                                 </label>
@@ -569,7 +568,7 @@
                 experience: 0,
                 education: 0,
                 type_employment: 0,
-                job_posting: 0,
+                resume_posting: 0,
                 objTextarea: {
                     textarea_experience: '',
                     textarea_wait: '',
@@ -611,12 +610,12 @@
             async createResume(){
                 this.alignNumbers(this.objSalary,'from','to')
                 let data = this.getValuesFields()
-                console.log(data)
+                // console.log(data)
                 const response = await this.$http.post(`/private-office/resume`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            console.log(res)
-                            // location.href = this.lang.prefix_lang+'private-office/vacancy/my-vacancies'
+                            // console.log(res)
+                            location.href = this.lang.prefix_lang+'private-office/resume/my-resumes'
                         }
                         // custom ошибки
                         else{
@@ -686,7 +685,7 @@
                     contacts: this.objDisplayEmpContVacancy.contacts,   // Отображение контактов
                     languages: this.objLanguage.languages,              // языки
                     education: this.education,                          // Образование
-                    job_posting: this.job_posting,                      // Размещение резюме
+                    resume_posting: this.resume_posting,                // Размещение резюме
                     experience: this.experience,                        // опыт работы
                     text_experience: this.objTextarea.textarea_experience,
                     text_wait: this.objTextarea.textarea_wait,                 // Ожидания от вакансии

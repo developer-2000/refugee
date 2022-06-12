@@ -82,4 +82,8 @@ class Vacancy extends Model
             ->where('user_id',$user_id);
     }
 
+    // смежная таблица для подписок
+    public function respond() {
+        return $this->hasMany(RespondVacancy::class, 'vacancy_id', 'id');
+    }
 }

@@ -84,17 +84,17 @@ Route::group([
             // Contact Information
             Route::group(['prefix'=>'contact-information'], function (){
                 Route::get('/', 'ContactInformationController@index');
-                Route::post('store', 'ContactInformationController@store');
                 Route::post('update', 'ContactInformationController@update');
             });
 
-            // my company
-            Route::group(['prefix'=>'my-company'], function (){
-                Route::get('/', 'MyCompanyController@index');
-                Route::post('store', 'MyCompanyController@store');
-                Route::post('update', 'MyCompanyController@update');
-                Route::post('check-transliteration', 'MyCompanyController@checkTransliteration');
+            // company
+            Route::group(['prefix'=>'company'], function (){
+                Route::post('update', 'CompanyController@update');
+                Route::post('check-transliteration', 'CompanyController@checkTransliteration');
             });
+            Route::resource('company', 'CompanyController')->only([
+                'create', 'store'
+            ]);
 
             // vacancies
             Route::group(['prefix'=>'vacancy'], function (){

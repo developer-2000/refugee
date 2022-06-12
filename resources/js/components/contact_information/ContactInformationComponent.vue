@@ -220,6 +220,24 @@
             </div>
         </div>
 
+        <!-- avatar -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>
+                        Аватар пользователя
+                    </label>
+                    <load_avatar_component
+                        @load_avatar='addAvatar'
+                        :lang="lang"
+                        :update_avatar_url="update_avatar_url"
+                        :update_avatar_text="`Изменить аватар`"
+                        :description_text="`${trans('respond','files')} 120pх150px (.jpg .jpeg .png) ${trans('respond','to')} 512 Kb`"
+                    ></load_avatar_component>
+                </div>
+            </div>
+        </div>
+
         <!-- button -->
         <div class="row footer-form">
             <div class="col-sm-4 offset-4 but-box">
@@ -228,28 +246,14 @@
                    class="btn btn-block btn-outline-danger btn-lg">
                     {{trans('vacancies','cancel')}}
                 </a>
-                <!-- button create -->
-                <template v-if="contact_id == null">
-                    <button type="submit" class="btn btn-block btn-primary btn-lg"
-                            :class="{'disabled': disableButton($v)}"
-                            :disabled="disableButton($v)"
-                            @click.prevent="createContact"
-                    >
-                        {{trans('vacancies','save')}}
-                    </button>
-                </template>
                 <!-- button update -->
-                <template v-else>
-                    <button type="submit" class="btn btn-block btn-primary btn-lg"
+                <button type="submit" class="btn btn-block btn-primary btn-lg"
                             :class="{'disabled': disableButton($v)}"
                             :disabled="disableButton($v)"
                             @click.prevent="updateContact"
                     >
                         {{trans('vacancies','update_vacancy')}}
                     </button>
-                </template>
-
-
             </div>
         </div>
 
@@ -261,8 +265,12 @@
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
+    import load_avatar_component from "../load_files/LoadAvatarComponent";
 
     export default {
+        components: {
+            load_avatar_component
+        },
         mixins: [
             translation,
             response_methods_mixin,
@@ -286,6 +294,8 @@
                     bool_all_filled: true,
                 },
                 position_list: [],
+                load_avatar: null,
+                update_avatar_url: null,
             }
         },
         methods: {
@@ -319,27 +329,10 @@
                         // this.messageError(err)
                     })
             },
-            async createContact(){
-                let data = this.getValuesFields()
-                const response = await this.$http.post(`/private-office/contact_information/store`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.href = this.lang.prefix_lang+'private-office'
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
             async updateContact(){
                 let data = this.getValuesFields()
-                data.contact_id = this.contact_id;
-                const response = await this.$http.post(`/private-office/contact_information/update`, data)
+                data.append('contact_id', this.contact_id);
+                const response = await this.$http.post(`/private-office/contact-information/update`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.href = this.lang.prefix_lang+'private-office'
@@ -376,7 +369,7 @@
                 let checked = document.querySelectorAll('[name="checkbox-messenger"]:checked');
                 let selected = [];
                 for (let i=0; i<checked.length; i++) {
-                    selected.push(checked[i].value);
+                    selected.push(parseInt(checked[i].value));
                 }
                 this.telObj.checkbox_messenger = selected;
             },
@@ -387,15 +380,31 @@
                 return false;
             },
             getValuesFields(){
-                return {
-                    name: this.name,
-                    surname: this.surname,
-                    position: this.position,
-                    email: this.email,
-                    skype: this.skype,
-                    phone: this.telObj.view_phone,
-                    messengers: this.telObj.checkbox_messenger,
-                };
+                let formData = new FormData;
+                formData.append('name', this.name);
+                formData.append('surname', this.surname);
+                formData.append('position', this.position);
+                formData.append('email', this.email);
+                formData.append('skype', this.skype);
+                formData.append('phone', this.telObj.view_phone);
+                let messengers = this.telObj.checkbox_messenger
+                if(messengers.length){
+                    messengers.forEach(function(value) {
+                        formData.append("messengers[]", parseInt(value))
+                    })
+                }
+                else{
+                    formData.append("messengers", '')
+                }
+
+                if(this.load_avatar !== null){
+                    formData.append('load_avatar', this.load_avatar);
+                }
+                else{
+                    formData.append('load_avatar', '');
+                }
+
+                return formData
             },
             setValuePosition(value){
                 $('#position_list').removeClass('show')
@@ -422,6 +431,10 @@
 
                 this.telObj.bool_target_input = true
             },
+
+            addAvatar(file){
+                this.load_avatar = file.file
+            },
         },
         computed: {
             // в случае редактирования company
@@ -446,6 +459,8 @@
                     input = document.querySelector('#checkbox-messenger_'+this.telObj.checkbox_messenger[i]);
                     input.checked = true;
                 }
+                // avatar
+                this.update_avatar_url = this.contact.avatar === null ? this.contact.default_avatar_url : this.contact.avatar.url
             },
         },
         props: [

@@ -170,14 +170,16 @@ class VacancyController extends BaseController {
     }
 
     /**
-     * выбрать все свои вакансии
+     * выбрать все свои вакансии для кабинета
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function myVacancies()
     {
         $settings = config('site.settings_vacancy');
         $vacancies = Vacancy::where('user_id', Auth::user()->id)
-            ->with('position')->get();
+            ->with('position')
+            ->withCount('respond')
+            ->get();
 
         return view('vacancies/my_vacancies', compact('vacancies','settings'));
     }

@@ -463,8 +463,11 @@ label{
     left: 5px;
     top: 4px;
 }
-.box-vacancy .ribbon-wrapper .euro-color .euro-star-icon {
+.euro-star-icon {
     fill: #ffa700;
+}
+.uk-star-icon {
+    fill: #003194;
 }
 .box-vacancy:hover {
     outline: 2px solid #c0ddfb;
@@ -490,16 +493,32 @@ label{
     margin: 10px -20px -5px -20px;
     padding: 15px 20px 0 20px;
 }
-.footer-vacancy .date-document{
+.date-document{
     font-size: 13px;
     font-weight: bold;
+    display: flex;
 }
+.close-document-fon{
+    background-color: #e87b85;
+    text-align: center;
+    border-radius: 13px;
+    padding: 0 10px;
+    font-weight: 100;
+    margin-left: 10px;
+}
+.close-document-border{
+    outline: 2px solid #e87b85;
+}
+
 /* color */
 .euro-color{
     background-color: #003194;
     color: white;
 }
-
+.uk-color{
+    background-color: #ffa700;
+    color: white;
+}
 
 
 

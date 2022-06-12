@@ -17,7 +17,7 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('title')->nullable()->default(null);
             $table->string('url')->nullable()->default(null);
-            $table->tinyInteger('type')->nullable()->default(null)->comment('0=logo');
+            $table->tinyInteger('type')->nullable()->default(null)->comment('0=logo, 1=avatar');
             $table->timestamps();
         });
     }

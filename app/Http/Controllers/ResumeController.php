@@ -26,7 +26,6 @@ class ResumeController extends BaseController {
         return view('resume.create_resume', compact('settings'));
     }
 
-
     public function store(StoreResumeRequest $request)
     {
         $resume = $this->repository->storeResume($request);
@@ -43,7 +42,6 @@ class ResumeController extends BaseController {
 //    {
 //        //
 //    }
-
 //    /**
 //     * Display the specified resource.
 //     *
@@ -91,9 +89,10 @@ class ResumeController extends BaseController {
 
     public function myResumes()
     {
+        $settings = $this->getSettingsResumeAndCountries();
         $resumes = UserResume::where('user_id', Auth::user()->id)
             ->with('position')->get();
-        return view('resume.my_resumes', compact('resumes'));
+        return view('resume.my_resumes', compact('resumes','settings'));
     }
 
     /**

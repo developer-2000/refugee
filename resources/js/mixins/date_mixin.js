@@ -82,6 +82,17 @@ export default {
             // разница времени
             return moment.duration(now - lastTime);
         },
+        // разница в днях у 2 дат
+        getDifferenceDays(last, now) {
+            const last_date = new Date(last);
+            const now_date = new Date(now);
+            // One day in milliseconds
+            const oneDay = 1000 * 60 * 60 * 24;
+            // разница в миллисекундах
+            const diffInTime = last_date.getTime() - now_date.getTime();
+            // сколько дней
+            return Math.round(diffInTime / oneDay);
+        },
     },
 
 }

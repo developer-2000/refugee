@@ -22,10 +22,10 @@
 @section('content')
 <div class="container">
 
-    <create-resume-component
+    <edit-resume-component
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
-    ></create-resume-component>
+    ></edit-resume-component>
 
 </div>
 @endsection

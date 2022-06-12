@@ -23,7 +23,7 @@ class CreateRespondVacanciesTable extends Migration
             $table->unsignedBigInteger('user_resume_id');
             $table->foreign('user_resume_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('textarea_letter')->nullable()->default(null);
-            $table->tinyInteger('review')->default(0)->comment('0=no, 1=yes');
+            $table->tinyInteger('review')->default(0)->comment('0=no, 1=yes - просмотр хозяином');
 
             $table->timestamps();
         });

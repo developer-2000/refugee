@@ -33,4 +33,5 @@ class User extends Authenticatable
     public function contact() {
         return $this->hasOne(UserContact::class, 'user_id', 'id');
     }
+
 }

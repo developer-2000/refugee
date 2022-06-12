@@ -32,6 +32,7 @@
         <div class="box-vacancy"
              v-for="(array, key) in arrVacancies" :key="key"
              @click="transitionToVacancy(array.vacancy.alias)"
+             :class="{'close-document-border': array.vacancy.job_posting.status_name == 'hidden' }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -51,6 +52,12 @@
                 <!-- отображение прошедшего времени -->
                 <div class="date-document">
                     {{getDateDocumentString(array.vacancy.updated_at)}} назад
+                    <!-- вакансия закрыта -->
+                    <div class="close-document-fon"
+                         v-if="array.vacancy.job_posting.status_name == 'hidden'"
+                    >
+                        Вакансия закрыта
+                    </div>
                 </div>
 
                 <!-- buttons -->

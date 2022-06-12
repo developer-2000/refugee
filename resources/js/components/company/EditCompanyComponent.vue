@@ -570,7 +570,7 @@
         methods: {
             async createCompany(){
                 let data = this.getValuesFields()
-                const response = await this.$http.post(`/private-office/my-company/store`, data)
+                const response = await this.$http.post(`/private-office/company`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.href = this.lang.prefix_lang+'private-office'
@@ -588,8 +588,7 @@
             async updateCompany(){
                 let data = this.getValuesFields()
                 data.append('company_id', this.company_id);
-
-                const response = await this.$http.post(`/private-office/my-company/update`, data)
+                const response = await this.$http.post(`/private-office/company/update`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.href = this.lang.prefix_lang+'private-office'
@@ -889,7 +888,7 @@
                     return new Promise((resolve, reject) => {
                         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
                         $.ajax({
-                            url: "/private-office/my-company/check-transliteration",
+                            url: "/private-office/company/check-transliteration",
                             method: "POST",
                             data: {
                                 alias: this.position_transliteration

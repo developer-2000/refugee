@@ -2,43 +2,25 @@
 namespace App\Repositories;
 
 use App\Http\Traits\CountPositionTraite;
+use App\Http\Traits\LoadFileMethodsTraite;
+use App\Model\Image;
 use App\Model\Position;
+use App\Model\Test;
 use App\Model\UserContact;
 use App\Model\UserContact as Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class ContactInformationRepository extends CoreRepository {
-    use CountPositionTraite;
+    use CountPositionTraite, LoadFileMethodsTraite;
 
     protected $settings;
+    protected $path_avatar;
 
     public function __construct() {
         $this->model = clone app(Model::class);
-    }
-
-    /**
-     * Создать контакт данные для user
-     * @param $request
-     * @return bool
-     */
-    public function storeContact($request){
-        // защита от повтора
-        if(UserContact::where('user_id', Auth::user()->id)->first()){
-            return true;
-        }
-
-        $arr = $this->makeArrayContact($request);
-        $arr['user_id'] = Auth::user()->id;
-
-        if($request->position != ''){
-            $position = Position::firstOrCreate(
-                ['title' => mb_strtolower($request->position, 'UTF-8')]
-            );
-            $arr['position_id'] = $position->id;
-        }
-
-        return $this->model->create($arr);
+        $this->path_avatar = '/img/avatars/contacts/';
     }
 
     public function updateContact($request){
@@ -50,9 +32,10 @@ class ContactInformationRepository extends CoreRepository {
 
         $arr = $this->makeArrayContact($request);
 
-        // удалить старое название, если оно не будет никем использоватся
+        // 1 удалить старое название, если оно не будет никем использоватся
         $this->deleteUnwantedVacancyTitle($request, $contact->position_id);
-        if($request->position != ''){
+        // 2 выбрать или создать название
+        if(!is_null($request->position)){
             $position = Position::firstOrCreate(
                 ['title' => mb_strtolower($request->position, 'UTF-8')]
             );
@@ -60,6 +43,21 @@ class ContactInformationRepository extends CoreRepository {
         }
         else{
             $arr['position_id'] = null;
+        }
+
+        // добавление / замена
+        // с фронта пришел файл avatar
+        if(!is_null($request->load_avatar)){
+            // 1 существует avatar у юзера
+            if(!is_null($contact->avatar_id)){
+                $coll = Image::find($contact->avatar_id);
+                // удалить физически
+                $this->deletePhysically($coll->url);
+            }
+            // сохранить file
+            $path = $this->savePhysically( $request->load_avatar, $this->path_avatar.date('m-Y') );
+            // сохранить данные картинки в базу
+            $arr['avatar_id'] = $this->saveImageDataToDatabase($path, $contact->avatar_id, 1);
         }
 
         return $this->model->where('id', $request->contact_id)
@@ -75,7 +73,8 @@ class ContactInformationRepository extends CoreRepository {
             'email'=>$request->email,
             'skype'=>$request->skype,
             'phone'=>$request->phone,
-            'messengers'=>array_map('intval', $request->messengers),
+            'messengers'=>!is_null($request->messengers) ? array_map('intval', $request->messengers) : [],
         ];
     }
+
 }

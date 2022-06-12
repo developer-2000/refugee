@@ -1,5 +1,20 @@
 <template>
     <div>
+        <!-- отображение прошедшего времени -->
+        <div class="date-document"
+             v-if="page === 'show'"
+        >
+            <div class="date-string">
+                {{getDateDocumentString(vacancy.updated_at)}} назад
+            </div>
+            <!-- вакансия закрыта -->
+            <div class="close-document-fon"
+                 v-if="vacancy.job_posting.status_name == 'hidden'"
+            >
+                Вакансия закрыта
+            </div>
+        </div>
+
         <!-- title company logo status -->
         <div class="box-title">
             <!-- title vacancy -->
@@ -45,6 +60,7 @@
             </template>
             <div class="clear-float"></div>
         </div>
+
         <!-- salary -->
         <div class="line-div box-salary">
             <div class="font-weight-bold salary-vacancy">
@@ -183,11 +199,14 @@
 <script>
     import general_functions_mixin from "../../../mixins/general_functions_mixin";
     import translation from "../../../mixins/translation";
+    import bookmark_vacancies_mixin from "../../../mixins/bookmark_vacancies_mixin";
+    import date_mixin from "../../../mixins/date_mixin";
 
     export default {
         mixins: [
             translation,
             general_functions_mixin,
+            date_mixin
         ],
         data() {
             return { }
@@ -237,6 +256,13 @@
 <style scoped lang="scss">
     @import "../../../../sass/variables";
 
+    .date-document{
+        margin: -8px 0 10px 0;
+        font-weight: 100;
+        .date-string{
+            border-bottom: 1px solid #dee2e6;
+        }
+    }
     svg {
         path {
             fill: #1d68a7;
