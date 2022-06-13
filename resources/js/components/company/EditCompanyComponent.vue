@@ -52,18 +52,21 @@
                 </div>
 
                 <!-- Транслитерация названия -->
-                <div class="form-group">
-                    <label for="position_transliteration">
+                <div v-if="company_id === null"
+                    class="form-group"
+                >
+                    <label>
                         {{trans('company','company_name_transliteration')}}
                         <span class="mandatory-filling">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                         </span>
                         <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                              title="sss"
+                              title="Транслитерация – это уникальная строка в url адресе, ссылающаяся на вашу компанию. Благодаря ей вы всегда можете поделится ссылкой с друзьями или коллегами. Это легко, быстро и удобно."
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                         </span>
                     </label>
+                    <i class="desc-i">Внимание! Транслитерация создаётся и изменению не подлежит. Примите решение как она будет писаться.</i>
                     <input type="text" id="position_transliteration" class="form-control" maxlength="100" autocomplete="off"
                            :placeholder="trans('company','enter_transliteration')"
                            :class="{'is-invalid': $v.position_transliteration.$error}"
@@ -475,12 +478,15 @@
                     <label>
                         {{trans('company','company_logo')}}
                     </label>
-                    <load_logotype_component
-                        @load_logotype='addLogotype'
-                        :lang="lang"
-                        :update_logotype_url="update_logotype_url"
-                        :update_logotype_text="trans('company','change_logo')"
-                    ></load_logotype_component>
+                    <!-- компонент подгрузки логотипа -->
+                    <load_image_canvas_component
+                        :url="update_logotype_url"
+                        update_avatar_text="Изменить логотип"
+                        description_text="Расширение файлов: .jpg, .jpeg, .png"
+                        width="200"
+                        height="100"
+                        @parent="returnFile"
+                    ></load_image_canvas_component>
                 </div>
             </div>
         </div>
@@ -524,7 +530,7 @@
     import translation from "../../mixins/translation";
     import localisation_functions_mixin from "../../mixins/localisation_functions_mixin";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
-    import load_logotype_component from '../load_files/LoadLogotypeComponent'
+    import load_image_canvas_component from "../load_files/LoadImageCanvasComponent";
 
     export default {
         mixins: [
@@ -533,7 +539,7 @@
             response_methods_mixin,
         ],
         components: {
-            load_logotype_component
+            load_image_canvas_component
         },
         data() {
             return {
@@ -546,8 +552,11 @@
                         ],
                     },
                 },
-                load_logotype: null,
-                update_logotype_url: null,
+                imageObj:{
+                    load_logotype: null,
+                    image_name: null,
+                },
+                update_logotype_url: 'img/company/company-default.jpg',
                 company_tax_number: '',
                 twitter_input: '',
                 telegram_input: '',
@@ -570,6 +579,7 @@
         methods: {
             async createCompany(){
                 let data = this.getValuesFields()
+                data.alias = this.position_transliteration
                 const response = await this.$http.post(`/private-office/company`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
@@ -587,7 +597,7 @@
             },
             async updateCompany(){
                 let data = this.getValuesFields()
-                data.append('company_id', this.company_id);
+                data.company_id = this.company_id
                 const response = await this.$http.post(`/private-office/company/update`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
@@ -629,79 +639,45 @@
                 }
             },
             disableButton(v) {
-                if( v.$invalid || !this.objCategory.categories.length ){
+                // v.$invalid
+                if(
+                    !v.position.required ||
+                    !v.rest_address.required ||
+                    !v.company_tax_number.required ||
+                    (this.company_id === null && (!v.position_transliteration.required || !v.position_transliteration.uniqTranslit)) ||
+                    !this.objCategory.categories.length
+                ){
                     return true;
                 }
                 return false;
             },
             getValuesFields(){
-                let formData = new FormData;
-
-                let country = this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country)
-                if(country !== null){
-                    country.forEach(function(value) {
-                        formData.append("country[]", JSON.stringify(value))
-                    })
+                let obj = {
+                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
+                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
+                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+                    categories: this.objCategory.categories,
+                    youtube_links: this.addYoutubeArr(),
+                    title: this.position,
+                    rest_address: this.rest_address,
+                    tax_number: this.company_tax_number,
+                    founding_date: this.founding_date,
+                    facebook_social: this.checkDomain(this.facebook_input, 'facebook.com') ? this.facebook_input : '',
+                    instagram_social: this.checkDomain(this.instagram_input, 'instagram.com') ? this.instagram_input : '',
+                    telegram_social: this.checkDomain(this.telegram_input, 't.me') ? this.telegram_input : '',
+                    twitter_social: this.checkDomain(this.twitter_input, 'twitter.com') ? this.twitter_input : '',
+                    site_company: this.site_company,
+                    count_working: this.count_working,
+                    about_company: this.objTextarea.about_company,
                 }
 
-                let region = this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region)
-                if(region !== null){
-                    region.forEach(function(value) {
-                        formData.append("region[]", JSON.stringify(value))
-                    })
+                let image = {
+                    name:this.imageObj.image_name,
+                    file:this.imageObj.load_logotype
                 }
-                else{
-                    formData.append("region", '')
-                }
+                obj.image = this.imageObj.load_logotype !== null ? JSON.stringify(image) : this.imageObj.load_logotype
 
-                let city = this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city)
-                if(city !== null){
-                    city.forEach(function(value) {
-                        formData.append("city[]", JSON.stringify(value))
-                    })
-                }
-                else{
-                    formData.append("city", '')
-                }
-
-                let categories = this.objCategory.categories
-                if(categories !== null){
-                    categories.forEach(function(value) {
-                        formData.append("categories[]", parseInt(value))
-                    })
-                }
-
-                let youtube_arr = this.addYoutubeArr()
-                if(youtube_arr.length){
-                    youtube_arr.forEach(function(value) {
-                        formData.append("youtube_links[]", value)
-                    })
-                }
-                else{
-                    formData.append("youtube_links", '')
-                }
-
-                formData.append('title', this.position);
-                formData.append('alias', this.position_transliteration);
-                formData.append('rest_address', this.rest_address);
-                formData.append('tax_number', this.company_tax_number);
-                formData.append('founding_date', this.founding_date);
-                formData.append('facebook_social', this.checkDomain(this.facebook_input, 'facebook.com') ? this.facebook_input : '');
-                formData.append('instagram_social', this.checkDomain(this.instagram_input, 'instagram.com') ? this.instagram_input : '');
-                formData.append('telegram_social', this.checkDomain(this.telegram_input, 't.me') ? this.telegram_input : '');
-                formData.append('twitter_social', this.checkDomain(this.twitter_input, 'twitter.com') ? this.twitter_input : '');
-                formData.append('site_company', this.site_company);
-                formData.append('count_working', this.count_working);
-                formData.append('about_company', this.objTextarea.about_company);
-
-                if(this.load_logotype !== null){
-                    formData.append('load_logotype', this.load_logotype);
-                }
-                else{
-                    formData.append('load_logotype', '');
-                }
-
-                return formData
+                return obj
             },
             // коррекция даты
             checkInsertDate(e){
@@ -714,9 +690,6 @@
                 else{
                     this.founding_date = ''
                 }
-            },
-            addLogotype(file){
-                this.load_logotype = file.file
             },
             // проверка строки на корректный url с нужным доменом
             checkDomain(address, searched_domain){
@@ -776,6 +749,10 @@
 
                 return arr
             },
+            returnFile(file){
+                this.imageObj.load_logotype = file.canvas
+                this.imageObj.image_name = file.name
+            },
         },
         computed: {
             initializationFunc() {
@@ -802,7 +779,6 @@
 
                 this.company_id = this.company.id
                 this.position = this.company.title
-                this.position_transliteration = this.company.alias
                 this.rest_address = this.company.rest_address
                 this.company_tax_number = this.company.tax_number
                 this.founding_date = this.company.founding_date === null ? '' : this.company.founding_date
@@ -826,15 +802,24 @@
                     this.objLocations.region = this.company.region.code
                     setTimeout(() => {
                         this.loadCity()
-                    }, 500);
+
+                        setTimeout(() => {
+                            if(this.company.city != null){
+                                this.objLocations.city = this.company.city.code
+                            }
+                            this.objLocations.bool_rest_address = true
+                        }, 1500);
+                        this.rest_address = this.company.rest_address
+
+                    }, 1500);
                 }
-                if(this.company.city != null){
-                    this.objLocations.city = this.company.city.code
-                }
-                setTimeout(() => {
-                    this.objLocations.bool_rest_address = true
-                }, 1000);
-                this.rest_address = this.company.rest_address
+                // if(this.company.city != null){
+                //     this.objLocations.city = this.company.city.code
+                // }
+                // setTimeout(() => {
+                //     this.objLocations.bool_rest_address = true
+                // }, 1000);
+                // this.rest_address = this.company.rest_address
 
                 // categories
                 this.objCategory.categories = this.company.categories
@@ -868,7 +853,8 @@
         ],
         mounted() {
             this.initializationFunc
-
+            // инициализация всплывающих подсказок
+            $('[data-toggle="tooltip"]').tooltip();
             // Код, который будет запущен только после отрисовки всех представлений
             this.$nextTick( () => {
                 this.setValuesFields

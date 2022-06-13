@@ -27,7 +27,8 @@ class CompanyController extends BaseController {
     public function create()
     {
         $settings = $this->getSettings();
-        $company = UserCompany::where('user_id', Auth::user()->id)->with('image')->first();
+        $company = UserCompany::where('user_id', Auth::user()->id)
+            ->with('image')->first();
 
         return view('my_company', compact('company','settings'));
     }
@@ -40,7 +41,7 @@ class CompanyController extends BaseController {
     public function store(StoreCompanyRequest $request)
     {
         $store = $this->repository->storeCompany($request);
-        return $this->getResponse($store);
+        return $this->getResponse();
     }
 
     public function update(UpdateCompanyRequest $request) {
@@ -50,9 +51,14 @@ class CompanyController extends BaseController {
         }
 
         $bool = $this->repository->updateCompany($request, $company);
-        return $this->getResponse($bool);
+        return $this->getResponse();
     }
 
+    /**
+     * показ указаной компании
+     * @param $alias
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($alias){
         $company = UserCompany::where('alias', $alias)
             ->with(

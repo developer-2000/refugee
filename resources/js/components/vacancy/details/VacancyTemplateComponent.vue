@@ -22,18 +22,30 @@
                 {{UpperCaseFirstCharacter(vacancy.position.title)}}
             </h2>
             <!-- на странице открытой вакансии -->
-            <a class="link-a" target="_blank"
-               :href="`${lang.prefix_lang}company/${vacancy.company.alias}`"
-               v-if="page === 'show'"
-            >
-                <div class="company-vacancy">
+            <template v-if="page === 'show'">
+                <!-- если компания создана -->
+                <a class="link-a" target="_blank"
+                   :href="`${lang.prefix_lang}company/${vacancy.company.alias}`"
+                   v-if="vacancy.company.user_id"
+                >
+                    <div class="company-vacancy">
                         <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
                         <img class="img-logo"
                              :src="`/${vacancy.company.image.url}`"
                              :alt="vacancy.company.image.title"
                         >
+                    </div>
+                </a>
+                <!-- если компания default -->
+                <div v-else class="default-company">
+                    <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
+                    <img class="img-logo"
+                         :src="`/${vacancy.company.image.url}`"
+                         :alt="vacancy.company.image.title"
+                    >
                 </div>
-            </a>
+            </template>
+
             <!-- на странице search vacancies -->
             <div v-if="page === 'search' || page === 'bookmark'" class="company-vacancy" >
                 <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
@@ -282,7 +294,8 @@
             float: left;
             max-width: 60%;
         }
-        .company-vacancy {
+        .company-vacancy,
+        .default-company{
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -291,9 +304,6 @@
             outline: 1px solid #dee2e6;
             padding: 0 10px 10px;
             max-width: 220px;
-            &:hover{
-                outline: 1px solid #c0ddfb;
-            }
             .img-logo {
                 width: 200px;
                 height: 100px;
@@ -303,6 +313,11 @@
                 text-align: center;
                 line-height: 21px;
                 padding: 6px 0;
+            }
+        }
+        .company-vacancy {
+            &:hover{
+                outline: 1px solid #c0ddfb;
             }
         }
         .no-verified,

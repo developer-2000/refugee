@@ -16,10 +16,9 @@ trait LoadFileMethodsTraite {
     }
 
     // сохранить file
-    public function savePhysically($file, $path){
-//        $original_name = $file->getClientOriginalName();
-        $filename = mb_strtolower(pathinfo($file->name, PATHINFO_FILENAME));
-        $extension = mb_strtolower(pathinfo($file->name, PATHINFO_EXTENSION));
+    public function savePhysically($file, $path, $old_name){
+        $filename = mb_strtolower(pathinfo($old_name, PATHINFO_FILENAME));
+        $extension = mb_strtolower(pathinfo($old_name, PATHINFO_EXTENSION));
         $name = $filename.'-'.(string)(microtime(true)*10000).'.'.$extension;
         // save
         $path = Storage::disk('app_public')->putFileAs( $path, $file->file, $name);

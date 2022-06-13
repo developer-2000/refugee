@@ -45,8 +45,7 @@ class ContactInformationRepository extends CoreRepository {
             $arr['position_id'] = null;
         }
 
-        // добавление / замена
-        // с фронта пришел файл avatar
+        // с фронта пришел image
         if(!is_null($request->image)){
             // 1 существует avatar у юзера
             if(!is_null($contact->avatar_id)){
@@ -54,9 +53,13 @@ class ContactInformationRepository extends CoreRepository {
                 // удалить физически
                 $this->deletePhysically($coll->url);
             }
-
-            // сохранить file
-            $path = $this->savePhysically( json_decode($request->image), $this->path_avatar.date('m-Y') );
+            // 2 сохранить file
+            $image = json_decode($request->image);
+            $path = $this->savePhysically(
+                $image,
+                $this->path_avatar.date('m-Y'),
+                $image->name
+            );
             // сохранить данные картинки в базу
             $arr['avatar_id'] = $this->saveImageDataToDatabase($path, $contact->avatar_id, 1);
         }

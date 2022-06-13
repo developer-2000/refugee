@@ -385,7 +385,12 @@ label{
     background-color: #ffc107;
     border-color: #ffc107;
 }
-
+.desc-i{
+    font-size: 13px;
+    color: #138496;
+    margin-top: -10px;
+    display: block;
+}
 /* select 2 */
 .select2-container {
     width: 100%!important;

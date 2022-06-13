@@ -1,10 +1,10 @@
 <template>
     <div class="load-file">
         <!-- отображение image -->
-<!--        <div @click="clickViewPhoto" :src="`/${avatar_url}`" id="view-photo"></div>-->
         <div v-show="!bool_button_canvas"
              class="box-view-photo"
         >
+            <!-- отображение image -->
             <img id="view-photo"
                  :src="`/${image_url}`"
             >
@@ -71,7 +71,6 @@
 </template>
 
 <script>
-
     import canvasFunctional from './CanvasFunctional.vue'
     import translation from "../../mixins/translation";
 
@@ -87,8 +86,8 @@
                 optionsCanvas: {
                     rotation: 0,
                     scale: 1,
-                    width: 120,
-                    height: 150,
+                    width: 0,
+                    height: 0,
                     borderRadius: 0,
                     bool_scale: true,
                     bool_rotation: false,
@@ -132,6 +131,8 @@
             'url',
             'update_avatar_text',
             'description_text',
+            'width',
+            'height',
         ],
         watch: {
             url (val) {
@@ -139,12 +140,14 @@
             }
         },
         mounted() {
-            this.image_url = this.url;
+            this.image_url = this.url
+            this.optionsCanvas.width = parseInt(this.width)
+            this.optionsCanvas.height = parseInt(this.height)
+            $('#view-photo').css({"width":this.width,"height":this.height})
         },
 
     }
 </script>
-
 
 <style lang="scss" scoped>
 
@@ -192,7 +195,6 @@
             }
         }
     }
-
     .box-canvas{
         text-align: center;
         width: 320px;
@@ -211,12 +213,6 @@
     }
     .footer_modal button{
         width: 100%;
-    }
-    #view-photo{
-        width: 120px;
-        height: 150px;
-        background-size: cover;
-        background-repeat: no-repeat;
     }
 
 </style>

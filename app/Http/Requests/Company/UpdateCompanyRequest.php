@@ -26,7 +26,6 @@ class UpdateCompanyRequest extends FormRequest
         return [
             'company_id' => 'required|integer|exists:user_companies,id',
             'title' => 'required|string|max:255',
-            'alias' => 'required|alpha_dash|max:255',
             'country' => 'required|array',
             'country.*code' => 'string',
             'region' => 'sometimes|nullable|array',
@@ -49,7 +48,7 @@ class UpdateCompanyRequest extends FormRequest
             'about_company' => 'sometimes|nullable|string',
             'youtube_arr' => 'sometimes|nullable|array',
             'youtube_arr.*' => 'string',
-            'load_logotype' => 'sometimes|nullable|file|mimes:jpeg,png,jpg|max:528',
+            'image' => 'sometimes|nullable|json',
         ];
     }
 }

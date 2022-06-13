@@ -44,11 +44,6 @@ Route::group([
     'prefix' => Localization::locale(),
 ], function () {
 
-    Route::get('test', function () {
-
-        return view('test2');
-    });
-
     Route::get('/', 'IndexController@index')->name('index');
 
     // Auth

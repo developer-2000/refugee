@@ -1,14 +1,12 @@
 <?php
 namespace App\Repositories;
 
-use App\Http\Traits\CountPositionTraite;
 use App\Http\Traits\LoadFileMethodsTraite;
 use App\Model\Image;
-use App\Model\Position;
 use App\Model\UserCompany;
 use App\Model\UserCompany as Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+
 
 class CompanyRepository extends CoreRepository {
     use LoadFileMethodsTraite;
@@ -31,10 +29,18 @@ class CompanyRepository extends CoreRepository {
         // 1
         $arr['user_id'] = Auth::user()->id;
 
-        // сохранить file
-        $path = $this->savePhysically( $request->load_logotype, $this->path_logotype.date('m-Y') );
-        // сохранить данные картинки в базу
-        $arr['logo_id'] = $this->saveImageDataToDatabase($path, null, 0);
+        // с фронта пришел image
+        if(!is_null($request->image)){
+            // сохранить file
+            $image = json_decode($request->image);
+            $path = $this->savePhysically(
+                $image,
+                $this->path_logotype.date('m-Y'),
+                $image->name
+            );
+            // сохранить данные картинки в базу
+            $arr['logo_id'] = $this->saveImageDataToDatabase($path, null, 0);
+        }
 
         // 4 существует чужой alias
         if(!is_null($this->checkTransliteration($request->alias))){
@@ -52,7 +58,7 @@ class CompanyRepository extends CoreRepository {
 
         // добавление / замена
         // с фронта пришел файл image
-        if(!is_null($request->load_logotype)){
+        if(!is_null($request->image)){
 
             // 1 существует logotype у company
             if(!is_null($company->logo_id)){
@@ -60,19 +66,15 @@ class CompanyRepository extends CoreRepository {
                 // удалить физически
                 $this->deletePhysically($coll->url);
             }
-            // 2 сохранить file логотип
-            $path = $this->savePhysically( $request->load_logotype, $this->path_logotype.date('m-Y') );
+            // 2 сохранить file
+            $image = json_decode($request->image);
+            $path = $this->savePhysically(
+                $image,
+                $this->path_logotype.date('m-Y'),
+                $image->name
+            );
             // 3 сохранить данные картинки в базу
             $arr['logo_id'] = $this->saveImageDataToDatabase($path, $company->logo_id, 0);
-        }
-
-        // 4 замена alias
-        // существует чужой alias
-        if(!is_null($this->checkTransliteration($request->alias))){
-            $arr['alias'] = $request->alias.'-'.$this->renderIndexTransliteration($request->alias);
-        }
-        else{
-            $arr['alias'] = $request->alias;
         }
 
         return $this->model->where('id', $request->company_id)
@@ -114,9 +116,9 @@ class CompanyRepository extends CoreRepository {
     private function makeArrayCompany($request){
         return [
             'title'=>$request->title,
-            'country'=>$this->convertingToJson($request->country[0]),
-            'region'=> ($request->region != null) ? $this->convertingToJson($request->region[0]) : null,
-            'city'=> ($request->city != null) ? $this->convertingToJson($request->city[0]) : null,
+            'country'=> $request->country[0],
+            'region'=> ($request->region != null) ? $request->region[0] : null,
+            'city'=> ($request->city != null) ? $request->city[0] : null,
             'rest_address'=>$request->rest_address,
             'categories'=>array_map('intval', $request->categories),
             'youtube_links'=>$request->youtube_links,
@@ -132,29 +134,4 @@ class CompanyRepository extends CoreRepository {
         ];
     }
 
-    private function convertingToJson($value){
-        $result = json_decode($value, true);
-        // ошибки нет
-        if (json_last_error() === JSON_ERROR_NONE) {
-            return $result;
-        }
-
-        return $value;
-    }
-
-//    private function saveImage($request){
-//        $path = null;
-//        if(!is_null($request->load_logotype)){
-//            $path = '/img/company/logotypes/'.date('m-Y');
-//
-//            $file = $request->load_logotype->getClientOriginalName();
-//            $filename = mb_strtolower(pathinfo($file, PATHINFO_FILENAME));
-//            $extension = mb_strtolower(pathinfo($file, PATHINFO_EXTENSION));
-//            $name = $filename.'-'.(string)(microtime(true)*10000).'.'.$extension;
-//
-//            $path = Storage::disk('app_public')->putFileAs( $path, $request->load_logotype, $name);
-//        }
-//
-//        return $path;
-//    }
 }

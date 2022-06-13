@@ -228,12 +228,14 @@
                         Аватар пользователя
                     </label>
                     <!-- компонент подгрузки аватар -->
-                    <load_avatar_component2
+                    <load_image_canvas_component
                         :url="update_avatar_url"
                         update_avatar_text="Изменить аватар"
                         description_text="Расширение файлов: .jpg, .jpeg, .png"
+                        width="120"
+                        height="150"
                         @parent="returnFile"
-                    ></load_avatar_component2>
+                    ></load_image_canvas_component>
 
                 </div>
             </div>
@@ -266,11 +268,11 @@
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
-    import load_avatar_component2 from "../load_files/LoadAvatarComponent2";
+    import load_image_canvas_component from "../load_files/LoadImageCanvasComponent";
 
     export default {
         components: {
-            load_avatar_component2
+            load_image_canvas_component
         },
         mixins: [
             translation,
@@ -378,7 +380,11 @@
                 this.telObj.checkbox_messenger = selected;
             },
             disableButton(v) {
-                if( v.$invalid || !this.telObj.bool_target_input || (this.telObj.bool_target_input && !this.telObj.bool_all_filled) ){
+                if(
+                    v.$invalid ||
+                    !this.telObj.bool_target_input ||
+                    (this.telObj.bool_target_input && !this.telObj.bool_all_filled)
+                ){
                     return true;
                 }
                 return false;

@@ -15,8 +15,16 @@ class UserCompany extends Model
         'city' => 'json',
     ];
 
+
+    /**
+     * default image в том случае если компания создана а картинка не загружена
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function image() {
-        return $this->belongsTo(Image::class, 'logo_id', 'id');
+        return $this->belongsTo(Image::class, 'logo_id', 'id')
+            ->withDefault(function ($image) {
+            $image->url = 'img/company/company-default.jpg';
+        });
     }
 
     public function vacancies() {
