@@ -376,6 +376,15 @@ label{
     background-color: #e0a800;
     border-color: #d39e00;
 }
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+.btn-outline-warning:hover {
+    color: #1f2d3d;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
 
 /* select 2 */
 .select2-container {
@@ -463,7 +472,7 @@ label{
     left: 5px;
     top: 4px;
 }
-.euro-star-icon {
+.euro-color .euro-star-icon {
     fill: #ffa700;
 }
 .uk-star-icon {

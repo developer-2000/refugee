@@ -47,15 +47,16 @@ class ContactInformationRepository extends CoreRepository {
 
         // добавление / замена
         // с фронта пришел файл avatar
-        if(!is_null($request->load_avatar)){
+        if(!is_null($request->image)){
             // 1 существует avatar у юзера
             if(!is_null($contact->avatar_id)){
                 $coll = Image::find($contact->avatar_id);
                 // удалить физически
                 $this->deletePhysically($coll->url);
             }
+
             // сохранить file
-            $path = $this->savePhysically( $request->load_avatar, $this->path_avatar.date('m-Y') );
+            $path = $this->savePhysically( json_decode($request->image), $this->path_avatar.date('m-Y') );
             // сохранить данные картинки в базу
             $arr['avatar_id'] = $this->saveImageDataToDatabase($path, $contact->avatar_id, 1);
         }

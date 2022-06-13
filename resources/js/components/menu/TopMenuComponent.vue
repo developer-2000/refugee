@@ -143,7 +143,9 @@
             <!-- / top menu -->
 
         <!-- Modal -->
-        <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal fade" id="authModal" tabindex="-1" role="dialog"
+             aria-labelledby="authModalTitle" aria-hidden="true" data-backdrop="static"
+        >
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <!-- динамически отображает компонент после клика кнопок -->

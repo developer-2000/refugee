@@ -35,6 +35,8 @@ Vue.component('contact_information', require('./components/contact_information/C
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 
+Vue.component('test-component2', require('./components/TestComponent2').default);
+
 
 const app = new Vue({
     el: '#app',

@@ -33,7 +33,7 @@ class UpdateContactRequest extends FormRequest
             'phone' => 'required|string|max:255',
             'messengers' => 'sometimes|nullable|array',
             'youtube_arr.*' => 'integer',
-            'load_avatar' => 'sometimes|nullable|file|mimes:jpeg,png,jpg|max:528',
+            'image' => 'sometimes|nullable|json',
         ];
     }
 }

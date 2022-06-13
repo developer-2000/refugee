@@ -227,13 +227,14 @@
                     <label>
                         Аватар пользователя
                     </label>
-                    <load_avatar_component
-                        @load_avatar='addAvatar'
-                        :lang="lang"
-                        :update_avatar_url="update_avatar_url"
-                        :update_avatar_text="`Изменить аватар`"
-                        :description_text="`${trans('respond','files')} 120pх150px (.jpg .jpeg .png) ${trans('respond','to')} 512 Kb`"
-                    ></load_avatar_component>
+                    <!-- компонент подгрузки аватар -->
+                    <load_avatar_component2
+                        :url="update_avatar_url"
+                        update_avatar_text="Изменить аватар"
+                        description_text="Расширение файлов: .jpg, .jpeg, .png"
+                        @parent="returnFile"
+                    ></load_avatar_component2>
+
                 </div>
             </div>
         </div>
@@ -265,11 +266,11 @@
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
-    import load_avatar_component from "../load_files/LoadAvatarComponent";
+    import load_avatar_component2 from "../load_files/LoadAvatarComponent2";
 
     export default {
         components: {
-            load_avatar_component
+            load_avatar_component2
         },
         mixins: [
             translation,
@@ -296,6 +297,7 @@
                 position_list: [],
                 load_avatar: null,
                 update_avatar_url: null,
+                image_name: null,
             }
         },
         methods: {
@@ -331,10 +333,12 @@
             },
             async updateContact(){
                 let data = this.getValuesFields()
-                data.append('contact_id', this.contact_id);
+                data.contact_id = this.contact_id
+
                 const response = await this.$http.post(`/private-office/contact-information/update`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
+                            // console.log(res)
                             location.href = this.lang.prefix_lang+'private-office'
                         }
                         // custom ошибки
@@ -380,31 +384,23 @@
                 return false;
             },
             getValuesFields(){
-                let formData = new FormData;
-                formData.append('name', this.name);
-                formData.append('surname', this.surname);
-                formData.append('position', this.position);
-                formData.append('email', this.email);
-                formData.append('skype', this.skype);
-                formData.append('phone', this.telObj.view_phone);
-                let messengers = this.telObj.checkbox_messenger
-                if(messengers.length){
-                    messengers.forEach(function(value) {
-                        formData.append("messengers[]", parseInt(value))
-                    })
-                }
-                else{
-                    formData.append("messengers", '')
+                let obj = {
+                    name: this.name,
+                    surname: this.surname,
+                    position: this.position,
+                    email: this.email,
+                    skype: this.skype,
+                    phone: this.telObj.view_phone,
+                    messengers: this.telObj.checkbox_messenger,
                 }
 
-                if(this.load_avatar !== null){
-                    formData.append('load_avatar', this.load_avatar);
+                let image = {
+                    name:this.image_name,
+                    file:this.load_avatar
                 }
-                else{
-                    formData.append('load_avatar', '');
-                }
+                obj.image = this.load_avatar !== null ? JSON.stringify(image) : this.load_avatar
 
-                return formData
+                return obj
             },
             setValuePosition(value){
                 $('#position_list').removeClass('show')
@@ -431,9 +427,9 @@
 
                 this.telObj.bool_target_input = true
             },
-
-            addAvatar(file){
-                this.load_avatar = file.file
+            returnFile(file){
+                this.load_avatar = file.canvas
+                this.image_name = file.name
             },
         },
         computed: {
