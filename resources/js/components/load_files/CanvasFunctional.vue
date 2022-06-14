@@ -72,12 +72,33 @@
             rotation: {
                 default: 0
             },
+            format_files: {
+                default: ['.pdf', '.docx', '.doc', '.txt']
+            },
         },
         methods: {
+            // удалить если не тот формат файла
+            filterDelete(file, size=2097152, name) {
+                // if (file[0].size > size){
+                //     file = []
+                // }
+                // проверка разширения у файла
+                if ( !(new RegExp('(' + this.format_files.join('|').replace(/\./g, '\\.') + ')$')).test(name) ) {
+                    file = []
+                }
+                return file
+            },
             fileSelected (e) {
                 var files = e.target.files || e.dataTransfer.files;
-
                 if (!files.length) { return; }
+
+                // проверка файла
+                let name = files[0].name
+                files = this.filterDelete(files, 0, name)
+                if(!files.length) {
+                    this.$emit('error_format', name);
+                    return;
+                }
 
                 this.$emit('returnName', files[0].name);
                 this.$emit('parent', true);

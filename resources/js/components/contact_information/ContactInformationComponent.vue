@@ -230,13 +230,14 @@
                     <!-- компонент подгрузки аватар -->
                     <load_image_canvas_component
                         :url="update_avatar_url"
+                        :format_files="format_files"
                         update_avatar_text="Изменить аватар"
                         description_text="Расширение файлов: .jpg, .jpeg, .png"
                         width="120"
                         height="150"
                         @parent="returnFile"
+                        @error_format="errorFormat"
                     ></load_image_canvas_component>
-
                 </div>
             </div>
         </div>
@@ -300,6 +301,7 @@
                 load_avatar: null,
                 update_avatar_url: null,
                 image_name: null,
+                format_files: ['.jpg', '.jpeg', '.png'],
             }
         },
         methods: {
@@ -436,6 +438,9 @@
             returnFile(file){
                 this.load_avatar = file.canvas
                 this.image_name = file.name
+            },
+            errorFormat(name) {
+                this.message('File ' + name + ' unacceptable. allowed (.jpg, .jpeg, .png)', 'error', 5000, false, true);
             },
         },
         computed: {

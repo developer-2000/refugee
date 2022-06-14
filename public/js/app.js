@@ -3505,6 +3505,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -3545,7 +3547,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         input_youtube: {},
         tick_youtube: 0,
         dynamic_id: 0
-      }
+      },
+      format_files: ['.jpg', '.jpeg', '.png']
     };
   },
   methods: {
@@ -3762,6 +3765,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     returnFile: function returnFile(file) {
       this.imageObj.load_logotype = file.canvas;
       this.imageObj.image_name = file.name;
+    },
+    errorFormat: function errorFormat(name) {
+      this.message('File ' + name + ' unacceptable. allowed (.jpg, .jpeg, .png)', 'error', 5000, false, true);
     }
   },
   computed: {
@@ -4219,6 +4225,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -4249,7 +4256,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       position_list: [],
       load_avatar: null,
       update_avatar_url: null,
-      image_name: null
+      image_name: null,
+      format_files: ['.jpg', '.jpeg', '.png']
     };
   },
   methods: {
@@ -4417,6 +4425,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     returnFile: function returnFile(file) {
       this.load_avatar = file.canvas;
       this.image_name = file.name;
+    },
+    errorFormat: function errorFormat(name) {
+      this.message('File ' + name + ' unacceptable. allowed (.jpg, .jpeg, .png)', 'error', 5000, false, true);
     }
   },
   computed: {
@@ -4569,15 +4580,42 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     rotation: {
       "default": 0
+    },
+    format_files: {
+      "default": ['.pdf', '.docx', '.doc', '.txt']
     }
   },
   methods: {
+    // удалить если не тот формат файла
+    filterDelete: function filterDelete(file) {
+      var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2097152;
+      var name = arguments.length > 2 ? arguments[2] : undefined;
+
+      // if (file[0].size > size){
+      //     file = []
+      // }
+      // проверка разширения у файла
+      if (!new RegExp('(' + this.format_files.join('|').replace(/\./g, '\\.') + ')$').test(name)) {
+        file = [];
+      }
+
+      return file;
+    },
     fileSelected: function fileSelected(e) {
       var _this = this;
 
       var files = e.target.files || e.dataTransfer.files;
 
       if (!files.length) {
+        return;
+      } // проверка файла
+
+
+      var name = files[0].name;
+      files = this.filterDelete(files, 0, name);
+
+      if (!files.length) {
+        this.$emit('error_format', name);
         return;
       }
 
@@ -5178,6 +5216,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5194,7 +5233,8 @@ __webpack_require__.r(__webpack_exports__);
         height: 0,
         borderRadius: 0,
         bool_scale: true,
-        bool_rotation: false
+        bool_rotation: false,
+        format_files: ['.pdf', '.docx', '.doc', '.txt']
       },
       bool_button_canvas: false,
       image_url: '',
@@ -5229,9 +5269,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setName: function setName(name) {
       this.image_name = name;
+    },
+    errorFormat: function errorFormat(name) {
+      this.$emit('error_format', name);
     }
   },
-  props: ['url', 'update_avatar_text', 'description_text', 'width', 'height'],
+  props: ['url', 'update_avatar_text', 'description_text', 'width', 'height', 'format_files'],
   watch: {
     url: function url(val) {
       this.image_url = val;
@@ -74612,12 +74655,13 @@ var render = function () {
             _c("load_image_canvas_component", {
               attrs: {
                 url: _vm.update_logotype_url,
+                format_files: _vm.format_files,
                 update_avatar_text: "Изменить логотип",
                 description_text: "Расширение файлов: .jpg, .jpeg, .png",
                 width: "200",
                 height: "100",
               },
-              on: { parent: _vm.returnFile },
+              on: { parent: _vm.returnFile, error_format: _vm.errorFormat },
             }),
           ],
           1
@@ -75429,12 +75473,13 @@ var render = function () {
             _c("load_image_canvas_component", {
               attrs: {
                 url: _vm.update_avatar_url,
+                format_files: _vm.format_files,
                 update_avatar_text: "Изменить аватар",
                 description_text: "Расширение файлов: .jpg, .jpeg, .png",
                 width: "120",
                 height: "150",
               },
-              on: { parent: _vm.returnFile },
+              on: { parent: _vm.returnFile, error_format: _vm.errorFormat },
             }),
           ],
           1
@@ -75749,11 +75794,13 @@ var render = function () {
             rotation: _vm.optionsCanvas.rotation,
             scale: _vm.optionsCanvas.scale,
             borderRadius: _vm.optionsCanvas.borderRadius,
+            format_files: _vm.format_files,
           },
           on: {
             "vue-avatar-editor:image-ready": _vm.onImageReady,
             parent: _vm.selectFile,
             returnName: _vm.setName,
+            error_format: _vm.errorFormat,
           },
         }),
         _vm._v(" "),

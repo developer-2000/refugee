@@ -19,7 +19,6 @@
             </div>
         </div>
 
-
         <div v-show="bool_button_canvas"
              class="box-canvas"
         >
@@ -30,10 +29,12 @@
                 :rotation=optionsCanvas.rotation
                 :scale=optionsCanvas.scale
                 :borderRadius=optionsCanvas.borderRadius
+                :format_files=format_files
                 ref="vueavatar"
                 @vue-avatar-editor:image-ready="onImageReady"
                 @parent="selectFile"
                 @returnName="setName"
+                @error_format="errorFormat"
             >
             </canvas-functional>
 
@@ -91,6 +92,7 @@
                     borderRadius: 0,
                     bool_scale: true,
                     bool_rotation: false,
+                    format_files: ['.pdf', '.docx', '.doc', '.txt'],
                 },
                 bool_button_canvas: false,
                 image_url: '',
@@ -126,6 +128,9 @@
             setName(name) {
                 this.image_name = name
             },
+            errorFormat(name) {
+                this.$emit('error_format', name);
+            },
         },
         props: [
             'url',
@@ -133,6 +138,7 @@
             'description_text',
             'width',
             'height',
+            'format_files',
         ],
         watch: {
             url (val) {
