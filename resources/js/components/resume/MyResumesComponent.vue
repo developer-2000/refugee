@@ -33,48 +33,38 @@
             </div>
         </div>
         <div v-else class="desc-helper-italic">
-            Помогает отслеживать и иметь быстрый доступ к необходимому резюме.
+            Помогает отслеживать и иметь полный доступ к своим резюме.
         </div>
 
         <!-- resumes -->
-        <div class="box-vacancy"
-             v-for="(resume, key) in resumes" :key="key"
-             :data-alias="resume.alias"
-        >
-            <!-- лента -->
-            <div class="ribbon-wrapper">
-                <div class="ribbon uk-color">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="uk-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
-                </div>
-            </div>
-            <!-- left -->
-            <div class="left-site">
-                <!-- resume -->
-                <resume_template
-                    :resume="resume"
-                    :settings="settings"
-                    :lang="lang"
+        <template v-for="(resume, key) in resumes">
 
-                ></resume_template>
+            <!-- 1 резюме сайта -->
+            <template v-if="resume.type === 0">
+                <div class="box-vacancy"
+                     :key="key"
+                     :data-alias="resume.alias"
+                >
 
-                <div class="footer-vacancy">
-                    <!-- отображение прошедшего времени -->
-                    <div class="date-document">
-                        {{getDateDocumentString(resume.updated_at)}} назад
+                    <!-- лента -->
+                    <div class="ribbon-wrapper">
+                        <div class="ribbon uk-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="uk-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
+                        </div>
                     </div>
 
-                    <!-- статус -->
-                    <div class="mode-vacancy"
-                         v-html="getStatus(resume.resume_posting)"
-                    >
-                    </div>
+                    <!-- resume -->
+                    <resume_template
+                        :resume="resume"
+                        :settings="settings"
+                        :lang="lang"
+                        :page="'my_resumes'"
+                    ></resume_template>
+
                 </div>
+            </template>
 
-            </div>
-            <!-- right -->
-
-        </div>
-
+        </template>
 
 
     </div>
@@ -86,6 +76,7 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import resume_template from "./details/ResumeTemplateComponent";
+    import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
 
     export default {
         components: {
@@ -95,37 +86,13 @@
             translation,
             date_mixin,
             general_functions_mixin,
+            bookmark_vacancies_mixin,
         ],
         data() {
             return {
             }
         },
         methods: {
-            // статус и дни вакансии
-            getStatus(statusObj){
-                let html_status = '<div class="mode standard">'
-                html_status += statusObj.status_name
-                html_status += '</div>'
-
-                if(statusObj.status_name == 'hidden'){
-                    html_status += '<div class="balance-mode">'
-                    html_status += '~ 0 дней'
-                }
-                else{
-                    // прибавить месяц к дате пуюликации
-                    let create_date = new Date(statusObj.create_time)
-                    create_date.setMonth(create_date.getMonth() + 1)
-                    // сколько осталось дней у публикации
-                    let count_day = this.getDifferenceDays(create_date, Date.now())
-
-                    html_status += '<div class="balance-mode standard">'
-                    html_status += '~ '+count_day+' дней'
-                }
-
-                html_status += '</div>'
-
-                return html_status
-            },
             initialData(){
                 // зарплата
                 $('.box-salary').css('margin-top','0')
@@ -149,7 +116,7 @@
                         if (!parent) return;
 
                         let alias = $(parent).attr('data-alias')
-                        this.transitionToVacancy(alias)
+                        this.transitionToResume(alias)
                     })
                 } );
             }
@@ -162,7 +129,7 @@
         mounted() {
             this.initialData()
 
-            console.log(this.resumes)
+            // console.log(this.resumes)
         },
     }
 </script>
@@ -187,45 +154,21 @@
                 color: $black;
                 margin-right: 4px;
                 white-space: nowrap;
-
                 svg {
                     width: 12px;
                     margin-bottom: 2px;
-
                     path {
                         fill: $euro-color-blue;
                     }
                 }
             }
         }
-        .left-site{
-            width: 100%;
-        }
-        .right-site {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-self: stretch;
-            align-items: flex-end;
-
-            .response-vacancy {
-                text-align: center;
-                font-weight: 600;
-                line-height: 22px;
-                margin-right: 5px;
-            }
-
-            .button-vacancy {
-                display: flex;
-
-                & > button {
-                    margin-right: 10px;
-                }
-            }
-        }
     }
     #create-vacancy{
         width: 175px;
+    }
+    .mode-vacancy{
+        margin: 0 20px 0 0;
     }
 
 </style>

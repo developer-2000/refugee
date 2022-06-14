@@ -47,92 +47,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="euro-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
                 </div>
             </div>
-            <!-- left -->
-            <div class="left-site">
-                <!-- vacancy -->
-                <vacancy_template
-                    :vacancy="vacancy"
-                    :settings="settings"
-                    :lang="lang"
-                    :page="'my_vacancy'"
-                ></vacancy_template>
 
-                <div class="footer-vacancy">
-                    <!-- отображение прошедшего времени -->
-                    <div class="date-document">
-                        {{getDateDocumentString(vacancy.updated_at)}} назад
-                    </div>
+            <!-- vacancy -->
+            <vacancy_template
+                :vacancy="vacancy"
+                :settings="settings"
+                :lang="lang"
+                :page="'my_vacancies'"
+            ></vacancy_template>
 
-                    <!-- статус -->
-                    <div class="mode-vacancy"
-                         v-html="getStatus(vacancy.job_posting)"
-                    >
-                    </div>
-                </div>
-
-            </div>
-            <!-- right -->
-            <div class="right-site">
-                <!-- отклики -->
-                <div class="response-vacancy">
-                    <a href="#">
-                        <div class="response-num">
-                            {{vacancy.respond_count}}
-                        </div>
-                        {{trans('vacancies','responses')}}
-                    </a>
-                </div>
-                <!-- button -->
-                <div class="button-vacancy">
-                    <!-- Разместить -->
-                    <button type="button" class="btn btn-block btn-outline-primary"
-                            v-if="vacancy.job_posting.status_name == 'hidden'"
-                            @click="changeStatus($event, vacancy.id, 0)"
-                    >
-                        {{trans('vacancies','post')}}
-                    </button>
-                    <!-- menu -->
-                    <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{trans('vacancies','functions')}}
-                        </button>
-                        <div class="dropdown-menu">
-                            <!-- скрыть -->
-                            <a class="dropdown-item" href="#"
-                               v-if="vacancy.job_posting.status_name == 'standard'"
-                               @click="changeStatus($event, vacancy.id, 1)"
-                            >
-                                {{trans('vacancies','hide')}}
-                            </a>
-                            <!-- обновить -->
-                            <a class="dropdown-item" href="#"
-                               v-if="vacancy.job_posting.status_name == 'standard'"
-                               @click="changeStatus($event, vacancy.id, 0)"
-                            >
-                                {{trans('vacancies','update')}}
-                            </a>
-                            <!-- редактировать -->
-                            <a class="dropdown-item"
-                               :href="`${lang.prefix_lang}private-office/vacancy/${vacancy.id}/edit`"
-                            >
-                                {{trans('vacancies','edit')}}
-                            </a>
-                            <!-- скопировать -->
-                            <a class="dropdown-item" href="#"
-                               @click="duplicateVacancy($event, vacancy.id)"
-                            >
-                                {{trans('vacancies','copy')}}
-                            </a>
-                            <!-- удалить -->
-                            <a class="dropdown-item" href="#"
-                               @click="deleteVacancy($event, vacancy.id)"
-                            >
-                                {{trans('vacancies','delete')}}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -160,90 +83,6 @@
             }
         },
         methods: {
-            async changeStatus(event, id, index){
-                event.stopPropagation()
-                let data = {
-                    id: id,
-                    index: index
-                };
-                const response = await this.$http.post(`/private-office/vacancy/up-vacancy-status`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            async duplicateVacancy(event, id){
-                event.stopPropagation()
-                let data = {
-                    id: id,
-                };
-                const response = await this.$http.post(`/private-office/vacancy/duplicate-vacancy`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            async deleteVacancy(event, id){
-                event.stopPropagation()
-                const response = await this.$http.destroy(`/private-office/vacancy/` + id, {})
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                            // console.log(res)
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            // статус и дни вакансии
-            getStatus(statusObj){
-                let html_status = '<div class="mode standard">'
-                html_status += statusObj.status_name
-                html_status += '</div>'
-
-                if(statusObj.status_name == 'hidden'){
-                    html_status += '<div class="balance-mode">'
-                    html_status += '~ 0 дней'
-                }
-                else{
-                    // прибавить месяц к дате пуюликации
-                    let create_date = new Date(statusObj.create_time)
-                    create_date.setMonth(create_date.getMonth() + 1)
-                    // сколько осталось дней у публикации
-                    let count_day = this.getDifferenceDays(create_date, Date.now())
-
-                    html_status += '<div class="balance-mode standard">'
-                    html_status += '~ '+count_day+' дней'
-                }
-
-                html_status += '</div>'
-
-                return html_status
-            },
             initialData(){
                 // зарплата
                 $('.box-salary').css('margin-top','0')
@@ -303,39 +142,12 @@
                 color: $black;
                 margin-right: 4px;
                 white-space: nowrap;
-
                 svg {
                     width: 12px;
                     margin-bottom: 2px;
-
                     path {
                         fill: $euro-color-blue;
                     }
-                }
-            }
-        }
-        .left-site{
-            width: 100%;
-        }
-        .right-site {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-self: stretch;
-            align-items: flex-end;
-            .response-vacancy {
-                text-align: center;
-                font-weight: 600;
-                line-height: 22px;
-                margin-right: 5px;
-            }
-            .button-vacancy {
-                display: flex;
-                margin: 0 -20px -11px 0;
-                border-top: 1px solid #dee2e6;
-                padding: 10px 20px 0 0;
-                & > button {
-                    margin-right: 10px;
                 }
             }
         }
@@ -346,6 +158,7 @@
     .mode-vacancy{
         margin: 0 20px 0 0;
     }
+
 </style>
 
 

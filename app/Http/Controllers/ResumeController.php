@@ -33,6 +33,20 @@ class ResumeController extends BaseController {
     }
 
 
+    /**
+     * Все мои резюме в офисе
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myResumes()
+    {
+        $settings = $this->getSettingsResumeAndCountries();
+        $resumes = UserResume::where('user_id', Auth::user()->id)
+            ->with('position', 'contact.avatar')
+            ->withCount('respond')
+            ->get();
+
+        return view('resume.my_resumes', compact('resumes','settings'));
+    }
 //    /**
 //     * Display a listing of the resource.
 //     *
@@ -87,13 +101,7 @@ class ResumeController extends BaseController {
 //        //
 //    }
 
-    public function myResumes()
-    {
-        $settings = $this->getSettingsResumeAndCountries();
-        $resumes = UserResume::where('user_id', Auth::user()->id)
-            ->with('position')->get();
-        return view('resume.my_resumes', compact('resumes','settings'));
-    }
+
 
     /**
      * настройки параметров и страны сайта

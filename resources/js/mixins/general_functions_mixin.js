@@ -38,6 +38,7 @@ export default {
             if (typeof value !== 'string') {
                 return ''
             }
+            value = value.toLowerCase();
             return value.charAt(0).toUpperCase() + value.slice(1)
         },
         // скопировать в буфер обмена

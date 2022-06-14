@@ -49,8 +49,8 @@ class ResumeRepository extends CoreRepository {
             'contacts'=>$request->contacts,
             'languages'=>$request->languages,
             'education'=>$request->education,
-            'resume_posting'=>[
-                'status_name'=> $this->settings->job_status[$request->resume_posting],
+            'job_posting'=>[
+                'status_name'=> $this->settings->job_status[$request->job_posting],
                 'create_time'=>now(),
             ],
             'experience'=>$request->experience,

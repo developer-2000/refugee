@@ -6,7 +6,7 @@ return [
 
     'your_personal_vacancies'=>'Your own vacancies are displayed on this page. You have access to manage them and view the responses of applicants to them.',
     'and_start_receiving'=>'and start receiving interested workers.',
-    'helps_you_track_have'=>'Helps you track and have quick access to the right job.',
+    'helps_you_track_have'=>'Helps you track and have full access to your jobs.',
     'job_search'=>'Job search',
     'search'=>'Search',
     'search_2'=>'Search',

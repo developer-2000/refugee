@@ -126,14 +126,21 @@
     <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
     <script src="{{asset('js/admin_lte/adminlte.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-{{--    <script src="http://momentjs.com/downloads/moment.js"></script>--}}
-{{--    <script src="https://momentjs.com/downloads/moment-timezone-with-data.min.js"></script>--}}
+
+
 
 @section('scripts')
     <script>
         jQuery(document).ready(function(){
         });
+
+        (function () {
+            window.Laravel = {
+                csrfToken: '{{ csrf_token() }}'
+            };
+        })();
     </script>
+
 @show
 </body>
 </html>

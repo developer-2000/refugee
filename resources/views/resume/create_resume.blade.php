@@ -10,6 +10,8 @@
     <!-- InputMask -->
     <script src="{{asset('js/inputmask/jquery.inputmask.bundle.min.js')}}" defer></script>
 
+
+
     <script>
         jQuery(document).ready(function(){
             //Initialize Select2 Elements

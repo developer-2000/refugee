@@ -12,13 +12,13 @@ export default {
             const timeDiff = this.returnTimeDifference(new Date(), date)
             let timeMessage = "";
 
-            // if(timeDiff.years() > 0){
-            //     timeMessage = timeDiff.years()+ " лет "
-            // }
+            if(timeDiff.years() > 0){
+                timeMessage = timeDiff.years()+ ` ${this.getTitleDate('years', timeDiff.days())} `
+            }
             // if(timeDiff.months() > 0){
             //     timeMessage += timeDiff.years()+ " месяц "
             // }
-            if(timeDiff.days() > 0){
+            else if(timeDiff.days() > 0){
                 timeMessage = timeDiff.days()+ ` ${this.getTitleDate('days', timeDiff.days())} `
                 if(timeDiff.hours() > 0){
                     timeMessage += timeDiff.hours()+ ` ${this.getTitleDate('hours', timeDiff.hours())} `
@@ -46,6 +46,11 @@ export default {
         getTitleDate(period, num){
             let index = ''
             let obj = {
+                years : [
+                    [[1,21,31,41,51,61,71,81,91], 'год'],
+                    [[2,3,4,22,23,24,32,33,34,42,43,44,52,53,54,62,63,64,72,73,74,82,83,84,92,93,94], 'года'],
+                    [[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,15,16,17,18,19,20,25,26,27,28,29,30,35,36,37,38,39,40,45,46,47,48,49,50,55,56,57,58,59,60,65,66,67,68,69,70,75,76,77,78,79,80,85,86,87,88,89,90,95,96,97,98,99,100], 'лет'],
+                ],
                 days : [
                     [[1,21,31], 'день'],
                     [[2,3,4,22,23,24], 'дня'],
@@ -80,7 +85,7 @@ export default {
             // var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
             let lastTime = new Date(date)
             // разница времени
-            return moment.duration(now - lastTime);
+            return moment.duration(now - lastTime)
         },
         // разница в днях у 2 дат
         getDifferenceDays(last, now) {

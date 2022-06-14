@@ -45,7 +45,7 @@ class StoreResumeRequest extends FormRequest
             'languages' => 'sometimes|array',
             'languages.*' => 'integer',
             'education' => 'required|integer|in:0,1,2,3,4',
-            'resume_posting' => 'required|integer|in:0,1',
+            'job_posting' => 'required|integer|in:0,1',
             'experience' => 'required|integer|in:0,1,2,3',
             'text_experience' => 'sometimes|nullable|string',
             'text_wait' => 'sometimes|nullable|string',

@@ -37,5 +37,8 @@ export default {
         transitionToVacancy(vacancy_alias){
             location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias
         },
+        transitionToResume(vacancy_alias){
+            location.href = this.lang.prefix_lang+'resume/'+vacancy_alias
+        },
     },
 }

@@ -39,7 +39,7 @@ class CreateUserResumesTable extends Migration
             $table->text('text_experience')->nullable()->default(null)->comment('описание опыта');
             $table->text('text_wait')->nullable()->default(null)->comment('ожидания от вакансии');
             $table->text('text_achievements')->nullable()->default(null)->comment('свои достижения');
-            $table->string('resume_posting')->nullable()->default(null)->comment('0=hidden, 1=open - открывает хозяин');
+            $table->string('job_posting')->nullable()->default(null)->comment('статус вакансии - стандарт, скрытая');
             $table->tinyInteger('published')->default(0)->comment('0=close, 1=open - проверка админом');
 
             $table->timestamps();
