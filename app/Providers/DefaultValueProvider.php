@@ -1,9 +1,9 @@
 <?php
 namespace App\Providers;
 
-use App\Model\RespondVacancy;
-use App\Model\Vacancy;
+use App\Repositories\RespondResumeRepository;
 use App\Repositories\RespondVacancyRepository;
+use App\Repositories\ResumeRepository;
 use App\Repositories\VacancyRepository;
 use App\Services\LanguageService;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +23,8 @@ class DefaultValueProvider extends ServiceProvider {
             $user = Auth::user();
             // передает количество не прочтанных откликов на мои вакансии и резюме
             $respond = [
-                "count_vacancies" => (new RespondVacancyRepository())->getCountRespondVacancies(new  VacancyRepository()),
-                "count_resume" => 0
+                "count_vacancies" => (new RespondVacancyRepository())->getCountRespondVacancies(new VacancyRepository()),
+                "count_resumes" => (new RespondResumeRepository())->getCountRespondResumes(new ResumeRepository()),
             ];
 
             $view->with(compact('lang','user', 'respond'));

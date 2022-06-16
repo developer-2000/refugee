@@ -25,11 +25,8 @@ class RespondResumeRequest extends FormRequest
     {
         return [
             'resume_id' => 'required|integer|exists:user_resumes,id',
-            'bool_tab' => 'required|integer|in:0,1',
-            'vacancy_id' => 'sometimes|nullable|integer|exists:vacancies,id',
+            'vacancy_id' => 'required|integer|exists:vacancies,id',
             'textarea_letter' => 'sometimes|nullable|string',
-            'old_file_id' => 'sometimes|nullable|integer|exists:user_resumes,id',
-            'new_file' => 'sometimes|nullable|file|mimes:pdf,docx,doc,txt|max:2058',
         ];
     }
 }

@@ -37,7 +37,6 @@ class RespondController extends BaseController {
      */
     public function respondResume(RespondResumeRequest $request) {
         $respond = $this->repositoryResume->respondResume($request);
-
         return $this->getResponse();
     }
 }

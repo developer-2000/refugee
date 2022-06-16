@@ -5476,6 +5476,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5554,7 +5563,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this.onlyNextLanguage();
       this.openModalChangePassword();
       this.urlTransitions();
-      this.total_count_responses = this.respond.count_vacancies + this.respond.count_resume;
+      this.total_count_responses = this.respond.count_vacancies + this.respond.count_resumes;
       $('#authModal').on('hidden.bs.modal', function (e) {
         _this.deleteStorage();
       });
@@ -6856,68 +6865,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -6925,30 +6872,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  delimiters: ['${', '}'],
-  // Avoid Twig conflicts
   components: {
     'bookmark_buttons': _details_BookmarkButtonsResumeComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'resume_template': _details_ResumeTemplateComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    'drag_drop_file': _load_files_DragDropFileComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
+    'resume_template': _details_ResumeTemplateComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_general_functions_mixin__WEBPACK_IMPORTED_MODULE_5__["default"]],
   data: function data() {
     return {
-      respond_bool: true,
+      respond_bool: false,
       vacancyObj: {
         vacancy_id: null,
-        bool_letter: false,
-        bool_tab: 1
+        bool_letter: false
       },
       objTextarea: {
         textarea_letter: '',
         editorConfig1: {
           toolbar: [['Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList', 'Link']]
         }
-      },
-      filelist: [],
-      file_vacancy: null
+      }
     };
   },
   methods: {
@@ -6963,15 +6904,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 formData = new FormData();
                 formData.append('resume_id', _this.resume.id);
-                formData.append('bool_tab', _this.vacancyObj.bool_tab);
                 formData.append('vacancy_id', _this.vacancyObj.vacancy_id !== null ? _this.vacancyObj.vacancy_id : '');
                 formData.append('textarea_letter', _this.objTextarea.textarea_letter);
-                formData.append('old_file_id', _this.file_vacancy !== null ? _this.file_vacancy.id : '');
-                formData.append('new_file', _this.filelist.length ? _this.filelist[0] : '');
-                _context.next = 9;
+                _context.next = 6;
                 return _this.$http.post("/respond-resume", formData).then(function (res) {
                   if (_this.checkSuccess(res)) {
-                    console.log(res.data.message); // location.reload()
+                    location.reload();
                   } // custom ошибки
                   else {
                     _this.message(res.data.message, 'error', 10000, true);
@@ -6981,10 +6919,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.messageError(err);
                 });
 
-              case 9:
+              case 6:
                 response = _context.sent;
 
-              case 10:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -6996,18 +6934,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     goToConversation: function goToConversation() {
       console.log('go');
     },
-    makeBackUrl: function makeBackUrl() {
-      var url = '&#060; ';
-
-      if (this.back_url !== undefined && this.back_url[0][0].name !== null) {
-        this.back_url[0].forEach(function (item, i, arr) {
-          console.log(i + ": " + item.name);
-          url += '&nbsp; <a href="/' + item.url + '">' + item.name + '</a>&nbsp; |';
-        });
-      }
-
-      return url;
-    },
+    // Найти похожие вакансии
     findSimilarResume: function findSimilarResume() {
       var params = new URLSearchParams(window.location.search);
       params["delete"]('categories');
@@ -7017,6 +6944,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       params.sort();
       location.href = this.lang.prefix_lang + 'resume?' + params.toString();
     },
+    // скрол винз к respond
     scrollRespond: function scrollRespond() {
       if (this.checkAuth(window.location.pathname)) {
         this.respond_bool = true;
@@ -7029,24 +6957,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     disableButton: function disableButton() {
-      if (this.vacancyObj.bool_tab && !this.vacancyObj.vacancy_id || !this.vacancyObj.bool_tab && !this.filelist.length && !this.file_vacancy) {
+      if (!this.vacancyObj.vacancy_id) {
         return true;
       }
 
       return false;
-    },
-    // раскрытие загруженного резюме
-    targetFileLoadVacancy: function targetFileLoadVacancy(url) {
-      window.open("//" + location.hostname + "/" + url);
-    },
-    // очистка данных о загруженном резюме
-    removeFileLoadVacancy: function removeFileLoadVacancy(e) {
-      this.file_vacancy = null;
-      e.stopPropagation();
-    },
-    // @emit дочернего
-    addVacancy: function addVacancy(file) {
-      this.filelist = file;
     },
     // выбор имени компонента для динамик компонента
     reset_array: function reset_array(a) {
@@ -7069,25 +6984,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return true;
     }
   },
-  computed: {
-    initializationFunc: function initializationFunc() {
-      // есть ли file vacancy
-      var obj = this.lookingValueInArrayObjects('type', 1, this.respond_data.arr_vacancy);
-
-      if (obj) {
-        this.file_vacancy = obj;
-      }
-    }
-  },
   props: ['lang', // масив названий и url языка
   'resume', 'settings', 'respond_data', 'owner_resume', 'user', 'back_url'],
   mounted: function mounted() {
-    this.initializationFunc;
     $('html, body').animate({
       scrollTop: 0
     }, 500);
-    console.log("resume");
-    console.log(this.resume);
+    console.log(this.respond_data.arr_vacancy);
   }
 });
 
@@ -16189,7 +16092,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".background-top-menu[data-v-61d2081e] {\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.main-header[data-v-61d2081e] {\n  border: none;\n}\n.navbar[data-v-61d2081e] {\n  padding: 0.5rem 30px;\n}\n.dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n  align-items: center;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item .svg-cabinet svg[data-v-61d2081e] {\n  width: 25px;\n  margin-left: -3px;\n  margin-right: 5px;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.private-office svg[data-v-61d2081e] {\n  width: 25px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n  background: #f1f1f1;\n}\n.user-menu .user-avatar .svg-avatar[data-v-61d2081e] {\n  width: 22px;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}\n.dropdown-button-menu[data-v-61d2081e] {\n  margin-right: 10px !important;\n}\n.svg-arrow[data-v-61d2081e] {\n  width: 7px;\n  margin-left: 4px;\n}\n.svg-arrow path[data-v-61d2081e] {\n  fill: #868686;\n}", ""]);
+exports.push([module.i, ".background-top-menu[data-v-61d2081e] {\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.main-header[data-v-61d2081e] {\n  border: none;\n}\n.navbar[data-v-61d2081e] {\n  padding: 0.5rem 30px;\n}\n.dropdown-menu[data-v-61d2081e] {\n  padding: 0 !important;\n}\n.dropdown-item[data-v-61d2081e] {\n  padding: 8px 10px;\n  display: flex;\n  align-items: center;\n  position: relative;\n}\n.dropdown-item svg[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.dropdown-item svg path[data-v-61d2081e] {\n  fill: #868686;\n}\n.dropdown-item .svg-cabinet svg[data-v-61d2081e] {\n  width: 25px;\n  margin-left: -3px;\n  margin-right: 5px;\n}\n.dropdown-item img[data-v-61d2081e] {\n  margin-right: 7px;\n}\n.private-office svg[data-v-61d2081e] {\n  width: 25px;\n}\n.user-menu .user-avatar[data-v-61d2081e] {\n  display: flex;\n  align-items: center;\n  background: #f1f1f1;\n}\n.user-menu .user-avatar .svg-avatar[data-v-61d2081e] {\n  width: 22px;\n}\n.user-menu .dropdown-menu[data-v-61d2081e] {\n  width: auto;\n}\n.dropdown-button-menu[data-v-61d2081e] {\n  margin-right: 10px !important;\n}\n.svg-arrow[data-v-61d2081e] {\n  width: 7px;\n  margin-left: 4px;\n}\n.svg-arrow path[data-v-61d2081e] {\n  fill: #868686;\n}", ""]);
 
 // exports
 
@@ -77068,6 +76971,29 @@ var render = function () {
                     ),
                   ]
                 ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "dropdown-item", attrs: { href: "#" } },
+                  [
+                    _vm.respond.count_resumes
+                      ? _c(
+                          "span",
+                          { staticClass: "badge badge-primary navbar-badge" },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.respond.count_resumes) +
+                                "\n                                "
+                            ),
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(
+                      "\n                                На резюме\n                            "
+                    ),
+                  ]
+                ),
               ]),
             ]
           ),
@@ -79914,430 +79840,220 @@ var render = function () {
             _vm._v("\n                Откликнуться на резюме\n            "),
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "card card-primary card-outline card-outline-tabs card-respond",
-            },
-            [
-              _c("div", { staticClass: "card-header p-0 border-bottom-0" }, [
-                _c(
-                  "ul",
+          _c("div", [
+            _c("label", [
+              _vm._v(
+                "\n                        Выбрать вакансию\n                    "
+              ),
+            ]),
+            _vm._v(" "),
+            _vm.respond_data.arr_vacancy.length
+              ? _c(
+                  "div",
+                  _vm._l(_vm.respond_data.arr_vacancy, function (obj, key) {
+                    return _c("div", { key: key }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.vacancyObj.vacancy_id,
+                            expression: "vacancyObj.vacancy_id",
+                          },
+                        ],
+                        attrs: { type: "radio", id: "vacancy_" + key },
+                        domProps: {
+                          value: obj.id,
+                          checked: _vm._q(_vm.vacancyObj.vacancy_id, obj.id),
+                        },
+                        on: {
+                          change: function ($event) {
+                            return _vm.$set(
+                              _vm.vacancyObj,
+                              "vacancy_id",
+                              obj.id
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "target-label",
+                          attrs: { for: "vacancy_" + key },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(obj.position.title) +
+                              "\n                            "
+                          ),
+                        ]
+                      ),
+                    ])
+                  }),
+                  0
+                )
+              : _c(
+                  "a",
                   {
-                    staticClass: "nav nav-tabs",
-                    attrs: { id: "custom-tabs-three-tab", role: "tablist" },
+                    staticClass: "link-a",
+                    attrs: {
+                      href:
+                        _vm.lang.prefix_lang + "private-office/vacancy/create",
+                    },
                   },
                   [
-                    _c("li", { staticClass: "nav-item" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "nav-link active",
-                          attrs: {
-                            id: "first-card-link-tab",
-                            "data-toggle": "pill",
-                            href: "#first-card-link",
-                            role: "tab",
-                            "aria-controls": "first-card-link",
-                            "aria-selected": "true",
-                          },
-                          on: {
-                            click: function ($event) {
-                              _vm.vacancyObj.bool_tab = 1
-                            },
-                          },
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
                         },
-                        [
-                          _vm._v(
-                            "\n                                Вакансия на сайте\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", { staticClass: "nav-item" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "nav-link",
+                      },
+                      [
+                        _c("path", {
                           attrs: {
-                            "data-toggle": "pill",
-                            href: "javascript:void(0)",
+                            d: "M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z",
                           },
-                          on: {
-                            click: function ($event) {
-                              _vm.vacancyObj.bool_tab = 0
-                            },
-                          },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Прикрепить файл вакансии\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                        Создать свою вакансию\n                    "
+                    ),
                   ]
                 ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "tab-content" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane fade show active",
-                      attrs: {
-                        id: "first-card-link",
-                        role: "tabpanel",
-                        "aria-labelledby": "first-card-link-tab",
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group textarea-letter" }, [
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.vacancyObj.bool_letter,
+                    expression: "!vacancyObj.bool_letter",
+                  },
+                ],
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "link-a",
+                    attrs: { href: "javascript:void(0)" },
+                    on: {
+                      click: function ($event) {
+                        _vm.vacancyObj.bool_letter = !_vm.vacancyObj.bool_letter
                       },
                     },
-                    [
-                      _vm.vacancyObj.bool_tab
-                        ? [
-                            _c("label", [
-                              _vm._v(
-                                "\n                                    Выбрать вакансию\n                                "
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _vm.lookingValueInArrayObjects(
-                              "type",
-                              0,
-                              _vm.respond_data.arr_vacancy
-                            )
-                              ? _c("div", { staticClass: "box-yes-resume" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "form-group",
-                                      attrs: { id: "box-radio" },
-                                    },
-                                    _vm._l(
-                                      _vm.respond_data.arr_vacancy,
-                                      function (obj, key) {
-                                        return _c(
-                                          "div",
-                                          { key: key },
-                                          [
-                                            obj.type === 0
-                                              ? [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value:
-                                                          _vm.vacancyObj
-                                                            .vacancy_id,
-                                                        expression:
-                                                          "vacancyObj.vacancy_id",
-                                                      },
-                                                    ],
-                                                    attrs: {
-                                                      type: "radio",
-                                                      id: "vacancy_" + key,
-                                                    },
-                                                    domProps: {
-                                                      value: obj.id,
-                                                      checked: _vm._q(
-                                                        _vm.vacancyObj
-                                                          .vacancy_id,
-                                                        obj.id
-                                                      ),
-                                                    },
-                                                    on: {
-                                                      change: function (
-                                                        $event
-                                                      ) {
-                                                        return _vm.$set(
-                                                          _vm.vacancyObj,
-                                                          "vacancy_id",
-                                                          obj.id
-                                                        )
-                                                      },
-                                                    },
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "label",
-                                                    {
-                                                      staticClass:
-                                                        "target-label",
-                                                      attrs: {
-                                                        for: "vacancy_" + key,
-                                                      },
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                                                    " +
-                                                          _vm._s(
-                                                            obj.position.title
-                                                          ) +
-                                                          "\n                                                "
-                                                      ),
-                                                    ]
-                                                  ),
-                                                ]
-                                              : _vm._e(),
-                                          ],
-                                          2
-                                        )
-                                      }
-                                    ),
-                                    0
-                                  ),
-                                ])
-                              : _c("div", { staticClass: "box-no-resume" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "link-a",
-                                      attrs: {
-                                        href:
-                                          _vm.lang.prefix_lang +
-                                          "private-office/vacancy/create",
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "svg",
-                                        {
-                                          attrs: {
-                                            xmlns: "http://www.w3.org/2000/svg",
-                                            viewBox: "0 0 512 512",
-                                          },
-                                        },
-                                        [
-                                          _c("path", {
-                                            attrs: {
-                                              d: "M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z",
-                                            },
-                                          }),
-                                        ]
-                                      ),
-                                      _vm._v(
-                                        "\n                                        Создать свою вакансию\n                                    "
-                                      ),
-                                    ]
-                                  ),
-                                ]),
-                          ]
-                        : [
-                            _c("label", [
-                              _vm._v(
-                                "\n                                    Файл вакансии\n                                "
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            !_vm.file_vacancy
-                              ? _c(
-                                  "div",
-                                  { staticClass: "block-drop-file" },
-                                  [
-                                    _c("drag_drop_file", {
-                                      attrs: {
-                                        lang: _vm.lang,
-                                        arr_files: _vm.filelist,
-                                      },
-                                      on: { load_resume: _vm.addVacancy },
-                                    }),
-                                  ],
-                                  1
-                                )
-                              : _c(
-                                  "a",
-                                  {
-                                    staticClass: "file-load-resume",
-                                    attrs: { href: "javascript:void(0)" },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.targetFileLoadVacancy(
-                                          _vm.file_vacancy.url
-                                        )
-                                      },
-                                    },
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(_vm.file_vacancy.title) +
-                                        "\n                                    "
-                                    ),
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass: "xmark-icon",
-                                        attrs: {
-                                          xmlns: "http://www.w3.org/2000/svg",
-                                          viewBox: "0 0 320 512",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.removeFileLoadVacancy(
-                                              $event
-                                            )
-                                          },
-                                        },
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            d: "M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z",
-                                          },
-                                        }),
-                                      ]
-                                    ),
-                                  ]
-                                ),
-                          ],
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group textarea-letter" }, [
-                        _c(
-                          "div",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: !_vm.vacancyObj.bool_letter,
-                                expression: "!vacancyObj.bool_letter",
-                              },
-                            ],
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
+                        },
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z",
                           },
-                          [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "link-a",
-                                attrs: { href: "javascript:void(0)" },
-                                on: {
-                                  click: function ($event) {
-                                    _vm.vacancyObj.bool_letter =
-                                      !_vm.vacancyObj.bool_letter
-                                  },
-                                },
-                              },
-                              [
-                                _c(
-                                  "svg",
-                                  {
-                                    attrs: {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      viewBox: "0 0 512 512",
-                                    },
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        d: "M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z",
-                                      },
-                                    }),
-                                  ]
-                                ),
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(
-                                      _vm.trans("respond", "add_cover_letter")
-                                    ) +
-                                    "\n                                    "
-                                ),
-                              ]
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.vacancyObj.bool_letter,
-                                expression: "vacancyObj.bool_letter",
-                              },
-                            ],
-                          },
-                          [
-                            _c("label", [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(_vm.trans("respond", "cover_letter")) +
-                                  "\n                                    "
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("ckeditor", {
-                              attrs: { config: _vm.objTextarea.editorConfig1 },
-                              model: {
-                                value: _vm.objTextarea.textarea_letter,
-                                callback: function ($$v) {
-                                  _vm.$set(
-                                    _vm.objTextarea,
-                                    "textarea_letter",
-                                    $$v
-                                  )
-                                },
-                                expression: "objTextarea.textarea_letter",
-                              },
-                            }),
-                          ],
-                          1
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "box-button" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "btn btn-block btn-outline-danger btn-lg",
-                            attrs: { href: "/" },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.trans("vacancies", "cancel")) +
-                                "\n                                "
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-block btn-primary btn-lg",
-                            class: { disabled: _vm.disableButton() },
-                            attrs: {
-                              type: "submit",
-                              disabled: _vm.disableButton(),
-                            },
-                            on: {
-                              click: function ($event) {
-                                $event.preventDefault()
-                                return _vm.respondResume.apply(null, arguments)
-                              },
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.trans("respond", "respond")) +
-                                "\n                                "
-                            ),
-                          ]
-                        ),
-                      ]),
-                    ],
-                    2
+                        }),
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.trans("respond", "add_cover_letter")) +
+                        "\n                        "
+                    ),
+                  ]
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.vacancyObj.bool_letter,
+                    expression: "vacancyObj.bool_letter",
+                  },
+                ],
+              },
+              [
+                _c("label", [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans("respond", "cover_letter")) +
+                      "\n                        "
                   ),
                 ]),
-              ]),
-            ]
-          ),
+                _vm._v(" "),
+                _c("ckeditor", {
+                  attrs: { config: _vm.objTextarea.editorConfig1 },
+                  model: {
+                    value: _vm.objTextarea.textarea_letter,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.objTextarea, "textarea_letter", $$v)
+                    },
+                    expression: "objTextarea.textarea_letter",
+                  },
+                }),
+              ],
+              1
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-button" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-block btn-outline-danger btn-lg",
+                attrs: { href: "/" },
+              },
+              [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("vacancies", "cancel")) +
+                    "\n                    "
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-block btn-primary btn-lg",
+                class: { disabled: _vm.disableButton() },
+                attrs: { type: "submit", disabled: _vm.disableButton() },
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.respondResume.apply(null, arguments)
+                  },
+                },
+              },
+              [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.trans("respond", "respond")) +
+                    "\n                    "
+                ),
+              ]
+            ),
+          ]),
         ])
       : _vm._e(),
   ])

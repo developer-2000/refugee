@@ -51,4 +51,5 @@ class UserResume extends Model
         return $this->hasMany(UserHideResume::class, 'resume_id', 'id')
             ->where('user_id',$user_id);
     }
+
 }

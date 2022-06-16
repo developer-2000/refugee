@@ -41,6 +41,17 @@ class ResumeRepository extends CoreRepository {
             ->update($this->makeArrayResume($request, $position));
     }
 
+    /**
+     * вернет мои резюме
+     * @return mixed
+     */
+    public function getMyResumes($user){
+        if(!is_null($user)){
+            return $this->model->where('user_id',$user->id)
+                ->get();
+        }
+        return null;
+    }
 
     private function makeArrayResume($request, $position){
         return [

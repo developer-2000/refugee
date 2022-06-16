@@ -3,7 +3,8 @@
 
             <!-- top menu -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-                <!-- Menu -->
+
+                <!-- Left navbar -->
                 <ul class="navbar-nav">
                     <!-- Logo -->
                     <li class="nav-item d-sm-inline-block">
@@ -34,9 +35,8 @@
                     </li>
 
                 </ul>
-                <!-- / Menu -->
 
-                <!-- Right navbar links -->
+                <!-- Right navbar -->
                 <ul class="navbar-nav ml-auto">
 
                     <!-- предложения -->
@@ -59,6 +59,15 @@
                                     {{respond.count_vacancies}}
                                 </span>
                                 На вакансию
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <!-- кол-во respond на resume -->
+                                <span v-if="respond.count_resumes"
+                                      class="badge badge-primary navbar-badge"
+                                >
+                                    {{respond.count_resumes}}
+                                </span>
+                                На резюме
                             </a>
                         </div>
                     </li>
@@ -250,7 +259,7 @@
                 this.onlyNextLanguage()
                 this.openModalChangePassword()
                 this.urlTransitions()
-                this.total_count_responses = this.respond.count_vacancies + this.respond.count_resume
+                this.total_count_responses = this.respond.count_vacancies + this.respond.count_resumes
 
                 $('#authModal').on('hidden.bs.modal', (e) => {
                     this.deleteStorage()
@@ -283,6 +292,7 @@
         padding: 8px 10px;
         display: flex;
         align-items: center;
+        position: relative;
         svg{
             margin-right: 7px;
             path{

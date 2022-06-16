@@ -64,133 +64,71 @@
             <h2 class="title-vacancy">
                 Откликнуться на резюме
             </h2>
-            <div class="card card-primary card-outline card-outline-tabs card-respond">
-                <!-- buttons tabs -->
-                <div class="card-header p-0 border-bottom-0">
-                    <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="first-card-link-tab" data-toggle="pill" href="#first-card-link"
-                               role="tab" aria-controls="first-card-link" aria-selected="true"
-                               @click="vacancyObj.bool_tab = 1"
+
+                <!-- показ vacancy сайта -->
+                <div>
+                    <label>
+                        Выбрать вакансию
+                    </label>
+                    <!-- есть vacancy -->
+                    <div v-if="respond_data.arr_vacancy.length">
+                        <div v-for="(obj, key) in respond_data.arr_vacancy" :key="key">
+                            <input type="radio"
+                                   v-model="vacancyObj.vacancy_id"
+                                   :id="`vacancy_${key}`"
+                                   :value="obj.id"
                             >
-                                Вакансия на сайте
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="javascript:void(0)"
-                               @click="vacancyObj.bool_tab = 0"
+                            <label class="target-label"
+                                   :for="`vacancy_${key}`"
                             >
-                                Прикрепить файл вакансии
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- body -->
-                <div class="card-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="first-card-link" role="tabpanel" aria-labelledby="first-card-link-tab">
-
-                            <!-- показ vacancy сайта -->
-                            <template v-if="vacancyObj.bool_tab">
-                                <label>
-                                    Выбрать вакансию
-                                </label>
-                                <!-- есть vacancy сайтовое -->
-                                <div v-if="lookingValueInArrayObjects('type', 0, respond_data.arr_vacancy)" class="box-yes-resume">
-                                    <div class="form-group" id="box-radio">
-                                        <div v-for="(obj, key) in respond_data.arr_vacancy" :key="key">
-                                            <template v-if="obj.type === 0">
-                                                <input type="radio"
-                                                       v-model="vacancyObj.vacancy_id"
-                                                       :id="`vacancy_${key}`"
-                                                       :value="obj.id"
-                                                >
-                                                <label class="target-label"
-                                                       :for="`vacancy_${key}`"
-                                                >
-                                                    {{obj.position.title}}
-                                                </label>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- no vacancy -->
-                                <div v-else class="box-no-resume">
-                                    <a class="link-a"
-                                       :href="lang.prefix_lang+'private-office/vacancy/create'"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                                        Создать свою вакансию
-                                    </a>
-                                </div>
-                            </template>
-
-                            <!-- показ Drop file -->
-                            <template v-else>
-                                <label>
-                                    Файл вакансии
-                                </label>
-
-                                <!-- если нет загруженного файла резюме -->
-                                <div v-if="!file_vacancy" class="block-drop-file">
-                                    <drag_drop_file
-                                        @load_resume='addVacancy'
-                                        :lang="lang"
-                                        :arr_files="filelist"
-                                    ></drag_drop_file>
-                                </div>
-
-                                <!-- есть загруженный резюме -->
-                                <a v-else
-                                   class="file-load-resume" href="javascript:void(0)"
-                                   @click="targetFileLoadVacancy(file_vacancy.url)"
-                                >
-                                    {{file_vacancy.title}}
-                                    <svg @click="removeFileLoadVacancy($event)" class="xmark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
-                                </a>
-
-                            </template>
-
-                            <!-- сопроводительное -->
-                            <div class="form-group textarea-letter">
-                                <!-- ссылка -->
-                                <div v-show="!vacancyObj.bool_letter">
-                                    <a href="javascript:void(0)" class="link-a"
-                                       @click="vacancyObj.bool_letter = !vacancyObj.bool_letter"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                                        {{trans('respond','add_cover_letter')}}
-                                    </a>
-                                </div>
-                                <div v-show="vacancyObj.bool_letter">
-                                    <label>
-                                        {{trans('respond','cover_letter')}}
-                                    </label>
-                                    <ckeditor v-model="objTextarea.textarea_letter"
-                                              :config="objTextarea.editorConfig1"
-                                    ></ckeditor>
-                                </div>
-                            </div>
-
-                            <!-- button -->
-                            <div class="box-button">
-                                <a href="/" class="btn btn-block btn-outline-danger btn-lg">
-                                    {{trans('vacancies','cancel')}}
-                                </a>
-                                <button type="submit" class="btn btn-block btn-primary btn-lg"
-                                        :class="{'disabled': disableButton()}"
-                                        :disabled="disableButton()"
-                                        @click.prevent="respondResume"
-                                >
-                                    {{trans('respond','respond')}}
-                                </button>
-                            </div>
-
+                                {{obj.position.title}}
+                            </label>
                         </div>
                     </div>
+                    <!-- no vacancy -->
+                    <a v-else class="link-a"
+                       :href="lang.prefix_lang+'private-office/vacancy/create'"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
+                        Создать свою вакансию
+                    </a>
                 </div>
-                <!-- /.card -->
-            </div>
+
+                <!-- сопроводительное -->
+                <div class="form-group textarea-letter">
+                    <!-- ссылка -->
+                    <div v-show="!vacancyObj.bool_letter">
+                        <a href="javascript:void(0)" class="link-a"
+                           @click="vacancyObj.bool_letter = !vacancyObj.bool_letter"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
+                            {{trans('respond','add_cover_letter')}}
+                        </a>
+                    </div>
+                    <div v-show="vacancyObj.bool_letter">
+                        <label>
+                            {{trans('respond','cover_letter')}}
+                        </label>
+                        <ckeditor v-model="objTextarea.textarea_letter"
+                                  :config="objTextarea.editorConfig1"
+                        ></ckeditor>
+                    </div>
+                </div>
+
+                <!-- button -->
+                <div class="box-button">
+                    <a href="/" class="btn btn-block btn-outline-danger btn-lg">
+                        {{trans('vacancies','cancel')}}
+                    </a>
+                    <button type="submit" class="btn btn-block btn-primary btn-lg"
+                            :class="{'disabled': disableButton()}"
+                            :disabled="disableButton()"
+                            @click.prevent="respondResume"
+                    >
+                        {{trans('respond','respond')}}
+                    </button>
+                </div>
+
         </div>
 
     </div>
@@ -205,11 +143,9 @@
     import drag_drop_file from '../load_files/DragDropFileComponent'
 
     export default {
-        delimiters: ['${', '}'], // Avoid Twig conflicts
         components: {
             'bookmark_buttons': bookmark_buttons,
             'resume_template': resume_template,
-            'drag_drop_file': drag_drop_file,
         },
         mixins: [
             translation,
@@ -218,11 +154,10 @@
         ],
         data() {
             return {
-                respond_bool: true,
+                respond_bool: false,
                 vacancyObj:{
                     vacancy_id: null,
                     bool_letter: false,
-                    bool_tab: 1,
                 },
                 objTextarea: {
                     textarea_letter: '',
@@ -232,25 +167,19 @@
                         ],
                     },
                 },
-                filelist: [],
-                file_vacancy: null,
             }
         },
         methods: {
             async respondResume(){
                 let formData = new FormData;
                 formData.append('resume_id', this.resume.id);
-                formData.append('bool_tab', this.vacancyObj.bool_tab);
                 formData.append('vacancy_id', this.vacancyObj.vacancy_id !== null ? this.vacancyObj.vacancy_id : '');
                 formData.append('textarea_letter', this.objTextarea.textarea_letter);
-                formData.append('old_file_id', this.file_vacancy !== null ? this.file_vacancy.id : '');
-                formData.append('new_file', this.filelist.length ? this.filelist[0] : '');
 
                 const response = await this.$http.post(`/respond-resume`, formData)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            console.log(res.data.message)
-                            // location.reload()
+                            location.reload()
                         }
                         // custom ошибки
                         else{
@@ -266,16 +195,7 @@
             goToConversation(){
                 console.log('go')
             },
-            makeBackUrl(){
-                let url = '&#060; '
-                if(this.back_url !== undefined && this.back_url[0][0].name !== null){
-                    this.back_url[0].forEach(function(item, i, arr) {
-                        console.log( i + ": " + item.name );
-                        url += '&nbsp; <a href="/'+item.url+'">'+item.name+'</a>&nbsp; |'
-                    });
-                }
-                return url
-            },
+            // Найти похожие вакансии
             findSimilarResume(){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('categories')
@@ -286,6 +206,7 @@
 
                 location.href = this.lang.prefix_lang+'resume?'+params.toString()
             },
+            // скрол винз к respond
             scrollRespond(){
                 if(this.checkAuth(window.location.pathname)){
                     this.respond_bool = true
@@ -298,26 +219,10 @@
                 }
             },
             disableButton() {
-                if(
-                    (this.vacancyObj.bool_tab && !this.vacancyObj.vacancy_id) ||
-                    (!this.vacancyObj.bool_tab && (!this.filelist.length && !this.file_vacancy))
-                ){
+                if( !this.vacancyObj.vacancy_id ){
                     return true;
                 }
                 return false;
-            },
-            // раскрытие загруженного резюме
-            targetFileLoadVacancy(url) {
-                window.open("//"+location.hostname+"/"+url)
-            },
-            // очистка данных о загруженном резюме
-            removeFileLoadVacancy(e) {
-                this.file_vacancy = null
-                e.stopPropagation()
-            },
-            // @emit дочернего
-            addVacancy(file){
-                this.filelist = file
             },
             // выбор имени компонента для динамик компонента
             reset_array: function (a) {
@@ -339,15 +244,6 @@
                 return true
             },
         },
-        computed: {
-            initializationFunc() {
-                // есть ли file vacancy
-                let obj = this.lookingValueInArrayObjects('type', 1, this.respond_data.arr_vacancy)
-                if(obj){
-                    this.file_vacancy = obj
-                }
-            },
-        },
         props: [
             'lang',   // масив названий и url языка
             'resume',
@@ -358,13 +254,9 @@
             'back_url',
         ],
         mounted() {
-            this.initializationFunc
-
             $('html, body').animate({scrollTop: 0},500);
 
-
-            console.log("resume")
-            console.log(this.resume)
+            console.log(this.respond_data.arr_vacancy)
         },
     }
 </script>
