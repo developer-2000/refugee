@@ -1,14 +1,11 @@
 <?php
 namespace App\Repositories;
 
-use App\Http\Traits\CountPositionTraite;
 use App\Model\Position;
 use App\Model\Vacancy as Model;
 use Illuminate\Support\Facades\Auth;
 
-
 class VacancyRepository extends CoreRepository {
-    use CountPositionTraite;
 
     protected $settings;
 
@@ -41,7 +38,7 @@ class VacancyRepository extends CoreRepository {
 
     public function updateVacancy($request, $position_id){
         // удалить старое название, если оно не будет никем использоватся
-        $this->deleteUnwantedVacancyTitle($request, $position_id);
+        $this->deleteUnwantedTitle($request, $position_id);
         // создать или взять имеющееся название
         $position = Position::firstOrCreate(
             ['title' => mb_strtolower($request->position, 'UTF-8')]

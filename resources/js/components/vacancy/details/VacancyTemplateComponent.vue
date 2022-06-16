@@ -186,13 +186,23 @@
 
             <!-- textarea -->
             <div class="box-textarea">
-                <!-- Описание вакансии -->
-                <div v-if="page == 'show'"
-                     class="textarea-vacancy"
-                >
-                    <h2 class="section-title">{{trans('vacancies','job_description')}}</h2>
-                    <div v-html="vacancy.text_description"></div>
-                </div>
+                <template v-if="page == 'show'">
+                    <!-- Описание вакансии -->
+                    <div class="textarea-vacancy">
+                        <h2 class="section-title">{{trans('vacancies','job_description')}}</h2>
+                        <div v-html="vacancy.text_description"></div>
+                    </div>
+                    <!-- Условия работы -->
+                    <div class="textarea-vacancy">
+                        <h2 class="section-title">{{trans('vacancies','working_conditions')}}</h2>
+                        <div v-html="vacancy.text_working"></div>
+                    </div>
+                    <!-- Обязанности кандидата -->
+                    <div class="textarea-vacancy">
+                        <h2 class="section-title">{{trans('vacancies','candidate_responsibilities')}}</h2>
+                        <div v-html="vacancy.text_responsibilities"></div>
+                    </div>
+                </template>
                 <div v-else-if="page == 'search' && vacancy.text_description"
                      class="textarea-vacancy"
                 >
@@ -205,19 +215,6 @@
                         </svg>
                     </div>
                 </div>
-                <!-- next description -->
-                <template v-if="page == 'show'">
-                    <!-- Условия работы -->
-                    <div class="textarea-vacancy">
-                        <h2 class="section-title">{{trans('vacancies','working_conditions')}}</h2>
-                        <div v-html="vacancy.text_working"></div>
-                    </div>
-                    <!-- Обязанности кандидата -->
-                    <div class="textarea-vacancy">
-                        <h2 class="section-title">{{trans('vacancies','candidate_responsibilities')}}</h2>
-                        <div v-html="vacancy.text_responsibilities"></div>
-                    </div>
-                </template>
             </div>
 
         </template>

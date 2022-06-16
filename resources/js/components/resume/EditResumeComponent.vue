@@ -681,6 +681,7 @@
                 const response = await this.$http.put(`/private-office/resume/`+this.resume_id, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
+                            // console.log(res.data.message)
                             location.href = this.lang.prefix_lang+'private-office/resume/my-resumes'
                         }
                         // custom ошибки

@@ -11,7 +11,6 @@ use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
-use App\Http\Traits\CountPositionTraite;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\RespondVacancy;
@@ -24,7 +23,6 @@ use App\Repositories\VacancyRepository;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyController extends BaseController {
-    use CountPositionTraite;
 
     protected $repository;
 
@@ -166,7 +164,6 @@ class VacancyController extends BaseController {
         return view('vacancies/my_vacancies', compact('vacancies','settings'));
     }
 
-
     /**
      * обновить статус вакансии
      * @param  UpVacancyStatusRequest  $request
@@ -233,6 +230,17 @@ class VacancyController extends BaseController {
     }
 
     /**
+     * скрыть из поиска выбранную вакансию
+     * @param  SaveVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function hideVacancy(SaveVacancyRequest $request)
+    {
+        $this->switchActionVacancy($request, new UserHideVacancy());
+        return $this->getResponse();
+    }
+
+    /**
      * показ скрытых вакансий в закладках
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -244,17 +252,6 @@ class VacancyController extends BaseController {
             ->get();
 
         return view('vacancies.hidden_vacancies', compact('settings','vacancies'));
-    }
-
-    /**
-     * скрыть из поиска выбранную вакансию
-     * @param  SaveVacancyRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function hideVacancy(SaveVacancyRequest $request)
-    {
-        $this->switchActionVacancy($request, new UserHideVacancy());
-        return $this->getResponse();
     }
 
     // ===

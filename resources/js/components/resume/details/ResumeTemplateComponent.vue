@@ -22,7 +22,7 @@
             </h2>
 
             <!-- аватар контакта -->
-            <template v-if="page === 'show'">
+            <template v-if="page === 'show' || page === 'bookmark'">
                 <!-- если file avatar не загружен -->
                 <img v-if="resume.contact.avatar === null" class="img-logo"
                      :src="`/${resume.contact.default_avatar_url}`"
@@ -34,13 +34,6 @@
                      :alt="`${resume.contact.name} ${resume.contact.surname}`"
                 >
             </template>
-            <!-- на странице search или закладки -->
-<!--            <div v-if="page === 'search' || page === 'bookmark'" class="company-vacancy">-->
-<!--                <img class="img-logo"-->
-<!--                     :src="`/${resume.contact.avatar.url}`"-->
-<!--                     :alt="resume.contact.avatar.title"-->
-<!--                >-->
-<!--            </div>-->
 
             <!-- проверка контента резюме -->
             <template v-else-if="page === 'my_resumes'">
@@ -164,32 +157,35 @@
                 </div>
             </div>
 
-            <!-- textarea -->
-            <div class="box-textarea">
-                <!-- Описание своего опыта -->
-                <div v-if="resume.text_experience !== null"
-                     class="textarea-vacancy"
-                >
-                    <h2 class="section-title">Описание опыта</h2>
-                    <div v-html="resume.text_experience"></div>
-                </div>
+            <template v-if="page == 'show'">
+                <!-- textarea -->
+                <div class="box-textarea">
+                    <!-- Описание своего опыта -->
+                    <div v-if="resume.text_experience !== null"
+                         class="textarea-vacancy"
+                    >
+                        <h2 class="section-title">Описание опыта</h2>
+                        <div v-html="resume.text_experience"></div>
+                    </div>
 
-                <!-- Навыки и достижения -->
-                <div v-if="resume.text_achievements !== null"
-                     class="textarea-vacancy"
-                >
-                    <h2 class="section-title">Навыки и достижения</h2>
-                    <div v-html="resume.text_achievements"></div>
-                </div>
+                    <!-- Навыки и достижения -->
+                    <div v-if="resume.text_achievements !== null"
+                         class="textarea-vacancy"
+                    >
+                        <h2 class="section-title">Навыки и достижения</h2>
+                        <div v-html="resume.text_achievements"></div>
+                    </div>
 
-                <!-- Ожидания на новой работе -->
-                <div v-if="resume.text_wait !== null"
-                     class="textarea-vacancy"
-                >
-                    <h2 class="section-title">Ожидания на новой работе</h2>
-                    <div v-html="resume.text_wait"></div>
+                    <!-- Ожидания на новой работе -->
+                    <div v-if="resume.text_wait !== null"
+                         class="textarea-vacancy"
+                    >
+                        <h2 class="section-title">Ожидания на новой работе</h2>
+                        <div v-html="resume.text_wait"></div>
+                    </div>
                 </div>
-            </div>
+            </template>
+
         </template>
 
         <!-- footer-resume -->

@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories;
 
-use App\Http\Traits\CountPositionTraite;
 use App\Http\Traits\LoadFileMethodsTraite;
 use App\Model\Image;
 use App\Model\Position;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 
 class ContactInformationRepository extends CoreRepository {
-    use CountPositionTraite, LoadFileMethodsTraite;
+    use LoadFileMethodsTraite;
 
     protected $settings;
     protected $path_avatar;
@@ -33,7 +32,7 @@ class ContactInformationRepository extends CoreRepository {
         $arr = $this->makeArrayContact($request);
 
         // 1 удалить старое название, если оно не будет никем использоватся
-        $this->deleteUnwantedVacancyTitle($request, $contact->position_id);
+        $this->deleteUnwantedTitle($request, $contact->position_id);
         // 2 выбрать или создать название
         if(!is_null($request->position)){
             $position = Position::firstOrCreate(

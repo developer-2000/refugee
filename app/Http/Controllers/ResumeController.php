@@ -190,6 +190,19 @@ class ResumeController extends BaseController {
     }
 
     /**
+     * показ сохраненных резюме в закладках
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bookmarkResumes()
+    {
+        $settings = $this->getSettingsResumeAndCountries();
+        $resumes = UserSaveResume::where('user_id', Auth::user()->id)
+            ->with('resume.position','resume.contact.avatar')
+            ->get();
+        return view('resumes.bookmark_resumes', compact('settings','resumes'));
+    }
+
+    /**
      * скрыть из поиска выбранное резюме
      * @param  SaveResumeRequest  $request
      * @return \Illuminate\Http\JsonResponse
@@ -200,7 +213,19 @@ class ResumeController extends BaseController {
         return $this->getResponse();
     }
 
+    /**
+     * показ скрытых резюме в закладках
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function hiddenResumes()
+    {
+        $settings = $this->getSettingsResumeAndCountries();
+        $resumes = UserHideResume::where('user_id', Auth::user()->id)
+            ->with('resume.position','resume.contact.avatar')
+            ->get();
 
+        return view('resumes.hidden_resumes', compact('settings','resumes'));
+    }
 
     // Private
     /**

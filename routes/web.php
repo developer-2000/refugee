@@ -124,7 +124,9 @@ Route::group([
                 Route::post('up-resume-status', 'ResumeController@upResumeStatus');
                 Route::post('duplicate-resume', 'ResumeController@duplicateResume');
                 Route::post('bookmark-resume', 'ResumeController@bookmarkResume');
+                Route::get('bookmark-resumes', 'ResumeController@bookmarkResumes');
                 Route::post('hide-resume', 'ResumeController@hideResume');
+                Route::get('hidden-resumes', 'ResumeController@hiddenResumes');
             });
             Route::resource('resume', 'ResumeController')->only([
                 'create', 'store', 'edit', 'update'

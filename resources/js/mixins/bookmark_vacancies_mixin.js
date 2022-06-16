@@ -2,6 +2,7 @@ export default {
     data() {
         return {
             arrVacancies:[],
+            arrResumes: [],
         }
     },
     methods: {
@@ -38,7 +39,6 @@ export default {
             location.href = this.lang.prefix_lang+'vacancy/'+alias
         },
         transitionToResume(alias){
-            console.log('tyt')
             location.href = this.lang.prefix_lang+'resume/'+alias
         },
     },
