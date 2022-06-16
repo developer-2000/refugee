@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class UserResume extends Model
 {
@@ -37,5 +38,17 @@ class UserResume extends Model
     // смежная таблица для подписок
     public function respond() {
         return $this->hasMany(RespondResume::class, 'resume_id', 'id');
+    }
+
+    public function id_saved_resumes() {
+        $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
+        return $this->hasMany(UserSaveResume::class, 'resume_id', 'id')
+            ->where('user_id',$user_id);
+    }
+
+    public function id_hide_resumes() {
+        $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
+        return $this->hasMany(UserHideResume::class, 'resume_id', 'id')
+            ->where('user_id',$user_id);
     }
 }

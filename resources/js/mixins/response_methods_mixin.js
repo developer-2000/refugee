@@ -29,8 +29,7 @@ export default {
         messageError(err, msg = '') {
             // error validate
             if (err.response) {
-                // msg = (err.response.status == 422) ? 'account does not exist' : ''
-                msg = (err.response.status == 422) ? err.response.data.message : ''
+                msg = this.returnTextErrors(err)
             } else if (err.request) {
                 msg = err.request.statusText
             } else {
@@ -39,7 +38,7 @@ export default {
             const Toast = this.$swal.mixin({
                 toast: true,
                 position: 'top',
-                timer: 3000,
+                timer: 7000,
                 showConfirmButton: false,
                 confirmButtonColor: '#3085d6',
             });
@@ -63,6 +62,18 @@ export default {
                     this.deleteWord(id);
                 }
             })
+        },
+        // выбрать сообщение валидации
+        returnTextErrors(err) {
+            let msg = (err.response.status == 422) ? err.response.data.message : ''
+            if(err.response.data.errors !== undefined){
+                let obj = err.response.data.errors
+                msg = ''
+                for (let key in obj) {
+                    msg += obj[key][0]+"<br>"
+                }
+            }
+            return msg
         },
     },
 

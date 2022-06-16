@@ -1,9 +1,7 @@
 <template>
     <div class="view-page">
         <!-- отображение прошедшего времени -->
-        <div class="date-document"
-             v-if="page === 'show'"
-        >
+        <div v-if="page === 'show'" class="date-document header-date-document">
             <div class="date-string">
                 {{getDateDocumentString(vacancy.updated_at)}} назад
             </div>
@@ -22,8 +20,8 @@
                 {{UpperCaseFirstCharacter(vacancy.position.title)}}
             </h3>
 
-            <!-- на странице открытой вакансии -->
             <!-- логотип компании -->
+            <!-- на странице открытой вакансии -->
             <template v-if="page === 'show'">
                 <!-- если компания создана -->
                 <a class="link-a" target="_blank"
@@ -225,10 +223,16 @@
         </template>
 
         <!-- footer-vacancy -->
-        <div class="footer-vacancy">
+        <div v-if="page === 'my_vacancies'" class="footer-vacancy">
             <!-- отображение прошедшего времени -->
             <div class="date-document">
                 {{getDateDocumentString(vacancy.updated_at)}} назад
+                <!-- вакансия закрыта -->
+                <div class="close-document-fon"
+                     v-if="vacancy.job_posting.status_name == 'hidden'"
+                >
+                    Вакансия закрыта
+                </div>
             </div>
 
             <div class="right-footer">
@@ -278,12 +282,6 @@
                                @click="duplicateVacancy($event, vacancy.id)"
                             >
                                 {{trans('vacancies','copy')}}
-                            </a>
-                            <!-- удалить -->
-                            <a class="dropdown-item" href="#"
-                               @click="deleteVacancy($event, vacancy.id)"
-                            >
-                                {{trans('vacancies','delete')}}
                             </a>
                         </div>
                     </div>
@@ -371,24 +369,6 @@
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.reload()
-                        }
-                        // custom ошибки
-                        else{
-                            this.message(res.data.message, 'error', 10000, true);
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        this.messageError(err)
-                    })
-            },
-            async deleteVacancy(event, id){
-                event.stopPropagation()
-                const response = await this.$http.destroy(`/private-office/vacancy/` + id, {})
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            location.reload()
-                            // console.log(res)
                         }
                         // custom ошибки
                         else{

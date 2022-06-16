@@ -40,6 +40,7 @@
         <div class="box-vacancy"
              v-for="(vacancy, key) in vacancies" :key="key"
              :data-alias="vacancy.alias"
+             :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -84,10 +85,6 @@
         },
         methods: {
             initialData(){
-                // зарплата
-                $('.box-salary').css('margin-top','0')
-                // h2 заголовок в моих вакансиях
-                $('.title-vacancy').removeClass("col-sm-9").css('margin','0px 0 10px')
                 // click menu vacancy
                 $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
                     e.stopPropagation();

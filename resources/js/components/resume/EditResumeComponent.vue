@@ -12,6 +12,9 @@
         <h1 v-if="resume_id == null" class="title_page card-body">
             Создать резюме
         </h1>
+        <h1 v-else class="title_page card-body">
+            Редактровать резюме
+        </h1>
 
         <form action="" method="post">
 
@@ -49,7 +52,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="invalid-feedback" v-if="!$v.position.required">{{trans('vacancies','job_title')}}</div>
+                        <div class="invalid-feedback" v-if="!$v.position.required">
+                            {{trans('vacancies','job_title')}}
+                        </div>
                     </div>
 
                     <!-- Country -->
@@ -524,7 +529,7 @@
             <div class="row footer-form">
                 <div class="col-sm-4 offset-4 but-box">
                     <!-- button create -->
-                    <template v-if="resume_id == null">
+                    <template v-if="resume_id === null">
                         <a href="/" class="btn btn-block btn-outline-danger btn-lg">
                             {{trans('vacancies','cancel')}}
                         </a>
@@ -534,6 +539,20 @@
                                 @click.prevent="createResume"
                         >
                             {{trans('vacancies','save')}}
+                        </button>
+                    </template>
+                    <!-- button update -->
+                    <template v-else>
+                        <a :href="`${lang.prefix_lang}private-office/resume/my-resumes`"
+                           class="btn btn-block btn-outline-danger btn-lg">
+                            {{trans('vacancies','cancel')}}
+                        </a>
+                        <button type="submit" class="btn btn-block btn-primary btn-lg"
+                                :class="{'disabled': disableButton($v)}"
+                                :disabled="disableButton($v)"
+                                @click.prevent="updateResume"
+                        >
+                            {{trans('vacancies','update_vacancy')}}
                         </button>
                     </template>
                 </div>
@@ -656,6 +675,24 @@
                         // this.messageError(err)
                     })
             },
+            async updateResume(){
+                this.alignNumbers(this.objSalary,'from','to')
+                let data = this.getValuesFields()
+                const response = await this.$http.put(`/private-office/resume/`+this.resume_id, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.href = this.lang.prefix_lang+'private-office/resume/my-resumes'
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
             disableButton(v) {
                 if(
                     v.$invalid ||
@@ -667,6 +704,18 @@
                     return true;
                 }
                 return false;
+            },
+            // коррекция даты
+            checkInsertDate(e){
+                let value = e.target.value
+                let IPOdate = new Date()
+                if( !isNaN( IPOdate.setTime(Date.parse(value)) ) ){
+                    // let date = new Date(value)
+                    this.data_birth = value
+                }
+                else{
+                    this.data_birth = ''
+                }
             },
             getValuesFields(){
                 return {
@@ -684,33 +733,87 @@
                     type_employment: this.type_employment,              // Вид занятости
                     contacts: this.objDisplayEmpContVacancy.contacts,   // Отображение контактов
                     languages: this.objLanguage.languages,              // языки
+
                     education: this.education,                          // Образование
-                    job_posting : this.job_posting,                // Размещение резюме
+                    job_posting : this.job_posting,                     // Размещение резюме
                     experience: this.experience,                        // опыт работы
                     text_experience: this.objTextarea.textarea_experience,
                     text_wait: this.objTextarea.textarea_wait,                 // Ожидания от вакансии
                     text_achievements: this.objTextarea.textarea_achievements, // Свои достижения
                 };
             },
-            // коррекция даты
-            checkInsertDate(e){
-                let value = e.target.value
-                let IPOdate = new Date()
-                if( !isNaN( IPOdate.setTime(Date.parse(value)) ) ){
-                    // let date = new Date(value)
-                    this.data_birth = value
+            // в случае редактирования вакансии
+            setValuesFields(){
+                if(this.resume == null){
+                    return false
                 }
-                else{
-                    this.data_birth = ''
+
+                this.resume_id = this.resume.id
+                this.position = this.resume.position.title
+                // Location
+                this.objLocations.load_countries = this.settings.obj_countries
+                this.objLocations.country = this.resume.country.code
+                this.loadRegions();
+                if(this.resume.region !== null){
+                    this.objLocations.region = this.resume.region.code
+                    setTimeout(() => {
+                        this.loadCity()
+                    }, 500);
                 }
+                if(this.resume.city !== null){
+                    this.objLocations.city = this.resume.city.code
+                }
+                // день рождения
+                this.data_birth = this.resume.data_birth
+                // категория резюме
+                this.objCategory.categories = this.resume.categories
+                var input = ''
+                for(let i=0; i<this.objCategory.categories.length; i++) {
+                    input = document.querySelector('#category_'+this.objCategory.categories[i])
+                    input.checked = true
+                }
+                this.objCategory.boolChecked = true
+                // Зарплата
+                this.objSalary.salary_but = this.resume.salary.radio_name
+                this.objSalary.from = this.resume.salary.inputs.from
+                this.objSalary.to = this.resume.salary.inputs.to
+                this.objSalary.salary_sum = this.resume.salary.inputs.salary_sum
+                this.objSalary.salary_comment = this.resume.salary.comment
+                $('#'+this.objSalary.salary_but).collapse('show');
+                // Вид занятости
+                this.type_employment = this.resume.type_employment
+                // Отображение контактов
+                this.objDisplayEmpContVacancy.contacts = this.resume.contacts
+                for(let i=0; i<this.objDisplayEmpContVacancy.contacts.length; i++) {
+                    input = document.querySelector('#disp_emp_cont_vacancy_'+this.objDisplayEmpContVacancy.contacts[i]);
+                    input.checked = true;
+                }
+                // языки
+                this.objLanguage.languages = this.resume.languages
+                // Образование
+                this.education = this.resume.education
+                // Размещение резюме
+                this.job_posting = this.settings.job_status.indexOf(this.resume.job_posting.status_name)
+                // опыт работы
+                this.experience = this.resume.experience
+                this.objTextarea.textarea_experience = this.resume.text_experience
+                // Ожидания от вакансии
+                this.objTextarea.textarea_wait = this.resume.text_wait
+                // Свои достижения
+                this.objTextarea.textarea_achievements = this.resume.text_achievements
             },
         },
         props: [
             'lang',
             'settings',
+            'resume',
         ],
         mounted() {
             this.initializationFunc()
+            // Код, который будет запущен только после отрисовки всех представлений
+            this.$nextTick(function () {
+                this.setValuesFields()
+            })
         },
         validations: {
             position: {

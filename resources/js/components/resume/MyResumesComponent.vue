@@ -44,6 +44,7 @@
                 <div class="box-vacancy"
                      :key="key"
                      :data-alias="resume.alias"
+                     :class="{'close-document-border': resume.job_posting.status_name == 'hidden' }"
                 >
 
                     <!-- лента -->
@@ -72,8 +73,6 @@
 
 <script>
     import translation from '../../mixins/translation'
-    import date_mixin from "../../mixins/date_mixin";
-    import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import resume_template from "./details/ResumeTemplateComponent";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
@@ -84,7 +83,6 @@
         },
         mixins: [
             translation,
-            date_mixin,
             general_functions_mixin,
             bookmark_vacancies_mixin,
         ],
@@ -94,15 +92,11 @@
         },
         methods: {
             initialData(){
-                // зарплата
-                $('.box-salary').css('margin-top','0')
-                // h2 заголовок в моих вакансиях
-                $('.title-vacancy').removeClass("col-sm-9").css('margin','0px 0 10px')
-                // click menu vacancy
+                // click menu resume
                 $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
                     e.stopPropagation();
                 });
-                // click vacancy
+                // click resume
                 document.querySelectorAll('.box-vacancy').forEach( (el) => {
                     el.addEventListener('click', (e) => {
                         // клик по родителю

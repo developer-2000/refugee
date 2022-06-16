@@ -76,7 +76,7 @@ class Vacancy extends Model
             ->where('user_id',$user_id);
     }
 
-    public function id_not_shown_vacancies() {
+    public function id_hide_vacancies() {
         $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
         return $this->hasMany(UserHideVacancy::class, 'vacancy_id', 'id')
             ->where('user_id',$user_id);

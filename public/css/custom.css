@@ -177,8 +177,11 @@ b{
     align-content: flex-start!important;
     align-items: center!important;
 }
+#show-vacancy .box-title{
+    margin-bottom: 10px;
+}
 #show-vacancy .title-vacancy{
-    color: #444;
+    color: #1d68a7;
     font-weight: bold;
 }
 .back-url-link {
@@ -520,6 +523,13 @@ label{
     font-weight: bold;
     display: flex;
 }
+.date-document .date-string{
+    border-bottom: 1px solid #dee2e6;
+}
+.header-date-document{
+    margin: -10px 0 10px 0;
+}
+
 .close-document-fon{
     background-color: #e87b85;
     text-align: center;

@@ -66,7 +66,7 @@ class CompanyController extends BaseController {
                 'vacancies.position',
                 'vacancies.company.image',
                 'vacancies.id_saved_vacancies',
-                'vacancies.id_not_shown_vacancies',
+                'vacancies.id_hide_vacancies',
                 'contact'
             )->firstOrFail();
         $settings = config('site.settings_vacancy');

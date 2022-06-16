@@ -34,11 +34,12 @@ export default {
 
             return address_string
         },
-        transitionToVacancy(vacancy_alias){
-            location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias
+        transitionToVacancy(alias){
+            location.href = this.lang.prefix_lang+'vacancy/'+alias
         },
-        transitionToResume(vacancy_alias){
-            location.href = this.lang.prefix_lang+'resume/'+vacancy_alias
+        transitionToResume(alias){
+            console.log('tyt')
+            location.href = this.lang.prefix_lang+'resume/'+alias
         },
     },
 }

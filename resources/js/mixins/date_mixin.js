@@ -40,6 +40,11 @@ export default {
                 timeMessage += timeDiff.seconds()+ ` ${this.getTitleDate('seconds', timeDiff.seconds())} `
             }
 
+            // если разница прошедшего времени одинакова
+            if(timeMessage === ''){
+                timeMessage = '1 секунда'
+            }
+
             return timeMessage
         },
         // выдать название времени соответствие цифре

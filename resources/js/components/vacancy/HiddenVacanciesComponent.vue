@@ -103,7 +103,7 @@
                     vacancy_id: vacancy_id,
                     action: 0,
                 };
-                const response = await this.$http.post(`/private-office/vacancy/hide-vacancy-search`, data)
+                const response = await this.$http.post(`/private-office/vacancy/hide-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             let response = this.vacancies.findIndex(obj => obj['vacancy']['id'] == vacancy_id)

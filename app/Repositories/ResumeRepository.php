@@ -28,6 +28,20 @@ class ResumeRepository extends CoreRepository {
         return $this->model->create($arr);
     }
 
+    public function updateResume($request, $position_id){
+        // удалить старое название, если оно не будет никем использоватся
+        $this->deleteUnwantedVacancyTitle($request, $position_id);
+        // создать или взять имеющееся название
+        $position = Position::firstOrCreate(
+            ['title' => mb_strtolower($request->position, 'UTF-8')]
+        );
+
+        return $this->model->where('id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->update($this->makeArrayResume($request, $position));
+    }
+
+
     private function makeArrayResume($request, $position){
         return [
             'position_id'=>$position->id,

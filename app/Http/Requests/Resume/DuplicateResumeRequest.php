@@ -1,9 +1,10 @@
 <?php
-namespace App\Http\Requests\Vacancy;
+
+namespace App\Http\Requests\Resume;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowVacancyRequest extends FormRequest
+class DuplicateResumeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,12 +16,6 @@ class ShowVacancyRequest extends FormRequest
         return true;
     }
 
-    public function all($keys = null) {
-        $data = parent::all($keys);
-        $data['vacancy_id'] = $this->route('vacancy.id');
-        return $data;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,7 +24,7 @@ class ShowVacancyRequest extends FormRequest
     public function rules()
     {
         return [
-            'vacancy_id' => 'required|integer|exists:vacancies,id',
+            'id' => 'required|integer|exists:user_resumes,id',
         ];
     }
 }

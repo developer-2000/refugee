@@ -46,7 +46,7 @@ Route::group([
 
     Route::get('/', 'IndexController@index')->name('index');
 
-    // Auth
+    // Authentication
     Route::middleware('throttle:10,1')->group(function () {
         Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
             Route::post('/login', 'AuthorController@login');
@@ -65,17 +65,24 @@ Route::group([
         'index','show',
     ]);
 
+    // resume
+    Route::resource('resume', 'ResumeController')->only([
+        'show',
+    ]);
+
     // company
     Route::get('/company/{alias}', 'CompanyController@show')
         ->where('alias', '[0-9a-z_-]+');
 
-    // private-office
+    // Auth
     Route::group(['middleware'=>['auth']], function () {
 
-        // respond vacancy/resume
+        // respond vacancy
         Route::post('respond-vacancy', 'RespondController@respondVacancy');
+        // respond resume
+        Route::post('respond-resume', 'RespondController@respondResume');
 
-        // разное
+        // private-office
         Route::group(['prefix'=>'private-office'], function (){
 
             // office
@@ -104,19 +111,23 @@ Route::group([
                 Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
                 Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
                 Route::get('bookmark-vacancies', 'VacancyController@bookmarkVacancies');
-                Route::post('hide-vacancy-search', 'VacancyController@hideVacancyInSearch');
+                Route::post('hide-vacancy', 'VacancyController@hideVacancy');
                 Route::get('hidden-vacancies', 'VacancyController@hiddenVacancies');
             });
             Route::resource('vacancy', 'VacancyController')->only([
-                'create', 'store', 'destroy', 'edit', 'update'
+                'create', 'store', 'edit', 'update'
             ]);
 
             // resume
             Route::group(['prefix'=>'resume'], function (){
                 Route::get('my-resumes', 'ResumeController@myResumes');
+                Route::post('up-resume-status', 'ResumeController@upResumeStatus');
+                Route::post('duplicate-resume', 'ResumeController@duplicateResume');
+                Route::post('bookmark-resume', 'ResumeController@bookmarkResume');
+                Route::post('hide-resume', 'ResumeController@hideResume');
             });
             Route::resource('resume', 'ResumeController')->only([
-                'create', 'store',
+                'create', 'store', 'edit', 'update'
             ]);
         });
     });

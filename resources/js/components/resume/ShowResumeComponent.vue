@@ -6,7 +6,10 @@
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
             <template v-for="(obj, key) in back_url[0]">
-                <a :href="`/${obj.url}`" class="back-url-link">{{trans('menu.menu',obj.name)}}</a>
+                <a :href="`/${obj.url}`" class="back-url-link">
+<!--                    {{trans('menu.menu',obj.name)}}-->
+                    {{obj.name}}
+                </a>
                 <span class="bread-slash"> | </span>
             </template>
         </div>
@@ -15,7 +18,7 @@
         <div class="top-panel">
 
             <!-- Откликнуться -->
-            <button v-if="owner_vacancy == null"
+            <button v-if="owner_resume == null"
                     class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
             >
@@ -27,12 +30,12 @@
                     class="btn btn-block btn-primary" type="button"
                     @click="goToConversation()"
             >
-                {{trans('respond','open_dialog_with')}} {{owner_vacancy.contact.name}}
+                {{trans('respond','open_dialog_with')}} {{owner_resume.contact.name}}
             </button>
 
             <!-- Найти похожие вакансии -->
             <button class="btn btn-block btn-outline-primary" type="button"
-                    @click="findSimilarVacancy()"
+                    @click="findSimilarResume()"
             >
                 {{trans('vacancies','find_similar_jobs')}}
             </button>
@@ -40,44 +43,44 @@
             <!-- кнопки закладок вакансий -->
             <bookmark_buttons
                 :lang="lang"
-                :vacancy="vacancy"
+                :resume="resume"
                 :user="user"
-                :which_button_show="'show_vacancy'"
+                :which_button_show="'show_resume'"
             ></bookmark_buttons>
         </div>
 
-        <!-- vacancy -->
+        <!-- resume -->
         <div class="box-page">
-            <vacancy_template
-                :vacancy="vacancy"
+            <resume_template
+                :resume="resume"
                 :settings="settings"
                 :lang="lang"
                 :page="'show'"
-            ></vacancy_template>
+            ></resume_template>
         </div>
 
         <!-- откликнуться -->
         <div v-if="respond_bool" id="box-respond" >
             <h2 class="title-vacancy">
-                {{trans('respond','apply_to_job')}}
+                Откликнуться на резюме
             </h2>
             <div class="card card-primary card-outline card-outline-tabs card-respond">
                 <!-- buttons tabs -->
                 <div class="card-header p-0 border-bottom-0">
                     <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="first-card-link-tab" data-toggle="pill"
-                               href="#first-card-link" role="tab" aria-controls="first-card-link" aria-selected="true"
-                               @click="resumeObj.bool_tab = 1"
+                            <a class="nav-link active" id="first-card-link-tab" data-toggle="pill" href="#first-card-link"
+                               role="tab" aria-controls="first-card-link" aria-selected="true"
+                               @click="vacancyObj.bool_tab = 1"
                             >
-                                {{trans('respond','resume_on_site')}}
+                                Вакансия на сайте
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="javascript:void(0)"
-                               @click="resumeObj.bool_tab = 0"
+                               @click="vacancyObj.bool_tab = 0"
                             >
-                                {{trans('respond','attach_resume_file')}}
+                                Прикрепить файл вакансии
                             </a>
                         </li>
                     </ul>
@@ -87,25 +90,23 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="first-card-link" role="tabpanel" aria-labelledby="first-card-link-tab">
 
-                            <!-- показ resume сайта -->
-                            <template v-if="resumeObj.bool_tab">
+                            <!-- показ vacancy сайта -->
+                            <template v-if="vacancyObj.bool_tab">
                                 <label>
-                                    {{trans('respond','select_cv')}}
+                                    Выбрать вакансию
                                 </label>
-                                <!-- есть resume сайтовое -->
-                                <div v-if="lookingValueInArrayObjects('type', 0, respond_data.arr_resume)"
-                                     class="box-yes-resume"
-                                >
+                                <!-- есть vacancy сайтовое -->
+                                <div v-if="lookingValueInArrayObjects('type', 0, respond_data.arr_vacancy)" class="box-yes-resume">
                                     <div class="form-group" id="box-radio">
-                                        <div v-for="(obj, key) in respond_data.arr_resume" :key="key">
+                                        <div v-for="(obj, key) in respond_data.arr_vacancy" :key="key">
                                             <template v-if="obj.type === 0">
                                                 <input type="radio"
-                                                       v-model="resumeObj.resume_id"
-                                                       :id="`resume_${key}`"
+                                                       v-model="vacancyObj.vacancy_id"
+                                                       :id="`vacancy_${key}`"
                                                        :value="obj.id"
                                                 >
                                                 <label class="target-label"
-                                                       :for="`resume_${key}`"
+                                                       :for="`vacancy_${key}`"
                                                 >
                                                     {{obj.position.title}}
                                                 </label>
@@ -113,13 +114,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- no resume -->
+                                <!-- no vacancy -->
                                 <div v-else class="box-no-resume">
                                     <a class="link-a"
-                                       :href="lang.prefix_lang+'private-office/resume/create'"
+                                       :href="lang.prefix_lang+'private-office/vacancy/create'"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                                        {{trans('respond','create_your_resume')}}
+                                        Создать свою вакансию
                                     </a>
                                 </div>
                             </template>
@@ -127,13 +128,13 @@
                             <!-- показ Drop file -->
                             <template v-else>
                                 <label>
-                                    {{trans('respond','resume_file')}}
+                                    Файл вакансии
                                 </label>
 
                                 <!-- если нет загруженного файла резюме -->
-                                <div v-if="!file_resume" class="block-drop-file">
+                                <div v-if="!file_vacancy" class="block-drop-file">
                                     <drag_drop_file
-                                        @load_resume='addResume'
+                                        @load_resume='addVacancy'
                                         :lang="lang"
                                         :arr_files="filelist"
                                     ></drag_drop_file>
@@ -142,10 +143,10 @@
                                 <!-- есть загруженный резюме -->
                                 <a v-else
                                    class="file-load-resume" href="javascript:void(0)"
-                                   @click="targetFileLoadResume(file_resume.url)"
+                                   @click="targetFileLoadVacancy(file_vacancy.url)"
                                 >
-                                    {{file_resume.title}}
-                                    <svg @click="removeFileLoadResume($event)" class="xmark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
+                                    {{file_vacancy.title}}
+                                    <svg @click="removeFileLoadVacancy($event)" class="xmark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
                                 </a>
 
                             </template>
@@ -153,15 +154,15 @@
                             <!-- сопроводительное -->
                             <div class="form-group textarea-letter">
                                 <!-- ссылка -->
-                                <div v-show="!resumeObj.bool_letter">
+                                <div v-show="!vacancyObj.bool_letter">
                                     <a href="javascript:void(0)" class="link-a"
-                                       @click="resumeObj.bool_letter = !resumeObj.bool_letter"
+                                       @click="vacancyObj.bool_letter = !vacancyObj.bool_letter"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
                                         {{trans('respond','add_cover_letter')}}
                                     </a>
                                 </div>
-                                <div v-show="resumeObj.bool_letter">
+                                <div v-show="vacancyObj.bool_letter">
                                     <label>
                                         {{trans('respond','cover_letter')}}
                                     </label>
@@ -179,7 +180,7 @@
                                 <button type="submit" class="btn btn-block btn-primary btn-lg"
                                         :class="{'disabled': disableButton()}"
                                         :disabled="disableButton()"
-                                        @click.prevent="respondVacancy"
+                                        @click.prevent="respondResume"
                                 >
                                     {{trans('respond','respond')}}
                                 </button>
@@ -196,8 +197,8 @@
 </template>
 
 <script>
-    import bookmark_buttons from "./details/BookmarkButtonsVacancyComponent";
-    import vacancy_template from "./details/VacancyTemplateComponent";
+    import bookmark_buttons from "./details/BookmarkButtonsResumeComponent";
+    import resume_template from "./details/ResumeTemplateComponent";
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
@@ -207,7 +208,7 @@
         delimiters: ['${', '}'], // Avoid Twig conflicts
         components: {
             'bookmark_buttons': bookmark_buttons,
-            'vacancy_template': vacancy_template,
+            'resume_template': resume_template,
             'drag_drop_file': drag_drop_file,
         },
         mixins: [
@@ -217,9 +218,9 @@
         ],
         data() {
             return {
-                respond_bool: false,
-                resumeObj:{
-                    resume_id: null,
+                respond_bool: true,
+                vacancyObj:{
+                    vacancy_id: null,
                     bool_letter: false,
                     bool_tab: 1,
                 },
@@ -232,23 +233,24 @@
                     },
                 },
                 filelist: [],
-                file_resume: null,
+                file_vacancy: null,
             }
         },
         methods: {
-            async respondVacancy(){
+            async respondResume(){
                 let formData = new FormData;
-                formData.append('vacancy_id', this.vacancy.id);
-                formData.append('bool_tab', this.resumeObj.bool_tab);
-                formData.append('resume_id', this.resumeObj.resume_id !== null ? this.resumeObj.resume_id : '');
+                formData.append('resume_id', this.resume.id);
+                formData.append('bool_tab', this.vacancyObj.bool_tab);
+                formData.append('vacancy_id', this.vacancyObj.vacancy_id !== null ? this.vacancyObj.vacancy_id : '');
                 formData.append('textarea_letter', this.objTextarea.textarea_letter);
-                formData.append('old_file_id', this.file_resume !== null ? this.file_resume.id : '');
+                formData.append('old_file_id', this.file_vacancy !== null ? this.file_vacancy.id : '');
                 formData.append('new_file', this.filelist.length ? this.filelist[0] : '');
 
-                const response = await this.$http.post(`/respond-vacancy`, formData)
+                const response = await this.$http.post(`/respond-resume`, formData)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            location.reload()
+                            console.log(res.data.message)
+                            // location.reload()
                         }
                         // custom ошибки
                         else{
@@ -274,15 +276,15 @@
                 }
                 return url
             },
-            findSimilarVacancy(){
+            findSimilarResume(){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('categories')
                 params.delete('position')
-                params.set('categories',this.vacancy.categories.toString())
-                params.set('position',this.vacancy.position.title)
+                params.set('categories',this.resume.categories.toString())
+                params.set('position',this.resume.position.title)
                 params.sort()
 
-                location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
+                location.href = this.lang.prefix_lang+'resume?'+params.toString()
             },
             scrollRespond(){
                 if(this.checkAuth(window.location.pathname)){
@@ -297,24 +299,24 @@
             },
             disableButton() {
                 if(
-                    (this.resumeObj.bool_tab && !this.resumeObj.resume_id) ||
-                    (!this.resumeObj.bool_tab && (!this.filelist.length && !this.file_resume))
+                    (this.vacancyObj.bool_tab && !this.vacancyObj.vacancy_id) ||
+                    (!this.vacancyObj.bool_tab && (!this.filelist.length && !this.file_vacancy))
                 ){
                     return true;
                 }
                 return false;
             },
             // раскрытие загруженного резюме
-            targetFileLoadResume(url) {
+            targetFileLoadVacancy(url) {
                 window.open("//"+location.hostname+"/"+url)
             },
             // очистка данных о загруженном резюме
-            removeFileLoadResume(e) {
-                this.file_resume = null
+            removeFileLoadVacancy(e) {
+                this.file_vacancy = null
                 e.stopPropagation()
             },
             // @emit дочернего
-            addResume(file){
+            addVacancy(file){
                 this.filelist = file
             },
             // выбор имени компонента для динамик компонента
@@ -339,19 +341,19 @@
         },
         computed: {
             initializationFunc() {
-                // есть ли file resume
-                let obj = this.lookingValueInArrayObjects('type', 1, this.respond_data.arr_resume)
+                // есть ли file vacancy
+                let obj = this.lookingValueInArrayObjects('type', 1, this.respond_data.arr_vacancy)
                 if(obj){
-                    this.file_resume = obj
+                    this.file_vacancy = obj
                 }
             },
         },
         props: [
             'lang',   // масив названий и url языка
-            'vacancy',
+            'resume',
             'settings',
             'respond_data',
-            'owner_vacancy',
+            'owner_resume',
             'user',
             'back_url',
         ],
@@ -359,6 +361,10 @@
             this.initializationFunc
 
             $('html, body').animate({scrollTop: 0},500);
+
+
+            console.log("resume")
+            console.log(this.resume)
         },
     }
 </script>

@@ -10,8 +10,6 @@
     <!-- InputMask -->
     <script src="{{asset('js/inputmask/jquery.inputmask.bundle.min.js')}}" defer></script>
 
-
-
     <script>
         jQuery(document).ready(function(){
             //Initialize Select2 Elements
@@ -27,6 +25,7 @@
     <edit-resume-component
         :lang="{{json_encode($lang)}}"
         :settings="{{json_encode($settings)}}"
+        :resume="{{isset($resume) ? json_encode($resume) : json_encode(null)}}"
     ></edit-resume-component>
 
 </div>

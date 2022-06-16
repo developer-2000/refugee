@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Respond\RespondResumeRequest;
 use App\Http\Requests\Respond\RespondVacancyRequest;
+use App\Model\RespondResume;
+use App\Repositories\RespondResumeRepository;
 use App\Repositories\RespondVacancyRepository;
 
 
 class RespondController extends BaseController {
 
-    protected $repository;
+    protected $repositoryVacancy;
+    protected $repositoryResume;
 
     public function __construct() {
-        $this->repository = new RespondVacancyRepository();
+        $this->repositoryVacancy = new RespondVacancyRepository();
+        $this->repositoryResume = new RespondResumeRepository();
     }
 
     /**
@@ -20,9 +25,19 @@ class RespondController extends BaseController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondVacancy(RespondVacancyRequest $request) {
-        $respond = $this->repository->respondVacancy($request);
+        $respond = $this->repositoryVacancy->respondVacancy($request);
 
         return $this->getResponse();
     }
 
+    /**
+     * откликнуться на резюме
+     * @param  RespondVacancyRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondResume(RespondResumeRequest $request) {
+        $respond = $this->repositoryResume->respondResume($request);
+
+        return $this->getResponse();
+    }
 }

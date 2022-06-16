@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests\Vacancy;
+namespace App\Http\Requests\Resume;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteVacancyRequest extends FormRequest
+class ShowResumeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +17,7 @@ class DeleteVacancyRequest extends FormRequest
 
     public function all($keys = null) {
         $data = parent::all($keys);
-        $data['id'] = $this->route('vacancy');
+        $data['resume_id'] = $this->route('resume.id');
         return $data;
     }
 
@@ -30,7 +29,7 @@ class DeleteVacancyRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|exists:vacancies,id',
+            'resume_id' => 'required|integer|exists:user_resumes,id',
         ];
     }
 }

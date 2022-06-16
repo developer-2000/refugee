@@ -30,7 +30,6 @@ class VacancyController extends BaseController {
 
     public function __construct() {
         parent::__construct();
-
         $this->repository = new VacancyRepository();
     }
 
@@ -38,7 +37,7 @@ class VacancyController extends BaseController {
     {
         $settings = $this->getSettingsVacanciesAndCountries();
         $vacancies = $this->repository->initialDataForSampling($request)
-            ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
+            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies')
             ->paginate(5);
 
         return view('index', compact('settings', 'vacancies'));
@@ -46,6 +45,7 @@ class VacancyController extends BaseController {
 
     /**
      * показ указанной вакансии
+     * откликнуться, предложив резюме
      * @param  Vacancy  $vacancy
      * @param  ShowVacancyRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -56,23 +56,22 @@ class VacancyController extends BaseController {
         $respond_data['arr_resume'] = [];
         $my_user = Auth::user();
         $settings = $this->getSettingsVacanciesAndCountries();
-        // 1 смотреть конкретную вакансию
+
+        // 1 смотреть вакансию
         $vacancy = Vacancy::where('id', $request->vacancy_id)
-            ->with('position','company.image','id_saved_vacancies','id_not_shown_vacancies')
+            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies')
             ->first();
 
         if(!is_null($my_user)){
-            // 2 все мои резюме
+            // 2 все мои резюме для отклика
             $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
                 ->with('position')->get();
 
             // если я подписан на эту вакансию
-            if(
-            $respondForThisVacancy = RespondVacancy::where('vacancy_id',$request->vacancy_id)
-                ->where('user_resume_id',$my_user->id)
-                ->first()
+            if( $respond = RespondVacancy::where('vacancy_id',$request->vacancy_id)
+                ->where('user_resume_id',$my_user->id)->first()
             ){
-                // 3 владелец этой вакансии
+                // 3 владелец вакансии - для ссылки на него для общения
                 $owner_vacancy = User::where('id',$vacancy->user_id)
                     ->with('contact')->first();
             }
@@ -136,23 +135,6 @@ class VacancyController extends BaseController {
 
 
         return $this->getResponse($update);
-    }
-
-    /**
-     * delete vacancy
-     * @param  DeleteVacancyRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(DeleteVacancyRequest $request)
-    {
-        if(!$vacancy = $this->checkMyVacancy($request)){
-            return $this->getErrorResponse('Not found!');
-        }
-        // удалить старое название, если оно не будет никем использоватся
-        $this->deleteUnwantedVacancyTitle($request, $vacancy->position_id);
-        $vacancy->delete();
-
-        return $this->getResponse();
     }
 
     /**
@@ -226,7 +208,7 @@ class VacancyController extends BaseController {
     }
 
     /**
-     * добавить в закладки выбранную вакансию в поиске
+     * добавить в закладки выбранную вакансию
      * @param  SaveVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -265,11 +247,11 @@ class VacancyController extends BaseController {
     }
 
     /**
-     * скрыть выбранную вакансию в поиске
+     * скрыть из поиска выбранную вакансию
      * @param  SaveVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function hideVacancyInSearch(SaveVacancyRequest $request)
+    public function hideVacancy(SaveVacancyRequest $request)
     {
         $this->switchActionVacancy($request, new UserHideVacancy());
         return $this->getResponse();

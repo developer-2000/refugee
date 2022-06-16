@@ -1,6 +1,19 @@
 <template>
     <div class="view-page">
 
+        <!-- отображение прошедшего времени -->
+        <div v-if="page === 'show'" class="date-document header-date-document">
+            <div class="date-string">
+                {{getDateDocumentString(resume.updated_at)}} назад
+            </div>
+            <!-- Резюме скрыто -->
+            <div class="close-document-fon"
+                 v-if="resume.job_posting.status_name == 'hidden'"
+            >
+                Резюме скрыто
+            </div>
+        </div>
+
         <!-- title company logo status -->
         <div class="box-title">
             <!-- title resume -->
@@ -9,14 +22,25 @@
             </h2>
 
             <!-- аватар контакта -->
-            <!-- на странице search или закладки -->
-            <div v-if="page === 'search' || page === 'bookmark'" class="company-vacancy">
-                <img class="img-logo"
-                     :src="`/${resume.contact.avatar.url}`"
-                     :alt="resume.contact.avatar.title"
+            <template v-if="page === 'show'">
+                <!-- если file avatar не загружен -->
+                <img v-if="resume.contact.avatar === null" class="img-logo"
+                     :src="`/${resume.contact.default_avatar_url}`"
+                     :alt="`${resume.contact.name} ${resume.contact.surname}`"
                 >
-            </div>
-
+                <!-- если загружен -->
+                <img v-else class="img-logo"
+                     :src="`/${resume.contact.avatar.url}`"
+                     :alt="`${resume.contact.name} ${resume.contact.surname}`"
+                >
+            </template>
+            <!-- на странице search или закладки -->
+<!--            <div v-if="page === 'search' || page === 'bookmark'" class="company-vacancy">-->
+<!--                <img class="img-logo"-->
+<!--                     :src="`/${resume.contact.avatar.url}`"-->
+<!--                     :alt="resume.contact.avatar.title"-->
+<!--                >-->
+<!--            </div>-->
 
             <!-- проверка контента резюме -->
             <template v-else-if="page === 'my_resumes'">
@@ -168,11 +192,18 @@
             </div>
         </template>
 
-        <!-- footer-vacancy -->
-        <div class="footer-vacancy">
+        <!-- footer-resume -->
+        <div v-if="page === 'my_resumes'" class="footer-vacancy">
+
             <!-- отображение прошедшего времени -->
             <div class="date-document">
                 {{getDateDocumentString(resume.updated_at)}} назад
+                <!-- вакансия закрыта -->
+                <div class="close-document-fon"
+                     v-if="resume.job_posting.status_name == 'hidden'"
+                >
+                    Резюме скрыто
+                </div>
             </div>
 
             <div class="right-footer">
@@ -225,12 +256,6 @@
                             >
                                 {{trans('vacancies','copy')}}
                             </a>
-                            <!-- удалить -->
-                            <a class="dropdown-item" href="#"
-                               @click="deleteResume($event, resume.id)"
-                            >
-                                {{trans('vacancies','delete')}}
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -244,12 +269,14 @@
     import translation from "../../../mixins/translation";
     import general_functions_mixin from "../../../mixins/general_functions_mixin";
     import date_mixin from "../../../mixins/date_mixin";
+    import response_methods_mixin from "../../../mixins/response_methods_mixin";
 
     export default {
         mixins: [
             translation,
             general_functions_mixin,
-            date_mixin
+            date_mixin,
+            response_methods_mixin,
         ],
         data() {
             return {
@@ -310,62 +337,44 @@
             },
             async changeStatus(event, id, index){
                 event.stopPropagation()
-                // let data = {
-                //     id: id,
-                //     index: index
-                // };
-                // const response = await this.$http.post(`/private-office/resume/up-resume-status`, data)
-                //     .then(res => {
-                //         if(this.checkSuccess(res)){
-                //             location.reload()
-                //         }
-                //         // custom ошибки
-                //         else{
-                //             this.message(res.data.message, 'error', 10000, true);
-                //         }
-                //     })
-                //     // ошибки сервера
-                //     .catch(err => {
-                //         this.messageError(err)
-                //     })
+                let data = {
+                    id: id,
+                    index: index
+                };
+                const response = await this.$http.post(`/private-office/resume/up-resume-status`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
             },
             async duplicateResume(event, id){
                 event.stopPropagation()
                 let data = {
                     id: id,
                 };
-                // const response = await this.$http.post(`/private-office/resume/duplicate-resume`, data)
-                //     .then(res => {
-                //         if(this.checkSuccess(res)){
-                //             location.reload()
-                //         }
-                //         // custom ошибки
-                //         else{
-                //             this.message(res.data.message, 'error', 10000, true);
-                //         }
-                //     })
-                //     // ошибки сервера
-                //     .catch(err => {
-                //         this.messageError(err)
-                //     })
-            },
-            async deleteResume(event, id){
-                event.stopPropagation()
-                // const response = await this.$http.destroy(`/private-office/resume/` + id, {})
-                //     .then(res => {
-                //         if(this.checkSuccess(res)){
-                //             location.reload()
-                //             // console.log(res)
-                //         }
-                //         // custom ошибки
-                //         else{
-                //             this.message(res.data.message, 'error', 10000, true);
-                //         }
-                //     })
-                //     // ошибки сервера
-                //     .catch(err => {
-                //         this.messageError(err)
-                //     })
+                const response = await this.$http.post(`/private-office/resume/duplicate-resume`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
             },
         },
         props: [
@@ -375,7 +384,7 @@
             'page',
         ],
         mounted() {
-            console.log(this.resume)
+
         },
     }
 </script>
@@ -388,9 +397,20 @@
             display: flex;
             align-items: center;
             .button-vacancy{
+                display: flex;
                 margin-left: 20px;
+                & > button {
+                    margin-right: 15px;
+                }
             }
         }
+    }
+    .img-logo {
+        width: 120px;
+        height: 150px;
+        float: right;
+        margin-bottom: -115px;
+        outline: 1px solid #dee2e6;
     }
     .view-page{
         width: 100%;
@@ -421,10 +441,7 @@
             margin-bottom: -95px;
             outline: 1px solid #dee2e6;
             max-width: 220px;
-            .img-logo {
-                width: 120px;
-                height: 150px;
-            }
+
         }
         .no-verified,
         .verified{

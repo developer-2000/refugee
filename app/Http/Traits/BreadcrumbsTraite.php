@@ -34,6 +34,7 @@ trait BreadcrumbsTraite {
         $company = $this->PenultimateElementArray($array);
         $response = [];
 
+        // VACANCY
         // при переходе из поиска вакансий на вакансию
         if($this->LastElementArray($array)[0] == 'vacancy'){
             // добавить query url
@@ -72,6 +73,18 @@ trait BreadcrumbsTraite {
             ];
         }
 
+        // RESUME
+        // при переходе с моих резюме на резюме
+        elseif($this->LastElementArray($array)[0] == 'my-resumes'){
+            $response[] = [
+                'name'=>'my-resumes',
+                'url'=>App::getLocale()."/private-office/resume/my-resumes",
+            ];
+        }
+
+
+
+        // по умолчанию
         if(!count($response)){
             $response[] = ['name'=>null];
         }

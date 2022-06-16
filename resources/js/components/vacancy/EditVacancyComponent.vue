@@ -52,7 +52,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="invalid-feedback" v-if="!$v.position.required">{{trans('vacancies','job_title')}}</div>
+                        <div class="invalid-feedback" v-if="!$v.position.required">
+                            {{trans('vacancies','job_title')}}
+                        </div>
                     </div>
 
                     <!-- Country -->
@@ -653,7 +655,7 @@
             <div class="row footer-form">
                 <div class="col-sm-4 offset-4 but-box">
                     <!-- button create -->
-                    <template v-if="vacancy_id == 0">
+                    <template v-if="vacancy_id === null">
                         <a href="/" class="btn btn-block btn-outline-danger btn-lg">
                             {{trans('vacancies','cancel')}}
                         </a>
@@ -667,7 +669,7 @@
                     </template>
                     <!-- button update -->
                     <template v-else>
-                        <a :href="`${lang.prefix_lang}/private-office/vacancy/my-vacancies`"
+                        <a :href="`${lang.prefix_lang}private-office/vacancy/my-vacancies`"
                            class="btn btn-block btn-outline-danger btn-lg">
                             {{trans('vacancies','cancel')}}
                         </a>
@@ -703,7 +705,7 @@
         ],
         data() {
             return {
-                vacancy_id: 0,
+                vacancy_id: null,
                 position: '',
                 position_list: [],
                 rest_address: null,
@@ -880,7 +882,7 @@
             },
             // в случае редактирования вакансии
             setValuesFields(){
-                if(this.vacancy == null){
+                if(this.vacancy === null){
                     return false
                 }
 
@@ -893,7 +895,7 @@
                     input.checked = true;
                 }
                 this.objCategory.boolChecked = true;
-                this.objLanguage.languages = this.vacancy.languages,
+                this.objLanguage.languages = this.vacancy.languages
 
                 // Location
                 this.objLocations.load_countries = this.settings.obj_countries

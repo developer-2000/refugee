@@ -6,33 +6,33 @@ use App\Model\UserResume;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class RespondVacancyRepository extends CoreRepository {
+class RespondResumeRepository extends CoreRepository {
 
     protected $settings;
     protected $path_to_file;
 
     public function __construct() {
         $this->model = clone app(Model::class);
-        $this->path_to_file = "/files/resumes/";
+        $this->path_to_file = "/files/vacancies/";
     }
 
     /**
-     * откликнуться на вакансию
+     * откликнуться на резюме
      * запись в базе respond
-     * запись в базе resume
-     * сохранение file resume
+     * запись в базе vacancy
+     * сохранение file vacancy
      *
      * @param $request
      * @return mixed|null
      */
-    public function respondVacancy($request) {
+    public function respondResume($request) {
         $respond = null;
 
-        // 1 вкладка резюме на сайте
+        // 1 вкладка вакансия на сайте
         if($request->bool_tab){
-            $respond = $this->createRecordDatabase($request, $request->resume_id);
+            $respond = $this->createRecordDatabase($request, $request->vacancy_id);
         }
-        // вкладка файла резюме
+        // вкладка файла вакансии
         else{
             // 2 пришел новый файл
             if(!is_null($request->new_file)){
@@ -117,7 +117,10 @@ class RespondVacancyRepository extends CoreRepository {
      * delete папку файла c hdd
      */
     private function deleteFile(){
-        if( $resume = UserResume::where('user_id', Auth::user()->id)->where('type', 1)->first() ){
+        if(
+            $resume = UserResume::where('user_id', Auth::user()->id)
+                ->where('type', 1)->first()
+        ){
             $arrUrl = explode("/", $resume->url);
             array_pop($arrUrl);
             $url = implode("/", $arrUrl);
