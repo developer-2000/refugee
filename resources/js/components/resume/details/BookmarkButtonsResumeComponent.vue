@@ -8,7 +8,7 @@
         <!-- Сохранить -->
         <!-- 1 -->
         <button class="btn btn-block btn-outline-primary first-btn" type="button"
-                :class="{'btn-sm': which_button_show == 'search_vacancy'}"
+                :class="{'btn-sm': which_button_show == 'search_resume'}"
                 @click.prevent="changeButton($event, 'save_', 'save-two_', 'show_', 1)"
                 data-bool="1"
                 :data-id="resume.id"
@@ -226,11 +226,11 @@
             },
             // переход в закладки сохраненных
             transitionBookmark(event){
-                location.href = this.lang.prefix_lang+'private-office/resume/bookmark-vacancies'
+                location.href = this.lang.prefix_lang+'private-office/resume/bookmark-resumes'
                 event.stopPropagation()
             },
             transitionHidden(event){
-                location.href = this.lang.prefix_lang+'private-office/resume/hidden-vacancies'
+                location.href = this.lang.prefix_lang+'private-office/resume/hidden-resumes'
                 event.stopPropagation()
             },
         },

@@ -1,7 +1,7 @@
 <template>
     <div class="search-panel container">
         <h1 class="title_page">
-            {{trans('vacancies','job_search')}}
+            Поиск резюме
         </h1>
 
         <!-- search line -->
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-block btn-primary"
-                        @click="searchVacancies"
+                        @click="searchResumes"
                 >
                     {{trans('vacancies','search_2')}}
                 </button>
@@ -35,36 +35,36 @@
         </div>
 
         <div class="bottom-search">
-            <!-- vacancies -->
+            <!-- resumes -->
             <div class="left-site">
                 <!-- item -->
                 <div class="box-vacancy"
-                     v-for="(vacancy, key) in vacancies.data" :key="key"
+                     v-for="(resume, key) in resumes.data" :key="key"
                      :id="`v${key}`"
-                     @click.prevent="transitionToVacancy(vacancy.alias)"
-                     :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
+                     @click.prevent="transitionToResume(resume.alias)"
+                     :class="{'close-document-border': resume.job_posting.status_name == 'hidden' }"
                 >
                     <!-- лента -->
                     <div class="ribbon-wrapper">
-                        <div class="ribbon euro-color">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="euro-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
+                        <div class="ribbon uk-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="uk-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
                         </div>
                     </div>
-                    <!-- vacancy -->
-                    <vacancy_template
-                        :vacancy="vacancy"
+                    <!-- resume -->
+                    <resume_template
+                        :resume="resume"
                         :settings="settings"
                         :lang="lang"
                         :page="'search'"
-                    ></vacancy_template>
+                    ></resume_template>
 
                     <div class="footer-vacancy">
                         <!-- отображение прошедшего времени -->
                         <div class="date-document">
-                            {{getDateDocumentString(vacancy.updated_at)}} назад
+                            {{getDateDocumentString(resume.updated_at)}} назад
                             <!-- вакансия закрыта -->
                             <div class="close-document-fon"
-                                 v-if="vacancy.job_posting.status_name == 'hidden'"
+                                 v-if="resume.job_posting.status_name == 'hidden'"
                             >
                                 Вакансия закрыта
                             </div>
@@ -73,18 +73,18 @@
                         <!-- кнопки закладок вакансий -->
                         <bookmark_buttons
                             :lang="lang"
-                            :vacancy="vacancy"
+                            :resume="resume"
                             :user="user"
-                            :which_button_show="'search_vacancy'"
+                            :which_button_show="'search_resume'"
                         ></bookmark_buttons>
                     </div>
 
                 </div>
 
                 <pagination
-                    v-if="vacancies.last_page > 1"
-                    :pagination="vacancies"
-                    @paginate="searchVacancies"
+                    v-if="resumes.last_page > 1"
+                    :pagination="resumes"
+                    @paginate="searchResumes"
                     :offset="1"
                 >
                 </pagination>
@@ -95,8 +95,8 @@
                 <search_panel
                     :lang="lang"
                     :settings="settings"
-                    :page="'search_vacancies'"
-                    @returnParent="getVacancies"
+                    :page="'search_resumes'"
+                    @returnParent="getResumes"
                 ></search_panel>
             </div>
         </div>
@@ -106,9 +106,10 @@
 <script>
     import pagination from "../details/PaginationComponent";
     import search_panel from '../details/SearchPanelComponent.vue'
-    import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
+    import bookmark_buttons from './details/BookmarkButtonsResumeComponent'
+    import resume_template from "./details/ResumeTemplateComponent";
+
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
-    import vacancy_template from "./details/VacancyTemplateComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import translation from "../../mixins/translation";
     import date_mixin from "../../mixins/date_mixin";
@@ -119,7 +120,7 @@
             'pagination': pagination,
             'search_panel': search_panel,
             'bookmark_buttons': bookmark_buttons,
-            'vacancy_template': vacancy_template,
+            'resume_template': resume_template,
         },
         mixins: [
             general_functions_mixin,
@@ -136,12 +137,14 @@
             }
         },
         methods: {
+            // Enter в строке поиска
             enterKey(e){
                 if(e.code == 'Enter'){
-                    this.searchVacancies({})
+                    this.searchResumes({})
                 }
             },
-            searchVacancies(obj){
+            // загрузка страницы с текстом поиска в query параметре url
+            searchResumes(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
                 // page
@@ -157,9 +160,9 @@
                 }
                 params.sort()
                 let query = (params.toString() == '') ? '' : '?'+params.toString()
-                location.href = this.lang.prefix_lang+'vacancy'+query
+                location.href = this.lang.prefix_lang+'resume'+query
             },
-            getVacancies(obj){
+            getResumes(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
                 params.delete('country')
@@ -223,7 +226,7 @@
 
                 // console.log(query)
 
-                location.href = this.lang.prefix_lang+'vacancy'+query
+                location.href = this.lang.prefix_lang+'resume'+query
             },
             // поиск похожих заголовков
             async searchPosition(value){
@@ -234,7 +237,7 @@
                 let data = {
                     value: value,
                 };
-                const response = await this.$http.post(`/private-office/vacancy/search-position`, data)
+                const response = await this.$http.post(`/private-office/resume/search-position`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             // вернет только опубликованные
@@ -272,20 +275,20 @@
                 salary_string = salary_string == '' ? 0 : salary_string
                 return salary_string
             },
-            addressView(vacancyObj){
+            addressView(resumeObj){
                 let address_string = ''
 
-                if(vacancyObj.country !== null){
-                    address_string += vacancyObj.country.name+'.'
+                if(resumeObj.country !== null){
+                    address_string += resumeObj.country.name+'.'
                 }
-                if(vacancyObj.region !== null){
-                    address_string += ' ' + vacancyObj.region.name+'.'
+                if(resumeObj.region !== null){
+                    address_string += ' ' + resumeObj.region.name+'.'
                 }
-                if(vacancyObj.city !== null){
-                    address_string += ' ' + vacancyObj.city.name+'.'
+                if(resumeObj.city !== null){
+                    address_string += ' ' + resumeObj.city.name+'.'
                 }
 
-                address_string += ' ' + vacancyObj.rest_address+'.'
+                address_string += ' ' + resumeObj.rest_address+'.'
 
                 return address_string
             },
@@ -293,11 +296,11 @@
         props: [
             'lang',
             'settings',
-            'vacancies',
+            'resumes',
             'user',
         ],
         mounted() {
-            // console.log(this.vacancies)
+            // console.log(this.resumes)
 
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)

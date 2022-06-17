@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Resume\EditResumeRequest;
+use App\Http\Requests\Resume\IndexResumeRequest;
 use App\Http\Requests\Resume\SaveResumeRequest;
 use App\Http\Requests\Resume\ShowResumeRequest;
 use App\Http\Requests\Resume\StoreResumeRequest;
 use App\Http\Requests\Resume\UpdateResumeRequest;
 use App\Http\Requests\Resume\UpResumeStatusRequest;
 use App\Http\Requests\Resume\DuplicateResumeRequest;
+use App\Http\Requests\Vacancy\SearchPositionRequest;
+use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\MakeGeographyDb;
+use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\User;
 use App\Model\UserHideResume;
@@ -18,9 +22,11 @@ use App\Model\UserSaveResume;
 use App\Model\Vacancy;
 use App\Repositories\ResumeRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends BaseController {
+    use GeneralVacancyResumeTraite;
 
     protected $repository;
 
@@ -29,6 +35,16 @@ class ResumeController extends BaseController {
         $this->repository = new ResumeRepository();
     }
 
+    public function index(IndexResumeRequest $request)
+    {
+        $settings = $this->getSettingsDocumentsAndCountries();
+        $resumes = $this->repository->initialDataForSampling($request)
+            ->where('type', 0)
+            ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes')
+            ->paginate(10);
+
+        return view('search_resumes', compact('settings', 'resumes'));
+    }
 
     /**
      * показ указанного резюме
@@ -42,7 +58,7 @@ class ResumeController extends BaseController {
         $owner_resume = null;
         $respond_data['arr_vacancy'] = [];
         $my_user = Auth::user();
-        $settings = $this->getSettingsResumeAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
 
         // 1 смотреть резюме
         $resume = UserResume::where('id', $request->resume_id)
@@ -73,7 +89,7 @@ class ResumeController extends BaseController {
      */
     public function create()
     {
-        $settings = $this->getSettingsResumeAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         return view('resumes.create_resume', compact('settings'));
     }
 
@@ -103,7 +119,7 @@ class ResumeController extends BaseController {
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
 
-        $settings = $this->getSettingsResumeAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
 
         return view('resumes.create_resume', compact('resume','settings'));
     }
@@ -115,7 +131,7 @@ class ResumeController extends BaseController {
      */
     public function update(UpdateResumeRequest $request)
     {
-        if(!$resume = $this->checkMyResume($request)){
+        if(!$resume = $this->checkMyDocument($request, new UserResume())){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
         $update = $this->repository->updateResume($request, $resume->position_id);
@@ -129,7 +145,7 @@ class ResumeController extends BaseController {
      */
     public function myResumes()
     {
-        $settings = $this->getSettingsResumeAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = UserResume::where('user_id', Auth::user()->id)
             ->with('position', 'contact.avatar')
             ->withCount('respond')
@@ -165,7 +181,7 @@ class ResumeController extends BaseController {
      */
     public function duplicateResume(DuplicateResumeRequest $request)
     {
-        if(!$resume = $this->checkMyResume($request)){
+        if(!$resume = $this->checkMyDocument($request, new UserResume())){
             return $this->getErrorResponse('Not found!');
         }
 
@@ -185,7 +201,7 @@ class ResumeController extends BaseController {
      */
     public function bookmarkResume(SaveResumeRequest $request)
     {
-        $this->switchActionResume($request, new UserSaveResume());
+        $this->switchActionBookmark($request, new UserSaveResume(), 'resume_id');
         return $this->getResponse();
     }
 
@@ -195,7 +211,7 @@ class ResumeController extends BaseController {
      */
     public function bookmarkResumes()
     {
-        $settings = $this->getSettingsResumeAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = UserSaveResume::where('user_id', Auth::user()->id)
             ->with('resume.position','resume.contact.avatar')
             ->get();
@@ -209,7 +225,7 @@ class ResumeController extends BaseController {
      */
     public function hideResume(SaveResumeRequest $request)
     {
-        $this->switchActionResume($request, new UserHideResume());
+        $this->switchActionBookmark($request, new UserHideResume(), 'resume_id');
         return $this->getResponse();
     }
 
@@ -219,7 +235,7 @@ class ResumeController extends BaseController {
      */
     public function hiddenResumes()
     {
-        $settings = $this->getSettingsResumeAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = UserHideResume::where('user_id', Auth::user()->id)
             ->with('resume.position','resume.contact.avatar')
             ->get();
@@ -227,49 +243,4 @@ class ResumeController extends BaseController {
         return view('resumes.hidden_resumes', compact('settings','resumes'));
     }
 
-    // Private
-    /**
-     * настройки параметров и страны сайта
-     * @return \Illuminate\Config\Repository|mixed
-     */
-    private function getSettingsResumeAndCountries(){
-        $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
-            $settings['obj_countries'] = $objCountries['country']['EN'];
-        }
-        $settings['categories'] = config('site.categories.categories');
-        return $settings;
-    }
-
-    /**
-     * проверка на мое resume
-     * @param $request
-     * @return mixed
-     */
-    private function checkMyResume($request){
-        return UserResume::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
-    }
-
-    /**
-     * переключение состояний резюме (добавление в закладки и скрытие)
-     * @param $request
-     * @param $model
-     */
-    private function switchActionResume($request, $model){
-        if($request->action === 1){
-            $model::updateOrCreate(
-                [
-                    'user_id'=>Auth::user()->id,
-                    'resume_id'=>$request->resume_id
-                ]
-            );
-        }
-        elseif($request->action === 0){
-            $model::where('user_id', Auth::user()->id)
-                ->where('resume_id',$request->resume_id)
-                ->delete();
-        }
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class UserResume extends Model
@@ -20,9 +21,18 @@ class UserResume extends Model
         'job_posting' => 'json',
     ];
 
+    protected $dates = [
+        'data_birth'
+    ];
+
     public function getRouteKeyName()
     {
         return 'alias';
+    }
+
+    public function getDataBirthAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
     }
 
     // название резюме

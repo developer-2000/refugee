@@ -11,6 +11,7 @@ use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
+use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\RespondVacancy;
@@ -23,6 +24,7 @@ use App\Repositories\VacancyRepository;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyController extends BaseController {
+    use GeneralVacancyResumeTraite;
 
     protected $repository;
 
@@ -33,12 +35,12 @@ class VacancyController extends BaseController {
 
     public function index(IndexVacancyRequest $request)
     {
-        $settings = $this->getSettingsVacanciesAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         $vacancies = $this->repository->initialDataForSampling($request)
             ->with('position','company.image','id_saved_vacancies','id_hide_vacancies')
-            ->paginate(5);
+            ->paginate(10);
 
-        return view('index', compact('settings', 'vacancies'));
+        return view('search_vacancies', compact('settings', 'vacancies'));
     }
 
     /**
@@ -53,7 +55,7 @@ class VacancyController extends BaseController {
         $owner_vacancy = null;
         $respond_data['arr_resume'] = [];
         $my_user = Auth::user();
-        $settings = $this->getSettingsVacanciesAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
 
         // 1 смотреть вакансию
         $vacancy = Vacancy::where('id', $request->vacancy_id)
@@ -84,7 +86,7 @@ class VacancyController extends BaseController {
      */
     public function create()
     {
-        $settings = $this->getSettingsVacanciesAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         return view('vacancies/create_vacancy', compact('settings'));
     }
 
@@ -114,7 +116,7 @@ class VacancyController extends BaseController {
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
 
-        $settings = $this->getSettingsVacanciesAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
 
         return view('vacancies/create_vacancy', compact('vacancy','settings'));
     }
@@ -126,27 +128,13 @@ class VacancyController extends BaseController {
      */
     public function update(UpdateVacancyRequest $request)
     {
-        if(!$vacancy = $this->checkMyVacancy($request)){
+        if(!$vacancy = $this->checkMyDocument( $request, new Vacancy() )){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
         $update = $this->repository->updateVacancy($request, $vacancy->position_id);
 
 
         return $this->getResponse($update);
-    }
-
-    /**
-     * найти должность по первым символам
-     * @param  SearchPositionRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function searchPosition(SearchPositionRequest $request)
-    {
-        $position = Position::where('active',1)
-            ->where('title', 'like', $request->value.'%')
-            ->get()
-            ->pluck('title');
-        return $this->getResponse(compact('position'));
     }
 
     /**
@@ -191,7 +179,7 @@ class VacancyController extends BaseController {
      */
     public function duplicateVacancy(DuplicateVacancyRequest $request)
     {
-        if(!$vacancy = $this->checkMyVacancy($request)){
+        if(!$vacancy = $this->checkMyDocument( $request, new Vacancy() )){
             return $this->getErrorResponse('Not found!');
         }
 
@@ -211,7 +199,7 @@ class VacancyController extends BaseController {
      */
     public function bookmarkVacancy(SaveVacancyRequest $request)
     {
-        $this->switchActionVacancy($request, new UserSaveVacancy());
+        $this->switchActionBookmark($request, new UserSaveVacancy(), 'vacancy_id');
         return $this->getResponse();
     }
 
@@ -221,7 +209,7 @@ class VacancyController extends BaseController {
      */
     public function bookmarkVacancies()
     {
-        $settings = $this->getSettingsVacanciesAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         $vacancies = UserSaveVacancy::where('user_id', Auth::user()->id)
             ->with('vacancy.position','vacancy.company.image')
             ->get();
@@ -236,7 +224,7 @@ class VacancyController extends BaseController {
      */
     public function hideVacancy(SaveVacancyRequest $request)
     {
-        $this->switchActionVacancy($request, new UserHideVacancy());
+        $this->switchActionBookmark($request, new UserHideVacancy(), 'vacancy_id');
         return $this->getResponse();
     }
 
@@ -246,59 +234,12 @@ class VacancyController extends BaseController {
      */
     public function hiddenVacancies()
     {
-        $settings = $this->getSettingsVacanciesAndCountries();
+        $settings = $this->getSettingsDocumentsAndCountries();
         $vacancies = UserHideVacancy::where('user_id', Auth::user()->id)
             ->with('vacancy.position','vacancy.company.image')
             ->get();
 
         return view('vacancies.hidden_vacancies', compact('settings','vacancies'));
-    }
-
-    // ===
-    // Private
-    /**
-     * переключение состояний выбранных вакансий (добавление в закладки и скрытие)
-     * @param $request
-     * @param $model
-     */
-    private function switchActionVacancy($request, $model){
-        if($request->action == 1){
-            $model::updateOrCreate(
-                [
-                    'user_id'=>Auth::user()->id,
-                    'vacancy_id'=>$request->vacancy_id
-                ]
-            );
-        }
-        elseif($request->action == 0){
-            $model::where('user_id', Auth::user()->id)
-                ->where('vacancy_id',$request->vacancy_id)
-                ->delete();
-        }
-    }
-
-    /**
-     * настройки вакансий и страны сайта
-     * @return \Illuminate\Config\Repository|mixed
-     */
-    private function getSettingsVacanciesAndCountries(){
-        $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
-            $settings['obj_countries'] = $objCountries['country']['EN'];
-        }
-        $settings['categories'] = config('site.categories.categories');
-        return $settings;
-    }
-
-    /**
-     * проверка на мою вакансию
-     * @param $request
-     * @return mixed
-     */
-    private function checkMyVacancy($request){
-        return Vacancy::where('id', $request->id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
     }
 
 }

@@ -37,7 +37,7 @@
             <button class="btn btn-block btn-outline-primary" type="button"
                     @click="findSimilarResume()"
             >
-                {{trans('vacancies','find_similar_jobs')}}
+                Найти похожие резюме
             </button>
 
             <!-- кнопки закладок вакансий -->

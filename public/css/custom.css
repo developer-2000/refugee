@@ -430,7 +430,9 @@ label{
     background-color: #007bff!important;
     border-color: #006fe6!important;
     color: #fff;
-    padding: 0 0 0 10px;
+    padding: 2px 0 2px 10px;
+    white-space: inherit;
+    line-height: 16px;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
     position: static !important;

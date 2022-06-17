@@ -8,11 +8,11 @@
             </a>
             <span class="bread-slash"> | </span>
         </div>
-        <h1 class="title_page card-body">
+        <h2 class="title_page card-body">
             {{trans('vacancies','bookmarks')}}
             <u>{{trans('vacancies','hidden_2')}}</u>
             {{trans('vacancies','vacancies_2')}}
-        </h1>
+        </h2>
         <!-- No vacancies -->
         <div class="callout callout-warning"
              v-if="!vacancies.length"

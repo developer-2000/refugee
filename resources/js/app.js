@@ -30,6 +30,7 @@ Vue.component('my-resumes-component', require('./components/resume/MyResumesComp
 Vue.component('show-resume-component', require('./components/resume/ShowResumeComponent').default);
 Vue.component('bookmark-resumes-component', require('./components/resume/BookmarkResumesComponent').default);
 Vue.component('hidden-resumes-component', require('./components/resume/HiddenResumesComponent').default);
+Vue.component('search-resumes', require('./components/resume/SearchResumeComponent').default);
 // company
 Vue.component('edit-company-component', require('./components/company/EditCompanyComponent').default);
 Vue.component('company-component', require('./components/company/CompanyComponent').default);

@@ -22,7 +22,7 @@
             </h2>
 
             <!-- аватар контакта -->
-            <template v-if="page === 'show' || page === 'bookmark'">
+            <template v-if="page !== 'my_resumes'">
                 <!-- если file avatar не загружен -->
                 <img v-if="resume.contact.avatar === null" class="img-logo"
                      :src="`/${resume.contact.default_avatar_url}`"

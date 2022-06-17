@@ -1,11 +1,14 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\Position;
 use App\Model\UserResume as Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeRepository extends CoreRepository {
+    use GeneralVacancyResumeTraite;
 
     protected $settings;
 
@@ -57,7 +60,7 @@ class ResumeRepository extends CoreRepository {
             'country' => $request->country !== null ? $request->country[0] : null,
             'region' => $request->region !== null ? $request->region[0] : null,
             'city' => $request->city !== null ? $request->city[0] : null,
-            'data_birth'=>$request->data_birth,
+            'data_birth'=>Carbon::parse($request->data_birth),
             'categories'=>$request->categories,
             'salary'=>[
                 'radio_name'=>$request->salary_but,
@@ -82,4 +85,5 @@ class ResumeRepository extends CoreRepository {
             'text_achievements'=>$request->text_achievements,
         ];
     }
+
 }

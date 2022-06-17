@@ -62,12 +62,12 @@ Route::group([
 
     // vacancy
     Route::resource('vacancy', 'VacancyController')->only([
-        'index','show',
+        'index', 'show',
     ]);
 
     // resume
     Route::resource('resume', 'ResumeController')->only([
-        'show',
+        'index', 'show',
     ]);
 
     // company
@@ -120,6 +120,7 @@ Route::group([
 
             // resume
             Route::group(['prefix'=>'resume'], function (){
+                Route::post('search-position', 'ResumeController@searchPosition');
                 Route::get('my-resumes', 'ResumeController@myResumes');
                 Route::post('up-resume-status', 'ResumeController@upResumeStatus');
                 Route::post('duplicate-resume', 'ResumeController@duplicateResume');
