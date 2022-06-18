@@ -206,6 +206,9 @@ b{
     opacity: 1;
     transform: translate3d(0, 0.2em, 0);
 }
+.clear-float{
+    clear: both;
+}
 /* bootstrap */
 .row{
     margin: 0;

@@ -6477,6 +6477,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -8253,7 +8273,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -16862,7 +16881,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "h1[data-v-1be63316] {\n  padding-left: 15px;\n}\n.box-settings li[data-v-1be63316] {\n  display: block;\n  float: left;\n  background-color: #fff;\n  outline: 1px solid #e9ebed;\n  margin: 0;\n  max-width: 33.33333333%;\n  padding: 0;\n  width: 100%;\n}\n.box-settings li[data-v-1be63316]:hover {\n  outline: 1px solid #c0ddfb;\n  position: relative;\n  z-index: 9;\n}\n.box-settings li a[data-v-1be63316] {\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  font-size: 18px;\n  min-height: 65px;\n}\n.box-settings li a svg[data-v-1be63316] {\n  width: 35px;\n  margin-right: 15px;\n}\n.box-settings li a svg path[data-v-1be63316] {\n  fill: #3490dc;\n}\n.box-settings li a:hover svg path[data-v-1be63316] {\n  fill: #1d68a7;\n}\n.box-settings li .create-company svg[data-v-1be63316] {\n  width: 26px;\n}\n@media (max-width: 767px) {\n.box-settings li[data-v-1be63316] {\n    border-left: none;\n    border-right: none;\n    max-width: 100%;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, ".box-settings li[data-v-1be63316] {\n  display: block;\n  float: left;\n  background-color: #fff;\n  outline: 1px solid #e9ebed;\n  margin: 0;\n  max-width: 33.33333333%;\n  padding: 0;\n  width: 100%;\n}\n.box-settings li[data-v-1be63316]:hover {\n  outline: 1px solid #c0ddfb;\n  position: relative;\n  z-index: 9;\n}\n.box-settings li a[data-v-1be63316] {\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  font-size: 18px;\n  min-height: 65px;\n}\n.box-settings li a svg[data-v-1be63316] {\n  width: 35px;\n  margin-right: 15px;\n}\n.box-settings li a svg path[data-v-1be63316] {\n  fill: #3490dc;\n}\n.box-settings li a:hover svg path[data-v-1be63316] {\n  fill: #1d68a7;\n}\n.box-settings li .create-company svg[data-v-1be63316] {\n  width: 26px;\n}\n.clear-float[data-v-1be63316] {\n  margin-bottom: 20px;\n}\n.box-page[data-v-1be63316] {\n  padding: 10px 25px;\n}\n@media (max-width: 767px) {\n.box-settings li[data-v-1be63316] {\n    border-left: none;\n    border-right: none;\n    max-width: 100%;\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -17014,7 +17033,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".footer-vacancy .right-footer[data-v-18ec58b2] {\n  display: flex;\n  align-items: center;\n}\n.footer-vacancy .right-footer .button-vacancy[data-v-18ec58b2] {\n  display: flex;\n  margin-left: 20px;\n}\n.footer-vacancy .right-footer .button-vacancy > button[data-v-18ec58b2] {\n  margin-right: 15px;\n}\n.img-logo[data-v-18ec58b2] {\n  width: 120px;\n  height: 150px;\n  float: right;\n  margin-bottom: -115px;\n  outline: 1px solid #dee2e6;\n}\n.view-page[data-v-18ec58b2] {\n  width: 100%;\n}\n.response-vacancy[data-v-18ec58b2] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 11px;\n  float: right;\n}\n.box-title[data-v-18ec58b2] {\n  padding: 0;\n}\n.box-title .title-vacancy[data-v-18ec58b2] {\n  margin: 0 5px 10px 0 !important;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n  float: left;\n  max-width: 60%;\n}\n.box-title .company-vacancy[data-v-18ec58b2] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  float: right;\n  margin-bottom: -95px;\n  outline: 1px solid #dee2e6;\n  max-width: 220px;\n}\n.box-title .no-verified[data-v-18ec58b2],\n.box-title .verified[data-v-18ec58b2] {\n  color: #f6993f;\n  margin-left: 0px;\n  height: 35px;\n  float: left;\n}\n.box-title .no-verified svg[data-v-18ec58b2],\n.box-title .verified svg[data-v-18ec58b2] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-18ec58b2],\n.box-title .verified svg path[data-v-18ec58b2] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-18ec58b2] {\n  fill: #38c172;\n}\n.box-title .clear-float[data-v-18ec58b2] {\n  clear: both;\n}\n.line-div[data-v-18ec58b2] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-18ec58b2] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-18ec58b2] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg[data-v-18ec58b2] {\n  fill: #1d68a7;\n}\n.experience[data-v-18ec58b2],\n.languages-vacancy[data-v-18ec58b2],\n.salary-vacancy[data-v-18ec58b2],\n.address-vacancy[data-v-18ec58b2],\n.age-vacancy[data-v-18ec58b2],\n.education-vacancy[data-v-18ec58b2] {\n  display: flex;\n  align-items: center;\n}\n.box-svg[data-v-18ec58b2] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}\n.box-address[data-v-18ec58b2] {\n  max-width: 75%;\n}\n.box-address .address-vacancy[data-v-18ec58b2] {\n  white-space: nowrap;\n}\n.comment-vacancy[data-v-18ec58b2] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-18ec58b2] {\n  width: 7px;\n  margin: 0 5px;\n}\nsvg path[data-v-18ec58b2] {\n  fill: #1d68a7;\n}\n.svg-experience[data-v-18ec58b2],\n.svg-salary[data-v-18ec58b2],\n.svg-address[data-v-18ec58b2] {\n  width: 18px;\n}\n.svg-languages[data-v-18ec58b2] {\n  width: 23px;\n}\n.svg-education[data-v-18ec58b2] {\n  width: 19px;\n}\n.box-salary[data-v-18ec58b2] {\n  margin-top: 0;\n}\n.education-vacancy[data-v-18ec58b2] {\n  margin-bottom: 7px;\n}", ""]);
+exports.push([module.i, ".footer-vacancy .right-footer[data-v-18ec58b2] {\n  display: flex;\n  align-items: center;\n}\n.footer-vacancy .right-footer .button-vacancy[data-v-18ec58b2] {\n  display: flex;\n  margin-left: 20px;\n}\n.footer-vacancy .right-footer .button-vacancy > button[data-v-18ec58b2] {\n  margin-right: 15px;\n}\n.img-logo[data-v-18ec58b2] {\n  width: 120px;\n  height: 150px;\n  float: right;\n  margin-bottom: -115px;\n  outline: 1px solid #dee2e6;\n}\n.view-page[data-v-18ec58b2] {\n  width: 100%;\n}\n.response-vacancy[data-v-18ec58b2] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 11px;\n  float: right;\n}\n.box-title[data-v-18ec58b2] {\n  padding: 0;\n}\n.box-title .title-vacancy[data-v-18ec58b2] {\n  margin: 0 5px 10px 0 !important;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n  float: left;\n  max-width: 60%;\n}\n.box-title .company-vacancy[data-v-18ec58b2] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  float: right;\n  margin-bottom: -95px;\n  outline: 1px solid #dee2e6;\n  max-width: 220px;\n}\n.box-title .no-verified[data-v-18ec58b2],\n.box-title .verified[data-v-18ec58b2] {\n  color: #f6993f;\n  margin-left: 0px;\n  height: 35px;\n  float: left;\n}\n.box-title .no-verified svg[data-v-18ec58b2],\n.box-title .verified svg[data-v-18ec58b2] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-18ec58b2],\n.box-title .verified svg path[data-v-18ec58b2] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-18ec58b2] {\n  fill: #38c172;\n}\n.line-div[data-v-18ec58b2] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-18ec58b2] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-18ec58b2] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg[data-v-18ec58b2] {\n  fill: #1d68a7;\n}\n.experience[data-v-18ec58b2],\n.languages-vacancy[data-v-18ec58b2],\n.salary-vacancy[data-v-18ec58b2],\n.address-vacancy[data-v-18ec58b2],\n.age-vacancy[data-v-18ec58b2],\n.education-vacancy[data-v-18ec58b2] {\n  display: flex;\n  align-items: center;\n}\n.box-svg[data-v-18ec58b2] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}\n.box-address[data-v-18ec58b2] {\n  max-width: 75%;\n}\n.box-address .address-vacancy[data-v-18ec58b2] {\n  white-space: nowrap;\n}\n.comment-vacancy[data-v-18ec58b2] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-18ec58b2] {\n  width: 7px;\n  margin: 0 5px;\n}\nsvg path[data-v-18ec58b2] {\n  fill: #1d68a7;\n}\n.svg-experience[data-v-18ec58b2],\n.svg-salary[data-v-18ec58b2],\n.svg-address[data-v-18ec58b2] {\n  width: 18px;\n}\n.svg-languages[data-v-18ec58b2] {\n  width: 23px;\n}\n.svg-education[data-v-18ec58b2] {\n  width: 19px;\n}\n.box-salary[data-v-18ec58b2] {\n  margin-top: 0;\n}\n.education-vacancy[data-v-18ec58b2] {\n  margin-bottom: 7px;\n}", ""]);
 
 // exports
 
@@ -17166,7 +17185,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".footer-vacancy .right-footer[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.footer-vacancy .right-footer .button-vacancy[data-v-50b8b194] {\n  display: flex;\n  margin-left: 20px;\n}\n.footer-vacancy .right-footer .button-vacancy > button[data-v-50b8b194] {\n  margin-right: 15px;\n}\n.view-page[data-v-50b8b194] {\n  width: 100%;\n}\n.response-vacancy[data-v-50b8b194] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 11px;\n  float: right;\n}\nsvg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.clear-float[data-v-50b8b194] {\n  clear: both;\n}\n.box-title[data-v-50b8b194] {\n  padding: 0;\n}\n.box-title .title-vacancy[data-v-50b8b194] {\n  margin: 0 5px 10px 0 !important;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  float: left;\n  max-width: 60%;\n}\n.box-title .company-vacancy[data-v-50b8b194],\n.box-title .default-company[data-v-50b8b194] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  float: right;\n  margin-bottom: -95px;\n  outline: 1px solid #dee2e6;\n  padding: 0 10px 10px;\n  max-width: 220px;\n}\n.box-title .company-vacancy .img-logo[data-v-50b8b194],\n.box-title .default-company .img-logo[data-v-50b8b194] {\n  width: 200px;\n  height: 100px;\n}\n.box-title .company-vacancy .title-company[data-v-50b8b194],\n.box-title .default-company .title-company[data-v-50b8b194] {\n  font-size: 17px;\n  text-align: center;\n  line-height: 21px;\n  padding: 6px 0;\n}\n.box-title .company-vacancy[data-v-50b8b194]:hover {\n  outline: 1px solid #c0ddfb;\n}\n.box-title .no-verified[data-v-50b8b194],\n.box-title .verified[data-v-50b8b194] {\n  color: #f6993f;\n  margin-left: 0px;\n  height: 35px;\n  float: left;\n}\n.box-title .no-verified svg[data-v-50b8b194],\n.box-title .verified svg[data-v-50b8b194] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-50b8b194],\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #38c172;\n}\n.line-div[data-v-50b8b194] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-50b8b194] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.languages-vacancy[data-v-50b8b194],\n.salary-vacancy[data-v-50b8b194],\n.address-vacancy[data-v-50b8b194],\n.experience[data-v-50b8b194],\n.age-vacancy[data-v-50b8b194],\n.education-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-salary[data-v-50b8b194] {\n  margin-top: 0;\n}\n.box-address[data-v-50b8b194] {\n  max-width: 75%;\n}\n.box-address .address-vacancy[data-v-50b8b194] {\n  white-space: nowrap;\n}\n.salary-vacancy svg[data-v-50b8b194] {\n  width: 18px;\n}\n.languages-vacancy svg[data-v-50b8b194] {\n  width: 23px;\n}\n.education-vacancy[data-v-50b8b194] {\n  margin-bottom: 15px;\n}\n.comment-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-50b8b194] {\n  width: 7px;\n  margin: 0 5px;\n}\n.textarea-vacancy .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n  display: inline;\n}\n.textarea-vacancy .link-vacancy svg[data-v-50b8b194] {\n  width: 10px;\n}\n.box-svg[data-v-50b8b194] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}\n.svg-address[data-v-50b8b194],\n.svg-experience[data-v-50b8b194] {\n  width: 18px;\n}", ""]);
+exports.push([module.i, ".footer-vacancy .right-footer[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.footer-vacancy .right-footer .button-vacancy[data-v-50b8b194] {\n  display: flex;\n  margin-left: 20px;\n}\n.footer-vacancy .right-footer .button-vacancy > button[data-v-50b8b194] {\n  margin-right: 15px;\n}\n.view-page[data-v-50b8b194] {\n  width: 100%;\n}\n.response-vacancy[data-v-50b8b194] {\n  text-align: center;\n  font-weight: 600;\n  line-height: 22px;\n  margin-right: 11px;\n  float: right;\n}\nsvg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.box-title[data-v-50b8b194] {\n  padding: 0;\n}\n.box-title .title-vacancy[data-v-50b8b194] {\n  margin: 0 5px 10px 0 !important;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  float: left;\n  max-width: 60%;\n}\n.box-title .company-vacancy[data-v-50b8b194],\n.box-title .default-company[data-v-50b8b194] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  float: right;\n  margin-bottom: -95px;\n  outline: 1px solid #dee2e6;\n  padding: 0 10px 10px;\n  max-width: 220px;\n}\n.box-title .company-vacancy .img-logo[data-v-50b8b194],\n.box-title .default-company .img-logo[data-v-50b8b194] {\n  width: 200px;\n  height: 100px;\n}\n.box-title .company-vacancy .title-company[data-v-50b8b194],\n.box-title .default-company .title-company[data-v-50b8b194] {\n  font-size: 17px;\n  text-align: center;\n  line-height: 21px;\n  padding: 6px 0;\n}\n.box-title .company-vacancy[data-v-50b8b194]:hover {\n  outline: 1px solid #c0ddfb;\n}\n.box-title .no-verified[data-v-50b8b194],\n.box-title .verified[data-v-50b8b194] {\n  color: #f6993f;\n  margin-left: 0px;\n  height: 35px;\n  float: left;\n}\n.box-title .no-verified svg[data-v-50b8b194],\n.box-title .verified svg[data-v-50b8b194] {\n  width: 16px;\n}\n.box-title .no-verified svg path[data-v-50b8b194],\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #f6993f;\n}\n.box-title .verified svg path[data-v-50b8b194] {\n  fill: #38c172;\n}\n.line-div[data-v-50b8b194] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.line-div .font-weight-bold[data-v-50b8b194] {\n  font-weight: bold;\n}\n.line-div .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n}\n.line-div .link-vacancy svg path[data-v-50b8b194] {\n  fill: #1d68a7;\n}\n.languages-vacancy[data-v-50b8b194],\n.salary-vacancy[data-v-50b8b194],\n.address-vacancy[data-v-50b8b194],\n.experience[data-v-50b8b194],\n.age-vacancy[data-v-50b8b194],\n.education-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.box-salary[data-v-50b8b194] {\n  margin-top: 0;\n}\n.box-address[data-v-50b8b194] {\n  max-width: 75%;\n}\n.box-address .address-vacancy[data-v-50b8b194] {\n  white-space: nowrap;\n}\n.salary-vacancy svg[data-v-50b8b194] {\n  width: 18px;\n}\n.languages-vacancy svg[data-v-50b8b194] {\n  width: 23px;\n}\n.education-vacancy[data-v-50b8b194] {\n  margin-bottom: 15px;\n}\n.comment-vacancy[data-v-50b8b194] {\n  display: flex;\n  align-items: center;\n}\n.comment-vacancy svg[data-v-50b8b194] {\n  width: 7px;\n  margin: 0 5px;\n}\n.textarea-vacancy .link-vacancy[data-v-50b8b194] {\n  color: #1d68a7;\n  display: inline;\n}\n.textarea-vacancy .link-vacancy svg[data-v-50b8b194] {\n  width: 10px;\n}\n.box-svg[data-v-50b8b194] {\n  width: 30px;\n  display: block;\n  line-height: 16px;\n}\n.svg-address[data-v-50b8b194],\n.svg-experience[data-v-50b8b194] {\n  width: 18px;\n}", ""]);
 
 // exports
 
@@ -79765,332 +79784,348 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "forms office" }, [
+  return _c("div", { staticClass: "box-page" }, [
     _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v(_vm._s(_vm.trans("office", "personal_account"))),
+      _vm._v(
+        "\n        " +
+          _vm._s(_vm.trans("office", "personal_account")) +
+          "\n    "
+      ),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "box-settings" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("ul", { staticClass: "inline-ul" }, [
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang +
-                    "private-office/vacancy/bookmark-vacancies",
-                },
+      _c("h2", { staticClass: "title_page" }, [
+        _vm._v("\n            Настройки акаунта\n        "),
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "inline-ul" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "create-company",
+              attrs: {
+                href: _vm.lang.prefix_lang + "private-office/company/create",
               },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 384 512",
                   },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M462.3 62.71c-54.5-46.5-136.1-38.99-186.6 13.27l-19.69 20.61-19.71-20.61c-40.7-42.13-123-67.27-186.54-13.27-62.87 53.49-66.07 149.79-9.95 207.79l193.2 199.7c6.29 6.5 14.79 9.8 22.89 9.8 8.25 0 16.33-3.25 22.58-9.751l193.6-199.8C528.5 212.5 525.1 116.2 462.3 62.71zm-13 185.49L256.4 448.1 62.76 248.2c-38.37-39.5-46.37-115 7.75-161.11C125.3 40.21 189.8 74.22 213.3 98.59l42.75 44.13 42.75-44.13c23.13-24 88.13-58 142.8-11.5 53.9 46.01 46 121.51 7.7 161.11z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("office", "jobs_bookmarks")) +
-                    "\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang +
-                    "private-office/vacancy/hidden-vacancies",
                 },
-              },
-              [
-                _c(
-                  "svg",
-                  {
+                [
+                  _c("path", {
                     attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 640 512",
+                      d: "M80 104c0-13.25 10.75-24 24-24h48c13.3 0 24 10.75 24 24v48c0 13.3-10.7 24-24 24h-48c-13.25 0-24-10.7-24-24v-48zm32 8v32h32v-32h-32zm168-32c13.3 0 24 10.75 24 24v48c0 13.3-10.7 24-24 24h-48c-13.3 0-24-10.7-24-24v-48c0-13.25 10.7-24 24-24h48zm-8 64v-32h-32v32h32zM80 232c0-13.3 10.75-24 24-24h48c13.3 0 24 10.7 24 24v48c0 13.3-10.7 24-24 24h-48c-13.25 0-24-10.7-24-24v-48zm32 8v32h32v-32h-32zm168-32c13.3 0 24 10.7 24 24v48c0 13.3-10.7 24-24 24h-48c-13.3 0-24-10.7-24-24v-48c0-13.3 10.7-24 24-24h48zm-8 64v-32h-32v32h32zM48 512c-26.51 0-48-21.5-48-48V48C0 21.49 21.49 0 48 0h288c26.5 0 48 21.49 48 48v416c0 26.5-21.5 48-48 48H48zM32 48v416c0 8.8 7.16 16 16 16h80v-48c0-35.3 28.7-64 64-64s64 28.7 64 64v48h80c8.8 0 16-7.2 16-16V48c0-8.84-7.2-16-16-16H48c-8.84 0-16 7.16-16 16zm192 432v-48c0-17.7-14.3-32-32-32s-32 14.3-32 32v48h64z",
                     },
+                  }),
+                ]
+              ),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("office", "create_update")) +
+                  "\n                "
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _vm.company !== null
+          ? _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "my-company",
+                  attrs: {
+                    href: _vm.lang.prefix_lang + "company/" + _vm.company.alias,
                   },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("office", "hidden_jobs")) +
-                    "\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang +
-                    "private-office/vacancy/my-vacancies",
                 },
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                  },
-                  [
-                    _c("path", {
+                [
+                  _c(
+                    "svg",
+                    {
                       attrs: {
-                        d: "M448 96h-64V48c0-26.47-21.5-48-48-48H176c-26.5 0-48 21.53-48 48v48H64c-35.35 0-64 28.7-64 64v256c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V160c0-35.3-28.7-64-64-64zM160 48c0-8.83 7.2-16 16-16h160c8.8 0 16 7.17 16 16v48H160V48zm320 368c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V288h144v64c0 8.844 7.156 16 16 16h128c8.844 0 16-7.156 16-16v-64h144v128zm-272-80v-48h96v48h-96zm272-80H32v-96c0-17.64 14.36-32 32-32h384c17.64 0 32 14.36 32 32v96z",
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 512 512",
                       },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("office", "my_jobs")) +
-                    "\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "create-company",
-                attrs: {
-                  href: _vm.lang.prefix_lang + "private-office/company/create",
-                },
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 384 512",
                     },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M80 104c0-13.25 10.75-24 24-24h48c13.3 0 24 10.75 24 24v48c0 13.3-10.7 24-24 24h-48c-13.25 0-24-10.7-24-24v-48zm32 8v32h32v-32h-32zm168-32c13.3 0 24 10.75 24 24v48c0 13.3-10.7 24-24 24h-48c-13.3 0-24-10.7-24-24v-48c0-13.25 10.7-24 24-24h48zm-8 64v-32h-32v32h32zM80 232c0-13.3 10.75-24 24-24h48c13.3 0 24 10.7 24 24v48c0 13.3-10.7 24-24 24h-48c-13.25 0-24-10.7-24-24v-48zm32 8v32h32v-32h-32zm168-32c13.3 0 24 10.7 24 24v48c0 13.3-10.7 24-24 24h-48c-13.3 0-24-10.7-24-24v-48c0-13.3 10.7-24 24-24h48zm-8 64v-32h-32v32h32zM48 512c-26.51 0-48-21.5-48-48V48C0 21.49 21.49 0 48 0h288c26.5 0 48 21.49 48 48v416c0 26.5-21.5 48-48 48H48zM32 48v416c0 8.8 7.16 16 16 16h80v-48c0-35.3 28.7-64 64-64s64 28.7 64 64v48h80c8.8 0 16-7.2 16-16V48c0-8.84-7.2-16-16-16H48c-8.84 0-16 7.16-16 16zm192 432v-48c0-17.7-14.3-32-32-32s-32 14.3-32 32v48h64z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.trans("office", "create_update")) +
-                    "\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _vm.company !== null
-            ? _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "my-company",
-                    attrs: {
-                      href:
-                        _vm.lang.prefix_lang + "company/" + _vm.company.alias,
-                    },
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
+                    [
+                      _c("path", {
                         attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          viewBox: "0 0 512 512",
+                          d: "M416 0a31.785 31.785 0 0 0-19.97 7.031L311 75.06C268.3 109.2 214.7 128 160 128H64c-35.34 0-64 28.7-64 64v96c0 35.34 28.66 64 64 64h96c54.66 0 108.3 18.81 150.1 52.94L396 472.1c4.8 4.7 13.8 7.9 20 7.9 24.91 0 32-22.78 32-32V32c0-8.75-7-32-32-32zM160 320H64c-17.64 0-32-14.36-32-32v-96c0-17.64 14.36-32 32-32h96v160zm255.8 127.8-85.7-67.9c-40-32.8-87.6-51.8-138.1-57.8V157.9c50.53-6.006 98.99-25.86 138.1-57.82l84.94-67.93c.023.023-.018 0 0 0 .035 0-.012.1 0 0l.124 414.8c.836.25.736.55.636.85zm-224.1-64.3c-.3-8.8-7.4-15.3-16.5-15.5-8.828.266-15.78 7.656-15.52 16.48 1.156 38 28.36 70.55 28.61 70.83 3.594 4.203 4.688 11.11 2.641 16.86C189.3 476.9 185.8 480 182.3 480h-51.5c-2.5 0-5-1.5-6.8-4.1-1.188-1.672-29.05-41.7-27.97-91.58.19-8.82-6.81-16.12-15.65-16.32-8.406-.25-16.16 6.828-16.34 15.66-1.281 59.28 30.23 105.6 33.88 110.8C105.9 505.6 117.9 512 130.8 512h51.47c17.34 0 32.59-11.44 38.84-29.09 5.906-16.52 2.578-35.53-8.297-48.2-.213-.21-20.313-25.21-21.113-51.21zM496 192c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16v-64c0-8.8-7.2-16-16-16z",
                         },
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d: "M416 0a31.785 31.785 0 0 0-19.97 7.031L311 75.06C268.3 109.2 214.7 128 160 128H64c-35.34 0-64 28.7-64 64v96c0 35.34 28.66 64 64 64h96c54.66 0 108.3 18.81 150.1 52.94L396 472.1c4.8 4.7 13.8 7.9 20 7.9 24.91 0 32-22.78 32-32V32c0-8.75-7-32-32-32zM160 320H64c-17.64 0-32-14.36-32-32v-96c0-17.64 14.36-32 32-32h96v160zm255.8 127.8-85.7-67.9c-40-32.8-87.6-51.8-138.1-57.8V157.9c50.53-6.006 98.99-25.86 138.1-57.82l84.94-67.93c.023.023-.018 0 0 0 .035 0-.012.1 0 0l.124 414.8c.836.25.736.55.636.85zm-224.1-64.3c-.3-8.8-7.4-15.3-16.5-15.5-8.828.266-15.78 7.656-15.52 16.48 1.156 38 28.36 70.55 28.61 70.83 3.594 4.203 4.688 11.11 2.641 16.86C189.3 476.9 185.8 480 182.3 480h-51.5c-2.5 0-5-1.5-6.8-4.1-1.188-1.672-29.05-41.7-27.97-91.58.19-8.82-6.81-16.12-15.65-16.32-8.406-.25-16.16 6.828-16.34 15.66-1.281 59.28 30.23 105.6 33.88 110.8C105.9 505.6 117.9 512 130.8 512h51.47c17.34 0 32.59-11.44 38.84-29.09 5.906-16.52 2.578-35.53-8.297-48.2-.213-.21-20.313-25.21-21.113-51.21zM496 192c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16v-64c0-8.8-7.2-16-16-16z",
-                          },
-                        }),
-                      ]
-                    ),
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans("office", "view_company_publicly")) +
-                        "\n                    "
-                    ),
-                  ]
-                ),
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "my-company",
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang + "private-office/contact-information",
-                },
+                      }),
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.trans("office", "view_company_publicly")) +
+                      "\n                "
+                  ),
+                ]
+              ),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "my-company",
+              attrs: {
+                href:
+                  _vm.lang.prefix_lang + "private-office/contact-information",
               },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 576 512",
-                    },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 576 512",
                   },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M480 288H352c-8.836 0-16 7.164-16 16s7.2 16 16 16h128c8.836 0 16-7.164 16-16s-7.2-16-16-16zm-288-32c35.35 0 64-28.65 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm0-96c17.64 0 32 14.36 32 32s-14.4 32-32 32-32-14.4-32-32 14.4-32 32-32zm32 128h-64c-44.18 0-80 35.82-80 80 0 8.8 7.16 16 16 16s16-7.164 16-16c0-26.5 21.5-48 48-48h64c26.51 0 48 21.49 48 48 0 8.836 7.164 16 16 16s16-7.164 16-16c0-44.2-35.8-80-80-80zM512 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V96c0-35.35-28.7-64-64-64zm32 384c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V96c0-17.64 14.36-32 32-32h448c17.64 0 32 14.36 32 32v320zm-64-192H352c-8.836 0-16 7.164-16 16s7.2 16 16 16h128c8.836 0 16-7.164 16-16s-7.2-16-16-16zm0-64H352c-8.836 0-16 7.164-16 16s7.2 16 16 16h128c8.836 0 16-7.164 16-16s-7.2-16-16-16z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Контактная информация\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "my-company",
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang + "private-office/resume/my-resumes",
                 },
-              },
-              [
-                _c(
-                  "svg",
-                  {
+                [
+                  _c("path", {
                     attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
+                      d: "M480 288H352c-8.836 0-16 7.164-16 16s7.2 16 16 16h128c8.836 0 16-7.164 16-16s-7.2-16-16-16zm-288-32c35.35 0 64-28.65 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm0-96c17.64 0 32 14.36 32 32s-14.4 32-32 32-32-14.4-32-32 14.4-32 32-32zm32 128h-64c-44.18 0-80 35.82-80 80 0 8.8 7.16 16 16 16s16-7.164 16-16c0-26.5 21.5-48 48-48h64c26.51 0 48 21.49 48 48 0 8.836 7.164 16 16 16s16-7.164 16-16c0-44.2-35.8-80-80-80zM512 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V96c0-35.35-28.7-64-64-64zm32 384c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V96c0-17.64 14.36-32 32-32h448c17.64 0 32 14.36 32 32v320zm-64-192H352c-8.836 0-16 7.164-16 16s7.2 16 16 16h128c8.836 0 16-7.164 16-16s-7.2-16-16-16zm0-64H352c-8.836 0-16 7.164-16 16s7.2 16 16 16h128c8.836 0 16-7.164 16-16s-7.2-16-16-16z",
                     },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M448 96h-64V48c0-26.47-21.5-48-48-48H176c-26.5 0-48 21.53-48 48v48H64c-35.35 0-64 28.7-64 64v256c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V160c0-35.3-28.7-64-64-64zM160 48c0-8.83 7.2-16 16-16h160c8.8 0 16 7.17 16 16v48H160V48zm320 368c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V288h144v64c0 8.844 7.156 16 16 16h128c8.844 0 16-7.156 16-16v-64h144v128zm-272-80v-48h96v48h-96zm272-80H32v-96c0-17.64 14.36-32 32-32h384c17.64 0 32 14.36 32 32v96z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Мои резюме\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang +
-                    "private-office/resume/bookmark-resumes",
-                },
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 512 512",
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M462.3 62.71c-54.5-46.5-136.1-38.99-186.6 13.27l-19.69 20.61-19.71-20.61c-40.7-42.13-123-67.27-186.54-13.27-62.87 53.49-66.07 149.79-9.95 207.79l193.2 199.7c6.29 6.5 14.79 9.8 22.89 9.8 8.25 0 16.33-3.25 22.58-9.751l193.6-199.8C528.5 212.5 525.1 116.2 462.3 62.71zm-13 185.49L256.4 448.1 62.76 248.2c-38.37-39.5-46.37-115 7.75-161.11C125.3 40.21 189.8 74.22 213.3 98.59l42.75 44.13 42.75-44.13c23.13-24 88.13-58 142.8-11.5 53.9 46.01 46 121.51 7.7 161.11z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Резюме в закладках\n                    "
-                ),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href:
-                    _vm.lang.prefix_lang +
-                    "private-office/resume/hidden-resumes",
-                },
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 640 512",
-                    },
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Скрытые резюме\n                    "
-                ),
-              ]
-            ),
-          ]),
+                  }),
+                ]
+              ),
+              _vm._v(
+                "\n                    Контактная информация\n                "
+              ),
+            ]
+          ),
         ]),
       ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clear-float" }),
+      _vm._v(" "),
+      _c("h2", { staticClass: "title_page" }, [
+        _vm._v("\n            Вакансии\n        "),
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "inline-ul" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href:
+                  _vm.lang.prefix_lang + "private-office/vacancy/my-vacancies",
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M448 96h-64V48c0-26.47-21.5-48-48-48H176c-26.5 0-48 21.53-48 48v48H64c-35.35 0-64 28.7-64 64v256c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V160c0-35.3-28.7-64-64-64zM160 48c0-8.83 7.2-16 16-16h160c8.8 0 16 7.17 16 16v48H160V48zm320 368c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V288h144v64c0 8.844 7.156 16 16 16h128c8.844 0 16-7.156 16-16v-64h144v128zm-272-80v-48h96v48h-96zm272-80H32v-96c0-17.64 14.36-32 32-32h384c17.64 0 32 14.36 32 32v96z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("office", "my_jobs")) +
+                  "\n                "
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href:
+                  _vm.lang.prefix_lang +
+                  "private-office/vacancy/bookmark-vacancies",
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M462.3 62.71c-54.5-46.5-136.1-38.99-186.6 13.27l-19.69 20.61-19.71-20.61c-40.7-42.13-123-67.27-186.54-13.27-62.87 53.49-66.07 149.79-9.95 207.79l193.2 199.7c6.29 6.5 14.79 9.8 22.89 9.8 8.25 0 16.33-3.25 22.58-9.751l193.6-199.8C528.5 212.5 525.1 116.2 462.3 62.71zm-13 185.49L256.4 448.1 62.76 248.2c-38.37-39.5-46.37-115 7.75-161.11C125.3 40.21 189.8 74.22 213.3 98.59l42.75 44.13 42.75-44.13c23.13-24 88.13-58 142.8-11.5 53.9 46.01 46 121.51 7.7 161.11z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("office", "jobs_bookmarks")) +
+                  "\n                "
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href:
+                  _vm.lang.prefix_lang +
+                  "private-office/vacancy/hidden-vacancies",
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 640 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans("office", "hidden_jobs")) +
+                  "\n                "
+              ),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clear-float" }),
+      _vm._v(" "),
+      _c("h2", { staticClass: "title_page" }, [
+        _vm._v("\n            Резюме\n        "),
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "inline-ul" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "my-company",
+              attrs: {
+                href: _vm.lang.prefix_lang + "private-office/resume/my-resumes",
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M448 96h-64V48c0-26.47-21.5-48-48-48H176c-26.5 0-48 21.53-48 48v48H64c-35.35 0-64 28.7-64 64v256c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V160c0-35.3-28.7-64-64-64zM160 48c0-8.83 7.2-16 16-16h160c8.8 0 16 7.17 16 16v48H160V48zm320 368c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V288h144v64c0 8.844 7.156 16 16 16h128c8.844 0 16-7.156 16-16v-64h144v128zm-272-80v-48h96v48h-96zm272-80H32v-96c0-17.64 14.36-32 32-32h384c17.64 0 32 14.36 32 32v96z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v("\n                    Мои резюме\n                "),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href:
+                  _vm.lang.prefix_lang +
+                  "private-office/resume/bookmark-resumes",
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M462.3 62.71c-54.5-46.5-136.1-38.99-186.6 13.27l-19.69 20.61-19.71-20.61c-40.7-42.13-123-67.27-186.54-13.27-62.87 53.49-66.07 149.79-9.95 207.79l193.2 199.7c6.29 6.5 14.79 9.8 22.89 9.8 8.25 0 16.33-3.25 22.58-9.751l193.6-199.8C528.5 212.5 525.1 116.2 462.3 62.71zm-13 185.49L256.4 448.1 62.76 248.2c-38.37-39.5-46.37-115 7.75-161.11C125.3 40.21 189.8 74.22 213.3 98.59l42.75 44.13 42.75-44.13c23.13-24 88.13-58 142.8-11.5 53.9 46.01 46 121.51 7.7 161.11z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(
+                "\n                    Резюме в закладках\n                "
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href:
+                  _vm.lang.prefix_lang + "private-office/resume/hidden-resumes",
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 640 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v("\n                    Скрытые резюме\n                "),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clear-float" }),
     ]),
   ])
 }
@@ -82755,9 +82790,9 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                    " +
-                        _vm._s(obj.name) +
-                        "\n                "
+                      "\n                " +
+                        _vm._s(_vm.trans("menu.menu", obj.name)) +
+                        "\n            "
                     ),
                   ]
                 ),
@@ -82788,9 +82823,9 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                " +
+                  "\n            " +
                     _vm._s(_vm.trans("respond", "respond")) +
-                    "\n            "
+                    "\n        "
                 ),
               ]
             )
@@ -82807,11 +82842,11 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                " +
+                  "\n            " +
                     _vm._s(_vm.trans("respond", "open_dialog_with")) +
                     " " +
                     _vm._s(_vm.owner_resume.contact.name) +
-                    "\n            "
+                    "\n        "
                 ),
               ]
             ),
@@ -82827,7 +82862,7 @@ var render = function () {
               },
             },
           },
-          [_vm._v("\n                Найти похожие резюме\n            ")]
+          [_vm._v("\n            Найти похожие резюме\n        ")]
         ),
         _vm._v(" "),
         _c("bookmark_buttons", {
@@ -82861,13 +82896,13 @@ var render = function () {
     _vm.respond_bool
       ? _c("div", { attrs: { id: "box-respond" } }, [
           _c("h2", { staticClass: "title-vacancy" }, [
-            _vm._v("\n                Откликнуться на резюме\n            "),
+            _vm._v("\n            Откликнуться на резюме\n        "),
           ]),
           _vm._v(" "),
           _c("div", [
             _c("label", [
               _vm._v(
-                "\n                        Выбрать вакансию\n                    "
+                "\n                    Выбрать вакансию\n                "
               ),
             ]),
             _vm._v(" "),
@@ -82909,9 +82944,9 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                                " +
+                            "\n                            " +
                               _vm._s(obj.position.title) +
-                              "\n                            "
+                              "\n                        "
                           ),
                         ]
                       ),
@@ -82946,7 +82981,7 @@ var render = function () {
                       ]
                     ),
                     _vm._v(
-                      "\n                        Создать свою вакансию\n                    "
+                      "\n                    Создать свою вакансию\n                "
                     ),
                   ]
                 ),
@@ -82995,9 +83030,9 @@ var render = function () {
                       ]
                     ),
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(_vm.trans("respond", "add_cover_letter")) +
-                        "\n                        "
+                        "\n                    "
                     ),
                   ]
                 ),
@@ -83019,9 +83054,9 @@ var render = function () {
               [
                 _c("label", [
                   _vm._v(
-                    "\n                            " +
+                    "\n                        " +
                       _vm._s(_vm.trans("respond", "cover_letter")) +
-                      "\n                        "
+                      "\n                    "
                   ),
                 ]),
                 _vm._v(" "),
@@ -83049,9 +83084,9 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("vacancies", "cancel")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ]
             ),
@@ -83071,9 +83106,9 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.trans("respond", "respond")) +
-                    "\n                    "
+                    "\n                "
                 ),
               ]
             ),
@@ -108155,12 +108190,17 @@ module.exports = {
   },
   "en.menu.menu": {
     "authorization": "Sign in",
+    "bookmark_resumes": "Saved resumes",
     "bookmark_vacancies": "Saved Jobs",
     "cabinet": "Cabinet",
     "company": "My company",
+    "hidden_resumes": "Hidden resumes",
     "hidden_vacancies": "Hidden vacancies",
+    "index": "Home",
+    "my_resumes": "My resumes",
     "my_vacancies": "My vacancies",
     "registration": "Sign up",
+    "resume": "Resume search",
     "vacancy": "Search jobs"
   },
   "en.office": {
@@ -108474,12 +108514,17 @@ module.exports = {
   },
   "ru.menu.menu": {
     "authorization": "\u0412\u0445\u043E\u0434",
+    "bookmark_resumes": "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0435 \u0440\u0435\u0437\u044E\u043C\u0435",
     "bookmark_vacancies": "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "cabinet": "\u041A\u0430\u0431\u0438\u043D\u0435\u0442",
     "company": "\u041C\u043E\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F",
-    "hidden_vacancies": "\u0421\u043F\u0440\u044F\u0442\u0430\u043D\u043D\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "hidden_resumes": "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0440\u0435\u0437\u044E\u043C\u0435",
+    "hidden_vacancies": "\u0421\u043A\u0440\u044B\u0442\u044B\u0435 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
+    "index": "\u041D\u0430 \u0433\u043B\u0430\u0432\u043D\u0443\u044E",
+    "my_resumes": "\u041C\u043E\u0438 \u0440\u0435\u0437\u044E\u043C\u0435",
     "my_vacancies": "\u041C\u043E\u0438 \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0438",
     "registration": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F",
+    "resume": "\u041F\u043E\u0438\u0441\u043A \u0440\u0435\u0437\u044E\u043C\u0435",
     "vacancy": "\u041F\u043E\u0438\u0441\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u0439"
   },
   "ru.office": {
@@ -108793,12 +108838,17 @@ module.exports = {
   },
   "uk.menu.menu": {
     "authorization": "\u0412\u0445\u0456\u0434",
+    "bookmark_resumes": "\u0417\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u0456 \u0440\u0435\u0437\u044E\u043C\u0435",
     "bookmark_vacancies": "\u0417\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "cabinet": "\u041A\u0430\u0431\u0456\u043D\u0435\u0442",
     "company": "\u041C\u043E\u044F \u043A\u043E\u043C\u043F\u0430\u043D\u0456\u044F",
-    "hidden_vacancies": "\u0421\u0445\u043E\u0432\u0430\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "hidden_resumes": "\u041F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0456 \u0440\u0435\u0437\u044E\u043C\u0435",
+    "hidden_vacancies": "\u041F\u0440\u0438\u0445\u043E\u0432\u0430\u043D\u0456 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
+    "index": "\u041D\u0430 \u0433\u043E\u043B\u043E\u0432\u043D\u0443",
+    "my_resumes": "\u041C\u043E\u0457 \u0440\u0435\u0437\u044E\u043C\u0435",
     "my_vacancies": "\u041C\u043E\u0457 \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0457",
     "registration": "\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F",
+    "resume": "\u041F\u043E\u0448\u0443\u043A \u0440\u0435\u0437\u044E\u043C\u0435",
     "vacancy": "\u041F\u043E\u0448\u0443\u043A \u0432\u0430\u043A\u0430\u043D\u0441\u0456\u0439"
   },
   "uk.office": {

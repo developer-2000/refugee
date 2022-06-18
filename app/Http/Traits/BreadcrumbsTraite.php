@@ -24,7 +24,7 @@ trait BreadcrumbsTraite {
         return $this->elementsBread;
     }
 
-    protected function makeBackUrlLink()
+    private function makeBackUrlLink()
     {
         $last_url = URL::previous();                // прошлый url
         $query = explode("?", $last_url);  // составные url до и после ?
@@ -35,7 +35,7 @@ trait BreadcrumbsTraite {
         $response = [];
 
         // VACANCY
-        // при переходе из поиска вакансий на вакансию
+        // из Поиска вакансий на вакансию
         if($this->LastElementArray($array)[0] == 'vacancy'){
             // добавить query url
             $may_be = isset($query[1]) ? "?$query[1]" : "";
@@ -44,28 +44,28 @@ trait BreadcrumbsTraite {
                 'url'=>App::getLocale()."/vacancy$may_be",
             ];
         }
-        // при переходе с сохраненных на вакансию
+        // из Сохраненных на вакансию
         elseif($this->LastElementArray($array)[0] == 'bookmark-vacancies'){
             $response[] = [
                 'name'=>'bookmark_vacancies',
                 'url'=>App::getLocale()."/private-office/vacancy/bookmark-vacancies",
             ];
         }
-        // при переходе с скрытых на вакансию
+        // из Скрытых на вакансию
         elseif($this->LastElementArray($array)[0] == 'hidden-vacancies'){
             $response[] = [
                 'name'=>'hidden_vacancies',
                 'url'=>App::getLocale()."/private-office/vacancy/hidden-vacancies",
             ];
         }
-        // при переходе с моих вакансий на вакансию
+        // из Моих вакансий на вакансию
         elseif($this->LastElementArray($array)[0] == 'my-vacancies'){
             $response[] = [
                 'name'=>'my_vacancies',
                 'url'=>App::getLocale()."/private-office/vacancy/my-vacancies",
             ];
         }
-        // при переходе с компании на вакансию
+        // из Компании на вакансию
         elseif($company[0] == 'company'){
             $response[] = [
                 'name'=>'company',
@@ -74,26 +74,49 @@ trait BreadcrumbsTraite {
         }
 
         // RESUME
+        // из Поиска резюме на резюме
+        if($this->LastElementArray($array)[0] == 'resume'){
+            // добавить query url
+            $may_be = isset($query[1]) ? "?$query[1]" : "";
+            $response[] = [
+                'name'=>'resume',
+                'url'=>App::getLocale()."/resume$may_be",
+            ];
+        }
+        // из Сохраненных на резюме
+        elseif($this->LastElementArray($array)[0] == 'bookmark-resumes'){
+            $response[] = [
+                'name'=>'bookmark_resumes',
+                'url'=>App::getLocale()."/private-office/resume/bookmark-resumes",
+            ];
+        }
+        // из Скрытых на резюме
+        elseif($this->LastElementArray($array)[0] == 'hidden-resumes'){
+            $response[] = [
+                'name'=>'hidden_resumes',
+                'url'=>App::getLocale()."/private-office/resume/hidden-resumes",
+            ];
+        }
         // при переходе с моих резюме на резюме
         elseif($this->LastElementArray($array)[0] == 'my-resumes'){
             $response[] = [
-                'name'=>'my-resumes',
+                'name'=>'my_resumes',
                 'url'=>App::getLocale()."/private-office/resume/my-resumes",
             ];
         }
 
-
-
-        // по умолчанию
+        // по умолчанию на главную
         if(!count($response)){
-            $response[] = ['name'=>null];
-        }
-        else{
             $response[] = [
-                'name'=>'cabinet',
-                'url'=>App::getLocale()."/private-office",
+                'name'=>'index',
+                'url'=>App::getLocale()."/"
             ];
         }
+        // вторая ссылка в breadcrumbs
+        $response[] = [
+            'name'=>'cabinet',
+            'url'=>App::getLocale()."/private-office",
+        ];
 
         return $response;
     }

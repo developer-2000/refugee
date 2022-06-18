@@ -459,9 +459,6 @@
                 }
             }
         }
-        .clear-float{
-            clear: both;
-        }
     }
     .line-div {
         display: flex;

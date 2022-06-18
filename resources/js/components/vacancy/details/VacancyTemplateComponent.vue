@@ -445,9 +445,7 @@
             fill: #1d68a7;
         }
     }
-    .clear-float{
-        clear: both;
-    }
+
     .box-title {
         padding: 0;
         .title-vacancy {
