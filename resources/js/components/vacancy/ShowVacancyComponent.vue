@@ -58,7 +58,7 @@
 
         <!-- откликнуться -->
         <div v-if="respond_bool" id="box-respond" >
-            <h2 class="title-vacancy">
+            <h2 class="section-title">
                 {{trans('respond','apply_to_job')}}
             </h2>
             <div class="card card-primary card-outline card-outline-tabs card-respond">

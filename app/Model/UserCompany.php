@@ -23,7 +23,7 @@ class UserCompany extends Model
     public function image() {
         return $this->belongsTo(Image::class, 'logo_id', 'id')
             ->withDefault(function ($image) {
-            $image->url = 'img/company/company-default.jpg';
+            $image->url = 'img/company/default/company-default.jpg';
         });
     }
 

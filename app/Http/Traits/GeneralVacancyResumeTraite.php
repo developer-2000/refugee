@@ -54,7 +54,6 @@ trait GeneralVacancyResumeTraite {
             ->first();
     }
 
-
     /**
      * переключение состояний вакансий / резюме (добавление в закладки и скрытие)
      * @param $request
@@ -76,7 +75,6 @@ trait GeneralVacancyResumeTraite {
                 ->delete();
         }
     }
-
 
     /**
      * настройки параметров вакансий / резюме и страны сайта

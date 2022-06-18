@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Vacancy\JobSearchRequest;
+use App\Model\Image;
 use App\Model\Position;
 use App\Model\Vacancy;
 use Illuminate\Http\Request;

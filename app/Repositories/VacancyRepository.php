@@ -83,7 +83,6 @@ class VacancyRepository extends CoreRepository {
             'text_description'=>$request->text_description,
             'text_working'=>$request->text_working,
             'text_responsibilities'=>$request->text_responsibilities,
-            'contacts'=>$request->contacts,
             'how_respond'=>$request->how_respond,
             'job_posting'=>[
                 'status_name'=> $this->settings->job_status[$request->job_posting],

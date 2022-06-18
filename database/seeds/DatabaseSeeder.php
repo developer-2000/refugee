@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
+     * после создания новой seed в консоле - composer dumpautoload
      * Seed the application's database.
      *
      * @return void

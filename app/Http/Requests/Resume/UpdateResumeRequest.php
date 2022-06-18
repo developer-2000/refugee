@@ -47,8 +47,6 @@ class UpdateResumeRequest extends FormRequest
             'salary_sum' => 'sometimes|nullable|integer',
             'salary_comment' => 'sometimes|nullable|string|max:255',
             'type_employment' => 'required|integer|in:0,1,2,3',
-            'contacts' => 'sometimes|array',
-            'contacts.*' => 'integer',
             'languages' => 'sometimes|array',
             'languages.*' => 'integer',
             'education' => 'required|integer|in:0,1,2,3,4',

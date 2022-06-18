@@ -23,13 +23,18 @@ a:hover,
    text-decoration: none;
    color: #1d68a7;
 }
-.title-vacancy,
-.callout .title-vacancy{
-    font-size: 23px;
+
+.title-vacancy{
     color: #3490dc;
     text-decoration: none;
     background-color: transparent;
+    float: left;
+    margin-right: 5px;
 }
+#show-vacancy .title-vacancy{
+    font-size: 26px;
+}
+
 .link-a{
     color: #3490dc!important;
     text-decoration: none!important;
@@ -180,10 +185,7 @@ b{
 #show-vacancy .box-title{
     margin-bottom: 10px;
 }
-#show-vacancy .title-vacancy{
-    color: #1d68a7;
-    font-weight: bold;
-}
+
 .back-url-link {
     display: block;
     position: relative;
@@ -546,9 +548,7 @@ label{
 .close-document-border{
     outline: 2px solid #e87b85;
 }
-.box-textarea .textarea-vacancy:first-child{
-    margin-top: 25px;
-}
+
 
 
 /* color */

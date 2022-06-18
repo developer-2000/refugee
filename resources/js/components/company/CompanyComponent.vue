@@ -412,7 +412,7 @@
                 background-color: #fff;
                 padding: 15px;
                 margin: 0 -15px;
-                z-index: 10;
+                z-index: 15;
                 font-size: 17px;
                 .box-soc-button{
                     display: flex;

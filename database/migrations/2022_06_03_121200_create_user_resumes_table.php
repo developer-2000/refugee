@@ -28,13 +28,10 @@ class CreateUserResumesTable extends Migration
             $table->string('country')->index()->nullable()->default(null)->comment('страна');
             $table->string('region')->index()->nullable()->default(null)->comment('регион');
             $table->string('city')->index()->nullable()->default(null)->comment('город');
-
             $table->timestamp('data_birth')->nullable()->default(null)->comment('дата рождения');
-
             $table->string('categories')->index()->nullable()->default(null)->comment('категории резюме');
             $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, коментарий');
             $table->tinyInteger('type_employment')->index()->nullable()->default(null)->comment('работа - полная / не полная / удаленка');
-            $table->text('contacts')->nullable()->default(null)->comment('контакты связи');
             $table->string('languages')->index()->nullable()->default(null)->comment('языки работника');
             $table->tinyInteger('education')->index()->nullable()->default(null)->comment('образование');
             $table->tinyInteger('experience')->index()->nullable()->default(null)->comment('опыт работы');

@@ -55,12 +55,13 @@
                 :settings="settings"
                 :lang="lang"
                 :page="'show'"
+                :contact_list="contact_list"
             ></resume_template>
         </div>
 
         <!-- откликнуться -->
         <div v-if="respond_bool" id="box-respond" >
-            <h2 class="title-vacancy">
+            <h2 class="section-title">
                 Откликнуться на резюме
             </h2>
 
@@ -249,13 +250,14 @@
             'settings',
             'respond_data',
             'owner_resume',
+            'contact_list',
             'user',
             'back_url',
         ],
         mounted() {
             $('html, body').animate({scrollTop: 0},500);
 
-            console.log(this.respond_data.arr_vacancy)
+            console.log(this.contact_list)
         },
     }
 </script>

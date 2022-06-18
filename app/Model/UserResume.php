@@ -12,7 +12,6 @@ class UserResume extends Model
     protected $casts = [
         'categories' => 'array',
         'languages' => 'array',
-        'contacts' => 'array',
         'vacancy_suitable' => 'json',
         'salary' => 'json',
         'country' => 'json',

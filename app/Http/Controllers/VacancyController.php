@@ -12,6 +12,7 @@ use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Model\Image;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
 use App\Model\RespondVacancy;
@@ -63,17 +64,18 @@ class VacancyController extends BaseController {
             ->first();
 
         if(!is_null($my_user)){
-            // 2 все мои резюме для отклика
-            $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
-                ->with('position')->get();
-
             // если я подписан на эту вакансию
             if( $respond = RespondVacancy::where('vacancy_id',$request->vacancy_id)
                 ->where('user_resume_id',$my_user->id)->first()
             ){
-                // 3 владелец вакансии - для ссылки на него для общения
+                // 3 владелец вакансии для ссылки на него для общения
                 $owner_vacancy = User::where('id',$vacancy->user_id)
                     ->with('contact')->first();
+            }
+            else{
+                // 2 все мои резюме для отклика
+                $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
+                    ->with('position')->get();
             }
         }
 

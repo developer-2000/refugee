@@ -12,7 +12,6 @@ class Vacancy extends Model
     protected $casts = [
         'categories' => 'array',
         'languages' => 'array',
-        'contacts' => 'array',
         'vacancy_suitable' => 'json',
         'salary' => 'json',
         'country' => 'json',
@@ -47,7 +46,7 @@ class Vacancy extends Model
             'logo_id'   // внешний промежуточная
         )->withDefault(function ($data) {
             $data->title = 'Default logo';
-            $data->url = '/img/company/company-default.jpg';
+            $data->url = '/img/company/default/company-default.jpg';
         });
     }
 
@@ -65,7 +64,7 @@ class Vacancy extends Model
             $data->title = 'Default company title';
             $data->image = [
                 "title" => "Default logo",
-                "url" => "img/company/company-default.jpg",
+                "url" => "img/company/default/company-default.jpg",
             ];
         });
     }

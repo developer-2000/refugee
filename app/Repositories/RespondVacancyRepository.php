@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Model\RespondVacancy as Model;
 use App\Model\UserResume;
+use App\Model\Vacancy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -83,12 +84,16 @@ class RespondVacancyRepository extends CoreRepository {
      * @return mixed
      */
     private function createRecordDatabase($request, $resume_id){
+        $user_vacancy_id = Vacancy::where('id',$request->vacancy_id)
+            ->first()->pluck('user_id');
+
         return $this->model->updateOrCreate(
             [
                 'vacancy_id' => $request->vacancy_id,
                 'user_resume_id' => Auth::user()->id
             ],
             [
+                'user_vacancy_id' => $user_vacancy_id[0],
                 'resume_id' => $resume_id,
                 'textarea_letter' => $request->textarea_letter
             ]

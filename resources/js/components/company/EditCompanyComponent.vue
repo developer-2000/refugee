@@ -558,7 +558,7 @@
                     load_logotype: null,
                     image_name: null,
                 },
-                update_logotype_url: 'img/company/company-default.jpg',
+                update_logotype_url: 'img/company/default/company-default.jpg',
                 company_tax_number: '',
                 twitter_input: '',
                 telegram_input: '',

@@ -51,8 +51,6 @@ class StoreVacancyRequest extends FormRequest
             'text_description' => 'sometimes|nullable|string',
             'text_working' => 'sometimes|nullable|string',
             'text_responsibilities' => 'sometimes|nullable|string',
-            'contacts' => 'sometimes|array',
-            'contacts.*' => 'integer',
             'how_respond' => 'required|integer|in:0,1',
             'job_posting' => 'required|integer|in:0,1',
         ];

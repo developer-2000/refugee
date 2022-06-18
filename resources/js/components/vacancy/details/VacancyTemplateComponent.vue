@@ -3,7 +3,7 @@
         <!-- отображение прошедшего времени -->
         <div v-if="page === 'show'" class="date-document header-date-document">
             <div class="date-string">
-                {{getDateDocumentString(vacancy.updated_at)}} назад
+                Вакансия {{getDateDocumentString(vacancy.updated_at)}} назад
             </div>
             <!-- вакансия закрыта -->
             <div class="close-document-fon"
@@ -16,9 +16,9 @@
         <!-- title company logo status -->
         <div class="box-title">
             <!-- title vacancy -->
-            <h3 class="title-vacancy">
+            <h2 class="title-vacancy">
                 {{UpperCaseFirstCharacter(vacancy.position.title)}}
-            </h3>
+            </h2>
 
             <!-- логотип компании -->
             <!-- на странице открытой вакансии -->
@@ -203,13 +203,11 @@
                         <div v-html="vacancy.text_responsibilities"></div>
                     </div>
                 </template>
-                <div v-else-if="page == 'search' && vacancy.text_description"
+                <div v-else-if="page == 'search'"
                      class="textarea-vacancy"
                 >
-                    <h2 class="section-title">{{trans('vacancies','job_description')}}</h2><br>
-                    {{ cutTags(vacancy.text_description).slice(0, 150) }}
                     <div class="link-vacancy">
-                        ...
+                        Подробнее
                         <svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
                             <path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/>
                         </svg>
@@ -448,14 +446,14 @@
 
     .box-title {
         padding: 0;
-        .title-vacancy {
-            margin: 0 5px 10px 0!important;
-            padding: 0;
-            line-height: 25px;
-            height: 25px;
-            float: left;
-            max-width: 60%;
-        }
+        /*.title-vacancy {*/
+        /*    margin: 0 5px 10px 0!important;*/
+        /*    padding: 0;*/
+        /*    line-height: 25px;*/
+        /*    height: 25px;*/
+        /*    float: left;*/
+        /*    max-width: 60%;*/
+        /*}*/
         .company-vacancy,
         .default-company{
             display: flex;
@@ -513,7 +511,6 @@
 
         .link-vacancy {
             color: #1d68a7;
-
             svg {
                 path {
                     fill: #1d68a7;
@@ -548,9 +545,6 @@
         svg {
             width: 23px;
         }
-    }
-    .education-vacancy {
-        margin-bottom: 15px;
     }
     .comment-vacancy {
         display: flex;

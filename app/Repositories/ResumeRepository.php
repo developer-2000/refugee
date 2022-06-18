@@ -72,7 +72,6 @@ class ResumeRepository extends CoreRepository {
                 'comment'=>$request->salary_comment,
             ],
             'type_employment'=>$request->type_employment,
-            'contacts'=>$request->contacts,
             'languages'=>$request->languages,
             'education'=>$request->education,
             'job_posting'=>[

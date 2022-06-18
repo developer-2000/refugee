@@ -10,16 +10,6 @@ export default {
             $('#position_list').removeClass('show')
             this.position = value
         },
-        // указать средства связи
-        displayingEmployers(){
-            this.objDisplayEmpContVacancy.boolDisplay = true;
-            let checked = document.querySelectorAll('[name="disp_emp_cont_vacancy"]:checked');
-            let selected = [];
-            for (let i=0; i<checked.length; i++) {
-                selected.push(checked[i].value);
-            }
-            this.objDisplayEmpContVacancy.contacts = selected;
-        },
         // проверка на ввод зарплаты
         checkSalary() {
             // если выбран сектор а поля не заполнены
