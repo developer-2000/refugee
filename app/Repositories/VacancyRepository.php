@@ -3,6 +3,10 @@ namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\Position;
+use App\Model\RespondVacancy;
+use App\Model\User;
+use App\Model\UserResume;
+use App\Model\Vacancy;
 use App\Model\Vacancy as Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,18 +18,6 @@ class VacancyRepository extends CoreRepository {
     public function __construct() {
         $this->model = clone app(Model::class);
         $this->settings = (object) config('site.settings_vacancy');
-    }
-
-    /**
-     * вернет мои вакансии
-     * @return mixed
-     */
-    public function getMyVacancies($user){
-        if(!is_null($user)){
-            return $this->model->where('user_id',$user->id)
-                ->get();
-        }
-        return null;
     }
 
     public function storeVacancy($request){
@@ -49,6 +41,62 @@ class VacancyRepository extends CoreRepository {
         return $this->model->where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->update($this->makeArrayVacancy($request, $position));
+    }
+
+    public function show($request){
+        $my_user = Auth::user();
+        $respond_data['arr_resume'] = [];
+        $owner_vacancy = null;
+
+        // 1 смотреть вакансию
+        $vacancy = Vacancy::where('id', $request->vacancy_id)
+            ->with(
+                'position',
+                'contact.avatar',
+                'contact.position',
+                'company.image',
+                'id_saved_vacancies',
+                'id_hide_vacancies'
+            )
+            ->first();
+
+        // 4 заполить контакт лист
+        $contact_list = (new ContactInformationRepository())->fillContactList($vacancy);
+
+        if(!is_null($my_user)){
+            // если я подписан на эту вакансию
+            if( $respond = RespondVacancy::where('vacancy_id',$request->vacancy_id)
+                ->where('user_resume_id',$my_user->id)->first()
+            ){
+                // 3 владелец вакансии для ссылки на него для общения
+                $owner_vacancy = User::where('id',$vacancy->user_id)
+                    ->with('contact')->first();
+            }
+            else{
+                // 2 все мои резюме для отклика
+                $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
+                    ->with('position')->get();
+            }
+        }
+
+        return [
+            'vacancy'=>$vacancy,
+            'respond_data'=>$respond_data,
+            'owner_vacancy'=>$owner_vacancy,
+            'contact_list'=>$contact_list,
+        ];
+    }
+
+    /**
+     * вернет мои вакансии
+     * @return mixed
+     */
+    public function getMyVacancies($user){
+        if(!is_null($user)){
+            return $this->model->where('user_id',$user->id)
+                ->get();
+        }
+        return null;
     }
 
     private function makeArrayVacancy($request, $position){

@@ -90,33 +90,26 @@
 
         <!-- второй row -->
         <div class="row">
+            <!-- email -->
             <div class="col-sm-6">
-                <!-- email -->
                 <div class="form-group">
                     <label>
                         {{trans('contact','email')}}
-                        <span class="mandatory-filling">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                        </span>
                         <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
                               :title="trans('contact','serves_job_seeker')"
                         >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
+                        </span>
                     </label>
                     <input type="email" id="email" class="form-control" maxlength="100" autocomplete="off"
                            :placeholder="trans('contact','enter_email')"
-                           :class="{'is-invalid': $v.email.$error}"
                            v-model="email"
-                           @blur="$v.email.$touch()"
                     >
-                    <div class="invalid-feedback" v-if="!$v.email.required">
-                        {{trans('contact','please_enter_email')}}
-                    </div>
                 </div>
             </div>
+
+            <!-- Skype -->
             <div class="col-sm-6">
-                <!-- Skype -->
                 <div class="form-group">
                     <label for="skype">
                         Skype
@@ -131,17 +124,14 @@
 
         <!-- третий row -->
         <div class="row">
+            <!-- Telephone -->
             <div class="col-sm-12 telephone">
-                <!-- Telephone -->
                 <div class="form-group">
                     <div class="box-left-right">
                         <div class="left-phone">
                             <!-- title -->
                             <label>
                                 {{trans('contact','phone')}}
-                                <span class="mandatory-filling">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                        </span>
                                 <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
                                       :title="trans('contact','expand_way_contact')"
                                 >
@@ -192,10 +182,6 @@
                                            @keyup="enterCodeTelephon($event.target.value, 'phone_number')"
                                     >
                                 </div>
-                            </div>
-                            <!-- error -->
-                            <div class="invalid-feedback" v-if="telObj.bool_target_input && !telObj.bool_all_filled">
-                                {{trans('contact','please_enter_phone_number')}}
                             </div>
                         </div>
 
@@ -382,11 +368,7 @@
                 this.telObj.checkbox_messenger = selected;
             },
             disableButton(v) {
-                if(
-                    v.$invalid ||
-                    !this.telObj.bool_target_input ||
-                    (this.telObj.bool_target_input && !this.telObj.bool_all_filled)
-                ){
+                if(v.$invalid){
                     return true;
                 }
                 return false;
@@ -488,10 +470,6 @@
             },
             surname: {
                 required,
-            },
-            email: {
-                required,
-                email,
             },
         },
     }

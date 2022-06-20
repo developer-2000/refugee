@@ -4,12 +4,13 @@ namespace App\Repositories;
 use App\Http\Traits\LoadFileMethodsTraite;
 use App\Model\Image;
 use App\Model\Position;
+use App\Model\RespondResume;
+use App\Model\RespondVacancy;
 use App\Model\Test;
 use App\Model\UserContact;
 use App\Model\UserContact as Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
 
 class ContactInformationRepository extends CoreRepository {
     use LoadFileMethodsTraite;
@@ -68,7 +69,6 @@ class ContactInformationRepository extends CoreRepository {
             ->update($arr);
     }
 
-
     private function makeArrayContact($request){
         return [
             'name'=>$request->name,
@@ -80,4 +80,42 @@ class ContactInformationRepository extends CoreRepository {
         ];
     }
 
+    // заполнить контакт просматриваемого юзера
+    public function fillContactList($coll){
+        $my_user = Auth::user();
+        $contact_list = config('site.contacts.contact_list');
+        $contact_list['avatar_url'] = !is_null($coll->contact->avatar) ? $coll->contact->avatar->url : $coll->contact->default_avatar_url;
+        $contact_list['full_name'] = $coll->contact->name." ".$coll->contact->surname;
+        $contact_list['position'] = !is_null($coll->contact->position) ? $coll->contact->position->title : null;
+
+        // я авторизован
+        if($my_user){
+            $contact_list['access']['auth'] = true;
+
+            // если между сторонами в какомто из respond было принятие
+            $received = RespondResume::where('user_resume_id', $coll->user_id)
+                ->where('user_vacancy_id',$my_user->id)
+                ->where('accepted',1)
+                ->first();
+            if(!$received){
+                $received = RespondVacancy::where('user_resume_id', $my_user->id)
+                    ->where('user_vacancy_id',$coll->user_id)
+                    ->where('accepted',1)
+                    ->first();
+            }
+
+            // владелец документа принят мой respond
+            if($received){
+                $contact_list['access']['received_respond'] = true;
+                $contact_list['email'] = $coll->contact->email;
+                $contact_list['skype'] = $coll->contact->skype;
+                $contact_list['phone'] = [
+                    "phone" => $coll->contact->phone,
+                    "messengers" => $coll->contact->messengers,
+                ];
+            }
+        }
+
+        return $contact_list;
+    }
 }

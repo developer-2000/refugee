@@ -55,6 +55,7 @@
                 :settings="settings"
                 :lang="lang"
                 :page="'show'"
+                :user="user"
                 :contact_list="contact_list"
             ></resume_template>
         </div>
@@ -257,7 +258,7 @@
         mounted() {
             $('html, body').animate({scrollTop: 0},500);
 
-            console.log(this.contact_list)
+
         },
     }
 </script>

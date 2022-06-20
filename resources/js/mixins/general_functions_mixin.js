@@ -49,5 +49,14 @@ export default {
             document.execCommand("copy");
             $tmp.remove();
         },
+        // выбор имени компонента для динамик компонента
+        reset_array: function (a) {
+            // чилдрен присылает значение выбора компонента в масиве в виде обьекта
+            this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
+            // open/close modal
+            if (typeof a !== 'object' && a !== 3) {
+                this.$store.commit('tpSetMenuVisi')
+            }
+        },
     },
 }

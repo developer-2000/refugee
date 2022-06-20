@@ -60,71 +60,13 @@ class ResumeController extends BaseController {
      */
     public function show(UserResume $resume, ShowResumeRequest $request)
     {
-        $owner_resume = null;
-        $respond_data['arr_vacancy'] = [];
-        $my_user = Auth::user();
+        $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
-        $contact_list = config('site.contacts.contact_list');
+        $arrData['settings'] = $settings;
 
-        // 1 смотреть резюме
-        $resume = UserResume::where('id', $request->resume_id)
-            ->with('position','contact.avatar','contact.position','id_saved_resumes','id_hide_resumes')
-            ->first();
-
-        if(!is_null($my_user)){
-            // если я откликнулся на резюме
-            if( $respond = RespondResume::where('resume_id',$request->resume_id)
-                ->where('user_vacancy_id',$my_user->id)->first()
-            ){
-                // 3 владелец резюме для ссылки на него для общения
-                $owner_resume = User::where('id',$resume->user_id)
-                    ->with('contact')->first();
-            }
-            else{
-                // 2 все мои вакансии для отклика
-                $respond_data['arr_vacancy'] = Vacancy::where('user_id', $my_user->id)
-                    ->with('position')->get();
-            }
-
-            // 4 заполить контакт лист
-            $contact_list = $this->fillContactList($request, $contact_list, $resume->contact);
-        }
-
-        return view('resumes.show_resume', compact('settings','resume', 'respond_data', 'owner_resume', 'contact_list'));
+        return view('resumes.show_resume', $arrData);
     }
-
-
-    private function fillContactList($request, $contact_list, $contact){
-        $my_user = Auth::user();
-        $contact_list['avatar_url'] = !is_null($contact->avatar) ? $contact->avatar->url : $contact->default_avatar_url;
-        $contact_list['full_name'] = "$contact->name $contact->surname";
-        $contact_list['position'] = !is_null($contact->position) ? $contact->position->title : null;
-
-        // я авторизован
-        if($my_user){
-            $contact_list['access']['auth'] = true;
-            // владелец документа принят мой respond
-            if($received = RespondResume::where('resume_id',$request->resume_id)
-                ->where('user_vacancy_id',$my_user->id)
-                ->where('accepted',1)
-                ->first()
-            ){
-                $contact_list['access']['received_respond'] = true;
-                $contact_list['email'] = $contact->email;
-                $contact_list['skype'] = $contact->skype;
-                $contact_list['phone'] = [
-                    "phone" => $contact->phone,
-                    "messengers" => $contact->messengers,
-                ];
-            }
-        }
-
-        return $contact_list;
-    }
-
-
-
 
     /**
      * поля создания

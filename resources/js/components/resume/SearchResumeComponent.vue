@@ -55,6 +55,7 @@
                         :resume="resume"
                         :settings="settings"
                         :lang="lang"
+                        :contact_list="contact_list"
                         :page="'search'"
                     ></resume_template>
 
@@ -131,6 +132,7 @@
         ],
         data() {
             return {
+                contact_list: [],
                 position: '',
                 position_list: [],
                 description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠',

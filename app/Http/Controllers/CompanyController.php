@@ -8,6 +8,7 @@ use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Model\MakeGeographyDb;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
+use App\Repositories\ContactInformationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,14 +68,19 @@ class CompanyController extends BaseController {
                 'vacancies.company.image',
                 'vacancies.id_saved_vacancies',
                 'vacancies.id_hide_vacancies',
-                'contact'
+                'contact.avatar',
+                'contact.position'
             )->firstOrFail();
+
+        // 4 заполить контакт лист
+        $contact_list = (new ContactInformationRepository())->fillContactList($company);
+
         $settings = config('site.settings_vacancy');
         $settings['categories'] = config('site.categories.categories');
         $settings['count_working'] = config('site.company.count_working');
         $settings['contact_information'] = config('site.contacts.contact_information');
 
-        return view('company', compact('company','settings'));
+        return view('company', compact('company','settings', 'contact_list'));
     }
 
     /**

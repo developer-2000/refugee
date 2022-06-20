@@ -53,33 +53,14 @@ class VacancyController extends BaseController {
      */
     public function show(Vacancy $vacancy, ShowVacancyRequest $request)
     {
-        $owner_vacancy = null;
-        $respond_data['arr_resume'] = [];
-        $my_user = Auth::user();
+        $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
+        $settings['contact_information'] = config('site.contacts.contact_information');
+        $arrData['settings'] = $settings;
 
-        // 1 смотреть вакансию
-        $vacancy = Vacancy::where('id', $request->vacancy_id)
-            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies')
-            ->first();
+//        dd($arrData);
 
-        if(!is_null($my_user)){
-            // если я подписан на эту вакансию
-            if( $respond = RespondVacancy::where('vacancy_id',$request->vacancy_id)
-                ->where('user_resume_id',$my_user->id)->first()
-            ){
-                // 3 владелец вакансии для ссылки на него для общения
-                $owner_vacancy = User::where('id',$vacancy->user_id)
-                    ->with('contact')->first();
-            }
-            else{
-                // 2 все мои резюме для отклика
-                $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
-                    ->with('position')->get();
-            }
-        }
-
-        return view('vacancies.show_vacancy', compact('settings','vacancy', 'respond_data', 'owner_vacancy'));
+        return view('vacancies.show_vacancy', $arrData);
     }
 
     /**

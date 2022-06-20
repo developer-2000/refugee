@@ -53,6 +53,8 @@
                 :settings="settings"
                 :lang="lang"
                 :page="'show'"
+                :user="user"
+                :contact_list="contact_list"
             ></vacancy_template>
         </div>
 
@@ -352,6 +354,7 @@
             'settings',
             'respond_data',
             'owner_vacancy',
+            'contact_list',
             'user',
             'back_url',
         ],

@@ -3,7 +3,11 @@ namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\Position;
+use App\Model\RespondResume;
+use App\Model\User;
+use App\Model\UserResume;
 use App\Model\UserResume as Model;
+use App\Model\Vacancy;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,6 +44,43 @@ class ResumeRepository extends CoreRepository {
         return $this->model->where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->update($this->makeArrayResume($request, $position));
+    }
+
+    public function show($request){
+        $my_user = Auth::user();
+        $respond_data['arr_vacancy'] = [];
+        $owner_resume = null;
+
+        // 1 смотреть резюме
+        $resume = UserResume::where('id', $request->resume_id)
+            ->with('position','contact.avatar','contact.position','id_saved_resumes','id_hide_resumes')
+            ->first();
+
+        // 4 заполить контакт лист
+        $contact_list = (new ContactInformationRepository())->fillContactList($resume);
+
+        if(!is_null($my_user)){
+            // если я откликнулся на резюме
+            if( $respond = RespondResume::where('resume_id',$request->resume_id)
+                ->where('user_vacancy_id',$my_user->id)->first()
+            ){
+                // 3 владелец резюме для ссылки на него для общения
+                $owner_resume = User::where('id',$resume->user_id)
+                    ->with('contact')->first();
+            }
+            else{
+                // 2 все мои вакансии для отклика
+                $respond_data['arr_vacancy'] = Vacancy::where('user_id', $my_user->id)
+                    ->with('position')->get();
+            }
+        }
+
+        return [
+            'resume'=>$resume,
+            'respond_data'=>$respond_data,
+            'owner_resume'=>$owner_resume,
+            'contact_list'=>$contact_list,
+        ];
     }
 
     /**

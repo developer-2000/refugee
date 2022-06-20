@@ -28,11 +28,11 @@ class UpdateContactRequest extends FormRequest
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'position' => 'sometimes|nullable|string|max:255',
-            'email' => 'required|email|min:5|max:255',
+            'email' => 'sometimes|nullable|email|min:5|max:255',
             'skype' => 'sometimes|nullable|string|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => 'sometimes|nullable|string|max:255',
             'messengers' => 'sometimes|nullable|array',
-            'youtube_arr.*' => 'integer',
+//            'youtube_arr.*' => 'integer',
             'image' => 'sometimes|nullable|json',
         ];
     }

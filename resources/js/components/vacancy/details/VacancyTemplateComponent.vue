@@ -184,6 +184,16 @@
                 </div>
             </div>
 
+            <!-- Контакт лист -->
+            <template v-if="page === 'show'">
+                <contact_list_component
+                    :contact_list="contact_list"
+                    :settings="settings"
+                    :user="user"
+                    :lang="lang"
+                ></contact_list_component>
+            </template>
+
             <!-- textarea -->
             <div class="box-textarea">
                 <template v-if="page == 'show'">
@@ -293,8 +303,12 @@
     import translation from "../../../mixins/translation";
     import date_mixin from "../../../mixins/date_mixin";
     import response_methods_mixin from "../../../mixins/response_methods_mixin";
+    import contact_list_component from "../../details/ContactListComponent";
 
     export default {
+        components: {
+            contact_list_component: contact_list_component
+        },
         mixins: [
             translation,
             general_functions_mixin,
@@ -405,9 +419,12 @@
             'vacancy',
             'settings',
             'lang',
+            'contact_list',
+            'user',
             'page',
         ],
         mounted() {
+
         },
     }
 </script>
@@ -415,6 +432,9 @@
 <style scoped lang="scss">
     @import "../../../../sass/variables";
 
+    .box-textarea{
+        margin: 15px 0;
+    }
     .footer-vacancy{
         .right-footer{
             display: flex;

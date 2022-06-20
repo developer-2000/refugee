@@ -34,6 +34,11 @@ class Vacancy extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    // владелец вакансии
+    public function contact() {
+        return $this->belongsTo(UserContact::class, 'user_id', 'user_id');
+    }
+
     // Image чарез company
     // цепочка = Vacancy user_id, company user_id, company logo_id,
     public function logo_company() {
