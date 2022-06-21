@@ -6,6 +6,7 @@ use App\Http\Requests\Vacancy\JobSearchRequest;
 use App\Model\Image;
 use App\Model\Position;
 use App\Model\Test;
+use App\Model\UserResume;
 use App\Model\Vacancy;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class IndexController extends Controller {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request) {
+//        $this->test();
         $transition_url_page = null;
         // если пользователь шел на закрытый auth url
         if($arr = Session::pull('transition_after_auth', null)){
@@ -29,5 +31,17 @@ class IndexController extends Controller {
 
         return view('index', compact('transition_url_page'));
     }
+
+//    public function test() {
+//
+//        $user_id = rand(1,2);
+//        $countResumeAtUser = UserResume::where('user_id',$user_id)->count();
+//        $title_name = $user_id === 1 ? "First Resume_$countResumeAtUser" : "Two Resume_$countResumeAtUser";
+//        $position = Position::firstOrCreate([
+//            'title' => $title_name
+//        ]);
+//
+//        dd($position);
+//    }
 
 }

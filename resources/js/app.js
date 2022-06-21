@@ -34,6 +34,8 @@ Vue.component('search-resumes', require('./components/resume/SearchResumeCompone
 // company
 Vue.component('edit-company-component', require('./components/company/EditCompanyComponent').default);
 Vue.component('company-component', require('./components/company/CompanyComponent').default);
+// offer
+Vue.component('index-offer-component', require('./components/offer/IndexOfferComponent').default);
 // other
 Vue.component('contact_information', require('./components/contact_information/ContactInformationComponent').default);
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Model\Offer as Model;
+use Illuminate\Support\Facades\Auth;
 
 class OfferRepository extends CoreRepository {
 
@@ -11,7 +12,7 @@ class OfferRepository extends CoreRepository {
     }
 
     /**
-     * вернет существующий чат с контактом
+     * вернет указаный чат с контактом
      * @param $user_id
      * @param $my_id
      * @return mixed
@@ -26,6 +27,16 @@ class OfferRepository extends CoreRepository {
                     $query->where('one_user_id', $my_id)->where('two_user_id',$user_id);
                 });
         })->first();
+    }
+
+    /**
+     * все мои чаты
+     * @return mixed
+     */
+    public function getMyOffers() {
+        return $this->model->where('one_user_id', Auth::user()->id)
+            ->orWhere('two_user_id', Auth::user()->id)
+            ->get();
     }
 
     // создать первое сообщение с откликом на документ
