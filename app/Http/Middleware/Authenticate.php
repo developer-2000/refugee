@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
 {
+
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
@@ -16,6 +17,13 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (!Auth::guard()->check()) {
+            // сохранить url на который шел пользователь
+            session([
+                'transition_after_auth' => [
+                    "url_page" => url()->current(),
+                ]
+            ]);
+
             return route('index');
         }
     }

@@ -10,35 +10,24 @@ use App\Model\Vacancy;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller {
 
+    /**
+     * transition_after_auth - создаетса в middleware auth
+     * @param  Request  $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request) {
-//        $offerRepository = new OfferRepository();
-//
-//        $message = [
-//            "my_offer_title"=>"title1",
-//            "my_offer_url"=>"alias1",
-//            "your_offer_title"=>"title2",
-//            "your_offer_url"=>"alias2",
-//            "covering_letter"=>"",
-//        ];
-//
-//        $offer = $offerRepository->getOffer(1, 1);
-//
-//        // 2.1 обновить существующий
-//        if($offer){
-//            $chat = $offer->chat;
-//            $chat[] = $message;
-//            $offer->chat = $chat;
-//            $offer->save();
-//        }
-//        // 2.2 создать новый
-//        else{
-//            $chat = $offerRepository->create(1, 1, $message);
-//        }
+        $transition_url_page = null;
+        // если пользователь шел на закрытый auth url
+        if($arr = Session::pull('transition_after_auth', null)){
+            $transition_url_page = $arr['url_page'];
+        }
 
-        return view('index');
+        return view('index', compact('transition_url_page'));
     }
 
 }

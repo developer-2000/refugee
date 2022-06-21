@@ -92,6 +92,7 @@
                 :user="{{json_encode($user)}}"
                 :respond="{{json_encode($respond)}}"
                 :code_change_password="@if (session('code_change_password')) {{ session('code_change_password') }} @else 0 @endif"
+                :transition_url_page="@if (isset($transition_url_page)) {{ json_encode($transition_url_page) }} @else null @endif"
             ></top-menu-component>
 
             @if ($errors->any())

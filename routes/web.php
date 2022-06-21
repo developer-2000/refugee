@@ -83,11 +83,11 @@ Route::group([
         Route::post('respond-resume', 'RespondController@respondResume');
 
         // чаты предложений
-        Route::group(['prefix'=>'offer'], function (){
+        Route::resource('offer', 'OfferController')->only([
+            'index',
+        ]);
 
-            Route::get('/', 'OfferController@index');
 
-        });
 
         // private-office
         Route::group(['prefix'=>'private-office'], function (){

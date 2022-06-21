@@ -6648,7 +6648,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   },
   props: ['logo_text', 'lang', // масив названий и url языка
-  'user', 'respond', 'code_change_password'],
+  'user', 'respond', 'code_change_password', 'transition_url_page'],
   methods: {
     deleteStorage: function deleteStorage() {
       localStorage.removeItem('url_click_no_auth');
@@ -6707,7 +6707,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this.total_count_responses = this.respond.count_vacancies + this.respond.count_resumes;
       $('#authModal').on('hidden.bs.modal', function (e) {
         _this.deleteStorage();
-      });
+      }); // если пользователь шел на закрытый auth url вбив url в строку
+
+      if (this.transition_url_page !== null) {
+        this.checkAuth(this.transition_url_page);
+      }
     }
   },
   mounted: function mounted() {

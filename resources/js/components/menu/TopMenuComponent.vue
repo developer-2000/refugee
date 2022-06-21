@@ -205,6 +205,7 @@
             'user',
             'respond',
             'code_change_password',
+            'transition_url_page',
         ],
         methods: {
             deleteStorage: () => {
@@ -264,6 +265,11 @@
                 $('#authModal').on('hidden.bs.modal', (e) => {
                     this.deleteStorage()
                 })
+
+                // если пользователь шел на закрытый auth url вбив url в строку
+                if(this.transition_url_page !== null){
+                    this.checkAuth(this.transition_url_page)
+                }
             },
         },
         mounted() {
