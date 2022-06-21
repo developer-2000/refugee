@@ -17,7 +17,8 @@ class CreateTestsTable extends Migration
             $table->id();
             $table->text('text')->nullable()->default(null);
             $table->json('json')->nullable()->default(null);
-//            $table->json('json')->nullable()->default(null);
+            $table->tinyInteger('type')->default(0);
+
             $table->timestamps();
         });
     }

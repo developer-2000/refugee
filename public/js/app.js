@@ -2921,7 +2921,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   props: ['lang', 'company', 'settings', 'contact_list', 'user'],
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    console.log(this.company);
+  }
 });
 
 /***/ }),
@@ -8701,6 +8703,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -8792,6 +8796,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, 500);
       }
     },
+    scrollUp: function scrollUp() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 500);
+    },
+    cancelRespond: function cancelRespond() {
+      this.respond_bool = false;
+      this.scrollUp();
+    },
     disableButton: function disableButton() {
       if (!this.vacancyObj.vacancy_id) {
         return true;
@@ -8823,9 +8836,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['lang', // масив названий и url языка
   'resume', 'settings', 'respond_data', 'owner_resume', 'contact_list', 'user', 'back_url'],
   mounted: function mounted() {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 500);
+    this.scrollUp();
   }
 });
 
@@ -17325,7 +17336,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-page[data-v-cfa490c8] {\n  padding: 25px;\n}\n#box-respond[data-v-cfa490c8] {\n  border-top: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px 25px;\n  font-size: 17px;\n}\n#box-respond .card-respond[data-v-cfa490c8] {\n  box-shadow: none;\n  border: 1px solid #dee2e6;\n  border-radius: 5px 5px 0 0;\n  margin-top: 20px;\n}\n#box-respond .card-respond .nav-link.active[data-v-cfa490c8] {\n  background-color: white;\n}\n#box-respond .card-respond .nav-link.active[data-v-cfa490c8]:hover {\n  border-top: 3px solid #007bff;\n}\n#box-respond .box-no-resume[data-v-cfa490c8] {\n  display: flex;\n  flex-direction: column;\n}\n#box-respond .textarea-letter[data-v-cfa490c8] {\n  padding-top: 15px;\n}\n#box-respond #first-card-link .box-no-resume[data-v-cfa490c8] {\n  padding-bottom: 15px;\n  border-bottom: 1px solid #dee2e6;\n}\n#box-respond #first-card-link .box-yes-resume[data-v-cfa490c8] {\n  border-bottom: 1px solid #dee2e6;\n}\n#box-respond #first-card-link .textarea-letter[data-v-cfa490c8],\n#box-respond #first-card-link .block-drop-file[data-v-cfa490c8] {\n  padding-bottom: 15px;\n}\n#box-respond #first-card-link > div[data-v-cfa490c8]:last-child {\n  border-bottom: none;\n  padding-bottom: 0;\n}\n#box-respond #first-card-link .file-load-resume[data-v-cfa490c8] {\n  display: flex;\n  padding-bottom: 15px;\n  border-bottom: 1px solid #dee2e6;\n}\n#box-respond .box-button[data-v-cfa490c8] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: center;\n  align-content: flex-start;\n  align-items: flex-start;\n  margin-bottom: 15px;\n}\n#box-respond .box-button a[data-v-cfa490c8], #box-respond .box-button button[data-v-cfa490c8] {\n  width: 175px;\n}\n#box-respond .box-button a[data-v-cfa490c8] {\n  margin-right: 35px;\n}\n.link-a[data-v-cfa490c8] {\n  display: flex;\n  align-items: center;\n  width: 340px;\n}\n.link-a svg[data-v-cfa490c8] {\n  margin-right: 5px;\n}\n.link-a svg path[data-v-cfa490c8] {\n  fill: #1d68a7;\n}\n.xmark-icon[data-v-cfa490c8] {\n  fill: red;\n  width: 13px;\n  margin-left: 5px;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".box-page[data-v-cfa490c8] {\n  padding: 25px;\n}\n#box-respond[data-v-cfa490c8] {\n  border-top: 1px solid #dee2e6;\n  background-color: #fff;\n  padding: 15px 25px;\n  font-size: 17px;\n}\n#box-respond .card-respond[data-v-cfa490c8] {\n  box-shadow: none;\n  border: 1px solid #dee2e6;\n  border-radius: 5px 5px 0 0;\n  margin-top: 20px;\n}\n#box-respond .card-respond .nav-link.active[data-v-cfa490c8] {\n  background-color: white;\n}\n#box-respond .card-respond .nav-link.active[data-v-cfa490c8]:hover {\n  border-top: 3px solid #007bff;\n}\n#box-respond .box-no-resume[data-v-cfa490c8] {\n  display: flex;\n  flex-direction: column;\n}\n#box-respond .textarea-letter[data-v-cfa490c8] {\n  padding-top: 15px;\n}\n#box-respond #first-card-link .box-no-resume[data-v-cfa490c8] {\n  padding-bottom: 15px;\n  border-bottom: 1px solid #dee2e6;\n}\n#box-respond #first-card-link .box-yes-resume[data-v-cfa490c8] {\n  border-bottom: 1px solid #dee2e6;\n}\n#box-respond #first-card-link .textarea-letter[data-v-cfa490c8],\n#box-respond #first-card-link .block-drop-file[data-v-cfa490c8] {\n  padding-bottom: 15px;\n}\n#box-respond #first-card-link > div[data-v-cfa490c8]:last-child {\n  border-bottom: none;\n  padding-bottom: 0;\n}\n#box-respond #first-card-link .file-load-resume[data-v-cfa490c8] {\n  display: flex;\n  padding-bottom: 15px;\n  border-bottom: 1px solid #dee2e6;\n}\n#box-respond .box-button[data-v-cfa490c8] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: center;\n  align-content: flex-start;\n  align-items: flex-start;\n  margin-bottom: 15px;\n}\n#box-respond .box-button button[data-v-cfa490c8] {\n  width: 380px;\n}\n#box-respond .box-button a[data-v-cfa490c8] {\n  margin-right: 35px;\n  width: 175px;\n}\n.link-a[data-v-cfa490c8] {\n  display: flex;\n  align-items: center;\n  width: 340px;\n}\n.link-a svg[data-v-cfa490c8] {\n  margin-right: 5px;\n}\n.link-a svg path[data-v-cfa490c8] {\n  fill: #1d68a7;\n}\n.xmark-icon[data-v-cfa490c8] {\n  fill: red;\n  width: 13px;\n  margin-left: 5px;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -75056,7 +75067,7 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
-      _vm.company.youtube_links
+      _vm.company.youtube_links.length
         ? _c("div", { staticClass: "box-media-files" }, [
             _c("h3", { staticClass: "font-weight-bold" }, [
               _vm._v(
@@ -83922,7 +83933,13 @@ var render = function () {
               "a",
               {
                 staticClass: "btn btn-block btn-outline-danger btn-lg",
-                attrs: { href: "/" },
+                attrs: { href: "javascript:void(0)" },
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.cancelRespond()
+                  },
+                },
               },
               [
                 _vm._v(
@@ -83936,7 +83953,7 @@ var render = function () {
             _c(
               "button",
               {
-                staticClass: "btn btn-block btn-primary btn-lg",
+                staticClass: "btn btn-block btn-primary btn-lg open-button",
                 class: { disabled: _vm.disableButton() },
                 attrs: { type: "submit", disabled: _vm.disableButton() },
                 on: {
@@ -83948,9 +83965,7 @@ var render = function () {
               },
               [
                 _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans("respond", "respond")) +
-                    "\n                "
+                  "\n                    Открыть контакты и начать общение\n                "
                 ),
               ]
             ),

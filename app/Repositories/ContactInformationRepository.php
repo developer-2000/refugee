@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Http\Traits\LoadFileMethodsTraite;
 use App\Model\Image;
+use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
@@ -10,6 +11,7 @@ use App\Model\Test;
 use App\Model\UserContact;
 use App\Model\UserContact as Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ContactInformationRepository extends CoreRepository {
@@ -92,17 +94,28 @@ class ContactInformationRepository extends CoreRepository {
         if($my_user){
             $contact_list['access']['auth'] = true;
 
+            $received = Offer::where(function($query) use ($coll, $my_user) {
+                $query
+                    ->where( function ($query) use ($coll, $my_user) {
+                        $query->where('one_user_id', $coll->user_id)->where('two_user_id',$my_user->id)->where('accepted',1);
+                    })
+                    ->orWhere(function ($query) use ($coll, $my_user) {
+                        $query->where('one_user_id', $my_user->id)->where('two_user_id',$coll->user_id)->where('accepted',1);
+                    });
+            })->first();
+
             // если между сторонами в какомто из respond было принятие
-            $received = RespondResume::where('user_resume_id', $coll->user_id)
-                ->where('user_vacancy_id',$my_user->id)
-                ->where('accepted',1)
-                ->first();
-            if(!$received){
-                $received = RespondVacancy::where('user_resume_id', $my_user->id)
-                    ->where('user_vacancy_id',$coll->user_id)
-                    ->where('accepted',1)
-                    ->first();
-            }
+//            $received = Offer::where('one_user_id', $coll->user_id)
+//                ->where('two_user_id',$my_user->id)
+//                ->where('accepted',1)
+//                ->first();
+//            if(!$received){
+//                $received = Offer::where('one_user_id', $my_user->id)
+//                    ->where('two_user_id',$coll->user_id)
+//                    ->where('accepted',1)
+//                    ->first();
+//            }
+
 
             // владелец документа принят мой respond
             if($received){

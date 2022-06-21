@@ -118,15 +118,17 @@
 
                 <!-- button -->
                 <div class="box-button">
-                    <a href="/" class="btn btn-block btn-outline-danger btn-lg">
+                    <a href="javascript:void(0)" class="btn btn-block btn-outline-danger btn-lg"
+                       @click.prevent="cancelRespond()"
+                    >
                         {{trans('vacancies','cancel')}}
                     </a>
-                    <button type="submit" class="btn btn-block btn-primary btn-lg"
+                    <button type="submit" class="btn btn-block btn-primary btn-lg open-button"
                             :class="{'disabled': disableButton()}"
                             :disabled="disableButton()"
                             @click.prevent="respondResume"
                     >
-                        {{trans('respond','respond')}}
+                        Открыть контакты и начать общение
                     </button>
                 </div>
 
@@ -219,6 +221,13 @@
                     }, 500);
                 }
             },
+            scrollUp(){
+                $('html, body').animate({scrollTop: 0},500);
+            },
+            cancelRespond(){
+                this.respond_bool = false
+                this.scrollUp()
+            },
             disableButton() {
                 if( !this.vacancyObj.vacancy_id ){
                     return true;
@@ -256,9 +265,7 @@
             'back_url',
         ],
         mounted() {
-            $('html, body').animate({scrollTop: 0},500);
-
-
+            this.scrollUp()
         },
     }
 </script>
@@ -323,11 +330,12 @@
             align-content: flex-start;
             align-items: flex-start;
             margin-bottom: 15px;
-            a, button{
-                width: 175px;
+            button{
+                width: 380px;
             }
             a{
                margin-right: 35px;
+                width: 175px;
             }
         }
     }

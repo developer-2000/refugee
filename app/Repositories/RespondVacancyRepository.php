@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Model\Offer;
 use App\Model\RespondVacancy as Model;
 use App\Model\UserResume;
 use App\Model\Vacancy;
@@ -84,20 +85,48 @@ class RespondVacancyRepository extends CoreRepository {
      * @return mixed
      */
     private function createRecordDatabase($request, $resume_id){
-        $user_vacancy_id = Vacancy::where('id',$request->vacancy_id)
-            ->first()->pluck('user_id');
+        $offerRepository = new OfferRepository();
+        $my_user = Auth::user();
+        $vacancy = Vacancy::where('id',$request->vacancy_id)
+            ->with('position')->first();
 
-        return $this->model->updateOrCreate(
+        $resume = UserResume::where('id',$resume_id)
+            ->with('position')->first();
+
+        // 1 фиксация отзыва
+        $respond = $this->model->create(
             [
                 'vacancy_id' => $request->vacancy_id,
-                'user_resume_id' => Auth::user()->id
-            ],
-            [
-                'user_vacancy_id' => $user_vacancy_id[0],
                 'resume_id' => $resume_id,
-                'textarea_letter' => $request->textarea_letter
+                'user_resume_id' => $my_user->id,
+                'user_vacancy_id' => $vacancy->user_id
             ]
         );
+
+        $message = [
+            "my_offer_title"=>$resume->position->title,
+            "my_offer_url"=>"resume/$resume->alias",
+            "your_offer_title"=>$vacancy->position->title,
+            "your_offer_url"=>"vacancy/$vacancy->alias",
+            "covering_letter"=>$request->textarea_letter,
+        ];
+
+        // вернет существующий чат с контактом
+        $offer = $offerRepository->getOffer($vacancy->user_id, $my_user->id);
+
+        // 2.1 обновить существующий
+        if($offer){
+            $chat = $offer->chat;
+            $chat[] = $message;
+            $offer->chat = $chat;
+            $offer->save();
+        }
+        // 2.2 создать новый
+        else{
+            $chat = $offerRepository->create($my_user->id, $vacancy->user_id, $message);
+        }
+
+        return $respond;
     }
 
     /**

@@ -124,7 +124,7 @@
                 </div>
             </div>
             <!-- youtube -->
-            <div v-if="company.youtube_links" class="box-media-files">
+            <div v-if="company.youtube_links.length" class="box-media-files">
                 <h3 class="font-weight-bold">
                     {{trans('company','media_files')}}
                 </h3>
@@ -297,6 +297,7 @@
             'user',
         ],
         mounted() {
+            console.log(this.company)
         },
     }
 </script>
