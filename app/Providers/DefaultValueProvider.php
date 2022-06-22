@@ -1,10 +1,7 @@
 <?php
 namespace App\Providers;
 
-use App\Repositories\RespondResumeRepository;
-use App\Repositories\RespondVacancyRepository;
-use App\Repositories\ResumeRepository;
-use App\Repositories\VacancyRepository;
+use App\Repositories\OfferRepository;
 use App\Services\LanguageService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -21,13 +18,10 @@ class DefaultValueProvider extends ServiceProvider {
             $lang = (new LanguageService())->getLanguageArray();
             // авторизованый user
             $user = Auth::user();
-            // передает количество не прочтанных откликов на мои вакансии и резюме
-            $respond = [
-                "count_vacancies" => (new RespondVacancyRepository())->getCountRespondVacancies(new VacancyRepository()),
-                "count_resumes" => (new RespondResumeRepository())->getCountRespondResumes(new ResumeRepository()),
-            ];
+            // вернуть количество не прочитанных чатов
+            $count_unread_chats = (new OfferRepository())->getCountUnreadChats();
 
-            $view->with(compact('lang','user', 'respond'));
+            $view->with(compact('lang','user', 'count_unread_chats'));
         });
     }
 }

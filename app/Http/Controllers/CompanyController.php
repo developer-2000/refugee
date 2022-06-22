@@ -73,7 +73,9 @@ class CompanyController extends BaseController {
             )->firstOrFail();
 
         // 4 заполить контакт лист
-        $contact_list = (new ContactInformationRepository())->fillContactList($company);
+        $contact_list = (new ContactInformationRepository())->fillContactList(
+            $company->contact, $company->user_id
+        );
 
         $settings = config('site.settings_vacancy');
         $settings['categories'] = config('site.categories.categories');

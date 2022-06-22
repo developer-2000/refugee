@@ -17,13 +17,13 @@ class UserSeeder extends Seeder
             [
                 'email' => 'thwglobal2000@gmail.com',
                 'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'password' => '$2y$10$cvH43yr8/K7gckTc7D3uwOHSe65cjybXdnYnyVMVuLD4fH4qU7YAm', // thwglobal2000
                 'remember_token' => \Illuminate\Support\Str::random(10),
             ],
             [
-                'email' => 'thwglobal2000_2@gmail.com',
+                'email' => 'thwglobal2002@gmail.com',
                 'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'password' => '$2y$10$cvH43yr8/K7gckTc7D3uwOHSe65cjybXdnYnyVMVuLD4fH4qU7YAm', // thwglobal2000
                 'remember_token' => \Illuminate\Support\Str::random(10),
             ],
         ];

@@ -40,36 +40,17 @@
             <ul class="navbar-nav ml-auto">
 
                 <!-- предложения -->
-                <li class="nav-item dropdown nav-item d-none d-sm-inline-block button-navbar">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                <li class="nav-item d-none d-sm-inline-block button-navbar">
+                    <a class="nav-link" href="javascript:void(0)"
+                       @click.prevent="checkAuth(lang.prefix_lang+'offers')"
+                    >
                         <!-- общее кол-во respond на вакансии и резюме -->
-                        <span v-if="total_count_responses"
+                        <span v-if="count_unread_chats"
                             class="badge badge-primary navbar-badge">
-                            {{total_count_responses}}
+                            {{count_unread_chats}}
                         </span>
                         Предложения
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-<!--                            @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"-->
-                        <a class="dropdown-item" href="#">
-                            <!-- кол-во respond на вакансии -->
-                            <span v-if="respond.count_vacancies"
-                                  class="badge badge-primary navbar-badge"
-                            >
-                                {{respond.count_vacancies}}
-                            </span>
-                            На вакансию
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <!-- кол-во respond на resume -->
-                            <span v-if="respond.count_resumes"
-                                  class="badge badge-primary navbar-badge"
-                            >
-                                {{respond.count_resumes}}
-                            </span>
-                            На резюме
-                        </a>
-                    </div>
                 </li>
                 <!-- работа -->
                 <li class="nav-item dropdown d-none d-sm-inline-block dropdown-button-menu">
@@ -77,10 +58,22 @@
                         Работа
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')">Добавить вакансию</a>
-                        <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
-                        <a class="dropdown-item" href="#" @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')">Добавить резюме</a>
-                        <a class="dropdown-item" :href="`${lang.prefix_lang}resume`">Найти резюме</a>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
+                        >
+                            Добавить вакансию
+                        </a>
+                        <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">
+                            Найти вакансию
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
+                        >
+                            Добавить резюме
+                        </a>
+                        <a class="dropdown-item" :href="`${lang.prefix_lang}resume`">
+                            Найти резюме
+                        </a>
                     </div>
                 </li>
 
@@ -196,14 +189,13 @@
             return {
                 lang_sort: [],
                 reset_pass: true, // глобал для компонента ImpNewPass
-                total_count_responses: 0,
             }
         },
         props: [
             'logo_text',
             'lang',   // масив названий и url языка
             'user',
-            'respond',
+            'count_unread_chats',
             'code_change_password',
             'transition_url_page',
         ],
@@ -260,7 +252,6 @@
                 this.onlyNextLanguage()
                 this.openModalChangePassword()
                 this.urlTransitions()
-                this.total_count_responses = this.respond.count_vacancies + this.respond.count_resumes
 
                 $('#authModal').on('hidden.bs.modal', (e) => {
                     this.deleteStorage()

@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-use App\Model\Offer;
+use App\Http\Traits\RespondTraite;
 use App\Model\RespondVacancy as Model;
 use App\Model\UserResume;
 use App\Model\Vacancy;
@@ -9,13 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RespondVacancyRepository extends CoreRepository {
+    use RespondTraite;
 
     protected $settings;
     protected $path_to_file;
+    protected $offerRepository;
 
     public function __construct() {
         $this->model = clone app(Model::class);
         $this->path_to_file = "/files/resumes/";
+        $this->offerRepository = new OfferRepository();
     }
 
     /**
@@ -63,33 +66,17 @@ class RespondVacancyRepository extends CoreRepository {
     }
 
     /**
-     * вернет количество не прочтанных откликов на мои вакансии
-     * @param  VacancyRepository  $vacancy
-     * @return int
-     */
-    public function getCountRespondVacancies(VacancyRepository $vacancy) {
-        $count = 0;
-        if($vacancies = $vacancy->getMyVacancies(Auth::user())){
-            $arrIdVacancies = $vacancies->pluck('id');
-            $count = $this->model->whereIn('vacancy_id',$arrIdVacancies)
-                ->where('review',0)->count();
-        }
-
-        return $count;
-    }
-
-    /**
      * создать запись в базе respond
      * @param $request
      * @param $resume_id
      * @return mixed
      */
     private function createRecordDatabase($request, $resume_id){
-        $offerRepository = new OfferRepository();
         $my_user = Auth::user();
+        // вакансия человека
         $vacancy = Vacancy::where('id',$request->vacancy_id)
             ->with('position')->first();
-
+        // мое резюме
         $resume = UserResume::where('id',$resume_id)
             ->with('position')->first();
 
@@ -103,28 +90,20 @@ class RespondVacancyRepository extends CoreRepository {
             ]
         );
 
-        $message = [
-            "my_offer_title"=>$resume->position->title,
-            "my_offer_url"=>"resume/$resume->alias",
-            "your_offer_title"=>$vacancy->position->title,
-            "your_offer_url"=>"vacancy/$vacancy->alias",
-            "covering_letter"=>$request->textarea_letter,
-        ];
+        // вернет указаный чат по id - мой и юзер
+        $offer = $this->offerRepository->getOffer($vacancy->user_id, $my_user->id);
 
-        // вернет существующий чат с контактом
-        $offer = $offerRepository->getOffer($vacancy->user_id, $my_user->id);
+        $message = config('site.offer.message');
+        $message["user_id"] = $my_user->id;
+        $message["type_document"] = 'resume';
+        $message["my_offer_title"] = $resume->position->title;
+        $message["my_offer_url"] = "resume/$resume->alias";
+        $message["your_offer_title"] = $vacancy->position->title;
+        $message["your_offer_url"] = "vacancy/$vacancy->alias";
+        $message["covering_letter"] = $request->textarea_letter;
 
-        // 2.1 обновить существующий
-        if($offer){
-            $chat = $offer->chat;
-            $chat[] = $message;
-            $offer->chat = $chat;
-            $offer->save();
-        }
-        // 2.2 создать новый
-        else{
-            $chat = $offerRepository->create($my_user->id, $vacancy->user_id, $message);
-        }
+        // 2 обновить или создать offer chat
+        $this->setDataOffer($offer, $vacancy->user_id, $my_user->id, $message, $resume->position->title);
 
         return $respond;
     }

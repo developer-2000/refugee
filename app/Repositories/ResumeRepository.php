@@ -57,7 +57,7 @@ class ResumeRepository extends CoreRepository {
             ->first();
 
         // 4 заполить контакт лист
-        $contact_list = (new ContactInformationRepository())->fillContactList($resume);
+        $contact_list = (new ContactInformationRepository())->fillContactList($resume->contact, $resume->user_id);
 
         if(!is_null($my_user)){
             // если я откликнулся на резюме

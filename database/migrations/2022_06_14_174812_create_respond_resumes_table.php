@@ -31,7 +31,7 @@ class CreateRespondResumesTable extends Migration
             $table->foreign('user_vacancy_id')->references('id')->on('users')->onDelete('cascade');
 
 //            $table->text('textarea_letter')->nullable()->default(null);
-            $table->tinyInteger('review')->default(0)->comment('0=no, 1=yes - просмотр хозяином');
+//            $table->tinyInteger('review')->default(0)->comment('0=no, 1=yes - просмотр хозяином');
 //            $table->tinyInteger('accepted')->default(0)->comment('0=no, 1=yes - хозяин принял отклик');
 
             $table->timestamps();

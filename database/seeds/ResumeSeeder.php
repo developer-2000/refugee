@@ -46,6 +46,8 @@ class ResumeSeeder extends Seeder
                 'updated_at' => $createdAt,
             ];
 
+            sleep(1);
+
             UserResume::insert($data);
         }
     }

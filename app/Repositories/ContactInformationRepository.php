@@ -3,16 +3,10 @@ namespace App\Repositories;
 
 use App\Http\Traits\LoadFileMethodsTraite;
 use App\Model\Image;
-use App\Model\Offer;
 use App\Model\Position;
-use App\Model\RespondResume;
-use App\Model\RespondVacancy;
-use App\Model\Test;
 use App\Model\UserContact;
 use App\Model\UserContact as Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ContactInformationRepository extends CoreRepository {
     use LoadFileMethodsTraite;
@@ -83,48 +77,27 @@ class ContactInformationRepository extends CoreRepository {
     }
 
     // заполнить контакт просматриваемого юзера
-    public function fillContactList($coll){
+    public function fillContactList($contact, $user_id){
         $my_user = Auth::user();
         $contact_list = config('site.contacts.contact_list');
-        $contact_list['avatar_url'] = !is_null($coll->contact->avatar) ? $coll->contact->avatar->url : $coll->contact->default_avatar_url;
-        $contact_list['full_name'] = $coll->contact->name." ".$coll->contact->surname;
-        $contact_list['position'] = !is_null($coll->contact->position) ? $coll->contact->position->title : null;
+        $contact_list['avatar_url'] = !is_null($contact->avatar) ? $contact->avatar->url : $contact->default_avatar_url;
+        $contact_list['full_name'] = $contact->name." ".$contact->surname;
+        $contact_list['position'] = !is_null($contact->position) ? $contact->position->title : null;
 
         // я авторизован
         if($my_user){
             $contact_list['access']['auth'] = true;
 
-            $received = Offer::where(function($query) use ($coll, $my_user) {
-                $query
-                    ->where( function ($query) use ($coll, $my_user) {
-                        $query->where('one_user_id', $coll->user_id)->where('two_user_id',$my_user->id)->where('accepted',1);
-                    })
-                    ->orWhere(function ($query) use ($coll, $my_user) {
-                        $query->where('one_user_id', $my_user->id)->where('two_user_id',$coll->user_id)->where('accepted',1);
-                    });
-            })->first();
+            // проверка открытости контактов в чате
+            $open_contact = (new OfferRepository())->checkOpenContactsInChat($user_id, $my_user->id);
 
-            // если между сторонами в какомто из respond было принятие
-//            $received = Offer::where('one_user_id', $coll->user_id)
-//                ->where('two_user_id',$my_user->id)
-//                ->where('accepted',1)
-//                ->first();
-//            if(!$received){
-//                $received = Offer::where('one_user_id', $my_user->id)
-//                    ->where('two_user_id',$coll->user_id)
-//                    ->where('accepted',1)
-//                    ->first();
-//            }
-
-
-            // владелец документа принят мой respond
-            if($received){
+            if($open_contact){
                 $contact_list['access']['received_respond'] = true;
-                $contact_list['email'] = $coll->contact->email;
-                $contact_list['skype'] = $coll->contact->skype;
+                $contact_list['email'] = $contact->email;
+                $contact_list['skype'] = $contact->skype;
                 $contact_list['phone'] = [
-                    "phone" => $coll->contact->phone,
-                    "messengers" => $coll->contact->messengers,
+                    "phone" => $contact->phone,
+                    "messengers" => $contact->messengers,
                 ];
             }
         }

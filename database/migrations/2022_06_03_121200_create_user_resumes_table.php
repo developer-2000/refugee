@@ -24,7 +24,9 @@ class CreateUserResumesTable extends Migration
             $table->unsignedBigInteger('position_id')->nullable()->default(null)->comment('должность');
             $table->tinyInteger('type')->default(0)->comment('0=site, 1=file');
             $table->string('url')->nullable()->default(null)->comment('url file');
-            $table->string('alias', 100)->nullable()->default(null)->comment('для url resume');
+
+            $table->string('alias', 100)->unique()->comment('url resume');
+
             $table->string('country')->index()->nullable()->default(null)->comment('страна');
             $table->string('region')->index()->nullable()->default(null)->comment('регион');
             $table->string('city')->index()->nullable()->default(null)->comment('город');

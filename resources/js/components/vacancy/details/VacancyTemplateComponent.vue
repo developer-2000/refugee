@@ -303,7 +303,7 @@
     import translation from "../../../mixins/translation";
     import date_mixin from "../../../mixins/date_mixin";
     import response_methods_mixin from "../../../mixins/response_methods_mixin";
-    import contact_list_component from "../../details/ContactListComponent";
+    import contact_list_component from "../../details/ContactListDocumentComponent";
 
     export default {
         components: {

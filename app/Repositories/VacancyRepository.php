@@ -61,7 +61,7 @@ class VacancyRepository extends CoreRepository {
             ->first();
 
         // 4 заполить контакт лист
-        $contact_list = (new ContactInformationRepository())->fillContactList($vacancy);
+        $contact_list = (new ContactInformationRepository())->fillContactList($vacancy->contact, $vacancy->user_id);
 
         if(!is_null($my_user)){
             // если я подписан на эту вакансию

@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Traits\RespondTraite;
 use App\Model\RespondResume as Model;
 use App\Model\UserResume;
 use App\Model\Vacancy;
@@ -8,9 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RespondResumeRepository extends CoreRepository {
+    use RespondTraite;
+
+    protected $offerRepository;
 
     public function __construct() {
         $this->model = clone app(Model::class);
+        $this->offerRepository = new OfferRepository();
     }
 
     /**
@@ -21,8 +26,11 @@ class RespondResumeRepository extends CoreRepository {
     public function respondResume($request) {
         $offerRepository = new OfferRepository();
         $my_user = Auth::user();
+
+        // резюме человека
         $resume = UserResume::where('id',$request->resume_id)
             ->with('position')->first();
+        // моя вакансия
         $vacancy = Vacancy::where('id',$request->vacancy_id)
             ->with('position')->first();
 
@@ -36,45 +44,22 @@ class RespondResumeRepository extends CoreRepository {
             ]
         );
 
-        $message = [
-            "my_offer_title"=>$vacancy->position->title,
-            "my_offer_url"=>"vacancy/$vacancy->alias",
-            "your_offer_title"=>$resume->position->title,
-            "your_offer_url"=>"resume/$resume->alias",
-            "covering_letter"=>$request->textarea_letter,
-        ];
-
         // вернет существующий чат с контактом
         $offer = $offerRepository->getOffer($resume->user_id, $my_user->id);
 
-        // 2.1 обновить существующий
-        if($offer){
-            $chat = $offer->chat;
-            $chat[] = $message;
-            $offer->chat = $chat;
-            $offer->save();
-        }
-        // 2.2 создать новый
-        else{
-            $chat = $offerRepository->create($my_user->id, $resume->user_id, $message);
-        }
+        $message = config('site.offer.message');
+        $message["user_id"] = $my_user->id;
+        $message["type_document"] = 'vacancy';
+        $message["my_offer_title"] = $vacancy->position->title;
+        $message["my_offer_url"] = "vacancy/$vacancy->alias";
+        $message["your_offer_title"] = $resume->position->title;
+        $message["your_offer_url"] = "resume/$resume->alias";
+        $message["covering_letter"] = $request->textarea_letter;
 
-    }
+        // 2 обновить или создать offer chat
+        $this->setDataOffer($offer, $resume->user_id, $my_user->id, $message, $vacancy->position->title);
 
-    /**
-     * вернет количество не прочтанных откликов на мои резюме
-     * @param  UserResume  $resume
-     * @return int
-     */
-    public function getCountRespondResumes(ResumeRepository $resume) {
-        $count = 0;
-        if($resumes = $resume->getMyResumes(Auth::user())){
-            $arrIdResumes = $resumes->pluck('id');
-            $count = $this->model->whereIn('resume_id',$arrIdResumes)
-                ->where('review',0)->count();
-        }
-
-        return $count;
+        return $respond;
     }
 
 }

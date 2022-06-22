@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Model\Offer;
 use App\Repositories\CompanyRepository;
+use App\Repositories\ContactInformationRepository;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends BaseController {
 
@@ -18,9 +20,39 @@ class OfferController extends BaseController {
 
     public function index()
     {
-        $offers = $this->repository->getMyOffers();
+        $my_id = Auth::user()->id;
+//        $offers = $this->repository->getIndexPage();
+        // 1 настройки содержимого контакт листа
+        $settings['contact_information'] = config('site.contacts.contact_information');
 
-        return view('offer.index_offer', compact('offers'));
+        // 2 выбрать все мои чаты с контактами собеседника
+        $offers = Offer::where('one_user_id', Auth::user()->id)
+            ->orWhere('two_user_id', Auth::user()->id)
+            ->with(["contact_one_user" => function($q) use($my_id){
+                $q->where('user_id', '!=', $my_id);
+            },"contact_one_user.avatar","contact_one_user.position"])
+            ->with(["contact_two_user" => function($q) use($my_id){
+                $q->where('user_id', '!=', $my_id);
+            },"contact_two_user.avatar","contact_two_user.position"])
+            ->get();
+
+        // 3 внести в каждый чат контакт лист своего собеседника
+        $offers->each(function ($item, $key) {
+            if(!is_null($item->contact_one_user)){
+                $item->contact_list = (new ContactInformationRepository())->fillContactList(
+                    $item->contact_one_user, $item->contact_one_user->user_id
+                );
+            }
+            elseif(!is_null($item->contact_two_user)){
+                $item->contact_list = (new ContactInformationRepository())->fillContactList(
+                    $item->contact_two_user, $item->contact_two_user->user_id
+                );
+            }
+        });
+
+//        dd($offers->toArray());
+
+        return view('offer.index_offer', compact('offers', 'settings'));
     }
 
 //    /**

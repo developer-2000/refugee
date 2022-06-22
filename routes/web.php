@@ -82,8 +82,10 @@ Route::group([
         // respond resume
         Route::post('respond-resume', 'RespondController@respondResume');
 
+
+
         // чаты предложений
-        Route::resource('offer', 'OfferController')->only([
+        Route::resource('offers', 'OfferController')->only([
             'index',
         ]);
 

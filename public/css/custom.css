@@ -23,7 +23,6 @@ a:hover,
    text-decoration: none;
    color: #1d68a7;
 }
-
 .title-vacancy{
     color: #3490dc;
     text-decoration: none;
@@ -34,7 +33,6 @@ a:hover,
 #show-vacancy .title-vacancy{
     font-size: 26px;
 }
-
 .link-a{
     color: #3490dc!important;
     text-decoration: none!important;
@@ -185,7 +183,6 @@ b{
 #show-vacancy .box-title{
     margin-bottom: 10px;
 }
-
 .back-url-link {
     display: block;
     position: relative;
@@ -210,6 +207,13 @@ b{
 }
 .clear-float{
     clear: both;
+}
+.badge {
+    margin: 0 -15px 0 0;
+}
+/* offer */
+.title-chat{
+    font-size: 1rem;
 }
 /* bootstrap */
 .row{

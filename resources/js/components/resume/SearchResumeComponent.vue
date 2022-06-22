@@ -302,7 +302,7 @@
             'user',
         ],
         mounted() {
-            // console.log(this.resumes)
+            console.log(this.resumes)
 
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)

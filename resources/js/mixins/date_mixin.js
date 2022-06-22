@@ -2,8 +2,33 @@ var moment = require('moment');
 
 export default {
     data() {
+// 'Января',
+// 'Февраля',
+// 'Марта',
+// 'Апреля',
+// 'Мая',
+// 'Июня',
+// 'Июля',
+// 'Августа',
+// 'Сентября',
+// 'Ноября',
+// 'Декабря'
         return {
             moment: moment,
+            nameMonth: [
+                'January',
+                'February',
+                'Martha',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'November',
+                'December'
+            ],
+
         }
     },
     methods: {
@@ -102,6 +127,13 @@ export default {
             const diffInTime = last_date.getTime() - now_date.getTime();
             // сколько дней
             return Math.round(diffInTime / oneDay);
+        },
+        // вывести дату в формате - 22 June 2022
+        getDateString(date){
+            let str = new Date(date);
+            const num_month = str.getUTCMonth()
+
+            return str.getDate()+" "+this.nameMonth[num_month]+" "+str.getFullYear()
         },
     },
 

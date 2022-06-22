@@ -30,7 +30,7 @@
                     <div v-if="contact_list.position !== null" class="font-weight-bold contacts-position">
                         {{contact_list.position}}
                     </div>
-                    <div v-else class="not-specified">Не указан</div>
+                    <div v-else class="not-specified">Должность не указана</div>
                 </div>
             </div>
 
@@ -294,6 +294,7 @@
         .not-specified{
             font-style: italic;
             border-bottom: 1px dashed #444;
+            font-size: 14px;
         }
     }
 </style>

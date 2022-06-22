@@ -90,7 +90,7 @@
                 :logo_text="{{'{"uk":"'.env("APP_NAME_UK").'","en":"'.env("APP_NAME_EN").'"}'}}"
                 :lang="{{json_encode($lang)}}"
                 :user="{{json_encode($user)}}"
-                :respond="{{json_encode($respond)}}"
+                :count_unread_chats="{{json_encode($count_unread_chats)}}"
                 :code_change_password="@if (session('code_change_password')) {{ session('code_change_password') }} @else 0 @endif"
                 :transition_url_page="@if (isset($transition_url_page)) {{ json_encode($transition_url_page) }} @else null @endif"
             ></top-menu-component>

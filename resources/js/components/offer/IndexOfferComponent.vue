@@ -10,22 +10,35 @@
         </div>
         <!-- title -->
         <h1 class="title_page card-body">
-            {{trans('company','create_your_company')}}
+            Предложения
         </h1>
 
         <div class="bottom-search">
 
                 <!-- document -->
-                <div class="box-vacancy"
+                <div class="row box-vacancy"
                      v-for="(offer, key) in offers" :key="key"
                      :id="`v${key}`"
                 >
 
-fgh
+                    <!-- user -->
+                    <div class="col-sm-4">
+                        <!-- Контакт лист -->
+                        <offer_contact_list
+                            :offer="offer"
+                            :settings="settings"
+                            :user="user"
+                            :lang="lang"
+                            :page="'offers'"
+                        ></offer_contact_list>
+                    </div>
 
+                    <!-- text -->
+                    <div class="col-sm-8">
+                        <div class="body-chat" v-html="textOutput(offer.chat)"></div>
+                    </div>
 
                 </div>
-
 
         </div>
     </div>
@@ -33,27 +46,69 @@ fgh
 
 <script>
     import translation from "../../mixins/translation";
+    import offer_contact_list from "../details/OfferContactListComponent";
 
     export default {
         mixins: [
             translation,
         ],
         components: {
+            'offer_contact_list': offer_contact_list
         },
         data() {
             return {
+                length_string: 250,
             }
         },
         methods: {
-        },
-        computed: {
+            textOutput(chat) {
+                let string = ""
+                let title_chat = chat[0].title_chat
+                chat = chat[chat.length-1]
+                let regex = /( |<([^>]+)>)/ig
+
+                // title chat
+                string += "<div class='font-weight-bold title-chat'>"+title_chat+"</div>"
+
+                // сообщение о документе
+                if(chat.type_document !== null){
+                    if(chat.user_id !== this.user.id){
+                        string += "<div class='font-weight-bold offer-document'>Предложение рассмотреть "+chat.type_document+"</div>"
+                    }
+                    else if(chat.user_id === this.user.id){
+                        string += "<div class='font-weight-bold offer-document'>Вы: предложили к рассмотрению "+chat.type_document+"</div>"
+                    }
+                }
+
+                // текст чата
+                if(chat.covering_letter !== null){
+                    // html и длина
+                    let line = chat.covering_letter.replace(regex, " ")
+                    if(line.length > this.length_string) {
+                        line = line.substring(0,this.length_string)+" ...";
+                    }
+
+                    if(chat.user_id !== this.user.id){
+                        string += line
+                    }
+                    else if(chat.user_id === this.user.id){
+                        string += "<div class='font-weight-bold offer-document'>Вы:</div>"+line
+                    }
+                }
+
+                return string
+                // console.log(chat)
+            },
         },
         props: [
+            'user',
             'lang',
             'offers',
+            'settings',
         ],
         mounted() {
-
+            console.log(this.user)
+            console.log(this.offers)
         },
     }
 </script>
@@ -61,6 +116,15 @@ fgh
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .box-vacancy {
+        padding: 10px 5px;
+        .body-chat{
+            font-size: 14px;
+        }
+        .title-chat{
+            font-size: 3rem;
+        }
+    }
 
 </style>
 
