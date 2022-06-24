@@ -4,8 +4,6 @@ namespace App\Http\Traits;
 use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\MakeGeographyDb;
 use App\Model\Position;
-use App\Model\RespondResume;
-use App\Model\RespondVacancy;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 

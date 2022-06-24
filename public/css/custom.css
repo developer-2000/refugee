@@ -131,6 +131,7 @@ b{
     font-weight: 500 !important;
     cursor: pointer;
 }
+
 /* sidebar left */
 .brand-link{
     display: flex;
@@ -211,10 +212,18 @@ b{
 .badge {
     margin: 0 -15px 0 0;
 }
+
 /* offer */
 .title-chat{
     font-size: 1rem;
 }
+.offer-document{
+    background-color: #e6e6e6;
+    padding: 0px 5px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
 /* bootstrap */
 .row{
     margin: 0;

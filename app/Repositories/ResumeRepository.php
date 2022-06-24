@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\Position;
 use App\Model\RespondResume;
+use App\Model\RespondVacancy;
 use App\Model\User;
 use App\Model\UserResume;
 use App\Model\UserResume as Model;
@@ -60,10 +61,17 @@ class ResumeRepository extends CoreRepository {
         $contact_list = (new ContactInformationRepository())->fillContactList($resume->contact, $resume->user_id);
 
         if(!is_null($my_user)){
-            // если я откликнулся на резюме
-            if( $respond = RespondResume::where('resume_id',$request->resume_id)
-                ->where('user_vacancy_id',$my_user->id)->first()
-            ){
+
+            $respond = RespondResume::where('resume_id',$request->resume_id)
+                ->select('id')->where('user_vacancy_id',$my_user->id)->first();
+            if(is_null($respond)){
+                $respond = RespondVacancy::where('resume_id',$request->resume_id)
+                    ->select('id')->where('user_vacancy_id',$my_user->id)->first();
+            }
+
+            // если я подписан на это резюме OR
+            // работник ранее предоставил мне его в качестве предложения
+            if( $respond ){
                 // 3 владелец резюме для ссылки на него для общения
                 $owner_resume = User::where('id',$resume->user_id)
                     ->with('contact')->first();

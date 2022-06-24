@@ -10,23 +10,16 @@ class ContactSeeder extends Seeder
     {
         $gender = $faker->randomElements(['male', 'female'])[0];
 
-        $companies = [
-            [
-                'name' => $faker->firstName($gender),
-                'surname' => $faker->lastName($gender),
-                'default_avatar_url' => "img/avatars/default/man.jpg",
-            ],
-            [
-                'name' => $faker->firstName($gender),
-                'surname' => $faker->lastName($gender),
-                'default_avatar_url' => "img/avatars/default/man.jpg",
-            ],
-        ];
+        $users = \App\Model\User::get();
 
-        for($i = 1; $i<=2; $i++){
-            $companies[($i-1)]['user_id'] = $i;
+        foreach ($users as $key => $obj) {
+            \App\Model\UserContact::insert([
+                'user_id' => $obj->id,
+                'name' => $faker->firstName($gender),
+                'surname' => $faker->lastName($gender),
+                'default_avatar_url' => "img/avatars/default/man.jpg",
+            ]);
         }
 
-        \App\Model\UserContact::insert($companies);
     }
 }

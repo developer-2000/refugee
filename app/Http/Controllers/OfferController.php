@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Offer\IndexOfferRequest;
+use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\Offer;
-use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
@@ -18,25 +19,98 @@ class OfferController extends BaseController {
         $this->repository = new OfferRepository();
     }
 
-    public function index()
+
+    public function index(IndexOfferRequest $request)
     {
-        $my_id = Auth::user()->id;
 //        $offers = $this->repository->getIndexPage();
         // 1 настройки содержимого контакт листа
         $settings['contact_information'] = config('site.contacts.contact_information');
+        // 2 мои чаты с обьектом контакта
+        $offers = $this->getMyChats();
 
+        $arraySearch = [];
+
+        if (isset($request->search)) {
+            $arrSearch = explode(" ", $request->search);
+
+            foreach ($offers as $key => $item){
+                foreach ($arrSearch as $key2 => $str){
+
+                    if(!is_null($item->contact_list['position'])){
+                        if(strripos($item->contact_list['position'], $str) !== false){
+                            $arraySearch[] = $item;
+                            break;
+                        }
+                    }
+                    if(!is_null($item->contact_list['full_name'])){
+                        if(strripos($item->contact_list['full_name'], $str) !== false){
+
+
+                            $arraySearch[] = $item;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            $offers = $arraySearch;
+        }
+
+
+        return view('offer.index_offer', compact('offers', 'settings'));
+    }
+
+
+
+
+
+//    public function searchNamePosition()
+    public function searchNamePosition(SearchPositionRequest $request)
+    {
+        $arraySearch = [];
+
+        $offers = $this->getMyChats();
+
+//        dd($offers->toArray());
+
+        foreach ($offers as $key => $item){
+            if(!is_null($item->contact_list['position'])){
+                if(strripos($item->contact_list['position'], $request->value) !== false){
+                    $arraySearch[] = $item->contact_list['position'];
+                }
+            }
+            if(!is_null($item->contact_list['full_name'])){
+                if(strripos($item->contact_list['full_name'], $request->value) !== false){
+                    $arraySearch[] = $item->contact_list['full_name'];
+                }
+            }
+        }
+
+//        dd( $arraySearch );
+
+        return $this->getResponse(compact('arraySearch'));
+    }
+
+    // PRIVATE
+    /**
+     * мои чаты с обьектом контакта
+     * @return mixed
+     */
+    private function getMyChats()
+    {
+        $my_id = Auth::user()->id;
         // 2 выбрать все мои чаты с контактами собеседника
         $offers = Offer::where('one_user_id', Auth::user()->id)
             ->orWhere('two_user_id', Auth::user()->id)
             ->with(["contact_one_user" => function($q) use($my_id){
                 $q->where('user_id', '!=', $my_id);
-            },"contact_one_user.avatar","contact_one_user.position"])
+            },"contact_one_user.position"])
             ->with(["contact_two_user" => function($q) use($my_id){
                 $q->where('user_id', '!=', $my_id);
-            },"contact_two_user.avatar","contact_two_user.position"])
+            },"contact_two_user.position"])
+            ->orderByDesc('updated_at')
             ->get();
 
-        // 3 внести в каждый чат контакт лист своего собеседника
         $offers->each(function ($item, $key) {
             if(!is_null($item->contact_one_user)){
                 $item->contact_list = (new ContactInformationRepository())->fillContactList(
@@ -50,9 +124,7 @@ class OfferController extends BaseController {
             }
         });
 
-//        dd($offers->toArray());
-
-        return view('offer.index_offer', compact('offers', 'settings'));
+        return $offers;
     }
 
 //    /**

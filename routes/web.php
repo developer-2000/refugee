@@ -83,7 +83,8 @@ Route::group([
         Route::post('respond-resume', 'RespondController@respondResume');
 
 
-
+//        Route::get('offers/search-name-position', 'OfferController@searchNamePosition');
+        Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
         // чаты предложений
         Route::resource('offers', 'OfferController')->only([
             'index',

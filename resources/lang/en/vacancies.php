@@ -8,8 +8,7 @@ return [
     'and_start_receiving'=>'and start receiving interested workers.',
     'helps_you_track_have'=>'Helps you track and have full access to your jobs.',
     'job_search'=>'Job search',
-    'search'=>'Search',
-    'search_2'=>'Search',
+    'search'=>"document's name",
     'hidden_2'=>'hidden',
 
     'this_section_you_hidden'=>'This section stores jobs that you have hidden on the job search page by clicking on the «Do not show» icon',

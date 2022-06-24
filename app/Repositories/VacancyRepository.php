@@ -3,12 +3,14 @@ namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\Position;
+use App\Model\RespondResume;
 use App\Model\RespondVacancy;
 use App\Model\User;
 use App\Model\UserResume;
 use App\Model\Vacancy;
 use App\Model\Vacancy as Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VacancyRepository extends CoreRepository {
     use GeneralVacancyResumeTraite;
@@ -64,10 +66,17 @@ class VacancyRepository extends CoreRepository {
         $contact_list = (new ContactInformationRepository())->fillContactList($vacancy->contact, $vacancy->user_id);
 
         if(!is_null($my_user)){
-            // если я подписан на эту вакансию
-            if( $respond = RespondVacancy::where('vacancy_id',$request->vacancy_id)
-                ->where('user_resume_id',$my_user->id)->first()
-            ){
+
+            $respond = RespondVacancy::where('vacancy_id',$request->vacancy_id)
+                ->select('id')->where('user_resume_id',$my_user->id)->first();
+            if(is_null($respond)){
+                $respond = RespondResume::where('vacancy_id',$request->vacancy_id)
+                    ->select('id')->where('user_resume_id',$my_user->id)->first();
+            }
+
+            // если я подписан на эту вакансию OR
+            // работодатель ранее предоставил мне ее в качестве предложения
+            if( $respond ){
                 // 3 владелец вакансии для ссылки на него для общения
                 $owner_vacancy = User::where('id',$vacancy->user_id)
                     ->with('contact')->first();

@@ -8,12 +8,17 @@
         <div class="top-search">
             <div class="form-group">
                 <div class="box-position">
+
                     <input type="text" class="form-control" maxlength="100" autocomplete="off"
                            :placeholder="trans('vacancies','search')"
                            v-model="position"
                            @keyup="searchPosition($event.target.value)"
                            @keydown="enterKey"
                     >
+
+                    <svg @click="clearSearch"
+                         class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
+
                     <!-- подсказка -->
                     <div class="block_position_list">
                         <div class="dropdown-menu" id="position_list">
@@ -27,9 +32,9 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-block btn-primary"
-                        @click="searchResumes"
+                        @click="urlReload"
                 >
-                    {{trans('vacancies','search_2')}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z"/></svg>
                 </button>
             </div>
         </div>
@@ -85,7 +90,7 @@
                 <pagination
                     v-if="resumes.last_page > 1"
                     :pagination="resumes"
-                    @paginate="searchResumes"
+                    @paginate="urlReload"
                     :offset="1"
                 >
                 </pagination>
@@ -115,6 +120,7 @@
     import translation from "../../mixins/translation";
     import date_mixin from "../../mixins/date_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
+    import search_input_mixin from "../../mixins/search_input_mixin";
 
     export default {
         components: {
@@ -128,10 +134,13 @@
             response_methods_mixin,
             bookmark_vacancies_mixin,
             translation,
-            date_mixin
+            date_mixin,
+            search_input_mixin
         ],
         data() {
             return {
+                name_query: 'position',
+                name_url: 'resume',
                 contact_list: [],
                 position: '',
                 position_list: [],
@@ -139,30 +148,38 @@
             }
         },
         methods: {
-            // Enter в строке поиска
-            enterKey(e){
-                if(e.code == 'Enter'){
-                    this.searchResumes({})
+            // поиск похожих заголовков
+            async searchPosition(value){
+                if(!value.length){
+                    $('.x-mark-clear').css('display','none')
+                    $('#position_list').removeClass('show')
+                    return false
                 }
-            },
-            // загрузка страницы с текстом поиска в query параметре url
-            searchResumes(obj){
-                let params = new URLSearchParams(window.location.search)
-                params.delete('page')
-                // page
-                if(obj.page != undefined && obj.page != null){
-                    params.set('page',obj.page)
-                }
-                // position
-                if(this.position == ''){
-                    params.delete('position')
-                }
-                else{
-                    params.set('position',this.position)
-                }
-                params.sort()
-                let query = (params.toString() == '') ? '' : '?'+params.toString()
-                location.href = this.lang.prefix_lang+'resume'+query
+                $('.x-mark-clear').css('display','block')
+                let data = {
+                    value: value,
+                };
+                const response = await this.$http.post(`/private-office/resume/search-position`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            // вернет только опубликованные
+                            if(res.data.message.position.length){
+                                this.position_list = res.data.message.position
+                                $('#position_list').addClass('show')
+                            }
+                            else{
+                                $('#position_list').removeClass('show')
+                            }
+                        }
+                        // custom ошибки
+                        else{
+
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        // this.messageError(err)
+                    })
             },
             getResumes(obj){
                 let params = new URLSearchParams(window.location.search)
@@ -229,37 +246,6 @@
                 // console.log(query)
 
                 location.href = this.lang.prefix_lang+'resume'+query
-            },
-            // поиск похожих заголовков
-            async searchPosition(value){
-                if(!value.length){
-                    $('#position_list').removeClass('show')
-                    return false
-                }
-                let data = {
-                    value: value,
-                };
-                const response = await this.$http.post(`/private-office/resume/search-position`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            // вернет только опубликованные
-                            if(res.data.message.position.length){
-                                this.position_list = res.data.message.position
-                                $('#position_list').addClass('show')
-                            }
-                            else{
-                                $('#position_list').removeClass('show')
-                            }
-                        }
-                        // custom ошибки
-                        else{
-
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        // this.messageError(err)
-                    })
             },
             setValuePosition(value){
                 $('#position_list').removeClass('show')
@@ -335,11 +321,25 @@
                 margin: 0;
                 .box-position{
                     min-width: 77%;
+                    position: relative;
                     input{
                         border-radius: 4px 0 0 4px;
                         font-size: 18px;
                         height: 38px;
                         padding-right: 30px;
+                    }
+                    .x-mark-clear{
+                        position: absolute;
+                        top: 1px;
+                        right: 1px;
+                        fill: #ff4747;
+                        width: 45px;
+                        padding: 6px 15px 6px 15px;
+                        cursor: pointer;
+                        display: none;
+                        &:hover{
+                            background-color: #f1f1f1;
+                        }
                     }
                 }
                 button{

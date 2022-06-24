@@ -1,23 +1,15 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Vacancy\DeleteVacancyRequest;
 use App\Http\Requests\Vacancy\DuplicateVacancyRequest;
 use App\Http\Requests\Vacancy\EditVacancyRequest;
 use App\Http\Requests\Vacancy\IndexVacancyRequest;
 use App\Http\Requests\Vacancy\SaveVacancyRequest;
-use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Http\Requests\Vacancy\ShowVacancyRequest;
 use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
-use App\Model\Image;
-use App\Model\MakeGeographyDb;
-use App\Model\Position;
-use App\Model\RespondVacancy;
-use App\Model\User;
-use App\Model\UserResume;
 use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
@@ -57,8 +49,6 @@ class VacancyController extends BaseController {
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
         $arrData['settings'] = $settings;
-
-//        dd($arrData);
 
         return view('vacancies.show_vacancy', $arrData);
     }

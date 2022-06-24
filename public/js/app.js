@@ -6915,8 +6915,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
-/* harmony import */ var _details_OfferContactListComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../details/OfferContactListComponent */ "./resources/js/components/details/OfferContactListComponent.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+/* harmony import */ var _details_OfferContactListComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../details/OfferContactListComponent */ "./resources/js/components/details/OfferContactListComponent.vue");
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+/* harmony import */ var _mixins_search_input_mixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/search_input_mixin */ "./resources/js/mixins/search_input_mixin.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -6963,19 +6973,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_search_input_mixin__WEBPACK_IMPORTED_MODULE_4__["default"]],
   components: {
-    'offer_contact_list': _details_OfferContactListComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+    'offer_contact_list': _details_OfferContactListComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      length_string: 250
+      length_string: 250,
+      position: '',
+      position_list: [],
+      name_query: 'search',
+      name_url: 'offers'
     };
   },
   methods: {
+    // поиск похожих заголовков
+    searchNamePosition: function searchNamePosition(value) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (value.length) {
+                  _context.next = 4;
+                  break;
+                }
+
+                $('.x-mark-clear').css('display', 'none');
+                $('#position_list').removeClass('show');
+                return _context.abrupt("return", false);
+
+              case 4:
+                $('.x-mark-clear').css('display', 'block');
+                data = {
+                  value: value
+                };
+                _context.next = 8;
+                return _this.$http.post("/offers/search-name-position", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    // вернет только опубликованные
+                    if (res.data.message.arraySearch.length) {
+                      _this.position_list = res.data.message.arraySearch;
+                      $('#position_list').addClass('show');
+                    } else {
+                      $('#position_list').removeClass('show');
+                    }
+                  } // custom ошибки
+                  else {}
+                }) // ошибки сервера
+                ["catch"](function (err) {// this.messageError(err)
+                });
+
+              case 8:
+                response = _context.sent;
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     textOutput: function textOutput(chat) {
       var string = "";
       var title_chat = chat[0].title_chat;
@@ -6986,9 +7098,9 @@ __webpack_require__.r(__webpack_exports__);
 
       if (chat.type_document !== null) {
         if (chat.user_id !== this.user.id) {
-          string += "<div class='font-weight-bold offer-document'>Предложение рассмотреть " + chat.type_document + "</div>";
+          string += "<div class='offer-document'>Предложение рассмотреть " + chat.type_document + "</div>";
         } else if (chat.user_id === this.user.id) {
-          string += "<div class='font-weight-bold offer-document'>Вы: предложили к рассмотрению " + chat.type_document + "</div>";
+          string += "<div class='offer-document'>Вы: предложили к рассмотрению " + chat.type_document + "</div>";
         }
       } // текст чата
 
@@ -6999,12 +7111,13 @@ __webpack_require__.r(__webpack_exports__);
 
         if (line.length > this.length_string) {
           line = line.substring(0, this.length_string) + " ...";
-        }
+        } // text чата
+
 
         if (chat.user_id !== this.user.id) {
-          string += line;
+          string += "<div class='text-chat'>" + line + "</div>";
         } else if (chat.user_id === this.user.id) {
-          string += "<div class='font-weight-bold offer-document'>Вы:</div>" + line;
+          string += "<div class='text-chat'> <span class='font-weight-bold'>Вы:</span> " + line + "</div>";
         }
       }
 
@@ -7012,9 +7125,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   props: ['user', 'lang', 'offers', 'settings'],
-  mounted: function mounted() {
-    console.log(this.user);
-    console.log(this.offers);
+  mounted: function mounted() {// console.log(this.user)
+    // console.log(this.offers)
   }
 });
 
@@ -8513,6 +8625,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 /* harmony import */ var _mixins_date_mixin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../mixins/date_mixin */ "./resources/js/mixins/date_mixin.js");
 /* harmony import */ var _mixins_bookmark_vacancies_mixin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../mixins/bookmark_vacancies_mixin */ "./resources/js/mixins/bookmark_vacancies_mixin.js");
+/* harmony import */ var _mixins_search_input_mixin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../mixins/search_input_mixin */ "./resources/js/mixins/search_input_mixin.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8625,6 +8738,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -8641,9 +8760,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'bookmark_buttons': _details_BookmarkButtonsResumeComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     'resume_template': _details_ResumeTemplateComponent__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_bookmark_vacancies_mixin__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_7__["default"], _mixins_date_mixin__WEBPACK_IMPORTED_MODULE_8__["default"]],
+  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_bookmark_vacancies_mixin__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_7__["default"], _mixins_date_mixin__WEBPACK_IMPORTED_MODULE_8__["default"], _mixins_search_input_mixin__WEBPACK_IMPORTED_MODULE_10__["default"]],
   data: function data() {
     return {
+      name_query: 'position',
+      name_url: 'resume',
       contact_list: [],
       position: '',
       position_list: [],
@@ -8651,31 +8772,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    // Enter в строке поиска
-    enterKey: function enterKey(e) {
-      if (e.code == 'Enter') {
-        this.searchResumes({});
-      }
-    },
-    // загрузка страницы с текстом поиска в query параметре url
-    searchResumes: function searchResumes(obj) {
-      var params = new URLSearchParams(window.location.search);
-      params["delete"]('page'); // page
+    // поиск похожих заголовков
+    searchPosition: function searchPosition(value) {
+      var _this = this;
 
-      if (obj.page != undefined && obj.page != null) {
-        params.set('page', obj.page);
-      } // position
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (value.length) {
+                  _context.next = 4;
+                  break;
+                }
 
+                $('.x-mark-clear').css('display', 'none');
+                $('#position_list').removeClass('show');
+                return _context.abrupt("return", false);
 
-      if (this.position == '') {
-        params["delete"]('position');
-      } else {
-        params.set('position', this.position);
-      }
+              case 4:
+                $('.x-mark-clear').css('display', 'block');
+                data = {
+                  value: value
+                };
+                _context.next = 8;
+                return _this.$http.post("/private-office/resume/search-position", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    // вернет только опубликованные
+                    if (res.data.message.position.length) {
+                      _this.position_list = res.data.message.position;
+                      $('#position_list').addClass('show');
+                    } else {
+                      $('#position_list').removeClass('show');
+                    }
+                  } // custom ошибки
+                  else {}
+                }) // ошибки сервера
+                ["catch"](function (err) {// this.messageError(err)
+                });
 
-      params.sort();
-      var query = params.toString() == '' ? '' : '?' + params.toString();
-      location.href = this.lang.prefix_lang + 'resume' + query;
+              case 8:
+                response = _context.sent;
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     getResumes: function getResumes(obj) {
       var params = new URLSearchParams(window.location.search);
@@ -8744,55 +8890,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var query = params.toString() == '' ? '' : '?' + params.toString(); // console.log(query)
 
       location.href = this.lang.prefix_lang + 'resume' + query;
-    },
-    // поиск похожих заголовков
-    searchPosition: function searchPosition(value) {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (value.length) {
-                  _context.next = 3;
-                  break;
-                }
-
-                $('#position_list').removeClass('show');
-                return _context.abrupt("return", false);
-
-              case 3:
-                data = {
-                  value: value
-                };
-                _context.next = 6;
-                return _this.$http.post("/private-office/resume/search-position", data).then(function (res) {
-                  if (_this.checkSuccess(res)) {
-                    // вернет только опубликованные
-                    if (res.data.message.position.length) {
-                      _this.position_list = res.data.message.position;
-                      $('#position_list').addClass('show');
-                    } else {
-                      $('#position_list').removeClass('show');
-                    }
-                  } // custom ошибки
-                  else {}
-                }) // ошибки сервера
-                ["catch"](function (err) {// this.messageError(err)
-                });
-
-              case 6:
-                response = _context.sent;
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
     },
     setValuePosition: function setValuePosition(value) {
       $('#position_list').removeClass('show');
@@ -11387,6 +11484,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
 /* harmony import */ var _mixins_date_mixin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../mixins/date_mixin */ "./resources/js/mixins/date_mixin.js");
 /* harmony import */ var _mixins_bookmark_vacancies_mixin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../mixins/bookmark_vacancies_mixin */ "./resources/js/mixins/bookmark_vacancies_mixin.js");
+/* harmony import */ var _mixins_search_input_mixin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../mixins/search_input_mixin */ "./resources/js/mixins/search_input_mixin.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -11498,6 +11596,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -11514,38 +11618,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'bookmark_buttons': _details_BookmarkButtonsVacancyComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     'vacancy_template': _details_VacancyTemplateComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_bookmark_vacancies_mixin__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_7__["default"], _mixins_date_mixin__WEBPACK_IMPORTED_MODULE_8__["default"]],
+  mixins: [_mixins_general_functions_mixin_js__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_bookmark_vacancies_mixin__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_translation__WEBPACK_IMPORTED_MODULE_7__["default"], _mixins_date_mixin__WEBPACK_IMPORTED_MODULE_8__["default"], _mixins_search_input_mixin__WEBPACK_IMPORTED_MODULE_10__["default"]],
   data: function data() {
     return {
+      name_query: 'position',
+      name_url: 'vacancy',
       position: '',
       position_list: [],
       description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠'
     };
   },
   methods: {
-    enterKey: function enterKey(e) {
-      if (e.code == 'Enter') {
-        this.searchVacancies({});
-      }
-    },
-    searchVacancies: function searchVacancies(obj) {
-      var params = new URLSearchParams(window.location.search);
-      params["delete"]('page'); // page
+    // поиск похожих заголовков
+    searchPosition: function searchPosition(value) {
+      var _this = this;
 
-      if (obj.page != undefined && obj.page != null) {
-        params.set('page', obj.page);
-      } // position
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (value.length) {
+                  _context.next = 4;
+                  break;
+                }
 
+                $('.x-mark-clear').css('display', 'none');
+                $('#position_list').removeClass('show');
+                return _context.abrupt("return", false);
 
-      if (this.position == '') {
-        params["delete"]('position');
-      } else {
-        params.set('position', this.position);
-      }
+              case 4:
+                $('.x-mark-clear').css('display', 'block');
+                data = {
+                  value: value
+                };
+                _context.next = 8;
+                return _this.$http.post("/private-office/vacancy/search-position", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    // вернет только опубликованные
+                    if (res.data.message.position.length) {
+                      _this.position_list = res.data.message.position;
+                      $('#position_list').addClass('show');
+                    } else {
+                      $('#position_list').removeClass('show');
+                    }
+                  } // custom ошибки
+                  else {}
+                }) // ошибки сервера
+                ["catch"](function (err) {// this.messageError(err)
+                });
 
-      params.sort();
-      var query = params.toString() == '' ? '' : '?' + params.toString();
-      location.href = this.lang.prefix_lang + 'vacancy' + query;
+              case 8:
+                response = _context.sent;
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     getVacancies: function getVacancies(obj) {
       var params = new URLSearchParams(window.location.search);
@@ -11615,59 +11748,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       location.href = this.lang.prefix_lang + 'vacancy' + query;
     },
-    // поиск похожих заголовков
-    searchPosition: function searchPosition(value) {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (value.length) {
-                  _context.next = 3;
-                  break;
-                }
-
-                $('#position_list').removeClass('show');
-                return _context.abrupt("return", false);
-
-              case 3:
-                data = {
-                  value: value
-                };
-                _context.next = 6;
-                return _this.$http.post("/private-office/vacancy/search-position", data).then(function (res) {
-                  if (_this.checkSuccess(res)) {
-                    // вернет только опубликованные
-                    if (res.data.message.position.length) {
-                      _this.position_list = res.data.message.position;
-                      $('#position_list').addClass('show');
-                    } else {
-                      $('#position_list').removeClass('show');
-                    }
-                  } // custom ошибки
-                  else {}
-                }) // ошибки сервера
-                ["catch"](function (err) {// this.messageError(err)
-                });
-
-              case 6:
-                response = _context.sent;
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    setValuePosition: function setValuePosition(value) {
-      $('#position_list').removeClass('show');
-      this.position = value;
-    },
     salaryView: function salaryView(salaryObj) {
       var salary_string = '';
       var arr_field = this.settings.salary[salaryObj.radio_name];
@@ -11703,7 +11783,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['lang', 'settings', 'vacancies', 'user'],
   mounted: function mounted() {
     // console.log(this.vacancies)
-    // https://flaviocopes.com/urlsearchparams/
     var params = new URLSearchParams(window.location.search);
 
     if (params.has('position')) {
@@ -17544,7 +17623,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box-vacancy[data-v-3ac98f65] {\n  padding: 10px 5px;\n}\n.box-vacancy .body-chat[data-v-3ac98f65] {\n  font-size: 14px;\n}\n.box-vacancy .title-chat[data-v-3ac98f65] {\n  font-size: 3rem;\n}", ""]);
+exports.push([module.i, ".top-search[data-v-3ac98f65] {\n  width: 75%;\n  background-color: #fff;\n}\n.top-search button svg[data-v-3ac98f65] {\n  width: 20px;\n}\n.top-search button svg path[data-v-3ac98f65] {\n  fill: white;\n}\n.top-search .form-group[data-v-3ac98f65] {\n  display: flex;\n  margin: 0;\n}\n.top-search .form-group .box-position[data-v-3ac98f65] {\n  min-width: 77%;\n  position: relative;\n}\n.top-search .form-group .box-position input[data-v-3ac98f65] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 45px;\n}\n.top-search .form-group .box-position .x-mark-clear[data-v-3ac98f65] {\n  position: absolute;\n  top: 1px;\n  right: 1px;\n  width: 45px;\n  padding: 6px 15px 6px 15px;\n  cursor: pointer;\n  display: none;\n  margin: 0;\n}\n.top-search .form-group .box-position .x-mark-clear path[data-v-3ac98f65] {\n  fill: #ff4747;\n}\n.top-search .form-group .box-position .x-mark-clear[data-v-3ac98f65]:hover {\n  background-color: #f1f1f1;\n}\n.top-search .form-group button[data-v-3ac98f65] {\n  border-radius: 0 4px 4px 0;\n  min-width: 23%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.top-search .block_position_list[data-v-3ac98f65] {\n  position: relative;\n}\n.top-search .block_position_list #position_list[data-v-3ac98f65] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.top-search .block_position_list #position_list > div[data-v-3ac98f65] {\n  padding: 1px 12px;\n}\n.box-back-link[data-v-3ac98f65] {\n  width: 25%;\n}\n.search-panel[data-v-3ac98f65] {\n  margin: 0 -15px;\n}\n.search-panel .title_page[data-v-3ac98f65] {\n  padding: 15px;\n}\n.box-vacancy[data-v-3ac98f65] {\n  padding: 10px 5px;\n}\n.box-vacancy .body-chat[data-v-3ac98f65] {\n  font-size: 14px;\n}\n.box-vacancy .title-chat[data-v-3ac98f65] {\n  font-size: 3rem;\n}\n.new-vacancy[data-v-3ac98f65] {\n  background-color: #e5f1fd;\n  /*outline: 2px solid #c0ddfb;*/\n}", ""]);
 
 // exports
 
@@ -17658,7 +17737,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-0520325e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n  padding: 0;\n}\n.search-panel .title_page[data-v-0520325e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-0520325e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-0520325e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group .box-position[data-v-0520325e] {\n  min-width: 77%;\n}\n.search-panel .top-search .form-group .box-position input[data-v-0520325e] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-0520325e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 23%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .top-search .block_position_list[data-v-0520325e] {\n  position: relative;\n}\n.search-panel .top-search .block_position_list #position_list[data-v-0520325e] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.search-panel .top-search .block_position_list #position_list > div[data-v-0520325e] {\n  padding: 1px 12px;\n}\n.search-panel .bottom-search[data-v-0520325e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-0520325e] {\n  min-width: 77%;\n}\n.search-panel .bottom-search .right-site[data-v-0520325e] {\n  min-width: 23%;\n}\n.box-vacancy[data-v-0520325e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-0520325e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-0520325e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-0520325e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-0520325e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-0520325e] {\n  font-weight: bold;\n}\n.box-vacancy .address-comment[data-v-0520325e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-0520325e] {\n  width: 7px;\n  margin: 0 5px;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-0520325e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n  padding: 0;\n}\n.search-panel .title_page[data-v-0520325e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-0520325e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-0520325e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group .box-position[data-v-0520325e] {\n  min-width: 77%;\n  position: relative;\n}\n.search-panel .top-search .form-group .box-position input[data-v-0520325e] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group .box-position .x-mark-clear[data-v-0520325e] {\n  position: absolute;\n  top: 1px;\n  right: 1px;\n  fill: #ff4747;\n  width: 45px;\n  padding: 6px 15px 6px 15px;\n  cursor: pointer;\n  display: none;\n}\n.search-panel .top-search .form-group .box-position .x-mark-clear[data-v-0520325e]:hover {\n  background-color: #f1f1f1;\n}\n.search-panel .top-search .form-group button[data-v-0520325e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 23%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .top-search .block_position_list[data-v-0520325e] {\n  position: relative;\n}\n.search-panel .top-search .block_position_list #position_list[data-v-0520325e] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.search-panel .top-search .block_position_list #position_list > div[data-v-0520325e] {\n  padding: 1px 12px;\n}\n.search-panel .bottom-search[data-v-0520325e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-0520325e] {\n  min-width: 77%;\n}\n.search-panel .bottom-search .right-site[data-v-0520325e] {\n  min-width: 23%;\n}\n.box-vacancy[data-v-0520325e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-0520325e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-0520325e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-0520325e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-0520325e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-0520325e] {\n  font-weight: bold;\n}\n.box-vacancy .address-comment[data-v-0520325e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-0520325e] {\n  width: 7px;\n  margin: 0 5px;\n}", ""]);
 
 // exports
 
@@ -17810,7 +17889,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n  padding: 0;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group .box-position[data-v-fbaa726e] {\n  min-width: 77%;\n}\n.search-panel .top-search .form-group .box-position input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 23%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .top-search .block_position_list[data-v-fbaa726e] {\n  position: relative;\n}\n.search-panel .top-search .block_position_list #position_list[data-v-fbaa726e] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.search-panel .top-search .block_position_list #position_list > div[data-v-fbaa726e] {\n  padding: 1px 12px;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 77%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 23%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}", ""]);
+exports.push([module.i, ".search-panel[data-v-fbaa726e] {\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  width: 100%;\n  padding: 0;\n}\n.search-panel .title_page[data-v-fbaa726e] {\n  padding: 15px;\n}\n.search-panel .top-search[data-v-fbaa726e] {\n  padding: 0 15px 10px;\n  width: 100%;\n  background-color: #fff;\n  border-bottom: 1px solid #dee2e6;\n}\n.search-panel .top-search .form-group[data-v-fbaa726e] {\n  display: flex;\n  margin: 0;\n}\n.search-panel .top-search .form-group .box-position[data-v-fbaa726e] {\n  min-width: 77%;\n  position: relative;\n}\n.search-panel .top-search .form-group .box-position input[data-v-fbaa726e] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 30px;\n}\n.search-panel .top-search .form-group .box-position .x-mark-clear[data-v-fbaa726e] {\n  position: absolute;\n  top: 1px;\n  right: 1px;\n  fill: #ff4747;\n  width: 45px;\n  padding: 6px 15px 6px 15px;\n  cursor: pointer;\n  display: none;\n}\n.search-panel .top-search .form-group .box-position .x-mark-clear[data-v-fbaa726e]:hover {\n  background-color: #f1f1f1;\n}\n.search-panel .top-search .form-group button[data-v-fbaa726e] {\n  border-radius: 0 4px 4px 0;\n  min-width: 23%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.search-panel .top-search .block_position_list[data-v-fbaa726e] {\n  position: relative;\n}\n.search-panel .top-search .block_position_list #position_list[data-v-fbaa726e] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.search-panel .top-search .block_position_list #position_list > div[data-v-fbaa726e] {\n  padding: 1px 12px;\n}\n.search-panel .bottom-search[data-v-fbaa726e] {\n  display: flex;\n  padding: 30px 15px 0;\n}\n.search-panel .bottom-search .left-site[data-v-fbaa726e] {\n  min-width: 77%;\n}\n.search-panel .bottom-search .right-site[data-v-fbaa726e] {\n  min-width: 23%;\n}\n.box-vacancy[data-v-fbaa726e] {\n  margin-right: 15px;\n}\n.box-vacancy .box-title-logo[data-v-fbaa726e] {\n  display: flex;\n  justify-content: space-between;\n}\n.box-vacancy .box-title-logo .title-vacancy[data-v-fbaa726e] {\n  margin: 5px 0 10px;\n  padding: 0;\n  line-height: 25px;\n  height: 25px;\n  font-size: 26px;\n}\n.box-vacancy .box-title-logo .img-logo[data-v-fbaa726e] {\n  width: 100px;\n}\n.box-vacancy .line-div[data-v-fbaa726e] {\n  display: flex;\n  margin-bottom: 5px;\n}\n.box-vacancy .line-div .font-weight-bold[data-v-fbaa726e] {\n  font-weight: bold;\n}\n.box-vacancy .address-comment[data-v-fbaa726e] {\n  display: flex;\n  align-items: center;\n}\n.box-vacancy .address-comment svg[data-v-fbaa726e] {\n  width: 7px;\n  margin: 0 5px;\n}", ""]);
 
 // exports
 
@@ -81432,37 +81511,160 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-page" }, [
     _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
-      _c(
-        "svg",
-        {
-          attrs: {
-            xmlns: "http://www.w3.org/2000/svg",
-            viewBox: "0 0 256 512",
-          },
-        },
-        [
-          _c("path", {
+      _c("div", { staticClass: "box-back-link" }, [
+        _c(
+          "svg",
+          {
             attrs: {
-              d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 256 512",
             },
-          }),
-        ]
-      ),
-      _vm._v(" "),
-      _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
-        _vm._v(
-          "\n            " +
-            _vm._s(_vm.trans("menu.menu", "cabinet")) +
-            "\n        "
+          },
+          [
+            _c("path", {
+              attrs: {
+                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              },
+            }),
+          ]
         ),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "" + _vm.lang.prefix_lang } }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.trans("menu.menu", "index")) +
+              "\n            "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.trans("menu.menu", "cabinet")) +
+              "\n            "
+          ),
+        ]),
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+      _c("div", { staticClass: "top-search" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "box-position" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.position,
+                  expression: "position",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                maxlength: "100",
+                autocomplete: "off",
+                placeholder: "имя, должность",
+              },
+              domProps: { value: _vm.position },
+              on: {
+                keyup: function ($event) {
+                  return _vm.searchNamePosition($event.target.value)
+                },
+                keydown: _vm.enterKey,
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.position = $event.target.value
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c(
+              "svg",
+              {
+                staticClass: "x-mark-clear",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 320 512",
+                },
+                on: { click: _vm.clearSearch },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d: "M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z",
+                  },
+                }),
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "block_position_list" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { id: "position_list" },
+                },
+                _vm._l(_vm.position_list, function (value, key) {
+                  return _c(
+                    "div",
+                    {
+                      key: key,
+                      staticClass: "dropdown-item",
+                      on: {
+                        click: function ($event) {
+                          return _vm.setValuePosition(value)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(value) +
+                          "\n                            "
+                      ),
+                    ]
+                  )
+                }),
+                0
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-block btn-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.urlReload },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 512 512",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z",
+                    },
+                  }),
+                ]
+              ),
+            ]
+          ),
+        ]),
+      ]),
     ]),
     _vm._v(" "),
-    _c("h1", { staticClass: "title_page card-body" }, [
-      _vm._v("\n        Предложения\n    "),
-    ]),
+    _vm._m(0),
     _vm._v(" "),
     _c(
       "div",
@@ -81473,6 +81675,13 @@ var render = function () {
           {
             key: key,
             staticClass: "row box-vacancy",
+            class: {
+              "new-vacancy":
+                (offer.one_user_id === _vm.user.id &&
+                  offer.one_user_review === 0) ||
+                (offer.two_user_id === _vm.user.id &&
+                  offer.two_user_review === 0),
+            },
             attrs: { id: "v" + key },
           },
           [
@@ -81506,7 +81715,18 @@ var render = function () {
     ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "search-panel" }, [
+      _c("h1", { staticClass: "title_page card-body" }, [
+        _vm._v("\n            Предложения\n        "),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -84237,6 +84457,25 @@ var render = function () {
             },
           }),
           _vm._v(" "),
+          _c(
+            "svg",
+            {
+              staticClass: "x-mark-clear",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 320 512",
+              },
+              on: { click: _vm.clearSearch },
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z",
+                },
+              }),
+            ]
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "block_position_list" }, [
             _c(
               "div",
@@ -84272,13 +84511,24 @@ var render = function () {
           {
             staticClass: "btn btn-block btn-primary",
             attrs: { type: "button" },
-            on: { click: _vm.searchResumes },
+            on: { click: _vm.urlReload },
           },
           [
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.trans("vacancies", "search_2")) +
-                "\n            "
+            _c(
+              "svg",
+              {
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 512 512",
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d: "m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z",
+                  },
+                }),
+              ]
             ),
           ]
         ),
@@ -84380,7 +84630,7 @@ var render = function () {
           _vm.resumes.last_page > 1
             ? _c("pagination", {
                 attrs: { pagination: _vm.resumes, offset: 1 },
-                on: { paginate: _vm.searchResumes },
+                on: { paginate: _vm.urlReload },
               })
             : _vm._e(),
         ],
@@ -88727,6 +88977,25 @@ var render = function () {
             },
           }),
           _vm._v(" "),
+          _c(
+            "svg",
+            {
+              staticClass: "x-mark-clear",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 320 512",
+              },
+              on: { click: _vm.clearSearch },
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z",
+                },
+              }),
+            ]
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "block_position_list" }, [
             _c(
               "div",
@@ -88762,13 +89031,24 @@ var render = function () {
           {
             staticClass: "btn btn-block btn-primary",
             attrs: { type: "button" },
-            on: { click: _vm.searchVacancies },
+            on: { click: _vm.urlReload },
           },
           [
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.trans("vacancies", "search_2")) +
-                "\n            "
+            _c(
+              "svg",
+              {
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 512 512",
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d: "m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z",
+                  },
+                }),
+              ]
             ),
           ]
         ),
@@ -88871,7 +89151,7 @@ var render = function () {
           _vm.vacancies.last_page > 1
             ? _c("pagination", {
                 attrs: { pagination: _vm.vacancies, offset: 1 },
-                on: { paginate: _vm.searchVacancies },
+                on: { paginate: _vm.urlReload },
               })
             : _vm._e(),
         ],
@@ -109786,6 +110066,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/mixins/search_input_mixin.js":
+/*!***************************************************!*\
+  !*** ./resources/js/mixins/search_input_mixin.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  methods: {
+    urlReload: function urlReload(obj) {
+      var params = new URLSearchParams(window.location.search);
+      params["delete"]('page'); // page
+
+      if (obj.page != undefined && obj.page != null) {
+        params.set('page', obj.page);
+      } // search
+
+
+      if (this.position == '') {
+        params["delete"](this.name_query);
+      } else {
+        params.set(this.name_query, this.position);
+      }
+
+      params.sort();
+      var query = params.toString() == '' ? '' : '?' + params.toString();
+      location.href = this.lang.prefix_lang + this.name_url + query;
+    },
+    clearSearch: function clearSearch() {
+      var params = new URLSearchParams(window.location.search);
+      this.position = '';
+      this.position_list = [];
+      $('.dropdown-menu').removeClass('show');
+
+      if (params.has(this.name_query)) {
+        this.urlReload({});
+      }
+
+      $('.x-mark-clear').css('display', 'none');
+    },
+    enterKey: function enterKey(e) {
+      if (e.code == 'Enter') {
+        this.urlReload({});
+      }
+    },
+    setValuePosition: function setValuePosition(value) {
+      $('#position_list').removeClass('show');
+      this.position = value;
+    }
+  },
+  mounted: function mounted() {
+    var params = new URLSearchParams(window.location.search);
+
+    if (params.has(this.name_query)) {
+      this.position = params.get(this.name_query);
+      $('.x-mark-clear').css('display', 'block');
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/mixins/translation.js":
 /*!********************************************!*\
   !*** ./resources/js/mixins/translation.js ***!
@@ -110335,8 +110682,7 @@ module.exports = {
     "sales": "Sales, purchases",
     "save": "Save",
     "saved": "saved",
-    "search": "Search",
-    "search_2": "Search",
+    "search": "document's name",
     "search_candidates": "Search candidates in another city",
     "search_city": "Search city",
     "search_country": "Search country",
@@ -110659,8 +111005,7 @@ module.exports = {
     "sales": "\u041F\u0440\u043E\u0434\u0430\u0436\u0438, \u0437\u0430\u043A\u0443\u043F\u043A\u0438",
     "save": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C",
     "saved": "\u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0445",
-    "search": "\u041F\u043E\u0438\u0441\u043A",
-    "search_2": "\u0418\u0441\u043A\u0430\u0442\u044C",
+    "search": "\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430",
     "search_candidates": "\u0418\u0441\u043A\u0430\u0442\u044C \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u043E\u0432 \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u0433\u043E\u0440\u043E\u0434\u0435",
     "search_city": "\u0413\u043E\u0440\u043E\u0434 \u043F\u043E\u0438\u0441\u043A\u0430",
     "search_country": "\u0421\u0442\u0440\u0430\u043D\u0430 \u043F\u043E\u0438\u0441\u043A\u0430",
@@ -110983,8 +111328,7 @@ module.exports = {
     "sales": "\u041F\u0440\u043E\u0434\u0430\u0436\u0456, \u0437\u0430\u043A\u0443\u043F\u0456\u0432\u043B\u0456",
     "save": "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438",
     "saved": "\u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u0438\u0445",
-    "search": "\u041F\u043E\u0448\u0443\u043A",
-    "search_2": "\u0428\u0443\u043A\u0430\u0442\u0438",
+    "search": "\u043D\u0430\u0437\u0432\u0430 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0443",
     "search_candidates": "\u0428\u0443\u043A\u0430\u0442\u0438 \u043A\u0430\u043D\u0434\u0438\u0434\u0430\u0442\u0456\u0432 \u0432 \u0456\u043D\u0448\u043E\u043C\u0443 \u043C\u0456\u0441\u0442\u0456",
     "search_city": "\u041C\u0456\u0441\u0442\u043E \u043F\u043E\u0448\u0443\u043A\u0443",
     "search_country": "\u041A\u0440\u0430\u0457\u043D\u0430 \u043F\u043E\u0448\u0443\u043A\u0443",
