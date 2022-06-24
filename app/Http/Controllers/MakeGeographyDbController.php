@@ -7,7 +7,7 @@ use App\Http\Requests\Locations\GetRegionsRequest;
 use App\Model\MakeGeographyDb;
 use Illuminate\Http\Request;
 
-class CountryController extends BaseController
+class MakeGeographyDbController extends BaseController
 {
 
     public function getRegion(GetRegionsRequest $request)

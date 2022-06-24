@@ -148,17 +148,14 @@ Route::group([
 
     // localisation
     Route::group(['prefix'=>'localisation'], function (){
-        Route::post('/get-region', 'CountryController@getRegion');
-        Route::post('/get-city', 'CountryController@getCity');
+        Route::post('/get-region', 'MakeGeographyDbController@getRegion');
+        Route::post('/get-city', 'MakeGeographyDbController@getCity');
     });
 
     // change language
     Route::get('language/{name}', 'LanguageController@changeLanguage')
         ->name('language');
 
-    Route::resource('country', 'CountryController')->only([
-        'show'
-    ]);
 });
 
 Auth::routes();
