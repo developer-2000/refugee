@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories;
 
-use App\Model\Offer;
 use App\Model\Offer as Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,13 +27,6 @@ class OfferRepository extends CoreRepository {
                     $query->where('one_user_id', $my_id)->where('two_user_id',$user_id);
                 });
         })->first();
-    }
-
-
-    public function getIndexPage() {
-        $offers = $this->model->where('one_user_id', Auth::user()->id)
-            ->orWhere('two_user_id', Auth::user()->id)
-            ->get();
     }
 
     /**
@@ -94,5 +86,95 @@ class OfferRepository extends CoreRepository {
         return 0;
     }
 
+    public function index($request) {
+        $arraySearch = [];
+        // 1 мои чаты с обьектом контакта
+        $offers = $this->getMyChats();
 
+        // 2 если был поиск по названию или fullname
+        if (isset($request->search)) {
+            $arrSearch = explode(" ", $request->search);
+
+            foreach ($offers as $key => $item){
+                foreach ($arrSearch as $key2 => $str){
+
+                    if(!is_null($item->contact_list['position'])){
+                        if(strripos($item->contact_list['position'], $str) !== false){
+                            $arraySearch[] = $item;
+                            break;
+                        }
+                    }
+                    if(!is_null($item->contact_list['full_name'])){
+                        if(strripos($item->contact_list['full_name'], $str) !== false){
+
+
+                            $arraySearch[] = $item;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            $offers = $arraySearch;
+        }
+
+        return $offers;
+    }
+
+    public function searchNamePosition($request) {
+        $arraySearch = [];
+        $offers = $this->getMyChats();
+
+        foreach ($offers as $key => $item){
+            if(!is_null($item->contact_list['position'])){
+                if(strripos($item->contact_list['position'], $request->value) !== false){
+                    $arraySearch[] = $item->contact_list['position'];
+                }
+            }
+            if(!is_null($item->contact_list['full_name'])){
+                if(strripos($item->contact_list['full_name'], $request->value) !== false){
+                    $arraySearch[] = $item->contact_list['full_name'];
+                }
+            }
+        }
+
+        return $arraySearch;
+    }
+
+
+    // PRIVATE
+    /**
+     * мои чаты с обьектом контакта
+     * @return mixed
+     */
+    private function getMyChats()
+    {
+        $my_id = Auth::user()->id;
+        // 2 выбрать все мои чаты с контактами собеседника
+        $offers = $this->model->where('one_user_id', Auth::user()->id)
+            ->orWhere('two_user_id', Auth::user()->id)
+            ->with(["contact_one_user" => function($q) use($my_id){
+                $q->where('user_id', '!=', $my_id);
+            },"contact_one_user.position"])
+            ->with(["contact_two_user" => function($q) use($my_id){
+                $q->where('user_id', '!=', $my_id);
+            },"contact_two_user.position"])
+            ->orderByDesc('updated_at')
+            ->get();
+
+        $offers->each(function ($item, $key) {
+            if(!is_null($item->contact_one_user)){
+                $item->contact_list = (new ContactInformationRepository())->fillContactList(
+                    $item->contact_one_user, $item->contact_one_user->user_id
+                );
+            }
+            elseif(!is_null($item->contact_two_user)){
+                $item->contact_list = (new ContactInformationRepository())->fillContactList(
+                    $item->contact_two_user, $item->contact_two_user->user_id
+                );
+            }
+        });
+
+        return $offers;
+    }
 }
