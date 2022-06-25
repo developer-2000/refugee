@@ -10,6 +10,7 @@ use App\Model\UserResume;
 use App\Model\Vacancy;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -22,7 +23,9 @@ class IndexController extends Controller {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request) {
+
 //        $this->test();
+
         $transition_url_page = null;
         // если пользователь шел на закрытый auth url
         if($arr = Session::pull('transition_after_auth', null)){
@@ -34,14 +37,9 @@ class IndexController extends Controller {
 
 //    public function test() {
 //
-//        $user_id = rand(1,2);
-//        $countResumeAtUser = UserResume::where('user_id',$user_id)->count();
-//        $title_name = $user_id === 1 ? "First Resume_$countResumeAtUser" : "Two Resume_$countResumeAtUser";
-//        $position = Position::firstOrCreate([
-//            'title' => $title_name
-//        ]);
+//        $time = Carbon::now();
 //
-//        dd($position);
+//        dd(Carbon::now()->format('d M Y H:i'));
 //    }
 
 }

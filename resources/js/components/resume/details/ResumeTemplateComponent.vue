@@ -65,7 +65,7 @@
         <div class="line-div">
             <div class="font-weight-bold">
                 <h3>
-                    {{UpperCaseFirstCharacter(resume.contact.surname)}} {{UpperCaseFirstCharacter(resume.contact.name)}}
+                    {{UpperCaseFirstCharacter(resume.contact.name)}} {{UpperCaseFirstCharacter(resume.contact.surname)}}
                 </h3>
             </div>
         </div>

@@ -218,10 +218,18 @@ b{
     font-size: 1rem;
 }
 .offer-document{
-    background-color: #e6e6e6;
     padding: 0px 5px;
     display: inline-block;
     margin-bottom: 5px;
+    font-weight: bold;
+    background-color: #d2d6de;
+    color: #444;
+    border-radius: 3px;
+    width: 100%;
+    border-bottom: 1px dashed #2890ff;
+}
+.box-show p, ol, ul {
+    margin-bottom: 3px;
 }
 
 /* bootstrap */

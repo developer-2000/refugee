@@ -63,7 +63,7 @@
                 <div class="row box-vacancy"
                      :class="{'new-vacancy': (offer.one_user_id === user.id && offer.one_user_review === 0) || (offer.two_user_id === user.id && offer.two_user_review === 0)}"
                      v-for="(offer, key) in offers" :key="key"
-                     :id="`v${key}`"
+                     @click.prevent="transitionToOffer(offer.alias)"
                 >
 
                     <!-- user -->
@@ -185,6 +185,9 @@
 
                 return string
                 // console.log(chat)
+            },
+            transitionToOffer(alias){
+                location.href = this.lang.prefix_lang+'offers/'+alias
             },
         },
         props: [

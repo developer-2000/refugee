@@ -82,12 +82,11 @@ Route::group([
         // respond resume
         Route::post('respond-resume', 'RespondController@respondResume');
 
-
-//        Route::get('offers/search-name-position', 'OfferController@searchNamePosition');
-        Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
         // чаты предложений
+        Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
+        Route::post('offers/add-message', 'OfferController@addMessage');
         Route::resource('offers', 'OfferController')->only([
-            'index',
+            'index', 'show',
         ]);
 
 

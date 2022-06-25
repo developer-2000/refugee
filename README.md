@@ -2,6 +2,10 @@
 
  * документация функционала в documents/localization url смена из фронта.doc
 
+#### добавление пакета caffein
+
+https://github.com/GeneaLabs/laravel-caffeine
+
 #### package moment работа со временем в js
 https://momentjs.com/
 

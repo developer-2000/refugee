@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Model\RespondVacancy as Model;
 use App\Model\UserResume;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RespondVacancyRepository extends CoreRepository {
-    use RespondTraite;
+    use RespondTraite, DateTrait;
 
     protected $settings;
     protected $path_to_file;
@@ -95,7 +96,9 @@ class RespondVacancyRepository extends CoreRepository {
 
         $message = config('site.offer.message');
         $message["user_id"] = $my_user->id;
-        $message["type_document"] = 'resume';
+        $message["date_create"] = $this->getNowDate();
+        $message["my_type_document"] = 'resume';
+        $message["your_type_document"] = 'vacancy';
         $message["my_offer_title"] = $resume->position->title;
         $message["my_offer_url"] = "resume/$resume->alias";
         $message["your_offer_title"] = $vacancy->position->title;
@@ -103,7 +106,7 @@ class RespondVacancyRepository extends CoreRepository {
         $message["covering_letter"] = $request->textarea_letter;
 
         // 2 обновить или создать offer chat
-        $this->setDataOffer($offer, $vacancy->user_id, $my_user->id, $message, $resume->position->title);
+        $this->setDataOffer($offer, $message, $my_user->id, $vacancy->user_id, $resume->position->title);
 
         return $respond;
     }

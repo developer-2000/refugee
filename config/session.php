@@ -24,10 +24,9 @@ return [
     |--------------------------------------------------------------------------
     | Session Lifetime
     |--------------------------------------------------------------------------
-    |
-    | Here you may specify the number of minutes that you wish the session
-    | to be allowed to remain idle before it expires. If you want them
-    | to immediately expire on the browser closing, set that option.
+    | Здесь вы можете указать количество минут, которое вы хотите, чтобы сеанс
+    | быть разрешено оставаться бездействующим до истечения срока его действия. Если вы хотите их
+    | для немедленного истечения срока действия при закрытии браузера установите этот параметр.
     |
     */
 

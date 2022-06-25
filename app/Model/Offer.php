@@ -12,6 +12,10 @@ class Offer extends Model
         'chat' => 'array',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'alias';
+    }
 
     /**
      * контакты первого юзера чата

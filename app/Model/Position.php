@@ -9,4 +9,10 @@ class Position extends Model
 
     protected $guarded = [];
     public $timestamps = false;
+
+    public function getTitleAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
 }

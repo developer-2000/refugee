@@ -1,5 +1,6 @@
 <template>
     <div class="box-page">
+
         <h1 class="title_page card-body">
             {{trans('office','personal_account')}}
         </h1>
@@ -93,8 +94,6 @@
             </ul>
             <div class="clear-float"></div>
         </div>
-
-
 
     </div>
 </template>

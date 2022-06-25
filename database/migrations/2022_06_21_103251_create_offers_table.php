@@ -25,6 +25,7 @@ class CreateOffersTable extends Migration
             $table->tinyInteger('one_user_review')->default(0)->comment('0=no, 1=yes - просмотр обновлений чата');
             $table->tinyInteger('two_user_review')->default(0)->comment('0=no, 1=yes - просмотр обновлений чата');
             $table->tinyInteger('accepted')->default(0)->comment('0=no, 1=yes - two_user дал доступ к своим контактам');
+            $table->string('alias', 100)->unique()->comment('url чата');
             $table->timestamps();
         });
     }

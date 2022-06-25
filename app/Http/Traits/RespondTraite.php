@@ -13,17 +13,23 @@ trait RespondTraite {
 
 
 //обновить или создать offer chat
-    public function setDataOffer($offer, $user_id, $my_id, $message, $my_document_title)
+    public function setDataOffer($offer, $message, $my_id, $user_id=null, $my_document_title=null)
     {
         // 1 обновить существующий
         // обновить чат могу в тех случаях если собеседник быстрей меня создал наш чат
         // или это предложение вношу в старый чат других предложений
         if($offer){
+
             $chat = $offer->chat;
             // 1,1 добавить новый контент
             $chat[] = $message;
-            // 1,2 заменить название чата
-            $chat[0]["title_chat"] = $my_document_title;
+
+            // в случае предложения документа
+            if(!is_null($my_document_title)){
+                // 1,2 заменить название чата
+                $chat[0]["title_chat"] = $my_document_title;
+            }
+
             $offer->chat = $chat;
 
             if($offer->one_user_id == $my_id){

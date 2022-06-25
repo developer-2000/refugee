@@ -4932,6 +4932,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7122,11 +7143,311 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return string; // console.log(chat)
+    },
+    transitionToOffer: function transitionToOffer(alias) {
+      location.href = this.lang.prefix_lang + 'offers/' + alias;
     }
   },
   props: ['user', 'lang', 'offers', 'settings'],
   mounted: function mounted() {// console.log(this.user)
     // console.log(this.offers)
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
+/* harmony import */ var _details_OfferContactListComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../details/OfferContactListComponent */ "./resources/js/components/details/OfferContactListComponent.vue");
+/* harmony import */ var _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/response_methods_mixin */ "./resources/js/mixins/response_methods_mixin.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_translation__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_response_methods_mixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  components: {
+    'offer_contact_list': _details_OfferContactListComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      objTextarea: {
+        textarea_letter: '',
+        editorConfig1: {
+          toolbar: [['Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList', 'Link']]
+        }
+      },
+      objUpdate: {
+        bool_update: false,
+        index: null,
+        text: ''
+      },
+      content: {}
+    };
+  },
+  methods: {
+    respondMessage: function respondMessage() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                data = {
+                  offer_id: _this.offer.id,
+                  text: _this.objTextarea.textarea_letter
+                };
+                _context.next = 3;
+                return _this.$http.post("/offers/add-message", data).then(function (res) {
+                  if (_this.checkSuccess(res)) {
+                    _this.content.chat.push(res.data.message);
+
+                    _this.objTextarea.textarea_letter = '';
+                  } // custom ошибки
+                  else {
+                    _this.message(res.data.message, 'error', 10000, true);
+                  }
+                }) // ошибки сервера
+                ["catch"](function (err) {
+                  _this.messageError(err);
+                });
+
+              case 3:
+                response = _context.sent;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    updateMessage: function updateMessage() {// let data = {
+      //     offer_id: this.offer.id,
+      //     text: this.objTextarea.textarea_letter,
+      // };
+      // const response = await this.$http.post(`/offers/add-message`, data)
+      //     .then(res => {
+      //         if(this.checkSuccess(res)){
+      //             this.content.chat.push(res.data.message);
+      //             this.objTextarea.textarea_letter = ''
+      //         }
+      //         // custom ошибки
+      //         else{
+      //             this.message(res.data.message, 'error', 10000, true);
+      //         }
+      //     })
+      //     // ошибки сервера
+      //     .catch(err => {
+      //         this.messageError(err)
+      //     })
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    // выбрать текст из чата для update
+    selectTextForUpdate: function selectTextForUpdate(index) {
+      this.objTextarea.textarea_letter = this.content.chat[index].covering_letter;
+      this.objUpdate.bool_update = true;
+      this.objUpdate.index = index;
+      var el = document.getElementById('box-ckeditor');
+      $('html,body').animate({
+        scrollTop: $(el).offset().top + "px"
+      }, 500, 'linear');
+    },
+    cancelUpdate: function cancelUpdate() {
+      this.objTextarea.textarea_letter = '';
+      this.objUpdate.bool_update = false;
+      this.objUpdate.index = null;
+    }
+  },
+  props: ['user', 'lang', 'offer', 'settings'],
+  mounted: function mounted() {
+    this.content = this.offer; // console.log(this.user)
+
+    console.log(this.offer);
   }
 });
 
@@ -7142,7 +7463,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_translation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/translation */ "./resources/js/mixins/translation.js");
-//
 //
 //
 //
@@ -17471,7 +17791,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.contacts-list[data-v-12697018] {\n  margin: 25px 0;\n  width: 350px;\n  box-shadow: none;\n  background-color: #c8dadf;\n  /*border: 1px solid #1d68a7;*/\n}\n.contacts-list .contacts-header[data-v-12697018] {\n  color: #444;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0.75rem 1.25rem;\n  background-color: rgba(32, 32, 32, 0.03);\n}\n.contacts-list .contacts-header h3[data-v-12697018] {\n  margin: 0;\n}\n.contacts-list .contacts-header .bg-teal[data-v-12697018] {\n  -webkit-animation: flicker-data-v-12697018 1.5s infinite;\n          animation: flicker-data-v-12697018 1.5s infinite;\n  /* Параметры анимации */\n}\n@-webkit-keyframes flicker-data-v-12697018 {\nfrom {\n    border-color: #199d76;\n}\nto {\n    border-color: #20c997;\n}\n}\n@keyframes flicker-data-v-12697018 {\nfrom {\n    border-color: #199d76;\n}\nto {\n    border-color: #20c997;\n}\n}\n.contacts-list .contacts-body[data-v-12697018] {\n  padding: 1.25rem;\n}\n.contacts-list .contacts-body .box-image[data-v-12697018] {\n  display: flex;\n}\n.contacts-list .contacts-body .box-image img[data-v-12697018] {\n  margin-right: 10px;\n  width: 65px;\n  height: 80px;\n}\n.contacts-list .contacts-body .box-image .contacts-content .contacts-position[data-v-12697018] {\n  font-weight: 300 !important;\n}\n.contacts-list .contacts-body .contacts-line[data-v-12697018] {\n  font-size: 14px;\n  display: flex;\n  align-items: center;\n  margin-top: 10px;\n}\n.contacts-list .contacts-body .contacts-line svg[data-v-12697018] {\n  margin-right: 5px;\n}\n.contacts-list .contacts-body .contacts-line svg path[data-v-12697018] {\n  fill: #6c757d;\n}\n.contacts-list .contacts-body .contacts-line .svg-phone[data-v-12697018] {\n  width: 18px;\n}\n.contacts-list .contacts-body .contacts-line .svg-telegram path[data-v-12697018] {\n  fill: #2197d0;\n}\n.contacts-list .contacts-body .contacts-line .svg-viber path[data-v-12697018] {\n  fill: #754d94;\n}\n.contacts-list .contacts-body .contacts-line .svg-whatsapp path[data-v-12697018] {\n  fill: #259a16;\n}\n.contacts-list .contacts-body .contacts-line .box-message svg[data-v-12697018] {\n  width: 16px;\n  margin: 0 0 0 5px;\n}\n.not-specified[data-v-12697018] {\n  font-style: italic;\n  border-bottom: 1px dashed #444;\n  font-size: 14px;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.contacts-list[data-v-12697018] {\n  margin: 25px 0;\n  box-shadow: none;\n  background-color: #c8dadf;\n}\n.contacts-list .contacts-header[data-v-12697018] {\n  color: #444;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0.75rem 1.25rem;\n  background-color: rgba(32, 32, 32, 0.03);\n}\n.contacts-list .contacts-header h3[data-v-12697018] {\n  margin: 0;\n}\n.contacts-list .contacts-header .bg-teal[data-v-12697018] {\n  -webkit-animation: flicker-data-v-12697018 1.5s infinite;\n          animation: flicker-data-v-12697018 1.5s infinite;\n  /* Параметры анимации */\n}\n@-webkit-keyframes flicker-data-v-12697018 {\nfrom {\n    border-color: #199d76;\n}\nto {\n    border-color: #20c997;\n}\n}\n@keyframes flicker-data-v-12697018 {\nfrom {\n    border-color: #199d76;\n}\nto {\n    border-color: #20c997;\n}\n}\n.contacts-list .contacts-body[data-v-12697018] {\n  padding: 1.25rem;\n}\n.contacts-list .contacts-body .box-image[data-v-12697018] {\n  display: flex;\n}\n.contacts-list .contacts-body .box-image img[data-v-12697018] {\n  margin-right: 10px;\n  width: 65px;\n  height: 80px;\n}\n.contacts-list .contacts-body .box-image .contacts-content .contacts-position[data-v-12697018] {\n  font-weight: 300 !important;\n}\n.contacts-list .contacts-body .contacts-line[data-v-12697018] {\n  font-size: 14px;\n  display: flex;\n  align-items: center;\n  margin-top: 10px;\n}\n.contacts-list .contacts-body .contacts-line svg[data-v-12697018] {\n  margin-right: 5px;\n}\n.contacts-list .contacts-body .contacts-line svg path[data-v-12697018] {\n  fill: #6c757d;\n}\n.contacts-list .contacts-body .contacts-line .svg-phone[data-v-12697018] {\n  width: 18px;\n}\n.contacts-list .contacts-body .contacts-line .svg-telegram path[data-v-12697018] {\n  fill: #2197d0;\n}\n.contacts-list .contacts-body .contacts-line .svg-viber path[data-v-12697018] {\n  fill: #754d94;\n}\n.contacts-list .contacts-body .contacts-line .svg-whatsapp path[data-v-12697018] {\n  fill: #259a16;\n}\n.contacts-list .contacts-body .contacts-line .box-message svg[data-v-12697018] {\n  width: 16px;\n  margin: 0 0 0 5px;\n}\n.not-specified[data-v-12697018] {\n  font-style: italic;\n  border-bottom: 1px dashed #444;\n  font-size: 14px;\n}", ""]);
 
 // exports
 
@@ -17509,7 +17829,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".contacts-list[data-v-36c8ce5a] {\n  margin: 0;\n  width: 100%;\n  background: none;\n  box-shadow: none;\n  border: none;\n}\n.contacts-list .contacts-body[data-v-36c8ce5a] {\n  padding: 0;\n}\n.contacts-list .contacts-body .box-image[data-v-36c8ce5a] {\n  display: flex;\n}\n.contacts-list .contacts-body .box-image img[data-v-36c8ce5a] {\n  margin-right: 10px;\n  width: 65px;\n  height: 80px;\n}\n.contacts-list .contacts-body .box-image .contacts-content .contacts-position[data-v-36c8ce5a] {\n  font-weight: 300 !important;\n}\n.contacts-list .contacts-body .contacts-line[data-v-36c8ce5a] {\n  font-size: 14px;\n  display: flex;\n  align-items: center;\n  margin-top: 10px;\n}\n.contacts-list .contacts-body .contacts-line svg[data-v-36c8ce5a] {\n  margin-right: 5px;\n}\n.contacts-list .contacts-body .contacts-line svg path[data-v-36c8ce5a] {\n  fill: #6c757d;\n}\n.contacts-list .contacts-body .contacts-line .svg-phone[data-v-36c8ce5a] {\n  width: 18px;\n}\n.contacts-list .contacts-body .contacts-line .svg-telegram path[data-v-36c8ce5a] {\n  fill: #2197d0;\n}\n.contacts-list .contacts-body .contacts-line .svg-viber path[data-v-36c8ce5a] {\n  fill: #754d94;\n}\n.contacts-list .contacts-body .contacts-line .svg-whatsapp path[data-v-36c8ce5a] {\n  fill: #259a16;\n}\n.contacts-list .contacts-body .contacts-line .box-message svg[data-v-36c8ce5a] {\n  width: 16px;\n  margin: 0 0 0 5px;\n}\n.contacts-list .not-specified[data-v-36c8ce5a] {\n  font-style: italic;\n  border-bottom: 1px dashed #444;\n  font-size: 14px;\n}\n.contacts-list .time-last-message[data-v-36c8ce5a] {\n  font-style: italic;\n  font-size: 13px;\n  margin-top: 5px;\n}", ""]);
+exports.push([module.i, ".contacts-list[data-v-36c8ce5a] {\n  margin: 0;\n  width: 100%;\n  background: none;\n  box-shadow: none;\n  border: none;\n}\n.contacts-list .contacts-body[data-v-36c8ce5a] {\n  padding: 0;\n}\n.contacts-list .contacts-body .box-image[data-v-36c8ce5a] {\n  display: flex;\n}\n.contacts-list .contacts-body .box-image img[data-v-36c8ce5a] {\n  margin-right: 10px;\n  width: 65px;\n  height: 80px;\n}\n.contacts-list .contacts-body .box-image .contacts-content .contacts-position[data-v-36c8ce5a] {\n  font-weight: 300 !important;\n}\n.contacts-list .contacts-body .contacts-line[data-v-36c8ce5a] {\n  font-size: 14px;\n  display: flex;\n  align-items: center;\n  margin-top: 10px;\n}\n.contacts-list .contacts-body .contacts-line svg path[data-v-36c8ce5a] {\n  fill: #6c757d;\n}\n.contacts-list .contacts-body .contacts-line .box-svg[data-v-36c8ce5a] {\n  min-width: 30px;\n  display: block;\n  line-height: 16px;\n  margin-right: 5px;\n  text-align: center;\n  padding: 2px 0;\n}\n.contacts-list .contacts-body .contacts-line .svg-phone[data-v-36c8ce5a] {\n  width: 18px;\n}\n.contacts-list .contacts-body .contacts-line .svg-telegram path[data-v-36c8ce5a] {\n  fill: #2197d0;\n}\n.contacts-list .contacts-body .contacts-line .svg-viber path[data-v-36c8ce5a] {\n  fill: #754d94;\n}\n.contacts-list .contacts-body .contacts-line .svg-whatsapp path[data-v-36c8ce5a] {\n  fill: #259a16;\n}\n.contacts-list .contacts-body .contacts-line .box-message svg[data-v-36c8ce5a] {\n  width: 16px;\n  margin: 0 0 0 5px;\n}\n.contacts-list .not-specified[data-v-36c8ce5a] {\n  font-style: italic;\n  border-bottom: 1px dashed #444;\n  font-size: 14px;\n}\n.contacts-list .time-last-message[data-v-36c8ce5a] {\n  font-style: italic;\n  font-size: 13px;\n  margin-top: 5px;\n}\n.contacts-list .company-svg[data-v-36c8ce5a] {\n  width: 18px;\n}", ""]);
 
 // exports
 
@@ -17624,6 +17944,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".top-search[data-v-3ac98f65] {\n  width: 75%;\n  background-color: #fff;\n}\n.top-search button svg[data-v-3ac98f65] {\n  width: 20px;\n}\n.top-search button svg path[data-v-3ac98f65] {\n  fill: white;\n}\n.top-search .form-group[data-v-3ac98f65] {\n  display: flex;\n  margin: 0;\n}\n.top-search .form-group .box-position[data-v-3ac98f65] {\n  min-width: 77%;\n  position: relative;\n}\n.top-search .form-group .box-position input[data-v-3ac98f65] {\n  border-radius: 4px 0 0 4px;\n  font-size: 18px;\n  height: 38px;\n  padding-right: 45px;\n}\n.top-search .form-group .box-position .x-mark-clear[data-v-3ac98f65] {\n  position: absolute;\n  top: 1px;\n  right: 1px;\n  width: 45px;\n  padding: 6px 15px 6px 15px;\n  cursor: pointer;\n  display: none;\n  margin: 0;\n}\n.top-search .form-group .box-position .x-mark-clear path[data-v-3ac98f65] {\n  fill: #ff4747;\n}\n.top-search .form-group .box-position .x-mark-clear[data-v-3ac98f65]:hover {\n  background-color: #f1f1f1;\n}\n.top-search .form-group button[data-v-3ac98f65] {\n  border-radius: 0 4px 4px 0;\n  min-width: 23%;\n  font-size: 18px;\n  height: 38px;\n  line-height: 0;\n}\n.top-search .block_position_list[data-v-3ac98f65] {\n  position: relative;\n}\n.top-search .block_position_list #position_list[data-v-3ac98f65] {\n  width: 100%;\n  padding: 0;\n  cursor: pointer;\n  top: -3px;\n}\n.top-search .block_position_list #position_list > div[data-v-3ac98f65] {\n  padding: 1px 12px;\n}\n.box-back-link[data-v-3ac98f65] {\n  width: 25%;\n}\n.search-panel[data-v-3ac98f65] {\n  margin: 0 -15px;\n}\n.search-panel .title_page[data-v-3ac98f65] {\n  padding: 15px;\n}\n.box-vacancy[data-v-3ac98f65] {\n  padding: 10px 5px;\n}\n.box-vacancy .body-chat[data-v-3ac98f65] {\n  font-size: 14px;\n}\n.box-vacancy .title-chat[data-v-3ac98f65] {\n  font-size: 3rem;\n}\n.new-vacancy[data-v-3ac98f65] {\n  background-color: #e5f1fd;\n  /*outline: 2px solid #c0ddfb;*/\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".box-show[data-v-43099bdc] {\n  display: flex;\n  padding-top: 15px;\n}\n.box-show .left-site[data-v-43099bdc] {\n  width: 25%;\n}\n.box-show .right-site[data-v-43099bdc] {\n  width: 75%;\n}\n.box-show .right-site .left-message[data-v-43099bdc] {\n  float: left;\n}\n.box-show .right-site .right-message[data-v-43099bdc] {\n  float: right;\n}\n.box-show .right-site .right-message .my-chat-text[data-v-43099bdc] {\n  /*color: #fff;*/\n  margin: 5px 0 0 0;\n}\n.box-show .right-site .right-message .my-chat-text[data-v-43099bdc]::before {\n  right: -6px;\n  border-left-color: #d2d6de;\n  border-right: none;\n}\n.box-show .right-site .right-message .my-chat-text[data-v-43099bdc]::after {\n  visibility: hidden;\n}\n.box-show .right-site .box-message[data-v-43099bdc] {\n  width: 70%;\n}\n.box-show .right-site .box-message .direct-chat-text[data-v-43099bdc] {\n  margin: 5px 0 0 0;\n}\n.box-show .right-site #box-ckeditor[data-v-43099bdc] {\n  margin-top: 50px;\n}\n.box-show .right-site #box-ckeditor .button-create[data-v-43099bdc] {\n  width: 135px;\n  margin: 25px 0 10px auto;\n}\n.box-show .right-site #box-ckeditor .button-update[data-v-43099bdc] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: flex-end;\n  align-content: flex-start;\n  align-items: center;\n  margin: 25px 0 10px auto;\n}\n.box-show .right-site #box-ckeditor .button-update button[data-v-43099bdc] {\n  width: 135px;\n}\n.box-show .right-site #box-ckeditor .button-update button[data-v-43099bdc]:first-child {\n  margin-right: 20px;\n}\n.edit-svg[data-v-43099bdc] {\n  padding: 5px;\n  fill: #0065cb;\n  cursor: pointer;\n  width: 28px;\n  margin: 0 5px;\n}\n.edit-svg[data-v-43099bdc]:hover {\n  fill: #0c85ff;\n}\n.box-time-left[data-v-43099bdc] {\n  display: flex;\n  align-items: center;\n}\n.box-time-right[data-v-43099bdc] {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}", ""]);
 
 // exports
 
@@ -72878,6 +73217,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/private_office/OfficeComponent.vue?vue&type=style&index=0&id=1be63316&scoped=true&lang=scss&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/private_office/OfficeComponent.vue?vue&type=style&index=0&id=1be63316&scoped=true&lang=scss& ***!
@@ -78830,22 +79199,74 @@ var render = function () {
                 "div",
                 { staticClass: "contacts-line" },
                 [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 512 512",
-                      },
-                    },
-                    [
-                      _c("path", {
+                  _vm.offer.url_company !== null
+                    ? [
+                        _c("span", { staticClass: "box-svg" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "company-svg",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 384 512",
+                              },
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d: "M80 104c0-13.25 10.75-24 24-24h48c13.3 0 24 10.75 24 24v48c0 13.3-10.7 24-24 24h-48c-13.25 0-24-10.7-24-24v-48zm32 8v32h32v-32h-32zm168-32c13.3 0 24 10.75 24 24v48c0 13.3-10.7 24-24 24h-48c-13.3 0-24-10.7-24-24v-48c0-13.25 10.7-24 24-24h48zm-8 64v-32h-32v32h32zM80 232c0-13.3 10.75-24 24-24h48c13.3 0 24 10.7 24 24v48c0 13.3-10.7 24-24 24h-48c-13.25 0-24-10.7-24-24v-48zm32 8v32h32v-32h-32zm168-32c13.3 0 24 10.7 24 24v48c0 13.3-10.7 24-24 24h-48c-13.3 0-24-10.7-24-24v-48c0-13.3 10.7-24 24-24h48zm-8 64v-32h-32v32h32zM48 512c-26.51 0-48-21.5-48-48V48C0 21.49 21.49 0 48 0h288c26.5 0 48 21.49 48 48v416c0 26.5-21.5 48-48 48H48zM32 48v416c0 8.8 7.16 16 16 16h80v-48c0-35.3 28.7-64 64-64s64 28.7 64 64v48h80c8.8 0 16-7.2 16-16V48c0-8.84-7.2-16-16-16H48c-8.84 0-16 7.16-16 16zm192 432v-48c0-17.7-14.3-32-32-32s-32 14.3-32 32v48h64z",
+                                },
+                              }),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "link-a",
+                            attrs: {
+                              target: "_blank",
+                              href:
+                                _vm.lang.prefix_lang +
+                                "company/" +
+                                _vm.offer.url_company,
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Компания\n                    "
+                            ),
+                          ]
+                        ),
+                      ]
+                    : _vm._e(),
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "contacts-line" },
+                [
+                  _c("span", { staticClass: "box-svg" }, [
+                    _c(
+                      "svg",
+                      {
                         attrs: {
-                          d: "M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 512 512",
                         },
-                      }),
-                    ]
-                  ),
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
                   _vm._v(" "),
                   !_vm.objBoolContacts.bool_show_email
                     ? _c(
@@ -78895,22 +79316,24 @@ var render = function () {
                 "div",
                 { staticClass: "contacts-line" },
                 [
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 448 512",
-                      },
-                    },
-                    [
-                      _c("path", {
+                  _c("span", { staticClass: "box-svg" }, [
+                    _c(
+                      "svg",
+                      {
                         attrs: {
-                          d: "M424.7 299.8c2.9-14 4.7-28.9 4.7-43.8 0-113.5-91.9-205.3-205.3-205.3-14.9 0-29.7 1.7-43.8 4.7C161.3 40.7 137.7 32 112 32 50.2 32 0 82.2 0 144c0 25.7 8.7 49.3 23.3 68.2-2.9 14-4.7 28.9-4.7 43.8 0 113.5 91.9 205.3 205.3 205.3 14.9 0 29.7-1.7 43.8-4.7 19 14.6 42.6 23.3 68.2 23.3 61.8 0 112-50.2 112-112 .1-25.6-8.6-49.2-23.2-68.1zm-194.6 91.5c-65.6 0-120.5-29.2-120.5-65 0-16 9-30.6 29.5-30.6 31.2 0 34.1 44.9 88.1 44.9 25.7 0 42.3-11.4 42.3-26.3 0-18.7-16-21.6-42-28-62.5-15.4-117.8-22-117.8-87.2 0-59.2 58.6-81.1 109.1-81.1 55.1 0 110.8 21.9 110.8 55.4 0 16.9-11.4 31.8-30.3 31.8-28.3 0-29.2-33.5-75-33.5-25.7 0-42 7-42 22.5 0 19.8 20.8 21.8 69.1 33 41.4 9.3 90.7 26.8 90.7 77.6 0 59.1-57.1 86.5-112 86.5z",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 448 512",
                         },
-                      }),
-                    ]
-                  ),
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M424.7 299.8c2.9-14 4.7-28.9 4.7-43.8 0-113.5-91.9-205.3-205.3-205.3-14.9 0-29.7 1.7-43.8 4.7C161.3 40.7 137.7 32 112 32 50.2 32 0 82.2 0 144c0 25.7 8.7 49.3 23.3 68.2-2.9 14-4.7 28.9-4.7 43.8 0 113.5 91.9 205.3 205.3 205.3 14.9 0 29.7-1.7 43.8-4.7 19 14.6 42.6 23.3 68.2 23.3 61.8 0 112-50.2 112-112 .1-25.6-8.6-49.2-23.2-68.1zm-194.6 91.5c-65.6 0-120.5-29.2-120.5-65 0-16 9-30.6 29.5-30.6 31.2 0 34.1 44.9 88.1 44.9 25.7 0 42.3-11.4 42.3-26.3 0-18.7-16-21.6-42-28-62.5-15.4-117.8-22-117.8-87.2 0-59.2 58.6-81.1 109.1-81.1 55.1 0 110.8 21.9 110.8 55.4 0 16.9-11.4 31.8-30.3 31.8-28.3 0-29.2-33.5-75-33.5-25.7 0-42 7-42 22.5 0 19.8 20.8 21.8 69.1 33 41.4 9.3 90.7 26.8 90.7 77.6 0 59.1-57.1 86.5-112 86.5z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
                   _vm._v(" "),
                   !_vm.objBoolContacts.bool_show_skype
                     ? _c(
@@ -78960,23 +79383,25 @@ var render = function () {
                 "div",
                 { staticClass: "contacts-line" },
                 [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "svg-phone",
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 384 512",
-                      },
-                    },
-                    [
-                      _c("path", {
+                  _c("span", { staticClass: "box-svg" }, [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "svg-phone",
                         attrs: {
-                          d: "M304 0H80C44.65 0 16 28.65 16 64v384c0 35.35 28.65 64 64 64h224c35.35 0 64-28.65 64-64V64c0-35.35-28.7-64-64-64zm16 448c0 8.822-7.178 16-16 16H80c-8.82 0-16-7.2-16-16v-80h256v80zm0-128H64V64c0-8.822 7.178-16 16-16h224c8.8 0 16 7.18 16 16v256zM160 432h64c8.836 0 16-7.164 16-16s-7.164-16-16-16h-64c-8.836 0-16 7.164-16 16s7.2 16 16 16z",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 384 512",
                         },
-                      }),
-                    ]
-                  ),
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d: "M304 0H80C44.65 0 16 28.65 16 64v384c0 35.35 28.65 64 64 64h224c35.35 0 64-28.65 64-64V64c0-35.35-28.7-64-64-64zm16 448c0 8.822-7.178 16-16 16H80c-8.82 0-16-7.2-16-16v-80h256v80zm0-128H64V64c0-8.822 7.178-16 16-16h224c8.8 0 16 7.18 16 16v256zM160 432h64c8.836 0 16-7.164 16-16s-7.164-16-16-16h-64c-8.836 0-16 7.164-16 16s7.2 16 16 16z",
+                          },
+                        }),
+                      ]
+                    ),
+                  ]),
                   _vm._v(" "),
                   !_vm.objBoolContacts.bool_show_phone
                     ? _c(
@@ -81682,7 +82107,12 @@ var render = function () {
                 (offer.two_user_id === _vm.user.id &&
                   offer.two_user_review === 0),
             },
-            attrs: { id: "v" + key },
+            on: {
+              click: function ($event) {
+                $event.preventDefault()
+                return _vm.transitionToOffer(offer.alias)
+              },
+            },
           },
           [
             _c(
@@ -81727,6 +82157,435 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "box-page" }, [
+    _c("div", { staticClass: "top-panel bread-top-cabinet" }, [
+      _c("div", { staticClass: "box-back-link" }, [
+        _c(
+          "svg",
+          {
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 256 512",
+            },
+          },
+          [
+            _c("path", {
+              attrs: {
+                d: "m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z",
+              },
+            }),
+          ]
+        ),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "" + _vm.lang.prefix_lang } }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.trans("menu.menu", "index")) +
+              "\n            "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "bread-slash" }, [_vm._v(" | ")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: _vm.lang.prefix_lang + "private-office" } }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.trans("menu.menu", "cabinet")) +
+              "\n            "
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "bottom-search" }, [
+      _c("div", { staticClass: "box-show" }, [
+        _c(
+          "div",
+          { staticClass: "left-site" },
+          [
+            _c("offer_contact_list", {
+              attrs: {
+                offer: _vm.offer,
+                settings: _vm.settings,
+                user: _vm.user,
+                lang: _vm.lang,
+                page: "offer",
+              },
+            }),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "right-site" },
+          [
+            _vm._l(_vm.content.chat, function (chat, key) {
+              return [
+                chat.user_id !== _vm.user.id
+                  ? [
+                      _c(
+                        "div",
+                        {
+                          key: key,
+                          staticClass:
+                            "direct-chat-msg box-message left-message",
+                        },
+                        [
+                          _c("div", { staticClass: "box-time-left" }, [
+                            _c(
+                              "span",
+                              { staticClass: "direct-chat-timestamp" },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(chat.date_create) +
+                                    "\n                                "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "edit-svg",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 512 512",
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.selectTextForUpdate(key)
+                                  },
+                                },
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    d: "M432 320c-8.836 0-16 7.164-16 16v112c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h112c8.8 0 16-7.16 16-16s-7.2-16-16-16H63.1C28.65 64 0 92.65 0 128v320c0 35.35 28.65 64 63.1 64h319.1c35.35 0 63.1-28.65 63.1-64l2.7-112c0-8.8-7.2-16-16-16zm65.9-277.81-28.13-28.14C460.397 4.677 448.11-.01 435.83-.01s-24.57 4.688-33.94 14.06L162.4 253.6c-8.9 8.9-15 20.3-17.5 32.7l-16.66 83.35c-1.516 7.584 4.378 14.36 11.72 14.36.785 0 1.586-.076 2.399-.238l83.35-16.67a63.979 63.979 0 0 0 32.7-17.5l239.5-239.5C516.7 91.33 516.7 60.94 497.9 42.19zM235.8 326.1a31.87 31.87 0 0 1-16.35 8.748l-53.93 10.79L176.3 292.6a31.898 31.898 0 0 1 8.754-16.36l178.3-178.3 50.76 50.76L235.8 326.1zM475.3 87.45l-38.62 38.62-50.76-50.76 38.62-38.62c4.076-4.076 8.838-4.686 11.31-4.686s7.236.61 11.31 4.686l28.13 28.14c4.11 4.07 4.71 8.83 4.71 11.31 0 2.47-.6 7.23-4.7 11.31z",
+                                  },
+                                }),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "direct-chat-text" },
+                            [
+                              _c("div", {
+                                domProps: {
+                                  innerHTML: _vm._s(chat.covering_letter),
+                                },
+                              }),
+                              _vm._v(" "),
+                              chat.my_type_document !== null
+                                ? [
+                                    _c(
+                                      "div",
+                                      { staticClass: "offer-document" },
+                                      [
+                                        _vm._v(
+                                          "\n                                        На Ваше\n                                        "
+                                        ),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "link-a",
+                                            attrs: {
+                                              target: "_blank",
+                                              href:
+                                                _vm.lang.prefix_lang +
+                                                chat.your_offer_url,
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(chat.your_offer_title) +
+                                                "\n                                        "
+                                            ),
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "\n                                        предложение рассмотреть " +
+                                            _vm._s(chat.my_type_document) +
+                                            "\n                                        "
+                                        ),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "link-a",
+                                            attrs: {
+                                              target: "_blank",
+                                              href:
+                                                _vm.lang.prefix_lang +
+                                                chat.my_offer_url,
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(chat.my_offer_title) +
+                                                "\n                                        "
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                : _vm._e(),
+                            ],
+                            2
+                          ),
+                        ]
+                      ),
+                    ]
+                  : [
+                      _c(
+                        "div",
+                        {
+                          key: key,
+                          staticClass:
+                            "direct-chat-msg box-message right-message",
+                        },
+                        [
+                          _c("div", { staticClass: "box-time-right" }, [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "edit-svg right-message",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 512 512",
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.selectTextForUpdate(key)
+                                  },
+                                },
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    d: "M432 320c-8.836 0-16 7.164-16 16v112c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h112c8.8 0 16-7.16 16-16s-7.2-16-16-16H63.1C28.65 64 0 92.65 0 128v320c0 35.35 28.65 64 63.1 64h319.1c35.35 0 63.1-28.65 63.1-64l2.7-112c0-8.8-7.2-16-16-16zm65.9-277.81-28.13-28.14C460.397 4.677 448.11-.01 435.83-.01s-24.57 4.688-33.94 14.06L162.4 253.6c-8.9 8.9-15 20.3-17.5 32.7l-16.66 83.35c-1.516 7.584 4.378 14.36 11.72 14.36.785 0 1.586-.076 2.399-.238l83.35-16.67a63.979 63.979 0 0 0 32.7-17.5l239.5-239.5C516.7 91.33 516.7 60.94 497.9 42.19zM235.8 326.1a31.87 31.87 0 0 1-16.35 8.748l-53.93 10.79L176.3 292.6a31.898 31.898 0 0 1 8.754-16.36l178.3-178.3 50.76 50.76L235.8 326.1zM475.3 87.45l-38.62 38.62-50.76-50.76 38.62-38.62c4.076-4.076 8.838-4.686 11.31-4.686s7.236.61 11.31 4.686l28.13 28.14c4.11 4.07 4.71 8.83 4.71 11.31 0 2.47-.6 7.23-4.7 11.31z",
+                                  },
+                                }),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "direct-chat-timestamp right-message",
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(chat.date_create) +
+                                    "\n                                "
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "direct-chat-text my-chat-text" },
+                            [
+                              _c("div", {
+                                domProps: {
+                                  innerHTML: _vm._s(chat.covering_letter),
+                                },
+                              }),
+                              _vm._v(" "),
+                              chat.my_type_document !== null
+                                ? [
+                                    _c(
+                                      "div",
+                                      { staticClass: "offer-document" },
+                                      [
+                                        _vm._v(
+                                          "\n                                        На Его\n                                        "
+                                        ),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "link-a",
+                                            attrs: {
+                                              target: "_blank",
+                                              href:
+                                                _vm.lang.prefix_lang +
+                                                chat.your_offer_url,
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(chat.your_offer_title) +
+                                                "\n                                        "
+                                            ),
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "\n                                        предложил рассмотреть " +
+                                            _vm._s(chat.my_type_document) +
+                                            "\n                                        "
+                                        ),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "link-a",
+                                            attrs: {
+                                              target: "_blank",
+                                              href:
+                                                _vm.lang.prefix_lang +
+                                                chat.my_offer_url,
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(chat.my_offer_title) +
+                                                "\n                                        "
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                : _vm._e(),
+                            ],
+                            2
+                          ),
+                        ]
+                      ),
+                    ],
+                _vm._v(" "),
+                _c("div", { staticClass: "clearfix" }),
+              ]
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "box-ckeditor" } },
+              [
+                !_vm.objUpdate.bool_update
+                  ? _c("label", [
+                      _vm._v(
+                        "\n                        Написать сообщение\n                    "
+                      ),
+                    ])
+                  : _c("label", [
+                      _vm._v(
+                        "\n                        Обновить сообщение\n                    "
+                      ),
+                    ]),
+                _vm._v(" "),
+                _c("ckeditor", {
+                  attrs: { config: _vm.objTextarea.editorConfig1 },
+                  model: {
+                    value: _vm.objTextarea.textarea_letter,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.objTextarea, "textarea_letter", $$v)
+                    },
+                    expression: "objTextarea.textarea_letter",
+                  },
+                }),
+                _vm._v(" "),
+                _vm.objUpdate.bool_update
+                  ? _c("div", { staticClass: "button-update" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-block btn-outline-danger btn-lg",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.cancelUpdate.apply(null, arguments)
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Отмена\n                        "
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-block btn-primary btn-lg",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.updateMessage.apply(null, arguments)
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Обновить\n                        "
+                          ),
+                        ]
+                      ),
+                    ])
+                  : _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-block btn-primary btn-lg button-create",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.respondMessage.apply(null, arguments)
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Отправить\n                    "
+                        ),
+                      ]
+                    ),
+              ],
+              1
+            ),
+          ],
+          2
+        ),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -85482,11 +86341,11 @@ var render = function () {
           _c("h3", [
             _vm._v(
               "\n                " +
+                _vm._s(_vm.UpperCaseFirstCharacter(_vm.resume.contact.name)) +
+                " " +
                 _vm._s(
                   _vm.UpperCaseFirstCharacter(_vm.resume.contact.surname)
                 ) +
-                " " +
-                _vm._s(_vm.UpperCaseFirstCharacter(_vm.resume.contact.name)) +
                 "\n            "
             ),
           ]),
@@ -106342,7 +107201,8 @@ Vue.component('search-resumes', __webpack_require__(/*! ./components/resume/Sear
 Vue.component('edit-company-component', __webpack_require__(/*! ./components/company/EditCompanyComponent */ "./resources/js/components/company/EditCompanyComponent.vue")["default"]);
 Vue.component('company-component', __webpack_require__(/*! ./components/company/CompanyComponent */ "./resources/js/components/company/CompanyComponent.vue")["default"]); // offer
 
-Vue.component('index-offer-component', __webpack_require__(/*! ./components/offer/IndexOfferComponent */ "./resources/js/components/offer/IndexOfferComponent.vue")["default"]); // other
+Vue.component('index-offer-component', __webpack_require__(/*! ./components/offer/IndexOfferComponent */ "./resources/js/components/offer/IndexOfferComponent.vue")["default"]);
+Vue.component('show-offer-component', __webpack_require__(/*! ./components/offer/ShowOfferComponent */ "./resources/js/components/offer/ShowOfferComponent.vue")["default"]); // other
 
 Vue.component('contact_information', __webpack_require__(/*! ./components/contact_information/ContactInformationComponent */ "./resources/js/components/contact_information/ContactInformationComponent.vue")["default"]);
 Vue.component('office-component', __webpack_require__(/*! ./components/private_office/OfficeComponent */ "./resources/js/components/private_office/OfficeComponent.vue")["default"]);
@@ -107878,6 +108738,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexOfferComponent_vue_vue_type_template_id_3ac98f65_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexOfferComponent_vue_vue_type_template_id_3ac98f65_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/offer/ShowOfferComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/offer/ShowOfferComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ShowOfferComponent_vue_vue_type_template_id_43099bdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true& */ "./resources/js/components/offer/ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true&");
+/* harmony import */ var _ShowOfferComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShowOfferComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/offer/ShowOfferComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ShowOfferComponent_vue_vue_type_style_index_0_id_43099bdc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss& */ "./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ShowOfferComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ShowOfferComponent_vue_vue_type_template_id_43099bdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ShowOfferComponent_vue_vue_type_template_id_43099bdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "43099bdc",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/offer/ShowOfferComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/offer/ShowOfferComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/offer/ShowOfferComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowOfferComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss& ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_style_index_0_id_43099bdc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=style&index=0&id=43099bdc&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_style_index_0_id_43099bdc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_style_index_0_id_43099bdc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_style_index_0_id_43099bdc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_style_index_0_id_43099bdc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/offer/ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/offer/ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true& ***!
+  \*********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_template_id_43099bdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/offer/ShowOfferComponent.vue?vue&type=template&id=43099bdc&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_template_id_43099bdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowOfferComponent_vue_vue_type_template_id_43099bdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

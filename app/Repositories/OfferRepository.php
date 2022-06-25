@@ -1,10 +1,14 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Traits\DateTrait;
+use App\Http\Traits\RespondTraite;
 use App\Model\Offer as Model;
+use App\Model\UserCompany;
 use Illuminate\Support\Facades\Auth;
 
 class OfferRepository extends CoreRepository {
+    use RespondTraite, DateTrait;
 
     public function __construct() {
         $this->model = clone app(Model::class);
@@ -43,6 +47,7 @@ class OfferRepository extends CoreRepository {
                 'two_user_id' => $user_id,
                 'one_user_review' => 1,
                 'chat' => [$message],
+                'alias' => sha1(time())
             ]
         );
     }
@@ -121,6 +126,31 @@ class OfferRepository extends CoreRepository {
         return $offers;
     }
 
+    public function show($offer_id) {
+
+        $offer = $this->getChat($offer_id);
+
+        // 1 добавить обьект контактного листа
+        $offer = $this->creatContactList(collect([$offer]))[0];
+
+        if(!is_null($offer->contact_one_user)){
+            $company = UserCompany::where('user_id',$offer->contact_one_user->user_id)->first();
+        }
+        else{
+            $company = UserCompany::where('user_id',$offer->contact_two_user->user_id)->first();
+        }
+
+        // 2 url компании на сайте
+        $offer->url_company = !is_null($company) ? $company->alias : null;
+
+        return $offer;
+    }
+
+    /**
+     * поиск среди имеющихся имен контакта и названий компании
+     * @param $request
+     * @return array
+     */
     public function searchNamePosition($request) {
         $arraySearch = [];
         $offers = $this->getMyChats();
@@ -141,18 +171,55 @@ class OfferRepository extends CoreRepository {
         return $arraySearch;
     }
 
+    public function addMessage($request) {
+        $my_user = Auth::user();
+        $offer = $this->getChat($request->offer_id);
+
+        $message = config('site.offer.message');
+        $message["user_id"] = $my_user->id;
+        $message["date_create"] = $this->getNowDate();
+        $message["covering_letter"] = $request->text;
+
+        // 2 обновить или создать offer chat
+        $this->setDataOffer($offer, $message, $my_user->id);
+
+        return $offer->chat[count($offer->chat)-1];
+    }
+
 
     // PRIVATE
     /**
-     * мои чаты с обьектом контакта
+     * выбрать чат по id с данными контакта моего собеседника
+     * @param $offer_id
+     * @return mixed
+     */
+    private function getChat($offer_id)
+    {
+        $company = null;
+        $my_id = Auth::user()->id;
+        // 1 выбрать все мои чаты с контактами собеседника
+        $offer = $this->model->where('id', $offer_id)
+            ->with(["contact_one_user" => function($q) use($my_id){
+                $q->where('user_id', '!=', $my_id);
+            },"contact_one_user.position"])
+            ->with(["contact_two_user" => function($q) use($my_id){
+                $q->where('user_id', '!=', $my_id);
+            },"contact_two_user.position"])
+            ->first();
+
+        return $offer;
+    }
+
+    /**
+     * мои чаты с данными контакта моего собеседника
      * @return mixed
      */
     private function getMyChats()
     {
         $my_id = Auth::user()->id;
         // 2 выбрать все мои чаты с контактами собеседника
-        $offers = $this->model->where('one_user_id', Auth::user()->id)
-            ->orWhere('two_user_id', Auth::user()->id)
+        $offers = $this->model->where('one_user_id', $my_id)
+            ->orWhere('two_user_id', $my_id)
             ->with(["contact_one_user" => function($q) use($my_id){
                 $q->where('user_id', '!=', $my_id);
             },"contact_one_user.position"])
@@ -162,6 +229,18 @@ class OfferRepository extends CoreRepository {
             ->orderByDesc('updated_at')
             ->get();
 
+        $offers = $this->creatContactList($offers);
+
+        return $offers;
+    }
+
+    /**
+     * добавить обьект контактного листа
+     * @param $offers
+     * @return mixed
+     */
+    private function creatContactList($offers)
+    {
         $offers->each(function ($item, $key) {
             if(!is_null($item->contact_one_user)){
                 $item->contact_list = (new ContactInformationRepository())->fillContactList(

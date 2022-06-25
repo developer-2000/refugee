@@ -197,10 +197,8 @@
 
     .contacts-list{
         margin: 25px 0;
-        width: 350px;
         box-shadow: none;
         background-color: #c8dadf;
-        /*border: 1px solid #1d68a7;*/
         .contacts-header{
             color: #444;
             display: flex;

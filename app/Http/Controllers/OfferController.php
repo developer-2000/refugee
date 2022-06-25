@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Offer\AddMessageRequest;
 use App\Http\Requests\Offer\IndexOfferRequest;
 use App\Http\Requests\Vacancy\SearchPositionRequest;
+use App\Model\Offer;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
-
 
 class OfferController extends BaseController {
 
@@ -31,6 +32,21 @@ class OfferController extends BaseController {
         return view('offer.index_offer', compact('offers', 'settings'));
     }
 
+    public function show(Offer $offer)
+    {   // настройки содержимого контакт листа
+        $settings['contact_information'] = config('site.contacts.contact_information');
+        $offer = $this->repository->show($offer->id);
+
+        return view('offer.show_offer', compact('offer', 'settings'));
+    }
+
+    public function addMessage(AddMessageRequest $request)
+    {
+        $last_chat = $this->repository->addMessage($request);
+
+        return $this->getResponse($last_chat);
+    }
+
     /**
      * найти среди моих чатов искомое имя или должность
      * @param  SearchPositionRequest  $request
@@ -44,38 +60,8 @@ class OfferController extends BaseController {
     }
 
 
-//    /**
-//     * Show the form for creating a new resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function create()
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request  $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function store(Request $request)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param  \App\Model\Offer  $offer
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function show(Offer $offer)
-//    {
-//        //
-//    }
-//
+
+
 //    /**
 //     * Show the form for editing the specified resource.
 //     *
@@ -86,19 +72,7 @@ class OfferController extends BaseController {
 //    {
 //        //
 //    }
-//
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request  $request
-//     * @param  \App\Model\Offer  $offer
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function update(Request $request, Offer $offer)
-//    {
-//        //
-//    }
-//
+
 //    /**
 //     * Remove the specified resource from storage.
 //     *
