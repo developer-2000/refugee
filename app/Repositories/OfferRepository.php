@@ -15,22 +15,58 @@ class OfferRepository extends CoreRepository {
 
     }
 
-    /**
-     * вернет указаный чат по id - мой и юзер
-     * @param $user_id
-     * @param $my_id
-     * @return mixed
-     */
-    public function getOffer($user_id, $my_id) {
-        return $this->model->where(function($query) use ($user_id, $my_id) {
-            $query
-                ->where( function ($query) use ($user_id, $my_id) {
-                    $query->where('one_user_id', $user_id)->where('two_user_id',$my_id);
-                })
-                ->orWhere(function ($query) use ($user_id, $my_id) {
-                    $query->where('one_user_id', $my_id)->where('two_user_id',$user_id);
-                });
-        })->first();
+    public function index($request) {
+        $arraySearch = [];
+        // 1 мои чаты с обьектом контакта
+        $offers = $this->getMyChats();
+
+        // 2 если был поиск по названию или fullname
+        if (isset($request->search)) {
+            $arrSearch = explode(" ", $request->search);
+
+            foreach ($offers as $key => $item){
+                foreach ($arrSearch as $key2 => $str){
+
+                    if(!is_null($item->contact_list['position'])){
+                        if(strripos($item->contact_list['position'], $str) !== false){
+                            $arraySearch[] = $item;
+                            break;
+                        }
+                    }
+                    if(!is_null($item->contact_list['full_name'])){
+                        if(strripos($item->contact_list['full_name'], $str) !== false){
+
+
+                            $arraySearch[] = $item;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            $offers = $arraySearch;
+        }
+
+        return $offers;
+    }
+
+    public function show($offer_id) {
+        $offer = $this->getChat($offer_id);
+
+        // 1 отметить прочитанность чата
+        $offer = $this->registerChatRead($offer);
+        // 2 добавить обьект контактного листа
+        $offer = $this->creatContactList(collect([$offer]))[0];
+        // 3 добавить url компании на сайте
+        if(!is_null($offer->contact_one_user)){
+            $company = UserCompany::where('user_id',$offer->contact_one_user->user_id)->first();
+        }
+        else{
+            $company = UserCompany::where('user_id',$offer->contact_two_user->user_id)->first();
+        }
+        $offer->url_company = !is_null($company) ? $company->alias : null;
+
+        return $offer;
     }
 
     /**
@@ -51,6 +87,28 @@ class OfferRepository extends CoreRepository {
             ]
         );
     }
+
+    public function destroy($request) {
+        $offer = $this->getByWithVerification($request);
+
+        if(!is_null($offer) && isset($offer->chat[$request->index])){
+            $chat = $offer->chat;
+            array_splice($chat, $request->index, 1);
+            $offer->chat = $chat;
+            $offer->save();
+        }
+
+        return true;
+    }
+
+    public function sendToArchive($request) {
+        $offer = $this->getByWithVerification($request);
+
+
+
+        return $offer;
+    }
+
 
     /**
      * проверка открытости контактов в чате
@@ -91,59 +149,22 @@ class OfferRepository extends CoreRepository {
         return 0;
     }
 
-    public function index($request) {
-        $arraySearch = [];
-        // 1 мои чаты с обьектом контакта
-        $offers = $this->getMyChats();
-
-        // 2 если был поиск по названию или fullname
-        if (isset($request->search)) {
-            $arrSearch = explode(" ", $request->search);
-
-            foreach ($offers as $key => $item){
-                foreach ($arrSearch as $key2 => $str){
-
-                    if(!is_null($item->contact_list['position'])){
-                        if(strripos($item->contact_list['position'], $str) !== false){
-                            $arraySearch[] = $item;
-                            break;
-                        }
-                    }
-                    if(!is_null($item->contact_list['full_name'])){
-                        if(strripos($item->contact_list['full_name'], $str) !== false){
-
-
-                            $arraySearch[] = $item;
-                            break;
-                        }
-                    }
-
-                }
-            }
-            $offers = $arraySearch;
-        }
-
-        return $offers;
-    }
-
-    public function show($offer_id) {
-
-        $offer = $this->getChat($offer_id);
-
-        // 1 добавить обьект контактного листа
-        $offer = $this->creatContactList(collect([$offer]))[0];
-
-        if(!is_null($offer->contact_one_user)){
-            $company = UserCompany::where('user_id',$offer->contact_one_user->user_id)->first();
-        }
-        else{
-            $company = UserCompany::where('user_id',$offer->contact_two_user->user_id)->first();
-        }
-
-        // 2 url компании на сайте
-        $offer->url_company = !is_null($company) ? $company->alias : null;
-
-        return $offer;
+    /**
+     * вернет указаный чат по id - мой и юзер
+     * @param $user_id
+     * @param $my_id
+     * @return mixed
+     */
+    public function getOffer($user_id, $my_id) {
+        return $this->model->where(function($query) use ($user_id, $my_id) {
+            $query
+                ->where( function ($query) use ($user_id, $my_id) {
+                    $query->where('one_user_id', $user_id)->where('two_user_id',$my_id);
+                })
+                ->orWhere(function ($query) use ($user_id, $my_id) {
+                    $query->where('one_user_id', $my_id)->where('two_user_id',$user_id);
+                });
+        })->first();
     }
 
     /**
@@ -171,6 +192,11 @@ class OfferRepository extends CoreRepository {
         return $arraySearch;
     }
 
+    /**
+     * добавить новое сообщение в чат
+     * @param $request
+     * @return mixed
+     */
     public function addMessage($request) {
         $my_user = Auth::user();
         $offer = $this->getChat($request->offer_id);
@@ -179,11 +205,77 @@ class OfferRepository extends CoreRepository {
         $message["user_id"] = $my_user->id;
         $message["date_create"] = $this->getNowDate();
         $message["covering_letter"] = $request->text;
+        if(isset($request->important_message)){
+            $message["important_message"] = 1;
+        }
 
         // 2 обновить или создать offer chat
         $this->setDataOffer($offer, $message, $my_user->id);
 
         return $offer->chat[count($offer->chat)-1];
+    }
+
+    /**
+     * отметить просмотр сообщений собеседника
+     * @param $request
+     * @return mixed
+     */
+    public function registerViewedCompanion($request) {
+        // указаный чат по id с проверкой меня в нем
+        $offer = $this->getByWithVerification($request);
+
+        if($offer){
+            $chat = $offer->chat;
+            foreach ($chat as $key => $message){
+                if($message['user_id'] !== Auth::user()->id){
+                    $chat[$key]['your_viewing'] = 1;
+                }
+            }
+            $offer->chat = $chat;
+            $offer->save();
+        }
+
+        return true;
+    }
+
+    /**
+     * отметить прочитанность чата (чтоб не отображать сообщения о новом сообщении)
+     * @param $offer
+     * @return mixed
+     */
+    public function registerChatRead($offer) {
+        if($offer->one_user_id == Auth::user()->id){
+            $offer->one_user_review = 1;
+        }
+        elseif($offer->two_user_id == Auth::user()->id){
+            $offer->two_user_review = 1;
+        }
+        $offer->save();
+
+        return $offer;
+    }
+
+    public function updateMessage($request) {
+        // указаный чат по id с проверкой меня в нем
+        $offer = $this->getByWithVerification($request);
+        // есть ли индекс чата
+        if(!is_null($offer) && isset($offer->chat[$request->index])){
+            $chat = $offer->chat;
+            // могу ли еще обновить
+            if($chat[$request->index]['your_viewing'] === 0){
+                $chat[$request->index]['covering_letter'] = $request->text;
+                $offer->chat = $chat;
+                $offer->save();
+            }
+            else{
+                return [false, 'reload'];
+            }
+        }
+        else{
+            return [false, 'chat does not exist'];
+        }
+
+        return [true];
     }
 
 
@@ -208,6 +300,28 @@ class OfferRepository extends CoreRepository {
             ->first();
 
         return $offer;
+    }
+
+    /**
+     * выбрать чат по id с проверкой меня в нем
+     * @param $request
+     * @return mixed
+     */
+    private function getByWithVerification($request)
+    {
+        $my_user = Auth::user();
+
+        // указаный чат по id с проверкой меня в нем
+        return $this->model->where(function($query) use ($request, $my_user) {
+            $query->where(function ($query) use ($request, $my_user) {
+                $query->where('id', $request->offer_id)
+                    ->where('one_user_id', $my_user->id);
+            })
+                ->orWhere(function ($query) use ($request, $my_user) {
+                    $query->where('id', $request->offer_id)
+                        ->where('two_user_id', $my_user->id);
+                });
+        })->first();
     }
 
     /**

@@ -15,17 +15,19 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('one_user_id');
             $table->foreign('one_user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('two_user_id');
             $table->foreign('two_user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->text('chat')->nullable()->default(null);
+            $table->longText('chat')->nullable()->default(null);
             $table->tinyInteger('one_user_review')->default(0)->comment('0=no, 1=yes - просмотр обновлений чата');
             $table->tinyInteger('two_user_review')->default(0)->comment('0=no, 1=yes - просмотр обновлений чата');
             $table->tinyInteger('accepted')->default(0)->comment('0=no, 1=yes - two_user дал доступ к своим контактам');
             $table->string('alias', 100)->unique()->comment('url чата');
+
             $table->timestamps();
         });
     }

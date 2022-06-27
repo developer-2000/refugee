@@ -1,6 +1,6 @@
 <template>
-    <div class="box-page">
-
+    <div class="box-page box-offer">
+        <!-- top panel -->
         <div class="top-panel bread-top-cabinet">
             <!-- обратная ссылка -->
             <div class="box-back-link">
@@ -49,42 +49,137 @@
                 </div>
             </div>
         </div>
-
+        <!-- title -->
         <div class="search-panel">
-            <!-- title -->
             <h1 class="title_page card-body">
                 Предложения
             </h1>
         </div>
-
+        <!-- documents -->
         <div class="bottom-search">
-
-                <!-- document -->
-                <div class="row box-vacancy"
-                     :class="{'new-vacancy': (offer.one_user_id === user.id && offer.one_user_review === 0) || (offer.two_user_id === user.id && offer.two_user_review === 0)}"
-                     v-for="(offer, key) in offers" :key="key"
-                     @click.prevent="transitionToOffer(offer.alias)"
-                >
-
-                    <!-- user -->
-                    <div class="col-sm-4">
-                        <!-- Контакт лист -->
-                        <offer_contact_list
-                            :offer="offer"
-                            :settings="settings"
-                            :user="user"
-                            :lang="lang"
-                            :page="'offers'"
-                        ></offer_contact_list>
-                    </div>
-
-                    <!-- text -->
-                    <div class="col-sm-8">
-                        <div class="body-chat" v-html="textOutput(offer.chat)"></div>
-                    </div>
-
+            <div class="row box-vacancy"
+                 :class="{'new-vacancy': (offer.one_user_id === user.id && offer.one_user_review === 0) || (offer.two_user_id === user.id && offer.two_user_review === 0)}"
+                 v-for="(offer, key) in offers" :key="key"
+                 @click.prevent="transitionToOffer(offer.alias)"
+            >
+                <!-- user -->
+                <div class="col-sm-3">
+                    <!-- Контакт лист -->
+                    <offer_contact_list
+                        :offer="offer"
+                        :settings="settings"
+                        :user="user"
+                        :lang="lang"
+                        :page="'offers'"
+                    ></offer_contact_list>
                 </div>
+                <!-- text -->
+                <div class="col-sm-9">
+                    <div class="body-chat">
+                        <!-- title chat -->
+                        <div class='font-weight-bold title-chat'>
+                            <!-- title -->
+                            <div>{{offer.chat[0].title_chat}}</div>
+                            <div class="box-button">
 
+                                <!-- не интересно -->
+                                <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                                      title="не интересно"
+                                >
+                                    <svg @click="addMessage($event, offer.id, 'not_interested')"
+                                         class="svg-interest link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.1 7.031c-9.375-9.375-24.56-9.375-33.94 0l-74.59 74.59C358 50.63 309.2 32 256 32 132.3 32 32 132.3 32 256c0 53.21 18.63 102 49.62 140.4L7.03 470.99c-9.375 9.375-9.375 24.56 0 33.94C11.72 509.7 17.84 512 24 512s12.28-2.344 16.97-7.031l74.59-74.59C153.1 461.4 202.8 480 256 480c123.7 0 224-100.3 224-224 0-53.21-18.63-102-49.62-140.4l74.59-74.59c9.33-9.42 9.33-24.6-.87-33.979zM80 256c0-97.05 78.95-176 176-176 39.88 0 76.59 13.49 106.1 35.93l-246.2 246.2C93.49 332.6 80 295.9 80 256zm352 0c0 97.05-78.95 176-176 176-39.88 0-76.59-13.49-106.1-35.93l246.2-246.2C418.5 179.4 432 216.1 432 256z"/></svg>
+                                </span>
+                                <!-- потребность решена -->
+                                <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                                      title="потребность решена"
+                                >
+                                    <svg @click="addMessage($event, offer.id, 'need_solved')"
+                                         class="svg-end link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 24C0 10.75 10.75 0 24 0h336c13.3 0 24 10.75 24 24s-10.7 24-24 24h-8v18.98c0 40.32-16.9 78.12-44.5 107.52L225.9 256l81.6 81.5C335.1 366 352 404.7 352 445v19h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.25 0-24-10.7-24-24s10.75-24 24-24h8v-19c0-40.3 16.01-79 44.52-107.5L158.1 256l-81.58-81.5C48.01 145.1 32 107.3 32 66.98V48h-8C10.75 48 0 37.25 0 24zm304 42.98V48H80v18.98c0 27.58 10.96 54.02 30.5 73.52l81.5 81.6 81.5-81.6C293 121 304 94.56 304 66.98z"/></svg>
+                                </span>
+                                <!-- отправить в архив -->
+                                <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                                      title="отправить в архив"
+                                >
+                                    <svg @click="sendToArchive($event, offer.id, key)"
+                                         class="svg-archive link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 320h-96a23.964 23.964 0 0 0-21.47 13.28L321.2 384H190.8l-25.38-50.72C161.4 325.1 153.1 320 144 320H32c-17.67 0-32 14.33-32 32v96c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-80c0-26.5-21.5-48-48-48zm0 128c0 8.822-7.178 16-16 16H64c-8.822 0-16-7.178-16-16v-80h81.16l25.38 50.72C158.6 426.9 166.9 432 176 432h160c9.094 0 17.41-5.125 21.47-13.28L382.8 368H464v80zM238.4 312.3c3.7 4.9 10.9 7.7 17.6 7.7s13.03-2.781 17.59-7.656l104-112c9-9.719 8.438-24.91-1.25-33.94-9.719-8.969-24.88-8.438-33.94 1.25L280 234.9V24c0-13.25-10.75-24-24-24s-24 10.75-24 24v210.9l-62.4-67.2c-9.1-10.6-24.2-10.3-33.9-1.3-10.6 9-10.3 24.2-1.3 33.9l104 112z"/></svg>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- 1 не мой message -->
+                        <template v-if="offer.chat[offer.chat.length-1].user_id !== user.id">
+                            <div class="direct-chat-msg box-message left-message" :key="key">
+                                <!-- message -->
+                                <div class="direct-chat-text"
+                                     :class="{'important_message': offer.chat[offer.chat.length-1].important_message == 1}"
+                                >
+                                    <!-- сопроводительный текст -->
+                                    <div v-html="textChat(offer.chat[offer.chat.length-1].covering_letter)"></div>
+                                    <!-- предложение документа -->
+                                    <template v-if="offer.chat[offer.chat.length-1].my_type_document !== null">
+                                        <div class='offer-document'>
+                                            На Ваше
+                                            <a target="_blank" class="link-a"
+                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].your_offer_url)"
+                                            >
+                                                {{offer.chat[offer.chat.length-1].your_offer_title}}
+                                            </a>
+                                            предложение рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
+                                            <a target="_blank" class="link-a"
+                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].my_offer_url)"
+                                            >
+                                                {{offer.chat[offer.chat.length-1].my_offer_title}}
+                                            </a>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- 2 мой message -->
+                        <template v-else>
+                            <div class="direct-chat-msg box-message right-message" :key="key">
+                                <!-- статус просмотра -->
+                                <div class="box-time-right">
+                                    <span class="direct-chat-timestamp"
+                                          :class="{'read-status': offer.chat[offer.chat.length-1].your_viewing == 1}"
+                                    >
+
+                                        {{offer.chat[offer.chat.length-1].your_viewing == 0 ? 'не прочитано' : 'прочитано'}}
+                                    </span>
+                                </div>
+                                <!-- message -->
+                                <div class="direct-chat-text my-chat-text"
+                                     :class="{'important_message': offer.chat[offer.chat.length-1].important_message == 1}"
+                                >
+                                    <!-- сопроводительный текст -->
+                                    <div v-html="textChat(offer.chat[offer.chat.length-1].covering_letter)"></div>
+                                    <!-- предложение документа -->
+                                    <template v-if="offer.chat[offer.chat.length-1].my_type_document !== null">
+                                        <div class='offer-document'>
+                                            На Его
+                                            <a target="_blank" class="link-a"
+                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].your_offer_url)"
+                                            >
+                                                {{offer.chat[offer.chat.length-1].your_offer_title}}
+                                            </a>
+                                            предложил рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
+                                            <a target="_blank" class="link-a"
+                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].my_offer_url)"
+                                            >
+                                                {{offer.chat[offer.chat.length-1].my_offer_title}}
+                                            </a>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -94,12 +189,14 @@
     import offer_contact_list from "../details/OfferContactListComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import search_input_mixin from "../../mixins/search_input_mixin";
+    import general_functions_mixin from "../../mixins/general_functions_mixin";
 
     export default {
         mixins: [
             translation,
             response_methods_mixin,
-            search_input_mixin
+            search_input_mixin,
+            general_functions_mixin,
         ],
         components: {
             'offer_contact_list': offer_contact_list
@@ -111,6 +208,7 @@
                 position_list: [],
                 name_query: 'search',
                 name_url: 'offers',
+                chat_index: null,
             }
         },
         methods: {
@@ -147,47 +245,73 @@
                         // this.messageError(err)
                     })
             },
-            textOutput(chat) {
+            // <div class="alert alert-warning">Благодарю вас, но это предложение меня не интересует!</div>
+            async addMessage(event, offer_id, text) {
+                event.stopPropagation()
+                let data = {
+                    offer_id: offer_id,
+                    important_message: 1,
+                    text: text,
+                };
+                const response = await this.$http.post(`/offers/add-message`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            async sendToArchive(event, offer_id, index){
+                event.stopPropagation()
+                this.chat_index = index
+                let data = {
+                    offer_id: offer_id,
+                };
+                const response = await this.$http.post(`/offers/send-to-archive`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            console.log(res.data.message)
+                            // location.reload()
+                        }
+                        // custom ошибки
+                        else{
+                            this.message(res.data.message, 'error', 10000, true);
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        this.messageError(err)
+                    })
+            },
+            textChat(text) {
                 let string = ""
-                let title_chat = chat[0].title_chat
-                chat = chat[chat.length-1]
-                let regex = /( |<([^>]+)>)/ig
-
-                // title chat
-                string += "<div class='font-weight-bold title-chat'>"+title_chat+"</div>"
-
-                // сообщение о документе
-                if(chat.type_document !== null){
-                    if(chat.user_id !== this.user.id){
-                        string += "<div class='offer-document'>Предложение рассмотреть "+chat.type_document+"</div>"
-                    }
-                    else if(chat.user_id === this.user.id){
-                        string += "<div class='offer-document'>Вы: предложили к рассмотрению "+chat.type_document+"</div>"
-                    }
-                }
 
                 // текст чата
-                if(chat.covering_letter !== null){
+                if(text !== null){
                     // html и длина
-                    let line = chat.covering_letter.replace(regex, " ")
+                    let line = this.cutTags(text)
                     if(line.length > this.length_string) {
                         line = line.substring(0,this.length_string)+" ...";
                     }
 
-                    // text чата
-                    if(chat.user_id !== this.user.id){
-                        string += "<div class='text-chat'>"+line+"</div>";
-                    }
-                    else if(chat.user_id === this.user.id){
-                        string += "<div class='text-chat'> <span class='font-weight-bold'>Вы:</span> "+line+"</div>";
-                    }
+                    string += "<div class='text-chat'>"+line+"</div>";
                 }
 
                 return string
-                // console.log(chat)
             },
             transitionToOffer(alias){
                 location.href = this.lang.prefix_lang+'offers/'+alias
+            },
+            transitionToLink(event, url){
+                window.open(url)
+                event.stopPropagation()
             },
         },
         props: [
@@ -198,14 +322,76 @@
         ],
         mounted() {
             // console.log(this.user)
-            // console.log(this.offers)
+            console.log(this.offers)
 
+            // инициализация всплывающих подсказок
+            $('[data-toggle="tooltip"]').tooltip();
         },
     }
 </script>
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
+
+
+    .box-message{
+        width: 80%;
+        .direct-chat-text{
+            margin: 5px 0 0 0;
+            background-color: #f5f5f5;
+        }
+        .my-chat-text{
+            margin: 5px 0 0 0;
+            &::before {
+                right: -6px;
+                border-left-color: #d2d6de;
+                border-right: none;
+            }
+            &::after {
+                visibility: hidden;
+            }
+        }
+        .important_message{
+            border-color: #d6d6d6;
+            color: #948b36;
+            background-color: #fffbdb;
+        }
+    }
+
+    .title-chat{
+        font-size: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 10px;
+    }
+    .box-button{
+        svg {
+            width: 18px;
+        }
+        .svg-end{
+            width: 13px;
+        }
+        .info-tooltip{
+            min-width: 28px;
+            display: inline-block;
+            text-align: center;
+        }
+    }
+    .read-status{
+        color: #00670c;
+    }
+    .left-message{
+        float: left;
+    }
+    .right-message{
+        float: right;
+    }
+    .box-time-right{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
 
     .top-search {
         width: 75%;
@@ -266,7 +452,6 @@
             }
         }
     }
-
     .box-back-link{
         width: 25%;
     }
@@ -277,15 +462,10 @@
         }
 
     }
-
-
     .box-vacancy {
         padding: 10px 5px;
         .body-chat{
             font-size: 14px;
-        }
-        .title-chat{
-            font-size: 3rem;
         }
     }
     .new-vacancy{

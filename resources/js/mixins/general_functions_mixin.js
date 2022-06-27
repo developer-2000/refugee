@@ -9,6 +9,14 @@ export default {
             let regex = /<\/?[^>]+(>|$)/gi
             return text.replace(regex, "")
         },
+        // вырезать &nbsp;
+        cutNbsp(text){
+            return text.replace(/&nbsp;/gi,"")
+        },
+        // убрать пробелы
+        cutSpaces(text){
+            return text.replace(/\s+/g,'')
+        },
         // поиск значения в массиве объектов и возврат обьекта
         lookingValueInArrayObjects(property_name, property_value, arrSearch){
             let bool = false

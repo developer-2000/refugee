@@ -177,7 +177,6 @@
                 // не авторизован
                 if(this.user == null){
                     this.checkAuth(window.location.pathname)
-                    // this.checkAuth(this.lang.prefix_lang+'vacancy')
                     event.stopPropagation()
                     return false
                 }

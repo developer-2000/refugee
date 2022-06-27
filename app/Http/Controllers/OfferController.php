@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Offer\AddMessageRequest;
+use App\Http\Requests\Offer\DeleteElementRequest;
 use App\Http\Requests\Offer\IndexOfferRequest;
+use App\Http\Requests\Offer\RegisterViewedRequest;
+use App\Http\Requests\Offer\SendToArchiveRequest;
+use App\Http\Requests\Offer\UpdateMessageRequest;
 use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\Offer;
 use App\Repositories\OfferRepository;
@@ -32,6 +36,11 @@ class OfferController extends BaseController {
         return view('offer.index_offer', compact('offers', 'settings'));
     }
 
+    /**
+     * просмотр чата по id
+     * @param  Offer  $offer
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function show(Offer $offer)
     {   // настройки содержимого контакт листа
         $settings['contact_information'] = config('site.contacts.contact_information');
@@ -40,11 +49,47 @@ class OfferController extends BaseController {
         return view('offer.show_offer', compact('offer', 'settings'));
     }
 
+    public function destroy(DeleteElementRequest $request)
+    {
+        $offer = $this->repository->destroy($request);
+
+        return $this->getResponse();
+    }
+
+    public function sendToArchive(SendToArchiveRequest $request)
+    {
+        $offer = $this->repository->sendToArchive($request);
+
+        return $this->getResponse($offer);
+    }
+
     public function addMessage(AddMessageRequest $request)
     {
         $last_chat = $this->repository->addMessage($request);
 
         return $this->getResponse($last_chat);
+    }
+
+    /**
+     * обновисть сообщение в чате
+     * @param  AddMessageRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateMessage(UpdateMessageRequest $request)
+    {
+        $array = $this->repository->updateMessage($request);
+        if(!$array[0]){
+            return $this->getErrorResponse($array[1]);
+        }
+
+        return $this->getResponse($array[0]);
+    }
+
+    public function registerViewedCompanion(RegisterViewedRequest $request)
+    {
+        $bool = $this->repository->registerViewedCompanion($request);
+
+        return $this->getResponse($bool);
     }
 
     /**
@@ -62,25 +107,6 @@ class OfferController extends BaseController {
 
 
 
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param  \App\Model\Offer  $offer
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function edit(Offer $offer)
-//    {
-//        //
-//    }
 
-//    /**
-//     * Remove the specified resource from storage.
-//     *
-//     * @param  \App\Model\Offer  $offer
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function destroy(Offer $offer)
-//    {
-//        //
-//    }
+
 }

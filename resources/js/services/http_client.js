@@ -14,5 +14,8 @@ export default {
     async put(url, data = {}, headers = {}) {
         return await axios.put(url, data, {headers: headers})
     },
+    async delete(url, data = {}, headers = {}) {
+        return await axios.delete(url, data, {headers: headers})
+    },
 
 }

@@ -1,6 +1,5 @@
 body{
     font-size: 1rem;
-    /*color: #202020;*/
     color: #444;
     cursor: default;
     min-height:100vh;
@@ -214,22 +213,30 @@ b{
 }
 
 /* offer */
-.title-chat{
-    font-size: 1rem;
-}
+
 .offer-document{
     padding: 0px 5px;
     display: inline-block;
     margin-bottom: 5px;
     font-weight: bold;
-    background-color: #d2d6de;
+    background-color: #f5f5f5;
     color: #444;
     border-radius: 3px;
     width: 100%;
     border-bottom: 1px dashed #2890ff;
 }
+.box-message .alert-warning{
+    border-color: #d6d6d6;
+    padding: 5px 10px;
+}
 .box-show p, ol, ul {
     margin-bottom: 3px;
+}
+.link-svg path{
+    fill:#3490dc;
+}
+.link-svg:hover path{
+    fill:#1d68a7;
 }
 
 /* bootstrap */
@@ -242,21 +249,21 @@ b{
 
 /* tooltip Bootstrap*/
 .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
-    border-top-color: #fff; /* цвет стрелочки (по умолчанию #000)*/
+    border-top-color: #050505; /* цвет стрелочки (по умолчанию #000)*/
 }
 .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
-    border-right-color: #fff; /* цвет стрелочки (по умолчанию #000)*/
+    border-right-color: #050505; /* цвет стрелочки (по умолчанию #000)*/
 }
 .bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
-    border-bottom-color: #fff; /* цвет стрелочки (по умолчанию #000) */
+    border-bottom-color: #050505; /* цвет стрелочки (по умолчанию #000) */
 }
 .bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^="left"] .arrow::before {
-    border-left-color: #fff; /* цвет стрелочки (по умолчанию #000) */
+    border-left-color: #050505; /* цвет стрелочки (по умолчанию #000) */
 }
 .tooltip-inner {
     max-width: 250px; /* максимальная ширина подсказки (по умолчанию 200px) */
-    color: black; /* цвет шрифта */
-    background-color: #fff; /* цвет фона (по умолчанию #000) */
+    color: white;
+    background-color: #050505;
     border-radius: 0.25rem; /* радиус скругдения углов */
     -webkit-box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.4);
     -moz-box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.4);
@@ -269,7 +276,7 @@ b{
     opacity: 1;
 }
 .info-tooltip path{
-    fill: #0065f0;
+    fill: #78b1ff;
 }
 
 /* Modal Auth */

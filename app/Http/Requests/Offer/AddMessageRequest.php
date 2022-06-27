@@ -24,6 +24,7 @@ class AddMessageRequest extends FormRequest
     {
         return [
             'offer_id' => 'required|integer|exists:offers,id',
+            'important_message' => 'sometimes|nullable|integer|in:1',
             'text' => 'required|string',
         ];
     }

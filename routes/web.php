@@ -85,8 +85,12 @@ Route::group([
         // чаты предложений
         Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
         Route::post('offers/add-message', 'OfferController@addMessage');
+        Route::post('offers/register-viewed-companion', 'OfferController@registerViewedCompanion');
+        Route::post('offers/update-message', 'OfferController@updateMessage');
+        Route::post('offers/delete', 'OfferController@destroy');
+        Route::post('offers/send-to-archive', 'OfferController@sendToArchive');
         Route::resource('offers', 'OfferController')->only([
-            'index', 'show',
+            'index', 'show'
         ]);
 
 

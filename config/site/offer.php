@@ -16,7 +16,9 @@ return [
         'your_offer_title'=>null,   // position документа собеседника
         'my_offer_url'=>null,       // url моего документа
         'your_offer_url'=>null,     // url документа собеседника
-        'covering_letter'=>null     // сопроводительный текст сообщения
+        'covering_letter'=>null,    // сопроводительный текст сообщения
+        'your_viewing'=>0,          // просмотр сообщения собеседником (для редактирования)
+        'important_message'=>0,     // сообщения типа not_interested, need_solved
     ],
 
 ];
