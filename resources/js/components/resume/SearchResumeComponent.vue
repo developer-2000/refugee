@@ -61,6 +61,7 @@
                         :settings="settings"
                         :lang="lang"
                         :contact_list="contact_list"
+                        :ids_respond="ids_respond"
                         :page="'search'"
                     ></resume_template>
 
@@ -82,6 +83,7 @@
                             :resume="resume"
                             :user="user"
                             :which_button_show="'search_resume'"
+                            @return="pageReload"
                         ></bookmark_buttons>
                     </div>
 
@@ -285,6 +287,7 @@
             'lang',
             'settings',
             'resumes',
+            'ids_respond',
             'user',
         ],
         mounted() {

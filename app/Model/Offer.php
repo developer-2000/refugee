@@ -33,4 +33,20 @@ class Offer extends Model
         return $this->hasOne(UserContact::class, 'user_id', 'two_user_id');
     }
 
+    // чат двух юзеров по id
+    public function selectChatByUserId($user_id, $my_id) {
+        return $this->where(function($query) use ($my_id, $user_id) {
+            $query->where(function ($query) use ($my_id, $user_id) {
+                $query->where('one_user_id', $my_id)
+                    ->where('two_user_id', $user_id);
+            })
+                ->orWhere(function ($query) use ($my_id, $user_id) {
+                    $query->where('one_user_id', $user_id)
+                        ->where('two_user_id', $my_id);
+                });
+        })->first();
+    }
+
+
+
 }

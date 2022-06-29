@@ -27,7 +27,7 @@
             <!-- общение с -->
             <button v-else
                     class="btn btn-block btn-primary" type="button"
-                    @click="goToConversation()"
+                    @click="goToDialog(owner_resume.offer)"
             >
                 {{trans('respond','open_dialog_with')}} {{owner_resume.contact.name}}
             </button>
@@ -143,7 +143,7 @@
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
-    import drag_drop_file from '../load_files/DragDropFileComponent'
+    import show_resume_vacancy_mixin from "../../mixins/show_resume_vacancy_mixin";
 
     export default {
         components: {
@@ -154,6 +154,7 @@
             translation,
             response_methods_mixin,
             general_functions_mixin,
+            show_resume_vacancy_mixin
         ],
         data() {
             return {
@@ -194,10 +195,6 @@
                         this.messageError(err)
                     })
             },
-            // перейти в беседу
-            goToConversation(){
-                console.log('go')
-            },
             // Найти похожие вакансии
             findSimilarResume(){
                 let params = new URLSearchParams(window.location.search)
@@ -209,49 +206,11 @@
 
                 location.href = this.lang.prefix_lang+'resume?'+params.toString()
             },
-            // скрол винз к respond
-            scrollRespond(){
-                if(this.checkAuth(window.location.pathname)){
-                    this.respond_bool = true
-                    setTimeout(() => {
-                        const el = document.getElementById('box-respond');
-                        $('html,body').animate({
-                            scrollTop:$(el).offset().top+"px"
-                        }, 500, 'linear');
-                    }, 500);
-                }
-            },
-            scrollUp(){
-                $('html, body').animate({scrollTop: 0},500);
-            },
-            cancelRespond(){
-                this.respond_bool = false
-                this.scrollUp()
-            },
             disableButton() {
                 if( !this.vacancyObj.vacancy_id ){
                     return true;
                 }
                 return false;
-            },
-            // выбор имени компонента для динамик компонента
-            reset_array: function (a) {
-                // чилдрен присылает значение выбора компонента в масиве в виде обьекта
-                this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
-                // open/close modal
-                if (typeof a !== 'object' && a !== 3) {
-                    this.$store.commit('tpSetMenuVisi')
-                }
-            },
-            checkAuth(url) {
-                // не авторизован
-                if(this.user == null){
-                    this.reset_array(0)
-                    $('#authModal').modal('toggle')
-                    localStorage.setItem('url_click_no_auth', url)
-                    return false
-                }
-                return true
             },
         },
         props: [

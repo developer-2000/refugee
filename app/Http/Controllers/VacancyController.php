@@ -10,6 +10,7 @@ use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Model\RespondVacancy;
 use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
@@ -28,12 +29,32 @@ class VacancyController extends BaseController {
 
     public function index(IndexVacancyRequest $request)
     {
+        $my_user = Auth::user();
+        $ids_respond = [];
+        // 1
         $settings = $this->getSettingsDocumentsAndCountries();
-        $vacancies = $this->repository->initialDataForSampling($request)
+        // 2 фильтр выборки
+        $vacancies = $this->repository->initialDataForSampling($request);
+        // 3 не показывать мои вакансии
+        if(!is_null($my_user)){
+            $vacancies = $vacancies->where('user_id', '!=', $my_user->id);
+            // 4 не показывать мною скрытые вакансии
+            $idHide = UserHideVacancy::where('user_id',$my_user->id)->get()->pluck('vacancy_id');
+            $vacancies = $vacancies->whereNotIn('id', $idHide);
+        }
+
+        $vacancies = $vacancies
             ->with('position','company.image','id_saved_vacancies','id_hide_vacancies')
             ->paginate(10);
 
-        return view('search_vacancies', compact('settings', 'vacancies'));
+        // 4 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
+        $idVacancies = $vacancies->pluck('id');
+        if(!is_null($my_user)){
+            $ids_respond = RespondVacancy::where('user_resume_id',$my_user->id)
+                ->whereIn('vacancy_id',$idVacancies)->get()->pluck('vacancy_id');
+        }
+
+        return view('search_vacancies', compact('settings', 'vacancies', 'ids_respond'));
     }
 
     /**

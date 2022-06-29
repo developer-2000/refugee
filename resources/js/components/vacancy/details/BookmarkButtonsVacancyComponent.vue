@@ -105,7 +105,7 @@
             }
         },
         methods: {
-            // add/delete в закладки
+            // в сохраненные закладки
             async bookmarkVacancy(vacancy_id, action){
                 let data = {
                     vacancy_id: vacancy_id,
@@ -126,6 +126,7 @@
                         this.messageError(err)
                     })
             },
+            // в скрырые закладки
             async hideVacancy(vacancy_id, action){
                 let data = {
                     vacancy_id: vacancy_id,
@@ -134,7 +135,11 @@
                 const response = await this.$http.post(`/private-office/vacancy/hide-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res)
+                            // убрать со страницы поиска
+                            this.$emit('return', {
+                                resume_id: null,
+                                vacancy_id: vacancy_id
+                            })
                         }
                         // custom ошибки
                         else{
@@ -192,10 +197,12 @@
                     $("#"+but1+vacancy_id).prop( "disabled", true );
                     // сосед сразу disable
                     $("#"+but3+vacancy_id).prop( "disabled", true );
-                    // рядом через время not disable
+
+                    // через время not disable
                     setTimeout(() => {
                         $("#"+but2+vacancy_id).prop( "disabled", false );
-                    }, 500);
+                    }, 2000);
+
                 }
                 // показал другие, себя изменил
                 else{
@@ -212,10 +219,11 @@
                     }, 500);
                 }
 
-                // что делать с этой вакансией
+                // в сохраненные закладки
                 if(but1 == 'save_'){
                     this.bookmarkVacancy(vacancy_id, action)
                 }
+                // в скрырые закладки
                 else if(but1 == 'show_'){
                     this.hideVacancy(vacancy_id, action)
                 }

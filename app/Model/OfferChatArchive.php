@@ -10,4 +10,12 @@ class OfferChatArchive extends Model{
 
     protected $guarded = [];
     public $timestamps = false;
+    protected $casts = [
+        'chat' => 'array',
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'alias';
+    }
 }

@@ -60,6 +60,7 @@
                         :vacancy="vacancy"
                         :settings="settings"
                         :lang="lang"
+                        :ids_respond="ids_respond"
                         :page="'search'"
                     ></vacancy_template>
 
@@ -81,6 +82,7 @@
                             :vacancy="vacancy"
                             :user="user"
                             :which_button_show="'search_vacancy'"
+                            @return="pageReload"
                         ></bookmark_buttons>
                     </div>
 
@@ -240,8 +242,6 @@
                 params.sort()
                 let query = (params.toString() == '') ? '' : '?'+params.toString()
 
-                // console.log(query)
-
                 location.href = this.lang.prefix_lang+'vacancy'+query
             },
             salaryView(salaryObj){
@@ -278,11 +278,10 @@
             'lang',
             'settings',
             'vacancies',
+            'ids_respond',
             'user',
         ],
         mounted() {
-            // console.log(this.vacancies)
-
             const params = new URLSearchParams(window.location.search)
             if(params.has('position')){
                 this.position = params.get('position')

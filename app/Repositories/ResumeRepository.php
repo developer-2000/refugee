@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
@@ -51,33 +52,41 @@ class ResumeRepository extends CoreRepository {
         $my_user = Auth::user();
         $respond_data['arr_vacancy'] = [];
         $owner_resume = null;
+        $informationRepository = new ContactInformationRepository();
 
         // 1 смотреть резюме
         $resume = UserResume::where('id', $request->resume_id)
             ->with('position','contact.avatar','contact.position','id_saved_resumes','id_hide_resumes')
             ->first();
 
-        // 4 заполить контакт лист
-        $contact_list = (new ContactInformationRepository())->fillContactList($resume->contact, $resume->user_id);
+        // 2 контакт лист хозяина документа
+        $contact_list = $informationRepository->fillContactList($resume->contact, $resume->user_id);
 
         if(!is_null($my_user)){
 
-            $respond = RespondResume::where('resume_id',$request->resume_id)
-                ->select('id')->where('user_vacancy_id',$my_user->id)->first();
+            // я подписывался на резюме
+            $respond = (new RespondResume())->selectByResumeUserVacancyId($request->resume_id, $my_user->id);
             if(is_null($respond)){
-                $respond = RespondVacancy::where('resume_id',$request->resume_id)
-                    ->select('id')->where('user_vacancy_id',$my_user->id)->first();
+                // соискатель предложил резюме на мою вакансию
+                $respond = (new RespondVacancy())->selectByResumeUserVacancyId($request->resume_id, $my_user->id);
             }
 
-            // если я подписан на это резюме OR
-            // работник ранее предоставил мне его в качестве предложения
+            // если я подписан на это резюме
             if( $respond ){
-                // 3 владелец резюме для ссылки на него для общения
-                $owner_resume = User::where('id',$resume->user_id)
-                    ->with('contact')->first();
+                // 3,1 имя хозяина документа
+                $owner_resume = new \stdClass();
+                $owner_resume->contact = new \stdClass();
+                $owner_resume->contact->name = $resume->contact->name;
+
+                // 3,2 alias нашего чата
+                $owner_resume->offer = null;
+                if($offer = (new Offer())->selectChatByUserId($resume->user_id, $my_user->id)){
+                    $owner_resume->offer = new \stdClass();
+                    $owner_resume->offer->alias = $offer->alias;
+                }
             }
             else{
-                // 2 все мои вакансии для отклика
+                // 3,1 все мои вакансии для отклика
                 $respond_data['arr_vacancy'] = Vacancy::where('user_id', $my_user->id)
                     ->with('position')->get();
             }

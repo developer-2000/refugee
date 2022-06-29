@@ -37,13 +37,33 @@ class ResumeController extends BaseController {
 
     public function index(IndexResumeRequest $request)
     {
+        $my_user = Auth::user();
+        $ids_respond = [];
+        // 1
         $settings = $this->getSettingsDocumentsAndCountries();
-        $resumes = $this->repository->initialDataForSampling($request)
-            ->where('type', 0)
+        // 2 фильтр выборки
+        $resumes = $this->repository->initialDataForSampling($request);
+
+        if(!is_null($my_user)){
+            // 3 не показывать мои резюме
+            $resumes = $resumes->where('user_id', '!=', $my_user->id);
+            // 4 не показывать мною скрытые резюме
+            $idHide = UserHideResume::where('user_id',$my_user->id)->get()->pluck('resume_id');
+            $resumes = $resumes->whereNotIn('id', $idHide);
+        }
+
+        $resumes = $resumes->where('type', 0)
             ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes')
             ->paginate(10);
 
-        return view('search_resumes', compact('settings', 'resumes'));
+        // 5 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
+        $idResumes = $resumes->pluck('id');
+        if(!is_null($my_user)){
+            $ids_respond = RespondResume::where('user_vacancy_id',$my_user->id)
+                ->whereIn('resume_id',$idResumes)->get()->pluck('resume_id');
+        }
+
+        return view('search_resumes', compact('settings', 'resumes', 'ids_respond'));
     }
 
     /**

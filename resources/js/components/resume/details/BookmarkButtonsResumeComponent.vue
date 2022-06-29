@@ -105,7 +105,7 @@
             }
         },
         methods: {
-            // add/delete в закладки
+            // в сохраненные закладки
             async bookmarkResume(resume_id, action){
                 let data = {
                     resume_id: resume_id,
@@ -114,7 +114,6 @@
                 const response = await this.$http.post(`/private-office/resume/bookmark-resume`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res)
                         }
                         // custom ошибки
                         else{
@@ -126,6 +125,7 @@
                         this.messageError(err)
                     })
             },
+            // в скрырые закладки
             async hideResume(resume_id, action){
                 let data = {
                     resume_id: resume_id,
@@ -134,7 +134,11 @@
                 const response = await this.$http.post(`/private-office/resume/hide-resume`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res)
+                            // убрать со страницы поиска
+                            this.$emit('return', {
+                                resume_id: resume_id,
+                                vacancy_id: null
+                            })
                         }
                         // custom ошибки
                         else{
@@ -177,7 +181,6 @@
                 // не авторизован
                 if(this.user == null){
                     this.checkAuth(window.location.pathname)
-                    // this.checkAuth(this.lang.prefix_lang+'resume')
                     event.stopPropagation()
                     return false
                 }
@@ -193,10 +196,11 @@
                     $("#"+but1+resume_id).prop( "disabled", true );
                     // сосед сразу disable
                     $("#"+but3+resume_id).prop( "disabled", true );
-                    // рядом через время not disable
+
+                    // через время not disable
                     setTimeout(() => {
                         $("#"+but2+resume_id).prop( "disabled", false );
-                    }, 500);
+                    }, 2000);
                 }
                 // показал другие, себя изменил
                 else{
@@ -213,10 +217,11 @@
                     }, 500);
                 }
 
-                // что делать с этой вакансией
+                // в сохраненные закладки
                 if(but1 == 'save_'){
                     this.bookmarkResume(resume_id, action)
                 }
+                // в скрырые закладки
                 else if(but1 == 'show_'){
                     this.hideResume(resume_id, action)
                 }

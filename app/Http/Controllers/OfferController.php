@@ -10,8 +10,10 @@ use App\Http\Requests\Offer\SendToArchiveRequest;
 use App\Http\Requests\Offer\UpdateMessageRequest;
 use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\Offer;
+use App\Model\OfferChatArchive;
 use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends BaseController {
 
@@ -33,7 +35,10 @@ class OfferController extends BaseController {
         // настройки содержимого контакт листа
         $settings['contact_information'] = config('site.contacts.contact_information');
 
-        return view('offer.index_offer', compact('offers', 'settings'));
+        $count_archive = OfferChatArchive::where('one_user_id', Auth::user()->id)
+            ->orWhere('two_user_id', Auth::user()->id)->count();
+
+        return view('offer.index_offer', compact('offers', 'settings', 'count_archive'));
     }
 
     /**
@@ -58,9 +63,12 @@ class OfferController extends BaseController {
 
     public function sendToArchive(SendToArchiveRequest $request)
     {
-        $offer = $this->repository->sendToArchive($request);
+        $array = $this->repository->sendToArchive($request);
+        if(!$array[0]){
+            return $this->getErrorResponse($array[1]);
+        }
 
-        return $this->getResponse($offer);
+        return $this->getResponse($array[0]);
     }
 
     public function addMessage(AddMessageRequest $request)

@@ -21,11 +21,10 @@
             >
                 {{trans('respond','respond')}}
             </button>
-
             <!-- общение с -->
             <button v-else
                     class="btn btn-block btn-primary" type="button"
-                    @click="goToConversation()"
+                    @click="goToDialog(owner_vacancy.offer)"
             >
                 {{trans('respond','open_dialog_with')}} {{owner_vacancy.contact.name}}
             </button>
@@ -175,7 +174,9 @@
 
                             <!-- button -->
                             <div class="box-button">
-                                <a href="/" class="btn btn-block btn-outline-danger btn-lg">
+                                <a href="javascript:void(0)" class="btn btn-block btn-outline-danger btn-lg"
+                                   @click.prevent="cancelRespond()"
+                                >
                                     {{trans('vacancies','cancel')}}
                                 </a>
                                 <button type="submit" class="btn btn-block btn-primary btn-lg"
@@ -190,7 +191,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.card -->
             </div>
         </div>
 
@@ -204,6 +204,7 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import drag_drop_file from '../load_files/DragDropFileComponent'
+    import show_resume_vacancy_mixin from "../../mixins/show_resume_vacancy_mixin";
 
     export default {
         delimiters: ['${', '}'], // Avoid Twig conflicts
@@ -216,6 +217,7 @@
             translation,
             response_methods_mixin,
             general_functions_mixin,
+            show_resume_vacancy_mixin
         ],
         data() {
             return {
@@ -262,20 +264,6 @@
                         this.messageError(err)
                     })
             },
-            // перейти в беседу
-            goToConversation(){
-                console.log('go')
-            },
-            makeBackUrl(){
-                let url = '&#060; '
-                if(this.back_url !== undefined && this.back_url[0][0].name !== null){
-                    this.back_url[0].forEach(function(item, i, arr) {
-                        console.log( i + ": " + item.name );
-                        url += '&nbsp; <a href="/'+item.url+'">'+item.name+'</a>&nbsp; |'
-                    });
-                }
-                return url
-            },
             findSimilarVacancy(){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('categories')
@@ -285,17 +273,6 @@
                 params.sort()
 
                 location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
-            },
-            scrollRespond(){
-                if(this.checkAuth(window.location.pathname)){
-                    this.respond_bool = true
-                    setTimeout(() => {
-                        const el = document.getElementById('box-respond');
-                        $('html,body').animate({
-                            scrollTop:$(el).offset().top+"px"
-                        }, 500, 'linear');
-                    }, 500);
-                }
             },
             disableButton() {
                 if(
@@ -318,25 +295,6 @@
             // @emit дочернего
             addResume(file){
                 this.filelist = file
-            },
-            // выбор имени компонента для динамик компонента
-            reset_array: function (a) {
-                // чилдрен присылает значение выбора компонента в масиве в виде обьекта
-                this.$store.commit('tpSetComponent', (typeof a == 'object') ? a.num : a)
-                // open/close modal
-                if (typeof a !== 'object' && a !== 3) {
-                    this.$store.commit('tpSetMenuVisi')
-                }
-            },
-            checkAuth(url) {
-                // не авторизован
-                if(this.user == null){
-                    this.reset_array(0)
-                    $('#authModal').modal('toggle')
-                    localStorage.setItem('url_click_no_auth', url)
-                    return false
-                }
-                return true
             },
         },
         computed: {

@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Model\Offer as Model;
+use App\Model\OfferChatArchive;
 use App\Model\UserCompany;
 use Illuminate\Support\Facades\Auth;
 
@@ -103,10 +104,26 @@ class OfferRepository extends CoreRepository {
 
     public function sendToArchive($request) {
         $offer = $this->getByWithVerification($request);
+        if(is_null($offer)){
+            return [false, 'offer does not exist'];
+        }
 
+        $archive_offer = OfferChatArchive::create([
+            "table_id"=>$offer->id,
+            "one_user_id"=>$offer->one_user_id,
+            "two_user_id"=>$offer->two_user_id,
+            "chat"=>$offer->chat,
+            "one_user_review"=>$offer->one_user_review,
+            "two_user_review"=>$offer->two_user_review,
+            "accepted"=>$offer->accepted,
+            "alias"=>$offer->alias,
+            "table_created_at"=>$offer->created_at,
+            "table_updated_at"=>$offer->updated_at,
+        ]);
 
+        $offer->delete();
 
-        return $offer;
+        return [true];
     }
 
 

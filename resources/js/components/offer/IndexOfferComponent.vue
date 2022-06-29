@@ -55,11 +55,30 @@
                 Предложения
             </h1>
         </div>
+        <!-- No offers -->
+        <div v-if="!content.length" class="callout callout-warning">
+            <b>Предложения отсутствуют.</b>
+            <div>
+                На этой странице отображаются ваши личные переписки с участниками сервиса. Создать чат с кем либо, возможно откликнувшись на документ, перейдя в документ на странице поиска
+                «<a class="link-a" target="_blank"
+                   :href="`${lang.prefix_lang}resume`"
+                >Резюме</a>,
+                <a class="link-a" target="_blank"
+                   :href="`${lang.prefix_lang}vacancy`"
+                >Вакансия</a>».
+                Чат считается устаревшим, спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
+                Перейдя в «Архив предложений» вы всегда можете обратиться к чату. Продолжив общение, он автоматически восстановится в основном каталоге «Предложения».
+            </div>
+        </div>
+        <div v-else class="desc-helper-italic">
+            Чат считается устаревшим, спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
+        </div>
+
         <!-- documents -->
         <div class="bottom-search">
-            <div class="row box-vacancy"
+            <div v-for="(offer, key) in content" :key="key"
+                 class="row box-vacancy"
                  :class="{'new-vacancy': (offer.one_user_id === user.id && offer.one_user_review === 0) || (offer.two_user_id === user.id && offer.two_user_review === 0)}"
-                 v-for="(offer, key) in offers" :key="key"
                  @click.prevent="transitionToOffer(offer.alias)"
             >
                 <!-- user -->
@@ -181,6 +200,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- link to archive -->
+        <a v-if="count_archive > 0"
+            class="link-a to-archive"
+           :href="`${lang.prefix_lang}offers-archive`"
+        >Архив предложений: {{count_archive}} </a>
+
     </div>
 </template>
 
@@ -203,12 +229,12 @@
         },
         data() {
             return {
+                content: {},
                 length_string: 250,
                 position: '',
                 position_list: [],
                 name_query: 'search',
                 name_url: 'offers',
-                chat_index: null,
             }
         },
         methods: {
@@ -270,15 +296,14 @@
             },
             async sendToArchive(event, offer_id, index){
                 event.stopPropagation()
-                this.chat_index = index
                 let data = {
                     offer_id: offer_id,
                 };
                 const response = await this.$http.post(`/offers/send-to-archive`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            console.log(res.data.message)
-                            // location.reload()
+                            this.content.splice(index, 1)
+                            this.count_archive++
                         }
                         // custom ошибки
                         else{
@@ -318,14 +343,18 @@
             'user',
             'lang',
             'offers',
+            'count_archive',
             'settings',
         ],
         mounted() {
             // console.log(this.user)
-            console.log(this.offers)
+            // console.log(this.offers)
 
-            // инициализация всплывающих подсказок
-            $('[data-toggle="tooltip"]').tooltip();
+            this.content = this.offers
+            // инициализация динамических всплывающих подсказок
+            $('body').tooltip({
+                selector: '[data-toggle="tooltip"]'
+            });
         },
     }
 </script>
@@ -333,7 +362,10 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-
+    .to-archive{
+        margin: 18px auto 0 auto;
+        border-bottom: 1px dashed;
+    }
     .box-message{
         width: 80%;
         .direct-chat-text{
