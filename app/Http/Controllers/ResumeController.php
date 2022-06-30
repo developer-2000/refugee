@@ -83,7 +83,7 @@ class ResumeController extends BaseController {
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
-        $arrData['settings'] = $settings;
+        $arrData['respond']['settings'] = $settings;
 
         return view('resumes.show_resume', $arrData);
     }

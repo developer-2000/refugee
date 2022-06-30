@@ -5,8 +5,7 @@
         <show-offer-component
             :user="{{json_encode($user)}}"
             :lang="{{json_encode($lang)}}"
-            :offer="{{json_encode($offer)}}"
-            :settings="{{json_encode($settings)}}"
+            :respond="{{json_encode($respond)}}"
         ></show-offer-component>
     </div>
 @endsection

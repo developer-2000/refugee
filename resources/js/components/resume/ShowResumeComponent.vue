@@ -17,7 +17,7 @@
         <div class="top-panel">
 
             <!-- Откликнуться -->
-            <button v-if="owner_resume == null"
+            <button v-if="respond['owner_resume'] == null"
                     class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
             >
@@ -27,9 +27,9 @@
             <!-- общение с -->
             <button v-else
                     class="btn btn-block btn-primary" type="button"
-                    @click="goToDialog(owner_resume.offer)"
+                    @click="goToDialog(respond['owner_resume'].offer, respond['in_table'])"
             >
-                {{trans('respond','open_dialog_with')}} {{owner_resume.contact.name}}
+                {{trans('respond','open_dialog_with')}} {{respond['owner_resume'].contact.name}}
             </button>
 
             <!-- Найти похожие вакансии -->
@@ -42,7 +42,7 @@
             <!-- кнопки закладок вакансий -->
             <bookmark_buttons
                 :lang="lang"
-                :resume="resume"
+                :resume="respond['resume']"
                 :user="user"
                 :which_button_show="'show_resume'"
             ></bookmark_buttons>
@@ -51,12 +51,12 @@
         <!-- resume -->
         <div class="box-page">
             <resume_template
-                :resume="resume"
-                :settings="settings"
+                :resume="respond['resume']"
+                :settings="respond['settings']"
                 :lang="lang"
                 :page="'show'"
                 :user="user"
-                :contact_list="contact_list"
+                :contact_list="respond['contact_list']"
             ></resume_template>
         </div>
 
@@ -72,8 +72,8 @@
                         Выбрать вакансию
                     </label>
                     <!-- есть vacancy -->
-                    <div v-if="respond_data.arr_vacancy.length">
-                        <div v-for="(obj, key) in respond_data.arr_vacancy" :key="key">
+                    <div v-if="respond['respond_data'].arr_vacancy.length">
+                        <div v-for="(obj, key) in respond['respond_data'].arr_vacancy" :key="key">
                             <input type="radio"
                                    v-model="vacancyObj.vacancy_id"
                                    :id="`vacancy_${key}`"
@@ -176,7 +176,7 @@
         methods: {
             async respondResume(){
                 let formData = new FormData;
-                formData.append('resume_id', this.resume.id);
+                formData.append('resume_id', this.respond['resume'].id);
                 formData.append('vacancy_id', this.vacancyObj.vacancy_id !== null ? this.vacancyObj.vacancy_id : '');
                 formData.append('textarea_letter', this.objTextarea.textarea_letter);
 
@@ -200,8 +200,8 @@
                 let params = new URLSearchParams(window.location.search)
                 params.delete('categories')
                 params.delete('position')
-                params.set('categories',this.resume.categories.toString())
-                params.set('position',this.resume.position.title)
+                params.set('categories',this.respond['resume'].categories.toString())
+                params.set('position',this.respond['resume'].position.title)
                 params.sort()
 
                 location.href = this.lang.prefix_lang+'resume?'+params.toString()
@@ -215,16 +215,14 @@
         },
         props: [
             'lang',   // масив названий и url языка
-            'resume',
-            'settings',
-            'respond_data',
-            'owner_resume',
-            'contact_list',
+            'respond',
             'user',
             'back_url',
         ],
         mounted() {
             this.scrollUp()
+
+            console.log(this.respond)
         },
     }
 </script>

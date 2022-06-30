@@ -82,15 +82,26 @@ Route::group([
         // respond resume
         Route::post('respond-resume', 'RespondController@respondResume');
 
+        // архив чатов
+        Route::group(['prefix'=>'offers/archive'], function (){
+            Route::get('/', 'OfferArchiveController@index');
+            Route::post('add-message', 'OfferArchiveController@addMessage');
+            Route::get('/{alias}', 'OfferArchiveController@show')
+                ->where('alias', '[a-z0-9]+')->name('archive.show');
+        });
         // чаты предложений
         Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
+
         Route::post('offers/add-message', 'OfferController@addMessage');
+
         Route::post('offers/register-viewed-companion', 'OfferController@registerViewedCompanion');
         Route::post('offers/update-message', 'OfferController@updateMessage');
         Route::post('offers/delete', 'OfferController@destroy');
         Route::post('offers/send-to-archive', 'OfferController@sendToArchive');
+        Route::get('offers/{alias}', 'OfferController@show')
+            ->where('alias', '[a-z0-9]+');
         Route::resource('offers', 'OfferController')->only([
-            'index', 'show'
+            'index'
         ]);
 
 

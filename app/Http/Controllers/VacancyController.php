@@ -17,6 +17,7 @@ use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use Illuminate\Support\Facades\Auth;
 
+
 class VacancyController extends BaseController {
     use GeneralVacancyResumeTraite;
 
@@ -69,7 +70,7 @@ class VacancyController extends BaseController {
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
-        $arrData['settings'] = $settings;
+        $arrData['respond']['settings'] = $settings;
 
         return view('vacancies.show_vacancy', $arrData);
     }

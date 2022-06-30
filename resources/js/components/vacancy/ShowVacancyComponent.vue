@@ -15,7 +15,7 @@
         <div class="top-panel">
 
             <!-- Откликнуться -->
-            <button v-if="owner_vacancy == null"
+            <button v-if="respond['owner_vacancy'] == null"
                     class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
             >
@@ -24,9 +24,9 @@
             <!-- общение с -->
             <button v-else
                     class="btn btn-block btn-primary" type="button"
-                    @click="goToDialog(owner_vacancy.offer)"
+                    @click="goToDialog(respond['owner_vacancy'].offer, respond['in_table'])"
             >
-                {{trans('respond','open_dialog_with')}} {{owner_vacancy.contact.name}}
+                {{trans('respond','open_dialog_with')}} {{respond['owner_vacancy'].contact.name}}
             </button>
 
             <!-- Найти похожие вакансии -->
@@ -39,7 +39,7 @@
             <!-- кнопки закладок вакансий -->
             <bookmark_buttons
                 :lang="lang"
-                :vacancy="vacancy"
+                :vacancy="respond['vacancy']"
                 :user="user"
                 :which_button_show="'show_vacancy'"
             ></bookmark_buttons>
@@ -48,12 +48,12 @@
         <!-- vacancy -->
         <div class="box-page">
             <vacancy_template
-                :vacancy="vacancy"
-                :settings="settings"
+                :vacancy="respond['vacancy']"
+                :settings="respond['settings']"
                 :lang="lang"
                 :page="'show'"
                 :user="user"
-                :contact_list="contact_list"
+                :contact_list="respond['contact_list']"
             ></vacancy_template>
         </div>
 
@@ -94,11 +94,11 @@
                                     {{trans('respond','select_cv')}}
                                 </label>
                                 <!-- есть resume сайтовое -->
-                                <div v-if="lookingValueInArrayObjects('type', 0, respond_data.arr_resume)"
+                                <div v-if="lookingValueInArrayObjects('type', 0, respond['respond_data'].arr_resume)"
                                      class="box-yes-resume"
                                 >
                                     <div class="form-group" id="box-radio">
-                                        <div v-for="(obj, key) in respond_data.arr_resume" :key="key">
+                                        <div v-for="(obj, key) in respond['respond_data'].arr_resume" :key="key">
                                             <template v-if="obj.type === 0">
                                                 <input type="radio"
                                                        v-model="resumeObj.resume_id"
@@ -242,7 +242,7 @@
         methods: {
             async respondVacancy(){
                 let formData = new FormData;
-                formData.append('vacancy_id', this.vacancy.id);
+                formData.append('vacancy_id', this.respond['vacancy'].id);
                 formData.append('bool_tab', this.resumeObj.bool_tab);
                 formData.append('resume_id', this.resumeObj.resume_id !== null ? this.resumeObj.resume_id : '');
                 formData.append('textarea_letter', this.objTextarea.textarea_letter);
@@ -268,8 +268,8 @@
                 let params = new URLSearchParams(window.location.search)
                 params.delete('categories')
                 params.delete('position')
-                params.set('categories',this.vacancy.categories.toString())
-                params.set('position',this.vacancy.position.title)
+                params.set('categories',this.respond['vacancy'].categories.toString())
+                params.set('position',this.respond['vacancy'].position.title)
                 params.sort()
 
                 location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
@@ -300,7 +300,7 @@
         computed: {
             initializationFunc() {
                 // есть ли file resume
-                let obj = this.lookingValueInArrayObjects('type', 1, this.respond_data.arr_resume)
+                let obj = this.lookingValueInArrayObjects('type', 1, this.respond['respond_data'].arr_resume)
                 if(obj){
                     this.file_resume = obj
                 }
@@ -308,16 +308,14 @@
         },
         props: [
             'lang',   // масив названий и url языка
-            'vacancy',
-            'settings',
-            'respond_data',
-            'owner_vacancy',
-            'contact_list',
+            'respond',
             'user',
             'back_url',
         ],
         mounted() {
             this.initializationFunc
+
+            console.log(this.respond)
 
             $('html, body').animate({scrollTop: 0},500);
         },

@@ -6,12 +6,10 @@ use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
-use App\Model\User;
 use App\Model\UserResume;
 use App\Model\Vacancy;
 use App\Model\Vacancy as Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class VacancyRepository extends CoreRepository {
     use GeneralVacancyResumeTraite;
@@ -51,6 +49,7 @@ class VacancyRepository extends CoreRepository {
         $respond_data['arr_resume'] = [];
         $owner_vacancy = null;
         $informationRepository = new ContactInformationRepository();
+        $modalOffer = new Offer();
 
         // 1 смотреть вакансию
         $vacancy = Vacancy::where('id', $request->vacancy_id)
@@ -76,16 +75,17 @@ class VacancyRepository extends CoreRepository {
                 $respond = (new RespondResume())->selectByVacancyUserResumeId($request->vacancy_id, $my_user->id);
             }
 
-            // если я подписан на эту вакансию
+            // установлен ли чат ?
             if( $respond ){
                 // 3,1 имя хозяина документа
                 $owner_vacancy = new \stdClass();
                 $owner_vacancy->contact = new \stdClass();
                 $owner_vacancy->contact->name = $vacancy->contact->name;
 
-                // 3,2 alias нашего чата
+                // 3,2 alias нашего чата;
                 $owner_vacancy->offer = null;
-                if($offer = (new Offer())->selectChatByUserId($vacancy->user_id, $my_user->id)){
+
+                if($offer = $modalOffer->selectChatByUserId($vacancy->user_id, $my_user->id)){
                     $owner_vacancy->offer = new \stdClass();
                     $owner_vacancy->offer->alias = $offer->alias;
                 }
@@ -98,10 +98,13 @@ class VacancyRepository extends CoreRepository {
         }
 
         return [
-            'vacancy'=>$vacancy,
-            'respond_data'=>$respond_data,
-            'owner_vacancy'=>$owner_vacancy,
-            'contact_list'=>$contact_list,
+            'respond' => [
+                'in_table' => $modalOffer->inTable,
+                'vacancy' => $vacancy,
+                'respond_data' => $respond_data,
+                'owner_vacancy' => $owner_vacancy,
+                'contact_list' => $contact_list,
+            ]
         ];
     }
 

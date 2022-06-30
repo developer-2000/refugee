@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 trait RespondTraite {
 
 
-//обновить или создать offer chat
+    // обновить или создать offer chat
     public function setDataOffer($offer, $message, $my_id, $user_id=null, $my_document_title=null)
     {
         // 1 обновить существующий

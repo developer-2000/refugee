@@ -5,17 +5,26 @@
             <!-- обратная ссылка -->
             <div class="box-back-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-                <a :href="`${lang.prefix_lang}`">
-                    {{trans('menu.menu','index')}}
-                </a>
-                <span class="bread-slash"> | </span>
-                <a :href="`${lang.prefix_lang}private-office`">
-                    {{trans('menu.menu','cabinet')}}
-                </a>
+
+                <template v-if="respond['table'] === 'offer'">
+                    <a :href="`${lang.prefix_lang}`">
+                        {{trans('menu.menu','index')}}
+                    </a>
+                    <span class="bread-slash"> | </span>
+                    <a :href="`${lang.prefix_lang}private-office`">
+                        {{trans('menu.menu','cabinet')}}
+                    </a>
+                </template>
+                <template v-else>
+                    <a :href="`${lang.prefix_lang}offers`">
+                        Чаты предложений
+                    </a>
+                </template>
+
             </div>
 
             <!-- search line -->
-            <div class="top-search">
+            <div v-if="respond['table'] === 'offer'" class="top-search">
                 <div class="form-group">
                     <div class="box-position">
 
@@ -51,8 +60,11 @@
         </div>
         <!-- title -->
         <div class="search-panel">
-            <h1 class="title_page card-body">
+            <h1 v-if="respond['table'] === 'offer'" class="title_page card-body">
                 Предложения
+            </h1>
+            <h1 v-else class="title_page card-body">
+                Архив предложений
             </h1>
         </div>
         <!-- No offers -->
@@ -66,12 +78,15 @@
                 <a class="link-a" target="_blank"
                    :href="`${lang.prefix_lang}vacancy`"
                 >Вакансия</a>».
-                Чат считается устаревшим, спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
-                Перейдя в «Архив предложений» вы всегда можете обратиться к чату. Продолжив общение, он автоматически восстановится в основном каталоге «Предложения».
+                Чат считается устаревшим спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
+                Перейдя в «Архив предложений» вы всегда можете обратиться к чату. Продолжив общение, чат автоматически восстановится в основном каталоге «Предложения».
             </div>
         </div>
-        <div v-else class="desc-helper-italic">
-            Чат считается устаревшим, спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
+        <div v-else-if="content.length && respond['table'] === 'offer'" class="desc-helper-italic">
+            Чат считается устаревшим спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
+        </div>
+        <div v-else-if="content.length && respond['table'] === 'archive'" class="desc-helper-italic">
+            Продолжив общение, чат автоматически восстановится в основном каталоге «Предложения».
         </div>
 
         <!-- documents -->
@@ -86,10 +101,11 @@
                     <!-- Контакт лист -->
                     <offer_contact_list
                         :offer="offer"
-                        :settings="settings"
+                        :settings="respond['settings']"
                         :user="user"
                         :lang="lang"
                         :page="'offers'"
+                        :table="respond['table']"
                     ></offer_contact_list>
                 </div>
                 <!-- text -->
@@ -99,8 +115,8 @@
                         <div class='font-weight-bold title-chat'>
                             <!-- title -->
                             <div>{{offer.chat[0].title_chat}}</div>
-                            <div class="box-button">
-
+                            <!-- buttons -->
+                            <div v-if="respond['table'] === 'offer'" class="box-button">
                                 <!-- не интересно -->
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                       title="не интересно"
@@ -122,9 +138,7 @@
                                     <svg @click="sendToArchive($event, offer.id, key)"
                                          class="svg-archive link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 320h-96a23.964 23.964 0 0 0-21.47 13.28L321.2 384H190.8l-25.38-50.72C161.4 325.1 153.1 320 144 320H32c-17.67 0-32 14.33-32 32v96c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-80c0-26.5-21.5-48-48-48zm0 128c0 8.822-7.178 16-16 16H64c-8.822 0-16-7.178-16-16v-80h81.16l25.38 50.72C158.6 426.9 166.9 432 176 432h160c9.094 0 17.41-5.125 21.47-13.28L382.8 368H464v80zM238.4 312.3c3.7 4.9 10.9 7.7 17.6 7.7s13.03-2.781 17.59-7.656l104-112c9-9.719 8.438-24.91-1.25-33.94-9.719-8.969-24.88-8.438-33.94 1.25L280 234.9V24c0-13.25-10.75-24-24-24s-24 10.75-24 24v210.9l-62.4-67.2c-9.1-10.6-24.2-10.3-33.9-1.3-10.6 9-10.3 24.2-1.3 33.9l104 112z"/></svg>
                                 </span>
-
                             </div>
-
                         </div>
 
                         <!-- 1 не мой message -->
@@ -165,7 +179,6 @@
                                     <span class="direct-chat-timestamp"
                                           :class="{'read-status': offer.chat[offer.chat.length-1].your_viewing == 1}"
                                     >
-
                                         {{offer.chat[offer.chat.length-1].your_viewing == 0 ? 'не прочитано' : 'прочитано'}}
                                     </span>
                                 </div>
@@ -202,10 +215,10 @@
         </div>
 
         <!-- link to archive -->
-        <a v-if="count_archive > 0"
+        <a v-if="archive_count > 0 && respond['table'] === 'offer'"
             class="link-a to-archive"
-           :href="`${lang.prefix_lang}offers-archive`"
-        >Архив предложений: {{count_archive}} </a>
+           :href="`${lang.prefix_lang}offers/archive`"
+        >Архив предложений: {{archive_count}} </a>
 
     </div>
 </template>
@@ -230,6 +243,7 @@
         data() {
             return {
                 content: {},
+                archive_count: 0,
                 length_string: 250,
                 position: '',
                 position_list: [],
@@ -291,7 +305,7 @@
                     })
                     // ошибки сервера
                     .catch(err => {
-                        this.messageError(err)
+                        location.href = this.lang.prefix_lang+'offers'
                     })
             },
             async sendToArchive(event, offer_id, index){
@@ -303,7 +317,7 @@
                     .then(res => {
                         if(this.checkSuccess(res)){
                             this.content.splice(index, 1)
-                            this.count_archive++
+                            this.archive_count++
                         }
                         // custom ошибки
                         else{
@@ -312,7 +326,7 @@
                     })
                     // ошибки сервера
                     .catch(err => {
-                        this.messageError(err)
+                        location.href = this.lang.prefix_lang+'offers'
                     })
             },
             textChat(text) {
@@ -332,7 +346,12 @@
                 return string
             },
             transitionToOffer(alias){
-                location.href = this.lang.prefix_lang+'offers/'+alias
+                if(this.respond['table'] === 'offer'){
+                    location.href = this.lang.prefix_lang+'offers/'+alias
+                }
+                else{
+                    location.href = this.lang.prefix_lang+'offers/archive/'+alias
+                }
             },
             transitionToLink(event, url){
                 window.open(url)
@@ -342,15 +361,14 @@
         props: [
             'user',
             'lang',
-            'offers',
-            'count_archive',
-            'settings',
+            'respond',
         ],
         mounted() {
             // console.log(this.user)
-            // console.log(this.offers)
+            // console.log(this.respond['offers'])
 
-            this.content = this.offers
+            this.content = this.respond['offers']
+            this.archive_count = this.respond['count_archive']
             // инициализация динамических всплывающих подсказок
             $('body').tooltip({
                 selector: '[data-toggle="tooltip"]'
@@ -362,6 +380,10 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .top-panel > div:first-child {
+        display: flex;
+        align-items: center;
+    }
     .to-archive{
         margin: 18px auto 0 auto;
         border-bottom: 1px dashed;

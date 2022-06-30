@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class Offer extends Model
 {
+    public $inTable = [
+        'offer'=>true,
+        'archive'=>null,
+    ];
     protected $guarded = [];
     protected $casts = [
         'chat' => 'array',
@@ -35,7 +39,8 @@ class Offer extends Model
 
     // чат двух юзеров по id
     public function selectChatByUserId($user_id, $my_id) {
-        return $this->where(function($query) use ($my_id, $user_id) {
+        // 1 offer в своей таблице
+        $offer = $this->where(function($query) use ($my_id, $user_id) {
             $query->where(function ($query) use ($my_id, $user_id) {
                 $query->where('one_user_id', $my_id)
                     ->where('two_user_id', $user_id);
@@ -45,6 +50,26 @@ class Offer extends Model
                         ->where('two_user_id', $my_id);
                 });
         })->first();
+        // 2 offer в архиве
+        if(is_null($offer)){
+            $this->inTable = [
+                'offer'=>null,
+                'archive'=>true,
+            ];
+
+            $offer = OfferChatArchive::where(function($query) use ($my_id, $user_id) {
+                $query->where(function ($query) use ($my_id, $user_id) {
+                    $query->where('one_user_id', $my_id)
+                        ->where('two_user_id', $user_id);
+                })
+                    ->orWhere(function ($query) use ($my_id, $user_id) {
+                        $query->where('one_user_id', $user_id)
+                            ->where('two_user_id', $my_id);
+                    });
+            })->first();
+        }
+
+        return $offer;
     }
 
 

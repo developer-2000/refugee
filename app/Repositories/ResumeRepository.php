@@ -6,7 +6,6 @@ use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
-use App\Model\User;
 use App\Model\UserResume;
 use App\Model\UserResume as Model;
 use App\Model\Vacancy;
@@ -53,6 +52,7 @@ class ResumeRepository extends CoreRepository {
         $respond_data['arr_vacancy'] = [];
         $owner_resume = null;
         $informationRepository = new ContactInformationRepository();
+        $modalOffer = new Offer();
 
         // 1 смотреть резюме
         $resume = UserResume::where('id', $request->resume_id)
@@ -71,7 +71,7 @@ class ResumeRepository extends CoreRepository {
                 $respond = (new RespondVacancy())->selectByResumeUserVacancyId($request->resume_id, $my_user->id);
             }
 
-            // если я подписан на это резюме
+            // установлен ли чат ?
             if( $respond ){
                 // 3,1 имя хозяина документа
                 $owner_resume = new \stdClass();
@@ -80,7 +80,7 @@ class ResumeRepository extends CoreRepository {
 
                 // 3,2 alias нашего чата
                 $owner_resume->offer = null;
-                if($offer = (new Offer())->selectChatByUserId($resume->user_id, $my_user->id)){
+                if($offer = $modalOffer->selectChatByUserId($resume->user_id, $my_user->id)){
                     $owner_resume->offer = new \stdClass();
                     $owner_resume->offer->alias = $offer->alias;
                 }
@@ -93,10 +93,13 @@ class ResumeRepository extends CoreRepository {
         }
 
         return [
-            'resume'=>$resume,
-            'respond_data'=>$respond_data,
-            'owner_resume'=>$owner_resume,
-            'contact_list'=>$contact_list,
+            'respond' => [
+                'in_table' => $modalOffer->inTable,
+                'resume' => $resume,
+                'respond_data' => $respond_data,
+                'owner_resume' => $owner_resume,
+                'contact_list' => $contact_list,
+            ]
         ];
     }
 

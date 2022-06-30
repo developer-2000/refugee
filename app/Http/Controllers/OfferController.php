@@ -12,7 +12,6 @@ use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\Offer;
 use App\Model\OfferChatArchive;
 use App\Repositories\OfferRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OfferController extends BaseController {
@@ -38,20 +37,37 @@ class OfferController extends BaseController {
         $count_archive = OfferChatArchive::where('one_user_id', Auth::user()->id)
             ->orWhere('two_user_id', Auth::user()->id)->count();
 
-        return view('offer.index_offer', compact('offers', 'settings', 'count_archive'));
+        return view('offer.index_offer', [
+            'respond' => [
+                'table'=>'offer',
+                'offers'=>$offers,
+                'settings'=>$settings,
+                'count_archive'=>$count_archive,
+            ]
+        ]);
     }
 
     /**
      * просмотр чата по id
-     * @param  Offer  $offer
+     * @param $alias
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Offer $offer)
-    {   // настройки содержимого контакт листа
+    public function show($alias) {
+        $offer = Offer::where('alias',$alias)->first();
+        if(is_null($offer)){
+            return redirect()->route('archive.show', ['alias' => $alias]);
+        }
+        // настройки содержимого контакт листа
         $settings['contact_information'] = config('site.contacts.contact_information');
         $offer = $this->repository->show($offer->id);
 
-        return view('offer.show_offer', compact('offer', 'settings'));
+        return view('offer.show_offer', [
+            'respond' => [
+                'table'=>'offer',
+                'offer'=>$offer,
+                'settings'=>$settings,
+            ]
+        ]);
     }
 
     public function destroy(DeleteElementRequest $request)
@@ -78,9 +94,10 @@ class OfferController extends BaseController {
         return $this->getResponse($last_chat);
     }
 
+
     /**
      * обновисть сообщение в чате
-     * @param  AddMessageRequest  $request
+     * @param  UpdateMessageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateMessage(UpdateMessageRequest $request)

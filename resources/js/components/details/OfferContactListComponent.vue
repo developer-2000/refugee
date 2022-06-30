@@ -23,8 +23,11 @@
                     <div v-else class="not-specified">Должность не указана</div>
 
                     <!-- time last message -->
-                    <div class="time-last-message">
+                    <div v-if="table === 'offer'" class="time-last-message">
                         {{getDateString(offer.updated_at)}}
+                    </div>
+                    <div v-else class="time-last-message">
+                        {{getDateString(offer.table_updated_at)}}
                     </div>
 
                 </div>
@@ -211,6 +214,7 @@
             'lang',
             'offer',
             'page',
+            'table',
         ],
         mounted() {
             // console.log(this.offer.contact_list)

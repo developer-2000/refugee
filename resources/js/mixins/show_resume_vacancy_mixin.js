@@ -12,9 +12,12 @@ export default {
         scrollUp(){
             $('html, body').animate({scrollTop: 0},500);
         },
-        goToDialog(offer){
-            if(offer !== null){
+        goToDialog(offer, in_table){
+            if(offer !== null && in_table['offer']){
                 location.href = this.lang.prefix_lang+'offers/'+offer.alias
+            }
+            else{
+                location.href = this.lang.prefix_lang+'offers/archive/'+offer.alias
             }
         },
         // выбор имени компонента для динамик компонента

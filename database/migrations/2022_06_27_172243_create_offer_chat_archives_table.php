@@ -27,10 +27,12 @@ class CreateOfferChatArchivesTable extends Migration
             $table->tinyInteger('one_user_review')->default(0);
             $table->tinyInteger('two_user_review')->default(0);
             $table->tinyInteger('accepted')->default(0);
-            $table->string('alias', 100)->unique();
+            $table->string('alias', 100)->unique()->index();
 
             $table->timestamp('table_created_at')->comment('create table');
             $table->timestamp('table_updated_at')->comment('update table');
+
+            $table->timestamps();
         });
     }
 
