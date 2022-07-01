@@ -159,13 +159,12 @@
                 if(!this.checkAuth(window.location)){
                     return false
                 }
-                if(!this.contact_list.access.received_respond){
+                if(this.contact_list.offer_url === null){
                     this.message("" +
-                        "Вам не открыты данные этого контакта. Откликнитесь на одну из вакансий этой компании. " +
-                        "Работодатель должен принять ваш отклик для начало прямой переписки." , 'success', 20000, true);
+                        "Вашего чата не существует. Для этого откликнитесь на одну из вакансий этой компании и продолжите писать свое предложение.", 'success', 20000, true);
                 }
                 else{
-                    alert('Сделать открытие чата')
+                    window.open(this.lang.prefix_lang+this.contact_list.offer_url)
                 }
             },
             checkAuth(url) {
@@ -187,7 +186,7 @@
             'contact_list',
         ],
         mounted() {
-            // console.log(this.contact_list)
+            console.log(this.contact_list)
         },
     }
 </script>

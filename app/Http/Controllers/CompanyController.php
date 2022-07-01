@@ -6,11 +6,16 @@ use App\Http\Requests\Company\CheckTransliterationRequest;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Model\MakeGeographyDb;
+use App\Model\Offer;
+use App\Model\OfferChatArchive;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
+use App\Repositories\OfferArchiveRepository;
+use App\Repositories\OfferRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends BaseController {
 
@@ -61,6 +66,7 @@ class CompanyController extends BaseController {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($alias){
+        $my_user = Auth::user();
         $company = UserCompany::where('alias', $alias)
             ->with(
                 'image',
@@ -76,6 +82,19 @@ class CompanyController extends BaseController {
         $contact_list = (new ContactInformationRepository())->fillContactList(
             $company->contact, $company->user_id
         );
+        $contact_list['offer_url'] = null;
+
+        if(!is_null($my_user)){
+            $ourOffer = (new OfferRepository())->getOurChat($company->user_id, $my_user->id);
+            if(is_null($ourOffer)){
+                if($ourOffer = (new OfferArchiveRepository())->getOurChat($company->user_id, $my_user->id)){
+                    $contact_list['offer_url'] = "offers/archive/$ourOffer->alias";
+                }
+            }
+            else{
+                $contact_list['offer_url'] = "offers/$ourOffer->alias";
+            }
+        }
 
         $settings = config('site.settings_vacancy');
         $settings['categories'] = config('site.categories.categories');

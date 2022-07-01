@@ -18,7 +18,7 @@ class OfferRepository extends CoreRepository {
     }
 
     public function index($request) {
-        // 1 мои чаты с обьектом контакта
+        // 1 мои чаты и контакты собеседника
         $offers = $this->getMyChats();
         // 2 если был поиск по названию или fullname
         $offers = $this->indexFilter($request, $offers);
@@ -292,5 +292,26 @@ class OfferRepository extends CoreRepository {
                 });
         })->first();
     }
+
+    /**
+     * выбрать чат двух участников
+     * @param $user_id
+     * @param $my_id
+     * @return mixed
+     */
+    public function getOurChat($user_id, $my_id)
+    {
+        return $this->model->where(function($query) use ($user_id, $my_id) {
+            $query->where(function ($query) use ($user_id, $my_id) {
+                $query->where('one_user_id', $user_id)
+                    ->where('two_user_id', $my_id);
+            })
+            ->orWhere(function ($query) use ($user_id, $my_id) {
+                $query->where('one_user_id', $my_id)
+                    ->where('two_user_id', $user_id);
+            });
+        })->first();
+    }
+
 
 }

@@ -94,7 +94,7 @@ trait OfferAndArchiveTrait
 
     // PRIVATE
     /**
-     * выбрать чат по id с данными контакта моего собеседника
+     * выбрать чат с данными контакта моего собеседника
      * @param $field
      * @param $offer_id
      * @return mixed
@@ -103,7 +103,6 @@ trait OfferAndArchiveTrait
     {
         $company = null;
         $my_id = Auth::user()->id;
-        // 1 выбрать все мои чаты с контактами собеседника
         $offer = $this->model->where($field, $offer_id)
             ->with(["contact_one_user" => function($q) use($my_id){
                 $q->where('user_id', '!=', $my_id);

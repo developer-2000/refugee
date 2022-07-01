@@ -69,6 +69,25 @@ class OfferArchiveRepository extends CoreRepository {
         return $offer->chat[count($offer->chat)-1];
     }
 
+    /**
+     * выбрать чат двух участников
+     * @param $user_id
+     * @param $my_id
+     * @return mixed
+     */
+    public function getOurChat($user_id, $my_id)
+    {
+        return $this->model->where(function($query) use ($user_id, $my_id) {
+            $query->where(function ($query) use ($user_id, $my_id) {
+                $query->where('one_user_id', $user_id)
+                    ->where('two_user_id', $my_id);
+            })
+                ->orWhere(function ($query) use ($user_id, $my_id) {
+                    $query->where('one_user_id', $my_id)
+                        ->where('two_user_id', $user_id);
+                });
+        })->first();
+    }
 
     private function sendToOffer($request) {
         $archive = $this->getChat('table_id', $request->offer_id);
