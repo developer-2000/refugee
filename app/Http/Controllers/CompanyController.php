@@ -78,12 +78,13 @@ class CompanyController extends BaseController {
                 'contact.position'
             )->firstOrFail();
 
-        // 4 заполить контакт лист
+        // 1 заполить контакт лист
         $contact_list = (new ContactInformationRepository())->fillContactList(
             $company->contact, $company->user_id
         );
         $contact_list['offer_url'] = null;
 
+        // 2 добавить url нашего чата
         if(!is_null($my_user)){
             $ourOffer = (new OfferRepository())->getOurChat($company->user_id, $my_user->id);
             if(is_null($ourOffer)){

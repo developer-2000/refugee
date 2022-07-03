@@ -435,6 +435,9 @@
 <style scoped lang="scss">
     @import "../../../../sass/variables";
 
+    .link-a{
+        float: right;
+    }
     .box-textarea{
         margin: 15px 0;
     }
@@ -469,14 +472,6 @@
 
     .box-title {
         padding: 0;
-        /*.title-vacancy {*/
-        /*    margin: 0 5px 10px 0!important;*/
-        /*    padding: 0;*/
-        /*    line-height: 25px;*/
-        /*    height: 25px;*/
-        /*    float: left;*/
-        /*    max-width: 60%;*/
-        /*}*/
         .company-vacancy,
         .default-company{
             display: flex;
