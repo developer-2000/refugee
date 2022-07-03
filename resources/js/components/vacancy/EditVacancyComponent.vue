@@ -867,16 +867,16 @@
 
                 // Location
                 this.objLocations.load_countries = this.settings.obj_countries
-                this.objLocations.country = this.vacancy.country.code
+                this.objLocations.country = this.vacancy.country.local.code
                 this.loadRegions();
                 if(this.vacancy.region != null){
-                    this.objLocations.region = this.vacancy.region.code
+                    this.objLocations.region = this.vacancy.region.local.code
                     setTimeout(() => {
                         this.loadCity()
                     }, 500);
                 }
                 if(this.vacancy.city != null){
-                    this.objLocations.city = this.vacancy.city.code
+                    this.objLocations.city = this.vacancy.city.local.code
                 }
                 setTimeout(() => {
                     this.objLocations.bool_rest_address = true

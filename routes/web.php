@@ -131,10 +131,10 @@ Route::group([
                 Route::get('my-vacancies', 'VacancyController@myVacancies');
                 Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
                 Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
-                Route::post('bookmark-vacancy', 'VacancyController@bookmarkVacancy');
-                Route::get('bookmark-vacancies', 'VacancyController@bookmarkVacancies');
-                Route::post('hide-vacancy', 'VacancyController@hideVacancy');
-                Route::get('hidden-vacancies', 'VacancyController@hiddenVacancies');
+                Route::post('bookmark-vacancy', 'VacancyController@setBookmarkVacancy');
+                Route::get('bookmark-vacancies', 'VacancyController@getBookmarkVacancies');
+                Route::post('hide-vacancy', 'VacancyController@setHideVacancy');
+                Route::get('hidden-vacancies', 'VacancyController@getHiddenVacancies');
             });
             Route::resource('vacancy', 'VacancyController')->only([
                 'create', 'store', 'edit', 'update'
@@ -146,10 +146,10 @@ Route::group([
                 Route::get('my-resumes', 'ResumeController@myResumes');
                 Route::post('up-resume-status', 'ResumeController@upResumeStatus');
                 Route::post('duplicate-resume', 'ResumeController@duplicateResume');
-                Route::post('bookmark-resume', 'ResumeController@bookmarkResume');
-                Route::get('bookmark-resumes', 'ResumeController@bookmarkResumes');
-                Route::post('hide-resume', 'ResumeController@hideResume');
-                Route::get('hidden-resumes', 'ResumeController@hiddenResumes');
+                Route::post('bookmark-resume', 'ResumeController@setBookmarkResume');
+                Route::get('bookmark-resumes', 'ResumeController@getBookmarkResumes');
+                Route::post('hide-resume', 'ResumeController@setHideResume');
+                Route::get('hidden-resumes', 'ResumeController@getHiddenResumes');
             });
             Route::resource('resume', 'ResumeController')->only([
                 'create', 'store', 'edit', 'update'
@@ -160,8 +160,8 @@ Route::group([
 
     // localisation
     Route::group(['prefix'=>'localisation'], function (){
-        Route::post('/get-region', 'MakeGeographyDbController@getRegion');
-        Route::post('/get-city', 'MakeGeographyDbController@getCity');
+        Route::post('/get-region', 'GeographyDbController@getRegion');
+        Route::post('/get-city', 'GeographyDbController@getCity');
     });
 
     // change language

@@ -2,7 +2,8 @@
 namespace App\Http\Traits;
 
 use App\Http\Requests\Vacancy\SearchPositionRequest;
-use App\Model\MakeGeographyDb;
+use App\Model\GeographyDb;
+use App\Model\GeographyLocal;
 use App\Model\Position;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -82,7 +83,7 @@ trait GeneralVacancyResumeTraite {
      */
     private function getSettingsDocumentsAndCountries(){
         $settings = config('site.settings_vacancy');
-        if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
+        if($objCountries = GeographyDb::where('id', 1)->select('country')->first()){
             $settings['obj_countries'] = $objCountries['country']['EN'];
         }
         $settings['categories'] = config('site.categories.categories');
@@ -344,5 +345,31 @@ trait GeneralVacancyResumeTraite {
         }
 
         return $this->model;
+    }
+
+    /**
+     * создает и возвращает id локации
+     * @param $request
+     * @param $property
+     * @param  int  $type
+     * @param  string  $prefix
+     * @return |null
+     */
+    private function createGetGeoLocal($request, $property, $type=0, $prefix = ''){
+        $col_id = null;
+
+        if($request->$property !== null){
+            $coll = GeographyLocal::firstOrCreate(
+                ["local->code" => $request->$property[0]['code']],
+                [
+                    'local' => $request->$property[0],
+                    'alias' => mb_strtolower($request->$property[0]['name']).$prefix,
+                    'type' => $type
+                ]
+            );
+            $col_id = $coll->id;
+        }
+
+        return $col_id;
     }
 }

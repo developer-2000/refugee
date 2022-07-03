@@ -1,21 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Company\CheckTransliterationRequest;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
-use App\Model\MakeGeographyDb;
-use App\Model\Offer;
-use App\Model\OfferChatArchive;
+use App\Model\GeographyDb;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
 use App\Repositories\OfferArchiveRepository;
 use App\Repositories\OfferRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CompanyController extends BaseController {
 
@@ -74,6 +69,7 @@ class CompanyController extends BaseController {
                 'vacancies.company.image',
                 'vacancies.id_saved_vacancies',
                 'vacancies.id_hide_vacancies',
+                'vacancies.country','vacancies.region','vacancies.city',
                 'contact.avatar',
                 'contact.position'
             )->firstOrFail();
@@ -122,7 +118,7 @@ class CompanyController extends BaseController {
      */
     private function getSettings(){
         $settings['categories'] = config('site.categories.categories');
-        if($objCountries = MakeGeographyDb::where('id', 1)->select('country')->first()){
+        if($objCountries = GeographyDb::where('id', 1)->select('country')->first()){
             $settings['obj_countries'] = $objCountries['country']['EN'];
         }
         $settings['count_working'] = config('site.company.count_working');

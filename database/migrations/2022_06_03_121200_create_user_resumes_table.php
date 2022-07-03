@@ -27,9 +27,10 @@ class CreateUserResumesTable extends Migration
 
             $table->string('alias', 100)->unique()->comment('url resume');
 
-            $table->string('country')->index()->nullable()->default(null)->comment('страна');
-            $table->string('region')->index()->nullable()->default(null)->comment('регион');
-            $table->string('city')->index()->nullable()->default(null)->comment('город');
+            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('region_id')->nullable()->default(null);
+            $table->unsignedBigInteger('city_id')->nullable()->default(null);
+
             $table->timestamp('data_birth')->nullable()->default(null)->comment('дата рождения');
             $table->string('categories')->index()->nullable()->default(null)->comment('категории резюме');
             $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, коментарий');
@@ -44,6 +45,13 @@ class CreateUserResumesTable extends Migration
             $table->tinyInteger('published')->default(0)->comment('0=close, 1=open - проверка админом');
 
             $table->timestamps();
+        });
+
+        Schema::table('user_resumes', function(Blueprint $table)
+        {
+            $table->foreign('country_id')->references('id')->on('geography_locals')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('geography_locals')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('geography_locals')->onDelete('cascade');
         });
     }
 

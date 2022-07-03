@@ -314,9 +314,6 @@
         ],
         mounted() {
             this.initializationFunc
-
-            console.log(this.respond)
-
             $('html, body').animate({scrollTop: 0},500);
         },
     }

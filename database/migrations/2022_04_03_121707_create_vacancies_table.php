@@ -22,9 +22,11 @@ class CreateVacanciesTable extends Migration
 
             $table->string('categories')->index()->nullable()->default(null)->comment('категории вакансии');
             $table->string('languages')->index()->nullable()->default(null)->comment('языки вакансии');
-            $table->string('country')->index()->comment('страна');
-            $table->string('region')->index()->nullable()->default(null)->comment('регион');
-            $table->string('city')->index()->nullable()->default(null)->comment('город');
+
+            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('region_id')->nullable()->default(null);
+            $table->unsignedBigInteger('city_id')->nullable()->default(null);
+
             $table->string('rest_address')->index()->comment('остальной адрес');
             $table->json('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
             $table->tinyInteger('type_employment')->index()->comment('работа - полная / не полная / удаленка');
@@ -39,6 +41,13 @@ class CreateVacanciesTable extends Migration
             $table->string('alias', 100)->unique()->comment('url вакансии');
             $table->boolean('published')->default(false)->comment('опубликованность');
             $table->timestamps();
+        });
+
+        Schema::table('vacancies', function(Blueprint $table)
+        {
+            $table->foreign('country_id')->references('id')->on('geography_locals')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('geography_locals')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('geography_locals')->onDelete('cascade');
         });
     }
 

@@ -10,19 +10,12 @@ use App\Http\Requests\Resume\StoreResumeRequest;
 use App\Http\Requests\Resume\UpdateResumeRequest;
 use App\Http\Requests\Resume\UpResumeStatusRequest;
 use App\Http\Requests\Resume\DuplicateResumeRequest;
-use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
-use App\Model\MakeGeographyDb;
-use App\Model\Position;
 use App\Model\RespondResume;
-use App\Model\User;
 use App\Model\UserHideResume;
 use App\Model\UserResume;
 use App\Model\UserSaveResume;
-use App\Model\Vacancy;
 use App\Repositories\ResumeRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends BaseController {
@@ -53,7 +46,7 @@ class ResumeController extends BaseController {
         }
 
         $resumes = $resumes->where('type', 0)
-            ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes')
+            ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes','country','region','city')
             ->paginate(10);
 
         // 5 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
@@ -118,7 +111,7 @@ class ResumeController extends BaseController {
     {
         $resume = UserResume::where('id', $request->id)
             ->where('user_id', Auth::user()->id)
-            ->with('position')
+            ->with('position','country','region','city')
             ->first();
         if(!$resume){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
@@ -152,8 +145,9 @@ class ResumeController extends BaseController {
     {
         $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = UserResume::where('user_id', Auth::user()->id)
-            ->with('position', 'contact.avatar')
+            ->with('position', 'contact.avatar','country','region','city')
             ->withCount('respond')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('resumes.my_resumes', compact('resumes','settings'));
@@ -204,7 +198,7 @@ class ResumeController extends BaseController {
      * @param  SaveResumeRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function bookmarkResume(SaveResumeRequest $request)
+    public function setBookmarkResume(SaveResumeRequest $request)
     {
         $this->switchActionBookmark($request, new UserSaveResume(), 'resume_id');
         return $this->getResponse();
@@ -214,11 +208,11 @@ class ResumeController extends BaseController {
      * показ сохраненных резюме в закладках
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bookmarkResumes()
+    public function getBookmarkResumes()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = UserSaveResume::where('user_id', Auth::user()->id)
-            ->with('resume.position','resume.contact.avatar')
+            ->with('resume.position','resume.contact.avatar','resume.country','resume.region','resume.city')
             ->get();
         return view('resumes.bookmark_resumes', compact('settings','resumes'));
     }
@@ -228,7 +222,7 @@ class ResumeController extends BaseController {
      * @param  SaveResumeRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function hideResume(SaveResumeRequest $request)
+    public function setHideResume(SaveResumeRequest $request)
     {
         $this->switchActionBookmark($request, new UserHideResume(), 'resume_id');
         return $this->getResponse();
@@ -238,11 +232,11 @@ class ResumeController extends BaseController {
      * показ скрытых резюме в закладках
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function hiddenResumes()
+    public function getHiddenResumes()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = UserHideResume::where('user_id', Auth::user()->id)
-            ->with('resume.position','resume.contact.avatar')
+            ->with('resume.position','resume.contact.avatar','resume.country','resume.region','resume.city')
             ->get();
 
         return view('resumes.hidden_resumes', compact('settings','resumes'));

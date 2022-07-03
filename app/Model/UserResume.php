@@ -14,9 +14,6 @@ class UserResume extends Model
         'languages' => 'array',
         'vacancy_suitable' => 'json',
         'salary' => 'json',
-        'country' => 'json',
-        'region' => 'json',
-        'city' => 'json',
         'job_posting' => 'json',
     ];
 
@@ -59,6 +56,18 @@ class UserResume extends Model
         $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
         return $this->hasMany(UserHideResume::class, 'resume_id', 'id')
             ->where('user_id',$user_id);
+    }
+
+    public function country() {
+        return $this->belongsTo(GeographyLocal::class, 'country_id', 'id');
+    }
+
+    public function region() {
+        return $this->belongsTo(GeographyLocal::class, 'region_id', 'id');
+    }
+
+    public function city() {
+        return $this->belongsTo(GeographyLocal::class, 'city_id', 'id');
     }
 
 }

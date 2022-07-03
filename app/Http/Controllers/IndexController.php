@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Vacancy\JobSearchRequest;
+use App\Model\GeographyLocal;
 use App\Model\Image;
 use App\Model\Position;
 use App\Model\Test;
@@ -35,11 +36,9 @@ class IndexController extends Controller {
         return view('index', compact('transition_url_page'));
     }
 
-//    public function test() {
-//
-//        $time = Carbon::now();
-//
-//        dd(Carbon::now()->format('d M Y H:i'));
-//    }
+    public function test() {
+
+
+    }
 
 }

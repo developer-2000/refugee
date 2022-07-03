@@ -45,7 +45,7 @@ class VacancyController extends BaseController {
         }
 
         $vacancies = $vacancies
-            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies')
+            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies','country','region','city')
             ->paginate(10);
 
         // 4 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
@@ -105,7 +105,7 @@ class VacancyController extends BaseController {
     {
         $vacancy = Vacancy::where('id', $request->id)
             ->where('user_id', Auth::user()->id)
-            ->with('position')
+            ->with('position','country','region','city')
             ->first();
         if(!$vacancy){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
@@ -140,8 +140,9 @@ class VacancyController extends BaseController {
     {
         $settings = config('site.settings_vacancy');
         $vacancies = Vacancy::where('user_id', Auth::user()->id)
-            ->with('position')
+            ->with('position','country','region','city')
             ->withCount('respond')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('vacancies/my_vacancies', compact('vacancies','settings'));
@@ -192,7 +193,7 @@ class VacancyController extends BaseController {
      * @param  SaveVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function bookmarkVacancy(SaveVacancyRequest $request)
+    public function setBookmarkVacancy(SaveVacancyRequest $request)
     {
         $this->switchActionBookmark($request, new UserSaveVacancy(), 'vacancy_id');
         return $this->getResponse();
@@ -202,11 +203,11 @@ class VacancyController extends BaseController {
      * показ сохраненных вакансий в закладках
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bookmarkVacancies()
+    public function getBookmarkVacancies()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
         $vacancies = UserSaveVacancy::where('user_id', Auth::user()->id)
-            ->with('vacancy.position','vacancy.company.image')
+            ->with('vacancy.position','vacancy.company.image','vacancy.country','vacancy.region','vacancy.city')
             ->get();
 
         return view('vacancies.bookmark_vacancies', compact('settings','vacancies'));
@@ -217,7 +218,7 @@ class VacancyController extends BaseController {
      * @param  SaveVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function hideVacancy(SaveVacancyRequest $request)
+    public function setHideVacancy(SaveVacancyRequest $request)
     {
         $this->switchActionBookmark($request, new UserHideVacancy(), 'vacancy_id');
         return $this->getResponse();
@@ -227,11 +228,11 @@ class VacancyController extends BaseController {
      * показ скрытых вакансий в закладках
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function hiddenVacancies()
+    public function getHiddenVacancies()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
         $vacancies = UserHideVacancy::where('user_id', Auth::user()->id)
-            ->with('vacancy.position','vacancy.company.image')
+            ->with('vacancy.position','vacancy.company.image','vacancy.country','vacancy.region','vacancy.city')
             ->get();
 
         return view('vacancies.hidden_vacancies', compact('settings','vacancies'));

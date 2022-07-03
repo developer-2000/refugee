@@ -1,15 +1,15 @@
 <?php
 namespace App\Services;
 
-use App\Http\Traits\MakeGeographyDbTraite;
-use App\Model\MakeGeographyDb;
+use App\Http\Traits\GeographyDbTraite;
+use App\Model\GeographyDb;
 use MenaraSolutions\Geographer\Earth;
 
 // предназначен для заливки данных в базу - стран , регионов, городов
 // инфа используется юзерами при указании своего адреса
 class MakeLocationDbServices {
 
-    use MakeGeographyDbTraite;
+    use GeographyDbTraite;
 
     protected $earth;
     protected $lang;
@@ -43,7 +43,7 @@ class MakeLocationDbServices {
             $this->arrLangCounty[$lang] = $arrCountry;
         }
 
-        MakeGeographyDb::updateOrCreate(
+        GeographyDb::updateOrCreate(
             ['id' => '1'],
             ['country' => $this->arrLangCounty]
         );
@@ -86,7 +86,7 @@ class MakeLocationDbServices {
 
             $this->arrLangRegion[$lang] = $countryStates;
         }
-        MakeGeographyDb::updateOrCreate(
+        GeographyDb::updateOrCreate(
             ['id' => '1'],
             ['regions' => $this->arrLangRegion]
         );
@@ -121,7 +121,7 @@ class MakeLocationDbServices {
             $this->arrLangCities[$lang] = $arrayRegions;
         }
 
-        MakeGeographyDb::updateOrCreate(
+        GeographyDb::updateOrCreate(
             ['id' => '1'],
             ['cities' => $this->arrLangCities]
         );

@@ -56,7 +56,14 @@ class ResumeRepository extends CoreRepository {
 
         // 1 смотреть резюме
         $resume = UserResume::where('id', $request->resume_id)
-            ->with('position','contact.avatar','contact.position','id_saved_resumes','id_hide_resumes')
+            ->with(
+                'position',
+                'contact.avatar',
+                'contact.position',
+                'id_saved_resumes',
+                'id_hide_resumes',
+                'country','region','city'
+            )
             ->first();
 
         // 2 контакт лист хозяина документа
@@ -118,9 +125,9 @@ class ResumeRepository extends CoreRepository {
     private function makeArrayResume($request, $position){
         return [
             'position_id'=>$position->id,
-            'country' => $request->country !== null ? $request->country[0] : null,
-            'region' => $request->region !== null ? $request->region[0] : null,
-            'city' => $request->city !== null ? $request->city[0] : null,
+            'country_id' => $this->createGetGeoLocal($request, 'country', 0, ''),
+            'region_id' => $this->createGetGeoLocal($request, 'region', 1, '_reg'),
+            'city_id' => $this->createGetGeoLocal($request, 'city', 2, ''),
             'data_birth'=>Carbon::parse($request->data_birth),
             'categories'=>$request->categories,
             'salary'=>[

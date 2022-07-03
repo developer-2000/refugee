@@ -306,6 +306,7 @@
     import date_mixin from "../../../mixins/date_mixin";
     import response_methods_mixin from "../../../mixins/response_methods_mixin";
     import contact_list_component from "../../details/ContactListDocumentComponent";
+    import template_resume_vacancy_mixin from "../../../mixins/template_resume_vacancy_mixin";
 
     export default {
         components: {
@@ -315,41 +316,13 @@
             translation,
             general_functions_mixin,
             response_methods_mixin,
-            date_mixin
+            date_mixin,
+            template_resume_vacancy_mixin
         ],
         data() {
             return { }
         },
         methods: {
-            salaryView(salaryObj){
-                let salary_string = ''
-                let arr_field = this.settings.salary[salaryObj.radio_name]
-                $.each(arr_field, function(key, name) {
-                    salary_string += salaryObj.inputs[name]
-                    if( (key+1) < arr_field.length){
-                        salary_string += ' - '
-                    }
-                })
-                salary_string = salary_string == '' ? 0 : salary_string
-                return salary_string
-            },
-            addressView(vacancyObj){
-                let address_string = ''
-
-                if(vacancyObj.country !== null){
-                    address_string += vacancyObj.country.name+'.'
-                }
-                if(vacancyObj.region !== null){
-                    address_string += ' ' + vacancyObj.region.name+'.'
-                }
-                if(vacancyObj.city !== null){
-                    address_string += ' ' + vacancyObj.city.name+'.'
-                }
-
-                address_string += ' ' + vacancyObj.rest_address+'.'
-
-                return address_string
-            },
             async changeStatus(event, id, index){
                 event.stopPropagation()
                 let data = {
@@ -390,31 +363,6 @@
                     .catch(err => {
                         this.messageError(err)
                     })
-            },
-            // статус и дни вакансии
-            getStatus(statusObj){
-                let html_status = '<div class="mode standard">'
-                html_status += statusObj.status_name
-                html_status += '</div>'
-
-                if(statusObj.status_name == 'hidden'){
-                    html_status += '<div class="balance-mode">'
-                    html_status += '~ 0 дней'
-                }
-                else{
-                    // прибавить месяц к дате пуюликации
-                    let create_date = new Date(statusObj.create_time)
-                    create_date.setMonth(create_date.getMonth() + 1)
-                    // сколько осталось дней у публикации
-                    let count_day = this.getDifferenceDays(create_date, Date.now())
-
-                    html_status += '<div class="balance-mode standard">'
-                    html_status += '~ '+count_day+' дней'
-                }
-
-                html_status += '</div>'
-
-                return html_status
             },
         },
         props: [

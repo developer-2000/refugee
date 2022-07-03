@@ -260,13 +260,13 @@
                 let address_string = ''
 
                 if(vacancyObj.country !== null){
-                    address_string += vacancyObj.country.name+'.'
+                    address_string += vacancyObj.country.alias+'.'
                 }
                 if(vacancyObj.region !== null){
-                    address_string += ' ' + vacancyObj.region.name+'.'
+                    address_string += ' ' + vacancyObj.region.alias+'.'
                 }
                 if(vacancyObj.city !== null){
-                    address_string += ' ' + vacancyObj.city.name+'.'
+                    address_string += ' ' + vacancyObj.city.alias+'.'
                 }
 
                 address_string += ' ' + vacancyObj.rest_address+'.'

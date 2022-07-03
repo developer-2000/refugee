@@ -12,4 +12,5 @@ class UserSaveVacancy extends Model
     public function vacancy() {
         return $this->belongsTo(Vacancy::class, 'vacancy_id', 'id');
     }
+
 }

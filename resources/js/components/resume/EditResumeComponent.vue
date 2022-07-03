@@ -721,16 +721,16 @@
                 this.position = this.resume.position.title
                 // Location
                 this.objLocations.load_countries = this.settings.obj_countries
-                this.objLocations.country = this.resume.country.code
+                this.objLocations.country = this.resume.country.local.code
                 this.loadRegions();
                 if(this.resume.region !== null){
-                    this.objLocations.region = this.resume.region.code
+                    this.objLocations.region = this.resume.region.local.code
                     setTimeout(() => {
                         this.loadCity()
                     }, 500);
                 }
                 if(this.resume.city !== null){
-                    this.objLocations.city = this.resume.city.code
+                    this.objLocations.city = this.resume.city.local.code
                 }
                 // день рождения
                 this.data_birth = this.resume.data_birth

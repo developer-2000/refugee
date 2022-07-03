@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Model\GeographyLocal;
 use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
@@ -59,7 +60,8 @@ class VacancyRepository extends CoreRepository {
                 'contact.position',
                 'company.image',
                 'id_saved_vacancies',
-                'id_hide_vacancies'
+                'id_hide_vacancies',
+                'country','region','city'
             )
             ->first();
 
@@ -125,9 +127,9 @@ class VacancyRepository extends CoreRepository {
             'position_id'=>$position->id,
             'categories'=>$request->categories,
             'languages'=>$request->languages,
-            'country'=>$request->country !== null ? $request->country[0] : null,
-            'region'=>$request->region !== null ? $request->region[0] : null,
-            'city'=>$request->city !== null ? $request->city[0] : null,
+            'country_id' => $this->createGetGeoLocal($request, 'country', 0, ''),
+            'region_id' => $this->createGetGeoLocal($request, 'region', 1, '_reg'),
+            'city_id' => $this->createGetGeoLocal($request, 'city', 2, ''),
             'rest_address'=>$request->rest_address,
             'vacancy_suitable'=>[
                 'radio_name'=>$request->vacancy_suitable,
