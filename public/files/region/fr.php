@@ -1,0 +1,26 @@
+<?php 
+
+  return [
+ "provence-alpes-côte_d'azur_reg"=>"Provence-Alpes-Côte d'Azur",
+"pays_de_la_loire_reg"=>"Pays de la Loire",
+"île-de-france_reg"=>"Île-de-France",
+"corsica_reg"=>"Corsica",
+"centre_reg"=>"Centre",
+"brittany_reg"=>"Brittany",
+"burgundy_reg"=>"Burgundy",
+"aquitaine_reg"=>"Aquitaine",
+"lower_normandy_reg"=>"Lower Normandy",
+"alsace_reg"=>"Alsace",
+"languedoc-roussillon_reg"=>"Languedoc-Roussillon",
+"nord-pas-de-calais_reg"=>"Nord-Pas-de-Calais",
+"auvergne_reg"=>"Auvergne",
+"rhône-alpes_reg"=>"Rhône-Alpes",
+"poitou-charentes_reg"=>"Poitou-Charentes",
+"picardie_reg"=>"Picardie",
+"midi-pyrénées_reg"=>"Midi-Pyrénées",
+"lorraine_reg"=>"Lorraine",
+"limousin_reg"=>"Limousin",
+"upper_normandy_reg"=>"Upper Normandy",
+"franche-comté_reg"=>"Franche-Comté",
+"champagne-ardenne_reg"=>"Champagne-Ardenne",
+];

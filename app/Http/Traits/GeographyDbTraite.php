@@ -110,4 +110,76 @@ trait GeographyDbTraite {
     return $arraySity;
     }
 
+
+    private function createFileCountry($array){
+        foreach ($array as $key => $arr){
+            $line = "<?php \n\n  return [\n ";
+            $str = mb_strtolower($arr["name"]);
+            $str = str_replace(" ", "_", $str);
+            $value = $arr["name"];
+            $line .= "'$str'=>'$value',\n ";
+            $line .= "];";
+
+            $code = mb_strtolower($arr["code"]);
+            file_put_contents("files/country/$code.php", $line);
+        }
+    }
+
+    private function createFileRegion($array, $prefix=''){
+        foreach ($array as $key_name => $arr){
+            $line = "<?php \n\n  return [\n ";
+            foreach ($arr as $index => $arr2){
+                $str = mb_strtolower($arr2["name"]);
+                $str = str_replace(" ", "_", $str).$prefix;
+                $value = $arr2["name"];
+                $line .= '"'.$str.'"=>"'.$value.'",'."\n";
+            }
+            $line .= "];";
+
+            $code = mb_strtolower($key_name);
+            file_put_contents("files/region/$code.php", $line);
+        }
+    }
+
+    private function createFileCity($array, $prefix=''){
+        $arrCities = [];
+        // подготовительный масив
+        foreach ($array as $code => $arr) {
+            $name_country = $this->returnNameCountry($this->arrLangRegion['EN'], $code);
+            // создать подмасив страны
+            if(!isset($arrCities[$name_country])){
+                $arrCities[$name_country] = [];
+            }
+            $arrCities[$name_country][] = ['name'=>$arr[0]['name']];
+        }
+
+        foreach ($arrCities as $key_name => $arr) {
+            $line = "<?php \n\n  return [\n ";
+
+            foreach ($arr as $index => $arr2) {
+                $str = mb_strtolower($arr2["name"]);
+                $str = str_replace(" ", "_", $str).$prefix;
+                $value = $arr2["name"];
+                $line .= '"'.$str.'"=>"'.$value.'",'."\n";
+            }
+
+            $line .= "];";
+
+            $code = mb_strtolower($key_name);
+            file_put_contents("files/city/$code.php", $line);
+        }
+    }
+
+    private function returnNameCountry($array, $code){
+        $nameReg = null;
+        foreach ($array as $name => $arr) {
+            // var_dump( $arr );
+            if (array_search($code, array_column($arr, 'code')) !== false) {
+                $nameReg = $name;
+                break;
+            }
+        }
+        return $nameReg;
+    }
+
 }

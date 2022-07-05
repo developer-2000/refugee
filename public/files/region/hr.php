@@ -1,0 +1,25 @@
+<?php 
+
+  return [
+ "bjelovarsko-bilogorska_reg"=>"Bjelovarsko-Bilogorska",
+"brodsko-posavska_reg"=>"Brodsko-Posavska",
+"dubrovačko-neretvanska_reg"=>"Dubrovačko-Neretvanska",
+"istarska_reg"=>"Istarska",
+"karlovačka_reg"=>"Karlovačka",
+"koprivničko-križevačka_reg"=>"Koprivničko-Križevačka",
+"krapinsko-zagorska_reg"=>"Krapinsko-Zagorska",
+"ličko-senjska_reg"=>"Ličko-Senjska",
+"međimurska_reg"=>"Međimurska",
+"osječko-baranjska_reg"=>"Osječko-Baranjska",
+"požeško-slavonska_reg"=>"Požeško-Slavonska",
+"primorsko-goranska_reg"=>"Primorsko-Goranska",
+"šibensko-kninska_reg"=>"Šibensko-Kninska",
+"sisačko-moslavačka_reg"=>"Sisačko-Moslavačka",
+"splitsko-dalmatinska_reg"=>"Splitsko-Dalmatinska",
+"varaždinska_reg"=>"Varaždinska",
+"vukovarsko-srijemska_reg"=>"Vukovarsko-Srijemska",
+"zadarska_reg"=>"Zadarska",
+"zagrebačka_reg"=>"Zagrebačka",
+"grad_zagreb_reg"=>"Grad Zagreb",
+"virovitičko-podravska_reg"=>"Virovitičko-Podravska",
+];

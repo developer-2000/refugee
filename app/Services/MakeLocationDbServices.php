@@ -11,6 +11,8 @@ class MakeLocationDbServices {
 
     use GeographyDbTraite;
 
+    protected $boolInsertDB = true;          // внести данные локации в базу
+    protected $boolCreateFileNames = false;  // создавать файлы названий
     protected $earth;
     protected $lang;
     protected $settingsCountry;
@@ -34,8 +36,9 @@ class MakeLocationDbServices {
     //              "code" => "AF"
     //              "name" => "Afghanistan"
     public function allCountry() {
+        $arrCountry = null;
 
-        foreach ($this->lang as $key1 => $lang){
+        foreach ($this->lang as $key => $lang){
             // api все страны на указанном языке
             $all_county = $this->earth->getCountries()->setLocale($lang)->toArray();
             // создает custom array
@@ -43,10 +46,15 @@ class MakeLocationDbServices {
             $this->arrLangCounty[$lang] = $arrCountry;
         }
 
-        GeographyDb::updateOrCreate(
-            ['id' => '1'],
-            ['country' => $this->arrLangCounty]
-        );
+        if($this->boolInsertDB){
+            GeographyDb::updateOrCreate(
+                ['id' => '1'],
+                ['country' => $this->arrLangCounty]
+            );
+        }
+        if($this->boolCreateFileNames){
+            $this->createFileCountry($arrCountry);
+        }
 
         // создать custom регионы стран на разных языках
         $this->allRegions();
@@ -62,6 +70,7 @@ class MakeLocationDbServices {
     //              "code" => 1121143,
     //              "name" => "Zabul"
     protected function allRegions () {
+        $countryStates = [];
 
         // перебрать языки
         foreach ($this->lang as $key1 => $lang){
@@ -86,10 +95,16 @@ class MakeLocationDbServices {
 
             $this->arrLangRegion[$lang] = $countryStates;
         }
-        GeographyDb::updateOrCreate(
-            ['id' => '1'],
-            ['regions' => $this->arrLangRegion]
-        );
+
+        if($this->boolInsertDB){
+            GeographyDb::updateOrCreate(
+                ['id' => '1'],
+                ['regions' => $this->arrLangRegion]
+            );
+        }
+        if($this->boolCreateFileNames){
+            $this->createFileRegion($countryStates, '_reg');
+        }
 
         $this->allCities();
     }
@@ -121,14 +136,22 @@ class MakeLocationDbServices {
             $this->arrLangCities[$lang] = $arrayRegions;
         }
 
-        GeographyDb::updateOrCreate(
-            ['id' => '1'],
-            ['cities' => $this->arrLangCities]
-        );
+        if($this->boolInsertDB){
+            GeographyDb::updateOrCreate(
+                ['id' => '1'],
+                ['cities' => $this->arrLangCities]
+            );
+        }
+        if($this->boolCreateFileNames){
+            $this->createFileCity($this->arrLangCities['EN'], '_city');
+        }
 
         $this->arrLangCities = null;
         $this->arrLangRegion = null;
         $this->arrLangCounty = null;
     }
+
+
+
 
 }
