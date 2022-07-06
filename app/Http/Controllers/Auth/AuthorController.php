@@ -93,7 +93,7 @@ class AuthorController extends BaseController
             Auth::guard('web')->login($user);
         }
 
-        $lang = (new LanguageService())->getLanguageArray();
+//        $lang = (new LanguageService())->getLanguageArray();
 
         return redirect(session('prefix_lang'));
     }
