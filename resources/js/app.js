@@ -41,7 +41,10 @@ Vue.component('show-offer-component', require('./components/offer/ShowOfferCompo
 Vue.component('contact_information', require('./components/contact_information/ContactInformationComponent').default);
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
-
+// admin panel
+Vue.component('sign-in-component', require('./components/admin_panel/SignInComponent').default);
+Vue.component('top-navigation-bar', require('./components/admin_panel/TopNavbar.vue').default);
+Vue.component('left_sidebar', require('./components/admin_panel/LeftSidebar.vue').default);
 
 const app = new Vue({
     el: '#app',

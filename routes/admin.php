@@ -1,37 +1,23 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
+
 //->middleware('auth:api')
+
+// обращение через - /admin-panel
 Route::namespace('Admin')->group( function () {
 
-    Route::get('/', function () {
-        return 'Hello World';
-    });
+    Route::get('/', 'AdminController@accessPanel')->name('admin.index');
 
-    Route::prefix('language')->group( function () {
-        // заменить язык на сервере
-//        Route::post('change_language', 'LanguageAdminController@changeLanguage');
-    });
-
-
+    // auth
     Route::prefix('auth')->group( function () {
-        // создать админа и выслать сообщение на Email для продолжения регистрации
-//        Route::post('signup_admin', 'AuthAdminController@signupAdmin');
+        Route::post('sign-in', 'AdminController@signIn');
+        Route::get('logout', 'AdminController@logout');
     });
 
 });
 
-// ===========================================
-// ===========================================
-// БЕЗ АВТОРИЗАЦИИ
-Route::namespace('Admin')->group( function () {
-    // 1 Auth
-    Route::prefix('auth')->group( function () {
-        // продолжение регистрации админа
-//        Route::post('continue_signup_admin', 'AuthAdminController@continueSignup');
-    });
-});
+
 
 
 

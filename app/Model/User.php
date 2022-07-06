@@ -34,4 +34,13 @@ class User extends Authenticatable
         return $this->hasOne(UserContact::class, 'user_id', 'id');
     }
 
+    public function permission() {
+        return $this->belongsToMany(
+            Permission::class,     // конечная модель
+            UserPermission::class,  // промежуточная модель
+            'user_id',
+            'permission_id'
+        );
+    }
+
 }
