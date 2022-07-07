@@ -39,10 +39,9 @@ Route::group(['prefix'=>'technical'], function (){
     });
 });
 
-Route::group([
-    // переключение url и translation сайта
-    'prefix' => Localization::locale(),
-], function () {
+// переключение url и translation сайта
+Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function () {
+    Route::group(['middleware' => ['redirect_admin']], function () {
 
     Route::get('/', 'IndexController@index')->name('index');
 
@@ -168,6 +167,7 @@ Route::group([
     Route::get('language/{name}', 'LanguageController@changeLanguage')
         ->name('language');
 
+    });
 });
 
 

@@ -1,6 +1,18 @@
 <?php
 
 return [
+    'url_country' => [
+        'original'=>'/files/country/original/',
+        'translate'=>'/files/country/translate/ru/',
+    ],
+    'url_region' => [
+        'original'=>'/files/region/original/',
+        'translate'=>'/files/region/translate/ru/',
+    ],
+    'url_city' => [
+        'original'=>'/files/city/original/',
+        'translate'=>'/files/city/translate/ru/',
+    ],
 
     'languages' => [
         /*

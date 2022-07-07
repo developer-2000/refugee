@@ -15,6 +15,12 @@ Route::namespace('Admin')->group( function () {
         Route::get('logout', 'AdminController@logout');
     });
 
+    // только admin
+    Route::group(['middleware' => ['only_admin']], function () {
+
+        Route::get('index', 'AdminCountryController@index');
+
+    });
 });
 
 

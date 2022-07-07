@@ -5,7 +5,6 @@ use App\Http\Requests\Admin\SignInRequest;
 use App\Http\Traits\AdminTrait;
 use Illuminate\Support\Facades\Auth;
 
-
 class AdminController extends AdminBaseController {
     use AdminTrait;
 
@@ -45,52 +44,5 @@ class AdminController extends AdminBaseController {
 
         return redirect()->route('admin.index');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

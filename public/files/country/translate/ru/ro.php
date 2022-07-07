@@ -1,0 +1,5 @@
+<?php
+
+  return [
+      'romania'=>'Румыния',
+ ];

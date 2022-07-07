@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Vacancy\JobSearchRequest;
 use App\Model\GeographyLocal;
+use App\Model\GeographyTranslate;
 use App\Model\Image;
 use App\Model\Position;
 use App\Model\Test;
@@ -37,8 +38,13 @@ class IndexController extends Controller {
     }
 
     public function test() {
-
+//dd(public_path());
 
     }
+
+
+
+
+
 
 }

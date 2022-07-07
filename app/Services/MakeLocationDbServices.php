@@ -19,22 +19,29 @@ class MakeLocationDbServices {
     protected $arrLangCounty = [];
     protected $arrLangRegion = [];
     protected $arrLangCities = [];
+    protected $url_country = '';
+    protected $url_region = '';
+    protected $url_city = '';
 
     public function __construct() {
         $this->earth = new Earth();
         $this->lang = config('site.settings_location_db.lang');
         $this->settingsCountry = config('site.settings_location_db.country');
+        $this->url_country = config('site.locale.url_country')['original'];
+        $this->url_region = config('site.locale.url_region')['original'];
+        $this->url_city = config('site.locale.url_city')['original'];
         $this->allCountry();
     }
 
-    // ============================================================
-    // ============================================================
-    // сделать custom array стран
-    // языки [
-    //  "RU" => страны [▼
-    //          0 => страна [▼
-    //              "code" => "AF"
-    //              "name" => "Afghanistan"
+
+    /**
+ * сделать custom array стран
+    языки [
+        "RU" => страны [▼
+            0 => страна [▼
+                "code" => "AF"
+                "name" => "Afghanistan"
+     */
     public function allCountry() {
         $arrCountry = null;
 
@@ -60,15 +67,15 @@ class MakeLocationDbServices {
         $this->allRegions();
     }
 
-    // ============================================================
-    // ============================================================
-    // заполнить регионами
-    // языки [
-    //  "EN" => страны [
-    //    "AF" => штаты [
-    //       0 => штат [
-    //              "code" => 1121143,
-    //              "name" => "Zabul"
+    /**
+* заполнить регионами
+    языки [
+        "EN" => страны [
+            "AF" => штаты [
+                0 => штат [
+                    "code" => 1121143,
+                    "name" => "Zabul"
+     */
     protected function allRegions () {
         $countryStates = [];
 
@@ -103,15 +110,15 @@ class MakeLocationDbServices {
             );
         }
         if($this->boolCreateFileNames){
-            $this->createFileRegion($countryStates, '_reg');
+            $this->createFileRegion($countryStates, '');
         }
 
         $this->allCities();
     }
 
-    // ============================================================
-    // ============================================================
-    // язык + регион + города
+    /**
+     * язык + регион + города
+     */
     protected function allCities () {
 
         // перебор языков
@@ -143,15 +150,15 @@ class MakeLocationDbServices {
             );
         }
         if($this->boolCreateFileNames){
-            $this->createFileCity($this->arrLangCities['EN'], '_city');
+            $this->createFileCity($this->arrLangCities['EN'], '');
         }
 
         $this->arrLangCities = null;
         $this->arrLangRegion = null;
         $this->arrLangCounty = null;
+
+        // записать в базу переводы локаций
+        $this->enterTranslationIntoDatabase();
     }
-
-
-
 
 }
