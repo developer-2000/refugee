@@ -3,15 +3,15 @@
 return [
     'url_country' => [
         'original'=>'/files/country/original/',
-        'translate'=>'/files/country/translate/ru/',
+        'translate'=>'/files/country/translate/',
     ],
     'url_region' => [
         'original'=>'/files/region/original/',
-        'translate'=>'/files/region/translate/ru/',
+        'translate'=>'/files/region/translate/',
     ],
     'url_city' => [
         'original'=>'/files/city/original/',
-        'translate'=>'/files/city/translate/ru/',
+        'translate'=>'/files/city/translate/',
     ],
 
     'languages' => [

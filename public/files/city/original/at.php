@@ -1,10 +1,10 @@
 <?php 
 
   return [
- "vienna_city"=>"Vienna",
-"innsbruck_city"=>"Innsbruck",
-"graz_city"=>"Graz",
-"salzburg_city"=>"Salzburg",
-"wels_city"=>"Wels",
-"villach_city"=>"Villach",
+ "vienna"=>"Vienna",
+"innsbruck"=>"Innsbruck",
+"graz"=>"Graz",
+"salzburg"=>"Salzburg",
+"wels"=>"Wels",
+"villach"=>"Villach",
 ];

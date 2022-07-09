@@ -3,10 +3,9 @@
 
     @section('content')
 
-{{--        <admin_panel--}}
-{{--            :response="{{json_encode($response)}}"--}}
-{{--            :now_lang="{{json_encode($now_lang)}}"--}}
-{{--        ></admin_panel>--}}
+        <admin-panel
+            :response="{{json_encode($response)}}"
+        ></admin-panel>
 
     @endsection
 

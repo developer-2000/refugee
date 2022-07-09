@@ -1,6 +1,6 @@
 <?php 
 
   return [
- "vojvodina_reg"=>"Vojvodina",
-"kosovo-metohija_reg"=>"Kosovo-Metohija",
+ "vojvodina"=>"Vojvodina",
+"kosovo-metohija"=>"Kosovo-Metohija",
 ];

@@ -1,11 +1,11 @@
 <?php 
 
   return [
- "slavonski_brod_city"=>"Slavonski Brod",
-"pula_city"=>"Pula",
-"osijek_city"=>"Osijek",
-"rijeka_city"=>"Rijeka",
-"split_city"=>"Split",
-"zadar_city"=>"Zadar",
-"zagreb_city"=>"Zagreb",
+ "slavonski_brod"=>"Slavonski Brod",
+"pula"=>"Pula",
+"osijek"=>"Osijek",
+"rijeka"=>"Rijeka",
+"split"=>"Split",
+"zadar"=>"Zadar",
+"zagreb"=>"Zagreb",
 ];

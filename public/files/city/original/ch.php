@@ -1,11 +1,11 @@
 <?php 
 
   return [
- "zürich_city"=>"Zürich",
-"lausanne_city"=>"Lausanne",
-"sankt_gallen_city"=>"Sankt Gallen",
-"luzern_city"=>"Luzern",
-"genève_city"=>"Genève",
-"bern_city"=>"Bern",
-"basel_city"=>"Basel",
+ "zürich"=>"Zürich",
+"lausanne"=>"Lausanne",
+"sankt_gallen"=>"Sankt Gallen",
+"luzern"=>"Luzern",
+"genève"=>"Genève",
+"bern"=>"Bern",
+"basel"=>"Basel",
 ];

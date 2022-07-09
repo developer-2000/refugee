@@ -1,11 +1,11 @@
 <?php 
 
   return [
- "elbasan_city"=>"Elbasan",
-"korçë_city"=>"Korçë",
-"durrës_city"=>"Durrës",
-"fier-çifçi_city"=>"Fier-Çifçi",
-"shkodër_city"=>"Shkodër",
-"tirana_city"=>"Tirana",
-"vlorë_city"=>"Vlorë",
+ "elbasan"=>"Elbasan",
+"korçë"=>"Korçë",
+"durrës"=>"Durrës",
+"fier-çifçi"=>"Fier-Çifçi",
+"shkodër"=>"Shkodër",
+"tirana"=>"Tirana",
+"vlorë"=>"Vlorë",
 ];

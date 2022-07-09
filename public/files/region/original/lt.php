@@ -1,14 +1,14 @@
 <?php 
 
   return [
- "alytaus_apskritis_reg"=>"Alytaus apskritis",
-"kauno_apskritis_reg"=>"Kauno apskritis",
-"klaipėdos_apskritis_reg"=>"Klaipėdos apskritis",
-"marijampolės_apskritis_reg"=>"Marijampolės apskritis",
-"panevėžio_apskritis_reg"=>"Panevėžio Apskritis",
-"šiaulių_apskritis_reg"=>"Šiaulių Apskritis",
-"tauragės_apskritis_reg"=>"Tauragės apskritis",
-"telšių_apskritis_reg"=>"Telšių apskritis",
-"utenos_apskritis_reg"=>"Utenos Apskritis",
-"vilniaus_apskritis_reg"=>"Vilniaus Apskritis",
+ "alytaus_apskritis"=>"Alytaus apskritis",
+"kauno_apskritis"=>"Kauno apskritis",
+"klaipėdos_apskritis"=>"Klaipėdos apskritis",
+"marijampolės_apskritis"=>"Marijampolės apskritis",
+"panevėžio_apskritis"=>"Panevėžio Apskritis",
+"šiaulių_apskritis"=>"Šiaulių Apskritis",
+"tauragės_apskritis"=>"Tauragės apskritis",
+"telšių_apskritis"=>"Telšių apskritis",
+"utenos_apskritis"=>"Utenos Apskritis",
+"vilniaus_apskritis"=>"Vilniaus Apskritis",
 ];

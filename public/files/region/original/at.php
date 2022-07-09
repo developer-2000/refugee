@@ -1,13 +1,13 @@
 <?php 
 
   return [
- "vienna_reg"=>"Vienna",
-"vorarlberg_reg"=>"Vorarlberg",
-"tyrol_reg"=>"Tyrol",
-"styria_reg"=>"Styria",
-"salzburg_reg"=>"Salzburg",
-"upper_austria_reg"=>"Upper Austria",
-"lower_austria_reg"=>"Lower Austria",
-"carinthia_reg"=>"Carinthia",
-"burgenland_reg"=>"Burgenland",
+ "vienna"=>"Vienna",
+"vorarlberg"=>"Vorarlberg",
+"tyrol"=>"Tyrol",
+"styria"=>"Styria",
+"salzburg"=>"Salzburg",
+"upper_austria"=>"Upper Austria",
+"lower_austria"=>"Lower Austria",
+"carinthia"=>"Carinthia",
+"burgenland"=>"Burgenland",
 ];

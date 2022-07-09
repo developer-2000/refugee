@@ -1,7 +1,7 @@
 <?php 
 
   return [
- "tartu_city"=>"Tartu",
-"narva_city"=>"Narva",
-"tallinn_city"=>"Tallinn",
+ "tartu"=>"Tartu",
+"narva"=>"Narva",
+"tallinn"=>"Tallinn",
 ];

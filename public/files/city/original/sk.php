@@ -1,12 +1,12 @@
 <?php 
 
   return [
- "košice_city"=>"Košice",
-"prešov_city"=>"Prešov",
-"žilina_city"=>"Žilina",
-"banská_bystrica_city"=>"Banská Bystrica",
-"bratislava_city"=>"Bratislava",
-"prievidza_city"=>"Prievidza",
-"trenčín_city"=>"Trenčín",
-"trnava_city"=>"Trnava",
+ "košice"=>"Košice",
+"prešov"=>"Prešov",
+"žilina"=>"Žilina",
+"banská_bystrica"=>"Banská Bystrica",
+"bratislava"=>"Bratislava",
+"prievidza"=>"Prievidza",
+"trenčín"=>"Trenčín",
+"trnava"=>"Trnava",
 ];

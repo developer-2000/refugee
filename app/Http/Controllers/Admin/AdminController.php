@@ -13,10 +13,9 @@ class AdminController extends AdminBaseController {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function accessPanel() {
+        $this->test();
         if($this->checkAccess('admin')) {
-            $response = [
-                "logo_text"=>["uk"=>env("APP_NAME_UK"), "en"=>env("APP_NAME_EN")]
-            ];
+            $response = [];
             return view('admin_panel.admin_panel', compact('response'));
         }
 
@@ -39,10 +38,19 @@ class AdminController extends AdminBaseController {
         return $this->getErrorResponse();
     }
 
+    /**
+     * разлогирование
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout() {
         Auth::logout();
 
         return redirect()->route('admin.index');
     }
 
+    public function test() {
+
+        (new \App\Services\MakeLocationDbServices());
+
+    }
 }

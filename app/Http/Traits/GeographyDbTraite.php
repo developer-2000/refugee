@@ -124,7 +124,8 @@ trait GeographyDbTraite {
             $line .= "];";
 
             $code = mb_strtolower($arr["code"]);
-            file_put_contents("$this->url_country.$code.php", $line);
+
+            file_put_contents(public_path().$this->url_country['original'].$code.".php", $line);
         }
     }
 
@@ -145,7 +146,7 @@ trait GeographyDbTraite {
             $line .= "];";
 
             $code = mb_strtolower($key_name);
-            file_put_contents("$this->url_region.$code.php", $line);
+            file_put_contents(public_path().$this->url_region['original'].$code.".php", $line);
         }
     }
 
@@ -179,21 +180,19 @@ trait GeographyDbTraite {
             $line .= "];";
 
             $code = mb_strtolower($key_name);
-            file_put_contents("$this->url_city.$code.php", $line);
+            file_put_contents(public_path().$this->url_city['original'].$code.".php", $line);
         }
     }
 
     /**
      * записать в базу переводы локаций
+     * (изначально полностью ru, uk базу заливаю ru, в en базу заливаю оригинал)
+     *
      */
     private function enterTranslationIntoDatabase(){
-        $url_country = config('site.locale.url_country');
-        $url_region = config('site.locale.url_region');
-        $url_city = config('site.locale.url_city');
-
-        $arrCountries = $this->makeArrayContent($url_country["translate"], $url_country["original"]);
-        $arrRegions = $this->makeArrayContent($url_region["translate"], $url_region["original"]);
-        $arrCities = $this->makeArrayContent($url_city["translate"], $url_city["original"]);
+        $arrCountries = $this->makeArrayContent($this->url_country["translate"], $this->url_country["original"]);
+        $arrRegions = $this->makeArrayContent($this->url_region["translate"], $this->url_region["original"]);
+        $arrCities = $this->makeArrayContent($this->url_city["translate"], $this->url_city["original"]);
 
         GeographyTranslate::updateOrCreate(
             ['id' => '1'],
@@ -212,48 +211,108 @@ trait GeographyDbTraite {
      * @return array
      */
     private function makeArrayContent($url_translate, $url_original) {
+        $url_translate = $url_translate."ru/";
         $arrTranslate = [];
         $languages = config('site.locale.languages');
-        $files = scandir(public_path() . $url_translate);
 
-        foreach ($languages as $name_lang => $array){
+        // перебераю все языки перевода
+        foreach ($languages as $name_lang => $array) {
             // 1 создается префикс перевода
             $arrTranslate[mb_strtoupper($name_lang)] = [];
 
-            // перебрать все файлы в папке
-            foreach ($files as $key => $name){
-                if (strripos($name, ".php") !== false) {
-                    // масив названий с переводом
-                    $arrTitle = include public_path() . $url_translate.$name;
-                    $prefix = substr($name, 0, strpos($name, "."));
+            // готовый перевод ru залить в ru и uk
+            if ($name_lang === 'ru' || $name_lang === 'uk') {
+                // выборка файлов в папке ru
+                $files = scandir(public_path().$url_translate);
+                // перебрать все файлы в папке
+                foreach ($files as $key => $name) {
+                    if (strripos($name, ".php") !== false) {
+                        // содержимое файла
+                        $arrProperties = include public_path().$url_translate.$name;
+                        $prefix = substr($name, 0, strpos($name, "."));
 
-                    // готовый перевод ru и похожий uk
-                    if($name_lang === 'ru' || $name_lang === 'uk'){
                         $arrTranslate[mb_strtoupper($name_lang)][$prefix] = [];
-                        foreach ($arrTitle as $name_title => $value){
-                            $arrTranslate[mb_strtoupper($name_lang)][$prefix][$name_title] = $value;
+                        foreach ($arrProperties as $property => $value) {
+                            $arrTranslate[mb_strtoupper($name_lang)][$prefix][$property] = $value;
+                        }
+                    }
+                }
+            }
+            else{
+                // в других случаях беру en перевод
+                $files = scandir(public_path() . $url_original);
+                foreach ($files as $key => $name){
+                    if (strripos($name, ".php") !== false) {
+                        // содержимое файла
+                        $arrProperties = include public_path() . $url_original.$name;
+                        $prefix = substr($name, 0, strpos($name, "."));
+                        $arrTranslate[mb_strtoupper($name_lang)][$prefix] = [];
+
+                        foreach ($arrProperties as $property => $value){
+                            $arrTranslate[mb_strtoupper($name_lang)][$prefix][$property] = $value;
                         }
                     }
                 }
             }
         }
 
-        // только для EN - залить оригинал перевод
-        $files = scandir(public_path() . $url_original);
-        foreach ($files as $key => $name){
-            if (strripos($name, ".php") !== false) {
-                // масив названий с переводом
-                $arrTitle = include public_path() . $url_original.$name;
-                $prefix = substr($name, 0, strpos($name, "."));
-                $arrTranslate['EN'][$prefix] = [];
+        return $arrTranslate;
+    }
 
-                foreach ($arrTitle as $name_title => $value){
-                    $arrTranslate['EN'][$prefix][$name_title] = $value;
+    /**
+     * обновляю записи в базе для языков не RU и не EN (UK и другие файлы возможно были созданы в предыдущей работе с переводами)
+     */
+    private function updateTranslationIntoDatabase(){
+        $translateCollection = GeographyTranslate::firstWhere('id', 1);
+        $arrCountries = $this->updateArrayContent($this->url_country["translate"], $translateCollection->country);
+        $arrRegions = $this->updateArrayContent($this->url_region["translate"], $translateCollection->country);
+        $arrCities = $this->updateArrayContent($this->url_city["translate"], $translateCollection->country);
+
+        GeographyTranslate::updateOrCreate(
+            ['id' => '1'],
+            [
+                'country'=>$arrCountries,
+                'regions'=>$arrRegions,
+                'cities'=>$arrCities,
+            ]
+        );
+    }
+
+    private function updateArrayContent($url_translate, $rowDb) {
+        $languages = config('site.locale.languages');
+
+        // $name_lang - язык перевода
+        foreach ($languages as $name_lang => $array) {
+
+            // EN перезаписывается, поэтому смысла в обновлении значений Нет
+            if($name_lang !== 'en'){
+                // путь к папке перевода
+                $url_dir_translate = public_path().$url_translate."$name_lang/";
+
+                // что-то есть ?
+                if (is_dir($url_dir_translate)) {
+                    $files = scandir($url_dir_translate);
+
+                    // перебрать все файлы в папке
+                    foreach ($files as $key => $name) {
+                        // только php файлы
+                        if (strripos($name, ".php") !== false) {
+                            // содержимое файла
+                            $arrProperties = include $url_dir_translate.$name;
+                            $prefix_country = substr($name, 0, strpos($name, "."));
+
+                            // перебор записей файла
+                            foreach ($arrProperties as $property => $value) {
+                                // 1 замена значений в обьекте базы
+                                $rowDb[mb_strtoupper($name_lang)][$prefix_country][$property] = $value;
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        return $arrTranslate;
+        return $rowDb;
     }
 
     private function returnNameCountry($array, $code){

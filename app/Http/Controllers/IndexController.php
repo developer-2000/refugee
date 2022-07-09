@@ -37,10 +37,11 @@ class IndexController extends Controller {
         return view('index', compact('transition_url_page'));
     }
 
-    public function test() {
-//dd(public_path());
-
-    }
+//    public function test() {
+//
+//        (new \App\Services\MakeLocationDbServices());
+//
+//    }
 
 
 

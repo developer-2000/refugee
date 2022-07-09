@@ -66,5 +66,8 @@ export default {
                 this.$store.commit('tpSetMenuVisi')
             }
         },
+        transitionToUrl(url){
+            location.href = url
+        },
     },
 }

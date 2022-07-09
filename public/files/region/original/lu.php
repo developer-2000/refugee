@@ -1,16 +1,16 @@
 <?php 
 
   return [
- "luxembourg_reg"=>"Luxembourg",
-"grevenmacher_reg"=>"Grevenmacher",
-"diekirch_reg"=>"Diekirch",
-"capellen_reg"=>"Capellen",
-"clervaux_reg"=>"Clervaux",
-"echternach_reg"=>"Echternach",
-"esch-sur-alzette_reg"=>"Esch-sur-Alzette",
-"mersch_reg"=>"Mersch",
-"redange_reg"=>"Redange",
-"remich_reg"=>"Remich",
-"vianden_reg"=>"Vianden",
-"wiltz_reg"=>"Wiltz",
+ "luxembourg"=>"Luxembourg",
+"grevenmacher"=>"Grevenmacher",
+"diekirch"=>"Diekirch",
+"capellen"=>"Capellen",
+"clervaux"=>"Clervaux",
+"echternach"=>"Echternach",
+"esch-sur-alzette"=>"Esch-sur-Alzette",
+"mersch"=>"Mersch",
+"redange"=>"Redange",
+"remich"=>"Remich",
+"vianden"=>"Vianden",
+"wiltz"=>"Wiltz",
 ];

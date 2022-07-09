@@ -1,5 +1,5 @@
 <?php 
 
   return [
- "luxembourg_city"=>"Luxembourg",
+ "luxembourg"=>"Luxembourg",
 ];

@@ -44,10 +44,20 @@
     <top-navigation-bar></top-navigation-bar>
     {{-- боковое меню --}}
     <left_sidebar
-        :response="{{json_encode($response)}}"
+        :logo_text="{{json_encode($logo_text)}}"
     ></left_sidebar>
 
-    @yield('content')
+    <div class="content-wrapper">
+        @yield('content')
+    </div>
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.0.0-rc.5
+        </div>
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        reserved.
+    </footer>
 </div>
 
 {{-- JS --}}

@@ -1,8 +1,8 @@
 <?php 
 
   return [
- "swansea_city"=>"Swansea",
-"paisley_city"=>"Paisley",
-"newtownabbey_city"=>"Newtownabbey",
-"york_city"=>"York",
+ "swansea"=>"Swansea",
+"paisley"=>"Paisley",
+"newtownabbey"=>"Newtownabbey",
+"york"=>"York",
 ];

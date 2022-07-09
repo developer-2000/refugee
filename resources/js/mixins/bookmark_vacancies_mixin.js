@@ -41,7 +41,7 @@ export default {
         transitionToResume(alias){
             location.href = this.lang.prefix_lang+'resume/'+alias
         },
-        pageReload(obj){
+        pageReload(){
             location.reload()
         },
     },

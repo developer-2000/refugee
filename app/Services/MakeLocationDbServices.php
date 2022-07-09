@@ -12,7 +12,7 @@ class MakeLocationDbServices {
     use GeographyDbTraite;
 
     protected $boolInsertDB = true;          // внести данные локации в базу
-    protected $boolCreateFileNames = false;  // создавать файлы названий
+    protected $boolCreateFileNames = false;   // создавать файлы названий
     protected $earth;
     protected $lang;
     protected $settingsCountry;
@@ -27,9 +27,9 @@ class MakeLocationDbServices {
         $this->earth = new Earth();
         $this->lang = config('site.settings_location_db.lang');
         $this->settingsCountry = config('site.settings_location_db.country');
-        $this->url_country = config('site.locale.url_country')['original'];
-        $this->url_region = config('site.locale.url_region')['original'];
-        $this->url_city = config('site.locale.url_city')['original'];
+        $this->url_country = config('site.locale.url_country');
+        $this->url_region = config('site.locale.url_region');
+        $this->url_city = config('site.locale.url_city');
         $this->allCountry();
     }
 
@@ -157,8 +157,10 @@ class MakeLocationDbServices {
         $this->arrLangRegion = null;
         $this->arrLangCounty = null;
 
-        // записать в базу переводы локаций
+        // записать в базу переводы локаций (изначально полностью ru, uk базу заливаю ru, в en базу заливаю оригинал)
         $this->enterTranslationIntoDatabase();
+        // обновляю записи в базе для языков не RU и не EN (UK и другие файлы возможно были созданы в предыдущей работе с переводами)
+        $this->updateTranslationIntoDatabase();
     }
 
 }

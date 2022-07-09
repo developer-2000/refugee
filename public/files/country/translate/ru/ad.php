@@ -1,6 +1,5 @@
 <?php
 
   return [
-      'andorra'=>'Андорра',
-
+ 'andorra'=>'Андорра 1',
  ];

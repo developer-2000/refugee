@@ -3,7 +3,7 @@ html, body {
     color: #444;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
-    min-height: 100vh;
+    min-height: 100%;
     margin: 0;
 }
 dl, ol, ul {
@@ -17,7 +17,7 @@ a:hover{
     padding: 7px .5rem;
 }
 #app{
-    min-height: 100vh;
+    min-height: 100%;
 }
 #app .block_content{
     padding-top: 60px;
@@ -29,13 +29,18 @@ svg{
     width: 17px;
 }
 nav.mt-2{
-    margin-top: 70px !important;
+    margin-top: 25px !important;
 }
-.main-footer{
-    position: absolute;
-    width: 100%;
-    bottom: 0px;
-    z-index: 1;
+.content-wrapper{
+    transition: margin-left .3s ease-in-out;
+    margin-left: 250px;
+}
+table{
+    cursor: default;
+}
+th, td{
+    vertical-align: inherit!important;
+    text-align: center;
 }
 .block_table_pagin{
     display: flex;
@@ -78,14 +83,10 @@ nav.mt-2{
 }
 .card-header{
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: stretch;
-    align-items: center;
 }
 .card-header button{
-    width: 100px;
+    width: 120px;
+    margin-right: 10px;
 }
 .card-title{
     margin-bottom: 0px;
@@ -180,6 +181,11 @@ div.modal-backdrop {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.edit-svg{
+    fill: #007c08;
+    cursor: pointer;
+    margin-left: 5px;
+}
 
 
 
