@@ -13,7 +13,6 @@
       "pernik"=>"Перник",
       "pazardzhik"=>"Пазарджик",
       "lovech"=>"Ловеч",
-      "dobrich_рег"=>"Хасково",
       "sofia"=>"София",
       "burgas"=>"Бургас",
       "blagoevgrad"=>"Благоевград",

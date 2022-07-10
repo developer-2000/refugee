@@ -41,7 +41,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:void(0)" class="nav-link">
+                                    <a href="/admin-panel/translate-regions?language=en" class="nav-link">
                                         <svg class="small-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                         <p class="nav-tab">
                                             Регионы

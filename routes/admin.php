@@ -18,9 +18,11 @@ Route::namespace('Admin')->group( function () {
     // только admin
     Route::group(['middleware' => ['only_admin']], function () {
 
-        Route::namespace('Translate')->prefix('translate-countries')->group( function () {
-            Route::get('/', 'AdminTranslateCountryController@index');
-            Route::post('update', 'AdminTranslateCountryController@update');
+        Route::namespace('Translate')->group( function () {
+            Route::get('translate-countries', 'AdminTranslateCountryController@index');
+            Route::post('translate-countries/update', 'AdminTranslateCountryController@update');
+            Route::get('translate-regions', 'AdminTranslateRegionsController@index');
+            Route::post('translate-regions/update', 'AdminTranslateRegionsController@update');
         });
 
     });

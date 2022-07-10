@@ -17,6 +17,10 @@ export default {
         cutSpaces(text){
             return text.replace(/\s+/g,'')
         },
+        // пробелы на подчеркивание и нижний регистор
+        spacesUnderscoresLowercase(text){
+            return text.replace(/\s/g, '_').toLowerCase()
+        },
         // поиск значения в массиве объектов и возврат обьекта
         lookingValueInArrayObjects(property_name, property_value, arrSearch){
             let bool = false

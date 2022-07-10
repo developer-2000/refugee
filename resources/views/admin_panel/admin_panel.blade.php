@@ -1,6 +1,5 @@
 <!-- Главная страница клиента -->
-@extends('../layouts.layout-admin')
-
+    @extends('../layouts.layout-admin')
     @section('content')
 
         <admin-panel

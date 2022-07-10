@@ -120,6 +120,8 @@ trait GeographyDbTraite {
             $str = mb_strtolower($arr["name"]);
             $str = str_replace(" ", "_", $str);
             $value = $arr["name"];
+            $str = addslashes($str);
+            $value = addslashes($value);
             $line .= "'$str'=>'$value',\n ";
             $line .= "];";
 
@@ -140,7 +142,8 @@ trait GeographyDbTraite {
             foreach ($arr as $index => $arr2){
                 $str = mb_strtolower($arr2["name"]);
                 $str = str_replace(" ", "_", $str).$prefix;
-                $value = $arr2["name"];
+                $str = addslashes($str);
+                $value = addslashes($arr2["name"]);
                 $line .= '"'.$str.'"=>"'.$value.'",'."\n";
             }
             $line .= "];";
@@ -173,7 +176,8 @@ trait GeographyDbTraite {
             foreach ($arr as $index => $arr2) {
                 $str = mb_strtolower($arr2["name"]);
                 $str = str_replace(" ", "_", $str).$prefix;
-                $value = $arr2["name"];
+                $str = addslashes($str);
+                $value = addslashes($arr2["name"]);
                 $line .= '"'.$str.'"=>"'.$value.'",'."\n";
             }
 
@@ -265,8 +269,8 @@ trait GeographyDbTraite {
     private function updateTranslationIntoDatabase(){
         $translateCollection = GeographyTranslate::firstWhere('id', 1);
         $arrCountries = $this->updateArrayContent($this->url_country["translate"], $translateCollection->country);
-        $arrRegions = $this->updateArrayContent($this->url_region["translate"], $translateCollection->country);
-        $arrCities = $this->updateArrayContent($this->url_city["translate"], $translateCollection->country);
+        $arrRegions = $this->updateArrayContent($this->url_region["translate"], $translateCollection->regions);
+        $arrCities = $this->updateArrayContent($this->url_city["translate"], $translateCollection->cities);
 
         GeographyTranslate::updateOrCreate(
             ['id' => '1'],

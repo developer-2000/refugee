@@ -22,10 +22,12 @@ class VacancyController extends BaseController {
     use GeneralVacancyResumeTraite;
 
     protected $repository;
+    protected $count_pagination = 0;
 
     public function __construct() {
         parent::__construct();
         $this->repository = new VacancyRepository();
+        $this->count_pagination = 5;
     }
 
     public function index(IndexVacancyRequest $request)
@@ -46,7 +48,7 @@ class VacancyController extends BaseController {
 
         $vacancies = $vacancies
             ->with('position','company.image','id_saved_vacancies','id_hide_vacancies','country','region','city')
-            ->paginate(10);
+            ->paginate($this->count_pagination);
 
         // 4 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
         $idVacancies = $vacancies->pluck('id');

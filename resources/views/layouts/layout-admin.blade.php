@@ -15,6 +15,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    @section('style')
+    @show
 
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -25,7 +27,7 @@
 <!-- jQuery -->
 <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
 <script src="{{asset('js/admin_lte/adminlte.min.js')}}"  async></script>
-<script src="{{ asset('js/app.js') }}"  defer async></script>
+<script src="{{ asset('js/app.js') }}" defer async></script>
 
 <script>
 
@@ -61,7 +63,13 @@
 </div>
 
 {{-- JS --}}
-@yield('scripts')
+@section('scripts')
+    <script>
+        jQuery(document).ready(function(){
+
+        });
+    </script>
+@show
 
 </body>
 </html>

@@ -13,7 +13,6 @@ class AdminController extends AdminBaseController {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function accessPanel() {
-        $this->test();
         if($this->checkAccess('admin')) {
             $response = [];
             return view('admin_panel.admin_panel', compact('response'));
@@ -48,9 +47,4 @@ class AdminController extends AdminBaseController {
         return redirect()->route('admin.index');
     }
 
-    public function test() {
-
-        (new \App\Services\MakeLocationDbServices());
-
-    }
 }

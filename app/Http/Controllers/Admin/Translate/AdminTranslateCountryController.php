@@ -2,31 +2,26 @@
 namespace App\Http\Controllers\Admin\Translate;
 
 use App\Http\Controllers\Admin\AdminBaseController;
-use App\Http\Requests\Admin\TranslateLocation\AdminIndexCountryRequest;
-use App\Http\Requests\Admin\TranslateLocation\AdminUpdateCountryRequest;
+use App\Http\Requests\Admin\TranslateLocation\AdminIndexRequest;
+use App\Http\Requests\Admin\TranslateLocation\AdminUpdateRequest;
 use App\Model\GeographyDb;
 use App\Model\GeographyTranslate;
-use App\Repositories\VacancyRepository;
 use Illuminate\Http\Request;
 
 
 class AdminTranslateCountryController extends AdminBaseController {
 
-//    protected $count_pagination = 0;
-
     public function __construct() {
         parent::__construct();
-//        $this->count_pagination = 50;
     }
 
-    public function index(AdminIndexCountryRequest $request){
+    public function index(AdminIndexRequest $request){
         // префиксы языков перевода
         $langArr = config('site.locale.languages');
         // колекции локации стран и их перевод
         $locationCountries = GeographyDb::select('country')->firstWhere('id', 1);
         $translateCountries = GeographyTranslate::select('country')->firstWhere('id', 1);
         $translate_lang = isset($request->language) ? $request->language : 'en';
-//        $page = isset($request->page) ? $request->page : 1;
         $arrContent = [];
 
         // перебрать переводы
@@ -62,8 +57,7 @@ class AdminTranslateCountryController extends AdminBaseController {
         return view('admin_panel.admin_panel', compact('response'));
     }
 
-
-    public function update(AdminUpdateCountryRequest $request){
+    public function update(AdminUpdateRequest $request){
         $languageCountries = GeographyTranslate::select('country')->firstWhere('id', 1)->country;
         $workingArr = $languageCountries;
         // обьект языка - EN
@@ -112,6 +106,8 @@ class AdminTranslateCountryController extends AdminBaseController {
     private function makeFileCountry($property, $translate, $country, $lang){
         $url_country = config('site.locale.url_country')["translate"]."$lang/";
         $line = "<?php \n\n  return [\n ";
+        $property = addslashes($property);
+        $translate = addslashes($translate);
         $line .= "'$property'=>'$translate',\n ";
         $line .= "];";
 

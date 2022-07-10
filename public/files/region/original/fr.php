@@ -1,7 +1,7 @@
-<?php 
+<?php
 
   return [
- "provence-alpes-côte_d'azur"=>"Provence-Alpes-Côte d'Azur",
+ "provence-alpes-côte_d\'azur"=>"Provence-Alpes-Côte d\'Azur",
 "pays_de_la_loire"=>"Pays de la Loire",
 "île-de-france"=>"Île-de-France",
 "corsica"=>"Corsica",

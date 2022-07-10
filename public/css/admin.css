@@ -186,7 +186,13 @@ div.modal-backdrop {
     cursor: pointer;
     margin-left: 5px;
 }
-
+/* table regions */
+#table_regions .pagination {
+    padding-bottom: 35px;
+}
+.form-group {
+    margin: 0;
+}
 
 
 
