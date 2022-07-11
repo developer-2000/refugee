@@ -49,7 +49,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:void(0)" class="nav-link">
+                                    <a href="/admin-panel/translate-cities?language=en" class="nav-link">
                                         <svg class="small-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                         <p class="nav-tab">
                                             Города
@@ -82,18 +82,51 @@
             return { }
         },
         methods: {
-
+            openNavBar(){
+                let url = window.location
+                // выбрать раздвежные меню
+                let allLinks = document.querySelectorAll('.has-treeview')
+                const currentLink = [...allLinks].filter(e => {
+                    return e.baseURI == url.href; // baseURI содержит текущий url
+                });
+                // 1 раскрыть родительский список
+                if (currentLink.length) {
+                    currentLink[0].classList.add("menu-is-opening", "menu-open")
+                }
+                // 2 подсветка таргет линк дочерний
+                let not_query = window.location.protocol + '//' + window.location.hostname + window.location.pathname
+                let iter = 0
+                $(currentLink[0]).find('a').each(function()  {
+                    url = this.href.split('?')
+                    // проскочить первый url родительский (он всегда равен url в строке)
+                    if(iter > 0){
+                        if(url[0] === not_query){
+                            this.classList.add("nav-link-hover")
+                        }
+                    }
+                    iter++
+                });
+            }
         },
         props: [
             "logo_text",
         ],
-        mounted() { },
+        mounted() {
+
+            this.$nextTick(function () {
+                this.openNavBar()
+            })
+        },
 
     }
 </script>
 
 <style scoped lang="scss">
 
+    .nav-link-hover{
+        background-color: rgba(255,255,255,.1);
+        color: #fff;
+    }
     svg{
         fill: #bebebe;
     }

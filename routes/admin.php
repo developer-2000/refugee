@@ -23,6 +23,8 @@ Route::namespace('Admin')->group( function () {
             Route::post('translate-countries/update', 'AdminTranslateCountryController@update');
             Route::get('translate-regions', 'AdminTranslateRegionsController@index');
             Route::post('translate-regions/update', 'AdminTranslateRegionsController@update');
+            Route::get('translate-cities', 'AdminTranslateCitiesController@index');
+            Route::post('translate-cities/update', 'AdminTranslateCitiesController@update');
         });
 
     });

@@ -6,6 +6,6 @@
  'canillo'=>'Канильо',
  'andorra_la_vella'=>'Андорра-ла-Велья',
  'escaldes-engordany'=>'Эскальдес-Энгордань',
+ 'ordino'=>'Ордино',
  'encamp'=>'Энкамп',
- 'ordino'=>'Ордино 1',
  ];

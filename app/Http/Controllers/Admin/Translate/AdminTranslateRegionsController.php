@@ -2,8 +2,9 @@
 namespace App\Http\Controllers\Admin\Translate;
 
 use App\Http\Controllers\Admin\AdminBaseController;
-use App\Http\Requests\Admin\TranslateLocation\AdminIndexRequest;
-use App\Http\Requests\Admin\TranslateLocation\AdminUpdateRequest;
+use App\Http\Requests\Admin\TranslateLocation\AdminTranslateIndexRequest;
+use App\Http\Requests\Admin\TranslateLocation\AdminTranslateUpdateRequest;
+use App\Http\Traits\Admin\AdminTranslateLocationTrait;
 use App\Model\GeographyDb;
 use App\Model\GeographyTranslate;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class AdminTranslateRegionsController extends AdminBaseController {
+    use AdminTranslateLocationTrait;
 
     protected $count_pagination = 0;
 
@@ -20,7 +22,7 @@ class AdminTranslateRegionsController extends AdminBaseController {
         $this->count_pagination = 50;
     }
 
-    public function index(AdminIndexRequest $request){
+    public function index(AdminTranslateIndexRequest $request){
         // префиксы языков перевода
         $langArr = config('site.locale.languages');
         $translate_lang = isset($request->language) ? $request->language : 'en';
@@ -35,8 +37,8 @@ class AdminTranslateRegionsController extends AdminBaseController {
 
             // перебрать страны языка
             foreach ($translateRegions->regions[mb_strtoupper($request->language)] as $prefix_country => $arrRegions){
-                // временный масив регионов страны
                 $timeArr = [];
+
                 $regionsCountry = $locationRegions->regions['EN'][mb_strtoupper($prefix_country)];
                 // выбрать все регионы страны
                 $regionArr = collect($regionsCountry)->pluck('name')->toArray();
@@ -89,45 +91,7 @@ class AdminTranslateRegionsController extends AdminBaseController {
         return view('admin_panel.admin_panel', compact('response'));
     }
 
-    /**
-     * найти в оригинале свойство региона перевода
-     * @param $arrRegions
-     * @param $search_property
-     * @return array
-     */
-    private function searchOriginal($arrRegions, $search_property){
-        $newArr = [];
-        // переберает регионы
-        foreach ($arrRegions as $index => $arr){
-            $property = mb_strtolower(str_replace(' ', '_', $arr["name"]));
-            // нашел свойство региона
-            if($property == $search_property){
-                $newArr['original_index'] = $property;
-                break 1;
-            }
-        }
-        // если совпадений свойства небыло
-        if(!isset($newArr['original_index'])){
-            $newArr['error_index'] = [];
-        }
-
-        return $newArr;
-    }
-
-    /**
-     * custom paginate for array
-     * @param $translateRegions
-     * @param $prefix_lang
-     * @return int
-     */
-    public function paginate($items, $page = null, $options = []) {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $this->count_pagination), $items->count(), $this->count_pagination, $page, $options);
-    }
-
-    public function update(AdminUpdateRequest $request){
+    public function update(AdminTranslateUpdateRequest $request){
         $languageCountries = GeographyTranslate::select('regions')->firstWhere('id', 1)->regions;
         $workingArr = $languageCountries;
         // обьект языка - EN
@@ -160,10 +124,11 @@ class AdminTranslateRegionsController extends AdminBaseController {
         ]);
 
         // 2 работает с файлом перевода региона
-        $this->makeFileRegions(
+        $full_url = config('site.locale.url_region')["translate"].mb_strtolower($request->translate_lang)."/";
+        $this->makeFileTranslate(
             $workingArr[mb_strtoupper($request->translate_lang)][mb_strtolower($request->country)],
             $request->country,
-            mb_strtolower($request->translate_lang)
+            $full_url
         );
 
         Cache::forget(mb_strtolower($request->translate_lang).'_all_regions');
@@ -172,34 +137,28 @@ class AdminTranslateRegionsController extends AdminBaseController {
     }
 
     /**
-     * работает с файлом перевода регионов
+     * найти в оригинале свойство перевода
      * @param $arrRegions
-     * @param $country
-     * @param $lang
+     * @param $search_property
+     * @return array
      */
-    private function makeFileRegions($arrRegions, $country, $lang){
-        $url_region = config('site.locale.url_region')["translate"]."$lang/";
-
-        $line = "<?php \n\n  return [\n ";
-        foreach ($arrRegions as $prefix_region => $value_region){
-            $prefix = addslashes($prefix_region);
-            $value = addslashes($value_region);
-            $line .= "'$prefix'=>'$value',\n ";
+    private function searchOriginal($arrRegions, $search_property){
+        $newArr = [];
+        // переберает регионы
+        foreach ($arrRegions as $index => $arr){
+            $property = mb_strtolower(str_replace(' ', '_', $arr["name"]));
+            // нашел свойство региона
+            if($property == $search_property){
+                $newArr['original_index'] = $property;
+                break 1;
+            }
         }
-        $line .= "];";
-
-        $this->createDir(public_path().$url_region);
-        file_put_contents(public_path() . $url_region. $country.".php", $line);
-    }
-
-    /**
-     * создать папку если не существует
-     * @param $path
-     */
-    private function createDir($path){
-        if (!is_dir($path)) {
-            mkdir($path);
+        // если совпадений свойства небыло
+        if(!isset($newArr['original_index'])){
+            $newArr['error_index'] = [];
         }
+
+        return $newArr;
     }
 
     /**
@@ -214,35 +173,5 @@ class AdminTranslateRegionsController extends AdminBaseController {
         }
         return $regionArr;
     }
-
-    private function removeSpecifiedElementFromArray($property_region, $regionArr){
-        $key = array_search($property_region, $regionArr);
-        if($key !== false){
-            unset($regionArr[$key]);
-            $regionArr = array_values($regionArr);
-        }
-        return $regionArr;
-    }
-
-    /**
-     * сортировка многомерного масива по ключу
-     * @param $array
-     * @param $key
-     * @return mixed
-     */
-    private function sortingMultidimensionalArrayByKey($array, $key){
-        usort($array, function($a,$b) use ($key){
-            return ($a[$key] > $b[$key]);
-        });
-        return $array;
-    }
-
-    private function filter($array, $index, $value){
-        $array = array_filter($array, function ($item) use ($value, $index) {
-            return $item[$index] == $value;
-        });
-        return $array;
-    }
-
 
 }

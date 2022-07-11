@@ -21,6 +21,7 @@
                 </div>
             </div>
         </section>
+
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -31,7 +32,7 @@
                         <div class="card-header">
                             <!-- кнопки языков -->
                             <button v-for="(array, prefix) in response.lang_arr" :key="prefix"
-                                    @click="transitionToUrl('/admin-panel/translate-regions?language='+prefix)"
+                                    @click="transitionToLanguage('/admin-panel/translate-regions', prefix)"
                                     type="button" class="btn btn-block btn-flat"
                                     :class="{'btn-primary': prefix === response.translate_lang,'btn-outline-primary': prefix !== response.translate_lang}"
                             >
@@ -41,7 +42,7 @@
                             <!-- префиксы стран -->
                             <div class="form-group">
                                 <select class="form-control" id="prefix_country"
-                                        @change="selectCountry($event)"
+                                        @change="selectCountry($event, '/admin-panel/translate-regions')"
                                 >
                                     <option selected :value="null"> Префиксы стран </option>
                                     <template v-for="(value, key) in response.prefix_counties">
@@ -121,33 +122,23 @@
 </template>
 
 <script>
-
     import general_functions_mixin from "../../../../mixins/general_functions_mixin";
     import response_methods_mixin from "../../../../mixins/response_methods_mixin";
+    import admin_translate_location_mixin from "../../../../mixins/admin/admin_translate_location_mixin";
     import pagination from "../../../details/PaginationComponent";
-
 
     export default {
         mixins: [
             general_functions_mixin,
             response_methods_mixin,
+            admin_translate_location_mixin
         ],
         components: {
             'pagination': pagination,
         },
         data() {
             return {
-                country: null,
                 regions: [],
-                input_box: '',
-                div_change: '',
-                objChangeElement: {
-                    value: '',
-                    country: '',
-                    row: '',
-                    old_property: '',
-                    old_value: '',
-                }
             }
         },
         methods: {
@@ -171,59 +162,6 @@
                         // this.messageError(err)
                     })
             },
-            // показ input
-            insertField(prefix, value, country, row, old){
-                this.div_change = 'div-'+prefix
-                this.objChangeElement.country = country
-                this.objChangeElement.row = row
-                this.objChangeElement.old_property = (row === 'property') ? old : ''
-                this.objChangeElement.old_value = (row === 'translate') ? old : ''
-
-                $('#'+this.div_change).css({'display':'none'});
-                $('#td-'+prefix).append(this.input_box.clone());
-                $('.input-change').val(value);
-            },
-            clickChangeButton(){
-                $( "body" ).on( "click", ".button-change", (e) => {
-                    $('#'+this.div_change).css({'display':'block'});
-                    this.objChangeElement.value = $('.input-change').val()
-                    $('.box-change-value').remove();
-                    this.updateDb();
-                });
-            },
-            // paginate
-            urlReload(obj){
-                let params = new URLSearchParams(window.location.search)
-                params.delete('page')
-                // page
-                if(obj.page != undefined && obj.page != null){
-                    params.set('page',obj.page)
-                }
-                params.sort()
-                let query = (params.toString() == '') ? '' : '?'+params.toString()
-                let full_url = window.location.protocol + '//' + window.location.hostname + window.location.pathname+query
-                location.href = full_url
-            },
-            selectCountry(event){
-                let params = new URLSearchParams(window.location.search)
-                params.delete('country')
-                params.delete('page')
-
-                if(event.target.value){
-                    params.set('country', event.target.value.toString())
-                }
-                params.sort()
-                let query = (params.toString() == '') ? '' : '?'+params.toString()
-
-                location.href = '/admin-panel/translate-regions'+query
-            },
-            // после обновления страницы
-            setValuesFields(){
-                const params = new URLSearchParams(window.location.search)
-                if(params.has('country')){
-                    this.country = params.get('country')
-                }
-            },
         },
         props: [
             'response',
@@ -238,7 +176,6 @@
                 this.setValuesFields()
             })
         },
-
     }
 </script>
 

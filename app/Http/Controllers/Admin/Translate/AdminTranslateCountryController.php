@@ -2,20 +2,21 @@
 namespace App\Http\Controllers\Admin\Translate;
 
 use App\Http\Controllers\Admin\AdminBaseController;
-use App\Http\Requests\Admin\TranslateLocation\AdminIndexRequest;
-use App\Http\Requests\Admin\TranslateLocation\AdminUpdateRequest;
+use App\Http\Requests\Admin\TranslateLocation\AdminTranslateIndexRequest;
+use App\Http\Requests\Admin\TranslateLocation\AdminTranslateUpdateRequest;
+use App\Http\Traits\Admin\AdminTranslateLocationTrait;
 use App\Model\GeographyDb;
 use App\Model\GeographyTranslate;
 use Illuminate\Http\Request;
 
-
 class AdminTranslateCountryController extends AdminBaseController {
+    use AdminTranslateLocationTrait;
 
     public function __construct() {
         parent::__construct();
     }
 
-    public function index(AdminIndexRequest $request){
+    public function index(AdminTranslateIndexRequest $request){
         // префиксы языков перевода
         $langArr = config('site.locale.languages');
         // колекции локации стран и их перевод
@@ -57,13 +58,15 @@ class AdminTranslateCountryController extends AdminBaseController {
         return view('admin_panel.admin_panel', compact('response'));
     }
 
-    public function update(AdminUpdateRequest $request){
+    public function update(AdminTranslateUpdateRequest $request){
         $languageCountries = GeographyTranslate::select('country')->firstWhere('id', 1)->country;
         $workingArr = $languageCountries;
         // обьект языка - EN
-        $objLanguage = $workingArr[mb_strtoupper($request->translate_lang)];
+        $upLanguage = mb_strtoupper($request->translate_lang);
+        $objLanguage = $workingArr[$upLanguage];
         // обьект страны - ua
-        $updateObj = $objLanguage[mb_strtolower($request->country)];
+        $lowCountry = mb_strtolower($request->country);
+        $updateObj = $objLanguage[$lowCountry];
         $newObj = [];
         $property = '';
         $translate = '';
@@ -83,15 +86,16 @@ class AdminTranslateCountryController extends AdminBaseController {
             ];
         }
 
-        $objLanguage[mb_strtolower($request->country)] = $newObj;
-        $workingArr[mb_strtoupper($request->translate_lang)] = $objLanguage;
+        $objLanguage[$lowCountry] = $newObj;
+        $workingArr[$upLanguage] = $objLanguage;
 
         // 1 обновить запись в базе
         GeographyTranslate::where('id', 1)->update([
             'country'=>$workingArr
         ]);
         // 2 работает с файлом перевода страны
-        $this->makeFileCountry($property, $translate, mb_strtolower($request->country), mb_strtolower($request->translate_lang));
+        $full_url = config('site.locale.url_country')["translate"].mb_strtolower($request->translate_lang)."/";
+        $this->makeFileCountry($property, $translate, $lowCountry, $full_url);
 
         return $this->getResponse();
     }
@@ -101,28 +105,17 @@ class AdminTranslateCountryController extends AdminBaseController {
      * @param $property
      * @param $translate
      * @param $country
-     * @param $lang
+     * @param $full_url
      */
-    private function makeFileCountry($property, $translate, $country, $lang){
-        $url_country = config('site.locale.url_country')["translate"]."$lang/";
+    private function makeFileCountry($property, $translate, $country, $full_url){
         $line = "<?php \n\n  return [\n ";
         $property = addslashes($property);
         $translate = addslashes($translate);
         $line .= "'$property'=>'$translate',\n ";
         $line .= "];";
 
-        $this->createDir(public_path().$url_country);
-        file_put_contents(public_path() . $url_country.$country.".php", $line);
-    }
-
-    /**
-     * создать папку если не существует
-     * @param $path
-     */
-    private function createDir($path){
-        if (!is_dir($path)) {
-            mkdir($path);
-        }
+        $this->createDir(public_path().$full_url);
+        file_put_contents(public_path() . $full_url.$country.".php", $line);
     }
 
 }

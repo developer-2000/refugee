@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\SignInRequest;
-use App\Http\Traits\AdminTrait;
+use App\Http\Traits\Admin\AdminTrait;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends AdminBaseController {

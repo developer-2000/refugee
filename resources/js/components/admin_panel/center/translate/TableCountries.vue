@@ -30,7 +30,7 @@
                         <!-- header -->
                         <div class="card-header">
                             <button v-for="(array, prefix) in response.lang_arr" :key="prefix"
-                                    @click="transitionToUrl('/admin-panel/translate-countries?language='+prefix)"
+                                    @click="transitionToLanguage('/admin-panel/translate-countries', prefix)"
                                     type="button" class="btn btn-block btn-flat"
                                     :class="{'btn-primary': prefix === response.translate_lang,'btn-outline-primary': prefix !== response.translate_lang}"
                             >
@@ -50,7 +50,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(array, key) in countries" :key="key">
-                                        <td>{{array.prefix}}</td>
+                                        <td>{{array.prefix.toLowerCase()}}</td>
                                         <td>{{array.original_index}}</td>
                                         <!-- свойство в переводе -->
                                         <td :id="`td-property-${key}`">
@@ -83,27 +83,21 @@
 </template>
 
 <script>
-
     import general_functions_mixin from "../../../../mixins/general_functions_mixin";
     import response_methods_mixin from "../../../../mixins/response_methods_mixin";
+    import admin_translate_location_mixin from "../../../../mixins/admin/admin_translate_location_mixin";
 
     export default {
         mixins: [
             general_functions_mixin,
             response_methods_mixin,
+            admin_translate_location_mixin
         ],
         components: {
         },
         data() {
             return {
                 countries: [],
-                input_box: '',
-                div_change: '',
-                objChangeElement: {
-                    value: '',
-                    country: '',
-                    row: '',
-                }
             }
         },
         methods: {
@@ -125,23 +119,6 @@
                         // this.messageError(err)
                     })
             },
-            // показ input
-            insertField(prefix, value, country, row){
-                this.div_change = 'div-'+prefix
-                this.objChangeElement.country = country
-                this.objChangeElement.row = row
-                $('#'+this.div_change).css({'display':'none'});
-                $('#td-'+prefix).append(this.input_box.clone());
-                $('.input-change').val(value);
-            },
-            clickChangeButton(){
-                $( "body" ).on( "click", ".button-change", (e) => {
-                    $('#'+this.div_change).css({'display':'block'});
-                    this.objChangeElement.value = $('.input-change').val()
-                    $('.box-change-value').remove();
-                    this.updateDb();
-                });
-            },
         },
         props: [
             'response',
@@ -150,10 +127,7 @@
             this.input_box = $('.box-change-value').remove()
             this.countries = this.response.countries
             this.clickChangeButton()
-
-            // console.log(this.response)
         },
-
     }
 </script>
 

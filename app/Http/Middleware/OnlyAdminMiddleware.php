@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Traits\AdminTrait;
+use App\Http\Traits\Admin\AdminTrait;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
