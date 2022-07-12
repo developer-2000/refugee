@@ -9,6 +9,18 @@ use Illuminate\Support\Collection;
 trait AdminTranslateLocationTrait
 {
 
+    // преобразует название страны, города в рабочий alias
+    private function nameToAliasConversion($name){
+        $prefix = mb_strtolower($name);
+        $prefix = str_replace(" ", "-", $prefix);
+        $prefix = str_replace("'", "", $prefix);
+        $prefix = str_replace("’", "", $prefix);
+        $prefix = str_replace(",", "", $prefix);
+        $prefix = str_replace(".", "", $prefix);
+
+        return $prefix;
+    }
+
     /**
      * удалить найденный по value елемент масива
      * @param $value
@@ -45,8 +57,12 @@ trait AdminTranslateLocationTrait
      * @return array
      */
     private function filter($array, $index, $value){
-        $array = array_filter($array, function ($item) use ($value, $index) {
-            return $item[$index] == $value;
+        $array = array_filter($array, function ($item) use ($index, $value) {
+//            if($value == 'ua' && $item[$index] == 'ua'){
+//                dd([$item, $index, $value]);
+//            }
+
+            return $item[$index] === $value;
         });
         return $array;
     }
@@ -88,8 +104,61 @@ trait AdminTranslateLocationTrait
      * @param $path
      */
     private function createDir($path){
-        if (!is_dir($path)) {
-            mkdir($path);
-        }
+    if (!is_dir($path)) {
+        mkdir($path);
     }
+}
+
+    /**
+     * елементы масива в нижнем регистре, пробелы подчеркнуты
+     * @param $regionArr
+     * @return string|string[]
+     */
+    private function arrayElementsLowercaseUnderscore($regionArr){
+        foreach ($regionArr as $index => $value) {
+            $regionArr[$index] = $this->nameToAliasConversion($value);
+        }
+        return $regionArr;
+    }
+
+    /**
+     * найти в оригинале index перевода
+     * @param $arrElements_o
+     * @param $search_property
+     * @return array
+     */
+    private function searchOriginal($arrElements_o, $search_property){
+        $newArr = [];
+
+        // переберает регионы или города
+        foreach ($arrElements_o as $index => $value){
+
+            // в случае regions
+            if(is_array($value)){
+                $property = $this->nameToAliasConversion($value["name"]);
+                // нашел свойство региона
+                if($property == $search_property){
+                    $newArr['original_index'] = $property;
+                    $newArr['code_region'] = $value["code"];
+                    break 1;
+                }
+            }
+            // в случае cities
+            else{
+                // нашел свойство
+                if($value == $search_property){
+                    $newArr['original_index'] = $value;
+                    break 1;
+                }
+            }
+
+        }
+        // если совпадений свойства небыло
+        if(!isset($newArr['original_index'])){
+            $newArr['error_index'] = [];
+        }
+
+        return $newArr;
+    }
+
 }

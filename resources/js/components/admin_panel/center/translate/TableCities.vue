@@ -167,6 +167,9 @@
         mounted() {
             this.input_box = $('.box-change-value').remove()
             this.cities = this.response.cities
+
+            console.log(this.cities)
+
             this.clickChangeButton()
 
             // Код, который будет запущен только после отрисовки всех представлений

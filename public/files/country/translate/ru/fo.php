@@ -1,5 +1,5 @@
 <?php
 
   return [
-      'faroe_islands'=>'Фарерские острова',
+      'faroe-islands'=>'Фарерские острова',
  ];

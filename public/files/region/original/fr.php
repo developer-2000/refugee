@@ -1,15 +1,15 @@
-<?php
+<?php 
 
   return [
- "provence-alpes-côte_d\'azur"=>"Provence-Alpes-Côte d\'Azur",
-"pays_de_la_loire"=>"Pays de la Loire",
+ "provence-alpes-côte-dazur"=>"Provence-Alpes-Côte d\'Azur",
+"pays-de-la-loire"=>"Pays de la Loire",
 "île-de-france"=>"Île-de-France",
 "corsica"=>"Corsica",
 "centre"=>"Centre",
 "brittany"=>"Brittany",
 "burgundy"=>"Burgundy",
 "aquitaine"=>"Aquitaine",
-"lower_normandy"=>"Lower Normandy",
+"lower-normandy"=>"Lower Normandy",
 "alsace"=>"Alsace",
 "languedoc-roussillon"=>"Languedoc-Roussillon",
 "nord-pas-de-calais"=>"Nord-Pas-de-Calais",
@@ -20,7 +20,7 @@
 "midi-pyrénées"=>"Midi-Pyrénées",
 "lorraine"=>"Lorraine",
 "limousin"=>"Limousin",
-"upper_normandy"=>"Upper Normandy",
+"upper-normandy"=>"Upper Normandy",
 "franche-comté"=>"Franche-Comté",
 "champagne-ardenne"=>"Champagne-Ardenne",
 ];

@@ -1,5 +1,5 @@
 <?php
 
   return [
-      'united_kingdom'=>'Соединенное Королевство',
+      'united-kingdom'=>'Соединенное Королевство',
  ];

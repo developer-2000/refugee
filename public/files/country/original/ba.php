@@ -1,5 +1,5 @@
 <?php 
 
   return [
- 'bosnia_and_herzegovina'=>'Bosnia and Herzegovina',
+ 'bosnia-and-herzegovina'=>'Bosnia and Herzegovina',
  ];

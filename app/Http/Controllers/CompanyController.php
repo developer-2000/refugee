@@ -10,6 +10,8 @@ use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
 use App\Repositories\OfferArchiveRepository;
 use App\Repositories\OfferRepository;
+use App\Services\LocalizationService;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends BaseController {
@@ -118,9 +120,7 @@ class CompanyController extends BaseController {
      */
     private function getSettings(){
         $settings['categories'] = config('site.categories.categories');
-        if($objCountries = GeographyDb::where('id', 1)->select('country')->first()){
-            $settings['obj_countries'] = $objCountries['country']['EN'];
-        }
+        $settings['obj_countries'] = (new LocalizationService())->getCountries(App::getLocale());
         $settings['count_working'] = config('site.company.count_working');
 
         return $settings;

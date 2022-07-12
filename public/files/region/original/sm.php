@@ -3,9 +3,9 @@
   return [
  "serravalle"=>"Serravalle",
 "chiesanuova"=>"Chiesanuova",
-"san_marino"=>"San Marino",
+"san-marino"=>"San Marino",
 "acquaviva"=>"Acquaviva",
-"borgo_maggiore"=>"Borgo Maggiore",
+"borgo-maggiore"=>"Borgo Maggiore",
 "domagnano"=>"Domagnano",
 "faetano"=>"Faetano",
 "fiorentino"=>"Fiorentino",

@@ -1,6 +1,10 @@
 <?php 
 
   return [
+  '3195505' => [
  "maribor"=>"Maribor",
-"ljubljana"=>"Ljubljana",
+ ], 
+ '3239318' => [
+ "ljubljana"=>"Ljubljana",
+ ], 
 ];

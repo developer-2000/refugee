@@ -24,7 +24,8 @@ class GetRegionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'country_code' => 'required|min:1|max:2|string',
+            'country_code' => 'required|min:2|max:2|string',
+            'lang_local' => 'required|min:2|max:2|string',
         ];
     }
 }

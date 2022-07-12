@@ -1,5 +1,5 @@
 <?php 
 
   return [
- 'san_marino'=>'San Marino',
+ 'san-marino'=>'San Marino',
  ];

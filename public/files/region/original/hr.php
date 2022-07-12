@@ -20,6 +20,6 @@
 "vukovarsko-srijemska"=>"Vukovarsko-Srijemska",
 "zadarska"=>"Zadarska",
 "zagrebačka"=>"Zagrebačka",
-"grad_zagreb"=>"Grad Zagreb",
+"grad-zagreb"=>"Grad Zagreb",
 "virovitičko-podravska"=>"Virovitičko-Podravska",
 ];

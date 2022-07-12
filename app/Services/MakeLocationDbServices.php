@@ -12,7 +12,7 @@ class MakeLocationDbServices {
     use GeographyDbTraite;
 
     protected $boolInsertDB = true;          // внести данные локации в базу
-    protected $boolCreateFileNames = false;   // создавать файлы названий
+    protected $boolCreateFileNames = true;   // создавать файлы названий
     protected $earth;
     protected $lang;
     protected $settingsCountry;
@@ -32,7 +32,6 @@ class MakeLocationDbServices {
         $this->url_city = config('site.locale.url_city');
         $this->allCountry();
     }
-
 
     /**
  * сделать custom array стран
@@ -110,7 +109,7 @@ class MakeLocationDbServices {
             );
         }
         if($this->boolCreateFileNames){
-            $this->createFileRegion($countryStates, '');
+            $this->createFileRegion($countryStates);
         }
 
         $this->allCities();
@@ -125,11 +124,14 @@ class MakeLocationDbServices {
         foreach($this->lang as $key1 => $lang){
             // содержит регионы и их города на выбраном языке
             $arrayRegions = [];
-            // перебор стран по code
+
+            // перебор стран по code (внутри регионы)
             foreach ($this->arrLangRegion[$lang] as $codeCountry => $arrRegions){
                 // найти эту страну в настройках нужных стран приложения
                 if (array_search($codeCountry, $this->settingsCountry) !== false) {
+                    // регионы и города в них
                     $response = $this->customArrCitiesRegions($codeCountry, $lang);
+
                     try {
                         // переберает регионы с выборкой городов
                         if (count($response)) {
@@ -157,7 +159,9 @@ class MakeLocationDbServices {
         $this->arrLangRegion = null;
         $this->arrLangCounty = null;
 
-        // записать в базу переводы локаций (изначально полностью ru, uk базу заливаю ru, в en базу заливаю оригинал)
+        //    * записать в базу переводы локаций
+        //    * ru переводы - страны, регионы (города в en)
+        //    * en переводы - страны, регионы, города
         $this->enterTranslationIntoDatabase();
         // обновляю записи в базе для языков не RU и не EN (UK и другие файлы возможно были созданы в предыдущей работе с переводами)
         $this->updateTranslationIntoDatabase();

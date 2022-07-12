@@ -24,7 +24,9 @@ class GetCitiesRequest extends FormRequest
     public function rules()
     {
         return [
+            'country_code' => 'required|min:1|max:10|string',
             'region_code' => 'required|min:1|max:10|string',
+            'lang_local' => 'required|min:2|max:2|string',
         ];
     }
 }

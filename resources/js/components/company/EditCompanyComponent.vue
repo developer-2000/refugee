@@ -95,13 +95,21 @@
                             {{trans('vacancies','select_country')}}
                         </option>
                         <template v-for="(array, key) in objLocations.load_countries">
-                            <!-- в случае редиктирования -->
-                            <template v-if="objLocations.country == array.code" >
-                                <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                            </template>
-                            <template v-else>
-                                <option :value="array.code" :key="key">{{array.name}}</option>
-                            </template>
+                            <!-- в случае редактирования -->
+<!--                            <template v-if="objLocations.country == array.code" >-->
+<!--                                <option :value="array.prefix.toLowerCase()" :key="key" selected-->
+<!--                                        v-if="array.original_index == array.translate_index"-->
+<!--                                >{{array.translate}}</option>-->
+<!--                                <option :value="null" :key="key" v-else></option>-->
+<!--                            </template>-->
+<!--                            v-else-->
+                            <!-- v-if="array.original_index == array.translate_index" в целях проверки валидности префиксов -->
+<!--                            <template>-->
+                                <option :value="array.prefix.toLowerCase()" :key="key"
+                                        v-if="array.original_index == array.translate_index"
+                                >{{array.translate}}</option>
+                                <option :value="null" :key="key" v-else></option>
+<!--                            </template>-->
                         </template>
                     </select>
                 </div>
@@ -120,20 +128,22 @@
                         <option disabled="disabled" selected>
                             {{trans('vacancies','select_region')}}
                         </option>
-                        <template v-for="(array, key) in objLocations.load_regions">
+                        <template v-for="(obj, index) in objLocations.load_regions">
                             <!-- в случае редиктирования -->
-                            <template v-if="objLocations.region == array.code" >
-                                <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                            </template>
-                            <template v-else>
-                                <option :value="array.code" :key="key">{{array.name}}</option>
-                            </template>
+<!--                            <template v-if="objLocations.region == array.code" >-->
+<!--                                <option :value="array.code" :key="key" selected>{{array.name}}</option>-->
+<!--                            </template>-->
+<!--                            <template v-else>-->
+                                <option v-if="obj.original_index == obj.translate_index"
+                                        :value="obj.code_region" :key="index"
+                                >{{obj.translate}}</option>
+<!--                            </template>-->
                         </template>
                     </select>
                 </div>
 
                 <!-- City -->
-                <div class="form-group" v-if="objLocations.load_cities">
+                <div class="form-group" v-if="objLocations.load_cities">{{objLocations.region}}
                     <label for="city">
                         {{trans('company','company_city')}}
                         <span class="mandatory-filling">
@@ -146,14 +156,16 @@
                         <option disabled="disabled" selected>
                             {{trans('vacancies','select_city')}}
                         </option>
-                        <template v-for="(array, key) in objLocations.load_cities">
+                        <template v-for="(obj, index) in objLocations.load_cities">
                             <!-- в случае редиктирования -->
-                            <template v-if="objLocations.city == array.code" >
-                                <option :value="array.code" :key="key" selected>{{array.name}}</option>
-                            </template>
-                            <template v-else>
-                                <option :value="array.code" :key="key">{{array.name}}</option>
-                            </template>
+<!--                            <template v-if="objLocations.city == array.code" >-->
+<!--                                <option :value="array.code" :key="key" selected>{{array.name}}</option>-->
+<!--                            </template>-->
+<!--                            <template v-else>-->
+                                <option v-if="(obj.original_index == obj.translate_index) && (objLocations.region == obj.code_region)"
+                                        :value="obj.code" :key="index"
+                                >{{obj.translate}}</option>
+<!--                            </template>-->
                         </template>
                     </select>
                 </div>

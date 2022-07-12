@@ -9,7 +9,7 @@
 "teleorman"=>"Teleorman",
 "suceava"=>"Suceava",
 "sibiu"=>"Sibiu",
-"satu_mare"=>"Satu Mare",
+"satu-mare"=>"Satu Mare",
 "sălaj"=>"Sălaj",
 "prahova"=>"Prahova",
 "olt"=>"Olt",

@@ -1,10 +1,10 @@
-<?php 
+<?php
 
   return [
- 'sant_julià_de_loria'=>'Сан-Жулия-де-Лория',
- 'la_massana'=>'Ла Массана',
+ 'sant-julià-de-loria'=>'Сан-Жулия-де-Лория',
+ 'la-massana'=>'Ла Массана',
  'canillo'=>'Канильо',
- 'andorra_la_vella'=>'Андорра-ла-Велья',
+ 'andorra-la-vella'=>'Андорра-ла-Велья',
  'escaldes-engordany'=>'Эскальдес-Энгордань',
  'ordino'=>'Ордино',
  'encamp'=>'Энкамп',

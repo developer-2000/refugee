@@ -22,6 +22,7 @@ export default {
         async loadRegions(){
             let data = {
                 country_code: this.objLocations.country,
+                lang_local: this.lang.lang_local,
             };
             const response = await this.$http.post(`/localisation/get-region`, data)
                 .then(res => {
@@ -30,6 +31,7 @@ export default {
                     }
                     // custom ошибки
                     else{
+                        console.log(res.data.message)
                         this.objLocations.bool_rest_address = true
                     }
                     this.clearLocation('load_region')
@@ -41,11 +43,14 @@ export default {
         },
         async loadCity(){
             let data = {
+                country_code: this.objLocations.country,
                 region_code: ''+this.objLocations.region,
+                lang_local: this.lang.lang_local,
             };
             const response = await this.$http.post(`/localisation/get-city`, data)
                 .then(res => {
                     if(this.checkSuccess(res)){
+                        // console.log(res.data.message)
                         this.clearLocation('bool_rest')
                         this.objLocations.load_cities = res.data.message
                     }

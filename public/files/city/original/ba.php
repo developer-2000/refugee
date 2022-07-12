@@ -1,6 +1,14 @@
 <?php 
 
   return [
+  '3229999' => [
  "zenica"=>"Zenica",
-"banja_luka"=>"Banja Luka",
+"tuzla"=>"Tuzla",
+"sarajevo"=>"Sarajevo",
+"mostar"=>"Mostar",
+"bihać"=>"Bihać",
+ ], 
+ '3230000' => [
+ "banja-luka"=>"Banja Luka",
+ ], 
 ];

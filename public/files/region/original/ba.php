@@ -1,7 +1,7 @@
 <?php 
 
   return [
- "federation_of_bosnia_and_herzegovina"=>"Federation of Bosnia and Herzegovina",
-"republika_srpska"=>"Republika Srpska",
+ "federation-of-bosnia-and-herzegovina"=>"Federation of Bosnia and Herzegovina",
+"republika-srpska"=>"Republika Srpska",
 "brčko"=>"Brčko",
 ];

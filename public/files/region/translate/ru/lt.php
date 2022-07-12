@@ -1,14 +1,14 @@
-<?php 
+<?php
 
   return [
- 'alytaus_apskritis'=>'Алитусский уезд',
- 'klaipėdos_apskritis'=>'Клайпедский апскрит',
- 'marijampolės_apskritis'=>'Мариямполес апскритис',
- 'panevėžio_apskritis'=>'Паневежский уезд',
- 'šiaulių_apskritis'=>'Шяулюский уезд',
- 'tauragės_apskritis'=>'Таурагский апскрит',
- 'utenos_apskritis'=>'Утенский уезд',
- 'vilniaus_apskritis'=>'Вильнюсский уезд',
- 'kauno_apskritis'=>'Каунасский уезд',
- 'telšių_apskritis'=>'Тельшяу апскрит',
+ 'alytaus-apskritis'=>'Алитусский уезд',
+ 'klaipėdos-apskritis'=>'Клайпедский апскрит',
+ 'marijampolės-apskritis'=>'Мариямполес апскритис',
+ 'panevėžio-apskritis'=>'Паневежский уезд',
+ 'šiaulių-apskritis'=>'Шяулюский уезд',
+ 'tauragės-apskritis'=>'Таурагский апскрит',
+ 'utenos-apskritis'=>'Утенский уезд',
+ 'vilniaus-apskritis'=>'Вильнюсский уезд',
+ 'kauno-apskritis'=>'Каунасский уезд',
+ 'telšių-apskritis'=>'Тельшяу апскрит',
  ];

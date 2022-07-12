@@ -3,6 +3,6 @@
   return [
       "wales"=>"Уэльс",
       "scotland"=>"Шотландия",
-      "northern_ireland"=>"Северная Ирландия",
+      "northern-ireland"=>"Северная Ирландия",
       "england"=>"Англия",
 ];

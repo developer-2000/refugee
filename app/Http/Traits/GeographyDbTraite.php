@@ -7,8 +7,6 @@ use MenaraSolutions\Geographer\Country;
 
 trait GeographyDbTraite {
 
-// ========================================
-// ========================================
     // 0 => страна [ "code" => "AF", "name" => "Afghanistan" ]
     // создает custom array стран
     protected function customArrCountry($all_county) {
@@ -27,8 +25,6 @@ trait GeographyDbTraite {
     return $arrCountry;
     }
 
-// ========================================
-// ========================================
     // создать custom масив штатов
     // штаты [▼
     //    0 => штат [▼
@@ -52,63 +48,42 @@ trait GeographyDbTraite {
     return $customStates;
     }
 
-// ========================================
-// ========================================
-    // создать custom масив - code регионы и их города на выбраном языке
-    // регионы [▼
-    //  code региона => array [
-    //    масив городов
+    // регионы и города в них
     protected function customArrCitiesRegions($codeCountry, $lang){
-
         $arrayRegions = [];
         // страна по code и языку
         $county = Country::build($codeCountry)->setLocale($lang);
 
         // перебрать регионы
         foreach ($county->getStates() as $region) {
-
-            // города региона
-            $arraySity = $this->foreachCities($region);
+            // масив городов региона
+            $arrayCities = $this->foreachCities($region);
 
             try {
-                if (count($arraySity)){
-                    $arrayRegions[ $region->toArray()['code'] ] = $arraySity;
+                if (count($arrayCities)){
+                    $arrayRegions[ $region->toArray()['code'] ] = $arrayCities;
                 }
             } catch (\Exception $e) {
                 logger('Произошла ошибка - ' . $e->getMessage() . ' --- Файл - ' . $e->getFile() . ' --- Строка - ' . $e->getLine());
             }
-
         }
 
     return $arrayRegions;
     }
 
-// ========================================
-// ========================================
-    // перебрать города
-    // города [▼
-    //    code города => array [
-    //      "code" => 1123004
-    //      "geonamesCode" => 1123004
-    //      "name" => "Taloqan"
-    //      "latitude" => 36.73605
-    //      "longitude" => 69.53451
-    //      "population" => 64256
+    // масив городов региона
     private function foreachCities($region){
-        $arraySity = [];
-
+        $arrayCities = [];
             // перебрать города
             foreach ($region->getCities() as $city) {
                 $city = $city->toArray();
-
                 if (isset($city['code']) && is_int($city['code']) && isset($city['name']) && is_string($city['name'])) {
-                    array_push($arraySity, $city);
+                    $arrayCities[] = $city;
                 }
             }
 
-    return $arraySity;
+    return $arrayCities;
     }
-
 
     /**
      * создает файлы стран в оригинале перевода
@@ -117,16 +92,12 @@ trait GeographyDbTraite {
     private function createFileCountry($array){
         foreach ($array as $key => $arr){
             $line = "<?php \n\n  return [\n ";
-            $str = mb_strtolower($arr["name"]);
-            $str = str_replace(" ", "_", $str);
-            $value = $arr["name"];
-            $str = addslashes($str);
-            $value = addslashes($value);
-            $line .= "'$str'=>'$value',\n ";
+            $prefix = $this->nameToAliasConversion($arr["name"]);
+            $value = addslashes($arr["name"]);
+            $line .= "'$prefix'=>'$value',\n ";
             $line .= "];";
 
             $code = mb_strtolower($arr["code"]);
-
             file_put_contents(public_path().$this->url_country['original'].$code.".php", $line);
         }
     }
@@ -136,15 +107,13 @@ trait GeographyDbTraite {
      * @param $array
      * @param  string  $prefix
      */
-    private function createFileRegion($array, $prefix=''){
+    private function createFileRegion($array){
         foreach ($array as $key_name => $arr){
             $line = "<?php \n\n  return [\n ";
             foreach ($arr as $index => $arr2){
-                $str = mb_strtolower($arr2["name"]);
-                $str = str_replace(" ", "_", $str).$prefix;
-                $str = addslashes($str);
+                $prefix = $this->nameToAliasConversion($arr2["name"]);
                 $value = addslashes($arr2["name"]);
-                $line .= '"'.$str.'"=>"'.$value.'",'."\n";
+                $line .= '"'.$prefix.'"=>"'.$value.'",'."\n";
             }
             $line .= "];";
 
@@ -159,39 +128,54 @@ trait GeographyDbTraite {
      * @param  string  $prefix
      */
     private function createFileCity($array, $prefix=''){
-        $arrCities = [];
-        // подготовительный масив
-        foreach ($array as $code => $arr) {
-            $name_country = $this->returnNameCountry($this->arrLangRegion['EN'], $code);
-            // создать подмасив страны
-            if(!isset($arrCities[$name_country])){
-                $arrCities[$name_country] = [];
+        $arrCountries = [];
+
+        // страны, регионы и города в них
+        // ['UA'[ 686966[ "name" => "Zhytomyr", ...
+        foreach ($array as $code_region => $arr_cities) {
+            $prefix_country = $this->returnNameCountry($this->arrLangRegion['EN'], $code_region);
+
+            // новый масив страны
+            if(!isset($arrCountries[$prefix_country])){
+                $arrCountries[$prefix_country] = [];
+                $arrCountries[$prefix_country][$code_region] = [];
             }
-            $arrCities[$name_country][] = ['name'=>$arr[0]['name']];
+
+            // внести этот регион с городами
+            foreach($arr_cities as $index => $city){
+                $arrCountries[$prefix_country][$code_region][] = ['name'=>$city["name"]];
+            }
+
+//            if($code_region == 698738){
+//                dd( $arrCountries[$prefix_country] );
+//            }
         }
 
-        foreach ($arrCities as $key_name => $arr) {
+        foreach ($arrCountries as $prefix_country => $arrRegions) {
+
+            // создать файл страны
             $line = "<?php \n\n  return [\n ";
-
-            foreach ($arr as $index => $arr2) {
-                $str = mb_strtolower($arr2["name"]);
-                $str = str_replace(" ", "_", $str).$prefix;
-                $str = addslashes($str);
-                $value = addslashes($arr2["name"]);
-                $line .= '"'.$str.'"=>"'.$value.'",'."\n";
+            foreach ($arrRegions as $code_region => $arrCities) {
+                $line .= " '$code_region' => [\n ";
+                // строка города
+                foreach ($arrCities as $index => $city) {
+                    $prefix = $this->nameToAliasConversion($city["name"]);
+                    $name = addslashes($city["name"]);
+                    $line .= '"'.$prefix.'"=>"'.$name.'",'."\n";
+                }
+                $line .= " ], \n";
             }
-
             $line .= "];";
 
-            $code = mb_strtolower($key_name);
-            file_put_contents(public_path().$this->url_city['original'].$code.".php", $line);
+            $code_country = mb_strtolower($prefix_country);
+            file_put_contents(public_path().$this->url_city['original'].$code_country.".php", $line);
         }
     }
 
     /**
      * записать в базу переводы локаций
-     * (изначально полностью ru, uk базу заливаю ru, в en базу заливаю оригинал)
-     *
+     * ru переводы - страны, регионы (города в en)
+     * en переводы - страны, регионы, города
      */
     private function enterTranslationIntoDatabase(){
         $arrCountries = $this->makeArrayContent($this->url_country["translate"], $this->url_country["original"]);
@@ -209,7 +193,7 @@ trait GeographyDbTraite {
     }
 
     /**
-     * формирует масивы оригинала и перевода файлов
+     * логика формирования переводов в базе
      * @param $url_translate
      * @param $url_original
      * @return array
@@ -220,41 +204,52 @@ trait GeographyDbTraite {
         $languages = config('site.locale.languages');
 
         // перебераю все языки перевода
-        foreach ($languages as $name_lang => $array) {
+        foreach ($languages as $prefix_lang => $array) {
             // 1 создается префикс перевода
-            $arrTranslate[mb_strtoupper($name_lang)] = [];
+            $arrTranslate[mb_strtoupper($prefix_lang)] = [];
 
-            // готовый перевод ru залить в ru и uk
-            if ($name_lang === 'ru' || $name_lang === 'uk') {
-                // выборка файлов в папке ru
-                $files = scandir(public_path().$url_translate);
-                // перебрать все файлы в папке
-                foreach ($files as $key => $name) {
-                    if (strripos($name, ".php") !== false) {
-                        // содержимое файла
-                        $arrProperties = include public_path().$url_translate.$name;
-                        $prefix = substr($name, 0, strpos($name, "."));
+            if ($prefix_lang === 'ru' || $prefix_lang === 'uk') {
 
-                        $arrTranslate[mb_strtoupper($name_lang)][$prefix] = [];
-                        foreach ($arrProperties as $property => $value) {
-                            $arrTranslate[mb_strtoupper($name_lang)][$prefix][$property] = $value;
-                        }
-                    }
+                // готовый перевод был создан руками - ru залить в ru и uk (страны и регионы)
+                $path = public_path().$url_translate;
+                if($this->checkingPathExists($path)){
+                    $arrTranslate = $this->writeFromFileToDatabase($path, $prefix_lang, $arrTranslate);
+                }
+                // перевод ru не был создан для городов. залить en перевод в города
+                else{
+                    $path = public_path().$url_original;
+                    $arrTranslate = $this->writeFromFileToDatabase($path, $prefix_lang, $arrTranslate);
                 }
             }
             else{
-                // в других случаях беру en перевод
-                $files = scandir(public_path() . $url_original);
-                foreach ($files as $key => $name){
-                    if (strripos($name, ".php") !== false) {
-                        // содержимое файла
-                        $arrProperties = include public_path() . $url_original.$name;
-                        $prefix = substr($name, 0, strpos($name, "."));
-                        $arrTranslate[mb_strtoupper($name_lang)][$prefix] = [];
+                $path = public_path().$url_original;
+                $arrTranslate = $this->writeFromFileToDatabase($path, $prefix_lang, $arrTranslate);
+            }
+        }
 
-                        foreach ($arrProperties as $property => $value){
-                            $arrTranslate[mb_strtoupper($name_lang)][$prefix][$property] = $value;
-                        }
+        return $arrTranslate;
+    }
+
+    /**
+     * выборка файлов и формирование обьекта для базы
+     * @param $path
+     * @param $prefix_lang
+     * @param $arrTranslate
+     * @return mixed
+     */
+    private function writeFromFileToDatabase($path, $prefix_lang, $arrTranslate) {
+        if($this->checkingPathExists($path)){
+            // в других случаях беру en перевод
+            $files = scandir($path);
+            foreach ($files as $key => $name){
+                if (strripos($name, ".php") !== false) {
+                    // содержимое файла
+                    $arrProperties = include $path.$name;
+                    $prefix_country = substr($name, 0, strpos($name, "."));
+                    $arrTranslate[mb_strtoupper($prefix_lang)][$prefix_country] = [];
+
+                    foreach ($arrProperties as $property => $value){
+                        $arrTranslate[mb_strtoupper($prefix_lang)][$prefix_country][$property] = $value;
                     }
                 }
             }
@@ -329,6 +324,25 @@ trait GeographyDbTraite {
             }
         }
         return $nameReg;
+    }
+
+    // преобразует название страны, города в рабочий alias
+    private function nameToAliasConversion($name){
+        $prefix = mb_strtolower($name);
+        $prefix = str_replace(" ", "-", $prefix);
+        $prefix = str_replace("'", "", $prefix);
+        $prefix = str_replace("’", "", $prefix);
+        $prefix = str_replace(",", "", $prefix);
+        $prefix = str_replace(".", "", $prefix);
+        return $prefix;
+    }
+
+    // проверка существования пути
+    private function checkingPathExists($path){
+        if (!is_dir($path)) {
+            return false;
+        }
+        return true;
     }
 
 }

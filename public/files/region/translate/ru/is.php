@@ -1,12 +1,12 @@
 <?php
 
   return [
-      "northwest_region"=>"Северо-западный регион",
-      "northeast_region"=>"Северо-восточный регион",
-      "east_region"=>"Восточный регион",
-      "south_region"=>"Южный регион",
-      "greater_reykjavík"=>"Большой Рейкьявик",
-      "southern_peninsula"=>"Южный полуостров",
-      "west_region"=>"Западный регион",
+      "northwest-region"=>"Северо-западный регион",
+      "northeast-region"=>"Северо-восточный регион",
+      "east-region"=>"Восточный регион",
+      "south-region"=>"Южный регион",
+      "greater-reykjavík"=>"Большой Рейкьявик",
+      "southern-peninsula"=>"Южный полуостров",
+      "west-region"=>"Западный регион",
       "westfjords"=>"Западные фьорды",
 ];

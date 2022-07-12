@@ -1,4 +1,4 @@
-<?php 
+<?php
 
   return [
  'thuringia'=>'Тюрингия',
@@ -7,8 +7,8 @@
  'saxony'=>'Саксония',
  'saarland'=>'Саар',
  'rheinland-pfalz'=>'Рейнланд-Пфальц',
- 'north_rhine-westphalia'=>'Северный Рейн-Вестфалия',
- 'lower_saxony'=>'Нижняя Саксония',
+ 'north-rhine-westphalia'=>'Северный Рейн-Вестфалия',
+ 'lower-saxony'=>'Нижняя Саксония',
  'mecklenburg-vorpommern'=>'Мекленбург-Передняя Померания',
  'hesse'=>'Гессен',
  'hamburg'=>'Гамбург',

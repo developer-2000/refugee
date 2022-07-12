@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Vacancy\JobSearchRequest;
+use App\Model\GeographyDb;
 use App\Model\GeographyLocal;
 use App\Model\GeographyTranslate;
 use App\Model\Image;
@@ -11,6 +12,7 @@ use App\Model\Test;
 use App\Model\UserResume;
 use App\Model\Vacancy;
 use App\Repositories\OfferRepository;
+use App\Services\LocalizationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -37,11 +39,16 @@ class IndexController extends Controller {
         return view('index', compact('transition_url_page'));
     }
 
-//    public function test() {
-//
+    public function test() {
+
+
 //        (new \App\Services\MakeLocationDbServices());
+
+//        $locationCities = GeographyTranslate::select('cities')->firstWhere('id', 1);
+//        $allCities = (new LocalizationService())->getCities('ru', $locationCities);
 //
-//    }
+//        dd($allCities);
+    }
 
 
 

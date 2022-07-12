@@ -1,4 +1,4 @@
-<?php 
+<?php
 
   return [
  'zurich'=>'Цюрих',
@@ -10,7 +10,7 @@
  'solothurn'=>'Золотурн',
  'schwyz'=>'Швиц',
  'schaffhausen'=>'Шаффхаузен',
- 'saint_gallen'=>'Санкт-Галлен',
+ 'saint-gallen'=>'Санкт-Галлен',
  'obwalden'=>'Обвальден',
  'nidwalden'=>'Нидвальден',
  'neuchâtel'=>'Невшатель',
@@ -21,10 +21,10 @@
  'geneva'=>'Женева',
  'fribourg'=>'Фрибург',
  'bern'=>'Берн',
- 'basel_city'=>'Базель Сити',
+ 'basel-city'=>'Базель Сити',
  'basel-landschaft'=>'Базельский пейзаж',
- 'appenzell_ausserrhoden'=>'Аппенцелль Ауссерроден',
- 'appenzell_innerrhoden'=>'Аппенцелль Иннерроден',
+ 'appenzell-ausserrhoden'=>'Аппенцелль Ауссерроден',
+ 'appenzell-innerrhoden'=>'Аппенцелль Иннерроден',
  'aargau'=>'Ааргау',
  'zug'=>'Цуг',
  ];

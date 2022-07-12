@@ -1,12 +1,12 @@
 <?php
 
   return [
-      "south_holland"=>"Южная Голландия",
+      "south-holland"=>"Южная Голландия",
       "zeeland"=>"Зеландия",
       "utrecht"=>"Утрехт",
       "overijssel"=>"Оверэйсел",
-      "north_holland"=>"Северная Голландия",
-      "north_brabant"=>"Северный Брабант",
+      "north-holland"=>"Северная Голландия",
+      "north-brabant"=>"Северный Брабант",
       "limburg"=>"Лимбург",
       "groningen"=>"Гронинген",
       "gelderland"=>"Гелдерланд",

@@ -1,9 +1,9 @@
 <?php 
 
   return [
- "capital_region"=>"Capital Region",
-"central_denmark"=>"Central Denmark",
-"north_denmark"=>"North Denmark",
+ "capital-region"=>"Capital Region",
+"central-denmark"=>"Central Denmark",
+"north-denmark"=>"North Denmark",
 "zealand"=>"Zealand",
-"south_denmark"=>"South Denmark",
+"south-denmark"=>"South Denmark",
 ];

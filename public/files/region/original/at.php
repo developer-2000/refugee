@@ -6,8 +6,8 @@
 "tyrol"=>"Tyrol",
 "styria"=>"Styria",
 "salzburg"=>"Salzburg",
-"upper_austria"=>"Upper Austria",
-"lower_austria"=>"Lower Austria",
+"upper-austria"=>"Upper Austria",
+"lower-austria"=>"Lower Austria",
 "carinthia"=>"Carinthia",
 "burgenland"=>"Burgenland",
 ];

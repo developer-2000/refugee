@@ -21,5 +21,5 @@
 "gävleborg"=>"Gävleborg",
 "blekinge"=>"Blekinge",
 "skåne"=>"Skåne",
-"västra_götaland"=>"Västra Götaland",
+"västra-götaland"=>"Västra Götaland",
 ];

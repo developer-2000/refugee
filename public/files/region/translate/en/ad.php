@@ -1,11 +1,11 @@
-<?php 
+<?php
 
   return [
- 'la_massana'=>'La Massana',
+ 'la-massana'=>'La Massana',
  'encamp'=>'Encamp',
  'canillo'=>'Canillo',
  'escaldes-engordany'=>'Escaldes-Engordany',
- 'sant_julià_de_loria'=>'Sant Julià de Loria 2',
- 'andorra_la_vella'=>'Andorra la Vella',
+ 'sant-julià-de-loria'=>'Sant Julià de Loria 2',
+ 'andorra-la-vella'=>'Andorra la Vella',
  'ordino'=>'Ordino',
  ];

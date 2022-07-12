@@ -1,5 +1,5 @@
 <?php 
 
   return [
- 'republic_of_moldova'=>'Republic of Moldova',
+ 'republic-of-moldova'=>'Republic of Moldova',
  ];

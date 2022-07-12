@@ -1,7 +1,13 @@
 <?php 
 
   return [
+  '146267' => [
  "nicosia"=>"Nicosia",
-"limassol"=>"Limassol",
-"larnaca"=>"Larnaca",
+ ], 
+ '146383' => [
+ "limassol"=>"Limassol",
+ ], 
+ '146398' => [
+ "larnaca"=>"Larnaca",
+ ], 
 ];

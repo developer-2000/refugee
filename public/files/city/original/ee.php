@@ -1,7 +1,13 @@
 <?php 
 
   return [
+  '588334' => [
  "tartu"=>"Tartu",
-"narva"=>"Narva",
-"tallinn"=>"Tallinn",
+ ], 
+ '592075' => [
+ "narva"=>"Narva",
+ ], 
+ '592170' => [
+ "tallinn"=>"Tallinn",
+ ], 
 ];

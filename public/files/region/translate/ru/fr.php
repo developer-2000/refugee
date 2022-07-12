@@ -1,12 +1,12 @@
-<?php 
+<?php
 
   return [
- 'pays_de_la_loire'=>'Плати Луары',
+ 'pays-de-la-loire'=>'Плати Луары',
  'corsica'=>'Корсика',
  'brittany'=>'Бретань',
  'burgundy'=>'бордовый',
  'aquitaine'=>'Аквитания',
- 'lower_normandy'=>'Нижняя Нормандия',
+ 'lower-normandy'=>'Нижняя Нормандия',
  'alsace'=>'Эльзас',
  'languedoc-roussillon'=>'Лангедок-Руссильон',
  'nord-pas-de-calais'=>'Север-Па-де-Кале',
@@ -17,10 +17,10 @@
  'midi-pyrénées'=>'Юг-Пиренеи',
  'lorraine'=>'Лотарингия',
  'limousin'=>'Лимузен',
- 'upper_normandy'=>'Верхняя Нормандия',
+ 'upper-normandy'=>'Верхняя Нормандия',
  'franche-comté'=>'Франш-Конте',
  'champagne-ardenne'=>'Шампанское-Арденны',
  'île-de-france'=>'Иль-де-Франс',
  'centre'=>'Центр',
- 'provence-alpes-côte_d\'azur'=>'Прованс-Альпы-Лазурный Берег',
+ 'provence-alpes-côte-d\'azur'=>'Прованс-Альпы-Лазурный Берег',
  ];

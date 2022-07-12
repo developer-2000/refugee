@@ -20,6 +20,6 @@
       "vukovarsko-srijemska"=>"Вуковарско-Сриемска",
       "zadarska"=>"Задарска",
       "zagrebačka"=>"Загребачка",
-      "grad_zagreb"=>"Загреб",
+      "grad-zagreb"=>"Загреб",
       "virovitičko-podravska"=>"Вировитицко-Подравская",
 ];

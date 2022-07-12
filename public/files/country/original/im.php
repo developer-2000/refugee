@@ -1,5 +1,5 @@
 <?php 
 
   return [
- 'isle_of_man'=>'Isle of Man',
+ 'isle-of-man'=>'Isle of Man',
  ];

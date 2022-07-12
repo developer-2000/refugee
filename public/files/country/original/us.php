@@ -1,5 +1,5 @@
 <?php 
 
   return [
- 'united_states'=>'United States',
+ 'united-states'=>'United States',
  ];

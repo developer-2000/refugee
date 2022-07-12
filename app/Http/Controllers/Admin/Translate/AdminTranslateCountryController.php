@@ -5,9 +5,10 @@ use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\Admin\TranslateLocation\AdminTranslateIndexRequest;
 use App\Http\Requests\Admin\TranslateLocation\AdminTranslateUpdateRequest;
 use App\Http\Traits\Admin\AdminTranslateLocationTrait;
-use App\Model\GeographyDb;
 use App\Model\GeographyTranslate;
+use App\Services\LocalizationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class AdminTranslateCountryController extends AdminBaseController {
     use AdminTranslateLocationTrait;
@@ -19,35 +20,8 @@ class AdminTranslateCountryController extends AdminBaseController {
     public function index(AdminTranslateIndexRequest $request){
         // префиксы языков перевода
         $langArr = config('site.locale.languages');
-        // колекции локации стран и их перевод
-        $locationCountries = GeographyDb::select('country')->firstWhere('id', 1);
-        $translateCountries = GeographyTranslate::select('country')->firstWhere('id', 1);
         $translate_lang = isset($request->language) ? $request->language : 'en';
-        $arrContent = [];
-
-        // перебрать переводы
-        foreach ($translateCountries->country[mb_strtoupper($request->language)] as $prefix => $arrTranslate){
-            $newArr = [];
-            $array = $locationCountries->country['EN'];
-
-            // найти в оригинале этот индекс
-            foreach ($array as $item) {
-                $found = array_filter($array, function($item) use ($prefix) {
-                    return mb_strtoupper($prefix) == $item["code"];
-                });
-                if($found){
-                    $index = mb_strtolower(current($found)['name']);
-                    $newArr['prefix'] = str_replace(' ', '_', $index);
-                    $newArr['original_index'] = str_replace(' ', '_', $index);
-                    break;
-                }
-            }
-
-            $newArr['prefix'] = mb_strtoupper($prefix);
-            $newArr['translate_index'] = key($arrTranslate);
-            $newArr['translate'] = current($arrTranslate);
-            $arrContent[] = $newArr;
-        }
+        $arrContent = (new LocalizationService())->getCountries($translate_lang);
 
         $response = [
             "lang_arr"=>$langArr,
@@ -94,8 +68,11 @@ class AdminTranslateCountryController extends AdminBaseController {
             'country'=>$workingArr
         ]);
         // 2 работает с файлом перевода страны
-        $full_url = config('site.locale.url_country')["translate"].mb_strtolower($request->translate_lang)."/";
+        $lowLanguage = mb_strtolower($request->translate_lang);
+        $full_url = config('site.locale.url_country')["translate"].$lowLanguage."/";
         $this->makeFileCountry($property, $translate, $lowCountry, $full_url);
+
+        Cache::forget($lowLanguage.'_all_countries');
 
         return $this->getResponse();
     }
