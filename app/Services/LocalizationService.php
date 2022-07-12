@@ -131,45 +131,47 @@ class LocalizationService {
 
     public function getCities($prefix_lang, $locationCities) {
         $allCities = [];
-        // колекция перевода
-        $translateCities_t = $locationCities;
 
         // проверка кэшь
         if (!Cache::has($prefix_lang.'_all_cities')) {
+            // колекция перевода
+            $translateCities_t = $locationCities;
+            $originalCities_o = GeographyDb::select('cities')->firstWhere('id', 1)->cities;
 
             // перебрать страны перевода
             foreach ($translateCities_t->cities[mb_strtoupper($prefix_lang)] as $prefix_country => $arrRegions_t){
                 $count = [];
-
                 // перебрать регионы страны
                 foreach ($arrRegions_t as $code_region => $arrCities_t){
                     $region = [];
-
                     // конвертированыые value городов оригинала
-                    $propertyCities_o = $this->arrayElementsLowercaseUnderscore( $locationCities->cities['EN'][$prefix_country][$code_region] );
-                    $propertyCities_o = array_values( $propertyCities_o );
+                    $propertyCities_o = $originalCities_o['EN'][$code_region];
+                    if(is_array($propertyCities_o) && count($propertyCities_o)){
+                        $propertyCities_o = collect($propertyCities_o)->pluck('name');
+                        $propertyCities_o = $this->arrayElementsLowercaseUnderscore( $propertyCities_o->toArray() );
 
-                    // перебрать города региона
-                    foreach ($arrCities_t as $property_city_t => $value_city_t){
-                        // 1 найдена или не найдена схожесть перевода с оригиналом (фиксирует ошибку)
-                        $city = $this->searchOriginal($propertyCities_o, $property_city_t);
-                        $city['prefix'] = $prefix_country;
-                        $city['translate_index'] = $property_city_t;
-                        $city['translate'] = $value_city_t;
-                        $city['code_region'] = $code_region;
-                        $region[] = $city;
+                        // перебрать города региона
+                        foreach ($arrCities_t as $property_city_t => $value_city_t){
+                            // 1 найдена или не найдена схожесть перевода с оригиналом (фиксирует ошибку)
+                            $city = $this->searchOriginal($propertyCities_o, $property_city_t);
+                            $city['prefix'] = $prefix_country;
+                            $city['translate_index'] = $property_city_t;
+                            $city['translate'] = $value_city_t;
+                            $city['code_region'] = $code_region;
+                            $region[] = $city;
 
-                        // удалить задействованный город
-                        if(!isset($city['error_index'])){
-                            $propertyCities_o = $this->removeSpecifiedElementFromArray($property_city_t, $propertyCities_o);
+                            // удалить задействованный город
+                            if(!isset($city['error_index'])){
+                                $propertyCities_o = $this->removeSpecifiedElementFromArray($property_city_t, $propertyCities_o);
+                            }
                         }
-                    }
-                    // добавить в случаи ошибок свойства не задействованных городов
-                    foreach ($region as $index => $city){
-                        if( isset($city["error_index"]) ){
-                            $region[$index]["error_index"] = $propertyCities_o;
+                        // добавить в случаи ошибок свойства не задействованных городов
+                        foreach ($region as $index => $city){
+                            if( isset($city["error_index"]) ){
+                                $region[$index]["error_index"] = $propertyCities_o;
+                            }
+                            $count[] = $region[$index];
                         }
-                        $count[] = $region[$index];
                     }
                 }
 

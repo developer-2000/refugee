@@ -1,4 +1,4 @@
-<?php
+<?php 
 
   return [
  'sant-julià-de-loria'=>'Сан-Жулия-де-Лория',

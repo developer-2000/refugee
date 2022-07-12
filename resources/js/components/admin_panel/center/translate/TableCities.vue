@@ -152,6 +152,7 @@
                 const response = await this.$http.post(`/admin-panel/translate-cities/update`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
+                            // console.log(res.data.message)
                             location.reload();
                         }
                     })

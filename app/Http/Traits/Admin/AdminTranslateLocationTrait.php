@@ -115,9 +115,12 @@ trait AdminTranslateLocationTrait
      * @return string|string[]
      */
     private function arrayElementsLowercaseUnderscore($regionArr){
-        foreach ($regionArr as $index => $value) {
-            $regionArr[$index] = $this->nameToAliasConversion($value);
+        if(is_array($regionArr)){
+            foreach ($regionArr as $index => $value) {
+                $regionArr[$index] = $this->nameToAliasConversion($value);
+            }
         }
+
         return $regionArr;
     }
 

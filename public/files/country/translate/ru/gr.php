@@ -1,5 +1,5 @@
-<?php
+<?php 
 
   return [
-      'greece'=>'Греция',
+ 'greece'=>'Греция',
  ];

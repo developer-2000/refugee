@@ -50,31 +50,33 @@ class AdminTranslateCitiesController extends AdminBaseController {
 
     public function update(AdminTranslateUpdateRequest $request){
         $languagesCities = GeographyTranslate::select('cities')->firstWhere('id', 1)->cities;
-
+        $up_lang = mb_strtoupper($request->translate_lang);
+        $low_country = mb_strtolower($request->country);
         $workingArr = $languagesCities;
-        // обьект языка
-        $upLang = mb_strtoupper($request->translate_lang);
-        $objLanguage = $workingArr[$upLang];
-        // обьект страны
-        $lowCountry = mb_strtolower($request->country);
-        $updateObj = $objLanguage[$lowCountry];
+        $objCountry = $workingArr[$up_lang][$low_country];
 
         if($request->row == 'property'){
-            $property = mb_strtolower(str_replace(" ", "_", $request->value));
-            foreach ($updateObj as $prefix => $value_region){
-                // нашел заменяемый елемент
-                if($prefix == $request->old_property){
-                    unset($workingArr[$upLang][$lowCountry][$prefix]);
-                    $workingArr[$upLang][$lowCountry][$property] = $value_region;
-                    break;
+            $new_property = $this->nameToAliasConversion($request->value);
+            foreach ($objCountry as $code_region => $arrCities){
+                foreach ($arrCities as $property_city => $value_city){
+                    // нашел заменяемый елемент
+                    if($property_city == $request->old_property){
+                        unset( $workingArr[$up_lang][$low_country][$code_region][$property_city] );
+                        $workingArr[$up_lang][$low_country][$code_region][$new_property] = $value_city;
+                        break 2;
+                    }
                 }
             }
         }
         elseif($request->row == 'translate'){
-            foreach ($updateObj as $prefix => $value_region){
-                if($value_region == $request->old_value){
-                    $workingArr[$upLang][$lowCountry][$prefix] = $request->value;
-                    break;
+            foreach ($objCountry as $code_region => $arrCities){
+                foreach ($arrCities as $property_city => $value_city){
+                    // нашел заменяемый елемент
+                    if($value_city == $request->old_value){
+                        $value = addslashes($request->value);
+                        $workingArr[$up_lang][$low_country][$code_region][$property_city] = $value;
+                        break 2;
+                    }
                 }
             }
         }
@@ -85,12 +87,12 @@ class AdminTranslateCitiesController extends AdminBaseController {
         ]);
 
         // 2 работает с файлом перевода города
-        $full_url = config('site.locale.url_city')["translate"].mb_strtolower($request->translate_lang)."/";
-        $this->makeFileTranslate(
-            $workingArr[$upLang][$lowCountry],
-            $request->country,
-            $full_url
-        );
+//        $full_url = config('site.locale.url_city')["translate"].mb_strtolower($request->translate_lang)."/";
+//        $this->makeFileTranslate(
+//            $workingArr[$up_lang][$low_country],
+//            $request->country,
+//            $full_url
+//        );
 
         Cache::forget(mb_strtolower($request->translate_lang).'_all_cities');
 
