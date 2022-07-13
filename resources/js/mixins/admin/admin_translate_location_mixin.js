@@ -2,6 +2,7 @@
 export default {
     data() {
         return {
+            last_target: null,
             country: null,
             input_box: '',
             div_change: '',
@@ -79,6 +80,26 @@ export default {
             if(params.has('country')){
                 this.country = params.get('country')
             }
+        },
+        // скопировать в буфер обмена
+        copyText(e, prefix) {
+            let elem = $(e.target);
+            // show insert svg
+            elem.siblings('.svg-insert').addClass('visible-svg')
+            elem.addClass('svg-target')
+            if(this.last_target !== null){
+                this.last_target.removeClass('svg-target')
+            }
+            this.last_target = elem
+
+            let $tmp = $("<textarea>");
+            $("body").append($tmp);
+            // copy text
+            let text = elem.siblings('span').text()
+            $tmp.val(text).select();
+            // $tmp.val(text+" страна "+prefix).select();
+            document.execCommand("copy");
+            $tmp.remove();
         },
     },
 

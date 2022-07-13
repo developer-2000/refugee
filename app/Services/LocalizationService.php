@@ -133,7 +133,7 @@ class LocalizationService {
         $allCities = [];
 
         // проверка кэшь
-        if (!Cache::has($prefix_lang.'_all_cities')) {
+//        if (!Cache::has($prefix_lang.'_all_cities')) {
             // колекция перевода
             $translateCities_t = $locationCities;
             $originalCities_o = GeographyDb::select('cities')->firstWhere('id', 1)->cities;
@@ -179,11 +179,11 @@ class LocalizationService {
                 $allCities = array_merge($allCities, $count);
             }
 
-            Cache::put($prefix_lang.'_all_cities', $allCities);
-        }
-        else{
-            $allCities = Cache::get($prefix_lang.'_all_cities');
-        }
+//            Cache::put($prefix_lang.'_all_cities', $allCities);
+//        }
+//        else{
+//            $allCities = Cache::get($prefix_lang.'_all_cities');
+//        }
 
         return $allCities;
     }

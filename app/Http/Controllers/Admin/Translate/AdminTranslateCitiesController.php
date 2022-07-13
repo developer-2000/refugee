@@ -5,16 +5,13 @@ use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\Admin\TranslateLocation\AdminTranslateIndexRequest;
 use App\Http\Requests\Admin\TranslateLocation\AdminTranslateUpdateRequest;
 use App\Http\Traits\Admin\AdminTranslateLocationTrait;
-use App\Model\GeographyDb;
+use App\Http\Traits\Geography\GeographyFilesTraite;
 use App\Model\GeographyTranslate;
 use App\Services\LocalizationService;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class AdminTranslateCitiesController extends AdminBaseController {
-    use AdminTranslateLocationTrait;
+    use AdminTranslateLocationTrait, GeographyFilesTraite;
 
     protected $count_pagination = 0;
 
@@ -54,6 +51,7 @@ class AdminTranslateCitiesController extends AdminBaseController {
         $low_country = mb_strtolower($request->country);
         $workingArr = $languagesCities;
         $objCountry = $workingArr[$up_lang][$low_country];
+        $url_city = config('site.locale.url_city');
 
         if($request->row == 'property'){
             $new_property = $this->nameToAliasConversion($request->value);
@@ -93,6 +91,12 @@ class AdminTranslateCitiesController extends AdminBaseController {
 //            $request->country,
 //            $full_url
 //        );
+
+        $this->createFileCity(
+            $workingArr[$up_lang][$low_country],
+            $request->country,
+            public_path().$url_city['translate'].mb_strtolower($request->translate_lang).'/'
+        );
 
         Cache::forget(mb_strtolower($request->translate_lang).'_all_cities');
 

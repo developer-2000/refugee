@@ -180,12 +180,12 @@ div.modal-backdrop {
     margin-right: 7px;
     background-color: rgba(0, 0, 0, 0.1);
 }
-
 .edit-svg{
     fill: #007c08;
     cursor: pointer;
-    margin-left: 5px;
+    margin: 0 5px;
 }
+
 /* table regions */
 #table_regions .pagination {
     padding-bottom: 35px;
@@ -193,7 +193,16 @@ div.modal-backdrop {
 .form-group {
     margin: 0;
 }
-
+.svg-copy{
+    fill: #8c8c8c;
+    cursor: pointer;
+}
+.svg-copy:hover{
+    fill: #3460b4;
+}
+.svg-target{
+    fill: #033fb3;
+}
 
 
 

@@ -1,35 +1,29 @@
 <?php
 namespace App\Services;
 
-use App\Http\Traits\GeographyDbTraite;
+use App\Http\Traits\Geography\GeographyDbTraite;
+use App\Http\Traits\Geography\GeographyFilesTraite;
 use App\Model\GeographyDb;
 use MenaraSolutions\Geographer\Earth;
 
 // предназначен для заливки данных в базу - стран , регионов, городов
 // инфа используется юзерами при указании своего адреса
 class MakeLocationDbServices {
+    use GeographyDbTraite, GeographyFilesTraite;
 
-    use GeographyDbTraite;
-
-    protected $boolInsertDB = true;          // внести данные локации в базу
-    protected $boolCreateFileNames = true;   // создавать файлы названий
+    protected $boolInsertDB = false;          // внести данные локации в базу
+    protected $boolCreateFileNames = false;   // создавать файлы названий
     protected $earth;
     protected $lang;
     protected $settingsCountry;
     protected $arrLangCounty = [];
     protected $arrLangRegion = [];
     protected $arrLangCities = [];
-    protected $url_country = '';
-    protected $url_region = '';
-    protected $url_city = '';
 
     public function __construct() {
         $this->earth = new Earth();
         $this->lang = config('site.settings_location_db.lang');
         $this->settingsCountry = config('site.settings_location_db.country');
-        $this->url_country = config('site.locale.url_country');
-        $this->url_region = config('site.locale.url_region');
-        $this->url_city = config('site.locale.url_city');
         $this->allCountry();
     }
 
@@ -59,7 +53,7 @@ class MakeLocationDbServices {
             );
         }
         if($this->boolCreateFileNames){
-            $this->createFileCountry($arrCountry);
+            $this->createFilesCountry($arrCountry);
         }
 
         // создать custom регионы стран на разных языках
@@ -109,7 +103,7 @@ class MakeLocationDbServices {
             );
         }
         if($this->boolCreateFileNames){
-            $this->createFileRegion($countryStates);
+            $this->createFilesRegion($countryStates);
         }
 
         $this->allCities();
@@ -152,7 +146,7 @@ class MakeLocationDbServices {
             );
         }
         if($this->boolCreateFileNames){
-            $this->createFileCity($this->arrLangCities['EN'], '');
+            $this->makeFilesCity($this->arrLangCities['EN'], '');
         }
 
         $this->arrLangCities = null;
@@ -163,8 +157,6 @@ class MakeLocationDbServices {
         //    * ru переводы - страны, регионы (города в en)
         //    * en переводы - страны, регионы, города
         $this->enterTranslationIntoDatabase();
-        // обновляю записи в базе для языков не RU и не EN (UK и другие файлы возможно были созданы в предыдущей работе с переводами)
-        $this->updateTranslationIntoDatabase();
     }
 
 }
