@@ -23,7 +23,7 @@ class GeographyDbController extends BaseController
     {
         $allRegions = $this->service->getRegions($request['lang_local']);
         $allRegions = array_filter($allRegions, function ($item) use ($request) {
-            return $item['prefix'] == $request['country_code'];
+            return $item['prefix'] == mb_strtolower($request['country_code']);
         });
 
         return $this->getResponse($allRegions);
@@ -32,10 +32,9 @@ class GeographyDbController extends BaseController
     public function getCities(GetCitiesRequest $request)
     {
         $allCities = $this->service->getCities($request['lang_local']);
-
         // города текущей страны и региона
         $allCities = array_filter($allCities, function ($item) use ($request) {
-            return $item['prefix'] == $request['country_code'] && $item['code_region'] == $request['region_code'];
+            return $item['prefix'] == mb_strtolower($request['country_code']) && $item['code_region'] == $request['region_code'];
         });
 
         return $this->getResponse( count($allCities) ? $allCities : null );

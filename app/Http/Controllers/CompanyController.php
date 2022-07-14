@@ -33,7 +33,7 @@ class CompanyController extends BaseController {
     {
         $settings = $this->getSettings();
         $company = UserCompany::where('user_id', Auth::user()->id)
-            ->with('image')->first();
+            ->with('image', 'country', 'region', 'city')->first();
 
         return view('my_company', compact('company','settings'));
     }

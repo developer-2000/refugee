@@ -37,7 +37,7 @@ class StoreCompanyRequest extends FormRequest
             'rest_address' => 'required|string|max:255',
             'categories' => 'required|array',
             'categories.*' => 'integer',
-            'tax_number' => 'required|string|max:255',
+            'tax_number' => 'sometimes|nullable|string|max:255',
             'founding_date' => 'sometimes|nullable|date|date_format:m/d/Y',
             'facebook_social' => 'sometimes|nullable|active_url',
             'instagram_social' => 'sometimes|nullable|active_url',

@@ -94,22 +94,16 @@
                         <option disabled="disabled" selected>
                             {{trans('vacancies','select_country')}}
                         </option>
-                        <template v-for="(array, key) in objLocations.load_countries">
+                        <template v-for="(obj, key) in objLocations.load_countries">
                             <!-- в случае редактирования -->
-<!--                            <template v-if="objLocations.country == array.code" >-->
-<!--                                <option :value="array.prefix.toLowerCase()" :key="key" selected-->
-<!--                                        v-if="array.original_index == array.translate_index"-->
-<!--                                >{{array.translate}}</option>-->
-<!--                                <option :value="null" :key="key" v-else></option>-->
-<!--                            </template>-->
-<!--                            v-else-->
-                            <!-- v-if="array.original_index == array.translate_index" в целях проверки валидности префиксов -->
-<!--                            <template>-->
-                                <option :value="array.prefix.toLowerCase()" :key="key"
-                                        v-if="array.original_index == array.translate_index"
-                                >{{array.translate}}</option>
-                                <option :value="null" :key="key" v-else></option>
-<!--                            </template>-->
+                            <template v-if="objLocations.country == obj.prefix" >
+                                <option :value="obj.prefix.toLowerCase()" :key="key" selected
+                                >{{obj.translate}}</option>
+                            </template>
+                            <template v-else>
+                                <option :value="obj.prefix.toLowerCase()" :key="key"
+                                >{{obj.translate}}</option>
+                            </template>
                         </template>
                     </select>
                 </div>
@@ -130,14 +124,14 @@
                         </option>
                         <template v-for="(obj, index) in objLocations.load_regions">
                             <!-- в случае редиктирования -->
-<!--                            <template v-if="objLocations.region == array.code" >-->
-<!--                                <option :value="array.code" :key="key" selected>{{array.name}}</option>-->
-<!--                            </template>-->
-<!--                            <template v-else>-->
-                                <option v-if="obj.original_index == obj.translate_index"
-                                        :value="obj.code_region" :key="index"
+                            <template v-if="objLocations.region == obj.code_region" >
+                                <option :value="obj.code_region" :key="index" selected
                                 >{{obj.translate}}</option>
-<!--                            </template>-->
+                            </template>
+                            <template v-else>
+                                <option :value="obj.code_region" :key="index"
+                                >{{obj.translate}}</option>
+                            </template>
                         </template>
                     </select>
                 </div>
@@ -158,14 +152,14 @@
                         </option>
                         <template v-for="(obj, index) in objLocations.load_cities">
                             <!-- в случае редиктирования -->
-<!--                            <template v-if="objLocations.city == array.code" >-->
-<!--                                <option :value="array.code" :key="key" selected>{{array.name}}</option>-->
-<!--                            </template>-->
-<!--                            <template v-else>-->
-                                <option v-if="(obj.original_index == obj.translate_index)"
-                                        :value="obj.original_index" :key="index"
+                            <template v-if="objLocations.city == obj.original_index" >
+                                <option :value="obj.original_index" :key="index" selected
                                 >{{obj.translate}}</option>
-<!--                            </template>-->
+                            </template>
+                            <template v-else>
+                                <option :value="obj.original_index" :key="index"
+                                >{{obj.translate}}</option>
+                            </template>
                         </template>
                     </select>
                 </div>
@@ -245,24 +239,16 @@
                 <div class="form-group height-element">
                     <label for="position">
                         {{trans('company','company_tax_number')}}
-                        <span class="mandatory-filling">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
-                            </span>
                         <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
                               :title="`${trans('vacancies','title_position')}`"
                         >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                     </label>
-                    <input type="text" id="company_tax_number" class="form-control" maxlength="100" autocomplete="off"
+                    <input type="text" id="company_tax_number" class="form-control" maxlength="100"
                            :placeholder="trans('company','enter_number')"
-                           :class="{'is-invalid': $v.company_tax_number.$error}"
                            v-model="company_tax_number"
-                           @blur="$v.company_tax_number.$touch()"
                     >
-                    <div class="invalid-feedback" v-if="!$v.company_tax_number.required">
-                        {{trans('company','please_enter_your_number')}}
-                    </div>
                 </div>
             </div>
             <!-- Сайт компании -->
@@ -658,7 +644,6 @@
                 if(
                     !v.position.required ||
                     !v.rest_address.required ||
-                    !v.company_tax_number.required ||
                     (this.company_id === null && (!v.position_transliteration.required || !v.position_transliteration.uniqTranslit)) ||
                     !this.objCategory.categories.length
                 ){
@@ -814,30 +799,26 @@
 
                 // Location
                 this.objLocations.load_countries = this.settings.obj_countries
-                this.objLocations.country = this.company.country.code
-                this.loadRegions();
-                if(this.company.region != null){
-                    this.objLocations.region = this.company.region.code
-                    setTimeout(() => {
-                        this.loadCity()
+                this.objLocations.country = this.company.country.local.prefix
 
-                        setTimeout(() => {
-                            if(this.company.city != null){
-                                this.objLocations.city = this.company.city.code
-                            }
-                            this.objLocations.bool_rest_address = true
-                        }, 1500);
+                if(this.company.region != null){
+                    this.loadRegions();
+                    this.objLocations.region = this.company.region.local.code_region
+
+                    setTimeout(() => {
+                        if(this.company.city != null) {
+                            this.loadCity()
+
+                            setTimeout(() => {
+                                this.objLocations.city = this.company.city.local.original_index
+                                this.objLocations.bool_rest_address = true
+                            }, 500);
+                        }
+
                         this.rest_address = this.company.rest_address
 
                     }, 1500);
                 }
-                // if(this.company.city != null){
-                //     this.objLocations.city = this.company.city.code
-                // }
-                // setTimeout(() => {
-                //     this.objLocations.bool_rest_address = true
-                // }, 1000);
-                // this.rest_address = this.company.rest_address
 
                 // categories
                 this.objCategory.categories = this.company.categories
@@ -910,9 +891,6 @@
                 }
             },
             rest_address: {
-                required,
-            },
-            company_tax_number: {
                 required,
             },
         },
