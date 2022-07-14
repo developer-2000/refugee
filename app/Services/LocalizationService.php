@@ -4,11 +4,18 @@ namespace App\Services;
 use App\Http\Traits\Admin\AdminTranslateLocationTrait;
 use App\Model\GeographyDb;
 use App\Model\GeographyTranslate;
+use App\Repositories\CompanyRepository;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
 class LocalizationService {
     use AdminTranslateLocationTrait;
+
+    protected $lang_now;
+
+    public function __construct() {
+        $this->lang_now = App::getLocale();
+    }
 
     // динамический префикс языка и назначение translation сайта
     public function locale()
@@ -35,6 +42,11 @@ class LocalizationService {
         return "";
     }
 
+    /**
+     * Все страны языка
+     * @param $prefix_lang
+     * @return array|mixed
+     */
     public function getCountries($prefix_lang) {
         $arrContent = [];
         // колекции стран и их перевод
@@ -76,7 +88,14 @@ class LocalizationService {
         return $arrContent;
     }
 
-    public function getRegions($prefix_lang, $locationRegions_o) {
+    /**
+     * Все регионы языка
+     * @param $prefix_lang
+     * @param $locationRegions_o
+     * @return array|mixed
+     */
+    public function getRegions($prefix_lang) {
+        $locationRegions_o = GeographyDb::select('regions')->firstWhere('id', 1);
         $allRegions = [];
         // колекция регионов перевода
         $translateRegions = GeographyTranslate::select('regions')->firstWhere('id', 1);
@@ -129,11 +148,19 @@ class LocalizationService {
         return $allRegions;
     }
 
-    public function getCities($prefix_lang, $locationCities) {
+    /**
+     * Все города языка
+     * @param $prefix_lang
+     * @return array|mixed
+     */
+    public function getCities($prefix_lang) {
+        $locationCities = GeographyTranslate::select('cities')->firstWhere('id', 1);
         $allCities = [];
 
+        Cache::forget($prefix_lang.'_all_regions');
+
         // проверка кэшь
-//        if (!Cache::has($prefix_lang.'_all_cities')) {
+        if (!Cache::has($prefix_lang.'_all_cities')) {
             // колекция перевода
             $translateCities_t = $locationCities;
             $originalCities_o = GeographyDb::select('cities')->firstWhere('id', 1)->cities;
@@ -179,13 +206,66 @@ class LocalizationService {
                 $allCities = array_merge($allCities, $count);
             }
 
-//            Cache::put($prefix_lang.'_all_cities', $allCities);
-//        }
-//        else{
-//            $allCities = Cache::get($prefix_lang.'_all_cities');
-//        }
+            Cache::put($prefix_lang.'_all_cities', $allCities);
+        }
+        else{
+            $allCities = Cache::get($prefix_lang.'_all_cities');
+        }
 
         return $allCities;
+    }
+
+    /**
+     * выбрать обьект страны по префиксу
+     * @param $prefix_count
+     * @return mixed|null
+     */
+    public function getCountryForShow($prefix_count){
+        $countries = $this->getCountries($this->lang_now);
+        $country = null;
+        foreach ($countries as $key => $arr){
+            if($arr["prefix"] === $prefix_count){
+                $country = $arr;
+                break;
+            }
+        }
+        return $country;
+    }
+
+    /**
+     * выбрать обьект города по
+     * @param $arrRegion
+     * @return mixed|null
+     */
+    public function getRegionForShow($arrRegion){
+        $regions = $this->getRegions($this->lang_now);
+        $region = null;
+        foreach ($regions as $key => $arr){
+            if(isset($arr["code_region"]) && $arr["code_region"] === $arrRegion["code_region"]){
+                $region = $arr;
+                break;
+            }
+        }
+        return $region;
+    }
+
+    /**
+     * выбрать обьект города по данным обьекта коллекции
+     * @param $arrCity
+     * @return mixed|null
+     */
+    public function getCityForShow($arrCity){
+        $cities = $this->getCities($this->lang_now);
+        $city = null;
+        foreach ($cities as $key => $arr){
+            if(isset($arr["code_region"]) && isset($arr["original_index"])){
+                if($arr["code_region"] === $arrCity["code_region"] && $arr["original_index"] === $arrCity["original_index"]){
+                    $city = $arr;
+                    break;
+                }
+            }
+        }
+        return $city;
     }
 
 }

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
 use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
@@ -13,7 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeRepository extends CoreRepository {
-    use GeneralVacancyResumeTraite;
+    use GeneralVacancyResumeTraite, GeographyWorkSeparateEntryTraite;
 
     protected $settings;
 
@@ -125,9 +126,9 @@ class ResumeRepository extends CoreRepository {
     private function makeArrayResume($request, $position){
         return [
             'position_id'=>$position->id,
-            'country_id' => $this->createGetGeoLocal($request, 'country', 0, ''),
-            'region_id' => $this->createGetGeoLocal($request, 'region', 1, '_reg'),
-            'city_id' => $this->createGetGeoLocal($request, 'city', 2, ''),
+            'country_id' => $this->createSpecifiedLocationRecord($request, 'country', 0),
+            'region_id' => $this->createSpecifiedLocationRecord($request, 'region', 1),
+            'city_id' => $this->createSpecifiedLocationRecord($request, 'city', 2),
             'data_birth'=>Carbon::parse($request->data_birth),
             'categories'=>$request->categories,
             'salary'=>[

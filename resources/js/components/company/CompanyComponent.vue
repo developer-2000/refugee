@@ -241,14 +241,13 @@
             addressView(companyObj){
                 let address_string = ''
 
-                if(companyObj.country !== null){
-                    address_string += companyObj.country.name+'.'
+                address_string += companyObj.address.country.translate+'.'
+
+                if(companyObj.address.region !== undefined){
+                    address_string += ' ' + companyObj.address.region.translate+'.'
                 }
-                if(companyObj.region !== null){
-                    address_string += ' ' + companyObj.region.name+'.'
-                }
-                if(companyObj.city !== null){
-                    address_string += ' ' + companyObj.city.name+'.'
+                if(companyObj.address.city !== null){
+                    address_string += ' ' + companyObj.address.city.translate+'.'
                 }
 
                 address_string += ' ' + companyObj.rest_address+'.'
@@ -302,7 +301,7 @@
             'user',
         ],
         mounted() {
-            // console.log(this.company)
+            console.log(this.company)
         },
     }
 </script>

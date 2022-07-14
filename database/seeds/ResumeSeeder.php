@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
 use Illuminate\Database\Seeder;
 use App\Model\UserResume;
 use App\Model\Position;
 use Faker\Generator as Faker;
 use App\Model\GeographyLocal;
 
-class ResumeSeeder extends Seeder
-{
+class ResumeSeeder extends Seeder {
+    use GeographyWorkSeparateEntryTraite;
+
     /**
      * Run the database seeds.
      *
@@ -27,44 +29,26 @@ class ResumeSeeder extends Seeder
                     'title' => $key."_Resume_$i"
                 ]);
 
-                $local = json_decode('{"code":"AL","name":"Albania"}');
-                $country_local = GeographyLocal::firstOrCreate(
-                    ["local->code" => "AL"],
-                    [
-                        'local' => $local,
-                        'alias' => mb_strtolower($local->name),
-                        'type' => 0
-                    ]
-                );
+                $country = new stdClass();
+                $country->country = (Array) json_decode('{"prefix":"UA","original_index":"ukraine","translate_index":"ukraine","translate":"\u0423\u043a\u0440\u0430\u0438\u043d\u0430"}');
+                $country_id = $this->createSpecifiedLocationRecord($country,'country', 0);
 
-                $local = json_decode('{"code":865732,"name":"Elbasan"}');
-                $region_local = GeographyLocal::firstOrCreate(
-                    ["local->code" => '865732'],
-                    [
-                        'local' => $local,
-                        'alias' => mb_strtolower($local->name).'_reg',
-                        'type' => 1
-                    ]
-                );
+                $region = new stdClass();
+                $region->region = (Array) json_decode('{"original_index":"odessa","code_region":698738,"prefix":"ua","translate_index":"odessa","translate":"\u041e\u0434\u0435\u0441\u0441\u043a\u0430\u044f"}');
+                $local_id = $this->createSpecifiedLocationRecord($region, 'region', 1);
 
-                $local = json_decode('{"code":783263,"geonamesCode":783263,"name":"Elbasan","latitude":41.1125,"longitude":20.08222,"population":100903,"capital":null}');
-                $city_local = GeographyLocal::firstOrCreate(
-                    ["local->code" => '783263'],
-                    [
-                        'local' => $local,
-                        'alias' => mb_strtolower($local->name),
-                        'type' => 2
-                    ]
-                );
+                $city = new stdClass();
+                $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","translate_index":"odessa","translate":"Odessa","code_region":698738}');
+                $city_id = $this->createSpecifiedLocationRecord($city, 'city', 2);
 
                 $data = [
                     'user_id' => $obj->id,
                     'position_id' => $position->id,
                     'alias' => sha1(time()),
 
-                    'country_id' => $country_local->id,
-                    'region_id' => $region_local->id,
-                    'city_id' => $city_local->id,
+                    'country_id' => $country_id,
+                    'region_id' => $local_id,
+                    'city_id' => $city_id,
 
                     'data_birth' => '1977-01-04 00:00:00',
                     'categories' => '[0]',
@@ -82,7 +66,6 @@ class ResumeSeeder extends Seeder
                 ];
 
                 sleep(1);
-
                 UserResume::insert($data);
             }
 

@@ -22,9 +22,11 @@ class CreateUserCompaniesTable extends Migration
 
             $table->string('title', 100)->nullable()->default(null);
             $table->string('alias', 100)->unique()->comment('уникальный url');
-            $table->string('country', 200)->nullable()->default(null)->comment('страна');
-            $table->string('region', 200)->nullable()->default(null)->comment('регион');
-            $table->string('city', 200)->nullable()->default(null)->comment('город');
+
+            $table->unsignedBigInteger('country_id')->index();
+            $table->unsignedBigInteger('region_id')->index()->nullable()->default(null);
+            $table->unsignedBigInteger('city_id')->index()->nullable()->default(null);
+
             $table->string('rest_address', 100)->nullable()->default(null)->comment('остальной адрес');
             $table->string('categories', 100)->nullable()->default(null)->comment('категории компании');
             $table->text('youtube_links')->nullable()->default(null)->comment('видео компании');

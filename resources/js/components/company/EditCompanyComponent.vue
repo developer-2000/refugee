@@ -143,7 +143,7 @@
                 </div>
 
                 <!-- City -->
-                <div class="form-group" v-if="objLocations.load_cities">{{objLocations.region}}
+                <div class="form-group" v-if="objLocations.load_cities">
                     <label for="city">
                         {{trans('company','company_city')}}
                         <span class="mandatory-filling">
@@ -162,8 +162,8 @@
 <!--                                <option :value="array.code" :key="key" selected>{{array.name}}</option>-->
 <!--                            </template>-->
 <!--                            <template v-else>-->
-                                <option v-if="(obj.original_index == obj.translate_index) && (objLocations.region == obj.code_region)"
-                                        :value="obj.code" :key="index"
+                                <option v-if="(obj.original_index == obj.translate_index)"
+                                        :value="obj.original_index" :key="index"
                                 >{{obj.translate}}</option>
 <!--                            </template>-->
                         </template>
@@ -668,9 +668,9 @@
             },
             getValuesFields(){
                 let obj = {
-                    country: this.returnFoundObject(this.objLocations.load_countries, this.objLocations.country),
-                    region: this.returnFoundObject(this.objLocations.load_regions, this.objLocations.region),
-                    city: this.returnFoundObject(this.objLocations.load_cities, this.objLocations.city),
+                    country: this.returnTargetLocalisation(this.objLocations.load_countries, this.objLocations.country.toUpperCase(), 'prefix'),
+                    region: this.returnTargetLocalisation(this.objLocations.load_regions, this.objLocations.region, 'code_region'),
+                    city: this.returnTargetLocalisation(this.objLocations.load_cities, this.objLocations.city, 'original_index'),
                     categories: this.objCategory.categories,
                     youtube_links: this.addYoutubeArr(),
                     title: this.position,

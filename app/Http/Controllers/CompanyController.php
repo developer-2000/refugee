@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Company\CheckTransliterationRequest;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
+use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Model\GeographyDb;
+use App\Model\GeographyTranslate;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
@@ -15,11 +17,11 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends BaseController {
+    use GeographyForShowInterfaceTraite;
 
     protected $repository;
 
     public function __construct() {
-//        parent::__construct();
         $this->repository = new CompanyRepository();
     }
 
@@ -41,9 +43,9 @@ class CompanyController extends BaseController {
      * @param  StoreCompanyRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreCompanyRequest $request)
-    {
+    public function store(StoreCompanyRequest $request) {
         $store = $this->repository->storeCompany($request);
+
         return $this->getResponse();
     }
 
@@ -73,16 +75,22 @@ class CompanyController extends BaseController {
                 'vacancies.id_hide_vacancies',
                 'vacancies.country','vacancies.region','vacancies.city',
                 'contact.avatar',
-                'contact.position'
+                'contact.position',
+                'country',
+                'region',
+                'city'
             )->firstOrFail();
 
-        // 1 заполить контакт лист
+        // 1 добавить данные адреса
+        $company = $this->addPropertiesToCollection($company);
+
+        // 2 заполить контакт лист
         $contact_list = (new ContactInformationRepository())->fillContactList(
             $company->contact, $company->user_id
         );
         $contact_list['offer_url'] = null;
 
-        // 2 добавить url нашего чата
+        // 3 добавить url нашего чата
         if(!is_null($my_user)){
             $ourOffer = (new OfferRepository())->getOurChat($company->user_id, $my_user->id);
             if(is_null($ourOffer)){
@@ -99,6 +107,9 @@ class CompanyController extends BaseController {
         $settings['categories'] = config('site.categories.categories');
         $settings['count_working'] = config('site.company.count_working');
         $settings['contact_information'] = config('site.contacts.contact_information');
+
+        $company = collect($company);
+        $company = $company->except(['city','region','country']);
 
         return view('company', compact('company','settings', 'contact_list'));
     }

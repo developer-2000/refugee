@@ -1,12 +1,13 @@
 <?php
 
-use App\Model\GeographyLocal;
+use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
 use App\Model\Position;
 use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 
-class VacancySeeder extends Seeder
-{
+class VacancySeeder extends Seeder {
+    use GeographyWorkSeparateEntryTraite;
+
     /**
      * Run the database seeds.
      *
@@ -26,35 +27,17 @@ class VacancySeeder extends Seeder
                     'title' => $key."_Vacancy_$i"
                 ]);
 
-                $local = json_decode('{"code":"AL","name":"Albania"}');
-                $country_local = GeographyLocal::firstOrCreate(
-                    ["local->code" => "AL"],
-                    [
-                        'local' => $local,
-                        'alias' => mb_strtolower($local->name),
-                        'type' => 0
-                    ]
-                );
+                $country = new stdClass();
+                $country->country = (Array) json_decode('{"prefix":"US","original_index":"united-states","translate_index":"united-states","translate":"\u0421\u043e\u0435\u0434\u0438\u043d\u0435\u043d\u043d\u044b\u0435 \u0428\u0442\u0430\u0442\u044b"}');
+                $country_id = $this->createSpecifiedLocationRecord($country,'country', 0);
 
-                $local = json_decode('{"code":865732,"name":"Elbasan"}');
-                $region_local = GeographyLocal::firstOrCreate(
-                    ["local->code" => '865732'],
-                    [
-                        'local' => $local,
-                        'alias' => mb_strtolower($local->name).'_reg',
-                        'type' => 1
-                    ]
-                );
+                $region = new stdClass();
+                $region->region = (Array) json_decode('{"original_index":"new-york","code_region":5128638,"prefix":"us","translate_index":"new-york","translate":"\u041d\u044c\u044e-\u0419\u043e\u0440\u043a"}');
+                $local_id = $this->createSpecifiedLocationRecord($region, 'region', 1);
 
-                $local = json_decode('{"code":783263,"geonamesCode":783263,"name":"Elbasan","latitude":41.1125,"longitude":20.08222,"population":100903,"capital":null}');
-                $city_local = GeographyLocal::firstOrCreate(
-                    ["local->code" => '783263'],
-                    [
-                        'local' => $local,
-                        'alias' => mb_strtolower($local->name),
-                        'type' => 2
-                    ]
-                );
+                $city = new stdClass();
+                $city->city = (Array) json_decode('{"original_index":"new-york-city","prefix":"us","translate_index":"new-york-city","translate":"New York City","code_region":5128638}');
+                $city_id = $this->createSpecifiedLocationRecord($city, 'city', 2);
 
                 $data = [
                     'user_id' => $obj->id,
@@ -62,9 +45,9 @@ class VacancySeeder extends Seeder
                     'categories' => '[0]',
                     'languages' => '[0]',
 
-                    'country_id' => $country_local->id,
-                    'region_id' => $region_local->id,
-                    'city_id' => $city_local->id,
+                    'country_id' => $country_id,
+                    'region_id' => $local_id,
+                    'city_id' => $city_id,
 
                     'rest_address' => $faker->streetAddress(),
                     'type_employment' => rand(0, 3),

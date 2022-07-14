@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
 use App\Http\Traits\LoadFileMethodsTraite;
 use App\Model\Image;
 use App\Model\UserCompany;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 class CompanyRepository extends CoreRepository {
-    use LoadFileMethodsTraite;
+    use LoadFileMethodsTraite, GeographyWorkSeparateEntryTraite;
 
     protected $settings;
     protected $path_logotype;
@@ -26,6 +27,7 @@ class CompanyRepository extends CoreRepository {
         }
 
         $arr = $this->makeArrayCompany($request);
+
         // 1
         $arr['user_id'] = Auth::user()->id;
 
@@ -116,9 +118,9 @@ class CompanyRepository extends CoreRepository {
     private function makeArrayCompany($request){
         return [
             'title'=>$request->title,
-            'country'=> $request->country[0],
-            'region'=> ($request->region != null) ? $request->region[0] : null,
-            'city'=> ($request->city != null) ? $request->city[0] : null,
+            'country_id' => $this->createSpecifiedLocationRecord($request, 'country', 0),
+            'region_id' => $this->createSpecifiedLocationRecord($request, 'region', 1),
+            'city_id' => $this->createSpecifiedLocationRecord($request, 'city', 2),
             'rest_address'=>$request->rest_address,
             'categories'=>array_map('intval', $request->categories),
             'youtube_links'=>$request->youtube_links,

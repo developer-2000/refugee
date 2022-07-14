@@ -30,7 +30,7 @@ class AdminTranslateRegionsController extends AdminBaseController {
         // колекция регионов оригинал
         $locationRegions = GeographyDb::select('regions')->firstWhere('id', 1);
         $allPrefix = $this->arrayElementsLowercaseUnderscore(array_keys($locationRegions->regions['EN']));
-        $allRegions = (new LocalizationService())->getRegions($translate_lang, $locationRegions);
+        $allRegions = (new LocalizationService())->getRegions($translate_lang);
 
         // если есть сортировка по странам
         if(isset($request->country)){

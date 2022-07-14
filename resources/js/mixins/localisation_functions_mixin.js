@@ -50,9 +50,13 @@ export default {
             const response = await this.$http.post(`/localisation/get-city`, data)
                 .then(res => {
                     if(this.checkSuccess(res)){
-                        // console.log(res.data.message)
-                        this.clearLocation('bool_rest')
-                        this.objLocations.load_cities = res.data.message
+                        if(res.data.message !== null){
+                            this.objLocations.load_cities = res.data.message
+                        }
+                        else{
+                            this.clearLocation('load_cities')
+                            this.objLocations.bool_rest_address = true
+                        }
                     }
                     // custom ошибки
                     else{
@@ -65,9 +69,11 @@ export default {
                     this.messageError(err)
                 })
         },
+
         changeSelect(value, name){
             if(name == 'region'){
                 this.objLocations.region = value
+                this.clearLocation('load_cities')
                 this.loadCity();
             }
             else if(name == 'city'){
@@ -85,6 +91,7 @@ export default {
                     break;
                 case 'bool_rest':
                     this.objLocations.bool_rest_address = null
+                    this.objLocations.city = null
                     break;
                 case 'load_region':
                     this.objLocations.bool_rest_address = null
@@ -128,16 +135,17 @@ export default {
             }
             this.objCategory.categories = selected;
         },
-        // вернет обьект этого значения
-        returnFoundObject(data, value){
-            let obj = []
+        returnTargetLocalisation(data, value, prefix){
+            let obj = null
             if(data !== null){
-                obj = data.filter((val) => {
-                    return val.code == value
-                });
+                for (let key in data) {
+                    if(data[key][prefix] == value){
+                        obj = data[key]
+                    }
+                }
             }
 
-            return !obj.length ? null : obj
+            return obj
         },
     },
     mounted() {

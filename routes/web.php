@@ -159,8 +159,8 @@ Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function 
 
     // localisation
     Route::group(['prefix'=>'localisation'], function (){
-        Route::post('/get-region', 'GeographyDbController@getRegion');
-        Route::post('/get-city', 'GeographyDbController@getCity');
+        Route::post('/get-region', 'GeographyDbController@getRegions');
+        Route::post('/get-city', 'GeographyDbController@getCities');
     });
 
     // change language

@@ -347,29 +347,4 @@ trait GeneralVacancyResumeTraite {
         return $this->model;
     }
 
-    /**
-     * создает и возвращает id локации
-     * @param $request
-     * @param $property
-     * @param  int  $type
-     * @param  string  $prefix
-     * @return |null
-     */
-    private function createGetGeoLocal($request, $property, $type=0, $prefix = ''){
-        $col_id = null;
-
-        if($request->$property !== null){
-            $coll = GeographyLocal::firstOrCreate(
-                ["local->code" => $request->$property[0]['code']],
-                [
-                    'local' => $request->$property[0],
-                    'alias' => mb_strtolower($request->$property[0]['name']).$prefix,
-                    'type' => $type
-                ]
-            );
-            $col_id = $coll->id;
-        }
-
-        return $col_id;
-    }
 }

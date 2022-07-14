@@ -10,11 +10,7 @@ class UserCompany extends Model
     protected $casts = [
         'categories' => 'array',
         'youtube_links' => 'array',
-        'country' => 'json',
-        'region' => 'json',
-        'city' => 'json',
     ];
-
 
     /**
      * default image в том случае если компания создана а картинка не загружена
@@ -35,4 +31,15 @@ class UserCompany extends Model
         return $this->hasOne(UserContact::class, 'user_id', 'user_id');
     }
 
+    public function country() {
+        return $this->hasOne(GeographyLocal::class, 'id', 'country_id');
+    }
+
+    public function region() {
+        return $this->hasOne(GeographyLocal::class, 'id', 'region_id');
+    }
+
+    public function city() {
+        return $this->hasOne(GeographyLocal::class, 'id', 'city_id');
+    }
 }

@@ -28,7 +28,7 @@ class AdminTranslateCitiesController extends AdminBaseController {
         $locationCities = GeographyTranslate::select('cities')->firstWhere('id', 1);
         $allPrefix = array_keys($locationCities->cities['EN']);
 
-        $allCities = (new LocalizationService())->getCities($translate_lang, $locationCities);
+        $allCities = (new LocalizationService())->getCities($translate_lang);
 
         // если есть сортировка по странам
         if(isset($request->country)){

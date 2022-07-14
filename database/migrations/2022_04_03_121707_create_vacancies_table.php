@@ -23,9 +23,9 @@ class CreateVacanciesTable extends Migration
             $table->string('categories')->index()->nullable()->default(null)->comment('категории вакансии');
             $table->string('languages')->index()->nullable()->default(null)->comment('языки вакансии');
 
-            $table->unsignedBigInteger('country_id');
-            $table->unsignedBigInteger('region_id')->nullable()->default(null);
-            $table->unsignedBigInteger('city_id')->nullable()->default(null);
+            $table->unsignedBigInteger('country_id')->index();
+            $table->unsignedBigInteger('region_id')->index()->nullable()->default(null);
+            $table->unsignedBigInteger('city_id')->index()->nullable()->default(null);
 
             $table->string('rest_address')->index()->comment('остальной адрес');
             $table->json('vacancy_suitable')->nullable()->default(null)->comment('возраст вакансии');
