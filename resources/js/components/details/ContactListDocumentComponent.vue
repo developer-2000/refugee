@@ -175,7 +175,6 @@
             'contact_list',
         ],
         mounted() {
-            // console.log(this.contact_list)
         },
     }
 </script>

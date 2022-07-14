@@ -328,7 +328,6 @@
                 const response = await this.$http.post(`/private-office/contact-information/update`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res)
                             location.href = this.lang.prefix_lang+'private-office'
                         }
                         // custom ошибки

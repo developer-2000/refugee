@@ -115,8 +115,6 @@
         ],
         mounted() {
             this.initialData()
-
-            console.log(this.vacancies)
         },
     }
 </script>

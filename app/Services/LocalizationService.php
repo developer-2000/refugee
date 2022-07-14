@@ -49,11 +49,12 @@ class LocalizationService {
      */
     public function getCountries($prefix_lang) {
         $arrContent = [];
-        // колекции стран и их перевод
-        $locationCountries = GeographyDb::select('country')->firstWhere('id', 1);
-        $translateCountries_t = GeographyTranslate::select('country')->firstWhere('id', 1);
 
         if (!Cache::has($prefix_lang.'_all_countries')) {
+            // колекции стран и их перевод
+            $locationCountries = GeographyDb::select('country')->firstWhere('id', 1);
+            $translateCountries_t = GeographyTranslate::select('country')->firstWhere('id', 1);
+
             // перебрать переводы
             foreach ($translateCountries_t->country[mb_strtoupper($prefix_lang)] as $prefix_t => $arrTranslate_t){
                 $newArr = [];
@@ -95,13 +96,14 @@ class LocalizationService {
      * @return array|mixed
      */
     public function getRegions($prefix_lang) {
-        $locationRegions_o = GeographyDb::select('regions')->firstWhere('id', 1);
         $allRegions = [];
-        // колекция регионов перевода
-        $translateRegions = GeographyTranslate::select('regions')->firstWhere('id', 1);
 
         // проверка кэшь
         if (!Cache::has($prefix_lang.'_all_regions')) {
+            // колекция регионов перевода
+            $translateRegions = GeographyTranslate::select('regions')->firstWhere('id', 1);
+            $locationRegions_o = GeographyDb::select('regions')->firstWhere('id', 1);
+
 
             // перебрать страны языка
             foreach ($translateRegions->regions[mb_strtoupper($prefix_lang)] as $prefix_country => $arrRegions){
@@ -154,13 +156,12 @@ class LocalizationService {
      * @return array|mixed
      */
     public function getCities($prefix_lang) {
-        $locationCities = GeographyTranslate::select('cities')->firstWhere('id', 1);
         $allCities = [];
-
-        Cache::forget($prefix_lang.'_all_regions');
 
         // проверка кэшь
         if (!Cache::has($prefix_lang.'_all_cities')) {
+            $locationCities = GeographyTranslate::select('cities')->firstWhere('id', 1);
+
             // колекция перевода
             $translateCities_t = $locationCities;
             $originalCities_o = GeographyDb::select('cities')->firstWhere('id', 1)->cities;

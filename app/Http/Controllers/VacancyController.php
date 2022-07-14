@@ -36,21 +36,9 @@ class VacancyController extends BaseController {
         $ids_respond = [];
         // 1
         $settings = $this->getSettingsDocumentsAndCountries();
-        // 2 фильтр выборки
-        $vacancies = $this->repository->initialDataForSampling($request);
-        // 3 не показывать мои вакансии
-        if(!is_null($my_user)){
-            $vacancies = $vacancies->where('user_id', '!=', $my_user->id);
-            // 4 не показывать мною скрытые вакансии
-            $idHide = UserHideVacancy::where('user_id',$my_user->id)->get()->pluck('vacancy_id');
-            $vacancies = $vacancies->whereNotIn('id', $idHide);
-        }
-
-        $vacancies = $vacancies
-            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies','country','region','city')
-            ->paginate($this->count_pagination);
-
-        // 4 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
+        // 2
+        $vacancies = $this->repository->index($request, $this->count_pagination);
+        // 3 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
         $idVacancies = $vacancies->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondVacancy::where('user_resume_id',$my_user->id)
@@ -141,11 +129,7 @@ class VacancyController extends BaseController {
     public function myVacancies()
     {
         $settings = config('site.settings_vacancy');
-        $vacancies = Vacancy::where('user_id', Auth::user()->id)
-            ->with('position','country','region','city')
-            ->withCount('respond')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $vacancies = $this->repository->myVacancies();
 
         return view('vacancies/my_vacancies', compact('vacancies','settings'));
     }
@@ -208,9 +192,7 @@ class VacancyController extends BaseController {
     public function getBookmarkVacancies()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
-        $vacancies = UserSaveVacancy::where('user_id', Auth::user()->id)
-            ->with('vacancy.position','vacancy.company.image','vacancy.country','vacancy.region','vacancy.city')
-            ->get();
+        $vacancies = $this->repository->getBookmarkVacancies();
 
         return view('vacancies.bookmark_vacancies', compact('settings','vacancies'));
     }
@@ -233,9 +215,7 @@ class VacancyController extends BaseController {
     public function getHiddenVacancies()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
-        $vacancies = UserHideVacancy::where('user_id', Auth::user()->id)
-            ->with('vacancy.position','vacancy.company.image','vacancy.country','vacancy.region','vacancy.city')
-            ->get();
+        $vacancies = $this->repository->getHiddenVacancies();
 
         return view('vacancies.hidden_vacancies', compact('settings','vacancies'));
     }

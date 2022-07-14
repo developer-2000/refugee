@@ -372,9 +372,6 @@
             'respond',
         ],
         mounted() {
-            // console.log(this.user)
-            // console.log(this.respond['offers'])
-
             this.content = this.respond['offers']
             this.archive_count = this.respond['count_archive']
             // инициализация динамических всплывающих подсказок

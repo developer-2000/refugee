@@ -2,19 +2,20 @@
 namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
-use App\Model\GeographyLocal;
 use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
+use App\Model\UserHideVacancy;
 use App\Model\UserResume;
-use App\Model\Vacancy;
+use App\Model\UserSaveVacancy;
 use App\Model\Vacancy as Model;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository extends CoreRepository {
-    use GeneralVacancyResumeTraite, GeographyWorkSeparateEntryTraite;
+    use GeneralVacancyResumeTraite, GeographyWorkSeparateEntryTraite, GeographyForShowInterfaceTraite;
 
     protected $settings;
 
@@ -46,6 +47,34 @@ class VacancyRepository extends CoreRepository {
             ->update($this->makeArrayVacancy($request, $position));
     }
 
+    public function index($request, $count_pagination){
+        $my_user = Auth::user();
+
+        // 1 фильтр выборки
+        $vacancies = $this->initialDataForSampling($request);
+
+        if(!is_null($my_user)){
+            // не показывать мои вакансии
+            $vacancies = $vacancies->where('user_id', '!=', $my_user->id);
+            // не показывать мною скрытые вакансии
+            $idHide = UserHideVacancy::where('user_id',$my_user->id)->get()->pluck('vacancy_id');
+            $vacancies = $vacancies->whereNotIn('id', $idHide);
+        }
+
+        $vacancies = $vacancies
+            ->with('position','company.image','id_saved_vacancies','id_hide_vacancies','country','region','city')
+            ->paginate($count_pagination);
+
+        // 3 address
+        foreach ($vacancies as $key => $vacancy){
+            $vacancy = $this->addPropertiesToCollection($vacancy);
+            $vacancy = collect($vacancy);
+            $vacancies[$key] = $vacancy->except(['city','region','country']);
+        }
+
+        return $vacancies;
+    }
+
     public function show($request){
         $my_user = Auth::user();
         $respond_data['arr_resume'] = [];
@@ -54,7 +83,7 @@ class VacancyRepository extends CoreRepository {
         $modalOffer = new Offer();
 
         // 1 смотреть вакансию
-        $vacancy = Vacancy::where('id', $request->vacancy_id)
+        $vacancy = $this->model->where('id', $request->vacancy_id)
             ->with(
                 'position',
                 'contact.avatar',
@@ -66,9 +95,11 @@ class VacancyRepository extends CoreRepository {
             )
             ->first();
 
+        // 1 address
+        $vacancy = $this->addPropertiesToCollection($vacancy);
+
         // 2 контакт лист хозяина документа
         $contact_list = $informationRepository->fillContactList($vacancy->contact, $vacancy->user_id);
-
         if(!is_null($my_user)){
 
             // я подписывался на вакансию
@@ -100,6 +131,9 @@ class VacancyRepository extends CoreRepository {
             }
         }
 
+        $vacancy = collect($vacancy);
+        $vacancy = $vacancy->except(['city', 'region', 'country']);
+
         return [
             'respond' => [
                 'in_table' => $modalOffer->inTable,
@@ -109,6 +143,49 @@ class VacancyRepository extends CoreRepository {
                 'contact_list' => $contact_list,
             ]
         ];
+    }
+
+    public function getBookmarkVacancies(){
+        $vacancies = UserSaveVacancy::where('user_id', Auth::user()->id)
+            ->with('vacancy.position','vacancy.company.image','vacancy.country','vacancy.region','vacancy.city')
+            ->get();
+
+        // address
+        foreach ($vacancies as $key => $vacancy){
+            $vacancy->vacancy = $this->addPropertiesToCollection($vacancy->vacancy);
+        }
+
+        return $vacancies;
+    }
+
+    public function getHiddenVacancies(){
+        $vacancies = UserHideVacancy::where('user_id', Auth::user()->id)
+            ->with('vacancy.position','vacancy.company.image','vacancy.country','vacancy.region','vacancy.city')
+            ->get();
+
+        // address
+        foreach ($vacancies as $key => $vacancy){
+            $vacancy->vacancy = $this->addPropertiesToCollection($vacancy->vacancy);
+        }
+
+        return $vacancies;
+    }
+
+    public function myVacancies(){
+        $vacancies = $this->model->where('user_id', Auth::user()->id)
+            ->with('position','country','region','city')
+            ->withCount('respond')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // address
+        foreach ($vacancies as $key => $vacancy){
+            $vacancy = $this->addPropertiesToCollection($vacancy);
+            $vacancy = collect($vacancy);
+            $vacancies[$key] = $vacancy->except(['city','region','country']);
+        }
+
+        return $vacancies;
     }
 
     /**

@@ -17,7 +17,7 @@ trait GeographyWorkSeparateEntryTraite {
     private function createSpecifiedLocationRecord($request, $property, $type=0){
         $col_id = null;
 
-        if($request->$property !== null){
+        if(!is_null($request->$property)){
             $coll = GeographyLocal::firstOrCreate(
                 [
                     "local->original_index" => $request->$property['original_index'],

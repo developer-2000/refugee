@@ -114,7 +114,6 @@
                 const response = await this.$http.post(`/private-office/vacancy/bookmark-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res)
                         }
                         // custom ошибки
                         else{

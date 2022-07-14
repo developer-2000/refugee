@@ -244,9 +244,6 @@
 
                 params.sort()
                 let query = (params.toString() == '') ? '' : '?'+params.toString()
-
-                // console.log(query)
-
                 location.href = this.lang.prefix_lang+'resume'+query
             },
             setValuePosition(value){
@@ -291,8 +288,6 @@
             'user',
         ],
         mounted() {
-            console.log(this.resumes)
-
             // https://flaviocopes.com/urlsearchparams/
             const params = new URLSearchParams(window.location.search)
             if(params.has('position')){

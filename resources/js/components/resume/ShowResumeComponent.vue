@@ -221,8 +221,6 @@
         ],
         mounted() {
             this.scrollUp()
-
-            console.log(this.respond)
         },
     }
 </script>

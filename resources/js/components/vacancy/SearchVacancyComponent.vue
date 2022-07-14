@@ -282,7 +282,6 @@
             'user',
         ],
         mounted() {
-            // console.log(this.vacancies)
             const params = new URLSearchParams(window.location.search)
             if(params.has('position')){
                 this.position = params.get('position')

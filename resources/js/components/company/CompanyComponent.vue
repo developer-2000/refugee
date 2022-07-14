@@ -301,7 +301,6 @@
             'user',
         ],
         mounted() {
-            console.log(this.company)
         },
     }
 </script>

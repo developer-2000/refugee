@@ -31,7 +31,6 @@ export default {
                     }
                     // custom ошибки
                     else{
-                        console.log(res.data.message)
                         this.objLocations.bool_rest_address = true
                     }
                     this.clearLocation('load_region')

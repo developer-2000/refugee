@@ -122,8 +122,6 @@
         ],
         mounted() {
             this.initialData()
-
-            // console.log(this.resumes)
         },
     }
 </script>

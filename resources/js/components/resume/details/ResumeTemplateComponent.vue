@@ -358,8 +358,6 @@
             'page',
         ],
         mounted() {
-            // console.log(this.settings)
-            // console.log(this.contact_list)
         },
     }
 </script>

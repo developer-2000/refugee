@@ -93,7 +93,6 @@
                     })
                     // ошибки сервера
                     .catch(err => {
-                        console.log(err)
                         this.messageError(err)
                     })
 

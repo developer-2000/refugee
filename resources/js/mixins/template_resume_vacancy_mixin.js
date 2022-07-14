@@ -20,16 +20,14 @@ export default {
         addressView(obj){
             let address_string = ''
 
-            if(obj.country !== null){
-                address_string += obj.country.alias+'.'
-            }
-            if(obj.region !== null){
-                address_string += ' ' + obj.region.alias+'.'
-            }
-            if(obj.city !== null){
-                address_string += ' ' + obj.city.alias+'.'
-            }
+            address_string += obj.address.country.translate+'.'
 
+            if(obj.address.region !== undefined && obj.address.region !== null){
+                address_string += ' ' + obj.address.region.translate+'.'
+            }
+            if(obj.address.city !== undefined){
+                address_string += ' ' + obj.address.city.translate+'.'
+            }
             if(obj.rest_address !== undefined){
                 address_string += ' ' + obj.rest_address+'.'
             }

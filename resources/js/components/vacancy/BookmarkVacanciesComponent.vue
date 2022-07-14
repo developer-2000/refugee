@@ -139,7 +139,6 @@
             'settings',
         ],
         mounted() {
-            console.log(this.vacancies)
             this.arrVacancies = this.vacancies
         },
     }

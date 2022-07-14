@@ -11,18 +11,17 @@ trait GeographyForShowInterfaceTraite {
      * @return mixed
      */
     public function addPropertiesToCollection($collection){
-        $localisationService = new LocalizationService();
         $address = [];
 
         // первый страна
-        if(isset($collection->country) && !is_null($collection->country)){
+        if(isset($collection->country)){
+            $localisationService = new LocalizationService();
             $address["country"] = $localisationService->getCountryForShow($collection->country['local']['prefix']);
-
             // если есть город, регион не важен
-            if(isset($collection->city) && !is_null($collection->city)){
+            if(isset($collection->city)){
                 $address["city"] = $localisationService->getCityForShow($collection->city['local']);
             }
-            elseif(isset($collection->region) && !is_null($collection->region)){
+            elseif(isset($collection->region)){
                 $address["region"] = $localisationService->getRegionForShow($collection->region['local']);
             }
         }
@@ -30,10 +29,28 @@ trait GeographyForShowInterfaceTraite {
         return $collection->setAttribute('address', $address);
     }
 
+    /**
+     * аналогия addPropertiesToCollection - но для ранее затронутой коллекции. Они изменены на Array
+     * @param $collection
+     * @return mixed
+     */
+    public function addPropertiesToCollection_ForAffectedCollection($collection){
+        $address = [];
 
+        // первый страна
+        if(isset($collection['country'])){
+            $localisationService = new LocalizationService();
+            $address["country"] = $localisationService->getCountryForShow($collection['country']['local']['prefix']);
+            // если есть город, регион не важен
+            if(isset($collection['city'])){
+                $address["city"] = $localisationService->getCityForShow($collection['city']['local']);
+            }
+            elseif(isset($collection['region'])){
+                $address["region"] = $localisationService->getRegionForShow($collection['region']['local']);
+            }
+        }
 
-
-
-
+        return $collection->put('address', $address);
+    }
 
 }

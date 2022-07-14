@@ -22,10 +22,12 @@ class ResumeController extends BaseController {
     use GeneralVacancyResumeTraite;
 
     protected $repository;
+    protected $count_pagination;
 
     public function __construct() {
         parent::__construct();
         $this->repository = new ResumeRepository();
+        $this->count_pagination = 5;
     }
 
     public function index(IndexResumeRequest $request)
@@ -34,22 +36,9 @@ class ResumeController extends BaseController {
         $ids_respond = [];
         // 1
         $settings = $this->getSettingsDocumentsAndCountries();
-        // 2 фильтр выборки
-        $resumes = $this->repository->initialDataForSampling($request);
-
-        if(!is_null($my_user)){
-            // 3 не показывать мои резюме
-            $resumes = $resumes->where('user_id', '!=', $my_user->id);
-            // 4 не показывать мною скрытые резюме
-            $idHide = UserHideResume::where('user_id',$my_user->id)->get()->pluck('resume_id');
-            $resumes = $resumes->whereNotIn('id', $idHide);
-        }
-
-        $resumes = $resumes->where('type', 0)
-            ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes','country','region','city')
-            ->paginate(10);
-
-        // 5 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
+        // 2
+        $resumes = $this->repository->index($request, $this->count_pagination);
+        // 3 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
         $idResumes = $resumes->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondResume::where('user_vacancy_id',$my_user->id)
@@ -98,6 +87,7 @@ class ResumeController extends BaseController {
      */
     public function store(StoreResumeRequest $request)
     {
+//        return $this->getResponse($request->validated());
         $resume = $this->repository->storeResume($request);
         return $this->getResponse($resume);
     }
@@ -144,11 +134,7 @@ class ResumeController extends BaseController {
     public function myResumes()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
-        $resumes = UserResume::where('user_id', Auth::user()->id)
-            ->with('position', 'contact.avatar','country','region','city')
-            ->withCount('respond')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $resumes = $this->repository->myResumes();
 
         return view('resumes.my_resumes', compact('resumes','settings'));
     }
@@ -211,9 +197,8 @@ class ResumeController extends BaseController {
     public function getBookmarkResumes()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
-        $resumes = UserSaveResume::where('user_id', Auth::user()->id)
-            ->with('resume.position','resume.contact.avatar','resume.country','resume.region','resume.city')
-            ->get();
+        $resumes = $this->repository->getBookmarkResumes();
+
         return view('resumes.bookmark_resumes', compact('settings','resumes'));
     }
 
@@ -235,9 +220,7 @@ class ResumeController extends BaseController {
     public function getHiddenResumes()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
-        $resumes = UserHideResume::where('user_id', Auth::user()->id)
-            ->with('resume.position','resume.contact.avatar','resume.country','resume.region','resume.city')
-            ->get();
+        $resumes = $this->repository->getHiddenResumes();
 
         return view('resumes.hidden_resumes', compact('settings','resumes'));
     }

@@ -118,10 +118,6 @@
                         .catch(err => {
                             this.messageError(err)
                         })
-
-                    // console.log(response)
-
-
                 } catch (e) {
                     console.log(e);
                 }

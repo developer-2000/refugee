@@ -249,8 +249,6 @@
                 const response = await this.$http.post(`/offers/update-message`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res.data.message)
-                            // this.content.chat.push(res.data.message);
                             this.content.chat[this.objChat.index]['covering_letter'] = this.objTextarea.textarea_letter;
                             this.objTextarea.textarea_letter = ''
                             this.objChat.bool_update = false
@@ -278,7 +276,7 @@
                 const response = await this.$http.post(`/offers/register-viewed-companion`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // console.log(res.data.message)
+
                         }
                         // custom ошибки
                         else{

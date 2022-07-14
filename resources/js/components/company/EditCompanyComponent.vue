@@ -814,9 +814,7 @@
                                 this.objLocations.bool_rest_address = true
                             }, 500);
                         }
-
                         this.rest_address = this.company.rest_address
-
                     }, 1500);
                 }
 

@@ -5,7 +5,9 @@ use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\GeographyDb;
 use App\Model\GeographyLocal;
 use App\Model\Position;
+use App\Services\LocalizationService;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 trait GeneralVacancyResumeTraite {
@@ -83,9 +85,7 @@ trait GeneralVacancyResumeTraite {
      */
     private function getSettingsDocumentsAndCountries(){
         $settings = config('site.settings_vacancy');
-        if($objCountries = GeographyDb::where('id', 1)->select('country')->first()){
-            $settings['obj_countries'] = $objCountries['country']['EN'];
-        }
+        $settings['obj_countries'] = (new LocalizationService())->getCountries(App::getLocale());
         $settings['categories'] = config('site.categories.categories');
         return $settings;
     }

@@ -215,7 +215,6 @@
             'table',
         ],
         mounted() {
-            // console.log(this.offer.contact_list)
         },
     }
 </script>

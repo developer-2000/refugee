@@ -81,16 +81,13 @@ class CompanyController extends BaseController {
                 'city'
             )->firstOrFail();
 
-        // 1 добавить данные адреса
-        $company = $this->addPropertiesToCollection($company);
-
-        // 2 заполить контакт лист
+        // 1 заполить контакт лист
         $contact_list = (new ContactInformationRepository())->fillContactList(
             $company->contact, $company->user_id
         );
         $contact_list['offer_url'] = null;
 
-        // 3 добавить url нашего чата
+        // 2 добавить url нашего чата
         if(!is_null($my_user)){
             $ourOffer = (new OfferRepository())->getOurChat($company->user_id, $my_user->id);
             if(is_null($ourOffer)){
@@ -108,8 +105,17 @@ class CompanyController extends BaseController {
         $settings['count_working'] = config('site.company.count_working');
         $settings['contact_information'] = config('site.contacts.contact_information');
 
+        // 3 добавить данные адреса
+        $company = $this->addPropertiesToCollection($company);
         $company = collect($company);
-        $company = $company->except(['city','region','country']);
+        $company = $company->except(['city', 'region', 'country']);
+        $vacancies = $company['vacancies'];
+        foreach ($vacancies as $key => $vacancy){
+            $vacancy = collect($vacancy);
+            $vacancy = $this->addPropertiesToCollection_ForAffectedCollection($vacancy);
+            $vacancies[$key] = $vacancy->except(['city', 'region', 'country']);
+        }
+        $company['vacancies'] = $vacancies;
 
         return view('company', compact('company','settings', 'contact_list'));
     }

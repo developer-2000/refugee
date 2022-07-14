@@ -2,19 +2,21 @@
 namespace App\Repositories;
 
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
 use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
-use App\Model\UserResume;
+use App\Model\UserHideResume;
 use App\Model\UserResume as Model;
+use App\Model\UserSaveResume;
 use App\Model\Vacancy;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeRepository extends CoreRepository {
-    use GeneralVacancyResumeTraite, GeographyWorkSeparateEntryTraite;
+    use GeneralVacancyResumeTraite, GeographyWorkSeparateEntryTraite, GeographyForShowInterfaceTraite;
 
     protected $settings;
 
@@ -48,6 +50,34 @@ class ResumeRepository extends CoreRepository {
             ->update($this->makeArrayResume($request, $position));
     }
 
+    public function index($request, $count_pagination){
+        $my_user = Auth::user();
+
+        // 1 фильтр выборки
+        $resumes = $this->initialDataForSampling($request);
+
+        if(!is_null($my_user)){
+            // не показывать мои резюме
+            $resumes = $resumes->where('user_id', '!=', $my_user->id);
+            // не показывать мною скрытые резюме
+            $idHide = UserHideResume::where('user_id',$my_user->id)->get()->pluck('resume_id');
+            $resumes = $resumes->whereNotIn('id', $idHide);
+        }
+
+        $resumes = $resumes->where('type', 0)
+            ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes','country','region','city')
+            ->paginate($count_pagination);
+
+        // 3 address
+        foreach ($resumes as $key => $resume){
+            $resume = $this->addPropertiesToCollection($resume);
+            $resume = collect($resume);
+            $resumes[$key] = $resume->except(['city','region','country']);
+        }
+
+        return $resumes;
+    }
+
     public function show($request){
         $my_user = Auth::user();
         $respond_data['arr_vacancy'] = [];
@@ -55,8 +85,7 @@ class ResumeRepository extends CoreRepository {
         $informationRepository = new ContactInformationRepository();
         $modalOffer = new Offer();
 
-        // 1 смотреть резюме
-        $resume = UserResume::where('id', $request->resume_id)
+        $resume = $this->model->where('id', $request->resume_id)
             ->with(
                 'position',
                 'contact.avatar',
@@ -66,6 +95,9 @@ class ResumeRepository extends CoreRepository {
                 'country','region','city'
             )
             ->first();
+
+        // 1 address
+        $resume = $this->addPropertiesToCollection($resume);
 
         // 2 контакт лист хозяина документа
         $contact_list = $informationRepository->fillContactList($resume->contact, $resume->user_id);
@@ -111,6 +143,23 @@ class ResumeRepository extends CoreRepository {
         ];
     }
 
+    public function myResumes(){
+        $resumes = $this->model->where('user_id', Auth::user()->id)
+            ->with('position', 'contact.avatar','country','region','city')
+            ->withCount('respond')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // address
+        foreach ($resumes as $key => $resume){
+            $resume = $this->addPropertiesToCollection($resume);
+            $resume = collect($resume);
+            $resumes[$key] = $resume->except(['city','region','country']);
+        }
+
+        return $resumes;
+    }
+
     /**
      * вернет мои резюме
      * @return mixed
@@ -121,6 +170,32 @@ class ResumeRepository extends CoreRepository {
                 ->get();
         }
         return null;
+    }
+
+    public function getBookmarkResumes(){
+        $resumes = UserSaveResume::where('user_id', Auth::user()->id)
+            ->with('resume.position','resume.contact.avatar','resume.country','resume.region','resume.city')
+            ->get();
+
+        // address
+        foreach ($resumes as $key => $resume){
+            $resume->resume = $this->addPropertiesToCollection($resume->resume);
+        }
+
+        return $resumes;
+    }
+
+    public function getHiddenResumes(){
+        $resumes = UserHideResume::where('user_id', Auth::user()->id)
+            ->with('resume.position','resume.contact.avatar','resume.country','resume.region','resume.city')
+            ->get();
+
+        // address
+        foreach ($resumes as $key => $resume){
+            $resume->resume = $this->addPropertiesToCollection($resume->resume);
+        }
+
+        return $resumes;
     }
 
     private function makeArrayResume($request, $position){
