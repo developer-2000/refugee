@@ -1,5 +1,9 @@
+import location_mixin from "../url_mixin";
 
 export default {
+    mixins: [
+        location_mixin
+    ],
     data() {
         return {
             last_target: null,
@@ -63,7 +67,7 @@ export default {
             }
             params.sort()
             let query = (params.toString() == '') ? '' : '?'+params.toString()
-            let full_url = window.location.protocol + '//' + window.location.hostname + window.location.pathname+query
+            let full_url = this.urlNotQuery()+query
             location.href = full_url
         },
         clickChangeButton(){

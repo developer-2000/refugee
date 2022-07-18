@@ -68,7 +68,6 @@ export default {
                     this.messageError(err)
                 })
         },
-
         changeSelect(value, name){
             if(name == 'region'){
                 this.objLocations.region = value

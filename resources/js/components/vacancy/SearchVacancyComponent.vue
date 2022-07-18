@@ -4,47 +4,18 @@
             {{trans('vacancies','job_search')}}
         </h1>
 
-        <!-- search line -->
-        <div class="top-search">
-            <div class="form-group">
-                <div class="box-position">
-
-                    <input type="text" class="form-control" maxlength="100" autocomplete="off"
-                           :placeholder="trans('vacancies','search')"
-                           v-model="position"
-                           @keyup="searchPosition($event.target.value)"
-                           @keydown="enterKey"
-                    >
-
-                    <svg @click="clearSearch"
-                         class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
-
-                    <!-- подсказка -->
-                    <div class="block_position_list">
-                        <div class="dropdown-menu" id="position_list">
-                            <div class="dropdown-item"
-                                 v-for="(value, key) in position_list" :key="key"
-                                 @click="setValuePosition(value)"
-                            >
-                                {{value}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-block btn-primary"
-                        @click="urlReload"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z"/></svg>
-                </button>
-            </div>
-        </div>
+        <!-- search input line -->
+        <search_title_panel
+            :lang="lang"
+            :respond="respond"
+        ></search_title_panel>
 
         <div class="bottom-search">
             <!-- vacancies -->
             <div class="left-site">
                 <!-- item -->
                 <div class="box-vacancy"
-                     v-for="(vacancy, key) in vacancies.data" :key="key"
+                     v-for="(vacancy, key) in respond.vacancies.data" :key="key"
                      :id="`v${key}`"
                      @click.prevent="transitionToVacancy(vacancy.alias)"
                      :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
@@ -58,9 +29,9 @@
                     <!-- vacancy -->
                     <vacancy_template
                         :vacancy="vacancy"
-                        :settings="settings"
+                        :settings="respond"
                         :lang="lang"
-                        :ids_respond="ids_respond"
+                        :ids_respond="respond.ids_respond"
                         :page="'search'"
                     ></vacancy_template>
 
@@ -89,9 +60,9 @@
                 </div>
 
                 <pagination
-                    v-if="vacancies.last_page > 1"
-                    :pagination="vacancies"
-                    @paginate="urlReload"
+                    v-if="respond.vacancies.last_page > 1"
+                    :pagination="respond.vacancies"
+                    @paginate="paginateReload"
                     :offset="1"
                 >
                 </pagination>
@@ -101,7 +72,7 @@
             <div class="right-site">
                 <search_panel
                     :lang="lang"
-                    :settings="settings"
+                    :settings="respond"
                     :page="'search_vacancies'"
                     @returnParent="getVacancies"
                 ></search_panel>
@@ -113,6 +84,7 @@
 <script>
     import pagination from "../details/PaginationComponent";
     import search_panel from '../details/SearchPanelComponent.vue'
+    import search_title_panel from '../details/SearchTitlePanelComponent'
     import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import vacancy_template from "./details/VacancyTemplateComponent";
@@ -120,7 +92,7 @@
     import translation from "../../mixins/translation";
     import date_mixin from "../../mixins/date_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
-    import search_input_mixin from "../../mixins/search_input_mixin";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         components: {
@@ -128,58 +100,23 @@
             'search_panel': search_panel,
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
+            'search_title_panel': search_title_panel,
         },
         mixins: [
+            translation,
             general_functions_mixin,
             response_methods_mixin,
             bookmark_vacancies_mixin,
-            translation,
             date_mixin,
-            search_input_mixin
+            url_mixin,
         ],
         data() {
             return {
-                name_query: 'position',
-                name_url: 'vacancy',
-                position: '',
-                position_list: [],
                 description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠',
+                position: '',
             }
         },
         methods: {
-            // поиск похожих заголовков
-            async searchPosition(value){
-                if(!value.length){
-                    $('.x-mark-clear').css('display','none')
-                    $('#position_list').removeClass('show')
-                    return false
-                }
-                $('.x-mark-clear').css('display','block')
-                let data = {
-                    value: value,
-                };
-                const response = await this.$http.post(`/private-office/vacancy/search-position`, data)
-                    .then(res => {
-                        if(this.checkSuccess(res)){
-                            // вернет только опубликованные
-                            if(res.data.message.position.length){
-                                this.position_list = res.data.message.position
-                                $('#position_list').addClass('show')
-                            }
-                            else{
-                                $('#position_list').removeClass('show')
-                            }
-                        }
-                        // custom ошибки
-                        else{
-
-                        }
-                    })
-                    // ошибки сервера
-                    .catch(err => {
-                        // this.messageError(err)
-                    })
-            },
             getVacancies(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
@@ -246,7 +183,7 @@
             },
             salaryView(salaryObj){
                 let salary_string = ''
-                let arr_field = this.settings.salary[salaryObj.radio_name]
+                let arr_field = this.respond.salary[salaryObj.radio_name]
                 $.each(arr_field, function(key, name) {
                     salary_string += salaryObj.inputs[name]
                     if( (key+1) < arr_field.length){
@@ -273,19 +210,26 @@
 
                 return address_string
             },
+            paginateReload(obj){
+                let params = new URLSearchParams(window.location.search)
+                params.delete('page')
+                // page
+                if(obj.page != undefined && obj.page != null){
+                    params.set('page',obj.page)
+                }
+
+                params.sort()
+                let query = (params.toString() == '') ? '' : '?'+params.toString()
+                location.href = this.urlNotQuery()+query
+            },
         },
         props: [
             'lang',
-            'settings',
-            'vacancies',
-            'ids_respond',
+            'respond',
             'user',
         ],
         mounted() {
-            const params = new URLSearchParams(window.location.search)
-            if(params.has('position')){
-                this.position = params.get('position')
-            }
+
         },
     }
 </script>
@@ -302,102 +246,50 @@
         .title_page {
             padding: 15px;
         }
-        .top-search{
-            padding: 0 15px 10px;
-            width: 100%;
-            background-color: #fff;
-            border-bottom: 1px solid #dee2e6;
-            .form-group{
-                display: flex;
-                margin: 0;
-                .box-position{
-                    min-width: 77%;
-                    position: relative;
-                    input{
-                        border-radius: 4px 0 0 4px;
-                        font-size: 18px;
-                        height: 38px;
-                        padding-right: 30px;
-                    }
-                    .x-mark-clear{
-                        position: absolute;
-                        top: 1px;
-                        right: 1px;
-                        fill: #ff4747;
-                        width: 45px;
-                        padding: 6px 15px 6px 15px;
-                        cursor: pointer;
-                        display: none;
-                        &:hover{
-                            background-color: #f1f1f1;
-                        }
-                    }
-                }
-                button{
-                    border-radius: 0 4px 4px 0;
-                    min-width: 23%;
-                    font-size: 18px;
-                    height: 38px;
-                    line-height: 0;
-                }
-            }
-            .block_position_list{
-                position: relative;
-                #position_list{
-                    width: 100%;
-                    padding: 0;
-                    cursor: pointer;
-                    top: -3px;
-                    & > div{
-                        padding: 1px 12px;
-                    }
-                }
-            }
-        }
+
         .bottom-search{
             display: flex;
             padding: 30px 15px 0;
             .left-site{
                 min-width: 77%;
+                .box-vacancy{
+                    margin-right: 15px;
+                    .box-title-logo{
+                        display: flex;
+                        justify-content: space-between;
+                        .title-vacancy{
+                            margin: 5px 0 10px;
+                            padding: 0;
+                            line-height: 25px;
+                            height: 25px;
+                            font-size: 26px;
+                        }
+                        .img-logo{
+                            width: 100px;
+                        }
+                    }
+                    .line-div{
+                        display: flex;
+                        margin-bottom: 5px;
+                        .font-weight-bold{
+                            font-weight: bold;
+                        }
+                    }
+                    .address-comment{
+                        display: flex;
+                        align-items: center;
+                        svg{
+                            width: 7px;
+                            margin: 0 5px;
+                        }
+                    }
+
+                }
             }
             .right-site{
                 min-width: 23%;
             }
         }
-    }
-
-    .box-vacancy{
-        margin-right: 15px;
-        .box-title-logo{
-            display: flex;
-            justify-content: space-between;
-            .title-vacancy{
-                margin: 5px 0 10px;
-                padding: 0;
-                line-height: 25px;
-                height: 25px;
-                font-size: 26px;
-            }
-            .img-logo{
-                width: 100px;
-            }
-        }
-        .line-div{
-            display: flex;
-            margin-bottom: 5px;
-            .font-weight-bold{
-                font-weight: bold;
-            }
-        }
-        .address-comment{
-            display: flex;
-            align-items: center;
-            svg{
-                width: 7px;
-                margin: 0 5px;
-            }
-        }
-
     }
 
 </style>

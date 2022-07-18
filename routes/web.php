@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Services\LocalizationService;
+use \App\Facades\LocalizationFacades;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -40,7 +41,7 @@ Route::group(['prefix'=>'technical'], function (){
 });
 
 // переключение url и translation сайта
-Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function () {
+Route::group(['prefix' => LocalizationFacades::locale()], function () {
     Route::group(['middleware' => ['redirect_admin']], function () {
 
     Route::get('/', 'IndexController@index')->name('index');
@@ -59,11 +60,6 @@ Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function 
         });
     });
 
-    // vacancy
-    Route::resource('vacancy', 'VacancyController')->only([
-        'index', 'show',
-    ]);
-
     // resume
     Route::resource('resume', 'ResumeController')->only([
         'index', 'show',
@@ -73,7 +69,7 @@ Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function 
     Route::get('/company/{alias}', 'CompanyController@show')
         ->where('alias', '[0-9a-z_-]+');
 
-    // Auth
+    // авторизованым
     Route::group(['middleware'=>['auth']], function () {
 
         // respond vacancy
@@ -100,8 +96,6 @@ Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function 
         Route::resource('offers', 'OfferController')->only([
             'index'
         ]);
-
-
 
         // private-office
         Route::group(['prefix'=>'private-office'], function (){
@@ -156,6 +150,10 @@ Route::group(['prefix' => \App\Facades\LocalizationFacades::locale()], function 
         });
 
     });
+
+    // vacancies
+    Route::get('/vacancy/show-vacancy/{alias}', 'VacancyController@show');
+    Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
 
     // localisation
     Route::group(['prefix'=>'localisation'], function (){

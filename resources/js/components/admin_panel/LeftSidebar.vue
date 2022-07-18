@@ -76,8 +76,12 @@
 
 <script>
 
-    export default {
+    import location_mixin from "../../mixins/url_mixin";
 
+    export default {
+        mixins: [
+            location_mixin
+        ],
         data() {
             return { }
         },
@@ -94,7 +98,7 @@
                     currentLink[0].classList.add("menu-is-opening", "menu-open")
                 }
                 // 2 подсветка таргет линк дочерний
-                let not_query = window.location.protocol + '//' + window.location.hostname + window.location.pathname
+                let not_query = this.urlNotQuery()
                 let iter = 0
                 $(currentLink[0]).find('a').each(function()  {
                     url = this.href.split('?')

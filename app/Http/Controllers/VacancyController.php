@@ -15,6 +15,8 @@ use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
+use App\Services\LocalizationService;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -30,12 +32,11 @@ class VacancyController extends BaseController {
         $this->count_pagination = 5;
     }
 
-    public function index(IndexVacancyRequest $request)
-    {
+    public function index(IndexVacancyRequest $request, $country = null, $city = null) {
         $my_user = Auth::user();
         $ids_respond = [];
         // 1
-        $settings = $this->getSettingsDocumentsAndCountries();
+        $respond = $this->getSettingsDocumentsAndCountries();
         // 2
         $vacancies = $this->repository->index($request, $this->count_pagination);
         // 3 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
@@ -45,7 +46,11 @@ class VacancyController extends BaseController {
                 ->whereIn('vacancy_id',$idVacancies)->get()->pluck('vacancy_id');
         }
 
-        return view('search_vacancies', compact('settings', 'vacancies', 'ids_respond'));
+        $respond['vacancies'] = $vacancies;
+        $respond['ids_respond'] = $ids_respond;
+
+        return view('search_vacancies', compact('respond'));
+
     }
 
     /**
@@ -55,7 +60,7 @@ class VacancyController extends BaseController {
      * @param  ShowVacancyRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Vacancy $vacancy, ShowVacancyRequest $request)
+    public function show(ShowVacancyRequest $request)
     {
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
@@ -72,6 +77,7 @@ class VacancyController extends BaseController {
     public function create()
     {
         $settings = $this->getSettingsDocumentsAndCountries();
+
         return view('vacancies/create_vacancy', compact('settings'));
     }
 
@@ -83,6 +89,7 @@ class VacancyController extends BaseController {
     public function store(StoreVacancyRequest $request)
     {
         $store = $this->repository->storeVacancy($request);
+
         return $this->getResponse();
     }
 
@@ -117,7 +124,6 @@ class VacancyController extends BaseController {
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
         $update = $this->repository->updateVacancy($request, $vacancy->position_id);
-
 
         return $this->getResponse($update);
     }
@@ -182,6 +188,7 @@ class VacancyController extends BaseController {
     public function setBookmarkVacancy(SaveVacancyRequest $request)
     {
         $this->switchActionBookmark($request, new UserSaveVacancy(), 'vacancy_id');
+
         return $this->getResponse();
     }
 
@@ -205,6 +212,7 @@ class VacancyController extends BaseController {
     public function setHideVacancy(SaveVacancyRequest $request)
     {
         $this->switchActionBookmark($request, new UserHideVacancy(), 'vacancy_id');
+
         return $this->getResponse();
     }
 

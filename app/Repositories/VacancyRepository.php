@@ -83,7 +83,7 @@ class VacancyRepository extends CoreRepository {
         $modalOffer = new Offer();
 
         // 1 смотреть вакансию
-        $vacancy = $this->model->where('id', $request->vacancy_id)
+        $vacancy = $this->model->where('alias', $request->alias)
             ->with(
                 'position',
                 'contact.avatar',

@@ -278,7 +278,7 @@
                 return id
             },
             transitionToVacancy(vacancy_alias){
-                location.href = this.lang.prefix_lang+'vacancy/'+vacancy_alias
+                location.href = this.lang.prefix_lang+'vacancy/show-vacancy/'+vacancy_alias
             },
             scrollToAbout(){
                 const el = document.getElementById('box-about-company');

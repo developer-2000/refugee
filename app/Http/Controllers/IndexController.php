@@ -15,6 +15,7 @@ use App\Repositories\OfferRepository;
 use App\Services\LocalizationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -31,12 +32,16 @@ class IndexController extends Controller {
 //        $this->test();
 
         $transition_url_page = null;
-        // если пользователь шел на закрытый auth url
+        // если пользователь шел на закрытый auth url (переход туда куда шел изначально)
         if($arr = Session::pull('transition_after_auth', null)){
             $transition_url_page = $arr['url_page'];
         }
 
-        return view('index', compact('transition_url_page'));
+        $respond = [
+            'obj_countries' => (new LocalizationService())->getCountries(App::getLocale()),
+        ];
+
+        return view('index', compact('transition_url_page','respond'));
     }
 
     public function test() {

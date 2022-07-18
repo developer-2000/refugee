@@ -214,7 +214,6 @@ b{
 }
 
 /* offer */
-
 .offer-document{
     padding: 0px 5px;
     display: inline-block;
@@ -438,6 +437,9 @@ label{
     display: block;
 }
 /* select 2 */
+select{
+    cursor: pointer;
+}
 .select2-container {
     width: 100%!important;
 }
@@ -485,6 +487,27 @@ label{
     min-height: 35px;
     border: 1px solid #ced4da;
     padding-top: 2px;
+}
+.options-default{
+    font-style: italic;
+    font-size: 12px;
+    font-weight: bold;
+}
+.top-search .select2.select2-container.select2-container--default{
+    border-radius: 0!important;
+    margin: 0 5px 0 0!important;
+    max-width: 186px!important;
+    border: 1px solid #ced4da;
+}
+.top-search .select2-container--default .select2-selection--single {
+    border: none;
+}
+.top-search .select2-container--focus .select2-selection.select2-selection--single,
+.top-search .select2-container--default.select2-container--focus .select2-selection--multiple{
+    box-shadow: none;
+}
+.top-search .select2.select2-container.select2-container--default.not-select {
+    border: 1px solid #ded000;
 }
 
 /* my vacancies */

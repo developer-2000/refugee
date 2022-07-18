@@ -19,9 +19,7 @@
 
     <search-vacancy
         :lang="{{json_encode($lang)}}"
-        :settings="{{json_encode($settings)}}"
-        :vacancies="{{json_encode($vacancies)}}"
-        :ids_respond="{{json_encode($ids_respond)}}"
+        :respond="{{json_encode($respond)}}"
         :user="{{json_encode($user)}}"
     ></search-vacancy>
 

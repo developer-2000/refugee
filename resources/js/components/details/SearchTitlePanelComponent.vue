@@ -1,0 +1,302 @@
+<template>
+    <div class="top-search">
+        <div class="form-group">
+
+            <!-- input search -->
+            <div class="box-position">
+
+                <input type="text" class="form-control" maxlength="100" autocomplete="off"
+                       :placeholder="trans('vacancies','search')"
+                       v-model="position"
+                       @keyup="searchPosition($event.target.value)"
+                       @keydown="enterKey2"
+                >
+
+                <svg @click="clearSearch2" class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
+
+                <!-- подсказка -->
+                <div class="block_position_list">
+                    <div class="dropdown-menu" id="position_list">
+                        <div class="dropdown-item"
+                             v-for="(value, key) in position_list" :key="key"
+                             @click="selectHelp(value)"
+                        >
+                            {{value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display -->
+            <div class="box-select">
+                <div @click="viewSelectCountry2()" class="display-select one-select link-a">
+                    {{objLocations.country_translate}}
+                    <svg class="svg-caret-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
+                </div>
+                <div class="display-select two-select link-a">
+                    Каринтия
+                    <svg class="svg-caret-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
+                </div>
+            </div>
+
+            <!-- Country -->
+            <select class="form-control select2" id="country-title-panel">
+                <option :value=null selected class="options-default">
+                    Страна поиска
+                </option>
+                <template v-for="(obj, key) in respond.obj_countries">
+                    <!-- в случае редактирования [obj.prefix.toLowerCase(),obj.translate] -->
+                    <template v-if="objLocations.country == obj.prefix" >
+                        <option :value="obj.original_index" :key="key" selected
+                        >{{obj.translate}}</option>
+                    </template>
+                    <template v-else>
+                        <option :value="obj.original_index" :key="key"
+                        >{{obj.translate}}</option>
+                    </template>
+                </template>
+            </select>
+
+            <!-- Region -->
+            <select class="form-control select2 region-select" id="region">
+                <option :value=null selected class="options-default">
+                    Регион поиска
+                </option>
+                <template v-for="(obj, index) in objLocations.load_regions">
+                    <!-- в случае редиктирования -->
+                    <template v-if="objLocations.region == obj.code_region" >
+                        <option :value="obj.code_region" :key="index" selected
+                        >{{obj.translate}}</option>
+                    </template>
+                    <template v-else>
+                        <option :value="obj.code_region" :key="index"
+                        >{{obj.translate}}</option>
+                    </template>
+                </template>
+            </select>
+
+            <!-- City -->
+            <select class="form-control select2" id="city">
+                <option :value=null selected class="options-default">
+                    Город поиска
+                </option>
+                <template v-for="(obj, index) in objLocations.load_cities">
+                    <!-- в случае редиктирования -->
+                    <template v-if="objLocations.city == obj.original_index" >
+                        <option :value="obj.original_index" :key="index" selected
+                        >{{obj.translate}}</option>
+                    </template>
+                    <template v-else>
+                        <option :value="obj.original_index" :key="index"
+                        >{{obj.translate}}</option>
+                    </template>
+                </template>
+            </select>
+
+            <!-- button search -->
+            <button type="button" class="btn btn-block btn-primary"
+                    @click="urlReload2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z"/></svg>
+            </button>
+        </div>
+    </div>
+</template>
+
+<script>
+
+    import translation from "../../mixins/translation";
+    import response_methods_mixin from "../../mixins/response_methods_mixin";
+    import search_input_mixin from "../../mixins/search_input_mixin";
+
+    export default {
+        mixins: [
+            translation,
+            response_methods_mixin,
+            search_input_mixin
+        ],
+        data() {
+            return {
+                position_list: [],
+                position: '',
+                name_query: 'position', // ищет этот query в url
+                name_url: 'vacancy',
+            }
+        },
+        methods: {
+            async searchPosition(value){
+                if(!value.length){
+                    $('.x-mark-clear').css('display','none')
+                    $('#position_list').removeClass('show')
+                    return false
+                }
+                $('.x-mark-clear').css('display','block')
+                let data = {
+                    value: value,
+                };
+                const response = await this.$http.post(`/private-office/vacancy/search-position`, data)
+                    .then(res => {
+                        if(this.checkSuccess(res)){
+                            // вернет только опубликованные
+                            if(res.data.message.position.length){
+                                this.position_list = res.data.message.position
+                                $('#position_list').addClass('show')
+                            }
+                            else{
+                                $('#position_list').removeClass('show')
+                            }
+                        }
+                        // custom ошибки
+                        else{
+
+                        }
+                    })
+                    // ошибки сервера
+                    .catch(err => {
+                        // this.messageError(err)
+                    })
+            },
+        },
+        props: [
+            'lang',
+            'respond',
+        ],
+        mounted() {
+            const params = new URLSearchParams(window.location.search)
+            if(params.has('position')){
+                this.position = params.get('position')
+            }
+
+            console.log(this.respond.obj_countries)
+        },
+    }
+</script>
+
+<style scoped lang="scss">
+    @import "../../../sass/variables";
+
+    .top-search{
+        padding: 0 15px 10px;
+        width: 100%;
+        background-color: #fff;
+        border-bottom: 1px solid #dee2e6;
+        .box-select{
+            display: flex;
+            margin-left: -6px;
+            border-top: 1px solid #ced4da;
+            z-index: 1;
+            background: white;
+            border-bottom: 1px solid #ced4da;
+            .display-select{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-content: flex-start;
+                align-items: center;
+                height: 36px;
+                padding: 0 10px;
+                cursor: pointer;
+                .svg-caret-down{
+                    width: 7px;
+                    fill: #3490dc;
+                    margin-left: 8px;
+                }
+            }
+            .one-select, .two-select{
+                display: none;
+            }
+        }
+        .form-group{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: center;
+            margin: 0;
+            .box-position{
+                width: 100%;
+                position: relative;
+                margin-right: 5px;
+                input{
+                    border-radius: 4px 0 0 4px;
+                    font-size: 18px;
+                    height: 38px;
+                    padding-right: 30px;
+                }
+                .x-mark-clear{
+                    position: absolute;
+                    top: 1px;
+                    right: 1px;
+                    fill: #ff4747;
+                    width: 45px;
+                    padding: 6px 15px 6px 15px;
+                    cursor: pointer;
+                    display: none;
+                    &:hover{
+                        background-color: #f1f1f1;
+                    }
+                }
+            }
+            .region-select{
+                border-radius: 0;
+                margin: 0 5px 0 0;
+                width: 186px;
+                border: 1px solid #ced4da;
+                &:focus{
+                    box-shadow: none;
+                }
+            }
+            button{
+                border-radius: 0 4px 4px 0;
+                width: 75px;
+                font-size: 18px;
+                height: 38px;
+                line-height: 0;
+            }
+        }
+        .block_position_list{
+            position: relative;
+            #position_list{
+                width: 100%;
+                padding: 0;
+                cursor: pointer;
+                top: -3px;
+                & > div{
+                    padding: 1px 12px;
+                }
+            }
+        }
+    }
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

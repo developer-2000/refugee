@@ -35,7 +35,6 @@ trait GeneralVacancyResumeTraite {
         $this->model = $this->languageSearch($request);
         $this->model = $this->employmentSearch($request);
         $this->model = $this->countrySearch($request);
-        $this->model = $this->regionSearch($request);
         $this->model = $this->citySearch($request);
         $this->model = $this->experienceSearch($request);
         $this->model = $this->suitableSearch($request);
@@ -127,20 +126,13 @@ trait GeneralVacancyResumeTraite {
      */
     private function countrySearch($request){
         if (isset($request->country)) {
-            $this->model = $this->model->where('country', 'like', '%' . $request->country . '%');
-        }
+            // это имеющаяся запись страны в базе адресов
+            $countryInDb = GeographyLocal::whereJsonContains('local->original_index', $request->country)
+                ->where('type', 0)
+                ->first();
+            $country_id = is_null($countryInDb) ? null : $countryInDb->id;
 
-        return $this->model;
-    }
-
-    /**
-     * поиск по префиксу региона
-     * @param $request
-     * @return \Illuminate\Contracts\Foundation\Application|mixed
-     */
-    private function regionSearch($request){
-        if (isset($request->region)) {
-            $this->model = $this->model->where('region', 'like', '%' . $request->region . '%');
+            $this->model = $this->model->where('country_id', $country_id);
         }
 
         return $this->model;
@@ -153,7 +145,13 @@ trait GeneralVacancyResumeTraite {
      */
     private function citySearch($request){
         if (isset($request->city)) {
-            $this->model = $this->model->where('city', 'like', '%' . $request->city . '%');
+            // это имеющаяся запись города в базе адресов
+            $cityInDb = GeographyLocal::whereJsonContains('local->original_index', $request->city)
+                ->where('type', 2)
+                ->first();
+            $city_id = is_null($cityInDb) ? null : $cityInDb->id;
+
+            $this->model = $this->model->where('city_id', $city_id);
         }
 
         return $this->model;
