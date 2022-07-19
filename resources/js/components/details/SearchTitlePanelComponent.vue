@@ -28,70 +28,57 @@
             </div>
 
             <!-- Display -->
-            <div class="box-select">
-                <div @click="viewSelectCountry2()" class="display-select one-select link-a">
+            <div class="box-display">
+                <div @click="viewSelectCountry()" class="display-select one-select link-a">
                     {{objLocations.country_translate}}
                     <svg class="svg-caret-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
                 </div>
-                <div class="display-select two-select link-a">
-                    Каринтия
+                <div @click="viewSelectCity()" class="display-select two-select link-a">
+                    {{objLocations.region_translate}}
                     <svg class="svg-caret-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
                 </div>
             </div>
 
-            <!-- Country -->
-            <select class="form-control select2" id="country-title-panel">
-                <option :value=null selected class="options-default">
-                    Страна поиска
-                </option>
-                <template v-for="(obj, key) in respond.obj_countries">
-                    <!-- в случае редактирования [obj.prefix.toLowerCase(),obj.translate] -->
-                    <template v-if="objLocations.country == obj.prefix" >
-                        <option :value="obj.original_index" :key="key" selected
-                        >{{obj.translate}}</option>
-                    </template>
-                    <template v-else>
+            <div class="box-select">
+                <!-- Country -->
+                <select class="form-control select2" id="country-title-panel">
+                    <option :value=null selected class="options-default">
+                        Страна поиска
+                    </option>
+                    <template v-for="(obj, key) in respond.obj_countries">
                         <option :value="obj.original_index" :key="key"
                         >{{obj.translate}}</option>
                     </template>
-                </template>
-            </select>
+                </select>
 
-            <!-- Region -->
-            <select class="form-control select2 region-select" id="region">
-                <option :value=null selected class="options-default">
-                    Регион поиска
-                </option>
-                <template v-for="(obj, index) in objLocations.load_regions">
-                    <!-- в случае редиктирования -->
-                    <template v-if="objLocations.region == obj.code_region" >
-                        <option :value="obj.code_region" :key="index" selected
-                        >{{obj.translate}}</option>
-                    </template>
-                    <template v-else>
-                        <option :value="obj.code_region" :key="index"
-                        >{{obj.translate}}</option>
-                    </template>
-                </template>
-            </select>
+                <!-- Region -->
+                <select class="form-control select2 region-select" id="region-title-panel">
+                    <option :value="[null, null]" selected class="options-default">
+                        Регион поиска
+                    </option>
+                    <option v-for="(obj, index) in respond.regions_country" :key="index"
+                            :value="[obj.code_region, obj.original_index]"
+                    >{{obj.translate}}</option>
+                </select>
 
-            <!-- City -->
-            <select class="form-control select2" id="city">
-                <option :value=null selected class="options-default">
-                    Город поиска
-                </option>
-                <template v-for="(obj, index) in objLocations.load_cities">
-                    <!-- в случае редиктирования -->
-                    <template v-if="objLocations.city == obj.original_index" >
-                        <option :value="obj.original_index" :key="index" selected
-                        >{{obj.translate}}</option>
+                <!-- City -->
+                <select class="form-control select2" id="city-title-panel">
+                    <option :value=null selected class="options-default">
+                        Город поиска
+                    </option>
+                    <template v-for="(obj, index) in objLocations.load_cities">
+                        <!-- в случае редиктирования -->
+                        <template v-if="objLocations.city == obj.original_index" >
+                            <option :value="obj.original_index" :key="index" selected
+                            >{{obj.translate}}</option>
+                        </template>
+                        <template v-else>
+                            <option :value="obj.original_index" :key="index"
+                            >{{obj.translate}}</option>
+                        </template>
                     </template>
-                    <template v-else>
-                        <option :value="obj.original_index" :key="index"
-                        >{{obj.translate}}</option>
-                    </template>
-                </template>
-            </select>
+                </select>
+            </div>
 
             <!-- button search -->
             <button type="button" class="btn btn-block btn-primary"
@@ -167,7 +154,7 @@
                 this.position = params.get('position')
             }
 
-            console.log(this.respond.obj_countries)
+            // console.log(this.respond.obj_countries)
         },
     }
 </script>
@@ -180,7 +167,7 @@
         width: 100%;
         background-color: #fff;
         border-bottom: 1px solid #dee2e6;
-        .box-select{
+        .box-display{
             display: flex;
             margin-left: -6px;
             border-top: 1px solid #ced4da;
@@ -195,8 +182,9 @@
                 align-content: flex-start;
                 align-items: center;
                 height: 36px;
-                padding: 0 10px;
+                padding: 0 15px 0 0;
                 cursor: pointer;
+                white-space: nowrap;
                 .svg-caret-down{
                     width: 7px;
                     fill: #3490dc;
@@ -223,7 +211,7 @@
                     border-radius: 4px 0 0 4px;
                     font-size: 18px;
                     height: 38px;
-                    padding-right: 30px;
+                    padding-right: 60px;
                 }
                 .x-mark-clear{
                     position: absolute;
@@ -234,6 +222,7 @@
                     padding: 6px 15px 6px 15px;
                     cursor: pointer;
                     display: none;
+                    margin-right: 10px;
                     &:hover{
                         background-color: #f1f1f1;
                     }
@@ -250,7 +239,8 @@
             }
             button{
                 border-radius: 0 4px 4px 0;
-                width: 75px;
+                min-width: 75px;
+                max-width: 75px;
                 font-size: 18px;
                 height: 38px;
                 line-height: 0;

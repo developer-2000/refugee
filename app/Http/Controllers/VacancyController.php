@@ -49,8 +49,54 @@ class VacancyController extends BaseController {
         $respond['vacancies'] = $vacancies;
         $respond['ids_respond'] = $ids_respond;
 
-        return view('search_vacancies', compact('respond'));
+        // текущая страна
+        $respond['now_country'] = null;
+        // регионы текущей страны
+        $respond['regions_country'] = null;
+        // текущий регион в том случае если вместо city
+        $respond['now_region'] = null;
+        $all_regions = (new LocalizationService())->getRegions(App::getLocale());
+        $all_cities = (new LocalizationService())->getCities(App::getLocale());
 
+        if(!is_null($request->country)){
+            // 1
+            $collection = collect($respond['obj_countries']);
+            $now_country = $collection->filter(function ($arr, $key) use ($request) {
+                return $arr['original_index'] == $request->country;
+            })->first();
+            $respond['now_country'] = $now_country;
+
+            // 2
+            $regions_country = collect($all_regions)->filter(function ($arr, $key) use ($respond) {
+                return $arr['prefix'] == mb_strtolower($respond['now_country']['prefix']);
+            })->all();
+            $respond['regions_country'] = $regions_country;
+        }
+
+        // определить что на месте city (может быть регион в котором нет городов)
+        if(!is_null($request->city)){
+            // 1 в city указан регион
+            $region = collect($all_regions)->filter(function ($arr, $key) use ($request) {
+                if(isset($arr['original_index'])){
+                    return $arr['original_index'] == $request->city;
+                }
+                return false;
+            })->first();
+            if(isset($region)){
+                // проверка существований у региона городов (если есть - значит на месте city не может стоять регион)
+                $city = collect($all_cities)->filter(function ($arr, $key) use ($region) {
+                    if(isset($arr['code_region'])){
+                        return $arr['code_region'] == $region['code_region'];
+                    }
+                    return false;
+                })->first();
+                if(is_null($city)){
+                    $respond['now_region'] = $region;
+                }
+            }
+        }
+
+        return view('search_vacancies', compact('respond'));
     }
 
     /**
