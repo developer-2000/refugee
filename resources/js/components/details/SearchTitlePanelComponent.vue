@@ -42,22 +42,21 @@
             <div class="box-select">
                 <!-- Country -->
                 <select class="form-control select2" id="country-title-panel">
-                    <option :value=null selected class="options-default">
+                    <option :value="null" selected class="options-default">
                         Страна поиска
                     </option>
-                    <template v-for="(obj, key) in respond.obj_countries">
-                        <option :value="obj.original_index" :key="key"
-                        >{{obj.translate}}</option>
-                    </template>
+                    <option v-for="(obj, key) in respond.obj_countries" :key="key"
+                            :value="[obj.original_index, obj.translate]"
+                    >{{obj.translate}}</option>
                 </select>
 
                 <!-- Region -->
                 <select class="form-control select2 region-select" id="region-title-panel">
-                    <option :value="[null, null]" selected class="options-default">
+                    <option :value="null" selected class="options-default">
                         Регион поиска
                     </option>
                     <option v-for="(obj, index) in respond.regions_country" :key="index"
-                            :value="[obj.code_region, obj.original_index]"
+                            :value="[obj.code_region, obj.original_index, obj.translate]"
                     >{{obj.translate}}</option>
                 </select>
 
@@ -66,17 +65,9 @@
                     <option :value=null selected class="options-default">
                         Город поиска
                     </option>
-                    <template v-for="(obj, index) in objLocations.load_cities">
-                        <!-- в случае редиктирования -->
-                        <template v-if="objLocations.city == obj.original_index" >
-                            <option :value="obj.original_index" :key="index" selected
-                            >{{obj.translate}}</option>
-                        </template>
-                        <template v-else>
-                            <option :value="obj.original_index" :key="index"
-                            >{{obj.translate}}</option>
-                        </template>
-                    </template>
+                    <option v-for="(obj, index) in objLocations.load_cities" :key="index"
+                            :value="[obj.original_index,obj.translate]"
+                    >{{obj.translate}}</option>
                 </select>
             </div>
 
@@ -231,7 +222,7 @@
             .region-select{
                 border-radius: 0;
                 margin: 0 5px 0 0;
-                width: 186px;
+                /*width: 186px;*/
                 border: 1px solid #ced4da;
                 &:focus{
                     box-shadow: none;

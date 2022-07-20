@@ -440,9 +440,6 @@ label{
 select{
     cursor: pointer;
 }
-/*.select2-container {*/
-/*    width: 100%!important;*/
-/*}*/
 .select2-container .select2-selection--single {
     height: 36px;
 }
@@ -515,6 +512,11 @@ select{
 .top-search span[data-select2-id="5"],
 .top-search .box-select{
     display: none;
+}
+.top-search span[data-select2-id="1"] > span:first-child,
+.top-search span[data-select2-id="3"] > span:first-child,
+.top-search span[data-select2-id="5"] > span:first-child{
+    width: 100%;
 }
 .top-search .select2-selection.select2-selection--single:focus-visible,
 .top-search .select2-container--default.select2-selection--single{

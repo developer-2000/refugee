@@ -21,9 +21,11 @@ export default {
                 city: null,
             },
             objUrlHierarchyDocument:{
-                country: this.lang.prefix_lang+'vacancy/',
+                start_vacancy: this.lang.prefix_lang+'vacancy/',
             },
             urlPrefixElements: [],
+            bool_open_region: false,
+            bool_open_city: false,
         }
     },
     methods: {
@@ -33,22 +35,22 @@ export default {
                 region_code: ''+this.objLocations.region,
                 lang_local: this.lang.lang_local,
             };
+            // return false
             const response = await this.$http.post(`/localisation/get-city`, data)
                 .then(res => {
                     if(this.checkSuccess(res)){
                         // у региона есть города
                         if(res.data.message !== null){
                             // show city select
-                            $("span[data-select2-id='5']").css('display', "block")
+                            $("span[data-select2-id='5']").css('display', "block").addClass('not-select')
                             this.objLocations.load_cities = res.data.message
-                            console.log(this.objLocations.load_cities)
                         }
                         else{
                             this.clearLocation2('load_cities')
                             // hide city select
                             $("span[data-select2-id='5']").css('display', "none")
-                            // грузим страницу с регионов
-                            location.href = this.urlPathname()+"/"+this.objLocations.region_original_index
+                            // грузим страницу регионов
+                            this.constructionLogicUrl(this.objLocations.region_original_index, "city")
                         }
                     }
                     // custom ошибки
@@ -130,6 +132,9 @@ export default {
             // hide display country
             $(".one-select").css('display', "none")
             $(".two-select").css('display', "none")
+            $("span[data-select2-id='3']").css('display', "none")
+            $("span[data-select2-id='5']").css('display', "none")
+
             // show select country
             $("span[data-select2-id='1']").css('display', "block")
             // open select country
@@ -141,91 +146,129 @@ export default {
         viewSelectCity() {
             // hide display city
             $(".two-select").css('display', "none")
-            // show select city
+            // show select region
             $("span[data-select2-id='3']").css('display', "block")
-            // open select region или city
-            setTimeout(() => {
-                if(this.respond.now_region !== null){
-                    $('#region-title-panel').select2('open')
+
+            if(this.respond.now_city !== null && $("span[data-select2-id='5']").css('display') !== "block"){
+                // show select city
+                $("span[data-select2-id='5']").css('display', "block")
+                // open select city
+                setTimeout(() => {
+                    $('#city-title-panel').select2('open')
+                }, 100);
+            }
+            else{
+                // open select region или city
+                setTimeout(() => {
+                    if(this.respond.now_region !== null){
+                        $('#region-title-panel').select2('open')
+                    }
+                }, 100);
+            }
+
+        },
+        constructionLogicUrl(original_index, prefix_name){
+            this.urlPrefixElements = this.urlPathname().split('/')
+            let vacancy_index = this.urlPrefixElements.indexOf('vacancy')
+            // масив после префикса - vacancy
+            if(vacancy_index !== -1){
+                this.urlPrefixElements.splice(0, vacancy_index+1)
+            }
+
+            if(prefix_name === "country"){
+                // загрузка с индекс page (/)
+                if(vacancy_index === -1 ){
+                    location.href = this.objUrlHierarchyDocument.start_vacancy+original_index
                 }
-            }, 100);
+                else{
+                    // загрузка с показа всех вакансий (/vacancy)
+                    if(this.urlPrefixElements.length === 0){
+                        location.href = this.objUrlHierarchyDocument.start_vacancy+original_index
+                    }
+                    // загрузка сменяя другую страну (/vacancy/andorra)
+                    else if(this.urlPrefixElements.length === 1 || this.urlPrefixElements.length === 2){
+                        location.href = this.objUrlHierarchyDocument.start_vacancy+original_index
+                    }
+                }
+            }
+            else {
+                // загрузка добавляя регион или город (/vacancy/andorra)
+                if (this.urlPrefixElements.length === 1 || this.urlPrefixElements.length === 2) {
+                    location.href = this.objUrlHierarchyDocument.start_vacancy+this.urlPrefixElements[0]+"/"+original_index
+                }
+            }
         },
         // события select у select2
         eventChangeSelectCountry(){
-            this.urlPrefixElements = this.urlPathname().split('/')
 
             // страна blur
             $('#country-title-panel').on('select2:close', (e) => {
-                // только если есть что показать в стране
-                if(this.objLocations.country_translate !== null){
-                    // show display country
-                    $(".one-select").css('display', "inherit")
-                    if(this.objLocations.region_translate !== null){
-                        // show display city
-                        $(".two-select").css('display', "inherit")
+                let value = e.target.value
+
+                setTimeout(() => {
+                    // если в стране не выбран - "Страна поиска"
+                    if(value !== ""){
+                        // только если есть что показать в стране
+                        if(this.objLocations.country_translate !== null){
+                            // show display country
+                            $(".one-select").css('display', "inherit")
+                            if(this.objLocations.region_translate !== null){
+                                // show display city
+                                $(".two-select").css('display', "inherit")
+                            }
+                            // hide select country
+                            $("span[data-select2-id='1']").css('display', "none")
+                        }
                     }
-                    // hide select country
-                    $("span[data-select2-id='1']").css('display', "none")
-                }
+                }, 200);
+
             })
 
             // страна change
             $('#country-title-panel').on('select2:select', (e) => {
-                let value = e.params.data.id
+                let arr = e.params.data.id.split(',')
+                let value = arr[0]
                 // hide select city
                 $("span[data-select2-id='5']").css('display', "none")
 
                 // не выбрано
                 if(value == ''){
-                    // добавить странам warning
+                    // добавить select country warning
                     $("span[data-select2-id='1']").addClass('not-select')
                     // hide select region
                     $("span[data-select2-id='3']").css('display', "none")
+                    // загрузить все вакансии
+                    location.href = this.objUrlHierarchyDocument.start_vacancy
                 }
                 // выбрано
                 else{
-                    // показать display country
-                    // $(".one-select").css('display', "inherit")
-                    // // hide select country, убрать warning
-                    // $("span[data-select2-id='1']").css('display', "none").removeClass('not-select')
-                    // let arr = e.params.data.id.split(',')
-                    // this.objLocations.country = arr[0]
-                    // this.objLocations.country_translate = arr[1]
-
-                    console.log(this.urlPrefixElements)
-
-                    let vacancy_index = this.urlPrefixElements.indexOf('vacancy')
-                    // загрузка country с индекс page (/)
-                    if(vacancy_index === -1){
-                        location.href = this.objUrlHierarchyDocument.country+value
-                    }
-                    // загрузка country с показа всех вакансий (/vacancy)
-                    else if(vacancy_index !== -1 && vacancy_index === (this.urlPrefixElements.length-1)){
-                        location.href = this.objUrlHierarchyDocument.country+value
-                    }
-                    // загрузка country page сменяя другую страну (/vacancy/andorra)
-                    else if(vacancy_index !== -1 && vacancy_index+1 === (this.urlPrefixElements.length-1)){
-                        location.href = this.objUrlHierarchyDocument.country+value
-                    }
-                    // загрузка country page сменяя другую страну и затирая city (/vacancy/andorra/andorra-la-vella)
-                    else if(vacancy_index !== -1 && vacancy_index+2 === (this.urlPrefixElements.length-1)){
-                        location.href = this.objUrlHierarchyDocument.country+value
-                    }
+                    this.objLocations.country_translate = arr[1]
+                    this.constructionLogicUrl(value, "country")
                 }
             })
         },
         // события select у select2
         eventChangeSelectRegion(){
-            this.urlPrefixElements = this.urlPathname().split('/')
+
+            $('#region-title-panel').on('select2:open', (e) => {
+                this.bool_open_region = true
+            })
 
             // регион blur
             $('#region-title-panel').on('select2:close', (e) => {
-                // только если есть что показать в display city
-                if(this.objLocations.region_translate !== null){
-                    // show display region
-                    $(".two-select").css('display', "inherit")
-                    // hide select country
-                    $("span[data-select2-id='3']").css('display', "none")
+                let value = e.target.value
+                setTimeout(() => { this.bool_open_region = false }, 500);
+
+                // если не выбран - "Регион посика"
+                if(value !== ""){
+                    // только если есть что показать в display city и не произведен клик по select sity
+                    if(this.objLocations.region_translate !== null && !this.bool_open_city){
+                        // show display region
+                        $(".two-select").css('display', "inherit")
+                        // hide select country
+                        $("span[data-select2-id='3']").css('display', "none")
+                        $("span[data-select2-id='5']").css('display', "none")
+                    }
                 }
             })
 
@@ -234,37 +277,77 @@ export default {
                 let arr = e.params.data.id.split(',')
                 this.objLocations.region = arr[0]
                 this.objLocations.region_original_index = arr[1]
-                this.clearLocation2('load_cities')
+                // this.clearLocation2('load_cities')
 
                 if(arr[0] == ""){
+                    // добавить select region warning
                     $("span[data-select2-id='3']").addClass('not-select')
+                    // hide select city
                     $("span[data-select2-id='5']").css('display', "none")
+                    // только если регионы являлись вместо city и не был открыт выбор городов
+                    if(this.respond.now_region !== null){
+                        // загрузить со страны
+                        location.href = this.objUrlHierarchyDocument.start_vacancy+this.respond.now_country.original_index
+                    }
                 }
                 else{
                     $("span[data-select2-id='3']").removeClass('not-select')
-                    // показ select city
-                    this.loadCity2();
+                    this.objLocations.region_translate = arr[2]
+                    // show city select
+                    $("span[data-select2-id='5']").css('display', "none")
+
+                    // если регионы не выбраны изначально ИЛИ выбраны но происходит переход на другой регион
+                    if(this.respond.now_region === null || (this.respond.now_region !== null && this.respond.now_region.code_region != arr[0])){
+                        this.loadCity2()
+                    }
                 }
             })
         },
         // события select у select2
         eventChangeSelectCity(){
-            this.urlPrefixElements = this.urlPathname().split('/')
+
+            $('#city-title-panel').on('select2:open', (e) => {
+                this.bool_open_city = true
+            })
+
+            // город blur
+            $('#city-title-panel').on('select2:close', (e) => {
+                let value = e.target.value
+                setTimeout(() => { this.bool_open_city = false }, 500);
+
+                // если не выбран - "Город посика"
+                if(value !== ""){
+                    // только если есть что показать в display city и не произведен клик по select region
+                    if(this.objLocations.region_translate !== null && !this.bool_open_region){
+                        // show display region
+                        $(".two-select").css('display', "inherit")
+                        // hide select country
+                        $("span[data-select2-id='3']").css('display', "none")
+                        $("span[data-select2-id='5']").css('display', "none")
+                    }
+                }
+            })
 
             // город change
             $('#city-title-panel').on('select2:select', (e) => {
-                let value = e.params.data.id
-                this.objLocations.city = value
+                let arr = e.params.data.id.split(',')
+                // this.objLocations.city = value
 
-                if(value == ""){
+                if(arr[0] == ""){
                     $("span[data-select2-id='5']").addClass('not-select')
+                    // загрузить с региона
+                    // location.href = this.objUrlHierarchyDocument.start_vacancy+this.respond.now_region.original_index
+                    this.constructionLogicUrl(this.respond.now_country.original_index, "country")
                 }
                 else{
                     $("span[data-select2-id='5']").removeClass('not-select')
+                    this.objLocations.region_translate = arr[1]
+                    this.constructionLogicUrl(arr[0], "city")
                 }
             })
         },
         initializeData2(){
+            this.objLocations.load_cities = this.respond.cities_region
             // вставка поиска названия из url в input search
             this.searchPositionInUrl2();
             // события select у select2
@@ -275,37 +358,45 @@ export default {
             setTimeout(() => {
                 // show обвертка select
                 $(".box-select").css('display', "flex")
-                // страны
-                // $("span[data-select2-id='1']").addClass('not-select')
-                // // регионы
-                // $("span[data-select2-id='3']").css('display', "none").addClass('not-select')
-                // // города
-                // $("span[data-select2-id='5']").css('display', "none").addClass('not-select')
 
-                // выбрана страна
+                // 1 выбрана страна
                 if(this.respond.now_country !== null){
-
                     // установить в country select выбранную страну
-                    $('#country-title-panel').val(this.respond.now_country.original_index).trigger("change")
+                    $('#country-title-panel').val(this.respond.now_country.original_index+","+this.respond.now_country.translate).trigger("change")
                     // показать display country
                     $(".one-select").css('display', "inherit")
                     this.objLocations.country_translate = this.respond.now_country.translate
+                    this.objLocations.country = this.respond.now_country.prefix.toLowerCase()
+                }
+                else{
+                    // показать select country
+                    $("span[data-select2-id='1']").css('display', "inherit").addClass('not-select')
+                }
 
-                    // регион не выбран
-                    if(this.respond.now_region === null){
+                // 2 регион не выбран
+                if(this.respond.now_region === null){
+                    if(this.respond.now_country !== null){
                         // показать select region
                         $("span[data-select2-id='3']").css('display', "inherit").addClass('not-select')
-                        this.objLocations.country = this.respond.now_country.prefix.toLowerCase()
-                    }
-                    // выбран регион
-                    if(this.respond.now_region !== null){
-                        // установить в region select выбранный регион
-                        $('#region-title-panel').val(this.respond.now_region.code_region+","+this.respond.now_region.original_index).trigger("change")
-                        // показать display city
-                        $(".two-select").css('display', "inherit")
-                        this.objLocations.region_translate = this.respond.now_region.translate
                     }
                 }
+                // выбран регион
+                else{
+                    // установить в region select выбранный регион
+                    $('#region-title-panel').val( this.respond.now_region.code_region+","+this.respond.now_region.original_index+","+this.respond.now_region.translate ).trigger("change")
+                    // показать display city
+                    $(".two-select").css('display', "inherit")
+                    this.objLocations.region_translate = this.respond.now_region.translate
+                }
+
+                // 3 город выбран
+                if(this.respond.now_city !== null){
+                    // установить в city select выбранный город
+                    $('#city-title-panel').val(this.respond.now_city.original_index+","+this.respond.now_city.translate).trigger("change")
+                    $(".two-select").css('display', "inherit")
+                    this.objLocations.region_translate = this.respond.now_city.translate
+                }
+
 
             }, 500);
         },

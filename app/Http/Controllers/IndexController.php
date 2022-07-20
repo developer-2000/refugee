@@ -40,6 +40,12 @@ class IndexController extends Controller {
         $respond = [
             'obj_countries' => (new LocalizationService())->getCountries(App::getLocale()),
         ];
+        // текущая страна
+        $respond['now_country'] = null;
+        // регионы текущей страны
+        $respond['regions_country'] = null;
+        // текущий регион в том случае если вместо city
+        $respond['now_region'] = null;
 
         return view('index', compact('transition_url_page','respond'));
     }
