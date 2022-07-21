@@ -494,7 +494,10 @@ select{
 .top-search .select2.select2-container.select2-container--default{
     border-radius: 0!important;
     margin: 0!important;
-    border: 1px solid #ced4da;
+    /*border: 1px solid #ced4da;*/
+    border-top: 1px solid #ced4da;
+    border-left: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
     min-width: 170px;
 }
 .top-search .select2-container--default .select2-selection--single {
@@ -505,7 +508,7 @@ select{
     box-shadow: none;
 }
 .top-search .select2.select2-container.select2-container--default.not-select {
-    border: 1px solid #ded000;
+    border: 1px solid #fcc36d;
 }
 .top-search span[data-select2-id="1"],
 .top-search span[data-select2-id="3"],
