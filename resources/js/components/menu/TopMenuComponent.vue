@@ -273,8 +273,11 @@
     @import "resources/sass/_variables";
 
     .background-top-menu{
-        background-color: #fff;
-        border-bottom: 1px solid #dee2e6;
+        margin-bottom: -1px;
+        nav{
+            background-color: #fff;
+            border-bottom: 1px solid #dee2e6;
+        }
     }
     .main-header {
         border: none;

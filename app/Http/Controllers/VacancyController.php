@@ -46,7 +46,7 @@ class VacancyController extends BaseController {
                 ->whereIn('vacancy_id',$idVacancies)->get()->pluck('vacancy_id');
         }
 
-        // 3
+        // 3 набор данных по геолокации
         $respond = $this->repository->indexRespond($request);
         $respond['vacancies'] = $vacancies;
         $respond['ids_respond'] = $ids_respond;

@@ -236,7 +236,7 @@ class VacancyRepository extends CoreRepository {
         $vacancies = $this->model->where('user_id', Auth::user()->id)
             ->with('position','country','region','city')
             ->withCount('respond')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
 
         // address

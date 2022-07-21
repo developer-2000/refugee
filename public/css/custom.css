@@ -131,6 +131,9 @@ b{
     font-weight: 500 !important;
     cursor: pointer;
 }
+.content-wrapper{
+    display: flex;
+}
 
 /* sidebar left */
 .brand-link{
@@ -436,9 +439,13 @@ label{
     margin-top: -10px;
     display: block;
 }
+
 /* select 2 */
 select{
     cursor: pointer;
+}
+.select2-container {
+    width: 100%!important;
 }
 .select2-container .select2-selection--single {
     height: 36px;
@@ -485,6 +492,7 @@ select{
     border: 1px solid #ced4da;
     padding-top: 2px;
 }
+
 /* select 2 search title panel */
 .options-default{
     font-style: italic;
@@ -524,6 +532,9 @@ select{
 .top-search .select2-selection.select2-selection--single:focus-visible,
 .top-search .select2-container--default.select2-selection--single{
     outline: none !important;
+}
+.select2-container--open li{
+    cursor: pointer;
 }
 
 /* my vacancies */

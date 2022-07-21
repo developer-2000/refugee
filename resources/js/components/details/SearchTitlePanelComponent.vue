@@ -144,8 +144,6 @@
             if(params.has('position')){
                 this.position = params.get('position')
             }
-
-            // console.log(this.respond.obj_countries)
         },
     }
 </script>

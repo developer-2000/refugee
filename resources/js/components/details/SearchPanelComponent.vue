@@ -413,9 +413,6 @@
             },
             setReturnParent() {
                 this.returnParent({
-                    region: this.objLocations.region,
-                    country: this.objLocations.country,
-                    city: this.objLocations.city,
                     categories: this.objCategory.categories,
                     languages: this.arrLanguages,
                     suitable: this.objCheckSuitable,
@@ -458,33 +455,6 @@
 
                     e.params.originalEvent.stopPropagation();
                 });
-                // страна
-                $('#country').on('select2:select', (e) => {
-                    this.setReturnParent()
-                })
-                // region
-                $('#region').on('select2:select', (e) => {
-                    // выбрано "Выбрать"
-                    if(e.params.data.id == ''){
-                        this.objLocations.region = null
-                    }
-                    else{
-                        this.objLocations.region = e.params.data.id
-                    }
-                    this.objLocations.city = null
-                    this.setReturnParent()
-                })
-                // city
-                $('#city').on('select2:select', (e) => {
-                    // выбрано "Выбрать"
-                    if(e.params.data.id == ''){
-                        this.objLocations.city = null
-                    }
-                    else{
-                        this.objLocations.city = e.params.data.id
-                    }
-                    this.setReturnParent()
-                })
             },
             changeEmployment(value){
                 this.index_employment = value
@@ -535,21 +505,6 @@
             setValuesFields(){
                 const params = new URLSearchParams(window.location.search)
 
-                // Location
-                this.objLocations.load_countries = this.settings.obj_countries
-                if(params.has('country')){
-                    this.objLocations.country = params.get('country')
-                    this.loadRegions();
-                }
-                if(params.has('region')){
-                    this.objLocations.region = params.get('region')
-                    setTimeout(() => {
-                        this.loadCity()
-                    }, 1000);
-                }
-                if(params.has('city')){
-                    this.objLocations.city = params.get('city')
-                }
                 if(params.has('categories')){
                     let arr = JSON.parse("[" + params.get('categories') + "]");
                     this.objCategory.categories = arr

@@ -120,9 +120,6 @@
             getVacancies(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
-                params.delete('country')
-                params.delete('region')
-                params.delete('city')
                 params.delete('categories')
                 params.delete('languages')
                 params.delete('suitable')
@@ -131,18 +128,6 @@
                 params.delete('experience')
                 params.delete('education')
 
-                // country
-                if(obj.country != undefined && obj.country != null){
-                    params.set('country',obj.country)
-                }
-                // region
-                if(obj.region != undefined && obj.region != null){
-                    params.set('region',obj.region)
-                }
-                // city
-                if(obj.city != undefined && obj.city != null){
-                    params.set('city',obj.city)
-                }
                 // categories
                 if(obj.categories != undefined && obj.categories.length){
                     params.set('categories',obj.categories.toString())
@@ -179,7 +164,7 @@
                 params.sort()
                 let query = (params.toString() == '') ? '' : '?'+params.toString()
 
-                location.href = this.lang.prefix_lang+'vacancy'+query
+                location.href = this.urlPathname()+query
             },
             salaryView(salaryObj){
                 let salary_string = ''
@@ -229,7 +214,7 @@
             'user',
         ],
         mounted() {
-            console.log(this.respond)
+            // console.log(this.respond)
         },
     }
 </script>
@@ -251,7 +236,7 @@
             display: flex;
             padding: 30px 15px 0;
             .left-site{
-                min-width: 77%;
+                min-width: 80%;
                 .box-vacancy{
                     margin-right: 15px;
                     .box-title-logo{
@@ -287,7 +272,7 @@
                 }
             }
             .right-site{
-                min-width: 23%;
+                min-width: 20%;
             }
         }
     }

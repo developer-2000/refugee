@@ -201,6 +201,15 @@ export default {
         // события select у select2
         eventChangeSelectCountry(){
 
+            $('#country-title-panel').on('select2:open', (e) => {
+                // заменить надпись в select
+                setTimeout(() => {
+                    $(".select2-container--open ul li:first-child")
+                        .text("очистить выбор")
+                        .css({"text-align":"center","background": "#efefef","color": "#3490dc"})
+                }, 100);
+            })
+
             // страна blur
             $('#country-title-panel').on('select2:close', (e) => {
                 let value = e.target.value
@@ -259,6 +268,12 @@ export default {
 
             $('#region-title-panel').on('select2:open', (e) => {
                 this.bool_open_region = true
+                // заменить надпись в select
+                setTimeout(() => {
+                    $(".select2-container--open ul li:first-child")
+                        .text("очистить выбор")
+                        .css({"text-align":"center","background": "#efefef","color": "#3490dc"})
+                }, 100);
             })
 
             // регион blur
@@ -314,6 +329,12 @@ export default {
 
             $('#city-title-panel').on('select2:open', (e) => {
                 this.bool_open_city = true
+                // заменить надпись в select
+                setTimeout(() => {
+                    $(".select2-container--open ul li:first-child")
+                        .text("очистить выбор")
+                        .css({"text-align":"center","background": "#efefef","color": "#3490dc"})
+                }, 100);
             })
 
             // город blur
@@ -411,7 +432,6 @@ export default {
                 this._selectCity = $("span[data-select2-id='5']")
                 this.initializeData2();
             }, 300);
-
         })
     },
 }
