@@ -37,15 +37,8 @@ class IndexController extends Controller {
             $transition_url_page = $arr['url_page'];
         }
 
-        $respond = [
-            'obj_countries' => (new LocalizationService())->getCountries(App::getLocale()),
-        ];
-
-        $respond['now_country'] = null;
-        $respond['regions_country'] = null;
-        $respond['now_region'] = null;
-        $respond['cities_region'] = null;
-        $respond['now_city'] = null;
+        $respond = config('site.search_title_panel.collection_location');
+        $respond['obj_countries'] = (new LocalizationService())->getCountries(App::getLocale());
 
         return view('index', compact('transition_url_page','respond'));
     }

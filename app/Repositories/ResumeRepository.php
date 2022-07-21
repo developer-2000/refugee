@@ -12,7 +12,9 @@ use App\Model\UserHideResume;
 use App\Model\UserResume as Model;
 use App\Model\UserSaveResume;
 use App\Model\Vacancy;
+use App\Services\LocalizationService;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeRepository extends CoreRepository {
@@ -85,7 +87,7 @@ class ResumeRepository extends CoreRepository {
         $informationRepository = new ContactInformationRepository();
         $modalOffer = new Offer();
 
-        $resume = $this->model->where('id', $request->resume_id)
+        $resume = $this->model->where('alias', $request->alias)
             ->with(
                 'position',
                 'contact.avatar',
@@ -105,10 +107,10 @@ class ResumeRepository extends CoreRepository {
         if(!is_null($my_user)){
 
             // я подписывался на резюме
-            $respond = (new RespondResume())->selectByResumeUserVacancyId($request->resume_id, $my_user->id);
+            $respond = (new RespondResume())->selectByResumeUserVacancyId($resume->id, $my_user->id);
             if(is_null($respond)){
                 // соискатель предложил резюме на мою вакансию
-                $respond = (new RespondVacancy())->selectByResumeUserVacancyId($request->resume_id, $my_user->id);
+                $respond = (new RespondVacancy())->selectByResumeUserVacancyId($resume->id, $my_user->id);
             }
 
             // установлен ли чат ?

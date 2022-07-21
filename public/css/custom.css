@@ -439,6 +439,9 @@ label{
     margin-top: -10px;
     display: block;
 }
+.form-control:focus {
+     box-shadow: none;
+}
 
 /* select 2 */
 select{

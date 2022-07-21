@@ -38,7 +38,6 @@ class VacancyController extends BaseController {
 
         // 1
         $vacancies = $this->repository->index($request, $this->count_pagination);
-
         // 2 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
         $idVacancies = $vacancies->pluck('id');
         if(!is_null($my_user)){

@@ -77,65 +77,6 @@ class VacancyRepository extends CoreRepository {
         return $vacancies;
     }
 
-    public function indexRespond($request){
-        $all_regions = (new LocalizationService())->getRegions(App::getLocale());
-        // в базе нет городов без регионов
-        $all_cities = (new LocalizationService())->getCities(App::getLocale());
-        $respond = $this->getSettingsDocumentsAndCountries();
-
-        // текущая страна
-        $respond['now_country'] = null;
-        // регионы текущей страны
-        $respond['regions_country'] = null;
-        $respond['now_region'] = null;
-        $respond['cities_region'] = null;
-        $respond['now_city'] = null;
-
-        // 1 обьекты текущей страны и регионов страны
-        if(!is_null($request->country)){
-            // 1 найти текущую страну
-            $now_country = collect($respond['obj_countries'])->filter(function ($arr, $key) use ($request) {
-                return $arr['original_index'] == $request->country;
-            })->first();
-            $respond['now_country'] = $now_country;
-
-            // 2 (в базе нет стран без регионов)
-            $regions_country = $this->filterCollection($all_regions, 'prefix', mb_strtolower($respond['now_country']['prefix']), mb_strtolower($respond['now_country']["prefix"]))
-                ->all();
-            $respond['regions_country'] = $regions_country;
-        }
-
-        // 2 определить что на месте city (может быть регион в котором нет городов)
-        if(!is_null($request->city)){
-
-            $city = $this->filterCollection($all_cities, 'original_index', $request->city, mb_strtolower($respond['now_country']["prefix"]))
-                ->first();
-            $respond['now_city'] = $city;
-
-            // 2.2.1 если $request->city - город
-            if(isset($city)){
-                $region = $this->filterCollection($respond['regions_country'], 'code_region', $city["code_region"], mb_strtolower($respond['now_country']["prefix"]))
-                    ->first();
-                $respond['now_region'] = $region;
-            }
-            else{
-                $region = $this->filterCollection($respond['regions_country'], 'original_index', $request->city, mb_strtolower($respond['now_country']["prefix"]))
-                    ->first();
-                $respond['now_region'] = $region;
-            }
-
-            if(isset($region)){
-                if(isset($region)){
-                    $cities_region = $this->filterCollection($all_cities, 'code_region', $region["code_region"], mb_strtolower($respond['now_country']["prefix"]))
-                        ->all();
-                    $respond['cities_region'] = $cities_region;
-                }
-            }
-        }
-
-        return $respond;
-    }
-
     public function show($request){
         $my_user = Auth::user();
         $respond_data['arr_resume'] = [];
@@ -164,10 +105,10 @@ class VacancyRepository extends CoreRepository {
         if(!is_null($my_user)){
 
             // я подписывался на вакансию
-            $respond = (new RespondVacancy())->selectByVacancyUserResumeId($request->vacancy_id, $my_user->id);
+            $respond = (new RespondVacancy())->selectByVacancyUserResumeId($vacancy->id, $my_user->id);
             if(is_null($respond)){
                 // соискатель предложил вакансию на мое резюме
-                $respond = (new RespondResume())->selectByVacancyUserResumeId($request->vacancy_id, $my_user->id);
+                $respond = (new RespondResume())->selectByVacancyUserResumeId($vacancy->id, $my_user->id);
             }
 
             // установлен ли чат ?
@@ -301,15 +242,6 @@ class VacancyRepository extends CoreRepository {
         ];
     }
 
-    private function filterCollection($array, $index, $value, $country_prefix){
-        $respond = collect($array)->filter(function ($arr, $key) use ($value, $index, $country_prefix) {
-            if(isset($arr[$index])){
-                return $arr[$index] == $value && $arr["prefix"] == $country_prefix;
-            }
-            return false;
-        });
 
-        return $respond;
-    }
 
 }

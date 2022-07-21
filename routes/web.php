@@ -60,11 +60,6 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         });
     });
 
-    // resume
-    Route::resource('resume', 'ResumeController')->only([
-        'index', 'show',
-    ]);
-
     // company
     Route::get('/company/{alias}', 'CompanyController@show')
         ->where('alias', '[0-9a-z_-]+');
@@ -154,6 +149,10 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
     // vacancies
     Route::get('/vacancy/show-vacancy/{alias}', 'VacancyController@show');
     Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
+
+    // resume
+    Route::get('/resume/show-resume/{alias}', 'ResumeController@show');
+    Route::get('/resume/{country?}/{city?}', 'ResumeController@index');
 
     // localisation
     Route::group(['prefix'=>'localisation'], function (){

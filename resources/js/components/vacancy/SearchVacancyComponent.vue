@@ -1,14 +1,16 @@
 <template>
     <div class="search-panel container">
-        <h1 class="title_page">
-            {{trans('vacancies','job_search')}}
-        </h1>
-
-        <!-- search input line -->
-        <search_title_panel
-            :lang="lang"
-            :respond="respond"
-        ></search_title_panel>
+        <div class="box-title-panel">
+            <h1 class="title_page">
+                Поиск вакансий работодателей
+            </h1>
+            <!-- search input line -->
+            <search_title_panel
+                :lang="lang"
+                :respond="respond"
+                :prefix="prefix_url"
+            ></search_title_panel>
+        </div>
 
         <div class="bottom-search">
             <!-- vacancies -->
@@ -114,6 +116,7 @@
             return {
                 description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠',
                 position: '',
+                prefix_url: 'vacancy',
             }
         },
         methods: {
@@ -228,6 +231,9 @@
         background-color: #fff;
         width: 100%;
         padding: 0;
+        .box-title-panel{
+            /*background: url("img/custom/flags.jpg");*/
+        }
         .title_page {
             padding: 15px;
         }

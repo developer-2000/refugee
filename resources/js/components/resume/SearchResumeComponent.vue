@@ -1,42 +1,15 @@
 <template>
     <div class="search-panel container">
-        <h1 class="title_page">
-            Поиск резюме
-        </h1>
-
-        <!-- search line -->
-        <div class="top-search">
-            <div class="form-group">
-                <div class="box-position">
-
-                    <input type="text" class="form-control" maxlength="100" autocomplete="off"
-                           :placeholder="trans('vacancies','search')"
-                           v-model="position"
-                           @keyup="searchPosition($event.target.value)"
-                           @keydown="enterKey"
-                    >
-
-                    <svg @click="clearSearch"
-                         class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
-
-                    <!-- подсказка -->
-                    <div class="block_position_list">
-                        <div class="dropdown-menu" id="position_list">
-                            <div class="dropdown-item"
-                                 v-for="(value, key) in position_list" :key="key"
-                                 @click="setValuePosition(value)"
-                            >
-                                {{value}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-block btn-primary"
-                        @click="urlReload"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m504.1 471-134-134c29-35.5 45-80.2 45-129 0-114.9-93.13-208-208-208S0 93.13 0 208s93.12 208 207.1 208c48.79 0 93.55-16.91 129-45.04l134 134c5.6 4.74 11.8 7.04 17.9 7.04s12.28-2.344 16.97-7.031c9.33-9.369 9.33-24.569-.87-33.969zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160-71.78 160-160 160S48 296.2 48 208z"/></svg>
-                </button>
-            </div>
+        <div class="box-title-panel">
+            <h1 class="title_page">
+                Поиск резюме работников
+            </h1>
+            <!-- search input line -->
+            <search_title_panel
+                :lang="lang"
+                :respond="respond"
+                :prefix="prefix_url"
+            ></search_title_panel>
         </div>
 
         <div class="bottom-search">
@@ -44,7 +17,7 @@
             <div class="left-site">
                 <!-- item -->
                 <div class="box-vacancy"
-                     v-for="(resume, key) in resumes.data" :key="key"
+                     v-for="(resume, key) in respond.resumes.data" :key="key"
                      :id="`v${key}`"
                      @click.prevent="transitionToResume(resume.alias)"
                      :class="{'close-document-border': resume.job_posting.status_name == 'hidden' }"
@@ -58,10 +31,10 @@
                     <!-- resume -->
                     <resume_template
                         :resume="resume"
-                        :settings="settings"
+                        :settings="respond"
                         :lang="lang"
                         :contact_list="contact_list"
-                        :ids_respond="ids_respond"
+                        :ids_respond="respond.ids_respond"
                         :page="'search'"
                     ></resume_template>
 
@@ -90,9 +63,9 @@
                 </div>
 
                 <pagination
-                    v-if="resumes.last_page > 1"
-                    :pagination="resumes"
-                    @paginate="urlReload"
+                    v-if="respond.resumes.last_page > 1"
+                    :pagination="respond.resumes"
+                    @paginate="paginateReload"
                     :offset="1"
                 >
                 </pagination>
@@ -102,7 +75,7 @@
             <div class="right-site">
                 <search_panel
                     :lang="lang"
-                    :settings="settings"
+                    :settings="respond"
                     :page="'search_resumes'"
                     @returnParent="getResumes"
                 ></search_panel>
@@ -116,13 +89,13 @@
     import search_panel from '../details/SearchPanelComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsResumeComponent'
     import resume_template from "./details/ResumeTemplateComponent";
-
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import translation from "../../mixins/translation";
     import date_mixin from "../../mixins/date_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
-    import search_input_mixin from "../../mixins/search_input_mixin";
+    import search_title_panel from "../details/SearchTitlePanelComponent";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         components: {
@@ -130,19 +103,20 @@
             'search_panel': search_panel,
             'bookmark_buttons': bookmark_buttons,
             'resume_template': resume_template,
+            'search_title_panel': search_title_panel,
         },
         mixins: [
+            translation,
             general_functions_mixin,
             response_methods_mixin,
             bookmark_vacancies_mixin,
-            translation,
             date_mixin,
-            search_input_mixin
+            url_mixin,
         ],
         data() {
             return {
                 name_query: 'position',
-                name_url: 'resume',
+                prefix_url: 'resume',
                 contact_list: [],
                 position: '',
                 position_list: [],
@@ -252,7 +226,7 @@
             },
             salaryView(salaryObj){
                 let salary_string = ''
-                let arr_field = this.settings.salary[salaryObj.radio_name]
+                let arr_field = this.respond.salary[salaryObj.radio_name]
                 $.each(arr_field, function(key, name) {
                     salary_string += salaryObj.inputs[name]
                     if( (key+1) < arr_field.length){
@@ -279,12 +253,22 @@
 
                 return address_string
             },
+            paginateReload(obj){
+                let params = new URLSearchParams(window.location.search)
+                params.delete('page')
+                // page
+                if(obj.page != undefined && obj.page != null){
+                    params.set('page',obj.page)
+                }
+
+                params.sort()
+                let query = (params.toString() == '') ? '' : '?'+params.toString()
+                location.href = this.urlNotQuery()+query
+            },
         },
         props: [
             'lang',
-            'settings',
-            'resumes',
-            'ids_respond',
+            'respond',
             'user',
         ],
         mounted() {
@@ -365,10 +349,10 @@
             display: flex;
             padding: 30px 15px 0;
             .left-site{
-                min-width: 77%;
+                min-width: 80%;
             }
             .right-site{
-                min-width: 23%;
+                min-width: 20%;
             }
         }
     }

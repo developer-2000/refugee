@@ -30,22 +30,25 @@ class ResumeController extends BaseController {
         $this->count_pagination = 5;
     }
 
-    public function index(IndexResumeRequest $request)
+    public function index(IndexResumeRequest $request, $country = null, $city = null)
     {
         $my_user = Auth::user();
         $ids_respond = [];
+
         // 1
-        $settings = $this->getSettingsDocumentsAndCountries();
-        // 2
         $resumes = $this->repository->index($request, $this->count_pagination);
-        // 3 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
+        // 2 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
         $idResumes = $resumes->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondResume::where('user_vacancy_id',$my_user->id)
                 ->whereIn('resume_id',$idResumes)->get()->pluck('resume_id');
         }
+        // 3
+        $respond = $this->repository->indexRespond($request);
+        $respond['resumes'] = $resumes;
+        $respond['ids_respond'] = $ids_respond;
 
-        return view('search_resumes', compact('settings', 'resumes', 'ids_respond'));
+        return view('search_resumes', compact('respond'));
     }
 
     /**
@@ -60,7 +63,7 @@ class ResumeController extends BaseController {
      * @param  ShowResumeRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(UserResume $resume, ShowResumeRequest $request)
+    public function show(ShowResumeRequest $request)
     {
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();

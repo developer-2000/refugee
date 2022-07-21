@@ -82,7 +82,6 @@
 </template>
 
 <script>
-
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import search_input_mixin from "../../mixins/search_input_mixin";
@@ -98,7 +97,7 @@
                 position_list: [],
                 position: '',
                 name_query: 'position', // ищет этот query в url
-                name_url: 'vacancy',
+                prefix_url: '',
             }
         },
         methods: {
@@ -134,16 +133,32 @@
                         // this.messageError(err)
                     })
             },
+            initializeData(){
+                // выбрать из url поиск
+                const params = new URLSearchParams(window.location.search)
+                if(params.has('position')){
+                    this.position = params.get('position')
+                }
+
+                // закрытие подсказки
+                let menuBtn = $("#position_list")
+                $(document).click((e) => {
+                    if (!menuBtn.is(e.target)) {
+                        menuBtn.removeClass('show')
+                    }
+                })
+            }
         },
         props: [
             'lang',
             'respond',
+            'prefix',
         ],
+        created: function(){
+            this.prefix_url = this.prefix
+        },
         mounted() {
-            const params = new URLSearchParams(window.location.search)
-            if(params.has('position')){
-                this.position = params.get('position')
-            }
+            this.initializeData();
         },
     }
 </script>
@@ -152,13 +167,12 @@
     @import "../../../sass/variables";
 
     .top-search{
-        padding: 0 15px 10px;
+        padding: 0 15px 15px;
         width: 100%;
-        background-color: #fff;
+        background-color: rgba(256, 256, 256, 0.7);
         border-bottom: 1px solid #dee2e6;
         .box-display{
             display: flex;
-            margin-left: -6px;
             border-top: 1px solid #ced4da;
             z-index: 1;
             background: white;
@@ -183,6 +197,9 @@
             .one-select, .two-select{
                 display: none;
             }
+            .one-select{
+                padding-left: 5px;
+            }
         }
         .form-group{
             display: flex;
@@ -195,25 +212,27 @@
             .box-position{
                 width: 100%;
                 position: relative;
-                margin-right: 5px;
                 input{
                     border-radius: 4px 0 0 4px;
                     font-size: 18px;
                     height: 38px;
                     padding-right: 60px;
+                    border-left: 1px solid #ced4da;
+                    border-top: 1px solid #ced4da;
+                    border-bottom: 1px solid #ced4da;
+                    border-right: none;
                 }
                 .x-mark-clear{
                     position: absolute;
                     top: 1px;
-                    right: 1px;
+                    right: 0px;
                     fill: #ff4747;
                     width: 45px;
                     padding: 6px 15px 6px 15px;
                     cursor: pointer;
                     display: none;
-                    margin-right: 10px;
                     &:hover{
-                        background-color: #f1f1f1;
+                        fill: #f72e2e;
                     }
                 }
             }

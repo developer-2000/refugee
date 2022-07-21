@@ -1,16 +1,33 @@
 <template>
     <div class="search-panel container">
-        <h1 class="title_page">
-            {{trans('vacancies','job_search')}}
-        </h1>
+        <div class="box-title-panel">
+            <h1 class="title_page">
+                Лучший сайт по поиску и предоставлению работы в Европе
+            </h1>
 
-        <!-- search input line -->
-        <search_title_panel
-            :lang="lang"
-            :respond="respond"
-        ></search_title_panel>
+            <div class="box-flags">
+                <a :href="`${lang.prefix_lang}vacancy`" class="flag">
+                    <b>Найти работу</b>
+                    <img alt="european flag" src="/img/custom/european flag.jpg">
+                </a>
+                <a :href="`${lang.prefix_lang}resume`" class="flag">
+                    <b>Найти работника</b>
+                    <img alt="ukrainian flag" src="/img/custom/ukrainian flag.jpg">
+                </a>
 
+            </div>
 
+            <h2 class="title_page">
+                Поиск вакансий работодателей
+            </h2>
+
+            <!-- search input line -->
+            <search_title_panel
+                :lang="lang"
+                :respond="respond"
+                :prefix="prefix_url"
+            ></search_title_panel>
+        </div>
     </div>
 </template>
 
@@ -28,6 +45,7 @@
         ],
         data() {
             return {
+                prefix_url: 'vacancy',
             }
         },
         methods: {
@@ -54,7 +72,27 @@
         .title_page {
             padding: 15px;
         }
-
+        .box-flags{
+            text-align: center;
+            margin: 25px 0;
+            .flag{
+                margin: 0 15px;
+                position: relative;
+                display: inline-block;
+                /*opacity: 0.5;*/
+                b{
+                    position: absolute;
+                    bottom: 0px;
+                    width: 100%;
+                    padding: 10px 0;
+                    background: rgba(255 255 255 / 0.8);
+                    color: #444;
+                }
+                img{
+                    width: 200px;
+                }
+            }
+        }
         .bottom-search{
             display: flex;
             padding: 30px 15px 0;

@@ -17,7 +17,7 @@ class ShowResumeRequest extends FormRequest
 
     public function all($keys = null) {
         $data = parent::all($keys);
-        $data['resume_id'] = $this->route('resume.id');
+        $data['alias'] = $this->route('alias');
         return $data;
     }
 
@@ -29,7 +29,7 @@ class ShowResumeRequest extends FormRequest
     public function rules()
     {
         return [
-            'resume_id' => 'required|integer|exists:user_resumes,id',
+            'alias' => 'required|string|exists:user_resumes,alias',
         ];
     }
 }

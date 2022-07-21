@@ -12,6 +12,57 @@ use Illuminate\Support\Facades\Auth;
 
 trait GeneralVacancyResumeTraite {
 
+    public function indexRespond($request){
+        $all_regions = (new LocalizationService())->getRegions(App::getLocale());
+        // в базе нет городов без регионов
+        $all_cities = (new LocalizationService())->getCities(App::getLocale());
+        $respond = $this->getSettingsDocumentsAndCountries();
+
+        // 1 обьекты текущей страны и регионов страны
+        if(!is_null($request->country)){
+            // 1 найти текущую страну
+            $now_country = collect($respond['obj_countries'])->filter(function ($arr, $key) use ($request) {
+                return $arr['original_index'] == $request->country;
+            })->first();
+            $respond['now_country'] = $now_country;
+
+            // 2 (в базе нет стран без регионов)
+            $regions_country = $this->filterCollection($all_regions, 'prefix', mb_strtolower($respond['now_country']['prefix']), mb_strtolower($respond['now_country']["prefix"]))
+                ->all();
+            $respond['regions_country'] = $regions_country;
+        }
+
+        // 2 определить что на месте city (может быть регион в котором нет городов)
+        if(!is_null($request->city)){
+
+            $city = $this->filterCollection($all_cities, 'original_index', $request->city, mb_strtolower($respond['now_country']["prefix"]))
+                ->first();
+            $respond['now_city'] = $city;
+
+            // 2.2.1 если $request->city - город
+            if(isset($city)){
+                $region = $this->filterCollection($respond['regions_country'], 'code_region', $city["code_region"], mb_strtolower($respond['now_country']["prefix"]))
+                    ->first();
+                $respond['now_region'] = $region;
+            }
+            else{
+                $region = $this->filterCollection($respond['regions_country'], 'original_index', $request->city, mb_strtolower($respond['now_country']["prefix"]))
+                    ->first();
+                $respond['now_region'] = $region;
+            }
+
+            if(isset($region)){
+                if(isset($region)){
+                    $cities_region = $this->filterCollection($all_cities, 'code_region', $region["code_region"], mb_strtolower($respond['now_country']["prefix"]))
+                        ->all();
+                    $respond['cities_region'] = $cities_region;
+                }
+            }
+        }
+
+        return $respond;
+    }
+
     /**
      * найти должность по первым символам
      * @param  SearchPositionRequest  $request
@@ -84,8 +135,11 @@ trait GeneralVacancyResumeTraite {
      */
     private function getSettingsDocumentsAndCountries(){
         $settings = config('site.settings_vacancy');
+        $settings = array_merge($settings, config('site.search_title_panel.collection_location'));
+        $settings['start_search_page'] = config('site.search_title_panel.start_search_page');
         $settings['obj_countries'] = (new LocalizationService())->getCountries(App::getLocale());
         $settings['categories'] = config('site.categories.categories');
+
         return $settings;
     }
 
@@ -345,4 +399,14 @@ trait GeneralVacancyResumeTraite {
         return $this->model;
     }
 
+    private function filterCollection($array, $index, $value, $country_prefix){
+        $respond = collect($array)->filter(function ($arr, $key) use ($value, $index, $country_prefix) {
+            if(isset($arr[$index])){
+                return $arr[$index] == $value && $arr["prefix"] == $country_prefix;
+            }
+            return false;
+        });
+
+        return $respond;
+    }
 }

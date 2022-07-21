@@ -21,7 +21,7 @@ export default {
                 city: null,
             },
             objUrlHierarchyDocument:{
-                start_vacancy: this.lang.prefix_lang+'vacancy/',
+                start_page: '',
             },
             urlPrefixElements: [],
             bool_open_region: false,
@@ -86,13 +86,10 @@ export default {
             }
         },
         // --- методы строки поиска
-        urlReload2(obj){
+        urlReload2(){
             let params = new URLSearchParams(window.location.search)
             params.delete('page')
-            // page
-            if(obj.page != undefined && obj.page != null){
-                params.set('page',obj.page)
-            }
+
             // search
             if(this.position == ''){
                 params.delete(this.name_query)
@@ -102,7 +99,18 @@ export default {
             }
             params.sort()
             let query = (params.toString() == '') ? '' : '?'+params.toString()
-            location.href = this.urlNotQuery()+query
+            let now_url = this.urlNotQuery()
+
+            // на странице /document ...
+            if(now_url.indexOf(this.prefix_url) !== -1){
+                // console.log(1, now_url+query)
+                location.href = now_url+query
+            }
+            // на странице /
+            else{
+                // console.log(2, now_url+"/"+this.prefix_url+query)
+                location.href = now_url+"/"+this.prefix_url+query
+            }
         },
         clearSearch2(){
             let params = new URLSearchParams(window.location.search)
@@ -110,13 +118,13 @@ export default {
             this.position_list = []
             $('.dropdown-menu').removeClass('show')
             if(params.has(this.name_query)){
-                this.urlReload2({})
+                this.urlReload2()
             }
             $('.x-mark-clear').css('display','none')
         },
         enterKey2(e){
             if(e.code == 'Enter'){
-                this.urlReload2({})
+                this.urlReload2()
             }
         },
         selectHelp(value){
@@ -169,32 +177,32 @@ export default {
         },
         constructionLogicUrl(original_index, prefix_name){
             this.urlPrefixElements = this.urlPathname().split('/')
-            let vacancy_index = this.urlPrefixElements.indexOf('vacancy')
-            // масив после префикса - vacancy
-            if(vacancy_index !== -1){
-                this.urlPrefixElements.splice(0, vacancy_index+1)
+            let document_index = this.urlPrefixElements.indexOf(this.prefix_url)
+            // масив после префикса - document
+            if(document_index !== -1){
+                this.urlPrefixElements.splice(0, document_index+1)
             }
 
             if(prefix_name === "country"){
                 // загрузка с индекс page (/)
-                if(vacancy_index === -1 ){
-                    location.href = this.objUrlHierarchyDocument.start_vacancy+original_index
+                if(document_index === -1 ){
+                    location.href = this.objUrlHierarchyDocument.start_page+original_index
                 }
                 else{
-                    // загрузка с показа всех вакансий (/vacancy)
+                    // загрузка с показа всех вакансий (/document)
                     if(this.urlPrefixElements.length === 0){
-                        location.href = this.objUrlHierarchyDocument.start_vacancy+original_index
+                        location.href = this.objUrlHierarchyDocument.start_page+original_index
                     }
-                    // загрузка сменяя другую страну (/vacancy/andorra)
+                    // загрузка сменяя другую страну (/document/andorra)
                     else if(this.urlPrefixElements.length === 1 || this.urlPrefixElements.length === 2){
-                        location.href = this.objUrlHierarchyDocument.start_vacancy+original_index
+                        location.href = this.objUrlHierarchyDocument.start_page+original_index
                     }
                 }
             }
             else {
-                // загрузка добавляя регион или город (/vacancy/andorra)
+                // загрузка добавляя регион или город (/document/andorra)
                 if (this.urlPrefixElements.length === 1 || this.urlPrefixElements.length === 2) {
-                    location.href = this.objUrlHierarchyDocument.start_vacancy+this.urlPrefixElements[0]+"/"+original_index
+                    location.href = this.objUrlHierarchyDocument.start_page+this.urlPrefixElements[0]+"/"+original_index
                 }
             }
         },
@@ -254,7 +262,7 @@ export default {
                     // hide select region
                     this._selectRegion.css('display', "none")
                     // загрузить все вакансии
-                    location.href = this.objUrlHierarchyDocument.start_vacancy
+                    location.href = this.objUrlHierarchyDocument.start_page
                 }
                 // выбрано
                 else{
@@ -298,7 +306,6 @@ export default {
                 let arr = e.params.data.id.split(',')
                 this.objLocations.region = arr[0]
                 this.objLocations.region_original_index = arr[1]
-                // this.clearLocation2('load_cities')
 
                 if(arr[0] == ""){
                     // добавить select region warning
@@ -308,7 +315,7 @@ export default {
                     // только если регионы являлись вместо city и не был открыт выбор городов
                     if(this.respond.now_region !== null){
                         // загрузить со страны
-                        location.href = this.objUrlHierarchyDocument.start_vacancy+this.respond.now_country.original_index
+                        location.href = this.objUrlHierarchyDocument.start_page+this.respond.now_country.original_index
                     }
                 }
                 else{
@@ -360,7 +367,6 @@ export default {
                 if(arr[0] == ""){
                     this._selectCity.addClass('not-select')
                     // загрузить с региона
-                    // location.href = this.objUrlHierarchyDocument.start_vacancy+this.respond.now_region.original_index
                     this.constructionLogicUrl(this.respond.now_country.original_index, "country")
                 }
                 else{
@@ -371,6 +377,7 @@ export default {
             })
         },
         initializeData2(){
+            console.log(this.respond)
             this.objLocations.load_cities = this.respond.cities_region
             // вставка поиска названия из url в input search
             this.searchPositionInUrl2();
@@ -425,6 +432,7 @@ export default {
         },
     },
     mounted() {
+        this.objUrlHierarchyDocument.start_page = this.lang.prefix_lang+this.prefix_url+'/',
         this.$nextTick( () => {
             setTimeout(() => {
                 this._selectCountry = $("span[data-select2-id='1']")
