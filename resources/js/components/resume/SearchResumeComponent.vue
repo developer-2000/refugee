@@ -16,11 +16,11 @@
             <!-- resumes -->
             <div class="left-site">
                 <!-- item -->
-                <div class="box-vacancy"
-                     v-for="(resume, key) in respond.resumes.data" :key="key"
-                     :id="`v${key}`"
-                     @click.prevent="transitionToResume(resume.alias)"
-                     :class="{'close-document-border': resume.job_posting.status_name == 'hidden' }"
+                <a class="box-vacancy"
+                   v-for="(resume, key) in respond.resumes.data" :key="key"
+                   :href="getGenerateUrlDocument(resume, 'resume')"
+                   :id="`v${key}`"
+                   :class="{'close-document-border': resume.job_posting.status_name == 'hidden' }"
                 >
                     <!-- лента -->
                     <div class="ribbon-wrapper">
@@ -59,8 +59,7 @@
                             @return="pageReload"
                         ></bookmark_buttons>
                     </div>
-
-                </div>
+                </a>
 
                 <pagination
                     v-if="respond.resumes.last_page > 1"

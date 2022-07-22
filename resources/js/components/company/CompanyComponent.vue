@@ -167,10 +167,10 @@
                 <!-- vacancies yes -->
                 <div class="block-company-vacancies" v-if="company.vacancies.length">
                     <!-- item -->
-                    <div class="box-vacancy"
-                         v-for="(vacancy, key) in company.vacancies" :key="key"
-                         :id="`v${key}`"
-                         @click.prevent="transitionToVacancy(vacancy.alias)"
+                    <a class="box-vacancy"
+                       v-for="(vacancy, key) in company.vacancies" :key="key"
+                       :id="`v${key}`"
+                       :href="getGenerateUrlDocument(vacancy, 'vacancy')"
                     >
                         <!-- лента -->
                         <div class="ribbon-wrapper">
@@ -200,8 +200,7 @@
                                 :which_button_show="'search_vacancy'"
                             ></bookmark_buttons>
                         </div>
-
-                    </div>
+                    </a>
                 </div>
                 <div class="block-company-vacancies" v-else>
                     <i>{{trans('company','no_vacancies_created')}}</i>
@@ -220,13 +219,15 @@
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import date_mixin from "../../mixins/date_mixin";
     import company_contact_list from "../details/CompanyContactListComponent";
+    import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
 
     export default {
         mixins: [
             response_methods_mixin,
             translation,
             general_functions_mixin,
-            date_mixin
+            date_mixin,
+            bookmark_vacancies_mixin,
         ],
         components: {
             'bookmark_buttons': bookmark_buttons,

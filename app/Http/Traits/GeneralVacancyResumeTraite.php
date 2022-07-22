@@ -24,6 +24,10 @@ trait GeneralVacancyResumeTraite {
             $now_country = collect($respond['obj_countries'])->filter(function ($arr, $key) use ($request) {
                 return $arr['original_index'] == $request->country;
             })->first();
+            // Not Found
+            if(is_null($now_country)){
+                return abort(404);
+            }
             $respond['now_country'] = $now_country;
 
             // 2 (в базе нет стран без регионов)
@@ -39,7 +43,7 @@ trait GeneralVacancyResumeTraite {
                 ->first();
             $respond['now_city'] = $city;
 
-            // 2.2.1 если $request->city - город
+            // 2.1 если $request->city - город
             if(isset($city)){
                 $region = $this->filterCollection($respond['regions_country'], 'code_region', $city["code_region"], mb_strtolower($respond['now_country']["prefix"]))
                     ->first();
@@ -51,12 +55,16 @@ trait GeneralVacancyResumeTraite {
                 $respond['now_region'] = $region;
             }
 
+            // 2.2 если $request->city - region
             if(isset($region)){
-                if(isset($region)){
-                    $cities_region = $this->filterCollection($all_cities, 'code_region', $region["code_region"], mb_strtolower($respond['now_country']["prefix"]))
-                        ->all();
-                    $respond['cities_region'] = $cities_region;
-                }
+                $cities_region = $this->filterCollection($all_cities, 'code_region', $region["code_region"], mb_strtolower($respond['now_country']["prefix"]))
+                    ->all();
+                $respond['cities_region'] = $cities_region;
+            }
+
+            // Not Found
+            if( is_null($respond['now_city']) && is_null($respond['now_region']) ){
+                return abort(404);
             }
         }
 

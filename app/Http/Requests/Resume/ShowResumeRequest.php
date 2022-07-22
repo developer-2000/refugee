@@ -17,6 +17,8 @@ class ShowResumeRequest extends FormRequest
 
     public function all($keys = null) {
         $data = parent::all($keys);
+        $data['prefix_c'] = $this->route('prefix_c');
+        $data['prefix_r_c'] = $this->route('prefix_r_c');
         $data['alias'] = $this->route('alias');
         return $data;
     }
@@ -29,6 +31,8 @@ class ShowResumeRequest extends FormRequest
     public function rules()
     {
         return [
+            'prefix_c' => 'required|string|min:2|max:50',
+            'prefix_r_c' => 'required|string|min:2|max:50',
             'alias' => 'required|string|exists:user_resumes,alias',
         ];
     }

@@ -30,10 +30,10 @@
         </div>
 
         <!-- resumes -->
-        <div class="box-vacancy"
-             v-for="(array, key) in arrResumes" :key="key"
-             @click="transitionToResume(array.resume.alias)"
-             :class="{'close-document-border': array.resume.job_posting.status_name == 'hidden' }"
+        <a class="box-vacancy"
+           v-for="(array, key) in arrResumes" :key="key"
+           :href="getGenerateUrlDocument(array.resume, 'resume')"
+           :class="{'close-document-border': array.resume.job_posting.status_name == 'hidden' }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -70,8 +70,7 @@
                     </button>
                 </div>
             </div>
-
-        </div>
+        </a>
 
     </div>
 </template>

@@ -147,11 +147,12 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
     });
 
     // vacancies
-    Route::get('/vacancy/show-vacancy/{alias}', 'VacancyController@show');
+    Route::get('/vacancy/{prefix_c}/{prefix_r_c}/{alias}', 'VacancyController@show');
     Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
 
     // resume
-    Route::get('/resume/show-resume/{alias}', 'ResumeController@show');
+    Route::get('/resume/{prefix_c}/{prefix_r_c}/{alias}', 'ResumeController@show');
+//    Route::get('/resume/show-resume/{alias}', 'ResumeController@show');
     Route::get('/resume/{country?}/{city?}', 'ResumeController@index');
 
     // localisation

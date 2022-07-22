@@ -37,10 +37,10 @@
         </div>
 
         <!-- vacancies -->
-        <div class="box-vacancy"
-             v-for="(vacancy, key) in vacancies" :key="key"
-             :data-alias="vacancy.alias"
-             :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
+        <a class="box-vacancy"
+           v-for="(vacancy, key) in vacancies" :key="key"
+           :href="getGenerateUrlDocument(vacancy, 'vacancy')"
+           :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -57,7 +57,7 @@
                 :page="'my_vacancies'"
             ></vacancy_template>
 
-        </div>
+        </a>
     </div>
 </template>
 
@@ -89,23 +89,6 @@
                 $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
                     e.stopPropagation();
                 });
-                // click vacancy
-                document.querySelectorAll('.box-vacancy').forEach( (el) => {
-                    el.addEventListener('click', (e) => {
-                        // клик по родителю
-                        if ( $(e.target).hasClass("dropdown-toggle") ) {
-                            return false
-                        }
-                        // переход по url
-                        let target = e.target;
-                        // с дочернего на .box-vacancy
-                        let parent = target.closest('.box-vacancy');
-                        if (!parent) return;
-
-                        let alias = $(parent).attr('data-alias')
-                        this.transitionToVacancy(alias)
-                    })
-                } );
             }
         },
         props: [

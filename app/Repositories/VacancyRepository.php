@@ -100,6 +100,12 @@ class VacancyRepository extends CoreRepository {
         // 1 address
         $vacancy = $this->addPropertiesToCollection($vacancy);
 
+        // документ не принадлежит этим Геоданным (Not Found)
+        $elementsAddress = array_values($vacancy->address);
+        if($request->prefix_c !== $elementsAddress[0]["original_index"] || $request->prefix_r_c !== $elementsAddress[1]["original_index"]){
+            return abort(404);
+        }
+
         // 2 контакт лист хозяина документа
         $contact_list = $informationRepository->fillContactList($vacancy->contact, $vacancy->user_id);
         if(!is_null($my_user)){

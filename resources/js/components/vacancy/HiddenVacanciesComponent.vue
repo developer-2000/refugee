@@ -30,10 +30,10 @@
         </div>
 
         <!-- vacancies -->
-        <div class="box-vacancy"
-             v-for="(array, key) in arrVacancies" :key="key"
-             @click="transitionToVacancy(array.vacancy.alias)"
-             :class="{'close-document-border': array.vacancy.job_posting.status_name == 'hidden' }"
+        <a class="box-vacancy"
+           v-for="(array, key) in arrVacancies" :key="key"
+           :href="getGenerateUrlDocument(array.vacancy, 'vacancy')"
+           :class="{'close-document-border': array.vacancy.job_posting.status_name == 'hidden' }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-        </div>
+        </a>
 
     </div>
 </template>

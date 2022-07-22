@@ -567,6 +567,8 @@ select{
     margin-right: 0;
     margin-top: 2px;
     position: relative;
+    display: block;
+    color: inherit;
 }
 .box-vacancy .ribbon-wrapper {
     left: -3px;
@@ -587,6 +589,7 @@ select{
     outline: 2px solid #c0ddfb;
     position: relative;
     z-index: 9;
+    color: inherit;
 }
 .box-vacancy:hover .title-vacancy,
 .box-vacancy:hover .link-vacancy{

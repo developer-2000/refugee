@@ -101,6 +101,12 @@ class ResumeRepository extends CoreRepository {
         // 1 address
         $resume = $this->addPropertiesToCollection($resume);
 
+        // документ не принадлежит этим Геоданным (Not Found)
+        $elementsAddress = array_values($resume->address);
+        if($request->prefix_c !== $elementsAddress[0]["original_index"] || $request->prefix_r_c !== $elementsAddress[1]["original_index"]){
+            return abort(404);
+        }
+
         // 2 контакт лист хозяина документа
         $contact_list = $informationRepository->fillContactList($resume->contact, $resume->user_id);
 
@@ -147,6 +153,7 @@ class ResumeRepository extends CoreRepository {
 
     public function myResumes(){
         $resumes = $this->model->where('user_id', Auth::user()->id)
+            ->where('type', 0)
             ->with('position', 'contact.avatar','country','region','city')
             ->withCount('respond')
             ->orderBy('created_at', 'desc')

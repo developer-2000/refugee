@@ -15,12 +15,13 @@
         <div class="bottom-search">
             <!-- vacancies -->
             <div class="left-site">
+
                 <!-- item -->
-                <div class="box-vacancy"
-                     v-for="(vacancy, key) in respond.vacancies.data" :key="key"
-                     :id="`v${key}`"
-                     @click.prevent="transitionToVacancy(vacancy.alias)"
-                     :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
+                <a class="box-vacancy"
+                   v-for="(vacancy, key) in respond.vacancies.data" :key="key"
+                   :href="getGenerateUrlDocument(vacancy, 'vacancy')"
+                   :id="`v${key}`"
+                   :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
                 >
                     <!-- лента -->
                     <div class="ribbon-wrapper">
@@ -59,7 +60,7 @@
                         ></bookmark_buttons>
                     </div>
 
-                </div>
+                </a>
 
                 <pagination
                     v-if="respond.vacancies.last_page > 1"
@@ -217,7 +218,8 @@
             'user',
         ],
         mounted() {
-            // console.log(this.respond)
+            console.log(this.respond.vacancies.data[0].address)
+            console.log(this.respond.vacancies.data[1].address)
         },
     }
 </script>
