@@ -134,6 +134,13 @@ b{
 .content-wrapper{
     display: flex;
 }
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+li {
+    list-style-type: none; /* Убираем маркеры */
+}
 
 /* sidebar left */
 .brand-link{

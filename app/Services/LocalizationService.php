@@ -50,6 +50,8 @@ class LocalizationService {
     public function getCountries($prefix_lang) {
         $arrContent = [];
 
+//        Cache::forget($prefix_lang.'_all_countries');
+
         if (!Cache::has($prefix_lang.'_all_countries')) {
             // колекции стран и их перевод
             $locationCountries = GeographyDb::select('country')->firstWhere('id', 1);
@@ -79,6 +81,8 @@ class LocalizationService {
                 $newArr['translate'] = current($arrTranslate_t);
                 $arrContent[] = $newArr;
             }
+
+            $arrContent = array_values(collect($arrContent)->sortBy('translate')->toArray());
 
             Cache::put($prefix_lang.'_all_countries', $arrContent);
         }

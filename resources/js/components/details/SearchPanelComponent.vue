@@ -1,360 +1,377 @@
 <template>
-    <div class="box-search">
-        <!-- сбросить все-->
-        <a v-if="locationSearch != ''"
-            class="but-reset-all"
-           href="javascript:void(0)"
-           @click="clearQuery()"
-        >
-            {{trans('vacancies','reset_all')}}
-        </a>
+    <div>
 
-        <!-- Categories -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
-             :class="{'collapsed-card': !objCategory.categories.length}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-categories"
-                 :class="{'card-header-active': objCategory.categories.length}">
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-categories"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">
-                            {{trans('vacancies','categories')}}
-                        </h3>
-                        <template v-if="!objCategory.categories.length"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
-                </div>
-            </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <select class="form-control select2" id="categories" multiple="multiple"
-                            :data-placeholder="trans('vacancies','select')"
-                    >
-                        <template v-for="(value, index) in settings.categories">
-                            <!-- в случае обновления страницы -->
-                            <template v-if="objCategory.categories.indexOf(index) !== -1" >
-                                <option :value="index" :key="index" selected>
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                            <template v-else>
-                                <option :value="index" :key="index">
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                        </template>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- Salary -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card salary"
-             :class="{'collapsed-card': !objSalary.check}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-salary"
-                 :class="{'card-header-active': objSalary.check}"
+        <div class="box-search">
+            <!-- сбросить все-->
+            <a v-if="locationSearch != ''"
+               class="but-reset-all"
+               href="javascript:void(0)"
+               @click="clearQuery()"
             >
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-salary"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">
-                            {{trans('vacancies','salary')}}
-                        </h3>
-                        <template v-if="!objSalary.check"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
+                {{trans('vacancies','reset_all')}}
+            </a>
+
+            <!-- Categories -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
+                 :class="{'collapsed-card': !objCategory.categories.length}"
+            >
+                <!-- header -->
+                <div class="card-header" id="card-categories"
+                     :class="{'card-header-active': objCategory.categories.length}">
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-categories"
+                                @click="changeCardStatus($event)"
+                        >
+                            <h3 class="card-title">
+                                {{trans('vacancies','categories')}}
+                            </h3>
+                            <template v-if="!objCategory.categories.length"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control select2" id="categories" multiple="multiple"
+                                :data-placeholder="trans('vacancies','select')"
+                        >
+                            <template v-for="(value, index) in respond.categories">
+                                <!-- в случае обновления страницы -->
+                                <template v-if="objCategory.categories.indexOf(index) !== -1" >
+                                    <option :value="index" :key="index" selected>
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                                <template v-else>
+                                    <option :value="index" :key="index">
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                            </template>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <!-- 1 -->
-                    <div v-if="page === 'search_vacancies'" class="checkbox-box">
-                        <input class="form-check-input" id="salary_checkbox" type="checkbox"
-                               @change="checkSalary(true, 'check')"
-                               v-model="objSalary.without_salary_checkbox"
+
+            <!-- Salary -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card salary"
+                 :class="{'collapsed-card': !objSalary.check}"
+            >
+                <!-- header -->
+                <div class="card-header" id="card-salary"
+                     :class="{'card-header-active': objSalary.check}"
+                >
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-salary"
+                                @click="changeCardStatus($event)"
                         >
-                        <label for="salary_checkbox" class="target-label">
-                            {{trans('vacancies','with_unspecified_salary')}}
+                            <h3 class="card-title">
+                                {{trans('vacancies','salary')}}
+                            </h3>
+                            <template v-if="!objSalary.check"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <!-- 1 -->
+                        <div v-if="page === 'search_vacancies'" class="checkbox-box">
+                            <input class="form-check-input" id="salary_checkbox" type="checkbox"
+                                   @change="checkSalary(true, 'check')"
+                                   v-model="objSalary.without_salary_checkbox"
+                            >
+                            <label for="salary_checkbox" class="target-label">
+                                {{trans('vacancies','with_unspecified_salary')}}
+                            </label>
+                        </div>
+                        <!-- 2 -->
+                        <label for="salary">
+                            {{UpperCaseFirstCharacter(trans('vacancies','euro_per_month'))}}
                         </label>
-                    </div>
-                    <!-- 2 -->
-                    <label for="salary">
-                        {{UpperCaseFirstCharacter(trans('vacancies','euro_per_month'))}}
-                    </label>
-                    <div class="box-suitable" id="salary">
-                        <input :placeholder="`${trans('vacancies','from')}`"
-                               type="number" min="0" max="100000000"
-                               v-model="objSalary.from"
-                               :disabled="objSalary.without_salary_checkbox ? true : false"
-                        >
-                        <span>-</span>
-                        <input :placeholder="`${trans('vacancies','to')}`"
-                               max="100000000" min="0" type="number"
-                               v-model="objSalary.to"
-                               :disabled="objSalary.without_salary_checkbox ? true : false"
-                        >
-                        <!-- check -->
-                        <svg type="button" class="svg-button svg-button-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                             @click="checkSalary(true)"
-                             v-if="!objSalary.without_salary_checkbox"
-                        >
-                            <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/>
-                        </svg>
-                        <!-- clear -->
-                        <svg type="button" class="svg-button svg-button-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                             @click="checkSalary(false)"
-                             v-if="!objSalary.without_salary_checkbox"
-                        >
-                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z"/>
-                        </svg>
+                        <div class="box-suitable" id="salary">
+                            <input :placeholder="`${trans('vacancies','from')}`"
+                                   type="number" min="0" max="100000000"
+                                   v-model="objSalary.from"
+                                   :disabled="objSalary.without_salary_checkbox ? true : false"
+                            >
+                            <span>-</span>
+                            <input :placeholder="`${trans('vacancies','to')}`"
+                                   max="100000000" min="0" type="number"
+                                   v-model="objSalary.to"
+                                   :disabled="objSalary.without_salary_checkbox ? true : false"
+                            >
+                            <!-- check -->
+                            <svg type="button" class="svg-button svg-button-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                 @click="checkSalary(true)"
+                                 v-if="!objSalary.without_salary_checkbox"
+                            >
+                                <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/>
+                            </svg>
+                            <!-- clear -->
+                            <svg type="button" class="svg-button svg-button-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                 @click="checkSalary(false)"
+                                 v-if="!objSalary.without_salary_checkbox"
+                            >
+                                <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Language -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
-             :class="{'collapsed-card': !arrLanguages.length}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-language"
-                 :class="{'card-header-active': arrLanguages.length}"
+            <!-- Language -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
+                 :class="{'collapsed-card': !arrLanguages.length}"
             >
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-language"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">
-                            {{trans('vacancies','language')}}
-                        </h3>
-                        <template v-if="!arrLanguages.length"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
+                <!-- header -->
+                <div class="card-header" id="card-language"
+                     :class="{'card-header-active': arrLanguages.length}"
+                >
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-language"
+                                @click="changeCardStatus($event)"
+                        >
+                            <h3 class="card-title">
+                                {{trans('vacancies','language')}}
+                            </h3>
+                            <template v-if="!arrLanguages.length"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control select2" id="languages" multiple="multiple"
+                                :data-placeholder="trans('vacancies','select')"
+                        >
+                            <template v-for="(obj, index) in lang.lang">
+                                <!-- в случае редиктирования -->
+                                <template v-if="arrLanguages.indexOf(index) !== -1" >
+                                    <option :value="index" :key="index" selected>{{obj.title}}</option>
+                                </template>
+                                <template v-else>
+                                    <option :value="index" :key="index">{{obj.title}}</option>
+                                </template>
+                            </template>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <select class="form-control select2" id="languages" multiple="multiple"
-                            :data-placeholder="trans('vacancies','select')"
-                    >
-                        <template v-for="(obj, index) in lang.lang">
-                            <!-- в случае редиктирования -->
-                            <template v-if="arrLanguages.indexOf(index) !== -1" >
-                                <option :value="index" :key="index" selected>{{obj.title}}</option>
-                            </template>
-                            <template v-else>
-                                <option :value="index" :key="index">{{obj.title}}</option>
-                            </template>
-                        </template>
-                    </select>
-                </div>
-            </div>
-        </div>
 
-        <!-- Employment Вид занятости -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
-             :class="{'collapsed-card': !index_employment}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-employment"
-                 :class="{'card-header-active': index_employment}"
+            <!-- Employment Вид занятости -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
+                 :class="{'collapsed-card': !index_employment}"
             >
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-employment"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">
-                            {{trans('vacancies','type_employment')}}
-                        </h3>
-                        <template v-if="!index_employment"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
+                <!-- header -->
+                <div class="card-header" id="card-employment"
+                     :class="{'card-header-active': index_employment}"
+                >
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-employment"
+                                @click="changeCardStatus($event)"
+                        >
+                            <h3 class="card-title">
+                                {{trans('vacancies','type_employment')}}
+                            </h3>
+                            <template v-if="!index_employment"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control" id="employment"
+                                @change="changeEmployment($event.target.value)"
+                        >
+                            <option :value="null" selected>
+                                {{trans('vacancies','select')}}
+                            </option>
+                            <template v-for="(value, key) in respond.type_employment">
+                                <!-- в случае обновления страницы -->
+                                <template v-if="key == index_employment" >
+                                    <option :value="key" :key="key" selected>
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                                <template v-else>
+                                    <option :value="key" :key="key">
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                            </template>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <select class="form-control" id="employment"
-                            @change="changeEmployment($event.target.value)"
-                    >
-                        <option :value="null" selected>
-                            {{trans('vacancies','select')}}
-                        </option>
-                        <template v-for="(value, key) in settings.type_employment">
-                            <!-- в случае обновления страницы -->
-                            <template v-if="key == index_employment" >
-                                <option :value="key" :key="key" selected>
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                            <template v-else>
-                                <option :value="key" :key="key">
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                        </template>
-                    </select>
-                </div>
-            </div>
-        </div>
 
-        <!-- Experience Опыт работы -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
-             :class="{'collapsed-card': !experience}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-experience"
-                 :class="{'card-header-active': experience}"
+            <!-- Experience Опыт работы -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
+                 :class="{'collapsed-card': !experience}"
             >
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-experience"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">{{trans('vacancies','work_experience')}}</h3>
-                        <template v-if="!experience"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
+                <!-- header -->
+                <div class="card-header" id="card-experience"
+                     :class="{'card-header-active': experience}"
+                >
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-experience"
+                                @click="changeCardStatus($event)"
+                        >
+                            <h3 class="card-title">{{trans('vacancies','work_experience')}}</h3>
+                            <template v-if="!experience"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control"
+                                @change="changeExperience($event.target.value)"
+                        >
+                            <option :value="null" selected>
+                                {{trans('vacancies','select')}}
+                            </option>
+                            <template v-for="(value, key) in this.respond.work_experience">
+                                <!-- в случае обновления страницы -->
+                                <template v-if="key == experience" >
+                                    <option :value="key" selected>
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                                <template v-else>
+                                    <option :value="key">
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                            </template>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <select class="form-control"
-                            @change="changeExperience($event.target.value)"
-                    >
-                        <option :value="null" selected>
-                            {{trans('vacancies','select')}}
-                        </option>
-                        <template v-for="(value, key) in this.settings.work_experience">
-                            <!-- в случае обновления страницы -->
-                            <template v-if="key == experience" >
-                                <option :value="key" selected>
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                            <template v-else>
-                                <option :value="key">
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                        </template>
-                    </select>
-                </div>
-            </div>
-        </div>
 
-        <!-- Suitable Возраст соискателя -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
-             :class="{'collapsed-card': !objCheckSuitable.check}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-suitable"
-                 :class="{'card-header-active': objCheckSuitable.check}"
+            <!-- Suitable Возраст соискателя -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
+                 :class="{'collapsed-card': !objCheckSuitable.check}"
             >
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-suitable"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">
-                            {{trans('vacancies','applicant_age')}}
-                        </h3>
-                        <template v-if="!objCheckSuitable.check"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
+                <!-- header -->
+                <div class="card-header" id="card-suitable"
+                     :class="{'card-header-active': objCheckSuitable.check}"
+                >
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-suitable"
+                                @click="changeCardStatus($event)"
+                        >
+                            <h3 class="card-title">
+                                {{trans('vacancies','applicant_age')}}
+                            </h3>
+                            <template v-if="!objCheckSuitable.check"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="suitable">
+                            {{trans('vacancies','years_age')}}
+                        </label>
+                        <div id="suitable" class="box-suitable">
+                            <input :placeholder="`${trans('vacancies','from')}`"
+                                   max="100" min="0" type="number"
+                                   v-model="objCheckSuitable.suitable_from"
+                            >
+                            <span>-</span>
+                            <input :placeholder="`${trans('vacancies','to')}`"
+                                   max="150" min="0" type="number"
+                                   v-model="objCheckSuitable.suitable_to"
+                            >
+                            <!-- check -->
+                            <svg type="button" class="svg-button svg-button-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                 @click="checkSuitable(true)"
+                            >
+                                <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/>
+                            </svg>
+                            <!-- clear -->
+                            <svg type="button" class="svg-button svg-button-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                 @click="checkSuitable(false)"
+                            >
+                                <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="suitable">
-                        {{trans('vacancies','years_age')}}
-                    </label>
-                    <div id="suitable" class="box-suitable">
-                        <input :placeholder="`${trans('vacancies','from')}`"
-                               max="100" min="0" type="number"
-                               v-model="objCheckSuitable.suitable_from"
+
+            <!-- Education Образование -->
+            <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
+                 :class="{'collapsed-card': !education}"
+            >
+                <!-- header -->
+                <div class="card-header" id="card-education"
+                     :class="{'card-header-active': education}"
+                >
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                data-id="card-education"
+                                @click="changeCardStatus($event)"
                         >
-                        <span>-</span>
-                        <input :placeholder="`${trans('vacancies','to')}`"
-                               max="150" min="0" type="number"
-                               v-model="objCheckSuitable.suitable_to"
+                            <h3 class="card-title">{{trans('vacancies','education_1')}}</h3>
+                            <template v-if="!education"><i class="fas fa-plus"></i></template>
+                            <template v-else><i class="fas fa-minus"></i></template>
+                        </button>
+                    </div>
+                </div>
+                <!-- body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control"
+                                @change="changeEducation($event.target.value)"
                         >
-                        <!-- check -->
-                        <svg type="button" class="svg-button svg-button-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                             @click="checkSuitable(true)"
-                        >
-                            <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/>
-                        </svg>
-                        <!-- clear -->
-                        <svg type="button" class="svg-button svg-button-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                             @click="checkSuitable(false)"
-                        >
-                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM48 256c0-48.71 16.95-93.47 45.11-128.1l291.9 291.9C349.5 447 304.7 464 256 464c-114.7 0-208-93.3-208-208zm370.9 128.1L127 93.11C162.5 64.95 207.3 48 256 48c114.7 0 208 93.31 208 208 0 48.7-17 93.5-45.1 128.1z"/>
-                        </svg>
+                            <option :value="null" selected>
+                                {{trans('vacancies','select')}}
+                            </option>
+                            <template v-for="(value, key) in this.respond.education">
+                                <!-- в случае обновления страницы -->
+                                <template v-if="key == education" >
+                                    <option :value="key" selected>
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                                <template v-else>
+                                    <option :value="key">
+                                        {{trans('vacancies',value)}}
+                                    </option>
+                                </template>
+                            </template>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Education Образование -->
-        <div v-if="page === 'search_vacancies' || page === 'search_resumes'" class="card"
-             :class="{'collapsed-card': !education}"
-        >
-            <!-- header -->
-            <div class="card-header" id="card-education"
-                 :class="{'card-header-active': education}"
-            >
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            data-id="card-education"
-                            @click="changeCardStatus($event)"
-                    >
-                        <h3 class="card-title">{{trans('vacancies','education_1')}}</h3>
-                        <template v-if="!education"><i class="fas fa-plus"></i></template>
-                        <template v-else><i class="fas fa-minus"></i></template>
-                    </button>
-                </div>
-            </div>
-            <!-- body -->
-            <div class="card-body">
-                <div class="form-group">
-                    <select class="form-control"
-                            @change="changeEducation($event.target.value)"
-                    >
-                        <option :value="null" selected>
-                            {{trans('vacancies','select')}}
-                        </option>
-                        <template v-for="(value, key) in this.settings.education">
-                            <!-- в случае обновления страницы -->
-                            <template v-if="key == education" >
-                                <option :value="key" selected>
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                            <template v-else>
-                                <option :value="key">
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                        </template>
-                    </select>
-                </div>
-            </div>
+        <div class="box-links">
+            <h2>Страны работы в Европе</h2>
+            <ul>
+                <li v-for="(country, key) in respond.obj_countries" :key="key"
+                    :class="{'left-flag': (key+1)%2 !== 0 }"
+                >
+                    <a :href="`${lang.prefix_lang}vacancy/${country.original_index}`" class="flag">
+                        <b>{{country.translate}}</b>
+                        <img :alt="`${country.original_index} flag`"  :src="`/img/flags/${country.original_index}.jpg`">
+                    </a>
+                </li>
+            </ul>
         </div>
 
     </div>
@@ -542,7 +559,7 @@
         },
         props: [
             'lang',   // масив названий и url языка
-            'settings',
+            'respond',
             'page'
         ],
         mounted() {
@@ -551,12 +568,67 @@
             this.$nextTick(function () {
                 this.setValuesFields()
             })
+
+            console.log(this.respond.obj_countries)
+
         },
     }
 </script>
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
+
+    .box-links{
+        margin-top: 30px;
+        background-color: rgba(32, 32, 32, 0.03);
+        outline: 1px solid #dee2e6;
+        padding: 10px;
+        h2{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
+            max-height: 410px;
+            overflow-y: scroll;
+            margin-right: -10px;
+            li{
+                outline: 1px solid rgba(32, 32, 32, 0.03);
+                margin: 1px 0 10px 1px;
+                &:hover{
+                    outline: 1px solid #78baff;
+                }
+            }
+            .left-flag{
+                margin-right: 14px;
+            }
+            .flag {
+                margin: 0;
+                position: relative;
+                display: inline-block;
+                b {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    background: rgba(255, 255, 255, 0.8);
+                    color: #444;
+                    text-align: center;
+                    padding: 3px 0 3px 0;
+                    line-height: 17px;
+                }
+                img {
+                    width: 115px;
+                }
+            }
+        }
+    }
+
+
 
     .card-header > .card-tools {
         float: none;

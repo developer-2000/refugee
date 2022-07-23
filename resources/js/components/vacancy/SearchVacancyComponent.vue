@@ -93,7 +93,7 @@
             <div class="right-site">
                 <search_panel
                     :lang="lang"
-                    :settings="respond"
+                    :respond="respond"
                     :page="'search_vacancies'"
                     @returnParent="getVacancies"
                 ></search_panel>
@@ -237,7 +237,7 @@
             'user',
         ],
         mounted() {
-            console.log(this.respond)
+
             // console.log(this.respond['vacancies'].data[0])
         },
     }
@@ -252,9 +252,6 @@
         background-color: #fff;
         width: 100%;
         padding: 0;
-        .box-title-panel{
-            /*background: url("img/custom/flags.jpg");*/
-        }
         .bottom-search{
             display: flex;
             padding: 30px 15px 0;
