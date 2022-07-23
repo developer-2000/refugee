@@ -220,6 +220,7 @@
     import date_mixin from "../../mixins/date_mixin";
     import company_contact_list from "../details/CompanyContactListComponent";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         mixins: [
@@ -228,6 +229,7 @@
             general_functions_mixin,
             date_mixin,
             bookmark_vacancies_mixin,
+            url_mixin,
         ],
         components: {
             'bookmark_buttons': bookmark_buttons,
@@ -277,9 +279,6 @@
                 }
 
                 return id
-            },
-            transitionToVacancy(vacancy_alias){
-                location.href = this.lang.prefix_lang+'vacancy/show-vacancy/'+vacancy_alias
             },
             scrollToAbout(){
                 const el = document.getElementById('box-about-company');

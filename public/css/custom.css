@@ -49,9 +49,9 @@ a:hover,
     top: 0;
     border-bottom: 1px solid #dee2e6;
     background-color: #fff;
-    padding: 15px 25px;
+    padding: 20px 15px;
     z-index: 20;
-    font-size: 17px;
+    font-size: 15px;
 }
 .top-panel button{
     width: auto;
@@ -62,11 +62,11 @@ a:hover,
     margin: 0 -15px;
 }
 .bread-top{
-    padding: 10px 25px;
+    padding: 0 15px 10px;
 }
 .bread-top svg,
 .bread-top-cabinet svg {
-    width: 10px;
+    width: 8px;
     margin-right: 5px;
 }
 .bread-top svg path,
@@ -191,7 +191,7 @@ b{
     display: block;
     position: relative;
     padding: 0;
-    line-height: 16px;
+    line-height: 13px;
 }
 .back-url-link::after {
     content: '';

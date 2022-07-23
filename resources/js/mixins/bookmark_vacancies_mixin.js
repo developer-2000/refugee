@@ -35,23 +35,5 @@ export default {
 
             return address_string
         },
-        transitionToVacancy(alias){
-            location.href = this.lang.prefix_lang+'vacancy/show-vacancy/'+alias
-        },
-        transitionToResume(alias){
-            location.href = this.lang.prefix_lang+'resume/show-resume/'+alias
-        },
-
-        getGenerateUrlDocument(objDocument, prefix){
-            let one_alias = objDocument.address.country.original_index
-            let two_alias = (objDocument.address.region !== undefined) ? objDocument.address.region.original_index :
-                (objDocument.address.city !== undefined) ? objDocument.address.city.original_index : ""
-
-            return `${this.lang.prefix_lang+prefix}/${one_alias}/${two_alias}/${objDocument.alias}`
-        },
-
-        pageReload(){
-            location.reload()
-        },
     },
 }

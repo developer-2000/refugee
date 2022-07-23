@@ -377,7 +377,6 @@ export default {
             })
         },
         initializeData2(){
-            console.log(this.respond)
             this.objLocations.load_cities = this.respond.cities_region
             // вставка поиска названия из url в input search
             this.searchPositionInUrl2();

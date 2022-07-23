@@ -65,6 +65,8 @@
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import resume_template from "./details/ResumeTemplateComponent";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
+    import date_mixin from "../../mixins/date_mixin";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         components: {
@@ -74,6 +76,7 @@
             translation,
             general_functions_mixin,
             bookmark_vacancies_mixin,
+            url_mixin,
         ],
         data() {
             return {
@@ -85,23 +88,6 @@
                 $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
                     e.stopPropagation();
                 });
-                // click resume
-                document.querySelectorAll('.box-vacancy').forEach( (el) => {
-                    el.addEventListener('click', (e) => {
-                        // клик по родителю
-                        if ( $(e.target).hasClass("dropdown-toggle") ) {
-                            return false
-                        }
-                        // переход по url
-                        let target = e.target;
-                        // с дочернего на .box-vacancy
-                        let parent = target.closest('.box-vacancy');
-                        if (!parent) return;
-
-                        let alias = $(parent).attr('data-alias')
-                        this.transitionToResume(alias)
-                    })
-                } );
             }
         },
         props: [

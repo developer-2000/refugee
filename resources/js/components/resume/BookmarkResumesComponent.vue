@@ -90,6 +90,7 @@
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import resume_template from "./details/ResumeTemplateComponent";
     import date_mixin from "../../mixins/date_mixin";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         components: {
@@ -99,7 +100,8 @@
             translation,
             response_methods_mixin,
             bookmark_vacancies_mixin,
-            date_mixin
+            date_mixin,
+            url_mixin,
         ],
         data() {
             return {

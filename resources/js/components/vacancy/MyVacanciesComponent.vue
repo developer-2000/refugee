@@ -68,6 +68,7 @@
     import vacancy_template from "./details/VacancyTemplateComponent";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import date_mixin from "../../mixins/date_mixin";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         components: {
@@ -77,7 +78,8 @@
             translation,
             response_methods_mixin,
             bookmark_vacancies_mixin,
-            date_mixin
+            date_mixin,
+            url_mixin,
         ],
         data() {
             return {
