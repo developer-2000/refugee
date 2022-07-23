@@ -167,10 +167,6 @@
     @import "../../../sass/variables";
 
     .top-search{
-        padding: 0 15px 15px;
-        width: 100%;
-        background-color: rgba(256, 256, 256, 0.7);
-        border-bottom: 1px solid #dee2e6;
         .box-display{
             display: flex;
             border-top: 1px solid #ced4da;

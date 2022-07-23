@@ -2,9 +2,10 @@
     <div id="show-vacancy">
 
         <div class="bread-panel">
+
             <!-- title -->
             <h1 class="title_page">
-                {{this.respond['vacancy'].position.title}}
+                {{respond['vacancy'].position.title}}
             </h1>
             <!-- обратная ссылка -->
             <div class="bread-top">
@@ -325,7 +326,6 @@
             this.initializationFunc
             $('html, body').animate({scrollTop: 0},500);
 
-            console.log(this.respond['vacancy'])
         },
     }
 </script>
@@ -333,9 +333,7 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-    .title_page {
-        padding: 25px 15px 15px;
-    }
+
     .button-panel{
         flex-direction: row;
     }
@@ -346,12 +344,16 @@
         background-color: #fff;
         z-index: 20;
         font-size: 15px;
+        .title_page {
+            padding: 25px 15px 15px;
+        }
+        .bread-top{
+            display: flex;
+            align-items: center;
+            padding: 0 15px 10px;
+        }
     }
-    .bread-top{
-        display: flex;
-        align-items: center;
-        padding: 0 15px 10px;
-    }
+
     .box-page {
         padding: 15px;
     }

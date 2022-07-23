@@ -99,6 +99,7 @@
                 ></search_panel>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -254,10 +255,6 @@
         .box-title-panel{
             /*background: url("img/custom/flags.jpg");*/
         }
-        .title_page {
-            padding: 25px 15px 15px;
-        }
-
         .bottom-search{
             display: flex;
             padding: 30px 15px 0;

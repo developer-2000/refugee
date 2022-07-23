@@ -31,31 +31,18 @@ export default {
             // удалить последний елемент (текущую страницу)
             urlPrefixes.pop()
 
-            let langArr = []
-            // выбрать только префиксы стран
-            this.lang.lang.forEach((item, i, arr) => {
-                langArr.push(item.alias)
-            });
+            // страница не имеет префикса языка (не имеет префикса раздела)
+            if(!urlPrefixes.length){
+                arrBackLink = this.getIndexPage(arrBackLink, "")
+            }
 
             // формирую масив BackLink
             for (let index = 0; index < urlPrefixes.length; index++) {
-                // это локалицация страницы (/ru, /uk)
-                if(index === 0 && langArr.indexOf(urlPrefixes[index]) !== -1){
-                    arrBackLink.push({
-                        url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
-                        name : "Работа в Европе"
-                    })
-                    continue
-                }
-                // это локалицация страницы (/ default /en)
-                else if(index === 0 && langArr.indexOf(urlPrefixes[index]) === -1){
-                    arrBackLink.push({
-                        url : '/',
-                        name : "Работа в Европе"
-                    })
-                }
 
-                // остальной адрес после локации
+                if(index === 0){
+                    arrBackLink = this.getIndexPage(arrBackLink, urlPrefixes[index])
+                }
+                // основной поиск вакансий
                 if(urlPrefixes[index] === "vacancy"){
                     arrBackLink.push({
                         url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
@@ -64,6 +51,7 @@ export default {
                 }
                 // url связан с вакансиями
                 else if(url.indexOf("vacancy") !== -1){
+                    // возвращает по префексу обьект локации
                     let obj = this.checkPrefixLocation(urlPrefixes[index], address)
                     if(obj){
                         arrBackLink.push({
@@ -72,9 +60,50 @@ export default {
                         })
                     }
                 }
+                // основной поиск резюме
+                else if(urlPrefixes[index] === "resume"){
+                    arrBackLink.push({
+                        url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
+                        name : "Сотрудники Европы"
+                    })
+                }
+                // url связан с resume
+                else if(url.indexOf("resume") !== -1){
+                    // возвращает по префексу обьект локации
+                    let obj = this.checkPrefixLocation(urlPrefixes[index], address)
+                    if(obj){
+                        arrBackLink.push({
+                            url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
+                            name : `Сотрудники в ${obj.translate}`
+                        })
+                    }
+                }
             }
 
-            console.log(arrBackLink)
+            return arrBackLink
+        },
+        getIndexPage(arrBackLink, prefix){
+            let url = this.urlPathname()
+            let langArr = []
+            // выбрать только префиксы стран
+            this.lang.lang.forEach((item, i, arr) => {
+                langArr.push(item.alias)
+            });
+
+            // это локалицация страницы (/ru, /uk)
+            if(langArr.indexOf(prefix) !== -1){
+                arrBackLink.push({
+                    url : url.substring(0, url.indexOf(prefix) + prefix.length),
+                    name : "Работа в Европе"
+                })
+            }
+            // это локалицация страницы (/ default /en)
+            else{
+                arrBackLink.push({
+                    url : '/',
+                    name : "Работа в Европе"
+                })
+            }
 
             return arrBackLink
         },
@@ -90,21 +119,32 @@ export default {
             for (let index = 0; index < urlPrefixes.length; index++) {
                 // страна или город
                 if(index === 0){
+                    // возвращает по префексу обьект локации
                     let obj = this.checkPrefixLocation(urlPrefixes[index])
                     if(obj){
-                        return `Работа в ${obj.translate}`
+                        if(url.indexOf("vacancy") !== -1){
+                            return `Работа в ${obj.translate}`
+                        }
+                        else{
+                            return `Сотрудники в ${obj.translate}`
+                        }
                         break
                     }
                 }
+
                 if(urlPrefixes[index] === "vacancy"){
                     return "Вакансии Европы"
+                    break
+                }
+                else if(urlPrefixes[index] === "resume"){
+                    return "Сотрудники Европы"
                     break
                 }
             }
 
             return "---"
         },
-        // возвращает по префексу еллемент локации
+        // возвращает по префексу обьект локации
         checkPrefixLocation(prefix, address = {}){
             let country = (this.respond['now_country'] !== undefined) ? this.respond['now_country'] :
                 (address.country !== undefined) ? address.country : null
