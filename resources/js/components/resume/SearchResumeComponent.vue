@@ -11,7 +11,6 @@
             <div class="top-panel bread-top">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
                 <template v-for="(obj, key) in getGenerateBackLink()">
-
                     <a :href="obj.url" class="back-url-link">{{obj.name}}</a>
                     <span class="bread-slash"> | </span>
                 </template>
@@ -87,14 +86,14 @@
                 </pagination>
             </div>
 
-            <!-- search panel -->
+            <!-- right panel -->
             <div class="right-site">
-                <search_panel
+                <right_panel
                     :lang="lang"
-                    :settings="respond"
+                    :respond="respond"
                     :page="'search_resumes'"
                     @returnParent="getResumes"
-                ></search_panel>
+                ></right_panel>
             </div>
         </div>
 
@@ -103,7 +102,7 @@
 
 <script>
     import pagination from "../details/PaginationComponent";
-    import search_panel from '../details/SearchPanelComponent.vue'
+    import right_panel from '../details/right_panel_document_search_page/RightPanelDocumentSearchPageComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsResumeComponent'
     import resume_template from "./details/ResumeTemplateComponent";
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
@@ -112,12 +111,13 @@
     import date_mixin from "../../mixins/date_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import search_title_panel from "../details/SearchTitlePanelComponent";
+    import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
     import url_mixin from "../../mixins/url_mixin";
 
     export default {
         components: {
             'pagination': pagination,
-            'search_panel': search_panel,
+            'right_panel': right_panel,
             'bookmark_buttons': bookmark_buttons,
             'resume_template': resume_template,
             'search_title_panel': search_title_panel,
@@ -128,6 +128,7 @@
             response_methods_mixin,
             bookmark_vacancies_mixin,
             date_mixin,
+            top_panel,
             url_mixin,
         ],
         data() {

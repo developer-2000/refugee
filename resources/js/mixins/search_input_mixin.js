@@ -313,7 +313,8 @@ export default {
                     // hide select city
                     this._selectCity.css('display', "none")
                     // только если регионы являлись вместо city и не был открыт выбор городов
-                    if(this.respond.now_region !== null){
+
+                    if(this.respond.now_country !== null && this.respond.now_region !== null){
                         // загрузить со страны
                         location.href = this.objUrlHierarchyDocument.start_page+this.respond.now_country.original_index
                     }
@@ -364,7 +365,7 @@ export default {
                 let arr = e.params.data.id.split(',')
                 // this.objLocations.city = value
 
-                if(arr[0] == ""){
+                if(this.respond.now_country !== null && arr[0] == ""){
                     this._selectCity.addClass('not-select')
                     // загрузить с региона
                     this.constructionLogicUrl(this.respond.now_country.original_index, "country")

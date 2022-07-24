@@ -20,6 +20,7 @@ trait GeneralVacancyResumeTraite {
 
         // 1 обьекты текущей страны и регионов страны
         if(!is_null($request->country)){
+
             // 1 найти текущую страну
             $now_country = collect($respond['obj_countries'])->filter(function ($arr, $key) use ($request) {
                 return $arr['original_index'] == $request->country;
@@ -34,12 +35,21 @@ trait GeneralVacancyResumeTraite {
             $regions_country = $this->filterCollection($all_regions, 'prefix', mb_strtolower($respond['now_country']['prefix']), mb_strtolower($respond['now_country']["prefix"]))
                 ->all();
             $respond['regions_country'] = $regions_country;
+
+            // 3 все города этой страны
+            $respond['cities_country'] = collect($all_cities)->filter(function ($arr, $key) use ($now_country) {
+                if(isset($arr["prefix"])){
+                    return $arr["prefix"] == mb_strtolower($now_country['prefix']);
+                }
+                return false;
+            });
+
         }
 
         // 2 определить что на месте city (может быть регион в котором нет городов)
         if(!is_null($request->city)){
 
-            $city = $this->filterCollection($all_cities, 'original_index', $request->city, mb_strtolower($respond['now_country']["prefix"]))
+            $city = $this->filterCollection($respond['cities_country'], 'original_index', $request->city, mb_strtolower($respond['now_country']["prefix"]))
                 ->first();
             $respond['now_city'] = $city;
 
@@ -57,7 +67,7 @@ trait GeneralVacancyResumeTraite {
 
             // 2.2 если $request->city - region
             if(isset($region)){
-                $cities_region = $this->filterCollection($all_cities, 'code_region', $region["code_region"], mb_strtolower($respond['now_country']["prefix"]))
+                $cities_region = $this->filterCollection($respond['cities_country'], 'code_region', $region["code_region"], mb_strtolower($respond['now_country']["prefix"]))
                     ->all();
                 $respond['cities_region'] = $cities_region;
             }

@@ -89,14 +89,14 @@
                 </pagination>
             </div>
 
-            <!-- search panel -->
+            <!-- right panel -->
             <div class="right-site">
-                <search_panel
+                <right_panel
                     :lang="lang"
                     :respond="respond"
                     :page="'search_vacancies'"
                     @returnParent="getVacancies"
-                ></search_panel>
+                ></right_panel>
             </div>
         </div>
 
@@ -105,7 +105,7 @@
 
 <script>
     import pagination from "../details/PaginationComponent";
-    import search_panel from '../details/SearchPanelComponent.vue'
+    import right_panel from '../details/right_panel_document_search_page/RightPanelDocumentSearchPageComponent.vue'
     import search_title_panel from '../details/SearchTitlePanelComponent'
     import bookmark_buttons from './details/BookmarkButtonsVacancyComponent'
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";
@@ -115,11 +115,12 @@
     import date_mixin from "../../mixins/date_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import url_mixin from "../../mixins/url_mixin";
+    import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
 
     export default {
         components: {
             'pagination': pagination,
-            'search_panel': search_panel,
+            'right_panel': right_panel,
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
             'search_title_panel': search_title_panel,
@@ -130,6 +131,7 @@
             response_methods_mixin,
             bookmark_vacancies_mixin,
             date_mixin,
+            top_panel,
             url_mixin,
         ],
         data() {
@@ -238,7 +240,6 @@
         ],
         mounted() {
 
-            // console.log(this.respond['vacancies'].data[0])
         },
     }
 </script>
