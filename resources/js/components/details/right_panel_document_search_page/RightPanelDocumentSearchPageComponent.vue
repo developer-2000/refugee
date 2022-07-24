@@ -382,7 +382,7 @@
             </ul>
         </div>
 
-        <!-- города страны работы -->
+        <!-- города страны -->
         <div v-if="checkNowCountryPage" class="box-links">
             <template v-if="checkWordInUrl('vacancy')">
                 <h2>Города работы в {{respond.now_country.translate}}</h2>
@@ -623,7 +623,7 @@
                 this.setValuesFields()
             })
 
-            console.log(this.respond)
+            // console.log(this.respond)
         },
     }
 </script>

@@ -4,17 +4,32 @@
         <div class="card">
 
             <!-- Logo -->
-            <div class="brand-link box-logo">
-                <img alt="logo" src="/img/custom/logo-site.gif">
-                <div class="box-logo-title">
-                    <div class="brand-text font-weight-light">
-                        {{this.logo_text.uk}}
+            <div class="box-logo">
+                <a href="/ru" class="brand-link">
+                    <img alt="logo" src="/img/custom/logo-site.gif">
+                    <div class="box-logo-title">
+                        <div class="brand-text font-weight-light">
+                            {{this.logo_text.uk}}
+                        </div>
+                        <div class="brand-text font-weight-light">
+                            {{this.logo_text.en}}
+                        </div>
                     </div>
-                    <div class="brand-text font-weight-light">
-                        {{this.logo_text.en}}
-                    </div>
-                </div>
+                </a>
+<!--                <img alt="logo" src="/img/custom/logo-site.gif">-->
+<!--                <div class="box-logo-title">-->
+<!--                    <div class="brand-text font-weight-light">-->
+<!--                        {{this.logo_text.uk}}-->
+<!--                    </div>-->
+<!--                    <div class="brand-text font-weight-light">-->
+<!--                        {{this.logo_text.en}}-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
+
+
+
+
 
             <!-- form -->
             <div class="card-body login-card-body">
@@ -108,7 +123,18 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+    .brand-link {
+        position: absolute!important;
+        width: 100%!important;
+        .box-logo-title div:nth-child(1) {
+            color: rgba(253,230,45,1);
+        }
+        .box-logo-title div:nth-child(2) {
+            color: rgba(0,123,255,1);
+        }
+    }
     #auth{
         margin: 10% auto 0px;
         cursor: default;
@@ -117,7 +143,7 @@
         margin: 30px 0px 10px;
     }
     .box-logo {
-        position: static!important;
+        position: relative!important;
         width: 100%!important;
         height: 50px;
     }

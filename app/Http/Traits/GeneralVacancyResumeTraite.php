@@ -43,7 +43,6 @@ trait GeneralVacancyResumeTraite {
                 }
                 return false;
             });
-
         }
 
         // 2 определить что на месте city (может быть регион в котором нет городов)
@@ -75,6 +74,20 @@ trait GeneralVacancyResumeTraite {
             // Not Found
             if( is_null($respond['now_city']) && is_null($respond['now_region']) ){
                 return abort(404);
+            }
+        }
+
+        // 3 добавить регионы без городов в масив всех городов (для менюхи городов страны)
+        foreach ($respond['regions_country'] as $key => $region){
+            $bool_found = false;
+            foreach ($respond['cities_country'] as $key2 => $city){
+                if($region['code_region'] == $city['code_region']){
+                    $bool_found = true;
+                    break;
+                }
+            }
+            if(!$bool_found){
+                $respond['cities_country'][] = $region;
             }
         }
 

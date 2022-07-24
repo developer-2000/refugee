@@ -26,7 +26,7 @@
             <!-- на странице открытой вакансии -->
             <template v-if="page === 'show'">
                 <!-- если компания создана -->
-                <a class="link-a" target="_blank"
+                <a class="link-a"
                    :href="`${lang.prefix_lang}company/${vacancy.company.alias}`"
                    v-if="vacancy.company.user_id"
                 >

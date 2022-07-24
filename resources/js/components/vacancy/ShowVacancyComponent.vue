@@ -214,6 +214,7 @@
     import show_resume_vacancy_mixin from "../../mixins/show_resume_vacancy_mixin";
     import date_mixin from "../../mixins/date_mixin";
     import url_mixin from "../../mixins/url_mixin";
+    import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
 
     export default {
         delimiters: ['${', '}'], // Avoid Twig conflicts
@@ -228,6 +229,7 @@
             general_functions_mixin,
             show_resume_vacancy_mixin,
             url_mixin,
+            top_panel,
         ],
         data() {
             return {
