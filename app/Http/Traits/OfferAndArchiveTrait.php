@@ -29,6 +29,9 @@ trait OfferAndArchiveTrait
 
         $offers = $this->creatContactList($offers);
 
+
+//        dd($offers->toArray());
+
         return $offers;
     }
 

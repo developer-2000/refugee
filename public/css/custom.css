@@ -17,6 +17,7 @@ h3{
     font-size: 21px;
     font-weight: bold;
 }
+
 a:hover,
 .callout .title-vacancy:hover{
    text-decoration: none;
@@ -68,19 +69,21 @@ a:hover,
 .bread-top-cabinet svg {
     width: 8px;
     margin-right: 5px;
+    height: 14px;
 }
 .bread-top svg path,
 .bread-top-cabinet svg path{
     fill: #a7a8a9;
 }
 .bread-slash{
-    height: 26px;
+    height: 13px;
     margin: 0 5px;
     color: #a7a8a9;
     font-size: 15px;
+    line-height: 11px;
 }
-b{
-    color: black;
+.ul-breadcrumbs, .ul-breadcrumbs li{
+    display: flex;
 }
 .button-menu{
     background: #f1f1f1;

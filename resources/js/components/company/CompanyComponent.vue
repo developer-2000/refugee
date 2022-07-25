@@ -4,11 +4,11 @@
         <div class="left-site">
             <!-- company logo -->
             <div class="box-title">
-                <h3 class="font-weight-bold">
+                <h1 class="font-weight-bold">
                     {{company.title}}
-                </h3>
+                </h1>
                 <img :src="`/${company.image.url}`"
-                     :alt="company.image.title"
+                     :alt="`company ${company.title}`"
                 >
             </div>
             <!-- свойства -->
@@ -115,9 +115,9 @@
             </div>
             <!-- О компании -->
             <div class="box-about-company" id="box-about-company">
-                <h3 class="font-weight-bold">
+                <h2 class="font-weight-bold">
                     {{trans('company','about_company_2')}}
-                </h3>
+                </h2>
                 <div v-if="company.about_company" class="about-company"
                      v-html="company.about_company"
                 >
@@ -130,9 +130,9 @@
             </div>
             <!-- youtube -->
             <div v-if="company.youtube_links.length" class="box-media-files">
-                <h3 class="font-weight-bold">
+                <h2 class="font-weight-bold">
                     {{trans('company','media_files')}}
-                </h3>
+                </h2>
                 <div class="container-fluid block-media-files ">
                     <div class="row">
                         <template v-for="(url, key) in company.youtube_links">
@@ -161,9 +161,9 @@
             </div>
             <!-- vacancies -->
             <div class="box-company-vacancies" id="box-company-vacancies">
-                <h3 class="font-weight-bold">
+                <h2 class="font-weight-bold">
                     {{trans('company','company_vacancies')}}
-                </h3>
+                </h2>
                 <!-- vacancies yes -->
                 <div class="block-company-vacancies" v-if="company.vacancies.length">
                     <!-- item -->

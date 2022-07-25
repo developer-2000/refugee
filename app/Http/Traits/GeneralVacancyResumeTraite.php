@@ -77,8 +77,9 @@ trait GeneralVacancyResumeTraite {
             }
         }
 
+        $regions_country = !is_null($respond['regions_country']) ? $respond['regions_country'] : [];
         // 3 добавить регионы без городов в масив всех городов (для менюхи городов страны)
-        foreach ($respond['regions_country'] as $key => $region){
+        foreach ($regions_country as $key => $region){
             $bool_found = false;
             foreach ($respond['cities_country'] as $key2 => $city){
                 if($region['code_region'] == $city['code_region']){

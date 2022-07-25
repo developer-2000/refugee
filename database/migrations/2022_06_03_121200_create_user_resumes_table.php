@@ -26,7 +26,7 @@ class CreateUserResumesTable extends Migration
             $table->string('url')->nullable()->default(null)->comment('url file');
             $table->string('alias', 100)->unique()->comment('url resume');
 
-            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('country_id')->nullable()->default(null);
             $table->unsignedBigInteger('region_id')->nullable()->default(null);
             $table->unsignedBigInteger('city_id')->nullable()->default(null);
 

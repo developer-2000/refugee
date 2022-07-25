@@ -52,9 +52,11 @@ class RespondVacancyRepository extends CoreRepository {
                     [ 'user_id' => Auth::user()->id, 'type' => 1 ],
                     [
                         'title' => $arrUrl[count($arrUrl)-1],
-                        'url' => $path
+                        'url' => $path,
+                        'alias' => sha1(time())
                     ]
                 );
+
                 $respond = $this->createRecordDatabase($request, $resume->id);
             }
             // 3 старый файл к вакансии
@@ -74,12 +76,13 @@ class RespondVacancyRepository extends CoreRepository {
      */
     private function createRecordDatabase($request, $resume_id){
         $my_user = Auth::user();
+
         // вакансия человека
         $vacancy = Vacancy::where('id',$request->vacancy_id)
-            ->with('position')->first();
+            ->with('position','country','region','city')->first();
         // мое резюме
         $resume = UserResume::where('id',$resume_id)
-            ->with('position')->first();
+            ->with('position','country','region','city')->first();
 
         // 1 фиксация отзыва
         $respond = $this->model->create(
@@ -93,20 +96,22 @@ class RespondVacancyRepository extends CoreRepository {
 
         // вернет указаный чат по id - мой и юзер
         $offer = $this->offerRepository->getOffer($vacancy->user_id, $my_user->id);
+        $resume_title = $resume->type === 0 ? $resume->position->title : $resume->title;
+        $offer_url = $resume->type === 0 ? $this->makeFullUrlForDocument($resume, "resume") : $resume->url;
 
         $message = config('site.offer.message');
         $message["user_id"] = $my_user->id;
         $message["date_create"] = $this->getNowDate();
         $message["my_type_document"] = 'resume';
         $message["your_type_document"] = 'vacancy';
-        $message["my_offer_title"] = $resume->position->title;
-        $message["my_offer_url"] = "resume/$resume->alias";
+        $message["my_offer_title"] = !is_null($resume->position) ? $resume->position->title : $resume->title;
+        $message["my_offer_url"] = $offer_url;
         $message["your_offer_title"] = $vacancy->position->title;
-        $message["your_offer_url"] = "vacancy/$vacancy->alias";
+        $message["your_offer_url"] = $this->makeFullUrlForDocument($vacancy, "vacancy");
         $message["covering_letter"] = $request->textarea_letter;
 
         // 2 обновить или создать offer chat
-        $this->setDataOffer($offer, $message, $my_user->id, $vacancy->user_id, $resume->position->title);
+        $this->setDataOffer($offer, $message, $my_user->id, $vacancy->user_id, $resume_title);
 
         return $respond;
     }
@@ -143,4 +148,5 @@ class RespondVacancyRepository extends CoreRepository {
             }
         }
     }
+
 }

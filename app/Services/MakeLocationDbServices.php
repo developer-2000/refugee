@@ -12,7 +12,7 @@ class MakeLocationDbServices {
     use GeographyDbTraite, GeographyFilesTraite;
 
     protected $boolInsertDB = true;           // внести данные локации в базу
-    protected $boolCreateFileNames = false;   // создавать файлы названий
+    protected $boolCreateFileNames = false;    // создавать файлы названий
     protected $earth;
     protected $lang;
     protected $settingsCountry;

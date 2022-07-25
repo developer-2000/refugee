@@ -26,7 +26,7 @@ class RespondController extends BaseController {
      */
     public function respondVacancy(RespondVacancyRequest $request) {
         $respond = $this->repositoryVacancy->respondVacancy($request);
-        return $this->getResponse();
+        return $this->getResponse($respond);
     }
 
     /**

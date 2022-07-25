@@ -9,11 +9,13 @@
 
             <!-- обратная ссылка -->
             <div class="top-panel bread-top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-                <template v-for="(obj, key) in getGenerateBackLink()">
-                    <a :href="obj.url" class="back-url-link">{{obj.name}}</a>
-                    <span class="bread-slash"> | </span>
-                </template>
+                <ul class="ul-breadcrumbs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+                    <li v-for="(obj, key) in getGenerateBackLink()" :key="key">
+                        <a :href="obj.url" class="back-url-link">{{obj.name}}</a>
+                        <span class="bread-slash"> | </span>
+                    </li>
+                </ul>
             </div>
 
             <h2 class="title_page">
@@ -295,6 +297,8 @@
             if(params.has('position')){
                 this.position = params.get('position')
             }
+
+            console.log(this.respond)
         },
     }
 </script>
@@ -363,7 +367,7 @@
                 min-width: 80%;
             }
             .right-site{
-                min-width: 20%;
+                min-width: 275px;
             }
         }
     }

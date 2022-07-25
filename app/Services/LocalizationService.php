@@ -102,6 +102,8 @@ class LocalizationService {
     public function getRegions($prefix_lang) {
         $allRegions = [];
 
+//        Cache::forget($prefix_lang.'_all_regions');
+
         // проверка кэшь
         if (!Cache::has($prefix_lang.'_all_regions')) {
             // колекция регионов перевода
@@ -161,6 +163,8 @@ class LocalizationService {
      */
     public function getCities($prefix_lang) {
         $allCities = [];
+
+//        Cache::forget($prefix_lang.'_all_cities');
 
         // проверка кэшь
         if (!Cache::has($prefix_lang.'_all_cities')) {

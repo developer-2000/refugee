@@ -29,10 +29,10 @@ class RespondResumeRepository extends CoreRepository {
 
         // резюме человека
         $resume = UserResume::where('id',$request->resume_id)
-            ->with('position')->first();
+            ->with('position','country','region','city')->first();
         // моя вакансия
         $vacancy = Vacancy::where('id',$request->vacancy_id)
-            ->with('position')->first();
+            ->with('position','country','region','city')->first();
 
         // 1 фиксация отзыва
         $respond = $this->model->create(
@@ -46,6 +46,8 @@ class RespondResumeRepository extends CoreRepository {
 
         // вернет существующий чат с контактом
         $offer = $offerRepository->getOffer($resume->user_id, $my_user->id);
+        $resume_url = $resume->type === 0 ? $this->makeFullUrlForDocument($resume, "resume") : $resume->url;
+        $vacancy_url = $this->makeFullUrlForDocument($vacancy, "vacancy");
 
         $message = config('site.offer.message');
         $message["user_id"] = $my_user->id;
@@ -53,9 +55,13 @@ class RespondResumeRepository extends CoreRepository {
         $message["my_type_document"] = 'vacancy';
         $message["your_type_document"] = 'resume';
         $message["my_offer_title"] = $vacancy->position->title;
-        $message["my_offer_url"] = "vacancy/$vacancy->alias";
+
+
+        $message["my_offer_url"] = $vacancy_url;
         $message["your_offer_title"] = $resume->position->title;
-        $message["your_offer_url"] = "resume/$resume->alias";
+
+
+        $message["your_offer_url"] = $resume_url;
         $message["covering_letter"] = $request->textarea_letter;
 
         // 2 обновить или создать offer chat

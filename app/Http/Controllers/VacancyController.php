@@ -50,8 +50,6 @@ class VacancyController extends BaseController {
         $respond['vacancies'] = $vacancies;
         $respond['ids_respond'] = $ids_respond;
 
-//        dd($respond);
-
         return view('search_vacancies', compact('respond'));
     }
 

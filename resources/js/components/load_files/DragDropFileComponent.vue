@@ -118,6 +118,8 @@
             text-align: center;
             padding: 35px 20px 0;
             color: #1d68a7;
+            height: 100%;
+            cursor: pointer;
             .drop-icon{
                 width: 100%;
                 height: 30px;

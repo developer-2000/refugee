@@ -1,5 +1,6 @@
 <template>
     <div class="view-page">
+
         <!-- отображение прошедшего времени -->
         <div v-if="page === 'show'" class="date-document header-date-document">
             <div class="date-string">
@@ -31,28 +32,28 @@
                    v-if="vacancy.company.user_id"
                 >
                     <div class="company-vacancy">
-                        <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
+                        <h2 class="font-weight-bold title-company">{{vacancy.company.title}}</h2>
                         <img class="img-logo"
                              :src="`/${vacancy.company.image.url}`"
-                             :alt="vacancy.company.image.title"
+                             :alt="`company ${vacancy.company.title}`"
                         >
                     </div>
                 </a>
                 <!-- если компания default -->
                 <div v-else class="default-company">
-                    <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
+                    <h2 class="font-weight-bold title-company"> {{vacancy.company.title}} </h2>
                     <img class="img-logo"
                          :src="`/${vacancy.company.image.url}`"
-                         :alt="vacancy.company.image.title"
+                         :alt="`company ${vacancy.company.title}`"
                     >
                 </div>
             </template>
             <!-- на странице search или закладки -->
             <div v-if="page === 'search' || page === 'bookmark'" class="company-vacancy" >
-                <div class="font-weight-bold title-company"> {{vacancy.company.title}} </div>
+                <h2 class="font-weight-bold title-company">{{vacancy.company.title}}</h2>
                 <img class="img-logo"
                      :src="`/${vacancy.company.image.url}`"
-                     :alt="vacancy.company.image.title"
+                     :alt="`company ${vacancy.company.title}`"
                 >
             </div>
 
@@ -91,7 +92,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M64 240C46.33 240 32 225.7 32 208C32 190.3 46.33 176 64 176H92.29C121.9 92.11 201.1 32 296 32H320C337.7 32 352 46.33 352 64C352 81.67 337.7 96 320 96H296C238.1 96 187.8 128.4 162.1 176H288C305.7 176 320 190.3 320 208C320 225.7 305.7 240 288 240H144.2C144.1 242.6 144 245.3 144 248V264C144 266.7 144.1 269.4 144.2 272H288C305.7 272 320 286.3 320 304C320 321.7 305.7 336 288 336H162.1C187.8 383.6 238.1 416 296 416H320C337.7 416 352 430.3 352 448C352 465.7 337.7 480 320 480H296C201.1 480 121.9 419.9 92.29 336H64C46.33 336 32 321.7 32 304C32 286.3 46.33 272 64 272H80.15C80.05 269.3 80 266.7 80 264V248C80 245.3 80.05 242.7 80.15 240H64z"/></svg>
                 </span>
                 <span class="first_half">
-                    {{salaryView(vacancy.salary)}}
+                    <b>{{salaryView(vacancy.salary)}}</b>
                 </span>
             </div>
             <div class="comment-vacancy"
@@ -111,9 +112,11 @@
                 <span class="box-svg">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M448 164C459 164 468 172.1 468 184V188H528C539 188 548 196.1 548 208C548 219 539 228 528 228H526L524.4 232.5C515.5 256.1 501.9 279.1 484.7 297.9C485.6 298.4 486.5 298.1 487.4 299.5L506.3 310.8C515.8 316.5 518.8 328.8 513.1 338.3C507.5 347.8 495.2 350.8 485.7 345.1L466.8 333.8C462.4 331.1 457.1 328.3 453.7 325.3C443.2 332.8 431.8 339.3 419.8 344.7L416.1 346.3C406 350.8 394.2 346.2 389.7 336.1C385.2 326 389.8 314.2 399.9 309.7L403.5 308.1C409.9 305.2 416.1 301.1 422 298.3L409.9 286.1C402 278.3 402 265.7 409.9 257.9C417.7 250 430.3 250 438.1 257.9L452.7 272.4L453.3 272.1C465.7 259.9 475.8 244.7 483.1 227.1H376C364.1 227.1 356 219 356 207.1C356 196.1 364.1 187.1 376 187.1H428V183.1C428 172.1 436.1 163.1 448 163.1L448 164zM160 233.2L179 276H140.1L160 233.2zM0 128C0 92.65 28.65 64 64 64H576C611.3 64 640 92.65 640 128V384C640 419.3 611.3 448 576 448H64C28.65 448 0 419.3 0 384V128zM320 384H576V128H320V384zM178.3 175.9C175.1 168.7 167.9 164 160 164C152.1 164 144.9 168.7 141.7 175.9L77.72 319.9C73.24 329.1 77.78 341.8 87.88 346.3C97.97 350.8 109.8 346.2 114.3 336.1L123.2 315.1H196.8L205.7 336.1C210.2 346.2 222 350.8 232.1 346.3C242.2 341.8 246.8 329.1 242.3 319.9L178.3 175.9z"/></svg>
                 </span>
+                <b>
                 <template v-for="(value, key) in vacancy.languages">
                     {{lang.lang[value].title}},
                 </template>
+                </b>
             </div>
         </div>
 
@@ -123,10 +126,10 @@
                 <span class="box-svg">
                     <svg class="svg-address" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"/></svg>
                 </span>
-                <span class="first_half">
+                <b class="first_half">
                     <!-- Onsite, Remote-->
                     {{trans('vacancies',settings.type_employment[vacancy.type_employment])}}
-                </span>
+                </b>
             </div>
             <div class="comment-vacancy">
                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +147,7 @@
                     <svg class="svg-experience" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 80V128C448 172.2 347.7 208 224 208C100.3 208 0 172.2 0 128V80C0 35.82 100.3 0 224 0C347.7 0 448 35.82 448 80zM393.2 214.7C413.1 207.3 433.1 197.8 448 186.1V288C448 332.2 347.7 368 224 368C100.3 368 0 332.2 0 288V186.1C14.93 197.8 34.02 207.3 54.85 214.7C99.66 230.7 159.5 240 224 240C288.5 240 348.3 230.7 393.2 214.7V214.7zM54.85 374.7C99.66 390.7 159.5 400 224 400C288.5 400 348.3 390.7 393.2 374.7C413.1 367.3 433.1 357.8 448 346.1V432C448 476.2 347.7 512 224 512C100.3 512 0 476.2 0 432V346.1C14.93 357.8 34.02 367.3 54.85 374.7z"/></svg>
                 </span>
                 <span class="font-weight-bold">
-                    {{UpperCaseFirstCharacter( trans('vacancies',settings.work_experience[vacancy.experience]) )}}
+                    <b>{{UpperCaseFirstCharacter( trans('vacancies',settings.work_experience[vacancy.experience]) )}}</b>
                 </span>
             </div>
             <!-- возраст -->
@@ -156,13 +159,13 @@
                 <div v-if="vacancy.vacancy_suitable.radio_name == 'set_age'"
                      class="font-weight-bold first_half"
                 >
-                    {{vacancy.vacancy_suitable.inputs.from}} - {{vacancy.vacancy_suitable.inputs.to}} {{trans('vacancies','years')}}
+                    <b>{{vacancy.vacancy_suitable.inputs.from}} - {{vacancy.vacancy_suitable.inputs.to}} {{trans('vacancies','years')}}</b>
                 </div>
                 <!-- не имеет значения -->
                 <div v-else-if="vacancy.vacancy_suitable.radio_name == 'it_not_matter'"
                      class="font-weight-bold first_half"
                 >
-                    {{UpperCaseFirstCharacter( trans('vacancies',vacancy.vacancy_suitable.radio_name) )}}
+                    <b>{{UpperCaseFirstCharacter( trans('vacancies',vacancy.vacancy_suitable.radio_name) )}}</b>
                 </div>
                 <!-- comment -->
                 <div class="comment-vacancy"
@@ -182,7 +185,7 @@
                         d="M288 358.3c13.98-8.088 17.53-30.04 28.88-41.39c11.35-11.35 33.3-14.88 41.39-28.87c7.98-13.79 .1658-34.54 4.373-50.29C366.7 222.5 383.1 208.5 383.1 192c0-16.5-17.27-30.52-21.34-45.73c-4.207-15.75 3.612-36.5-4.365-50.29c-8.086-13.98-30.03-17.52-41.38-28.87c-11.35-11.35-14.89-33.3-28.87-41.39c-13.79-7.979-34.54-.1637-50.29-4.375C222.5 17.27 208.5 0 192 0C175.5 0 161.5 17.27 146.3 21.34C130.5 25.54 109.8 17.73 95.98 25.7C82 33.79 78.46 55.74 67.11 67.08C55.77 78.43 33.81 81.97 25.72 95.95C17.74 109.7 25.56 130.5 21.35 146.2C17.27 161.5 .0008 175.5 .0008 192c0 16.5 17.27 30.52 21.34 45.73c4.207 15.75-3.615 36.5 4.361 50.29C33.8 302 55.74 305.5 67.08 316.9c11.35 11.35 14.89 33.3 28.88 41.4c13.79 7.979 34.53 .1582 50.28 4.369C161.5 366.7 175.5 384 192 384c16.5 0 30.52-17.27 45.74-21.34C253.5 358.5 274.2 366.3 288 358.3zM112 192c0-44.27 35.81-80 80-80s80 35.73 80 80c0 44.17-35.81 80-80 80S112 236.2 112 192zM1.719 433.2c-3.25 8.188-1.781 17.48 3.875 24.25c5.656 6.75 14.53 9.898 23.12 8.148l45.19-9.035l21.43 42.27C99.46 507 107.6 512 116.7 512c.3438 0 .6641-.0117 1.008-.0273c9.5-.375 17.65-6.082 21.24-14.88l33.58-82.08c-53.71-4.639-102-28.12-138.2-63.95L1.719 433.2zM349.6 351.1c-36.15 35.83-84.45 59.31-138.2 63.95l33.58 82.08c3.594 8.797 11.74 14.5 21.24 14.88C266.6 511.1 266.1 512 267.3 512c9.094 0 17.23-4.973 21.35-13.14l21.43-42.28l45.19 9.035c8.594 1.75 17.47-1.398 23.12-8.148c5.656-6.766 7.125-16.06 3.875-24.25L349.6 351.1z"/></svg>
                 </span>
                 <div class="font-weight-bold">
-                    {{UpperCaseFirstCharacter( trans('vacancies',settings.education[vacancy.education]) )}}
+                    <b>{{UpperCaseFirstCharacter( trans('vacancies',settings.education[vacancy.education]) )}}</b>
                 </div>
             </div>
 

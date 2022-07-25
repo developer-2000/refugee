@@ -83,7 +83,7 @@
 
     .pagination{
         justify-content: center;
-        margin-top: 20px;
+        margin: 23px 0 20px;
         svg{
             width: 14px;
             path{

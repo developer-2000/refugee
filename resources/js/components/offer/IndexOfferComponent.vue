@@ -2,6 +2,7 @@
     <div class="box-page box-offer">
         <!-- top panel -->
         <div class="top-panel bread-top-cabinet">
+
             <!-- обратная ссылка -->
             <div class="box-back-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
@@ -20,7 +21,6 @@
                         Чаты предложений
                     </a>
                 </template>
-
             </div>
 
             <!-- search line -->
@@ -98,14 +98,14 @@
         </div>
 
         <!-- documents -->
-        <div class="bottom-search">
+        <div class="bottom-search container-fluid">
             <div v-for="(offer, key) in content" :key="key"
                  class="row box-vacancy"
                  :class="{'new-vacancy': (offer.one_user_id === user.id && offer.one_user_review === 0) || (offer.two_user_id === user.id && offer.two_user_review === 0)}"
                  @click.prevent="transitionToOffer(offer.alias)"
             >
                 <!-- user -->
-                <div class="col-sm-3">
+                <div class="col-3">
                     <!-- Контакт лист -->
                     <offer_contact_list
                         :offer="offer"
@@ -117,7 +117,7 @@
                     ></offer_contact_list>
                 </div>
                 <!-- text -->
-                <div class="col-sm-9">
+                <div class="col-9">
                     <div class="body-chat">
                         <!-- title chat -->
                         <div class='font-weight-bold title-chat'>
@@ -159,24 +159,25 @@
                                     <!-- сопроводительный текст -->
                                     <div v-html="textChat(offer.chat[offer.chat.length-1].covering_letter)"></div>
                                     <!-- предложение документа -->
-                                    <template v-if="offer.chat[offer.chat.length-1].my_type_document !== null">
-                                        <div class='offer-document'>
-                                            На Ваше
-                                            <a target="_blank" class="link-a"
-                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].your_offer_url)"
-                                            >
-                                                {{offer.chat[offer.chat.length-1].your_offer_title}}
-                                            </a>
-                                            предложение рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
-                                            <a target="_blank" class="link-a"
-                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].my_offer_url)"
-                                            >
-                                                {{offer.chat[offer.chat.length-1].my_offer_title}}
-                                            </a>
-                                        </div>
-                                    </template>
+                                    <div v-if="offer.chat[offer.chat.length-1].my_type_document !== null"
+                                         class='offer-document'
+                                    >
+                                        На Ваше
+                                        <a class="link-a" href="javascript:void(0)"
+                                           @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].your_offer_url)"
+                                        >
+                                            {{offer.chat[offer.chat.length-1].your_offer_title}}
+                                        </a>
+                                        предложение рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
+                                        <a class="link-a" href="javascript:void(0)"
+                                           @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].my_offer_url)"
+                                        >
+                                            {{offer.chat[offer.chat.length-1].my_offer_title}}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="clear-float"></div>
                         </template>
 
                         <!-- 2 мой message -->
@@ -196,25 +197,28 @@
                                 >
                                     <!-- сопроводительный текст -->
                                     <div v-html="textChat(offer.chat[offer.chat.length-1].covering_letter)"></div>
+
                                     <!-- предложение документа -->
-                                    <template v-if="offer.chat[offer.chat.length-1].my_type_document !== null">
-                                        <div class='offer-document'>
-                                            На Его
-                                            <a target="_blank" class="link-a"
-                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].your_offer_url)"
-                                            >
-                                                {{offer.chat[offer.chat.length-1].your_offer_title}}
-                                            </a>
-                                            предложил рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
-                                            <a target="_blank" class="link-a"
-                                               @click.prevent="transitionToLink($event, lang.prefix_lang+offer.chat[offer.chat.length-1].my_offer_url)"
-                                            >
-                                                {{offer.chat[offer.chat.length-1].my_offer_title}}
-                                            </a>
-                                        </div>
-                                    </template>
+                                    <div v-if="offer.chat[offer.chat.length-1].my_type_document !== null"
+                                         class='offer-document'
+                                    >
+                                        Вы предложили рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
+                                        <a class="link-a" href="javascript:void(0)"
+                                           @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].my_offer_url)"
+                                        >
+                                            {{offer.chat[offer.chat.length-1].my_offer_title}}
+                                        </a>
+                                        на его
+                                        <a class="link-a" href="javascript:void(0)"
+                                           @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].your_offer_url)"
+                                        >
+                                            {{offer.chat[offer.chat.length-1].your_offer_title}}
+                                        </a>
+                                    </div>
+
                                 </div>
                             </div>
+                            <div class="clear-float"></div>
                         </template>
 
                     </div>
@@ -224,7 +228,7 @@
 
         <!-- link to archive -->
         <a v-if="archive_count > 0 && respond['table'] === 'offer'"
-            class="link-a to-archive"
+           class="link-a to-archive"
            :href="`${lang.prefix_lang}offers/archive`"
         >Архив предложений: {{archive_count}} </a>
 
@@ -242,7 +246,6 @@
         mixins: [
             translation,
             response_methods_mixin,
-            search_input_mixin,
             general_functions_mixin,
         ],
         components: {
@@ -362,8 +365,61 @@
                 }
             },
             transitionToLink(event, url){
-                window.open(url)
+                // это резюме сайта
+                if(this.convertStringToArray(url, ".")[1] === undefined){
+                    window.open(this.lang.prefix_lang+url)
+                }
+                // это файл
+                else{
+                    window.open("/"+url)
+                }
+
                 event.stopPropagation()
+            },
+            enterKey(e){
+                if(e.code == 'Enter'){
+                    this.urlReload2()
+                }
+            },
+            clearSearch(){
+                let params = new URLSearchParams(window.location.search)
+                this.position = ''
+                this.position_list = []
+                $('.dropdown-menu').removeClass('show')
+                if(params.has(this.name_query)){
+                    this.urlReload2()
+                }
+                $('.x-mark-clear').css('display','none')
+            },
+            urlReload(){
+                let params = new URLSearchParams(window.location.search)
+                params.delete('page')
+
+                // search
+                if(this.position == ''){
+                    params.delete(this.name_query)
+                }
+                else{
+                    params.set(this.name_query,this.position)
+                }
+                params.sort()
+                let query = (params.toString() == '') ? '' : '?'+params.toString()
+                let now_url = this.urlNotQuery()
+
+                // на странице /document ...
+                if(now_url.indexOf(this.prefix_url) !== -1){
+                    // console.log(1, now_url+query)
+                    location.href = now_url+query
+                }
+                // на странице /
+                else{
+                    // console.log(2, now_url+"/"+this.prefix_url+query)
+                    location.href = now_url+"/"+this.prefix_url+query
+                }
+            },
+            setValuePosition(value){
+                $('#position_list').removeClass('show')
+                this.position = value
             },
         },
         props: [
@@ -455,8 +511,11 @@
     .top-search {
         width: 75%;
         background-color: #fff;
+        border: none;
+        padding: 0;
         button svg{
             width: 20px;
+            height:auto;
             path{
                 fill: white;
             }
@@ -523,6 +582,7 @@
     }
     .box-vacancy {
         padding: 10px 5px;
+        display: flex;
         .body-chat{
             font-size: 14px;
         }

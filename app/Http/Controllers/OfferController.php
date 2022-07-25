@@ -94,7 +94,6 @@ class OfferController extends BaseController {
         return $this->getResponse($last_chat);
     }
 
-
     /**
      * обновисть сообщение в чате
      * @param  UpdateMessageRequest  $request
@@ -128,10 +127,5 @@ class OfferController extends BaseController {
 
         return $this->getResponse(compact('arraySearch'));
     }
-
-
-
-
-
 
 }

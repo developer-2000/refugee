@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 trait RespondTraite {
 
-
     // обновить или создать offer chat
     public function setDataOffer($offer, $message, $my_id, $user_id=null, $my_document_title=null)
     {
@@ -52,4 +51,17 @@ trait RespondTraite {
         }
     }
 
+    /**
+     * создает полный путь для resume / vacancy
+     * @param $collection
+     * @param $prefix
+     * @return string
+     */
+    private function makeFullUrlForDocument($collection, $prefix){
+        $address_first_prefix = !is_null($collection->country) ? $collection->country->local['original_index'] : null;
+        $address_next_prefix = !is_null($collection->city) ? $collection->city->local['original_index'] :
+            !is_null($collection->region) ? $collection->region->local['original_index'] : null;
+
+        return $prefix."/".$address_first_prefix."/".$address_next_prefix."/".$collection->alias;
+    }
 }
