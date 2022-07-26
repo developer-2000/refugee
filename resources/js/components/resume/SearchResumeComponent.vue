@@ -244,35 +244,6 @@
                 $('#position_list').removeClass('show')
                 this.position = value
             },
-            salaryView(salaryObj){
-                let salary_string = ''
-                let arr_field = this.respond.salary[salaryObj.radio_name]
-                $.each(arr_field, function(key, name) {
-                    salary_string += salaryObj.inputs[name]
-                    if( (key+1) < arr_field.length){
-                        salary_string += ' - '
-                    }
-                })
-                salary_string = salary_string == '' ? 0 : salary_string
-                return salary_string
-            },
-            addressView(resumeObj){
-                let address_string = ''
-
-                if(resumeObj.country !== null){
-                    address_string += resumeObj.country.name+'.'
-                }
-                if(resumeObj.region !== null){
-                    address_string += ' ' + resumeObj.region.name+'.'
-                }
-                if(resumeObj.city !== null){
-                    address_string += ' ' + resumeObj.city.name+'.'
-                }
-
-                address_string += ' ' + resumeObj.rest_address+'.'
-
-                return address_string
-            },
             paginateReload(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
@@ -291,15 +262,7 @@
             'respond',
             'user',
         ],
-        mounted() {
-            // https://flaviocopes.com/urlsearchparams/
-            const params = new URLSearchParams(window.location.search)
-            if(params.has('position')){
-                this.position = params.get('position')
-            }
-
-            console.log(this.respond)
-        },
+        mounted() {},
     }
 </script>
 

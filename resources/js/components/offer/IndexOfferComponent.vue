@@ -1,5 +1,6 @@
 <template>
     <div class="box-page box-offer">
+
         <!-- top panel -->
         <div class="top-panel bread-top-cabinet">
 
@@ -24,7 +25,7 @@
             </div>
 
             <!-- search line -->
-            <div v-if="respond['table'] === 'offer'" class="top-search">
+            <div class="top-search">
                 <div class="form-group">
                     <div class="box-position">
 
@@ -35,8 +36,7 @@
                                placeholder="имя, должность"
                         >
 
-                        <svg @click="clearSearch"
-                             class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
+                        <svg @click="clearSearch" class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
 
                         <!-- подсказка -->
                         <div class="block_position_list">
@@ -57,7 +57,9 @@
                     </button>
                 </div>
             </div>
+
         </div>
+
         <!-- title -->
         <div class="search-panel">
             <h1 v-if="respond['table'] === 'offer'" class="title_page card-body">
@@ -67,6 +69,7 @@
                 Архив предложений
             </h1>
         </div>
+
         <!-- No offers -->
         <div v-if="!content.length && respond['table'] === 'offer'" class="callout callout-warning">
             <b>Предложения отсутствуют.</b>
@@ -98,7 +101,7 @@
         </div>
 
         <!-- documents -->
-        <div class="bottom-search container-fluid">
+        <div class="bottom-search container-fluid box-user">
             <div v-for="(offer, key) in content" :key="key"
                  class="row box-vacancy"
                  :class="{'new-vacancy': (offer.one_user_id === user.id && offer.one_user_review === 0) || (offer.two_user_id === user.id && offer.two_user_review === 0)}"
@@ -241,12 +244,14 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import search_input_mixin from "../../mixins/search_input_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
+    import url_mixin from "../../mixins/url_mixin";
 
     export default {
         mixins: [
             translation,
             response_methods_mixin,
             general_functions_mixin,
+            url_mixin
         ],
         components: {
             'offer_contact_list': offer_contact_list
@@ -378,7 +383,7 @@
             },
             enterKey(e){
                 if(e.code == 'Enter'){
-                    this.urlReload2()
+                    this.urlReload()
                 }
             },
             clearSearch(){
@@ -387,7 +392,7 @@
                 this.position_list = []
                 $('.dropdown-menu').removeClass('show')
                 if(params.has(this.name_query)){
-                    this.urlReload2()
+                    this.urlReload()
                 }
                 $('.x-mark-clear').css('display','none')
             },
@@ -400,27 +405,42 @@
                     params.delete(this.name_query)
                 }
                 else{
-                    params.set(this.name_query,this.position)
+                    params.set(this.name_query, this.position)
                 }
                 params.sort()
                 let query = (params.toString() == '') ? '' : '?'+params.toString()
-                let now_url = this.urlNotQuery()
 
-                // на странице /document ...
-                if(now_url.indexOf(this.prefix_url) !== -1){
-                    // console.log(1, now_url+query)
-                    location.href = now_url+query
-                }
-                // на странице /
-                else{
-                    // console.log(2, now_url+"/"+this.prefix_url+query)
-                    location.href = now_url+"/"+this.prefix_url+query
-                }
+                let now_url = this.urlNotQuery()
+                location.href = now_url+"/"+query
             },
             setValuePosition(value){
                 $('#position_list').removeClass('show')
                 this.position = value
             },
+            initializeData(){
+                this.content = this.respond['offers']
+                this.archive_count = this.respond['count_archive']
+
+                // закрытие подсказки
+                let menuBtn = $("#position_list")
+                $(document).click((e) => {
+                    if (!menuBtn.is(e.target)) {
+                        menuBtn.removeClass('show')
+                    }
+                })
+
+                // выбрать из url поиск
+                const params = new URLSearchParams(window.location.search)
+                if(params.has('search')){
+                    this.position = params.get('search')
+                    $('.x-mark-clear').css('display','block')
+                }
+
+                // инициализация динамических всплывающих подсказок
+                $('body').tooltip({
+                    selector: '[data-toggle="tooltip"]'
+                });
+            }
         },
         props: [
             'user',
@@ -428,12 +448,7 @@
             'respond',
         ],
         mounted() {
-            this.content = this.respond['offers']
-            this.archive_count = this.respond['count_archive']
-            // инициализация динамических всплывающих подсказок
-            $('body').tooltip({
-                selector: '[data-toggle="tooltip"]'
-            });
+            this.initializeData();
         },
     }
 </script>
@@ -472,7 +487,6 @@
             background-color: #fffbdb;
         }
     }
-
     .title-chat{
         font-size: 1rem;
         display: flex;
@@ -507,7 +521,6 @@
         justify-content: flex-end;
         align-items: center;
     }
-
     .top-search {
         width: 75%;
         background-color: #fff;
@@ -537,10 +550,11 @@
                     top: 1px;
                     right: 1px;
                     width: 45px;
-                    padding: 6px 15px 6px 15px;
                     cursor: pointer;
                     display: none;
                     margin: 0;
+                    height: 36px;
+                    padding: 6px 9px;
                     path{
                         fill: #ff4747;
                     }
@@ -590,6 +604,9 @@
     .new-vacancy{
         background-color: #e5f1fd;
         /*outline: 2px solid #c0ddfb;*/
+    }
+    .box-user{
+        padding: 0;
     }
 
 </style>

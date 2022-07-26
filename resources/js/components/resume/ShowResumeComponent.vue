@@ -20,12 +20,13 @@
 
         </div>
 
-
         <!-- buttons -->
         <div class="top-panel">
 
             <!-- Откликнуться -->
-            <button v-if="respond['owner_resume'] == null"
+            <button v-if="
+            respond['owner_resume'] == null && (user !== null && user.id !== respond['resume']['user_id']) ||
+            respond['owner_vacancy'] == null && user === null"
                     class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
             >
@@ -33,7 +34,7 @@
             </button>
 
             <!-- общение с -->
-            <button v-else
+            <button v-else-if="respond['owner_resume'] !== null"
                     class="btn btn-block btn-primary" type="button"
                     @click="goToDialog(respond['owner_resume'].offer, respond['in_table'])"
             >

@@ -32,6 +32,7 @@
         </div>
 
         <div class="bottom-search">
+
             <!-- vacancies -->
             <div class="left-site">
 
@@ -192,35 +193,6 @@
 
                 location.href = this.urlPathname()+query
             },
-            salaryView(salaryObj){
-                let salary_string = ''
-                let arr_field = this.respond.salary[salaryObj.radio_name]
-                $.each(arr_field, function(key, name) {
-                    salary_string += salaryObj.inputs[name]
-                    if( (key+1) < arr_field.length){
-                        salary_string += ' - '
-                    }
-                })
-                salary_string = salary_string == '' ? 0 : salary_string
-                return salary_string
-            },
-            addressView(vacancyObj){
-                let address_string = ''
-
-                if(vacancyObj.country !== null){
-                    address_string += vacancyObj.country.alias+'.'
-                }
-                if(vacancyObj.region !== null){
-                    address_string += ' ' + vacancyObj.region.alias+'.'
-                }
-                if(vacancyObj.city !== null){
-                    address_string += ' ' + vacancyObj.city.alias+'.'
-                }
-
-                address_string += ' ' + vacancyObj.rest_address+'.'
-
-                return address_string
-            },
             paginateReload(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
@@ -239,9 +211,7 @@
             'respond',
             'user',
         ],
-        mounted() {
-
-        },
+        mounted() {},
     }
 </script>
 

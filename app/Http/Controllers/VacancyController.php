@@ -10,6 +10,7 @@ use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Model\RespondResume;
 use App\Model\RespondVacancy;
 use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
@@ -18,6 +19,7 @@ use App\Repositories\VacancyRepository;
 use App\Services\LocalizationService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class VacancyController extends BaseController {
@@ -36,13 +38,18 @@ class VacancyController extends BaseController {
         $my_user = Auth::user();
         $ids_respond = [];
 
-        // 1
+        // 1 все не мои вакансии
         $vacancies = $this->repository->index($request, $this->count_pagination);
-        // 2 выбрать id вакансий на которые я уже откликнулся (отображение что откликнулся)
+        // 2 выбрать id вакансий на которые я откликнулся или мне предложили (отображение что откликнулся)
         $idVacancies = $vacancies->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondVacancy::where('user_resume_id',$my_user->id)
-                ->whereIn('vacancy_id',$idVacancies)->get()->pluck('vacancy_id');
+                ->whereIn('vacancy_id',$idVacancies)
+                ->get()->pluck('vacancy_id')->toArray();
+            $ids_respond2 = RespondResume::where('user_resume_id',$my_user->id)
+                ->whereIn('vacancy_id',$idVacancies)
+                ->get()->pluck('vacancy_id')->toArray();
+            $ids_respond = array_merge($ids_respond, $ids_respond2);
         }
 
         // 3 набор данных по геолокации

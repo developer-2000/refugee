@@ -16,6 +16,7 @@
 
         <!-- title company logo status -->
         <div class="box-title">
+
             <!-- title vacancy -->
             <h2 v-if="page !== 'show'" class="title-vacancy">
                 {{UpperCaseFirstCharacter(vacancy.position.title)}}
@@ -79,7 +80,6 @@
                     {{trans('vacancies','responses')}}
                 </a>
             </div>
-
 
             <div class="clear-float"></div>
 

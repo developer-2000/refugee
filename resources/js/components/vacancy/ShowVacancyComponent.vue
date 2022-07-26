@@ -24,14 +24,17 @@
         <div class="top-panel button-panel">
 
             <!-- Откликнуться -->
-            <button v-if="respond['owner_vacancy'] == null"
+            <button v-if="
+            respond['owner_vacancy'] == null && (user !== null && user.id !== respond['vacancy']['user_id']) ||
+            respond['owner_vacancy'] == null && user === null"
                     class="btn btn-block btn-outline-primary" type="button"
                     @click="scrollRespond()"
             >
                 {{trans('respond','respond')}}
             </button>
+
             <!-- общение с -->
-            <button v-else
+            <button v-else-if="respond['owner_vacancy'] !== null"
                     class="btn btn-block btn-primary" type="button"
                     @click="goToDialog(respond['owner_vacancy'].offer, respond['in_table'])"
             >
@@ -330,6 +333,8 @@
             this.initializationFunc
             $('html, body').animate({scrollTop: 0},500);
 
+            console.log(this.user)
+            console.log(this.respond)
         },
     }
 </script>

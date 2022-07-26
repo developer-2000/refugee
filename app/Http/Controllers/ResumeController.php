@@ -12,6 +12,7 @@ use App\Http\Requests\Resume\UpResumeStatusRequest;
 use App\Http\Requests\Resume\DuplicateResumeRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Model\RespondResume;
+use App\Model\RespondVacancy;
 use App\Model\UserHideResume;
 use App\Model\UserResume;
 use App\Model\UserSaveResume;
@@ -41,7 +42,14 @@ class ResumeController extends BaseController {
         $idResumes = $resumes->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondResume::where('user_vacancy_id',$my_user->id)
-                ->whereIn('resume_id',$idResumes)->get()->pluck('resume_id');
+                ->whereIn('resume_id',$idResumes)
+                ->get()->pluck('resume_id')->toArray();
+
+            $ids_respond2 = RespondVacancy::where('user_vacancy_id',$my_user->id)
+                ->whereIn('resume_id',$idResumes)
+                ->get()->pluck('resume_id')->toArray();
+
+            $ids_respond = array_merge($ids_respond, $ids_respond2);
         }
         // 3
         $respond = $this->repository->indexRespond($request);
