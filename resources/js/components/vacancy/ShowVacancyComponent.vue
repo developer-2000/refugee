@@ -333,8 +333,8 @@
             this.initializationFunc
             $('html, body').animate({scrollTop: 0},500);
 
-            console.log(this.user)
-            console.log(this.respond)
+            // console.log(this.user)
+            // console.log(this.respond)
         },
     }
 </script>

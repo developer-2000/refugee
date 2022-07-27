@@ -18,7 +18,7 @@
         <!-- body -->
         <div class="card-body">
             <div class="box-image">
-                <img alt="" class="img-fluid"
+                <img :alt="`аватар пользователя ${contact_list.full_name}`" class="img-fluid"
                      :src="`/${contact_list.avatar_url}`"
                 >
                 <div class="contacts-content">
