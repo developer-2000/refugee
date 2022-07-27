@@ -76,7 +76,7 @@ export default {
                 // страна или город
                 if(index === 0){
                     // возвращает по префексу обьект локации
-                    let obj = this.checkPrefixLocation(urlPrefixes[index])
+                    let obj = this.checkPrefixLocation( decodeURI(urlPrefixes[index]) )
                     if(obj){
                         if(this.checkWordInUrl("vacancy")){
                             return `Работа в ${obj.translate}`
@@ -100,6 +100,7 @@ export default {
 
             return "---"
         },
+
         getIndexPage(arrBackLink, prefix){
             let url = this.urlPathname()
             let langArr = []
@@ -125,6 +126,7 @@ export default {
 
             return arrBackLink
         },
+
         // возвращает по префексу обьект локации
         checkPrefixLocation(prefix, address = {}){
             let country = (this.respond['now_country'] !== undefined) ? this.respond['now_country'] :

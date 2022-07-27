@@ -110,7 +110,6 @@ class LocalizationService {
             $translateRegions = GeographyTranslate::select('regions')->firstWhere('id', 1);
             $locationRegions_o = GeographyDb::select('regions')->firstWhere('id', 1);
 
-
             // перебрать страны языка
             foreach ($translateRegions->regions[mb_strtoupper($prefix_lang)] as $prefix_country => $arrRegions){
                 $timeArr = [];
@@ -122,6 +121,9 @@ class LocalizationService {
 
                 // перебрать регионы страны
                 foreach ($arrRegions as $property_region => $value_region){
+                    // схожесть index country/region
+                    $property_region = ($property_region === "san-marino") ? $property_region."-reg" : $property_region;
+                    $property_region = ($property_region === "luxembourg") ? $property_region."-reg" : $property_region;
 
                     // 1 найдена или не найдена схожесть перевода с оригиналом (фиксирует ошибку)
                     $newArr = $this->searchOriginal($regionsCountry_o, $property_region);
@@ -188,6 +190,9 @@ class LocalizationService {
 
                         // перебрать города региона
                         foreach ($arrCities_t as $property_city_t => $value_city_t){
+                            // схожесть index region/city
+                            $property_city_t = ($property_city_t === "luxembourg") ? $property_city_t."-city" : $property_city_t;
+
                             // 1 найдена или не найдена схожесть перевода с оригиналом (фиксирует ошибку)
                             $city = $this->searchOriginal($propertyCities_o, $property_city_t);
                             $city['prefix'] = $prefix_country;

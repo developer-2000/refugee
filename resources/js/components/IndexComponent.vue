@@ -14,7 +14,6 @@
                     <b>Найти работника</b>
                     <img alt="ukrainian flag" src="/img/custom/ukrainian flag.jpg">
                 </a>
-
             </div>
 
             <h2 class="title_page">

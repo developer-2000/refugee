@@ -3,7 +3,9 @@ namespace App\Providers;
 
 use App\Repositories\OfferRepository;
 use App\Services\LanguageService;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,6 +15,12 @@ class DefaultValueProvider extends ServiceProvider {
 
     public function boot()
     {
+        // создать префикс языка системы из url
+        if (!Session::has('prefix_lang')) {
+            $prefix_lang = (new LanguageService())->createSystemLanguageFromUrl();
+            session(['prefix_lang' => $prefix_lang]);
+        }
+
         View::composer('*', function ($view) {
             // языковое меню и префикс lang для url
             $lang = (new LanguageService())->getLanguageArray();

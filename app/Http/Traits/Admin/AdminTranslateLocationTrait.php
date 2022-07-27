@@ -135,10 +135,13 @@ trait AdminTranslateLocationTrait
 
         // переберает регионы или города
         foreach ($arrElements_o as $index => $value){
-
             // в случае regions
             if(is_array($value)){
                 $property = $this->nameToAliasConversion($value["name"]);
+                // схожесть index country/region
+                $property = ($property === "san-marino") ? $property."-reg" : $property;
+                $property = ($property === "luxembourg") ? $property."-reg" : $property;
+
                 // нашел свойство региона
                 if($property == $search_property){
                     $newArr['original_index'] = $property;
@@ -148,6 +151,8 @@ trait AdminTranslateLocationTrait
             }
             // в случае cities
             else{
+                // схожесть index region/city
+                $value = ($value === "luxembourg") ? $value."-city" : $value;
                 // нашел свойство
                 if($value == $search_property){
                     $newArr['original_index'] = $value;

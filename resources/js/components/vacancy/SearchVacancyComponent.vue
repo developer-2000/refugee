@@ -211,7 +211,10 @@
             'respond',
             'user',
         ],
-        mounted() {},
+        mounted() {
+            console.log(this.respond)
+
+        },
     }
 </script>
 

@@ -9,7 +9,7 @@
                 <!-- Logo -->
                 <li class="nav-item d-sm-inline-block">
                     <a :href="`${lang.prefix_lang}`" class="brand-link">
-                        <img alt="" src="/img/custom/logo-site.gif">
+                        <img alt="site logo" src="/img/custom/logo-site.gif">
                         <div class="box-logo-title">
                             <div class="brand-text font-weight-light">
                                 {{this.logo_text.uk}}
@@ -28,10 +28,10 @@
                 </li>
                 <!-- Menu -->
                 <li class="nav-item d-none d-sm-inline-block button-navbar">
-                    <a href="index3.html" class="nav-link">Home</a>
+<!--                    <a href="#" class="nav-link">Home</a>-->
                 </li>
                 <li class="nav-item d-none d-sm-inline-block button-navbar">
-                    <a href="#" class="nav-link">Contact</a>
+<!--                    <a href="#" class="nav-link">Contact</a>-->
                 </li>
 
             </ul>

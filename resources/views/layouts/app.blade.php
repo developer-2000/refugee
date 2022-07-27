@@ -32,7 +32,7 @@
             <aside class="main-sidebar sidebar-white elevation-1">
                 <!-- Logo -->
                 <a href="{{$lang['prefix_lang']}}" class="brand-link">
-                    <img alt="" src="/img/custom/logo-site.gif">
+                    <img alt="site logo" src="/img/custom/logo-site.gif">
                     <div class="box-logo-title">
                         <div class="brand-text font-weight-light">
                             {{ env('APP_NAME_UK') }}

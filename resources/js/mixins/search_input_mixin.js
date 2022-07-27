@@ -159,10 +159,11 @@ export default {
             $(".two-select").css('display', "none")
             // show select region
             this._selectRegion.css('display', "block")
-            // show select city
-            this._selectCity.css('display', "block")
 
             if(this.respond.now_city !== null){
+                // show select city
+                this._selectCity.css('display', "block")
+
                 setTimeout(() => {
                     $('#city-title-panel').select2('open')
                 }, 100);

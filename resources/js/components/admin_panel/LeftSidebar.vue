@@ -3,7 +3,7 @@
         <aside id="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/admin-panel" class="brand-link elevation-4 box-logo">
-                <img alt="logo" src="/img/custom/logo-site.gif">
+                <img alt="site logo" src="/img/custom/logo-site.gif">
                 <div class="box-logo-title">
                     <div class="brand-text font-weight-light">
                         {{this.logo_text.uk}}

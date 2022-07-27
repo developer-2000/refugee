@@ -2,7 +2,6 @@
 namespace App\Http\Traits;
 
 use App\Http\Requests\Vacancy\SearchPositionRequest;
-use App\Model\GeographyDb;
 use App\Model\GeographyLocal;
 use App\Model\Position;
 use App\Services\LocalizationService;
@@ -17,6 +16,23 @@ trait GeneralVacancyResumeTraite {
         // в базе нет городов без регионов
         $all_cities = (new LocalizationService())->getCities(App::getLocale());
         $respond = $this->getSettingsDocumentsAndCountries();
+
+//        foreach ($respond['obj_countries'] as $key => $country){
+//            if($country['original_index'] == 'luxembourg'){
+//                dump($country);
+//                foreach ($all_regions as $key2 => $region) {
+//                    if (isset($region["original_index"]) && $region["original_index"] == 'luxembourg-reg') {
+//                        dump($region);
+//                        foreach ($all_cities as $key3 => $city){
+//                            if($city["code_region"] == $region["code_region"]){
+//                                dump($city);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        dd(1);
 
         // 1 обьекты текущей страны и регионов страны
         if(!is_null($request->country)){

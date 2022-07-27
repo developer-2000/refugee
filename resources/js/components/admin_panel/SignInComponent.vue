@@ -6,7 +6,7 @@
             <!-- Logo -->
             <div class="box-logo">
                 <a href="/ru" class="brand-link">
-                    <img alt="logo" src="/img/custom/logo-site.gif">
+                    <img alt="site logo" src="/img/custom/logo-site.gif">
                     <div class="box-logo-title">
                         <div class="brand-text font-weight-light">
                             {{this.logo_text.uk}}
@@ -16,15 +16,6 @@
                         </div>
                     </div>
                 </a>
-<!--                <img alt="logo" src="/img/custom/logo-site.gif">-->
-<!--                <div class="box-logo-title">-->
-<!--                    <div class="brand-text font-weight-light">-->
-<!--                        {{this.logo_text.uk}}-->
-<!--                    </div>-->
-<!--                    <div class="brand-text font-weight-light">-->
-<!--                        {{this.logo_text.en}}-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
 
 
