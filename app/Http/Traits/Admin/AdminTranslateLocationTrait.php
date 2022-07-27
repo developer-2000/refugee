@@ -17,6 +17,7 @@ trait AdminTranslateLocationTrait
         $prefix = str_replace("’", "", $prefix);
         $prefix = str_replace(",", "", $prefix);
         $prefix = str_replace(".", "", $prefix);
+        $prefix = str_replace("/", "", $prefix);
 
         return $prefix;
     }

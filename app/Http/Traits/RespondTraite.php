@@ -58,9 +58,9 @@ trait RespondTraite {
      * @return string
      */
     private function makeFullUrlForDocument($collection, $prefix){
-        $address_first_prefix = !is_null($collection->country) ? $collection->country->local['original_index'] : null;
+        $address_first_prefix = !is_null($collection->country) ? $collection->country->local['original_index'] : "";
         $address_next_prefix = !is_null($collection->city) ? $collection->city->local['original_index'] :
-            !is_null($collection->region) ? $collection->region->local['original_index'] : null;
+            (!is_null($collection->region) ? $collection->region->local['original_index'] : "");
 
         return $prefix."/".$address_first_prefix."/".$address_next_prefix."/".$collection->alias;
     }

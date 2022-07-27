@@ -395,7 +395,7 @@
                 <li v-for="(city, key) in respond.cities_country" :key="key"
                     :class="{'left-city': (key+1)%2 !== 0 }"
                 >
-                    <a :href="`${urlNotQuery()}/${city.original_index}`" class="city back-url-link">
+                    <a :href="urlNotQuery()+'/'+city.original_index" class="city back-url-link">
                         <b>{{city.translate}}</b>
                     </a>
                 </li>

@@ -36,7 +36,7 @@
                         <h2 class="font-weight-bold title-company">{{vacancy.company.title}}</h2>
                         <img class="img-logo"
                              :src="`/${vacancy.company.image.url}`"
-                             :alt="`company ${vacancy.company.title}`"
+                             :alt="`логотип компании ${vacancy.company.title}`"
                         >
                     </div>
                 </a>
@@ -45,7 +45,7 @@
                     <h2 class="font-weight-bold title-company"> {{vacancy.company.title}} </h2>
                     <img class="img-logo"
                          :src="`/${vacancy.company.image.url}`"
-                         :alt="`company ${vacancy.company.title}`"
+                         :alt="`логотип компании по умолчанию ${vacancy.company.title}`"
                     >
                 </div>
             </template>
@@ -54,7 +54,7 @@
                 <h2 class="font-weight-bold title-company">{{vacancy.company.title}}</h2>
                 <img class="img-logo"
                      :src="`/${vacancy.company.image.url}`"
-                     :alt="`company ${vacancy.company.title}`"
+                     :alt="`логотип компании ${vacancy.company.title}`"
                 >
             </div>
 

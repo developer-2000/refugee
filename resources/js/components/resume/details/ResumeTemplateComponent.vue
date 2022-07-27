@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <!-- title company logo status -->
+        <!-- title avatar status -->
         <div class="box-title">
             <!-- title resume -->
             <h2 v-if="page !== 'show'" class="title-vacancy">
@@ -28,12 +28,12 @@
                 <!-- если file avatar не загружен -->
                 <img v-if="resume.contact.avatar === null" class="img-logo"
                      :src="`/${resume.contact.default_avatar_url}`"
-                     :alt="`${resume.contact.name} ${resume.contact.surname}`"
+                     :alt="`аватар по умолчанию ${resume.contact.name} ${resume.contact.surname}`"
                 >
                 <!-- если загружен -->
                 <img v-else class="img-logo"
                      :src="`/${resume.contact.avatar.url}`"
-                     :alt="`${resume.contact.name} ${resume.contact.surname}`"
+                     :alt="`аватар пользователя ${resume.contact.name} ${resume.contact.surname}`"
                 >
             </template>
 
