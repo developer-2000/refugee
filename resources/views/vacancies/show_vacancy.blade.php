@@ -1,4 +1,5 @@
-@extends('layouts.show-document')
+@extends('layouts.app')
+{{--@extends('layouts.show-document')--}}
 
 @section('content')
 <div class="container">

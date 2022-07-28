@@ -35,16 +35,20 @@ class LanguageService
      */
     public function createSystemLanguageFromUrl() {
         $prefix_lang = '/';
-        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $url = explode("/", $url);
-        $url = array_filter($url, function($value) { return $value !== ''; });
-        $url = array_values( $url );
-        if(isset($url[0])){
-            $prefix_lang = in_array($url[0], config("app.all_lang")) ?
-                "/$url[0]" :
-                '/';
-        }
+//        if (isset($_SERVER['REQUEST_URI'])){
+//            $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $url = url()->current();
+            $url = explode("/", $url);
+            $url = array_filter($url, function($value) { return $value !== ''; });
+            $url = array_values( $url );
+            if(isset($url[0])){
+                $prefix_lang = in_array($url[0], config("app.all_lang")) ?
+                    "/$url[0]" :
+                    '/';
+            }
+//        }
 
         return $prefix_lang;
     }
+
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Http\Traits\MetaTrait;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
 use App\Model\UserSaveVacancy;
@@ -17,13 +18,14 @@ use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use App\Services\LocalizationService;
+use App\Services\MetaService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
 class VacancyController extends BaseController {
-    use GeneralVacancyResumeTraite;
+    use GeneralVacancyResumeTraite, MetaTrait;
 
     protected $repository;
     protected $count_pagination = 0;
@@ -57,6 +59,8 @@ class VacancyController extends BaseController {
         $respond['vacancies'] = $vacancies;
         $respond['ids_respond'] = $ids_respond;
 
+        $this->setMetaAllVacanciesPage($respond);
+
         return view('search_vacancies', compact('respond'));
     }
 
@@ -73,6 +77,8 @@ class VacancyController extends BaseController {
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
         $arrData['respond']['settings'] = $settings;
+
+        $this->setMetaShowVacancyPage($arrData["respond"]["vacancy"]);
 
         return view('vacancies.show_vacancy', $arrData);
     }

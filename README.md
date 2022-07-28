@@ -1,4 +1,7 @@
-#### localisation - формирование url функционирование переключения на строне Front
+#### пакет для мета тегов сайта
+https://github.com/butschster/LaravelMetaTags
+
+#### localisation - формирование url функционирование переключения на стороне Front
 
  * документация функционала в documents/localization url смена из фронта.doc
 

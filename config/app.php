@@ -167,6 +167,8 @@ return [
         \App\Providers\LocalizationProvider::class,
         // Debug
         Barryvdh\Debugbar\ServiceProvider::class,
+        // Meta butschster/meta-tags
+        App\Providers\MetaTagsServiceProvider::class,
 
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
 

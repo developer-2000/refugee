@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Resume\EditResumeRequest;
@@ -11,6 +10,7 @@ use App\Http\Requests\Resume\UpdateResumeRequest;
 use App\Http\Requests\Resume\UpResumeStatusRequest;
 use App\Http\Requests\Resume\DuplicateResumeRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
+use App\Http\Traits\MetaTrait;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
 use App\Model\UserHideResume;
@@ -20,7 +20,7 @@ use App\Repositories\ResumeRepository;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends BaseController {
-    use GeneralVacancyResumeTraite;
+    use GeneralVacancyResumeTraite, MetaTrait;
 
     protected $repository;
     protected $count_pagination;
@@ -56,6 +56,8 @@ class ResumeController extends BaseController {
         $respond['resumes'] = $resumes;
         $respond['ids_respond'] = $ids_respond;
 
+        $this->setMetaAllResumesPage($respond);
+
         return view('search_resumes', compact('respond'));
     }
 
@@ -71,12 +73,13 @@ class ResumeController extends BaseController {
      * @param  ShowResumeRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(ShowResumeRequest $request)
-    {
+    public function show(ShowResumeRequest $request) {
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
         $arrData['respond']['settings'] = $settings;
+
+        $this->setMetaShowResumePage($arrData['respond']["resume"]->toArray());
 
         return view('resumes.show_resume', $arrData);
     }

@@ -5,8 +5,7 @@ use App\Http\Requests\Company\CheckTransliterationRequest;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
-use App\Model\GeographyDb;
-use App\Model\GeographyTranslate;
+use App\Http\Traits\MetaTrait;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
@@ -17,7 +16,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends BaseController {
-    use GeographyForShowInterfaceTraite;
+    use GeographyForShowInterfaceTraite, MetaTrait;
 
     protected $repository;
 
@@ -116,6 +115,8 @@ class CompanyController extends BaseController {
             $vacancies[$key] = $vacancy->except(['city', 'region', 'country']);
         }
         $company['vacancies'] = $vacancies;
+
+        $this->setMetaShowCompanyPage($company->toArray());
 
         return view('company', compact('company','settings', 'contact_list'));
     }
