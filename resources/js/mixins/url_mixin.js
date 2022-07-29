@@ -41,5 +41,18 @@ export default {
             return urlPrefixes
         },
 
+        // очистка префикса языка для url
+        clearPrefixLanguage(){
+            let lang = this.lang.lang_local
+            if(lang === "en"){
+                lang = "/"
+            }
+            else{
+                lang = "/"+lang
+            }
+
+            return lang
+        }
+
     },
 }

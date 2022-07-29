@@ -1,3 +1,10 @@
+#### микроразметка примеры
+https://freehost.com.ua/ukr/faq/articles/chto-takoe-mikrorazmetka-ee-vidi-funktsii-primeri-realizatsii/?gclid=Cj0KCQjwio6XBhCMARIsAC0u9aGp3uF2iLXSQdF1s-z8ojsoCG30eLT4G0Yk5AplqZZ4FqIWQEE5lmIaAifTEALw_wcB
+
+https://d-element.ru/about/blog/chto-takoe-schema-org/#wpheader
+
+
+
 #### пакет для sitemap
 https://github.com/spatie/laravel-sitemap
 

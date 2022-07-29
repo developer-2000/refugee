@@ -102,7 +102,7 @@ trait MetaTrait
             ]);
         }
         // 2 резюме страны
-        elseif ( !is_null($boolArr["now_country"]) && (is_null($boolArr["now_region"]) || is_null($boolArr["now_city"])) ){
+        elseif ( !is_null($boolArr["now_country"]) && (is_null($boolArr["now_region"]) && is_null($boolArr["now_city"])) ){
             $this->metaTags(new MetaService(), [
                 "title" => __('meta_tags.resumes_country.title', ["country"=>$boolArr["now_country"]["translate"]]).config('app.name', ""),
                 "description" => __('meta_tags.resumes_country.description', [ "country"=>$boolArr["now_country"]["translate"], "site"=>config('app.name', "") ]),

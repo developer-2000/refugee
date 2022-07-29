@@ -33,7 +33,7 @@ class VacancyController extends BaseController {
     public function __construct() {
         parent::__construct();
         $this->repository = new VacancyRepository();
-        $this->count_pagination = 5;
+        $this->count_pagination = 20;
     }
 
     public function index(IndexVacancyRequest $request, $country = null, $city = null) {

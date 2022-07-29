@@ -29,12 +29,12 @@ return [
     ],
     "all_resumes" => [
         "title" => 'Resume database: Search for employees, candidates in Europe - ',
-        "description" => ' - The largest database of resumes and recruitment for work in Europe. Search for candidates by query, categories and additional parameters will help you find a resume.',
+        "description" => ' - Large database of resumes and recruitment for work in Europe. Quick search for candidates by request, categories and additional parameters.',
         "keywords" => 'resume in europe, work in europe, resume abroad, resume search, looking for an employee, workers in europe, job offers, work ua es com, work ua es com',
     ],
     "resumes_country" => [
         "title" => 'Search for personnel, candidates, resumes in :country - ',
-        "description" => 'Find staff, candidates, resumes in :country on :site. Search candidates by query, categories and additional parameters will help you find resumes in :country',
+        "description" => 'Find staff, candidates, resumes in :country on :site. Quick search for candidates\' resumes by request, categories and additional parameters.',
         "keywords" => 'resume in europe, job in :country, resume abroad, resume search, looking for an employee, workers in europe, job offers, work ua es com, work ua es com',
     ],
     "resumes_city" => [
@@ -52,6 +52,5 @@ return [
         "description" => 'Open positions and contacts for :company in Europe. Sending a resume and correspondence with the employer responding to vacancies - ',
         "keywords" => 'company in europe :company, employer in europe, company abroad, employee search, looking for a company, employers in europe, job offers, work ua es com, work ua es com',
     ],
-
 
 ];

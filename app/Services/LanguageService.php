@@ -51,4 +51,22 @@ class LanguageService
         return $prefix_lang;
     }
 
+
+    /**
+     * очистка префикса языка для url
+     * @return \Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed|string
+     */
+    public function clearPrefixLanguage()
+    {
+        $lang = session('prefix_lang');
+        if ($lang === "/uk/") {
+            $lang = "/uk";
+        } elseif ($lang === "/ru/") {
+            $lang = "/ru";
+        }
+
+        return $lang;
+    }
+
+
 }

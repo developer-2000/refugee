@@ -48,61 +48,61 @@
         <div class="wrapper">
 
             <!-- left menu -->
-            <aside class="main-sidebar sidebar-white elevation-1">
-                <!-- Logo -->
-                <a href="{{$lang['prefix_lang']}}" class="brand-link">
-                    <img alt="site logo" src="/img/custom/logo-site.gif">
-                    <div class="box-logo-title">
-                        <div class="brand-text font-weight-light">
-                            {{ env('APP_NAME_UK') }}
-                        </div>
-                        <div class="brand-text font-weight-light">
-                            {{ env('APP_NAME_EN') }}
-                        </div>
-                    </div>
-                </a>
+{{--            <aside class="main-sidebar sidebar-white elevation-1">--}}
+{{--                <!-- Logo -->--}}
+{{--                <a href="{{(new \App\Services\LanguageService())->clearPrefixLanguage()}}" class="brand-link" rel="nofollow">--}}
+{{--                    <img alt="site logo" src="/img/custom/logo-site.gif">--}}
+{{--                    <div class="box-logo-title">--}}
+{{--                        <div class="brand-text font-weight-light">--}}
+{{--                            {{ env('APP_NAME_UK') }}--}}
+{{--                        </div>--}}
+{{--                        <div class="brand-text font-weight-light">--}}
+{{--                            {{ env('APP_NAME_EN') }}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </a>--}}
 
-                <!-- Menu -->
-                <div class="sidebar">
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                            <li class="nav-item menu-open">
-                                <a href="#" class="nav-link active">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Starter Pages
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Active Page</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Inactive Page</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Simple Link
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- / Menu -->
-            </aside>
+{{--                <!-- Menu -->--}}
+{{--                <div class="sidebar">--}}
+{{--                    <nav class="mt-2">--}}
+{{--                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">--}}
+{{--                            <li class="nav-item menu-open">--}}
+{{--                                <a href="#" class="nav-link active">--}}
+{{--                                    <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                                    <p>--}}
+{{--                                        Starter Pages--}}
+{{--                                        <i class="right fas fa-angle-left"></i>--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                                <ul class="nav nav-treeview">--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link active">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Active Page</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Inactive Page</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link">--}}
+{{--                                    <i class="nav-icon fas fa-th"></i>--}}
+{{--                                    <p>--}}
+{{--                                        Simple Link--}}
+{{--                                        <span class="right badge badge-danger">New</span>--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </nav>--}}
+{{--                </div>--}}
+{{--                <!-- / Menu -->--}}
+{{--            </aside>--}}
             <!-- / left menu -->
 
             <top-menu-component
@@ -135,9 +135,13 @@
                 @yield('content')
             </div>
             <!-- / Content body -->
-
             <footer class="main-footer">
-                <strong>Copyright &copy; 2022 <a href="{{$lang['prefix_lang']}}">{{ env('APP_NAME_EN') }}</a></strong>
+                <strong>
+                    Copyright &copy; 2022
+                    <a href="{{(new \App\Services\LanguageService())->clearPrefixLanguage()}}" rel="nofollow">
+                        {{ env('APP_NAME_EN') }}
+                    </a>
+                </strong>
             </footer>
         </div>
     </div>

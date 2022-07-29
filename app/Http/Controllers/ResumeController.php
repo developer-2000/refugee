@@ -28,7 +28,7 @@ class ResumeController extends BaseController {
     public function __construct() {
         parent::__construct();
         $this->repository = new ResumeRepository();
-        $this->count_pagination = 5;
+        $this->count_pagination = 20;
     }
 
     public function index(IndexResumeRequest $request, $country = null, $city = null)
@@ -101,7 +101,6 @@ class ResumeController extends BaseController {
      */
     public function store(StoreResumeRequest $request)
     {
-//        return $this->getResponse($request->validated());
         $resume = $this->repository->storeResume($request);
         return $this->getResponse($resume);
     }
