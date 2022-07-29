@@ -4,21 +4,45 @@
 
     {!! \Butschster\Head\Facades\Meta::toHtml() !!}
 
-    {{-- Fonts --}}
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/admin_lte/fontawesome-free/css/all.min.css')}}">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    {{-- css --}}
-    <link rel="stylesheet" href="{{asset('css/admin_lte/adminlte.min.css')}}">
-
     @section('style')
     @show
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 </head>
 <body class="skin-blue sidebar-custom sidebar-collapse">
+<script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
+<script src="{{asset('js/admin_lte/adminlte.min.js')}}" defer></script>
+
+<script>
+    var arr1 = [
+        "{{asset('css/admin_lte/adminlte.min.css')}}",
+    ];
+    var arr2 = [
+        "{{ asset('css/app.css') }}",
+        "{{ asset('css/custom.css') }}",
+    ];
+
+    arr1.forEach(function(name, i, arr) {
+        var link = document.createElement("link");
+        // для IE8
+        var head = document.head || document.getElementsByTagName('head')[0];
+        link.href = name;
+        link.rel = "stylesheet";
+        head.prepend(link);
+    });
+    arr2.forEach(function(name, i, arr) {
+        var link = document.createElement("link");
+        // для IE8
+        var head = document.head || document.getElementsByTagName('head')[0];
+        link.href = name;
+        link.rel = "stylesheet";
+        head.append(link);
+    });
+    $(document).ready(function(){
+        // setTimeout(function(){
+            $('body').css('opacity','1');
+        // }, 400);
+    });
+</script>
 
     <div id="app">
         <div class="wrapper">
@@ -118,18 +142,9 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
-    <script src="{{asset('js/admin_lte/adminlte.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-
-
-
+<script src="{{ asset('js/app.js') }}" defer></script>
 @section('scripts')
     <script>
-        jQuery(document).ready(function(){
-        });
-
         (function () {
             window.Laravel = {
                 csrfToken: '{{ csrf_token() }}'

@@ -61,6 +61,7 @@ class OfferController extends BaseController {
         $settings['contact_information'] = config('site.contacts.contact_information');
         $offer = $this->repository->show($offer->id);
 
+
         return view('offer.show_offer', [
             'respond' => [
                 'table'=>'offer',

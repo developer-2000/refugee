@@ -1,3 +1,7 @@
+#### пакет для sitemap
+https://github.com/spatie/laravel-sitemap
+
+
 #### пакет для мета тегов сайта
 https://github.com/butschster/LaravelMetaTags
 

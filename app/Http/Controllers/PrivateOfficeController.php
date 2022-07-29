@@ -10,6 +10,8 @@ class PrivateOfficeController extends BaseController
         $company = UserCompany::where('user_id', Auth::user()->id)
             ->with('image')->first();
 
+//        dd(app()->getLocale());
+
         return view('private_office', compact('company'));
     }
 }

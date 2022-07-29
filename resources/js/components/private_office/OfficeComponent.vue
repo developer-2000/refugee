@@ -113,13 +113,17 @@
             'lang',   // масив названий и url языка
             'company',
         ],
-        mounted() { },
+        mounted() {
+        },
     }
 </script>
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .title_page{
+        padding: 1.25rem 0 0;
+    }
     .box-settings{
         li {
             display: block;

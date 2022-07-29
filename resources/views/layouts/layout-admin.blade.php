@@ -11,34 +11,45 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <link href="{{asset('css/admin_lte/adminlte.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
     @section('style')
     @show
 
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
-<style type="text/css">
-    body { opacity: 0; }
-</style>
-
-<!-- jQuery -->
 <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
-<script src="{{asset('js/admin_lte/adminlte.min.js')}}"  async></script>
-<script src="{{ asset('js/app.js') }}" defer async></script>
-
+<script src="{{asset('js/admin_lte/adminlte.min.js')}}" defer></script>
 <script>
+    var arr1 = [
+        "{{asset('css/admin_lte/adminlte.min.css')}}",
+    ];
+    var arr2 = [
+        "{{ asset('css/app.css') }}",
+        "{{ asset('css/admin.css') }}",
+        "https://use.fontawesome.com/releases/v5.0.13/css/all.css",
+    ];
 
+    arr1.forEach(function(name, i, arr) {
+        var link = document.createElement("link");
+        // для IE8
+        var head = document.head || document.getElementsByTagName('head')[0];
+        link.href = name;
+        link.rel = "stylesheet";
+        head.prepend(link);
+    });
+    arr2.forEach(function(name, i, arr) {
+        var link = document.createElement("link");
+        // для IE8
+        var head = document.head || document.getElementsByTagName('head')[0];
+        link.href = name;
+        link.rel = "stylesheet";
+        head.append(link);
+    });
     $(document).ready(function(){
         setTimeout(function(){
             $('body').css('opacity','1');
         }, 200);
     });
-
 </script>
-
 
 <!-- Site wrapper -->
 <div id="app" class="wrapper">
@@ -62,6 +73,7 @@
     </footer>
 </div>
 
+<script src="{{ asset('js/app.js') }}" defer></script>
 {{-- JS --}}
 @section('scripts')
     <script>

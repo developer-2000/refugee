@@ -6,6 +6,9 @@ html, body {
     min-height: 100%;
     margin: 0;
 }
+body {
+    opacity: 0;
+}
 dl, ol, ul {
     margin: 0px;
     margin: 0px;

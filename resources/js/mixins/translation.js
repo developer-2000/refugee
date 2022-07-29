@@ -10,11 +10,11 @@ export default {
     methods: {
         trans: function (path, key) {
             // если нет этого языка файла перевода - покажи en строку
-            if (!lang.messages[((this.lang.lang_local+"/" + '.') + path)]) {
+            if (!lang.messages[((this.lang.lang_local + '.') + path)]) {
                 return lang.messages[('en.' + path)][key];
             }
 
-            return lang.messages[((this.lang.lang_local+"/" + '.') + path)][key];
+            return lang.messages[((this.lang.lang_local + '.') + path)][key];
         }
     },
 

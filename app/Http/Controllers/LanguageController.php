@@ -24,7 +24,12 @@ class LanguageController extends Controller {
             // префикс из URL не являетса языком - добавить к префиксу
             // request - http://refugee/uk/private-office/vacancy/my-vacancies
             elseif(isset($arrPath[3]) && !in_array($arrPath[3], config("app.all_lang"))){
-                $arrPath[3] = "$name/".$arrPath[3];
+                if($arrPath[3] !== ""){
+                    $arrPath[3] = "$name/".$arrPath[3];
+                }
+                else{
+                    $arrPath[3] = "$name";
+                }
             }
             // префикс не существует (в случае отсутствия / в конце) -
             elseif( !isset($arrPath[3]) ){
@@ -40,6 +45,7 @@ class LanguageController extends Controller {
         }
 
         $last_page = implode("/", $arrPath);
-        return redirect($last_page)->send();
+
+        return redirect($last_page);
     }
 }
