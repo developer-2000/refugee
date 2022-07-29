@@ -43,7 +43,7 @@ class LanguageService
             $url = array_values( $url );
             if(isset($url[0])){
                 $prefix_lang = in_array($url[0], config("app.all_lang")) ?
-                    "/$url[0]" :
+                    "/$url[0]/" :
                     '/';
             }
 //        }

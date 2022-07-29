@@ -40,10 +40,10 @@ class MetaService
             "href" => $boneUrl["scheme"]."://".$boneUrl["host"].$path,
             "hreflang" => isset($elementDifference[0]) ? $elementDifference[0] : "en",
         ];
-        $arrTranslate[] = [
-            "href" => url()->current(),
-            "hreflang" => "x-default",
-        ];
+//        $arrTranslate[] = [
+//            "href" => url()->current(),
+//            "hreflang" => "x-default",
+//        ];
 
         return $arrTranslate;
     }

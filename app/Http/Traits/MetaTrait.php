@@ -12,7 +12,7 @@ trait MetaTrait
      */
     private function setMetaIndexPage(){
         $this->metaTags(new MetaService(), [
-            "title" => config('app.name', "").__('meta_tags.index_page.title'),
+            "title" => __('meta_tags.index_page.title').config('app.name', ""),
             "description" => config('app.name', "").__('meta_tags.index_page.description'),
             "keywords" => __('meta_tags.index_page.keywords'),
             "canonical" => url()->current(),
@@ -34,7 +34,7 @@ trait MetaTrait
             ]);
         }
         // 2 вакансии страны
-        elseif ( !is_null($boolArr["now_country"]) && (is_null($boolArr["now_region"]) || is_null($boolArr["now_city"])) ){
+        elseif ( !is_null($boolArr["now_country"]) && (is_null($boolArr["now_region"]) && is_null($boolArr["now_city"])) ){
             $this->metaTags(new MetaService(), [
                 "title" => __('meta_tags.vacancies_country.title', ['name' => $boolArr["now_country"]["translate"]])." - ".config('app.name', ""),
                 "description" =>__('meta_tags.vacancies_country.description', ['name' => $boolArr["now_country"]["translate"]]).config('app.name', ""),
@@ -47,7 +47,10 @@ trait MetaTrait
             $city = !is_null($boolArr["now_city"]) ? $boolArr["now_city"]["translate"] : $boolArr["now_region"]["translate"];
 
             $this->metaTags(new MetaService(), [
-                "title" => __('meta_tags.vacancies_city.title', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"] ]).config('app.name', ""),
+                "title" => __('meta_tags.vacancies_city.title', [
+                    'city' => $city,
+                        'country' => $boolArr["now_country"]["translate"]
+                    ]).config('app.name', ""),
                 "description" =>  __('meta_tags.vacancies_city.description', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"], ]).config('app.name', ""),
                 "keywords" => __('meta_tags.vacancies_city.keywords', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"], ]),
                 "canonical" => url()->current(),
@@ -75,7 +78,9 @@ trait MetaTrait
         $address = isset($vacancy["address"]["city"]) ? $vacancy["address"]["city"]["translate"] : $vacancy["address"]["region"]["translate"];
 
         $this->metaTags(new MetaService(), [
-            "title" => __('meta_tags.show_vacancy.title', [ 'title' => $vacancy["position"]["title"], 'salary' => $salary, 'company' => $vacancy["company"]["title"], 'address' => $address]).config('app.name', ""),
+            "title" => __('meta_tags.show_vacancy.title', [
+                'title' => $vacancy["position"]["title"], 'salary' => $salary
+                ]).config('app.name', ""),
             "description" => __('meta_tags.show_vacancy.description', [ 'company' => $vacancy["company"]["title"], 'title' => $vacancy["position"]["title"], 'salary' => $salary, 'address' => $address,]).config('app.name', ""),
             "keywords" => __('meta_tags.show_vacancy.keywords', [ 'address' => $address]),
             "canonical" => url()->current(),
@@ -149,6 +154,7 @@ trait MetaTrait
      * формирует мета теги страницы
      * @param  MetaService  $meta
      * @param $data
+     * @param  null  $name_page
      */
     private function metaTags(MetaService $meta, $data){
         Meta::setTitle($data["title"])
