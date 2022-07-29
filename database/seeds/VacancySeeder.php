@@ -16,9 +16,14 @@ class VacancySeeder extends Seeder {
     public function run(Faker $faker)
     {
 
-        $users = \App\Model\User::get();
+        $users = \App\Model\User::with('permission')->get();
 
         foreach ($users as $key => $obj) {
+
+            // заполнить только обычным юзерам
+            if($obj->permission->count()){
+                continue;
+            }
 
             for ($i = 0; $i < 5; $i++) {
 

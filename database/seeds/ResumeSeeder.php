@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
+use App\Model\User;
 use Illuminate\Database\Seeder;
 use App\Model\UserResume;
 use App\Model\Position;
@@ -18,9 +19,14 @@ class ResumeSeeder extends Seeder {
      */
     public function run(Faker $faker)
     {
-        $users = \App\Model\User::get();
+        $users = User::with('permission')->get();
 
         foreach ($users as $key => $obj) {
+
+            // заполнить только обычным юзерам
+            if($obj->permission->count()){
+                continue;
+            }
 
             for($i = 0; $i<5; $i++){
 

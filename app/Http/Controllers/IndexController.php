@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\MetaTrait;
+use App\Model\User;
 use App\Services\LocalizationService;
 use App\Services\MetaService;
 use Illuminate\Http\Request;
@@ -34,15 +35,14 @@ class IndexController extends Controller {
         return view('index', compact('transition_url_page','respond'));
     }
 
-    private function test() {
-
-
-//        (new \App\Services\MakeLocationDbServices());
-
-//        $locationCities = GeographyTranslate::select('cities')->firstWhere('id', 1);
-//        $allCities = (new LocalizationService())->getCities('ru', $locationCities);
+//    private function test() {
 //
-//        dd($allCities);
-    }
+////        $users = User::with('permission')->get();
+////
+////        foreach ($users as $key => $user){
+////            dump($user->toArray());
+////        }
+//
+//    }
 
 }
