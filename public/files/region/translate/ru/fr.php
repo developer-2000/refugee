@@ -1,10 +1,10 @@
-<?php
+<?php 
 
   return [
  'pays-de-la-loire'=>'Плати Луары',
  'corsica'=>'Корсика',
  'brittany'=>'Бретань',
- 'burgundy'=>'бордовый',
+ 'burgundy'=>'Бургундия',
  'aquitaine'=>'Аквитания',
  'lower-normandy'=>'Нижняя Нормандия',
  'alsace'=>'Эльзас',
@@ -22,5 +22,5 @@
  'champagne-ardenne'=>'Шампанское-Арденны',
  'île-de-france'=>'Иль-де-Франс',
  'centre'=>'Центр',
- 'provence-alpes-côte-d\'azur'=>'Прованс-Альпы-Лазурный Берег',
+ 'provence-alpes-côte-dazur'=>'Прованс-Альпы-Лазурный Берег',
  ];

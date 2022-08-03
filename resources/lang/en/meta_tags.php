@@ -38,7 +38,7 @@ return [
         "keywords" => 'resume in europe, job in :country, resume abroad, resume search, looking for an employee, workers in europe, job offers, work ua es com, work ua es com',
     ],
     "resumes_city" => [
-        "title" => 'Search for staff, employees, resumes in :city - ',
+        "title" => 'Search for staff, employees, resumes in :city, :country - ',
         "description" => 'Actual summaries in :city, :country. Search resumes by request, categories. Find resume in :city on ',
         "keywords" => 'resume in europe, job in country :country, resume in city :city, resume abroad, employee search, looking for resume, workers in europe, job offers, work ua es com, work ua es com',
     ],

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
   return [
  'zurich'=>'Цюрих',
@@ -22,7 +22,7 @@
  'fribourg'=>'Фрибург',
  'bern'=>'Берн',
  'basel-city'=>'Базель Сити',
- 'basel-landschaft'=>'Базельский пейзаж',
+ 'basel-landschaft'=>'Базель Ланд',
  'appenzell-ausserrhoden'=>'Аппенцелль Ауссерроден',
  'appenzell-innerrhoden'=>'Аппенцелль Иннерроден',
  'aargau'=>'Ааргау',

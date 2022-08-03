@@ -1,0 +1,25 @@
+<?php 
+
+  return [
+ 'norrbotten'=>'Норрботтен',
+ 'västmanland'=>'Вестманланд',
+ 'västernorrland'=>'Вестерноррланд',
+ 'västerbotten'=>'Вестерботтен',
+ 'värmland'=>'Вермланд',
+ 'uppsala'=>'Упсала',
+ 'stockholm'=>'Стокгольм',
+ 'södermanland'=>'Седерманланд',
+ 'östergötland'=>'Естергетланд',
+ 'örebro'=>'Еребру',
+ 'kronoberg'=>'Кроноберг',
+ 'dalarna'=>'Даларна',
+ 'kalmar'=>'Кальмар',
+ 'jönköping'=>'Йончепінг',
+ 'jämtland'=>'Ямтланд',
+ 'halland'=>'Халланд',
+ 'gotland'=>'Готланд',
+ 'gävleborg'=>'Гевлеборг',
+ 'blekinge'=>'Блекінге',
+ 'skåne'=>'Сконе',
+ 'västra-götaland'=>'Вастра Геталанд',
+ ];

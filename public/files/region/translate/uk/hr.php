@@ -1,0 +1,25 @@
+<?php 
+
+  return [
+ 'bjelovarsko-bilogorska'=>'Біловар Білогора',
+ 'brodsko-posavska'=>'Бродсько Посавська',
+ 'dubrovačko-neretvanska'=>'Дубровачка Неретванська',
+ 'istarska'=>'Жупанія Істрія',
+ 'karlovačka'=>'Карловачка',
+ 'koprivničko-križevačka'=>'Копривничко Крижівка',
+ 'krapinsko-zagorska'=>'Крапінсько Загорська',
+ 'ličko-senjska'=>'Личко Сеньська',
+ 'međimurska'=>'Меджимурска',
+ 'osječko-baranjska'=>'Осієцько Бараньська',
+ 'požeško-slavonska'=>'Пожежсько Славонська',
+ 'primorsko-goranska'=>'Приморсько Горанська',
+ 'šibensko-kninska'=>'Шибеник Книн',
+ 'sisačko-moslavačka'=>'Сисацько Мославинська',
+ 'splitsko-dalmatinska'=>'Сплітсько Далматинська',
+ 'varaždinska'=>'Вараждинска',
+ 'vukovarsko-srijemska'=>'Вуковарсько Сріємська',
+ 'zadarska'=>'Задарська',
+ 'zagrebačka'=>'Загребачка',
+ 'grad-zagreb'=>'Загреб',
+ 'virovitičko-podravska'=>'Вировитицько Подравська',
+ ];

@@ -21,56 +21,59 @@
                 </div>
             </div>
         </section>
+
         <!-- Main content -->
         <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
 
-                        <!-- header -->
-                        <div class="card-header">
-                            <!-- кнопки языков -->
-                            <button v-for="(array, prefix) in response.lang_arr" :key="prefix"
-                                    @click="transitionToLanguage('/admin-panel/translate-cities', prefix)"
-                                    type="button" class="btn btn-block btn-flat"
-                                    :class="{'btn-primary': prefix === response.translate_lang,'btn-outline-primary': prefix !== response.translate_lang}"
-                            >
-                                {{response.lang_arr[prefix][3].title}}
-                            </button>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
 
-                            <!-- префиксы стран -->
-                            <div class="form-group">
-                                <select class="form-control" id="prefix_country"
-                                        @change="selectCountry($event, '/admin-panel/translate-cities')"
+                            <!-- header -->
+                            <div class="card-header">
+                                <!-- кнопки языков -->
+                                <button v-for="(array, prefix) in response.lang_arr" :key="prefix"
+                                        @click="transitionToLanguage('/admin-panel/translate-cities', prefix)"
+                                        type="button" class="btn btn-block btn-flat"
+                                        :class="{'btn-primary': prefix === response.translate_lang,'btn-outline-primary': prefix !== response.translate_lang}"
                                 >
-                                    <option selected :value="null"> Префиксы городов </option>
-                                    <template v-for="(value, key) in response.prefix_cities">
-                                        <!-- в случае обновления страницы -->
-                                        <option v-if="value == country" :value="value" :key="key" selected>
-                                            {{value}}
-                                        </option>
-                                        <option v-else :value="value" :key="key">
-                                            {{value}}
-                                        </option>
-                                    </template>
-                                </select>
+                                    {{response.lang_arr[prefix][3].title}}
+                                </button>
+
+                                <!-- префиксы стран -->
+                                <div class="form-group">
+                                    <select class="form-control" id="prefix_country"
+                                            @change="selectCountry($event, '/admin-panel/translate-cities')"
+                                    >
+                                        <option selected :value="null"> Префиксы городов </option>
+                                        <template v-for="(value, key) in response.prefix_cities">
+                                            <!-- в случае обновления страницы -->
+                                            <option v-if="value == country" :value="value" :key="key" selected>
+                                                {{value}}
+                                            </option>
+                                            <option v-else :value="value" :key="key">
+                                                {{value}}
+                                            </option>
+                                        </template>
+                                    </select>
+                                </div>
+
                             </div>
 
-                        </div>
-
-                        <!-- body -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="col-1">префикс</th>
-                                    <th class="col-2">error свойства перевода</th>
-                                    <th class="col-3">свойство локации</th>
-                                    <th class="col-3">свойство в переводе</th>
-                                    <th class="col-3">перевод</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <!-- body -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-1">префикс</th>
+                                        <th class="col-2">error свойства перевода</th>
+                                        <th class="col-3">свойство локации</th>
+                                        <th class="col-3">свойство в переводе</th>
+                                        <th class="col-3">перевод</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr v-for="(array, key) in cities.data" :key="key">
                                         <td>{{array.prefix}}</td>
                                         <!-- error -->
@@ -104,12 +107,14 @@
                                         </td>
 
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
 
         <pagination

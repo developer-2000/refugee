@@ -24,31 +24,33 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <!-- header -->
-                        <div class="card-header">
-                            <button v-for="(array, prefix) in response.lang_arr" :key="prefix"
-                                    @click="transitionToLanguage('/admin-panel/translate-countries', prefix)"
-                                    type="button" class="btn btn-block btn-flat"
-                                    :class="{'btn-primary': prefix === response.translate_lang,'btn-outline-primary': prefix !== response.translate_lang}"
-                            >
-                                {{response.lang_arr[prefix][3].title}}
-                            </button>
-                        </div>
-                        <!-- body -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="col-1">префикс</th>
-                                    <th class="col-4">свойство локации</th>
-                                    <th class="col-4">свойство в переводе</th>
-                                    <th class="col-3">перевод</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- header -->
+                            <div class="card-header">
+                                <button v-for="(array, prefix) in response.lang_arr" :key="prefix"
+                                        @click="transitionToLanguage('/admin-panel/translate-countries', prefix)"
+                                        type="button" class="btn btn-block btn-flat"
+                                        :class="{'btn-primary': prefix === response.translate_lang,'btn-outline-primary': prefix !== response.translate_lang}"
+                                >
+                                    {{response.lang_arr[prefix][3].title}}
+                                </button>
+                            </div>
+                            <!-- body -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-1">префикс</th>
+                                        <th class="col-4">свойство локации</th>
+                                        <th class="col-4">свойство в переводе</th>
+                                        <th class="col-3">перевод</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     <tr v-for="(array, key) in countries" :key="key">
                                         <td>{{array.prefix.toLowerCase()}}</td>
                                         <td>{{array.original_index}}</td>
@@ -73,12 +75,14 @@
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
 
     </div>

@@ -1,11 +1,11 @@
 <?php 
 
   return [
- 'sant-julià-de-loria'=>'Сан-Жулия-де-Лория',
+ 'sant-julià-de-loria'=>'Сан Жулія де Лорія',
  'la-massana'=>'Ла Массана',
- 'canillo'=>'Канильо',
- 'andorra-la-vella'=>'Андорра-ла-Велья',
- 'escaldes-engordany'=>'Эскальдес-Энгордань',
- 'ordino'=>'Ордино',
- 'encamp'=>'Энкамп',
+ 'canillo'=>'Канільйо',
+ 'andorra-la-vella'=>'Андорра ла Велья',
+ 'escaldes-engordany'=>'Ескальдес Енгордань',
+ 'ordino'=>'Ордіно',
+ 'encamp'=>'Єнкамп',
  ];

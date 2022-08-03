@@ -114,7 +114,10 @@ trait MetaTrait
         elseif ( !is_null($boolArr["now_region"]) || !is_null($boolArr["now_city"]) ){
             $city = !is_null($boolArr["now_city"]) ? $boolArr["now_city"]["translate"] : $boolArr["now_region"]["translate"];
             $this->metaTags(new MetaService(), [
-                "title" => __('meta_tags.resumes_city.title', ["city"=>$city ]).config('app.name', ""),
+                "title" => __('meta_tags.resumes_city.title', [
+                    "city"=>$city,
+                        'country' => $boolArr["now_country"]["translate"]
+                        ]).config('app.name', ""),
                 "description" => __('meta_tags.resumes_city.description', ["city"=>$city, "country"=>$boolArr["now_country"]["translate"], ]).config('app.name', ""),
                 "keywords" => __('meta_tags.resumes_city.keywords', ["city"=>$city, "country"=>$boolArr["now_country"]["translate"], ]),
                 "canonical" => url()->current(),

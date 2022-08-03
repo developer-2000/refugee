@@ -139,6 +139,9 @@
     }
     #sidebar{
         z-index: 3001;
+        /*max-height: 100%!important;*/
+        min-height: 100vh;
+        position: fixed;
     }
     .brand-link.elevation-4{
         color: #444;

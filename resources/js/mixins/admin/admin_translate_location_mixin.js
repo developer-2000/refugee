@@ -104,6 +104,8 @@ export default {
             // $tmp.val(text+" страна "+prefix).select();
             document.execCommand("copy");
             $tmp.remove();
+
+
         },
     },
 
