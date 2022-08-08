@@ -2,26 +2,26 @@
 
   return [
   '3337512' => [
- "slavonski-brod"=>"Slavonski Brod",
+ "slavonski-brod"=>"Славонски-Брод",
  ], 
  '3337514' => [
- "pula"=>"Pula",
+ "pula"=>"Пула",
  ], 
  '3337522' => [
  "osijek"=>"Осиек",
  ], 
  '3337524' => [
- "rijeka"=>"Rijeka",
+ "rijeka"=>"Риека",
  ], 
  '3337527' => [
- "split"=>"Split",
+ "split"=>"Сплит",
  ], 
  '3337530' => [
- "zadar"=>"Zadar",
+ "zadar"=>"Задар",
  ], 
  '3337532' => [
- "zagreb"=>"Zagreb",
-"sesvete"=>"Sesvete",
-"zagreb---centar"=>"Zagreb - Centar",
+ "zagreb"=>"Загреб",
+"sesvete"=>"Сесвете",
+"zagreb---centar"=>"Загреб-Центар",
  ], 
 ];

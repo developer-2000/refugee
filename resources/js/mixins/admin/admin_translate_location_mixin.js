@@ -87,7 +87,7 @@ export default {
         },
         // скопировать в буфер обмена
         copyText(e, prefix) {
-            let elem = $(e.target);
+            let elem = $(e.currentTarget);
             // show insert svg
             elem.siblings('.svg-insert').addClass('visible-svg')
             elem.addClass('svg-target')
@@ -95,17 +95,16 @@ export default {
                 this.last_target.removeClass('svg-target')
             }
             this.last_target = elem
-
             let $tmp = $("<textarea>");
             $("body").append($tmp);
+
             // copy text
             let text = elem.siblings('span').text()
             $tmp.val(text).select();
+
             // $tmp.val(text+" страна "+prefix).select();
             document.execCommand("copy");
             $tmp.remove();
-
-
         },
     },
 
