@@ -1,11 +1,23 @@
 #### микроразметка примеры
 https://freehost.com.ua/ukr/faq/articles/chto-takoe-mikrorazmetka-ee-vidi-funktsii-primeri-realizatsii/?gclid=Cj0KCQjwio6XBhCMARIsAC0u9aGp3uF2iLXSQdF1s-z8ojsoCG30eLT4G0Yk5AplqZZ4FqIWQEE5lmIaAifTEALw_wcB
 
-
 https://d-element.ru/about/blog/chto-takoe-schema-org/#wpheader
 
-#### пакет для sitemap
-https://github.com/spatie/laravel-sitemap
+#### авторизация через пакет socialite
+
+https://laravel.su/docs/8.x/socialite
+
+help video - https://www.youtube.com/watch?v=cXbgZhOS72w&list=PLfViXxbdy6QjbnKsMJ8QpSBH36gLxcci6
+
+help настроек - https://blog.ithillel.ua/ru/articles/oauth-2-0-autentifikatsiya-cherez-google-kak-realizovat-vhod-cherez-google-na-sayte
+
+###### страница настроек google 
+https://console.cloud.google.com/apis/credentials?highlightClient=890676224339-h89hv5apvt4rroi3rb8d6k38fpu1vg64.apps.googleusercontent.com&project=engaged-hook-358914
+
+после сменить домен на рабочий D:\ystanovki\OpenServer_5.3.8\domains\refugee\config\services.php
+
+'redirect' => 'http://localhost:8000/user/google/callback',
+
 
 
 #### пакет для мета тегов сайта

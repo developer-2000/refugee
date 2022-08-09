@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
-class AuthorController extends BaseController
-{
+class AuthorController extends BaseController {
 
     /**
      * @param  LoginRequest  $request
@@ -45,11 +44,11 @@ class AuthorController extends BaseController
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(RegisterRequest $request) {
+
         $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)]);
+            'password' => Hash::make($request->password),
+        ]);
 
         UserContact::create([
             'user_id'=>$user->id,
@@ -93,8 +92,6 @@ class AuthorController extends BaseController
             Auth::guard('web')->login($user);
         }
 
-//        $lang = (new LanguageService())->getLanguageArray();
-
         return redirect(session('prefix_lang'));
     }
 
@@ -114,7 +111,6 @@ class AuthorController extends BaseController
     public function sendCodeForChangePassword(SendCodeChangePasswordRequest $request)
     {
         Auth::logout();
-
         $this->sendCodeEmail($request, '', null, 'Change Password', $request->email);
 
         return $this->getResponse(__('auth.message_change_password_email'));
@@ -171,9 +167,9 @@ class AuthorController extends BaseController
         $alias = is_null($email) ? 'activate' : 'view-change-password';
         $generate = uniqid();
         Code::create([ 'user_id' => $user_id, 'code' => $generate, 'email' => $email ]);
-
         // Генерируем ссылку и отправляем письмо на указанный адрес
         $url = url(session('prefix_lang'))."/user/".$alias."?".$string_user_id."code=".$generate;
+
         Mail::send('emails.registration', ['url' => $url], function($message) use ($request, $title_subject) {
             $message->to($request->email)->subject($title_subject);
         });

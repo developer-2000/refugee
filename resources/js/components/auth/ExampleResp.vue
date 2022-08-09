@@ -64,9 +64,9 @@
                     email: this.email,
                 };
                 try {
-                    this.clearInputValue()
                     $('#authModal').modal('toggle')
                     const response = await this.$http.post(`/user/send-code-password`, data);
+                    this.clearInputValue()
                     if(this.checkSuccess(response)){
                         this.message(response.data.message, 'success', 10000, true);
                     }

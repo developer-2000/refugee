@@ -11,19 +11,7 @@
         <!-- body modal -->
         <div class="block_auth">
             <div class="annotation-top">{{ trans('auth','authorization_using') }}</div>
-            <div class="soc">
-                <a rel="nofollow" href="#" class="soc_google" data-network="google">
-                    <img src="//d1ayxb9ooonjts.cloudfront.net/8bc625062aeffa94729b9336243bed9d.svg" alt="Google" width="20">
-                </a>
-                <a rel="nofollow" href="#" class="soc_facebook" data-network="facebook">
-                    <img src="//d1ayxb9ooonjts.cloudfront.net/0e5903c8a59540fefb8d56fe51863bb0.svg" alt="facebook"
-                         width="20">
-                </a>
-                <a rel="nofollow" href="#" class="soc_twitter" data-network="twitter">
-                    <img src="//d3h5jhobc20ump.cloudfront.net/b8221293363ccb5ce7460067acbe55f5.svg" alt="twitter"
-                         width="20">
-                </a>
-            </div>
+            <buttons_social></buttons_social>
             <div class="annotation-bottom"> <span>{{ trans('auth','or') }}</span> </div>
             <div class="forms">
                 <!-- ФОРМЫ =============================== -->
@@ -80,6 +68,7 @@
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import auth_methods_mixin from "../../mixins/auth_methods_mixin";
+    import buttons_social from "./details/ButtonsSocialComponent";
 
     export default {
         mixins: [
@@ -87,6 +76,9 @@
             response_methods_mixin,
             auth_methods_mixin
         ],
+        components: {
+            'buttons_social': buttons_social,
+        },
         data: function(){
             return {}
         },
@@ -141,50 +133,6 @@
 
 <style scoped lang="scss">
     .block_auth {
-        .soc {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: space-around;
-            align-content: stretch;
-            align-items: flex-start;
-            width: 100%;
-
-            .soc_google, .soc_facebook, .soc_twitter {
-                border: 1px solid #4285F4;
-                width: 90px;
-                background-color: white;
-                height: 40px;
-                padding: 0;
-                border-radius: 3px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .soc_google:hover {
-                border-color: #0d43c0;
-                background-color: #f9f9f9;
-            }
-
-            .soc_facebook {
-                border: 1px solid #3C5A99;
-
-                &:hover {
-                    border-color: #28406a;
-                    background-color: #f9f9f9;
-                }
-            }
-
-            .soc_twitter {
-                border: 1px solid #16aae5;
-
-                &:hover {
-                    border-color: #157aa4;
-                    background-color: #f9f9f9;
-                }
-            }
-        }
         .forms {
             width: 90%;
 

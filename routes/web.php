@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Services\LocalizationService;
 use \App\Facades\LocalizationFacades;
+use \App\Http\Controllers\Auth\GoogleController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -57,6 +58,9 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
             Route::get('/activate', 'AuthorController@activateAccount');
             Route::get('/view-change-password', 'AuthorController@viewChangePassword');
             Route::get('/logout', 'AuthorController@logout');
+            // google
+            Route::get('/google/redirect', [GoogleController::class, 'redirect']);
+            Route::get('/google/callback', [GoogleController::class, 'callback']);
         });
     });
 
