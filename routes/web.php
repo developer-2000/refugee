@@ -5,6 +5,8 @@ use \App\Services\LocalizationService;
 use \App\Facades\LocalizationFacades;
 use \App\Http\Controllers\Auth\GoogleController;
 use \App\Http\Controllers\Auth\FacebookController;
+use \App\Http\Controllers\Auth\LinkedinController;
+use \App\Http\Controllers\Auth\TwitterController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -65,6 +67,12 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
             // facebook
             Route::get('/facebook/redirect', [FacebookController::class, 'redirect']);
             Route::get('/facebook/callback', [FacebookController::class, 'callback']);
+            // linkedin
+            Route::get('/linkedin/redirect', [LinkedinController::class, 'redirect']);
+            Route::get('/linkedin/callback', [LinkedinController::class, 'callback']);
+            // twitter
+            Route::get('/twitter/redirect', [TwitterController::class, 'redirect']);
+            Route::get('/twitter/callback', [TwitterController::class, 'callback']);
         });
     });
 

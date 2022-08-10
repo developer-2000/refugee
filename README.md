@@ -22,6 +22,11 @@ https://console.cloud.google.com/apis/credentials?highlightClient=890676224339-h
 
 https://developers.facebook.com/apps/427327926024607/settings/basic/
 
+help - https://www.youtube.com/watch?v=oAYyYhd58qQ
+
+###### страница настроек linkedin
+
+https://www.linkedin.com/developers/apps
 
 
 #### пакет для мета тегов сайта

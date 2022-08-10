@@ -42,4 +42,16 @@ return [
         'redirect' => 'http://localhost:8000/user/facebook/callback',
     ],
 
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_CLIENT_ID'),
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
+        'redirect' => 'http://localhost:8000/user/linkedin/callback',
+    ],
+
+    'twitter' => [
+        'client_id' => env('TWITTER_CLIENT_ID'),
+        'client_secret' => env('TWITTER_CLIENT_SECRET'),
+        'redirect' => 'http://localhost:8000/user/twitter/callback',
+    ],
+
 ];
