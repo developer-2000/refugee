@@ -47,6 +47,7 @@ Vue.component('contact_information', require('./components/contact_information/C
 Vue.component('office-component', require('./components/private_office/OfficeComponent').default);
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 Vue.component('index-component', require('./components/IndexComponent').default);
+Vue.component('main-footer', require('./components/MainFooterComponent').default);
 
 
 const app = new Vue({

@@ -275,11 +275,6 @@
     @import "../../../sass/variables";
 
     .search-panel{
-        display: flex;
-        flex-direction: column;
-        background-color: #fff;
-        width: 100%;
-        padding: 0;
         .top-search{
             .form-group{
                 display: flex;

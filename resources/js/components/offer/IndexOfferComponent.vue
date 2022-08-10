@@ -592,7 +592,6 @@
         .title_page{
             padding: 15px;
         }
-
     }
     .box-vacancy {
         padding: 10px 5px;

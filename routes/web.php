@@ -7,6 +7,7 @@ use \App\Http\Controllers\Auth\GoogleController;
 use \App\Http\Controllers\Auth\FacebookController;
 use \App\Http\Controllers\Auth\LinkedinController;
 use \App\Http\Controllers\Auth\TwitterController;
+use \App\Http\Controllers\PoliceController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -48,138 +49,140 @@ Route::group(['prefix'=>'technical'], function (){
 Route::group(['prefix' => LocalizationFacades::locale()], function () {
     Route::group(['middleware' => ['redirect_admin']], function () {
 
-    Route::get('/', 'IndexController@index')->name('index');
+        Route::get('/', 'IndexController@index')->name('index');
 
-    // Authentication
-    Route::middleware('throttle:10,1')->group(function () {
-        Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
-            Route::post('/login', 'AuthorController@login');
-            Route::post('/registration', 'AuthorController@register');
-            Route::post('/check_email', 'AuthorController@checkEmail');
-            Route::post('/send-code-password', 'AuthorController@sendCodeForChangePassword');
-            Route::post('/change-password', 'AuthorController@changePassword');
-            Route::get('/activate', 'AuthorController@activateAccount');
-            Route::get('/view-change-password', 'AuthorController@viewChangePassword');
-            Route::get('/logout', 'AuthorController@logout');
-            // google
-            Route::get('/google/redirect', [GoogleController::class, 'redirect']);
-            Route::get('/google/callback', [GoogleController::class, 'callback']);
-            // facebook
-            Route::get('/facebook/redirect', [FacebookController::class, 'redirect']);
-            Route::get('/facebook/callback', [FacebookController::class, 'callback']);
-            // linkedin
-            Route::get('/linkedin/redirect', [LinkedinController::class, 'redirect']);
-            Route::get('/linkedin/callback', [LinkedinController::class, 'callback']);
-            // twitter
-            Route::get('/twitter/redirect', [TwitterController::class, 'redirect']);
-            Route::get('/twitter/callback', [TwitterController::class, 'callback']);
-        });
-    });
-
-    // company
-    Route::get('/company/{alias}', 'CompanyController@show')
-        ->where('alias', '[0-9a-z_-]+');
-
-    // авторизованым
-    Route::group(['middleware'=>['auth']], function () {
-
-        // respond vacancy
-        Route::post('respond-vacancy', 'RespondController@respondVacancy');
-        // respond resume
-        Route::post('respond-resume', 'RespondController@respondResume');
-
-        // архив чатов
-        Route::group(['prefix'=>'offers/archive'], function (){
-            Route::get('/', 'OfferArchiveController@index');
-            Route::post('add-message', 'OfferArchiveController@addMessage');
-            Route::get('/{alias}', 'OfferArchiveController@show')
-                ->where('alias', '[a-z0-9]+')->name('archive.show');
-        });
-        // чаты предложений
-        Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
-        Route::post('offers/add-message', 'OfferController@addMessage');
-        Route::post('offers/register-viewed-companion', 'OfferController@registerViewedCompanion');
-        Route::post('offers/update-message', 'OfferController@updateMessage');
-        Route::post('offers/delete', 'OfferController@destroy');
-        Route::post('offers/send-to-archive', 'OfferController@sendToArchive');
-        Route::get('offers/{alias}', 'OfferController@show')
-            ->where('alias', '[a-z0-9]+');
-        Route::resource('offers', 'OfferController')->only([
-            'index'
-        ]);
-
-        // private-office
-        Route::group(['prefix'=>'private-office'], function (){
-
-            // office
-            Route::get('/', 'PrivateOfficeController@index');
-
-            // Contact Information
-            Route::group(['prefix'=>'contact-information'], function (){
-                Route::get('/', 'ContactInformationController@index');
-                Route::post('update', 'ContactInformationController@update');
+        // Authentication
+        Route::middleware('throttle:10,1')->group(function () {
+            Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
+                Route::post('/login', 'AuthorController@login');
+                Route::post('/registration', 'AuthorController@register');
+                Route::post('/check_email', 'AuthorController@checkEmail');
+                Route::post('/send-code-password', 'AuthorController@sendCodeForChangePassword');
+                Route::post('/change-password', 'AuthorController@changePassword');
+                Route::get('/activate', 'AuthorController@activateAccount');
+                Route::get('/view-change-password', 'AuthorController@viewChangePassword');
+                Route::get('/logout', 'AuthorController@logout');
+                // google
+                Route::get('/google/redirect', [GoogleController::class, 'redirect']);
+                Route::get('/google/callback', [GoogleController::class, 'callback']);
+                // facebook
+                Route::get('/facebook/redirect', [FacebookController::class, 'redirect']);
+                Route::get('/facebook/callback', [FacebookController::class, 'callback']);
+                // linkedin
+                Route::get('/linkedin/redirect', [LinkedinController::class, 'redirect']);
+                Route::get('/linkedin/callback', [LinkedinController::class, 'callback']);
+                // twitter
+                Route::get('/twitter/redirect', [TwitterController::class, 'redirect']);
+                Route::get('/twitter/callback', [TwitterController::class, 'callback']);
             });
-
-            // company
-            Route::group(['prefix'=>'company'], function (){
-                Route::post('update', 'CompanyController@update');
-                Route::post('check-transliteration', 'CompanyController@checkTransliteration');
-            });
-            Route::resource('company', 'CompanyController')->only([
-                'create', 'store'
-            ]);
-
-            // vacancies
-            Route::group(['prefix'=>'vacancy'], function (){
-                Route::post('search-position', 'VacancyController@searchPosition');
-                Route::get('my-vacancies', 'VacancyController@myVacancies');
-                Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
-                Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
-                Route::post('bookmark-vacancy', 'VacancyController@setBookmarkVacancy');
-                Route::get('bookmark-vacancies', 'VacancyController@getBookmarkVacancies');
-                Route::post('hide-vacancy', 'VacancyController@setHideVacancy');
-                Route::get('hidden-vacancies', 'VacancyController@getHiddenVacancies');
-            });
-            Route::resource('vacancy', 'VacancyController')->only([
-                'create', 'store', 'edit', 'update'
-            ]);
-
-            // resume
-            Route::group(['prefix'=>'resume'], function (){
-                Route::post('search-position', 'ResumeController@searchPosition');
-                Route::get('my-resumes', 'ResumeController@myResumes');
-                Route::post('up-resume-status', 'ResumeController@upResumeStatus');
-                Route::post('duplicate-resume', 'ResumeController@duplicateResume');
-                Route::post('bookmark-resume', 'ResumeController@setBookmarkResume');
-                Route::get('bookmark-resumes', 'ResumeController@getBookmarkResumes');
-                Route::post('hide-resume', 'ResumeController@setHideResume');
-                Route::get('hidden-resumes', 'ResumeController@getHiddenResumes');
-            });
-            Route::resource('resume', 'ResumeController')->only([
-                'create', 'store', 'edit', 'update'
-            ]);
         });
 
-    });
+        // company
+        Route::get('/company/{alias}', 'CompanyController@show')
+            ->where('alias', '[0-9a-z_-]+');
 
-    // vacancies
-    Route::get('/vacancy/{prefix_c}/{prefix_r_c}/{alias}', 'VacancyController@show');
-    Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
+        // авторизованым
+        Route::group(['middleware'=>['auth']], function () {
 
-    // resume
-    Route::get('/resume/{prefix_c}/{prefix_r_c}/{alias}', 'ResumeController@show');
-//    Route::get('/resume/show-resume/{alias}', 'ResumeController@show');
-    Route::get('/resume/{country?}/{city?}', 'ResumeController@index');
+            // respond vacancy
+            Route::post('respond-vacancy', 'RespondController@respondVacancy');
+            // respond resume
+            Route::post('respond-resume', 'RespondController@respondResume');
 
-    // localisation
-    Route::group(['prefix'=>'localisation'], function (){
-        Route::post('/get-region', 'GeographyDbController@getRegions');
-        Route::post('/get-city', 'GeographyDbController@getCities');
-    });
+            // архив чатов
+            Route::group(['prefix'=>'offers/archive'], function (){
+                Route::get('/', 'OfferArchiveController@index');
+                Route::post('add-message', 'OfferArchiveController@addMessage');
+                Route::get('/{alias}', 'OfferArchiveController@show')
+                    ->where('alias', '[a-z0-9]+')->name('archive.show');
+            });
+            // чаты предложений
+            Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
+            Route::post('offers/add-message', 'OfferController@addMessage');
+            Route::post('offers/register-viewed-companion', 'OfferController@registerViewedCompanion');
+            Route::post('offers/update-message', 'OfferController@updateMessage');
+            Route::post('offers/delete', 'OfferController@destroy');
+            Route::post('offers/send-to-archive', 'OfferController@sendToArchive');
+            Route::get('offers/{alias}', 'OfferController@show')
+                ->where('alias', '[a-z0-9]+');
+            Route::resource('offers', 'OfferController')->only([
+                'index'
+            ]);
 
-    // change language
-    Route::get('language/{name}', 'LanguageController@changeLanguage')
-        ->name('language');
+            // private-office
+            Route::group(['prefix'=>'private-office'], function (){
+
+                // office
+                Route::get('/', 'PrivateOfficeController@index');
+
+                // Contact Information
+                Route::group(['prefix'=>'contact-information'], function (){
+                    Route::get('/', 'ContactInformationController@index');
+                    Route::post('update', 'ContactInformationController@update');
+                });
+
+                // company
+                Route::group(['prefix'=>'company'], function (){
+                    Route::post('update', 'CompanyController@update');
+                    Route::post('check-transliteration', 'CompanyController@checkTransliteration');
+                });
+                Route::resource('company', 'CompanyController')->only([
+                    'create', 'store'
+                ]);
+
+                // vacancies
+                Route::group(['prefix'=>'vacancy'], function (){
+                    Route::post('search-position', 'VacancyController@searchPosition');
+                    Route::get('my-vacancies', 'VacancyController@myVacancies');
+                    Route::post('up-vacancy-status', 'VacancyController@upVacancyStatus');
+                    Route::post('duplicate-vacancy', 'VacancyController@duplicateVacancy');
+                    Route::post('bookmark-vacancy', 'VacancyController@setBookmarkVacancy');
+                    Route::get('bookmark-vacancies', 'VacancyController@getBookmarkVacancies');
+                    Route::post('hide-vacancy', 'VacancyController@setHideVacancy');
+                    Route::get('hidden-vacancies', 'VacancyController@getHiddenVacancies');
+                });
+                Route::resource('vacancy', 'VacancyController')->only([
+                    'create', 'store', 'edit', 'update'
+                ]);
+
+                // resume
+                Route::group(['prefix'=>'resume'], function (){
+                    Route::post('search-position', 'ResumeController@searchPosition');
+                    Route::get('my-resumes', 'ResumeController@myResumes');
+                    Route::post('up-resume-status', 'ResumeController@upResumeStatus');
+                    Route::post('duplicate-resume', 'ResumeController@duplicateResume');
+                    Route::post('bookmark-resume', 'ResumeController@setBookmarkResume');
+                    Route::get('bookmark-resumes', 'ResumeController@getBookmarkResumes');
+                    Route::post('hide-resume', 'ResumeController@setHideResume');
+                    Route::get('hidden-resumes', 'ResumeController@getHiddenResumes');
+                });
+                Route::resource('resume', 'ResumeController')->only([
+                    'create', 'store', 'edit', 'update'
+                ]);
+            });
+
+        });
+
+        // vacancies
+        Route::get('/vacancy/{prefix_c}/{prefix_r_c}/{alias}', 'VacancyController@show');
+        Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
+
+        // resume
+        Route::get('/resume/{prefix_c}/{prefix_r_c}/{alias}', 'ResumeController@show');
+        Route::get('/resume/{country?}/{city?}', 'ResumeController@index');
+
+        // localisation
+        Route::group(['prefix'=>'localisation'], function (){
+            Route::post('/get-region', 'GeographyDbController@getRegions');
+            Route::post('/get-city', 'GeographyDbController@getCities');
+        });
+
+        // change language
+        Route::get('language/{name}', 'LanguageController@changeLanguage')
+            ->name('language');
+
+        // police pages
+        Route::get('cookie-police', [PoliceController::class, 'showCookiePage']);
 
     });
 });

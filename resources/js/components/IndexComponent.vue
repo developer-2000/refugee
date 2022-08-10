@@ -63,11 +63,6 @@
     @import "../../sass/variables";
 
     .search-panel{
-        display: flex;
-        flex-direction: column;
-        background-color: #fff;
-        width: 100%;
-        padding: 0;
         .title_page {
             padding: 15px;
         }

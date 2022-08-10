@@ -135,14 +135,14 @@
                 @yield('content')
             </div>
             <!-- / Content body -->
+
             <footer class="main-footer">
-                <strong>
-                    Copyright &copy; 2022
-                    <a href="{{(new \App\Services\LanguageService())->clearPrefixLanguage()}}" rel="nofollow">
-                        {{ env('APP_NAME_EN') }}
-                    </a>
-                </strong>
+                <main-footer
+                    :lang="{{json_encode($lang)}}"
+                    :app_name=`{{env('APP_NAME_EN')}}`
+                ></main-footer>
             </footer>
+
         </div>
     </div>
 

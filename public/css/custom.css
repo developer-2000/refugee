@@ -97,6 +97,13 @@ a:hover,
     margin: 0;
     padding: 15px 5px;
 }
+.search-panel{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    padding: 0;
+}
 .search-panel .title_page{
     margin: 0;
     padding: 25px 15px 15px;

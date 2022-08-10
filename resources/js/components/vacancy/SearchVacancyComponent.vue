@@ -227,11 +227,6 @@
     @import "../../../sass/variables";
 
     .search-panel{
-        display: flex;
-        flex-direction: column;
-        background-color: #fff;
-        width: 100%;
-        padding: 0;
         .bottom-search{
             display: flex;
             padding: 30px 15px 0;
