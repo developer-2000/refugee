@@ -18,6 +18,10 @@ https://console.cloud.google.com/apis/credentials?highlightClient=890676224339-h
 
 'redirect' => 'http://localhost:8000/user/google/callback',
 
+###### страница настроек facebook
+
+https://developers.facebook.com/apps/427327926024607/settings/basic/
+
 
 
 #### пакет для мета тегов сайта

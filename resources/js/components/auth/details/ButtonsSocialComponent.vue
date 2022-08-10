@@ -4,7 +4,7 @@
         <div @click="loginWithGoogle()" class="soc_google" data-network="google">
             <img src="//d1ayxb9ooonjts.cloudfront.net/8bc625062aeffa94729b9336243bed9d.svg">
         </div>
-        <div class="soc_facebook" data-network="facebook">
+        <div @click="loginWithFacebook()" class="soc_facebook" data-network="facebook">
             <img src="//d1ayxb9ooonjts.cloudfront.net/0e5903c8a59540fefb8d56fe51863bb0.svg">
         </div>
         <div class="soc_twitter" data-network="twitter">
@@ -22,7 +22,10 @@
         methods: {
             loginWithGoogle() {
                 window.location.href = '/user/google/redirect'
-            }
+            },
+            loginWithFacebook() {
+                window.location.href = '/user/facebook/redirect'
+            },
         },
     }
 </script>

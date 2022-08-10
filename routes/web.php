@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Services\LocalizationService;
 use \App\Facades\LocalizationFacades;
 use \App\Http\Controllers\Auth\GoogleController;
+use \App\Http\Controllers\Auth\FacebookController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -61,6 +62,9 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
             // google
             Route::get('/google/redirect', [GoogleController::class, 'redirect']);
             Route::get('/google/callback', [GoogleController::class, 'callback']);
+            // facebook
+            Route::get('/facebook/redirect', [FacebookController::class, 'redirect']);
+            Route::get('/facebook/callback', [FacebookController::class, 'callback']);
         });
     });
 

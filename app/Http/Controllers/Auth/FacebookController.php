@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 
-class GoogleController extends Controller {
+class FacebookController extends Controller {
 
-    CONST DRIVER_TYPE = 'google';
+    CONST DRIVER_TYPE = 'facebook';
 
     public function redirect() {
 
-        return Socialite::driver("google")->redirect();
+        return Socialite::driver(static::DRIVER_TYPE)->redirect();
     }
 
     public function callback() {
@@ -45,7 +45,7 @@ class GoogleController extends Controller {
             return redirect()->route('index');
         }
         catch (Exception $e) {
-            return Redirect::route('index')->withErrors(['errors'=>'Verification google error']);
+            return Redirect::route('index')->withErrors(['errors'=>'Verification facebook error']);
         }
     }
 }
