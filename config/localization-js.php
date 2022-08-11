@@ -21,6 +21,7 @@ return [
         'office',
         'contact',
         'respond',
+        'cookie',
     ],
 
     /*

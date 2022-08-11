@@ -164,6 +164,19 @@
             </div>
         </div>
         <!-- / Modal -->
+
+        <!-- alert cookie_police -->
+        <div v-if="!cookie_police" id="cookie_police">
+            <div>
+                {{ trans('cookie','continuing_use_site') }}
+                <a :href="`${lang.prefix_lang}cookie-police`" rel="nofollow">
+                    {{ trans('cookie','cookie_policy') }}
+                </a>
+            </div>
+            <button @click="setCookiePolice()" type="button" class="btn btn-block btn-default btn-lg">
+                {{ trans('cookie','accept') }}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -175,6 +188,7 @@
     import ImpResp from '../auth/ExampleResp.vue'
     import ImpChangePassword from '../auth/ChangePassword.vue'
     import url_mixin from "../../mixins/url_mixin";
+    import localstorage_mixin from "../../mixins/localstorage/basic_localstorage_mixin";
 
     export default {
         components: {
@@ -185,7 +199,8 @@
         },
         mixins: [
             translation_mixin,
-            url_mixin
+            url_mixin,
+            localstorage_mixin
         ],
         data() {
             return {
@@ -263,11 +278,12 @@
                 if(this.transition_url_page !== null){
                     this.checkAuth(this.transition_url_page)
                 }
+
+                this.checkCookiePolice()
             },
         },
         mounted() {
             this.initializationFunc()
-
         },
     }
 </script>
@@ -337,6 +353,32 @@
         margin-left: 4px;
         path{
             fill: $svg-icon;
+        }
+    }
+    #cookie_police {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        background: rgba(38,45,61,.95);
+        padding: 20px 50px;
+        font-weight: 100;
+        color: #c4c6ca;
+        button{
+            width: 100px;
+            border-color: #fff;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            &:hover{
+                background: hsla(0,0%,100%,.05);
+                border-color: #fff;
+                color: #fff;
+            }
         }
     }
 </style>

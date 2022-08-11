@@ -128,6 +128,11 @@ export default {
             // сколько дней
             return Math.round(diffInTime / oneDay);
         },
+        // разница в годах у 2 дат
+        getDifferenceYears(last, now) {
+            last = new Date(last).getFullYear()
+            return now.getFullYear() - last
+        },
         // вывести дату в формате - 22 June 2022
         getDateString(date){
             let str = new Date(date);

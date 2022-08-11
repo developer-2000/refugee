@@ -183,6 +183,7 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
 
         // police pages
         Route::get('cookie-police', [PoliceController::class, 'showCookiePage']);
+        Route::get('terms-use', [PoliceController::class, 'showTermsUsePage']);
 
     });
 });

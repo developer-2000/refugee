@@ -8,11 +8,12 @@ class PoliceController extends Controller
 {
     public function showCookiePage(){
 
-        return view('police.cookie_police');
+        return view("police.cookie_police_".app()->getLocale());
     }
 
-    public function showTermsPage(){
+    public function showTermsUsePage(){
 
+        return view("police.terms_use_".app()->getLocale());
     }
 
 }
