@@ -40,7 +40,10 @@
                 window.location.href = '/user/linkedin/redirect'
             },
             localstorageSave() {
-                localStorage.setItem('url_click_no_auth', window.location.href)
+                let value = localStorage.getItem('url_click_no_auth')
+                if(value === null){
+                    localStorage.setItem('url_click_no_auth', window.location.href)
+                }
             },
         },
         mounted() {

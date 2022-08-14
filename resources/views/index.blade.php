@@ -19,5 +19,6 @@
     <index-component
         :lang="{{json_encode($lang)}}"
         :respond="{{json_encode($respond)}}"
+        :user="{{json_encode($user)}}"
     ></index-component>
 @endsection
