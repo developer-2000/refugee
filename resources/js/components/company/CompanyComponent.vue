@@ -58,23 +58,16 @@
                     </span>
                     {{UpperCaseFirstCharacter( trans('company','on_site_from')+' '+getDate(company.created_at)+' '+trans('company','years') )}}
                 </div>
-
-                <!-- Контакт лист -->
-                <company_contact_list
-                    :contact_list="contact_list"
-                    :settings="settings"
-                    :user="user"
-                    :lang="lang"
-                ></company_contact_list>
-
-            </div>
-        </div>
-
-        <!-- right -->
-        <div class="right-site">
-            <!-- top panel -->
-            <div class="top-panel">
-                <div class="box-soc-button">
+                <!-- социалки компании -->
+                <div class="line-property box-soc-button"
+                     v-if="company.facebook_social || company.instagram_social || company.telegram_social || company.twitter_social"
+                >
+                    <span class="box-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M319.1 351.1c-35.35 0-64 28.66-64 64.01s28.66 64.01 64 64.01c35.34 0 64-28.66 64-64.01S355.3 351.1 319.1 351.1zM320 191.1c-70.25 0-137.9 25.6-190.5 72.03C116.3 275.7 115 295.9 126.7 309.2C138.5 322.4 158.7 323.7 171.9 312C212.8 275.9 265.4 256 320 256s107.3 19.88 148.1 56C474.2 317.4 481.8 320 489.3 320c8.844 0 17.66-3.656 24-10.81C525 295.9 523.8 275.7 510.5 264C457.9 217.6 390.3 191.1 320 191.1zM630.2 156.7C546.3 76.28 436.2 32 320 32S93.69 76.28 9.844 156.7c-12.75 12.25-13.16 32.5-.9375 45.25c12.22 12.78 32.47 13.12 45.25 .9375C125.1 133.1 220.4 96 320 96s193.1 37.97 265.8 106.9C592.1 208.8 600 211.8 608 211.8c8.406 0 16.81-3.281 23.09-9.844C643.3 189.2 642.9 168.1 630.2 156.7z"/></svg>
+                    </span>
+                    <span>
+                        Соцсети компании
+                    </span>
                     <a v-if="company.facebook_social"
                        :href="company.facebook_social"
                        target="_blank"
@@ -100,17 +93,45 @@
                         <svg class="svg-twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
                     </a>
                 </div>
+
+                <!-- Контакт лист -->
+                <company_contact_list
+                    :contact_list="contact_list"
+                    :settings="settings"
+                    :user="user"
+                    :lang="lang"
+                ></company_contact_list>
+
+            </div>
+        </div>
+
+        <!-- right -->
+        <div class="right-site">
+            <!-- top panel -->
+            <div class="top-panel">
                 <div class="box-scroll-button">
-                    <button class="btn btn-block btn-outline-primary" type="button"
-                            @click="scrollToAbout()"
-                    >
-                        {{trans('company','company_information')}}
-                    </button>
-                    <button class="btn btn-block btn-outline-primary" type="button"
-                            @click="scrollToVacancies()"
-                    >
-                        {{trans('company','jobs')}}
-                    </button>
+
+                    <div class="top-left-site">
+                        <button class="btn btn-block btn-outline-primary" type="button"
+                                @click="scrollToBlock('box-about-company')"
+                        >
+                            {{trans('company','company_information')}}
+                        </button>
+                        <button class="btn btn-block btn-outline-primary" type="button"
+                                @click="scrollToBlock('box-company-vacancies')"
+                        >
+                            {{trans('company','jobs')}}
+                        </button>
+                    </div>
+
+                    <!-- Sharing panel -->
+                    <div class="top-right-site">
+                        <sharing_panel
+                            :lang="lang"
+                            :page="'company'"
+                        ></sharing_panel>
+                    </div>
+
                 </div>
             </div>
             <!-- О компании -->
@@ -221,6 +242,7 @@
     import company_contact_list from "../details/CompanyContactListComponent";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import url_mixin from "../../mixins/url_mixin";
+    import sharing_panel from "../details/SharingPanelComponent";
 
     export default {
         mixins: [
@@ -234,7 +256,8 @@
         components: {
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
-            'company_contact_list': company_contact_list
+            'company_contact_list': company_contact_list,
+            'sharing_panel': sharing_panel,
         },
         data() {
             return {
@@ -280,16 +303,10 @@
 
                 return id
             },
-            scrollToAbout(){
-                const el = document.getElementById('box-about-company');
+            scrollToBlock(id){
+                const el = document.getElementById(id);
                 $('html,body').animate({
-                    scrollTop:$(el).offset().top+"px"
-                }, 500, 'linear');
-            },
-            scrollToVacancies(){
-                const el = document.getElementById('box-company-vacancies');
-                $('html,body').animate({
-                    scrollTop:$(el).offset().top+"px"
+                    scrollTop:$(el).offset().top-100+"px"
                 }, 500, 'linear');
             },
         },
@@ -308,9 +325,18 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-
-
-
+    .top-left-site{
+        display: flex;
+    }
+    .box-soc-button{
+        display: flex;
+        align-items: center;
+        svg{
+            width: 20px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    }
     .iframe-youtube{
         min-height: 190px;
     }
@@ -395,29 +421,20 @@
                 top: 0;
                 border-bottom: 1px solid #dee2e6;
                 background-color: #fff;
-                padding: 15px;
+                padding: 20px 20px 15px 15px;
                 margin: 0 -15px;
                 z-index: 15;
                 font-size: 17px;
-                .box-soc-button{
-                    display: flex;
-                    align-items: center;
-                    svg{
-                        width: 30px;
-                        margin-right: 10px;
-                        cursor: pointer;
-                        &:hover{
-                            outline: 1px solid #acddfb;
-                            border-radius: 7px;
-                            padding: 1px;
-                        }
-                    }
-                }
+
                 .box-scroll-button{
                     display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
                     button{
                         width: auto;
                         margin-left: 10px;
+                        height: 40px;
                     }
                 }
                 button {

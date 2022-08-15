@@ -19,9 +19,12 @@ use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use App\Services\LocalizationService;
 use App\Services\MetaService;
+use Butschster\Head\Facades\Meta;
+use Butschster\Head\Packages\Entities\OpenGraphPackage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Jorenvh\Share\ShareFacade;
 
 
 class VacancyController extends BaseController {
@@ -79,6 +82,36 @@ class VacancyController extends BaseController {
         $arrData['respond']['settings'] = $settings;
 
         $this->setMetaShowVacancyPage($arrData["respond"]["vacancy"]);
+
+        $og = new OpenGraphPackage('some_name');
+//        $og->setType('website')
+        $og->setType('article')
+            ->setSiteName('My awesome site')
+            ->setDescription('View the album on Flickr.')
+            ->setUrl('http://127.0.0.1:8000/vacancy/ukraine/odessa/70ad4bf80aa87e6a32fb885daab78346ac222191')
+            ->setLocale('en_US')
+            ->setTitle('Post title')
+            ->addImage('http://127.0.0.1:8000', [
+                'secure_url' => 'http://127.0.0.1:8000/img/company/default/company-default.jpg',
+                'type' => 'image/jpg'
+            ]);
+
+        $og->toHtml();
+
+        Meta::registerPackage($og);
+
+
+//        $arrData["respond"]["social_share"] = ShareFacade::currentPage()
+        $arrData["respond"]["social_share"] = ShareFacade::page(
+            'http://127.0.0.1:8000/vacancy/ukraine/odessa/70ad4bf80aa87e6a32fb885daab78346ac222191',
+            'Share title'
+        )
+            ->facebook()
+            ->twitter()
+            ->linkedin('Extra linkedin summary can be passed here')
+            ->whatsapp()
+            ->telegram()
+            ->getRawLinks();
 
         return view('vacancies.show_vacancy', $arrData);
     }

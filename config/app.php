@@ -180,7 +180,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        // sharing in soc
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
     ],
 
     /*
@@ -236,6 +237,8 @@ return [
         // фасад префикса языка url и смена языка сайта
         'Localization' => \App\Facades\LocalizationFacades::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        // sharing in soc
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
 ];

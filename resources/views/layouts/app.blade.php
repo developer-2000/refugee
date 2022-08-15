@@ -4,6 +4,16 @@
 
     {!! \Butschster\Head\Facades\Meta::toHtml() !!}
 
+{{--    <meta property="og:type" content="website">--}}
+{{--    <meta property="og:site_name" content="Название сайта">--}}
+{{--    <meta property="og:title" content="Заголовок">--}}
+{{--    <meta property="og:description" content="Описание страницы">--}}
+{{--    <meta property="og:url" content="http://mysite.com/post">--}}
+{{--    <meta property="og:locale" content="ru_RU">--}}
+{{--    <meta property="og:image" content="http://mysite.com/thumbnail.jpg">--}}
+{{--    <meta property="og:image:width" content="968">--}}
+{{--    <meta property="og:image:height" content="504">--}}
+
     @section('style')
     @show
 

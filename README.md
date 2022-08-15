@@ -3,6 +3,12 @@ https://freehost.com.ua/ukr/faq/articles/chto-takoe-mikrorazmetka-ee-vidi-funkts
 
 https://d-element.ru/about/blog/chto-takoe-schema-org/#wpheader
 
+#### поделится в соцсетях
+
+https://github.com/jorenvh/laravel-share
+
+help - https://www.youtube.com/watch?v=EgiHdLgmeSo
+
 #### авторизация через пакет socialite
 
 https://laravel.su/docs/8.x/socialite
@@ -31,6 +37,8 @@ https://www.linkedin.com/developers/apps
 
 #### пакет для мета тегов сайта
 https://github.com/butschster/LaravelMetaTags
+
+пример для og тегов - https://anatolykulikov.ru/lesson/create-open-graph-data-markup/
 
 #### localisation - формирование url функционирование переключения на стороне Front
 

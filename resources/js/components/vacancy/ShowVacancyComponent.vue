@@ -23,38 +23,54 @@
         <!-- buttons -->
         <div class="top-panel button-panel">
 
-            <!-- Откликнуться -->
-            <button v-if="
-            respond['owner_vacancy'] == null && (user !== null && user.id !== respond['vacancy']['user_id']) ||
-            respond['owner_vacancy'] == null && user === null"
-                    class="btn btn-block btn-outline-primary" type="button"
-                    @click="scrollRespond()"
-            >
-                {{trans('respond','respond')}}
-            </button>
+            <div class="left-site">
+                <!-- Откликнуться -->
+                <button v-if="
+                respond['owner_vacancy'] == null && (user !== null && user.id !== respond['vacancy']['user_id']) ||
+                respond['owner_vacancy'] == null && user === null"
+                        class="btn btn-block btn-outline-primary" type="button"
+                        @click="scrollRespond()"
+                >
+                    {{trans('respond','respond')}}
+                </button>
 
-            <!-- общение с -->
-            <button v-else-if="respond['owner_vacancy'] !== null"
-                    class="btn btn-block btn-primary" type="button"
-                    @click="goToDialog(respond['owner_vacancy'].offer, respond['in_table'])"
-            >
-                {{trans('respond','open_dialog_with')}} {{respond['owner_vacancy'].contact.name}}
-            </button>
+                <!-- общение с -->
+                <button v-else-if="respond['owner_vacancy'] !== null"
+                        class="btn btn-block btn-primary" type="button"
+                        @click="goToDialog(respond['owner_vacancy'].offer, respond['in_table'])"
+                >
+                    {{trans('respond','open_dialog_with')}} {{respond['owner_vacancy'].contact.name}}
+                </button>
 
-            <!-- Найти похожие вакансии -->
-            <button class="btn btn-block btn-outline-primary" type="button"
-                    @click="findSimilarVacancy()"
-            >
-                {{trans('vacancies','find_similar_jobs')}}
-            </button>
+                <!-- Найти похожие вакансии -->
+                <button class="btn btn-block btn-outline-primary" type="button"
+                        @click="findSimilarVacancy()"
+                >
+                    {{trans('vacancies','find_similar_jobs')}}
+                </button>
 
-            <!-- кнопки закладок вакансий -->
-            <bookmark_buttons
-                :lang="lang"
-                :vacancy="respond['vacancy']"
-                :user="user"
-                :which_button_show="'show_vacancy'"
-            ></bookmark_buttons>
+                <!-- кнопки закладок вакансий -->
+                <bookmark_buttons
+                    :lang="lang"
+                    :vacancy="respond['vacancy']"
+                    :user="user"
+                    :which_button_show="'show_vacancy'"
+                ></bookmark_buttons>
+            </div>
+
+            <!-- Sharing panel -->
+            <div class="right-site">
+                <!--            <ul>-->
+                <!--                <li v-for="(url, index) in respond.social_share" :key="index">-->
+                <!--                    <a :href="url">{{ index }}</a>-->
+                <!--                </li>-->
+                <!--            </ul>-->
+                <sharing_panel
+                    :lang="lang"
+                    :page="'vacancy'"
+                ></sharing_panel>
+            </div>
+
         </div>
 
         <!-- vacancy -->
@@ -212,12 +228,12 @@
 <script>
     import bookmark_buttons from "./details/BookmarkButtonsVacancyComponent";
     import vacancy_template from "./details/VacancyTemplateComponent";
+    import sharing_panel from "../details/SharingPanelComponent";
     import translation from "../../mixins/translation";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import drag_drop_file from '../load_files/DragDropFileComponent'
     import show_resume_vacancy_mixin from "../../mixins/show_resume_vacancy_mixin";
-    import date_mixin from "../../mixins/date_mixin";
     import url_mixin from "../../mixins/url_mixin";
     import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
 
@@ -227,6 +243,7 @@
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
             'drag_drop_file': drag_drop_file,
+            'sharing_panel': sharing_panel,
         },
         mixins: [
             translation,
@@ -333,8 +350,7 @@
             this.initializationFunc
             $('html, body').animate({scrollTop: 0},500);
 
-            // console.log(this.user)
-            // console.log(this.respond)
+            console.log(this.respond.social_share)
         },
     }
 </script>
@@ -343,7 +359,10 @@
     @import "../../../sass/variables";
 
     .button-panel{
-        flex-direction: row;
+        justify-content: space-between;
+        .left-site{
+            display: flex;
+        }
     }
     .bread-panel{
         display: flex;
@@ -363,7 +382,7 @@
     }
 
     .box-page {
-        padding: 15px;
+        padding: 15px 15px 50px;
     }
     #box-respond{
         border-top: 1px solid $border-style-grey-2;

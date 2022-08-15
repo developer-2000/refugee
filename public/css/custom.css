@@ -72,8 +72,8 @@ a:hover,
     margin-right: 5px;
     height: 14px;
 }
-.bread-top svg path,
-.bread-top-cabinet svg path{
+.bread-top svg,
+.bread-top-cabinet svg{
     fill: #a7a8a9;
 }
 .bread-slash{
@@ -152,7 +152,9 @@ ul {
 li {
     list-style-type: none; /* Убираем маркеры */
 }
-
+.body-page{
+    padding-bottom: 60px!important;
+}
 /* sidebar left */
 .brand-link{
     display: flex;
@@ -166,10 +168,7 @@ li {
     background: linear-gradient(0deg, rgba(253,230,45,1) 0%, rgba(253,230,45,1) 49%, rgba(0,123,255,1) 49%, rgba(0,123,255,1) 100%);
 }
 .brand-link .brand-text{
-    line-height: 18px;
-}
-.brand-link .box-logo-title {
-    height: 35px;
+    line-height: 22px;
 }
 .brand-link img{
     width: 50px;
@@ -695,7 +694,7 @@ select{
     .search-panel.container,
     .box-page.container {
         max-width: 1400px;
-        padding: 0 15px;
+        /*padding: 0 15px;*/
     }
 }
 

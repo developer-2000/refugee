@@ -23,38 +23,49 @@
         <!-- buttons -->
         <div class="top-panel">
 
-            <!-- Откликнуться -->
-            <button v-if="
+            <div class="left-site">
+                <!-- Откликнуться -->
+                <button v-if="
             respond['owner_resume'] == null && (user !== null && user.id !== respond['resume']['user_id']) ||
             respond['owner_vacancy'] == null && user === null"
-                    class="btn btn-block btn-outline-primary" type="button"
-                    @click="scrollRespond()"
-            >
-                {{trans('respond','respond')}}
-            </button>
+                        class="btn btn-block btn-outline-primary" type="button"
+                        @click="scrollRespond()"
+                >
+                    {{trans('respond','respond')}}
+                </button>
 
-            <!-- общение с -->
-            <button v-else-if="respond['owner_resume'] !== null"
-                    class="btn btn-block btn-primary" type="button"
-                    @click="goToDialog(respond['owner_resume'].offer, respond['in_table'])"
-            >
-                {{trans('respond','open_dialog_with')}} {{respond['owner_resume'].contact.name}}
-            </button>
+                <!-- общение с -->
+                <button v-else-if="respond['owner_resume'] !== null"
+                        class="btn btn-block btn-primary" type="button"
+                        @click="goToDialog(respond['owner_resume'].offer, respond['in_table'])"
+                >
+                    {{trans('respond','open_dialog_with')}} {{respond['owner_resume'].contact.name}}
+                </button>
 
-            <!-- Найти похожие вакансии -->
-            <button class="btn btn-block btn-outline-primary" type="button"
-                    @click="findSimilarResume()"
-            >
-                Найти похожие резюме
-            </button>
+                <!-- Найти похожие вакансии -->
+                <button class="btn btn-block btn-outline-primary" type="button"
+                        @click="findSimilarResume()"
+                >
+                    Найти похожие резюме
+                </button>
 
-            <!-- кнопки закладок вакансий -->
-            <bookmark_buttons
-                :lang="lang"
-                :resume="respond['resume']"
-                :user="user"
-                :which_button_show="'show_resume'"
-            ></bookmark_buttons>
+                <!-- кнопки закладок вакансий -->
+                <bookmark_buttons
+                    :lang="lang"
+                    :resume="respond['resume']"
+                    :user="user"
+                    :which_button_show="'show_resume'"
+                ></bookmark_buttons>
+            </div>
+
+            <!-- Sharing panel -->
+            <div class="right-site">
+                <sharing_panel
+                    :lang="lang"
+                    :page="'resume'"
+                ></sharing_panel>
+            </div>
+
         </div>
 
         <!-- resume -->
@@ -155,11 +166,13 @@
     import show_resume_vacancy_mixin from "../../mixins/show_resume_vacancy_mixin";
     import url_mixin from "../../mixins/url_mixin";
     import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
+    import sharing_panel from "../details/SharingPanelComponent";
 
     export default {
         components: {
             'bookmark_buttons': bookmark_buttons,
             'resume_template': resume_template,
+            'sharing_panel': sharing_panel,
         },
         mixins: [
             translation,
@@ -241,6 +254,13 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .top-panel{
+        justify-content: space-between;
+        .left-site{
+            display: flex;
+        }
+    }
+
     .bread-panel{
         display: flex;
         flex-direction: column;
@@ -259,7 +279,7 @@
     }
 
     .box-page {
-        padding: 15px;
+        padding: 15px 15px 50px;
     }
     #box-respond{
         border-top: 1px solid $border-style-grey-2;

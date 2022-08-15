@@ -3,6 +3,7 @@ namespace App\Http\Traits;
 
 use App\Services\MetaService;
 use Butschster\Head\Facades\Meta;
+use Butschster\Head\Packages\Entities\OpenGraphPackage;
 
 trait MetaTrait
 {
@@ -55,15 +56,6 @@ trait MetaTrait
                 "keywords" => __('meta_tags.vacancies_city.keywords', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"], ]),
                 "canonical" => url()->current(),
             ]);
-
-//<title>Work in Odesa | Jobs in Odesa | Work.ua</title>
-//<meta name="Keywords" content="jobs in kyiv, work, jobs in ukraine, jobs, resumes, search jobs, looking for a job, employers, recruiting, work ua">
-//<meta name="Description" content="Work.ua has 1860 jobs in Odesa. Now finding a job in Odesa is easy. Search using job titles, categories, and new job emails. Find work in Odesa on Work.ua.">
-//
-//<title>Работа в Одессе. Вакансии в Одессе — Work.ua</title>
-//<meta name="Keywords" content="работа в киеве, работа, работа в украине, вакансии, резюме, кандидаты, поиск работы, ищу работу, работодатели, подбор персонала, work ua, ворк юа">
-//<meta name="Description" content="1861 вакансия в Одессе на Work.ua. Найти работу в Одессе теперь просто. Поиск вакансий по запросу, категориям, рассылка новых вакансий. Работа в Одессе на Work.ua найдется.">
-
         }
     }
 
@@ -85,6 +77,7 @@ trait MetaTrait
             "keywords" => __('meta_tags.show_vacancy.keywords', [ 'address' => $address]),
             "canonical" => url()->current(),
         ]);
+
     }
 
     /**

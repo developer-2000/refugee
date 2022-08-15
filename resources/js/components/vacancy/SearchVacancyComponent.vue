@@ -7,8 +7,10 @@
                 {{getTitlePage()}}
             </h1>
 
-            <!-- breadcrumbs -->
+
             <div class="top-panel bread-top">
+
+                <!-- breadcrumbs -->
                 <ul class="ul-breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
                     <li v-for="(obj, key) in getGenerateBackLink()" :key="key"
@@ -21,6 +23,12 @@
                         <span class="bread-slash"> | </span>
                     </li>
                 </ul>
+
+                <!-- Sharing panel -->
+                <sharing_panel
+                    :lang="lang"
+                    :page="'search'"
+                ></sharing_panel>
             </div>
 
             <h2 class="title_page">
@@ -123,6 +131,7 @@
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import url_mixin from "../../mixins/url_mixin";
     import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
+    import sharing_panel from "../details/SharingPanelComponent";
 
     export default {
         components: {
@@ -131,6 +140,7 @@
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
             'search_title_panel': search_title_panel,
+            'sharing_panel': sharing_panel,
         },
         mixins: [
             translation,
@@ -217,7 +227,7 @@
             'user',
         ],
         mounted() {
-            console.log(this.respond)
+            // console.log(this.respond)
 
         },
     }
@@ -226,10 +236,13 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .bread-top{
+        justify-content: space-between;
+    }
     .search-panel{
         .bottom-search{
             display: flex;
-            padding: 30px 15px 0;
+            padding: 30px 15px 50px;
             .left-site{
                 min-width: 80%;
                 .box-vacancy{
