@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="search-panel container">
+    <div class="container">
         <div class="box-title-panel">
             <!-- title -->
             <h1>
@@ -81,14 +81,14 @@
 
         .box-above-photo{
             position: relative;
-            padding: 50px 0;
+            padding: 0 0 75px 0;
         }
         .above-photo{
-            height: 100%;
+            height: 75%;
             overflow: hidden;
             position: absolute;
             right: 0;
-            top: 0;
+            bottom: 40px;
             z-index: 0;
         }
         .above-text{
@@ -96,14 +96,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 24px 30px 0 30px;
+            padding: 25px 35px 15px 30px;
             position: relative;
             z-index: 1;
             background: #fff;
             border: 1px solid hsla(210,5%,93%,.5);
             box-shadow: 0 2px 3px 0 rgba(0,0,0,.1);
-            max-width: 70%;
-            min-height: 448px;
+            max-width: 61%;
+            min-height: 439px;
         }
 
 

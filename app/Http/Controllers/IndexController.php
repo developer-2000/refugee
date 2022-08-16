@@ -40,6 +40,14 @@ class IndexController extends Controller {
         return view("about_us.about_us_".app()->getLocale());
     }
 
+    public function feedback() {
+
+        return view("feedback");
+    }
+
+
+
+
 //    private function test() {
 //
 ////        $users = User::with('permission')->get();

@@ -5,11 +5,31 @@ body{
     min-height:100vh;
     opacity: 0;
 }
+.content-wrapper{
+    /*margin-bottom: -70px;*/
+}
 .content-wrapper, .wrapper{
     background: white;
 }
+
 .main-footer{
-    margin-top: 70px;
+    /*margin-top: 70px;*/
+    /*background-color: #fff!important;*/
+    border: none!important;
+    color: #444!important;
+    padding: 0!important;
+    min-height: 140px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: center;
+}
+.bottom-footer{
+    padding: 1rem 0!important;
+}
+.footer-line-border{
+    border-top: 1px solid #dee2e6;
 }
 h1{
     font-weight: 600;
@@ -159,7 +179,7 @@ li {
     list-style-type: none; /* Убираем маркеры */
 }
 .body-page{
-    padding: 40px 0 60px 0 !important;
+    padding-top: 40px!important;
 }
 /* sidebar left */
 .brand-link{

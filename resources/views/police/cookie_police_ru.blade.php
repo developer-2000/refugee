@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="search-panel container">
+    <div class="container">
         <div class="box-title-panel">
             <!-- title -->
             <h1 class="block-page">

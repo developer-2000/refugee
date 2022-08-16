@@ -48,6 +48,7 @@ Vue.component('office-component', require('./components/private_office/OfficeCom
 Vue.component('top-menu-component', require('./components/menu/TopMenuComponent').default);
 Vue.component('index-component', require('./components/IndexComponent').default);
 Vue.component('main-footer', require('./components/MainFooterComponent').default);
+Vue.component('feedback', require('./components/FeedbackComponent').default);
 
 
 const app = new Vue({

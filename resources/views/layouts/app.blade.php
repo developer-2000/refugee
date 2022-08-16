@@ -154,10 +154,15 @@
             <!-- / Content body -->
 
             <footer class="main-footer">
-                <main-footer
-                    :lang="{{json_encode($lang)}}"
-                    :app_name=`{{env('APP_NAME_EN')}}`
-                ></main-footer>
+
+                <div class="footer-line-border"></div>
+                <div class="container bottom-footer">
+                    <main-footer
+                        :lang="{{json_encode($lang)}}"
+                        :app_name=`{{env('APP_NAME_EN')}}`
+                    ></main-footer>
+                </div>
+
             </footer>
 
         </div>

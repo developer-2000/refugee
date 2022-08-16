@@ -182,12 +182,11 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::get('language/{name}', 'LanguageController@changeLanguage')
             ->name('language');
 
-        // police pages
+        // общие страницы
         Route::get('cookie-police', [PoliceController::class, 'showCookiePage']);
         Route::get('terms-use', [PoliceController::class, 'showTermsUsePage']);
-
-        // aboutUs page
         Route::get('about-us', [IndexController::class, 'aboutUs']);
+        Route::get('feedback', [IndexController::class, 'feedback']);
 
     });
 });

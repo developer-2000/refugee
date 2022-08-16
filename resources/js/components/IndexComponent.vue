@@ -1,5 +1,5 @@
 <template>
-    <div class="search-panel container body-page">
+    <div class="container body-page">
 
         <div class="box-title-panel">
             <h1 class="title_page">
@@ -11,6 +11,7 @@
                     <b>Найти работу</b>
                     <img alt="european flag" src="/img/custom/european flag.jpg">
                 </a>
+
                 <a :href="`${lang.prefix_lang}resume`" class="flag">
                     <b>Найти сотрудника</b>
                     <img alt="ukrainian flag" src="/img/custom/ukrainian flag.jpg">
@@ -257,74 +258,71 @@
             color: #444;
         }
     }
-    .search-panel{
-        color: #444;
-        .title_page {
-            padding: 15px;
-        }
-        .box-flags{
-            text-align: center;
-            margin: 25px 0;
-            .flag{
-                margin: 0 15px;
-                position: relative;
-                display: inline-block;
-                /*opacity: 0.5;*/
-                b{
-                    position: absolute;
-                    bottom: 0px;
-                    width: 100%;
-                    padding: 10px 0;
-                    background: rgba(255 255 255 / 0.8);
-                    color: #444;
-                }
-                img{
-                    width: 200px;
-                }
+    .title_page {
+        padding: 15px;
+    }
+    .box-flags{
+        text-align: center;
+        margin: 25px 0;
+        .flag{
+            margin: 0 15px;
+            position: relative;
+            display: inline-block;
+            /*opacity: 0.5;*/
+            b{
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+                padding: 10px 0;
+                background: rgba(255 255 255 / 0.8);
+                color: #444;
+            }
+            img{
+                width: 200px;
             }
         }
-        .bottom-search{
-            display: flex;
-            padding: 30px 15px 0;
-            .left-site{
-                min-width: 77%;
-                .box-vacancy{
-                    margin-right: 15px;
-                    .box-title-logo{
-                        display: flex;
-                        justify-content: space-between;
-                        .title-vacancy{
-                            margin: 5px 0 10px;
-                            padding: 0;
-                            line-height: 25px;
-                            height: 25px;
-                            font-size: 26px;
-                        }
-                        .img-logo{
-                            width: 100px;
-                        }
+    }
+    .bottom-search{
+        display: flex;
+        padding: 30px 15px 0;
+        .left-site{
+            min-width: 77%;
+            .box-vacancy{
+                margin-right: 15px;
+                .box-title-logo{
+                    display: flex;
+                    justify-content: space-between;
+                    .title-vacancy{
+                        margin: 5px 0 10px;
+                        padding: 0;
+                        line-height: 25px;
+                        height: 25px;
+                        font-size: 26px;
                     }
-                    .line-div{
-                        display: flex;
-                        margin-bottom: 5px;
-                        .font-weight-bold{
-                            font-weight: bold;
-                        }
+                    .img-logo{
+                        width: 100px;
                     }
-                    .address-comment{
-                        display: flex;
-                        align-items: center;
-                        svg{
-                            width: 7px;
-                            margin: 0 5px;
-                        }
+                }
+                .line-div{
+                    display: flex;
+                    margin-bottom: 5px;
+                    .font-weight-bold{
+                        font-weight: bold;
                     }
+                }
+                .address-comment{
+                    display: flex;
+                    align-items: center;
+                    svg{
+                        width: 7px;
+                        margin: 0 5px;
+                    }
+                }
 
-                }
             }
-            .right-site{
-                min-width: 23%;
-            }
+        }
+        .right-site{
+            min-width: 23%;
         }
     }
 

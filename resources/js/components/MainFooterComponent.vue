@@ -8,6 +8,11 @@
         <div class="right_footer">
             <ul class="footer-ul">
                 <li>
+                    <a :href="`${lang.prefix_lang}feedback`" rel="nofollow">
+                        Обратная связь
+                    </a>
+                </li>
+                <li>
                     <a :href="`${lang.prefix_lang}cookie-police`" rel="nofollow">
                         {{ trans('cookie','cookie_policy') }}
                     </a>
@@ -41,7 +46,7 @@
         methods: {
             getSiteAgeYears(){
                 let now_year = 2022
-                let count = this.getDifferenceYears(2022+"-01-01 00:00:00", new Date())
+                let count = this.getDifferenceYears(now_year+"-01-01 00:00:00", new Date())
                 if(count > 0){
                     return now_year+"-"+(now_year+count)
                 }
