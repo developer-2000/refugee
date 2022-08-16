@@ -35,6 +35,11 @@ class IndexController extends Controller {
         return view('index', compact('transition_url_page','respond'));
     }
 
+    public function aboutUs() {
+
+        return view("about_us.about_us_".app()->getLocale());
+    }
+
 //    private function test() {
 //
 ////        $users = User::with('permission')->get();

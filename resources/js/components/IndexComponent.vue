@@ -12,7 +12,7 @@
                     <img alt="european flag" src="/img/custom/european flag.jpg">
                 </a>
                 <a :href="`${lang.prefix_lang}resume`" class="flag">
-                    <b>Найти работника</b>
+                    <b>Найти сотрудника</b>
                     <img alt="ukrainian flag" src="/img/custom/ukrainian flag.jpg">
                 </a>
             </div>
@@ -197,6 +197,10 @@
 
 <style scoped lang="scss">
     @import "../../sass/variables";
+
+    .top-search{
+        border: none;
+    }
     .annotation-page {
         font-weight: 400;
         line-height: 24px;
@@ -242,7 +246,6 @@
     h1{
         width: 100%;
         text-align: center;
-        font-size: 25pt;
     }
 
     .box-page{
@@ -250,7 +253,7 @@
         h2{
             width: 100%;
             text-align: center;
-            font-size: 25pt;
+            font-size: 23pt;
             color: #444;
         }
     }

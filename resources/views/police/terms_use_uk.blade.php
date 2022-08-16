@@ -112,9 +112,9 @@
         .container{
             padding: 0 30px!important;
         }
-        .box-title-panel{
-            padding-bottom: 70px;
-        }
+        /*.box-title-panel{*/
+        /*    padding-bottom: 70px;*/
+        /*}*/
         h1{
             padding: 30px 0 15px !important;
         }

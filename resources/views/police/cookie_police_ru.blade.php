@@ -252,9 +252,9 @@
             border-bottom: 1px solid #dee2e6;
             padding: 20px 0 10px 0;
         }
-        .box-title-panel{
-            padding-bottom: 70px;
-        }
+        /*.box-title-panel{*/
+        /*    padding-bottom: 70px;*/
+        /*}*/
         .box-title-panel > .block-page:last-child{
             border: none;
         }

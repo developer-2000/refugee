@@ -27,8 +27,8 @@
                     </a>
                 </li>
                 <!-- Menu -->
-                <li class="nav-item d-none d-sm-inline-block button-navbar">
-<!--                    <a href="#" class="nav-link">Home</a>-->
+                <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left">
+                    <a :href="lang.prefix_lang+'about-us'" class="nav-link">О Сервисе</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block button-navbar">
 <!--                    <a href="#" class="nav-link">Contact</a>-->
@@ -291,6 +291,9 @@
 <style scoped lang="scss">
     @import "resources/sass/_variables";
 
+    .li-margin-left{
+        margin-left: 20px!important;
+    }
     .background-top-menu{
         margin-bottom: -1px;
         nav{

@@ -4,6 +4,13 @@
 
     {!! \Butschster\Head\Facades\Meta::toHtml() !!}
 
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('/img/custom/favicon/apple-touch-icon-144x144.png')}}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{asset('/img/custom/favicon/apple-touch-icon-152x152.png')}}" />
+    <link rel="icon" type="image/png" href="{{asset('/img/custom/favicon/favicon-32x32.png')}}" sizes="32x32" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
+
 {{--    <meta property="og:type" content="website">--}}
 {{--    <meta property="og:site_name" content="Название сайта">--}}
 {{--    <meta property="og:title" content="Заголовок">--}}

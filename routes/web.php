@@ -8,6 +8,7 @@ use \App\Http\Controllers\Auth\FacebookController;
 use \App\Http\Controllers\Auth\LinkedinController;
 use \App\Http\Controllers\Auth\TwitterController;
 use \App\Http\Controllers\PoliceController;
+use \App\Http\Controllers\IndexController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -49,7 +50,7 @@ Route::group(['prefix'=>'technical'], function (){
 Route::group(['prefix' => LocalizationFacades::locale()], function () {
     Route::group(['middleware' => ['redirect_admin']], function () {
 
-        Route::get('/', 'IndexController@index')->name('index');
+        Route::get('/', [IndexController::class, 'index'])->name('index');
 
         // Authentication
         Route::middleware('throttle:10,1')->group(function () {
@@ -184,6 +185,9 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         // police pages
         Route::get('cookie-police', [PoliceController::class, 'showCookiePage']);
         Route::get('terms-use', [PoliceController::class, 'showTermsUsePage']);
+
+        // aboutUs page
+        Route::get('about-us', [IndexController::class, 'aboutUs']);
 
     });
 });
