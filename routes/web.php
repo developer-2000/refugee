@@ -187,6 +187,7 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::get('terms-use', [PoliceController::class, 'showTermsUsePage']);
         Route::get('about-us', [IndexController::class, 'aboutUs']);
         Route::get('feedback', [IndexController::class, 'feedback']);
+        Route::post('feedback-send-message', [IndexController::class, 'feedbackSendMessage']);
 
     });
 });

@@ -10,6 +10,7 @@ class UserContact extends Model
     protected $casts = [
         'messengers' => 'array',
     ];
+    protected $appends = ['full_name'];
 
     // название должности
     public function position() {
@@ -30,4 +31,10 @@ class UserContact extends Model
             $model->save();
         });
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->surname}";
+    }
+
 }

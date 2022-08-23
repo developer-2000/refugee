@@ -1,3 +1,13 @@
+#### работа с очередями
+
+https://www.oulub.com/ru-RU/Laravel/queues
+
+запуск выполнения очередей в консоле - 
+php artisan queue:work --queue=emails,default --tries=3
+эта команда реагирует на изменения в коде, но ресурсноемка
+php artisan queue:listen
+
+
 #### микроразметка примеры
 https://freehost.com.ua/ukr/faq/articles/chto-takoe-mikrorazmetka-ee-vidi-funktsii-primeri-realizatsii/?gclid=Cj0KCQjwio6XBhCMARIsAC0u9aGp3uF2iLXSQdF1s-z8ojsoCG30eLT4G0Yk5AplqZZ4FqIWQEE5lmIaAifTEALw_wcB
 

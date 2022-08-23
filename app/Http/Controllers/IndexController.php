@@ -1,16 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
 use App\Http\Traits\MetaTrait;
-use App\Model\User;
+use App\Jobs\SendMessageFromSite;
 use App\Services\LocalizationService;
-use App\Services\MetaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 
-class IndexController extends Controller {
+class IndexController extends BaseController {
     use MetaTrait;
 
     /**
@@ -41,8 +43,20 @@ class IndexController extends Controller {
     }
 
     public function feedback() {
+        $respond = [ "contact" => null ];
+        if(!is_null(Auth::user())){
+            $respond["contact"] = Auth::user()->contact->only(['full_name', 'email']);
+        }
 
-        return view("feedback");
+        $respond["config"] = config('site.feedback');
+        return view("feedback", compact('respond'));
+    }
+
+    public function feedbackSendMessage(FeedbackSendMessageRequest $request) {
+//        SendMessageFromSite::dispatch($request->validated())
+//            ->onQueue('emails');
+
+        return $this->getResponse();
     }
 
 

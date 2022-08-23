@@ -106,8 +106,6 @@
             min-height: 439px;
         }
 
-
-
         .box-photo{
             background: #f9f9f9;
             border: 1px solid #dee2e6;
@@ -122,7 +120,6 @@
         .box-photo .about-photo{
             padding: 25px 25px 40px 25px;
         }
-
 
         strong{
             margin: 5px 0!important;
