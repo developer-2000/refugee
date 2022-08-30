@@ -57,9 +57,13 @@ a:hover,
     text-decoration: none!important;
     background-color: transparent;
     display: inline-block;
+    cursor: pointer;
 }
 .link-a:hover{
     color: #1d68a7!important;
+}
+.border-link{
+    border: 1px solid #3490dc;
 }
 .top-panel{
     display: flex;

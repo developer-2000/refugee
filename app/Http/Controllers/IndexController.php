@@ -53,13 +53,11 @@ class IndexController extends BaseController {
     }
 
     public function feedbackSendMessage(FeedbackSendMessageRequest $request) {
-//        SendMessageFromSite::dispatch($request->validated())
-//            ->onQueue('emails');
+        SendMessageFromSite::dispatch($request->validated())
+            ->onQueue('emails');
 
         return $this->getResponse();
     }
-
-
 
 
 //    private function test() {

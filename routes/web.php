@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Services\LocalizationService;
 use \App\Facades\LocalizationFacades;
 use \App\Http\Controllers\Auth\GoogleController;
 use \App\Http\Controllers\Auth\FacebookController;
@@ -9,6 +8,7 @@ use \App\Http\Controllers\Auth\LinkedinController;
 use \App\Http\Controllers\Auth\TwitterController;
 use \App\Http\Controllers\PoliceController;
 use \App\Http\Controllers\IndexController;
+use \App\Http\Controllers\CharityController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -185,9 +185,12 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         // общие страницы
         Route::get('cookie-police', [PoliceController::class, 'showCookiePage']);
         Route::get('terms-use', [PoliceController::class, 'showTermsUsePage']);
-        Route::get('about-us', [IndexController::class, 'aboutUs']);
+        Route::get('about-us', [IndexController::class, 'aboutUs'])
+            ->name('about-us');
         Route::get('feedback', [IndexController::class, 'feedback']);
         Route::post('feedback-send-message', [IndexController::class, 'feedbackSendMessage']);
+        Route::get('show-charity', [CharityController::class, 'showCharity'])
+            ->name('show-charity');
 
     });
 });

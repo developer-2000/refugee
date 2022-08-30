@@ -49,6 +49,7 @@ Vue.component('top-menu-component', require('./components/menu/TopMenuComponent'
 Vue.component('index-component', require('./components/IndexComponent').default);
 Vue.component('main-footer', require('./components/MainFooterComponent').default);
 Vue.component('feedback', require('./components/FeedbackComponent').default);
+Vue.component('show-charity', require('./components/charity/ShowCharityComponent').default);
 
 
 const app = new Vue({
