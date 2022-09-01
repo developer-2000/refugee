@@ -86,12 +86,7 @@
             }
         },
         methods: {
-            initialData(){
-                // click menu vacancy
-                $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
-                    e.stopPropagation();
-                });
-            }
+
         },
         props: [
             'lang',   // масив названий и url языка
@@ -99,7 +94,6 @@
             'vacancies',
         ],
         mounted() {
-            this.initialData()
         },
     }
 </script>

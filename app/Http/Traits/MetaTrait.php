@@ -147,6 +147,63 @@ trait MetaTrait
     }
 
     /**
+     * страница - о нас
+     */
+    private function setMetaAboutUsPage(){
+        $this->metaTags(new MetaService(), [
+            "title" => __('meta_tags.about_us.title')." | ".config('app.name', ""),
+            "description" => __('meta_tags.about_us.description', [ "app_name"=>config('app.name', "") ]),
+            "keywords" => __('meta_tags.about_us.keywords'),
+            "canonical" => url()->current(),
+        ]);
+    }
+
+    /**
+     * страница связи
+     */
+    private function setMetaFeedbackPage(){
+        $this->metaTags(new MetaService(), [
+            "title" => __('meta_tags.feedback.title')." | ".config('app.name', ""),
+            "description" => __('meta_tags.feedback.description').config('app.name', ""),
+            "keywords" => __('meta_tags.feedback.keywords'),
+            "canonical" => url()->current(),
+        ]);
+    }
+
+    /**
+     * страница пользовательское соглашение
+     */
+    private function setMetaTermsUsePage(){
+        $this->metaTags(new MetaService(), [
+            "title" => __('meta_tags.terms_use.title')." | ".config('app.name', ""),
+            "description" => __('meta_tags.terms_use.description').config('app.name', ""),
+            "keywords" => __('meta_tags.terms_use.keywords'),
+            "canonical" => url()->current(),
+        ]);
+    }
+
+    /**
+     * страница cookie police
+     */
+    private function setMetaCookiePolicyPage(){
+        $this->metaTags(new MetaService(), [
+            "title" => __('meta_tags.cookie_policy.title')." | ".config('app.name', ""),
+            "description" => __('meta_tags.cookie_policy.description').config('app.name', ""),
+            "keywords" => __('meta_tags.cookie_policy.keywords'),
+            "canonical" => url()->current(),
+        ]);
+    }
+
+    private function setMetaCharityPage(){
+        $this->metaTags(new MetaService(), [
+            "title" => __('meta_tags.charity.title')." | ".config('app.name', ""),
+            "description" => __('meta_tags.charity.description').config('app.name', ""),
+            "keywords" => __('meta_tags.charity.keywords'),
+            "canonical" => url()->current(),
+        ]);
+    }
+
+    /**
      * формирует мета теги страницы
      * @param  MetaService  $meta
      * @param $data

@@ -56,11 +56,15 @@ class VacancyRepository extends CoreRepository {
         $vacancies = $this->initialDataForSampling($request);
 
         if(!is_null($my_user)){
-            // не показывать мои вакансии
+            // 1 не показывать мои вакансии
             $vacancies = $vacancies->where('user_id', '!=', $my_user->id);
-            // не показывать мною скрытые вакансии
+            // 2 не показывать мною скрытые вакансии
             $idHide = UserHideVacancy::where('user_id',$my_user->id)->get()->pluck('vacancy_id');
             $vacancies = $vacancies->whereNotIn('id', $idHide);
+            // 3 прошла верификацию
+            $vacancies = $vacancies->where('published', 1);
+            // 4 убрать закрытые вакансии
+            $vacancies = $vacancies->whereJsonDoesntContain('job_posting->status_name', "hidden");
         }
 
         $vacancies = $vacancies

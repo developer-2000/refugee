@@ -194,7 +194,3 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
 
     });
 });
-
-
-
-

@@ -254,13 +254,14 @@
 
                 <!-- button -->
                 <div class="button-vacancy">
-                    <!-- Разместить -->
-                    <button type="button" class="btn btn-block btn-outline-primary"
+                    <!-- Разместить @click="changeStatus($event, vacancy.id, 0)" -->
+                    <button type="button" class="btn btn-block btn-outline-primary btn-post"
                             v-if="vacancy.job_posting.status_name == 'hidden'"
-                            @click="changeStatus($event, vacancy.id, 0)"
+                            @click.stop.prevent="changeStatus($event, vacancy.id, 0)"
                     >
                         {{trans('vacancies','post')}}
                     </button>
+
                     <!-- menu -->
                     <div class="btn-group dropleft">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -295,6 +296,7 @@
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -328,6 +330,7 @@
         methods: {
             async changeStatus(event, id, index){
                 event.stopPropagation()
+
                 let data = {
                     id: id,
                     index: index
@@ -367,6 +370,16 @@
                         this.messageError(err)
                     })
             },
+            initialData(){
+                // click menu vacancy
+                $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
+                    e.stopPropagation();
+                });
+
+                if(this.page === "show"){
+                    $(".box-title").css('margin-bottom','-40px')
+                }
+            }
         },
         props: [
             'vacancy',
@@ -378,9 +391,8 @@
             'page',
         ],
         mounted() {
-            if(this.page === "show"){
-                $(".box-title").css('margin-bottom','-40px')
-            }
+            this.initialData()
+
         },
     }
 </script>

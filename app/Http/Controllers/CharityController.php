@@ -2,23 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MetaTrait;
 use Illuminate\Http\Request;
 
-class CharityController extends BaseController
-{
+class CharityController extends BaseController {
+    use MetaTrait;
 
     public function showCharity() {
-        $response = [
-            "bitcoin"=>[
-                "title"=>"BTC-Bitcoin",
-                "address"=>"3GgMuS3FKiAck5nTxLBLymUug7tVYbPBsZ",
-            ],
-            "eth"=>[
-                "title"=>"Ethereum ETH (ERC20)",
-                "address"=>"0x993de686f89270864ec2904efc385c1716815775",
-            ],
-        ];
+        $response = config("site.charity");
+        $this->setMetaCharityPage();
 
         return view('charity.show-charity', compact("response"));
     }
+
 }

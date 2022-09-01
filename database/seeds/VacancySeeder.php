@@ -66,6 +66,7 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                     'alias' => sha1(time()),
                     'vacancy_suitable' => '{"inputs":{"to":60,"from":18},"comment":null,"radio_name":"it_not_matter"}',
                     'how_respond' => 0,
+                    'published' => 1,
                     'created_at' => $createdAt,
                     'updated_at' => $createdAt,
                 ];

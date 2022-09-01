@@ -53,4 +53,30 @@ return [
         "keywords" => 'company in europe :company, employer in europe, company abroad, employee search, looking for a company, employers in europe, job offers, work ua es com, work ua es com',
     ],
 
+    "about_us" => [
+        "title" => 'About the service',
+        "description" => 'The :app_name employment service brings together 45 European countries to help every Ukrainian find a decent job.',
+        "keywords" => 'about us, company, service, about us, work ua es com, work ua es com',
+    ],
+    "feedback" => [
+        "title" => 'Contact Us',
+        "description" => 'Contact form to contact ',
+        "keywords" => 'contact us, contact form, contact us, contact form, work ua es com, work ua es com',
+    ],
+    "terms_use" => [
+        "title" => 'User Agreement',
+        "description" => 'Full User Agreement',
+        "keywords" => 'terms of use, work ua es com, work ua es com',
+    ],
+    "cookie_policy" => [
+        "title" => 'Privacy Policy',
+        "description" => 'Full Privacy Policy',
+        "keywords" => 'privacy policy, work ua es com, work ua es com',
+    ],
+    "charity" => [
+        "title" => 'Service financial support',
+        "description" => 'Give financial support to the service ',
+        "keywords" => 'financial support, charity, work ua es com, work ua es com',
+    ],
+
 ];

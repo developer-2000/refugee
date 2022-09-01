@@ -38,6 +38,7 @@ class IndexController extends BaseController {
     }
 
     public function aboutUs() {
+        $this->setMetaAboutUsPage();
 
         return view("about_us.about_us_".app()->getLocale());
     }
@@ -49,6 +50,9 @@ class IndexController extends BaseController {
         }
 
         $respond["config"] = config('site.feedback');
+
+        $this->setMetaFeedbackPage();
+
         return view("feedback", compact('respond'));
     }
 
