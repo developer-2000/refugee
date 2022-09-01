@@ -22,6 +22,8 @@ return [
         'contact',
         'respond',
         'cookie',
+        'pages/index',
+        'pages/charity',
     ],
 
     /*

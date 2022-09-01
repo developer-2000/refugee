@@ -2,19 +2,17 @@
 
 return [
 
+    'clear_selection'=>'clear selection',
     'find_similar_jobs'=>'Find similar jobs',
-
     'your_personal_vacancies'=>'Your own vacancies are displayed on this page. You have access to manage them and view the responses of applicants to them.',
     'and_start_receiving'=>'and start receiving interested workers.',
     'helps_you_track_have'=>'Helps you track and have full access to your jobs.',
     'job_search'=>'Job search',
-    'search'=>"document's name",
+    'search'=>"enter the desired name",
     'hidden_2'=>'hidden',
-
     'this_section_you_hidden'=>'This section stores jobs that you have hidden on the job search page by clicking on the «Do not show» icon',
     'hide_vacancies_whenever'=>"Hidden vacancies will not be displayed on the search page, allowing you to see what's new and interesting. Also, this section serves as a kind of blacklist. Noting for yourself what you do not want to deal with in the future.",
     'they_not_show_up'=>"They won't show up on the search page and are something you don't want to deal with later.",
-
     'bookmarks'=>'Bookmarks',
     'saved'=>'saved',
     'vacancies_2'=>'vacancies',

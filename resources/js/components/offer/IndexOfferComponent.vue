@@ -242,7 +242,6 @@
     import translation from "../../mixins/translation";
     import offer_contact_list from "../details/OfferContactListComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
-    import search_input_mixin from "../../mixins/search_input_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import url_mixin from "../../mixins/url_mixin";
 

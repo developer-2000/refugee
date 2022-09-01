@@ -43,7 +43,7 @@
                 <!-- Country -->
                 <select class="form-control select2" id="country-title-panel">
                     <option :value="null" selected class="options-default">
-                        Страна поиска
+                        {{trans('vacancies','search_country')}}
                     </option>
                     <option v-for="(obj, key) in respond.obj_countries" :key="key"
                             :value="[obj.original_index, obj.translate]"
@@ -53,7 +53,7 @@
                 <!-- Region -->
                 <select class="form-control select2 region-select" id="region-title-panel">
                     <option :value="null" selected class="options-default">
-                        Регион поиска
+                        {{trans('vacancies','search_region')}}
                     </option>
                     <option v-for="(obj, index) in respond.regions_country" :key="index"
                             :value="[obj.code_region, obj.original_index, obj.translate]"
@@ -63,7 +63,7 @@
                 <!-- City -->
                 <select class="form-control select2" id="city-title-panel">
                     <option :value=null selected class="options-default">
-                        Город поиска
+                        {{trans('vacancies','search_city')}}
                     </option>
                     <option v-for="(obj, index) in objLocations.load_cities" :key="index"
                             :value="[obj.original_index,obj.translate]"
@@ -98,6 +98,7 @@
                 position: '',
                 name_query: 'position', // ищет этот query в url
                 prefix_url: '',
+                clear_selection: "",
             }
         },
         methods: {
@@ -147,6 +148,8 @@
                         menuBtn.removeClass('show')
                     }
                 })
+
+                this.clear_selection = this.trans('vacancies','clear_selection')
             }
         },
         props: [

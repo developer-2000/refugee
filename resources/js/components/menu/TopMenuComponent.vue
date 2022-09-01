@@ -30,11 +30,15 @@
                 <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left">
                     <a :href="lang.prefix_lang+'show-charity'" class="nav-link charity">
                         <svg class="svg-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352.4 243.8l-49.83 99.5c-6.009 12-23.41 11.62-28.92-.625L216.7 216.3l-30.05 71.75L88.55 288l176.4 182.2c12.66 13.07 33.36 13.07 46.03 0l176.4-182.2l-112.1 .0052L352.4 243.8zM495.2 62.86c-54.36-46.98-137.5-38.5-187.5 13.06L288 96.25L268.3 75.92C218.3 24.36 135.2 15.88 80.81 62.86C23.37 112.5 16.84 197.6 60.18 256h105l35.93-86.25c5.508-12.88 23.66-13.12 29.54-.375l58.21 129.4l49.07-98c5.884-11.75 22.78-11.75 28.67 0l27.67 55.25h121.5C559.2 197.6 552.6 112.5 495.2 62.86z"/></svg>
-                        <span>Поддержка</span>
+                        <span>
+                            {{ trans('menu.menu','support') }}
+                        </span>
                     </a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left">
-                    <a :href="lang.prefix_lang+'about-us'" class="nav-link">О Сервисе</a>
+                    <a :href="lang.prefix_lang+'about-us'" class="nav-link">
+                        {{ trans('menu.menu','about_service') }}
+                    </a>
                 </li>
             </ul>
 
@@ -51,30 +55,30 @@
                             class="badge badge-primary navbar-badge">
                             {{count_unread_chats}}
                         </span>
-                        Предложения
+                        {{ trans('menu.menu','offers') }}
                     </a>
                 </li>
                 <!-- работа -->
                 <li class="nav-item dropdown d-none d-sm-inline-block dropdown-button-menu">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                        Работа
+                        {{ trans('menu.menu','work') }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="javascript:void(0)" rel="nofollow"
                            @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
                         >
-                            Добавить вакансию
+                            {{ trans('menu.menu','add_job') }}
                         </a>
                         <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`" rel="nofollow">
-                            Найти вакансию
+                            {{ trans('menu.menu','find_job') }}
                         </a>
                         <a class="dropdown-item" href="javascript:void(0)" rel="nofollow"
                            @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
                         >
-                            Добавить резюме
+                            {{ trans('menu.menu','add_resume') }}
                         </a>
                         <a class="dropdown-item" :href="`${lang.prefix_lang}resume`" rel="nofollow">
-                            Найти резюме
+                            {{ trans('menu.menu','find_resume') }}
                         </a>
                     </div>
                 </li>
@@ -130,14 +134,14 @@
                            :href="`${lang.prefix_lang}private-office`"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352 224c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64zm-32 96c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16H192c-8.8 0-16-7.2-16-16 0-44.2 35.8-80 80-80h64zM272.5 5.7c8.9-7.6 22.1-7.6 31 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8-8.6 10.1-23.7 11.4-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.18 0-80-35.8-80-80V245.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8L272.5 5.7zM112 204.8V432c0 17.7 14.3 32 32 32h288c17.7 0 32-14.3 32-32V204.8L288 55.47 112 204.8z"/></svg>
-                            Личный кабинет
+                            {{ trans('menu.menu','personal_area') }}
                         </a>
                         <!-- Logout -->
                         <a class="dropdown-item" rel="nofollow"
                            :href="`${lang.prefix_lang}user/logout`"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64c17.67 0 32-14.33 32-32S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256c0 53.02 42.98 96 96 96h64c17.67 0 32-14.33 32-32S177.7 416 160 416zM502.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L402.8 224H192C174.3 224 160 238.3 160 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C515.1 266.1 515.1 245.9 502.6 233.4z"/></svg>
-                            Sign out
+                            {{ trans('menu.menu','exit') }}
                         </a>
                     </div>
                 </li>

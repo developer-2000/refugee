@@ -2,7 +2,7 @@ import url_mixin from "./url_mixin";
 
 export default {
     mixins: [
-        url_mixin
+        url_mixin,
     ],
     data() {
         return {
@@ -214,7 +214,7 @@ export default {
                 // заменить надпись в select
                 setTimeout(() => {
                     $(".select2-container--open ul li:first-child")
-                        .text("очистить выбор")
+                        .text(this.clear_selection)
                         .css({"text-align":"center","background": "#efefef","color": "#3490dc"})
                 }, 100);
             })
@@ -280,7 +280,7 @@ export default {
                 // заменить надпись в select
                 setTimeout(() => {
                     $(".select2-container--open ul li:first-child")
-                        .text("очистить выбор")
+                        .text(this.clear_selection)
                         .css({"text-align":"center","background": "#efefef","color": "#3490dc"})
                 }, 100);
             })
@@ -341,7 +341,7 @@ export default {
                 // заменить надпись в select
                 setTimeout(() => {
                     $(".select2-container--open ul li:first-child")
-                        .text("очистить выбор")
+                        .text(this.clear_selection)
                         .css({"text-align":"center","background": "#efefef","color": "#3490dc"})
                 }, 100);
             })
@@ -433,6 +433,7 @@ export default {
         },
     },
     mounted() {
+
         this.objUrlHierarchyDocument.start_page = this.lang.prefix_lang+this.prefix_url+'/',
         this.$nextTick( () => {
             setTimeout(() => {

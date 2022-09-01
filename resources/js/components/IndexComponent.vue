@@ -4,23 +4,27 @@
 
         <div class="box-title-panel">
             <h1 class="title_page">
-                Лучший сайт по поиску и предоставлению работы в Европе
+                {{trans('pages.index','the_best_site_for_finding')}}
             </h1>
 
             <div class="box-flags">
                 <a :href="`${lang.prefix_lang}vacancy`" class="flag">
-                    <b>Найти работу</b>
+                    <b>
+                        {{trans('pages.index','find_job')}}
+                    </b>
                     <img alt="european flag" src="/img/custom/european flag.jpg">
                 </a>
 
                 <a :href="`${lang.prefix_lang}resume`" class="flag">
-                    <b>Найти сотрудника</b>
+                    <b>
+                        {{trans('pages.index','find_employee')}}
+                    </b>
                     <img alt="ukrainian flag" src="/img/custom/ukrainian flag.jpg">
                 </a>
             </div>
 
             <h2 class="title_page">
-                Поиск вакансий работодателей
+                {{trans('pages.index','job_search_employers')}}
             </h2>
 
             <!-- search input line -->
@@ -32,9 +36,13 @@
         </div>
 
         <div class="box-page">
-            <h2>Используйте сервис европейского уровня</h2>
+            <h2>
+                {{trans('pages.index','use_european_level')}}
+            </h2>
 
-            <div class="annotation-page">Реализуй желаемое пройдя по списку описанному ниже.</div>
+            <div class="annotation-page">
+                {{trans('pages.index','realize_what_you_want')}}
+            </div>
         </div>
 
         <!-- List help -->
@@ -44,10 +52,13 @@
                 <div class="start-content">
                     <div class="left-column">
                         <h3>
-                            Бесплатный сервис
+                            {{trans('pages.index','free_service')}}
                         </h3>
                         <p>
-                            <b>Всё бесплатно!</b> Функционал позволяющий легко находить работодателя и потенциального сотрудника. Оповещения: откликов на ваши документы и новых сообщений от соискателя.
+                            <b>
+                                {{trans('pages.index','everything_free')}}
+                            </b>
+                            {{trans('pages.index','functionality_allows_you')}}
                         </p>
                     </div>
                 </div>
@@ -56,20 +67,26 @@
             <div class="start-block">
                 <div class="start-content">
                     <div class="right-column">
-                        <h3>Удобный поиск</h3>
+                        <h3>
+                            {{trans('pages.index','convenient_search')}}
+                        </h3>
                         <p>
-                            Сразу приступи к поиску интересующего тебя контента. Используя фильтры, читай только то, что интересует тебя.
+                            {{trans('pages.index','start_searching_content')}}
                         </p>
                         <p>
-                            <b>Для работодателя – </b>
+                            <b>
+                                {{trans('pages.index','for_employer')}}
+                            </b>
                             <a :href="`${lang.prefix_lang}resume`" rel="nofollow">
-                                найти сотрудника
+                                {{trans('pages.index','find_employee')}}
                             </a>
                         </p>
                         <p>
-                            <b>Для сотрудника – </b>
+                            <b>
+                                {{trans('pages.index','for_worker')}}
+                            </b>
                             <a :href="`${lang.prefix_lang}vacancy`" rel="nofollow">
-                                найти вакансию
+                                {{trans('pages.index','find_vacancy')}}
                             </a>
                         </p>
                     </div>
@@ -79,12 +96,15 @@
             <div class="start-block">
                 <div class="start-content">
                     <div class="left-column">
-                        <h3>Быстрая авторизация </h3>
-                        <p>Пройдите в личный кабинет через быструю авторизацию кнопок соцсетей -
+                        <h3>
+                            {{trans('pages.index','quick_authorization')}}
+                        </h3>
+                        <p>
+                            {{trans('pages.index','go_to_your_personal')}}
                             <a href="javascript:void(0)" rel="nofollow"
                                @click.prevent="checkAuth(lang.prefix_lang+'private-office')"
                             >
-                                личный кабинет
+                                {{trans('pages.index','personal_area')}}
                             </a>
                         </p>
                     </div>
@@ -95,35 +115,44 @@
                 <div class="start-content">
                     <div class="right-column">
 
-                        <h3>Личная информация</h3>
-                        <p>Заполнение не сложных форм, позволит вам полноценно начать работу.</p>
+                        <h3>
+                            {{trans('pages.index','personal_information')}}
+                        </h3>
                         <p>
-                            <b>Работодатель – </b>
+                            {{trans('pages.index','filling_out_simple')}}
+                        </p>
+                        <p>
+                            <b>
+                                {{trans('pages.index','employer')}}
+                            </b>
                             <a href="javascript:void(0)" rel="nofollow"
                                @click.prevent="checkAuth(lang.prefix_lang+'private-office/company/create')"
                             >
-                                Моя компания
+                                {{trans('pages.index','my_company')}}
                             </a>
                             ,
                             <a href="javascript:void(0)" rel="nofollow"
                                @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
                             >
-                                Создать вакансию
+                                {{trans('pages.index','create_job')}}
                             </a>
                         </p>
                         <p>
-                            <b>Сотрудник – </b>
+                            <b>
+                                {{trans('pages.index','worker')}}
+                            </b>
                             <a href="javascript:void(0)" rel="nofollow"
                                @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
                             >
-                                Создать резюме
+                                {{trans('pages.index','create_resume')}}
                             </a>
                         </p>
-                        <p>Так-же, для обоих сторон необходимо привести в порядок свои личные данные -
+                        <p>
+                            {{trans('pages.index','also_for_both')}}
                             <a href="javascript:void(0)" rel="nofollow"
                                @click.prevent="checkAuth(lang.prefix_lang+'private-office/contact-information')"
                             >
-                                Контактная информация
+                                {{trans('pages.index','contact_information')}}
                             </a>
                         </p>
 
@@ -134,9 +163,11 @@
             <div class="start-block">
                 <div class="start-content">
                     <div class="left-column">
-                        <h3>Удобное продвижение</h3>
+                        <h3>
+                            {{trans('pages.index','convenient_promotion')}}
+                        </h3>
                         <p>
-                            Удобно, быстро, симпатично. Вот как работает панель Соцсетей для отправки ссылок друзьям ваших вакансий, резюме, компаний.
+                            {{trans('pages.index','convenient_fast_nice')}}
                             <img src="/img/custom/panel_soc.png" alt="панель соцсетей">
                         </p>
                     </div>
@@ -144,10 +175,6 @@
             </div>
 
         </div>
-
-
-
-
 
     </div>
 </template>
