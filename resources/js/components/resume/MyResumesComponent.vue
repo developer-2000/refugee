@@ -83,12 +83,7 @@
             }
         },
         methods: {
-            initialData(){
-                // click menu resume
-                $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
-                    e.stopPropagation();
-                });
-            }
+
         },
         props: [
             'lang',   // масив названий и url языка

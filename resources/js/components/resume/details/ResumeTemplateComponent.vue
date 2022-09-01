@@ -228,15 +228,13 @@
                     <!-- Разместить -->
                     <button type="button" class="btn btn-block btn-outline-primary"
                             v-if="resume.job_posting.status_name == 'hidden'"
-                            @click="changeStatus($event, resume.id, 0)"
+                            @click.stop.prevent="changeStatus($event, resume.id, 0)"
                     >
                         {{trans('vacancies','post')}}
                     </button>
                     <!-- menu -->
                     <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-primary dropdown-toggle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        >
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{trans('vacancies','functions')}}
                         </button>
                         <div class="dropdown-menu">
@@ -301,6 +299,7 @@
         methods: {
             async changeStatus(event, id, index){
                 event.stopPropagation()
+
                 let data = {
                     id: id,
                     index: index
@@ -340,6 +339,16 @@
                         this.messageError(err)
                     })
             },
+            initialData(){
+                // click menu resume
+                $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
+                    e.stopPropagation();
+                });
+
+                if(this.page === "show"){
+                    $(".box-title").css('margin-bottom','-30px')
+                }
+            }
         },
         props: [
             'resume',
@@ -351,9 +360,7 @@
             'page',
         ],
         mounted() {
-            if(this.page === "show"){
-                $(".box-title").css('margin-bottom','-30px')
-            }
+
         },
     }
 </script>

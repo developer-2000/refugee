@@ -1,6 +1,7 @@
 <template>
     <div class="container body-page">
 
+
         <div class="box-title-panel">
             <h1 class="title_page">
                 Лучший сайт по поиску и предоставлению работы в Европе
@@ -37,119 +38,116 @@
         </div>
 
         <!-- List help -->
-        <div class="box-list row">
+        <div class="start">
 
-            <!-- 1 -->
-            <div class="col-sm-4 item-list">
-                <div class="title-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fa-primary" d="M344 360c0 13.25-10.75 24-24 24H192c-13.25 0-24-10.75-24-24s10.8-24 24-24h40V196.8l-14.7 9.8c-11 7.3-25.9 3.5-33.3-7.5-7.3-10.2-4.3-25.1 6.7-32.4l52-34.66a23.922 23.922 0 0 1 24.64-1.188C275.1 135 280 143.2 280 152v184h40c13.3 0 24 10.8 24 24z"/><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm64 384H192c-13.25 0-24-10.75-24-24s10.8-24 24-24h40V196.8l-14.7 9.8c-11 7.3-25.9 3.5-33.3-7.5-7.3-10.2-4.3-25.1 6.7-32.4l52-34.66a23.922 23.922 0 0 1 24.64-1.188C275.1 135 280 143.2 280 152v184h40c13.25 0 24 10.75 24 24s-10.7 24-24 24z" style="opacity:.4"/></svg>
-                    <h3>Бесплатный сервис</h3>
+            <div class="start-block">
+                <div class="start-content">
+                    <div class="left-column">
+                        <h3>
+                            Бесплатный сервис
+                        </h3>
+                        <p>
+                            <b>Всё бесплатно!</b> Функционал позволяющий легко находить работодателя и потенциального сотрудника. Оповещения: откликов на ваши документы и новых сообщений от соискателя.
+                        </p>
+                    </div>
                 </div>
-
-                <p>
-                    <b>Всё бесплатно!</b> Функционал позволяющий легко находить работодателя и потенциального сотрудника. Оповещения: откликов на ваши документы и новых сообщений от соискателя.
-                </p>
             </div>
 
-            <!-- 2 -->
-            <div class="col-sm-4 item-list">
-                <div class="title-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fa-primary" d="M352 360c0 13.25-10.75 24-24 24H184a23.98 23.98 0 0 1-22.39-15.38c-3.578-9.25-1.078-19.75 6.266-26.41l108.4-98.31c7.047-6.938 11.31-17 11.31-27.66s-4.266-20.72-12-28.31C259.4 172 232.9 172 216.6 187.9l-11 10.8c-9.5 9.4-25.5 9.2-33.9-.3-9.3-9.5-9.2-24.7.3-33.9l11-10.78c34.8-34.19 91.45-34.19 126.3 0 17 16.69 26.38 38.91 26.38 62.56s-9.375 45.88-26.38 62.56L246.2 336H328c13.3 0 24 10.8 24 24z"/><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm72 384H184a23.98 23.98 0 0 1-22.39-15.38c-3.578-9.25-1.078-19.75 6.266-26.41l108.4-98.31c7.047-6.938 11.31-17 11.31-27.66s-4.266-20.72-12-28.31C259.4 172 232.9 172 216.6 187.9l-11 10.8c-9.5 9.4-25.5 9.2-33.9-.3-9.3-9.5-9.2-24.7.3-33.9l11-10.78c34.8-34.19 91.45-34.19 126.3 0 17 16.69 26.38 38.91 26.38 62.56s-9.375 45.88-26.38 62.56L246.2 336H328c13.25 0 24 10.75 24 24s-10.7 24-24 24z" style="opacity:.4"/></svg>
-                    <h3>Удобный поиск</h3>
+            <div class="start-block">
+                <div class="start-content">
+                    <div class="right-column">
+                        <h3>Удобный поиск</h3>
+                        <p>
+                            Сразу приступи к поиску интересующего тебя контента. Используя фильтры, читай только то, что интересует тебя.
+                        </p>
+                        <p>
+                            <b>Для работодателя – </b>
+                            <a :href="`${lang.prefix_lang}resume`" rel="nofollow">
+                                найти сотрудника
+                            </a>
+                        </p>
+                        <p>
+                            <b>Для сотрудника – </b>
+                            <a :href="`${lang.prefix_lang}vacancy`" rel="nofollow">
+                                найти вакансию
+                            </a>
+                        </p>
+                    </div>
                 </div>
-
-                <p>
-                    Сразу приступи к поиску интересующего тебя контента. Используя фильтры, читай только то, что интересует тебя.
-                </p>
-                <p>
-                    <b>Для работодателя – </b>
-                    <a :href="`${lang.prefix_lang}resume`" class="nav-link" rel="nofollow">
-                        найти сотрудника
-                    </a>
-                </p>
-                <p>
-                    <b>Для сотрудника – </b>
-                    <a :href="`${lang.prefix_lang}vacancy`" class="nav-link" rel="nofollow">
-                        найти вакансию
-                    </a>
-                </p>
             </div>
 
-            <!-- 3 -->
-            <div class="col-sm-4 item-list">
-                <div class="title-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fa-primary" d="M352 300c0 46.3-37.7 84-84 84h-44.6c-28.23 0-53.2-17.1-62.13-44.78-4.188-12.59 2.609-26.19 15.19-30.38C189 304.8 202.6 311.5 206.8 324c2.4 7.2 9 12 16.6 12H268c19.84 0 36-16.16 36-36s-16.2-36-36-36h-52a24.01 24.01 0 0 1-22.38-15.31C190 239.5 192.5 229 199.8 222.3l50.5-46.3H184c-13.2 0-24-10.7-24-24s10.8-24 24-24h128a24.01 24.01 0 0 1 22.38 15.31 24 24 0 0 1-6.156 26.38L277.2 216.5c42 4.6 74.8 40.3 74.8 83.5z"/><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm12 384h-44.6c-28.23 0-53.2-18-62.13-44.78-4.188-12.59 2.609-26.19 15.19-30.38C189 304.8 202.6 311.5 206.8 324c2.4 7.2 9 12 16.6 12H268c19.84 0 36-16.16 36-36s-16.2-36-36-36h-52a24.01 24.01 0 0 1-22.38-15.31C190 239.5 192.5 229 199.8 222.3l50.5-46.3H184c-13.2 0-24-10.7-24-24s10.8-24 24-24h128a24.01 24.01 0 0 1 22.38 15.31 24 24 0 0 1-6.156 26.38L277.2 216.5c42 4.6 74.8 40.3 74.8 83.5 0 46.3-37.7 84-84 84z" style="opacity:.4"/></svg>
-                    <h3>Быстрая авторизация </h3>
+            <div class="start-block">
+                <div class="start-content">
+                    <div class="left-column">
+                        <h3>Быстрая авторизация </h3>
+                        <p>Пройдите в личный кабинет через быструю авторизацию кнопок соцсетей -
+                            <a href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office')"
+                            >
+                                личный кабинет
+                            </a>
+                        </p>
+                    </div>
                 </div>
-
-                <p>Пройдите в личный кабинет через быструю авторизацию кнопок соцсетей -
-                    <a class="nav-link" href="javascript:void(0)" rel="nofollow"
-                       @click.prevent="checkAuth(lang.prefix_lang+'private-office')"
-                    >
-                        личный кабинет
-                    </a>
-                </p>
             </div>
 
-            <!-- 4 -->
-            <div class="col-sm-4 item-list">
-                <div class="title-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm72 320h-8v40c0 13.25-10.75 24-24 24s-24-10.75-24-24v-40H169.1c-8.078 0-15.61-4.062-20.05-10.81s-5.188-15.25-2-22.69l62-144c5.234-12.16 19.31-17.84 31.53-12.53 12.19 5.219 17.8 19.34 12.56 31.53L206.5 272H272v-50.7c0-13.25 10.75-24 24-24s24 10.75 24 24V272h8c13.3 0 24 10.8 24 24s-10.7 24-24 24z"/></svg>
-                    <h3>Личная информация</h3>
+            <div class="start-block">
+                <div class="start-content">
+                    <div class="right-column">
+
+                        <h3>Личная информация</h3>
+                        <p>Заполнение не сложных форм, позволит вам полноценно начать работу.</p>
+                        <p>
+                            <b>Работодатель – </b>
+                            <a href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office/company/create')"
+                            >
+                                Моя компания
+                            </a>
+                            ,
+                            <a href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
+                            >
+                                Создать вакансию
+                            </a>
+                        </p>
+                        <p>
+                            <b>Сотрудник – </b>
+                            <a href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
+                            >
+                                Создать резюме
+                            </a>
+                        </p>
+                        <p>Так-же, для обоих сторон необходимо привести в порядок свои личные данные -
+                            <a href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office/contact-information')"
+                            >
+                                Контактная информация
+                            </a>
+                        </p>
+
+                    </div>
                 </div>
-
-                <p>Заполнение не сложных форм, позволит вам полноценно начать работу.</p>
-
-                <p>
-                    <b>Работодатель – </b>
-                    <a class="nav-link" href="javascript:void(0)" rel="nofollow"
-                       @click.prevent="checkAuth(lang.prefix_lang+'private-office/company/create')"
-                    >
-                        Моя компания
-                    </a>
-                    ,
-                    <a class="nav-link" href="javascript:void(0)" rel="nofollow"
-                       @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
-                    >
-                        Создать вакансию
-                    </a>
-                </p>
-
-                <p>
-                    <b>Сотрудник – </b>
-                    <a class="nav-link" href="javascript:void(0)" rel="nofollow"
-                       @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
-                    >
-                        Создать резюме
-                    </a>
-                </p>
-
-                <p>Так-же, для обоих сторон необходимо привести в порядок свои личные данные -
-                    <a class="nav-link" href="javascript:void(0)" rel="nofollow"
-                       @click.prevent="checkAuth(lang.prefix_lang+'private-office/contact-information')"
-                    >
-                        Контактная информация
-                    </a>
-                </p>
-
             </div>
 
-            <!-- 5 -->
-            <div class="col-sm-4 item-list">
-                <div class="title-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm16.1 384h-48.7c-28.23 0-53.2-18-62.13-44.78-4.188-12.59 2.609-26.19 15.19-30.38 12.53-4.062 26.16 2.625 30.34 15.19 2.4 7.17 9 11.97 16.6 11.97h49.59c17.11 0 31.01-13.9 31.01-31.1 0-15.75-11.78-29-27.41-30.81l-87.39-10.28a24.04 24.04 0 0 1-16.56-9.656c-3.94-5.354-5.44-12.054-4.24-18.654l16.73-88c2.17-11.3 12.07-19.5 23.57-19.5H312c13.25 0 24 10.75 24 24s-10.7 24-24 24h-83.4l-8.2 43.2 61.8 7.25c38.9 4.65 69.8 38.35 69.8 78.45 0 43.6-35.5 79.1-79.9 79.1z"/></svg>
-                    <h3>Удобное продвижение</h3>
+            <div class="start-block">
+                <div class="start-content">
+                    <div class="left-column">
+                        <h3>Удобное продвижение</h3>
+                        <p>
+                            Удобно, быстро, симпатично. Вот как работает панель Соцсетей для отправки ссылок друзьям ваших вакансий, резюме, компаний.
+                            <img src="/img/custom/panel_soc.png" alt="панель соцсетей">
+                        </p>
+                    </div>
                 </div>
-
-                <p>Удобно, быстро, симпатично. Вот как работает панель Соцсетей для отправки ссылок друзьям ваших вакансий, резюме, компаний.</p>
-                <p>
-                    <img src="/img/custom/panel_soc.png" alt="панель соцсетей">
-                </p>
-
-
             </div>
 
         </div>
+
+
+
+
 
     </div>
 </template>
@@ -199,6 +197,113 @@
 <style scoped lang="scss">
     @import "../../sass/variables";
 
+    .start {
+        position: relative;
+        padding-bottom: 175px;
+        &:nth-child(2) {
+            border-bottom: 1px solid #DADADA;
+        }
+        .start-block {
+            position: relative;
+            &:not(:last-child)::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 2px;
+                height: 100%;
+                -webkit-transform: translate(-50%, 0);
+                transform: translate(-50%, 0);
+                background-color: rgba(0, 0, 0, 0);
+                background-position-x: 0%;
+                background-position-y: 0%;
+                background-repeat: no-repeat;
+                background-attachment: scroll;
+                background-image: url("/img/custom/start_path.svg");
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 50px;
+                height: 50px;
+                -webkit-transform: translate(-50%, -9px);
+                transform: translate(-50%, -9px);
+                z-index: 10;
+            }
+            &:nth-child(1)::after {
+                background: url("/img/custom/number1.png") no-repeat;
+            }
+            &:nth-child(2)::after {
+                background: url("/img/custom/number2.png") no-repeat;
+            }
+            &:nth-child(3)::after {
+                background: url("/img/custom/number3.png") no-repeat;
+            }
+            &:nth-child(4)::after {
+                background: url("/img/custom/number4.png") no-repeat;
+            }
+            &:nth-child(5)::after {
+                background: url("/img/custom/number5.png") no-repeat;
+            }
+            &:nth-child(2n+1) .start-content::after {
+                left: 50%;
+                -webkit-transform: translate(-100%, 13px);
+                transform: translate(-100%, 13px);
+            }
+            &:nth-child(2n) .start-content::after {
+                right: 50%;
+                -webkit-transform: translate(100%, 13px);
+                transform: translate(100%, 13px);
+            }
+            .start-content{
+                min-height: 130px;
+                max-height: 130px;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    width: 85px;
+                    height: 3px;
+                    background: #0176d3;
+                }
+                .left-column, .right-column {
+                    max-width: 40%;
+                    position: relative;
+                }
+                .left-column {
+                    margin-right: auto;
+                    text-align: right;
+                }
+                .right-column {
+                    margin-left: auto;
+                    text-align: left;
+                }
+                .left-column h3 {
+                    text-align: right;
+                }
+            }
+        }
+        h2 {
+            margin: 0 0 20px;
+            font-size: 137.5%;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #13161F;
+        }
+        p {
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #4D5060;
+        }
+    }
+
+
     .top-search{
         border: none;
     }
@@ -210,40 +315,7 @@
         text-align: center;
         margin: 0 auto;
     }
-    .box-list{
-        .item-list{
-            background: #ebeced;
-            border-right: 1px solid #009fff;
-            border-bottom: 1px solid #ffe300;
-            padding: 25px 25px 10px;
-            .nav-link{
-                padding: 0;
-                display: inline;
-            }
-        }
-        .title-item{
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            svg{
-                width: 30px;
-                margin-right: 10px;
-                path:first-child{
-                    fill: #e1e1e1;
-                }
-                path:last-child{
-                    opacity: 1!important;
-                    fill: #1d68a7;
-                }
-            }
-            h3{
-                padding: 0;
-                margin: 0;
-                line-height: 18px;
-                height: 21px;
-            }
-        }
-    }
+
     h1{
         width: 100%;
         text-align: center;
@@ -255,8 +327,10 @@
             width: 100%;
             text-align: center;
             font-size: 23pt;
-            color: #444;
         }
+    }
+    h2{
+        color: #0176d3;
     }
     .title_page {
         padding: 15px;
