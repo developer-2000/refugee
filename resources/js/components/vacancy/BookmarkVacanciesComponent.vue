@@ -61,12 +61,13 @@
             <div class="footer-vacancy">
                 <!-- отображение прошедшего времени -->
                 <div class="date-document">
-                    {{getDateDocumentString(array.vacancy.updated_at)}} назад
+                    {{getDateDocumentString(array.vacancy.updated_at)}}
+                    {{trans('vacancies','back')}}
                     <!-- вакансия закрыта -->
                     <div class="close-document-fon"
                          v-if="array.vacancy.job_posting.status_name == 'hidden'"
                     >
-                        Вакансия закрыта
+                        {{trans('vacancies','vacancy_closed')}}
                     </div>
                 </div>
 

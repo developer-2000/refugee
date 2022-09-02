@@ -9,4 +9,12 @@ return [
     'create_update'=>'Создать / Обновить Компанию',
     'view_company_publicly'=>'Смотреть публично компанию',
 
+    'account_settings'=>"Настройки аккаунта",
+    'contact_information'=>"Контактная информация",
+    'jobs'=>"Вакансии",
+    'summary'=>"Резюме",
+    'my_resumes'=>"Мои резюме",
+    'summary_bookmarked'=>"Резюме в закладках",
+    'hidden_resumes'=>"Скрытые резюме",
+
 ];

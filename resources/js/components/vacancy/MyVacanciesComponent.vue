@@ -10,7 +10,9 @@
                 <span class="bread-slash"> | </span>
             </div>
 
-            <a class="btn btn-block btn-primary" id="create-vacancy" :href="`${lang.prefix_lang}private-office/vacancy/create`">Добавить вакансию</a>
+            <a class="btn btn-block btn-primary" id="create-vacancy" :href="`${lang.prefix_lang}private-office/vacancy/create`">
+                {{trans('vacancies','add_job')}}
+            </a>
         </div>
         <!-- title -->
         <h1 class="title_page card-body">

@@ -26,6 +26,10 @@ return [
         'pages/charity',
         'pages/feedback',
         'pages/offer',
+        'details/date_mixin',
+        'details/back_url',
+        'details/sharing_panel',
+        'details/contacts',
     ],
 
     /*

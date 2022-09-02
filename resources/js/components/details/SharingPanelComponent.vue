@@ -1,6 +1,9 @@
 <template>
     <div class="block-share">
-        <span>Поделиться {{page}}</span>
+        <span class="share-title">
+            {{trans('details.sharing_panel','share')}}
+            {{trans('details.sharing_panel',page)}}
+        </span>
 
         <ul class="ul-share">
             <li>
@@ -38,7 +41,12 @@
 </template>
 
 <script>
+    import translation from "../../mixins/translation";
+
     export default{
+        mixins: [
+            translation,
+        ],
         methods : {
 
         },
@@ -60,13 +68,16 @@
         min-width: 190px;
         padding: 8px 8px 3px 8px;
         background-color: #f7f7f7;
-        span{
+        .share-title{
             position: absolute;
             top: -9px;
+            left: 8px;
             white-space: nowrap;
             padding: 0 4px;
             background: #f7f7f7;
             line-height: 17px;
+            width: calc(100% - 16px);
+            text-align: center;
         }
         .ul-share{
             display: flex;

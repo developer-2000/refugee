@@ -363,7 +363,9 @@
 
         <!-- страны работы -->
         <div v-if="checkAllSearchDocumentPage" class="box-links">
-            <h2>Страны работы в Европе</h2>
+            <h2>
+                {{trans('details.back_url','countries_work_in_europe')}}
+            </h2>
             <ul>
                 <li v-for="(country, key) in respond.obj_countries" :key="key"
                     class="flag-li"
@@ -372,10 +374,10 @@
                     <a :href="`${urlNotQuery()}/${country.original_index}`" class="flag">
                         <b>{{country.translate}}</b>
                         <template v-if="checkWordInUrl('vacancy')">
-                            <img :alt="`работа в ${country.translate}`" :src="`/img/flags/${country.original_index}.jpg`">
+                            <img :alt="`${trans('details.back_url','work_in')} ${country.translate}`" :src="`/img/flags/${country.original_index}.jpg`">
                         </template>
                         <template v-else-if="checkWordInUrl('resume')">
-                            <img :alt="`сотрудники в ${country.translate}`" :src="`/img/flags/${country.original_index}.jpg`">
+                            <img :alt="`${trans('details.back_url','employees_in')} ${country.translate}`" :src="`/img/flags/${country.original_index}.jpg`">
                         </template>
                     </a>
                 </li>
@@ -385,10 +387,10 @@
         <!-- города страны -->
         <div v-if="checkNowCountryPage" class="box-links">
             <template v-if="checkWordInUrl('vacancy')">
-                <h2>Города работы в {{respond.now_country.translate}}</h2>
+                <h2>{{trans('details.back_url','cities_work_in')}} {{respond.now_country.translate}}</h2>
             </template>
             <template v-else-if="checkWordInUrl('resume')">
-                <h2>Города сотрудников в {{respond.now_country.translate}}</h2>
+                <h2>{{trans('details.back_url','employee_cities_in')}} {{respond.now_country.translate}}</h2>
             </template>
 
             <ul>
@@ -623,7 +625,6 @@
                 this.setValuesFields()
             })
 
-            // console.log(this.respond)
         },
     }
 </script>

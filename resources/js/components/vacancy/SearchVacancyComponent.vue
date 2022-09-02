@@ -32,7 +32,7 @@
             </div>
 
             <h2 class="title_page">
-                Поиск вакансий
+                {{trans('vacancies','job_search')}}
             </h2>
 
             <!-- search input line -->
@@ -74,12 +74,13 @@
                     <div class="footer-vacancy">
                         <!-- отображение прошедшего времени -->
                         <div class="date-document">
-                            {{getDateDocumentString(vacancy.updated_at)}} назад
+                            {{getDateDocumentString(vacancy.updated_at)}}
+                            {{trans('vacancies','back')}}
                             <!-- вакансия закрыта -->
                             <div class="close-document-fon"
                                  v-if="vacancy.job_posting.status_name == 'hidden'"
                             >
-                                Вакансия закрыта
+                                {{trans('vacancies','vacancy_closed')}}
                             </div>
                         </div>
 
@@ -153,7 +154,7 @@
         ],
         data() {
             return {
-                description: 'Вакансія для фахівців-початківців з кібербезпеки, які хочуть брати участь у тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів тестуванні безпеки web-проєктів⁠',
+                description: '⁠',
                 position: '',
                 prefix_url: 'vacancy',
             }

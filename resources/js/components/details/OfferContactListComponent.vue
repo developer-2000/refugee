@@ -21,7 +21,7 @@
                         {{offer.contact_list.position}}
                     </div>
                     <div v-else class="not-specified">
-                        {{trans('pages.offer','position_not_specified')}}
+                        {{trans('details.contacts','position_not_specified')}}
                     </div>
 
                     <!-- time last message -->
@@ -46,7 +46,7 @@
                     <a class="link-a" target="_blank"
                        :href="`${lang.prefix_lang}company/${offer.url_company}`"
                     >
-                        {{trans('pages.offer','company')}}
+                        {{trans('details.contacts','company')}}
                     </a>
                 </div>
 
@@ -59,14 +59,14 @@
                          v-if="!objBoolContacts.bool_show_email"
                          @click="messageNotReceived('bool_show_email')"
                     >
-                        {{trans('pages.offer','show_email')}}
+                        {{trans('details.contacts','show_email')}}
                     </div>
                     <template v-else-if="objBoolContacts.bool_show_email">
                         <a v-if="offer.contact_list.email !== null" href="javascript:void(0)"
-                           @click="copyText($event.target,trans('pages.offer','email_copied_clipboard'))"
+                           @click="copyText($event.target,trans('details.contacts','email_copied_clipboard'))"
                         >{{offer.contact_list.email}}</a>
                         <div v-else class="not-specified">
-                            {{trans('pages.offer','not_specified')}}
+                            {{trans('details.contacts','not_specified')}}
                         </div>
                     </template>
                 </div>
@@ -80,14 +80,14 @@
                          v-if="!objBoolContacts.bool_show_skype"
                          @click="messageNotReceived('bool_show_skype')"
                     >
-                        {{trans('pages.offer','show_skype')}}
+                        {{trans('details.contacts','show_skype')}}
                     </div>
                     <template v-else-if="objBoolContacts.bool_show_skype">
                         <a v-if="offer.contact_list.skype !== null" href="javascript:void(0)"
-                           @click="copyText($event.target,trans('pages.offer','skype_copied_clipboard'))"
+                           @click="copyText($event.target,trans('details.contacts','skype_copied_clipboard'))"
                         >{{offer.contact_list.skype}}</a>
                         <div v-else class="not-specified">
-                            {{trans('pages.offer','not_specified')}}
+                            {{trans('details.contacts','not_specified')}}
                         </div>
                     </template>
                 </div>
@@ -101,14 +101,14 @@
                          v-if="!objBoolContacts.bool_show_phone"
                          @click="messageNotReceived('bool_show_phone')"
                     >
-                        {{trans('pages.offer','show_number')}}
+                        {{trans('details.contacts','show_number')}}
                     </div>
                     <template v-else-if="objBoolContacts.bool_show_phone">
                         <a v-if="offer.contact_list.phone['phone'] !== null" href="javascript:void(0)"
-                           @click="copyText($event.target,trans('pages.offer','number_copied_clipboard'))"
+                           @click="copyText($event.target,trans('details.contacts','number_copied_clipboard'))"
                         >{{offer.contact_list.phone['phone'].replaceAll(/[(-)]/ig, ' ')}}</a>
                         <div v-else class="not-specified">
-                            {{trans('pages.offer','not_specified')}}
+                            {{trans('details.contacts','not_specified')}}
                         </div>
                         <template v-for="(value, key) in offer.contact_list.phone['messengers']">
                             <div class="box-message" v-if="settings.contact_information[value] == 'Telegram'">
@@ -179,7 +179,7 @@
                 }
 
                 if(!this.offer.contact_list.access.received_respond){
-                    this.message(this.trans('pages.offer','you_not_have_access') , 'success', 20000, true);
+                    this.message(this.trans('details.contacts','you_not_have_access') , 'success', 20000, true);
                 }
                 else{
                     // показать email или skype или phone

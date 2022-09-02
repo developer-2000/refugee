@@ -181,4 +181,16 @@ return [
     'jurisprudence'=>'Jurisprudence',
     'other'=>'Other',
 
+    'job_language'=>"Job Language",
+    'please_indicate_language'=>"Indicate the language(s) of proficiency for this position. Make the best decision by letting the applicant know their options.",
+    'please_indicate_required'=>"Please indicate required job languages",
+
+    'add_job'=>"Add job",
+    'vacancy'=>"vacancy",
+    'back'=>"back",
+    'vacancy_closed'=>"Vacancy closed",
+    'company_logo'=>"company logo",
+    'default_company_logo'=>"default company logo",
+    'more'=>"More",
+
 ];

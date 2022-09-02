@@ -1,7 +1,6 @@
 <template>
     <div class="container body-page">
 
-
         <div class="box-title-panel">
             <h1 class="title_page">
                 {{trans('pages.index','the_best_site_for_finding')}}
@@ -168,7 +167,14 @@
                         </h3>
                         <p>
                             {{trans('pages.index','convenient_fast_nice')}}
-                            <img src="/img/custom/panel_soc.png" alt="панель соцсетей">
+<!--                            <img src="/img/custom/panel_soc.png" alt="панель соцсетей">-->
+                            <span class="box-share">
+                                <sharing_panel
+                                    :lang="lang"
+                                    :page="'service'"
+                                ></sharing_panel>
+                            </span>
+
                         </p>
                     </div>
                 </div>
@@ -183,11 +189,12 @@
 
     import search_title_panel from './details/SearchTitlePanelComponent'
     import translation from "../mixins/translation";
-    import general_functions_mixin from "../mixins/general_functions_mixin";
+    import sharing_panel from "./details/SharingPanelComponent";
 
     export default {
         components: {
             'search_title_panel': search_title_panel,
+            'sharing_panel': sharing_panel,
         },
         mixins: [
             translation,
@@ -290,6 +297,7 @@
             .start-content{
                 min-height: 130px;
                 max-height: 130px;
+                position: relative;
                 &::after {
                     content: '';
                     position: absolute;
@@ -305,10 +313,18 @@
                 .left-column {
                     margin-right: auto;
                     text-align: right;
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    z-index: 2;
                 }
                 .right-column {
                     margin-left: auto;
                     text-align: left;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    z-index: 2;
                 }
                 .left-column h3 {
                     text-align: right;
@@ -329,7 +345,12 @@
             color: #4D5060;
         }
     }
-
+    .box-share{
+        display: flex;
+        padding: 20px 0 0;
+        font-size: 15px;
+        justify-content: flex-end;
+    }
 
     .top-search{
         border: none;

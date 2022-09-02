@@ -279,7 +279,7 @@
                                                        type="number"
                                                        v-model="objSuitable.suitable_to"
                                                 >
-                                                лет
+                                                {{trans('vacancies','years')}}
                                             </div>
                                         </div>
                                     </div>
@@ -493,18 +493,20 @@
                          :class="{border_error: !objLanguage.languages.length }"
                     >
                         <label for="language">
-                            Язык вакансии
+                            {{trans('vacancies','job_language')}}
                             <span class="mandatory-filling">
                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                         </span>
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  title="Укажите требуемые языки владения для этой вакансии. Примите решение оптимально, для того чтобы соискатель зря вас не беспокоил."
+                                  :title="trans('vacancies','please_indicate_language')"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
                         </label>
 
-                        <select class="form-control select2" id="language" multiple="multiple" data-placeholder="Выбрать">
+                        <select class="form-control select2" id="language" multiple="multiple"
+                                :data-placeholder="trans('vacancies','select')"
+                        >
                             <template v-for="(obj, index) in lang.lang">
                                 <!-- в случае редиктирования -->
                                 <template v-if="objLanguage.languages.indexOf(index) !== -1" >
@@ -516,7 +518,7 @@
                             </template>
                         </select>
                         <div class="invalid-feedback" :class="{'is-invalid visible': !objLanguage.languages.length}">
-                            Пожалуйста укажите необходимые языки для вакансии
+                            {{trans('vacancies','please_indicate_required')}}
                         </div>
                     </div>
                 </div>
@@ -530,7 +532,7 @@
                         <label>
                             {{trans('vacancies','vacancy_description')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_vacancy_description')}`"
+                                  :title="trans('vacancies','title_vacancy_description')"
                             >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
@@ -546,7 +548,7 @@
                         <label>
                             {{trans('vacancies','work_conditions')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_working_conditions')}`"
+                                  :title="trans('vacancies','title_working_conditions')"
                             >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
@@ -562,7 +564,7 @@
                         <label>
                             {{trans('vacancies','candidate_responsibilities')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_candidate_resp')}`"
+                                  :title="trans('vacancies','title_candidate_resp')"
                             >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>
@@ -582,7 +584,7 @@
                         <label for="how_respond">
                             {{trans('vacancies','how_can_apply')}}
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_how_respond')}`"
+                                  :title="trans('vacancies','title_how_respond')"
                             >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                             </span>

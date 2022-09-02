@@ -29,7 +29,7 @@ export default {
                 if(urlPrefixes[index] === "vacancy"){
                     arrBackLink.push({
                         url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
-                        name : "Вакансии Европы"
+                        name : this.trans('details.back_url','jobs_in_europe')
                     })
                 }
                 // url связан с вакансиями
@@ -39,7 +39,7 @@ export default {
                     if(obj){
                         arrBackLink.push({
                             url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
-                            name : `Работа в ${obj.translate}`
+                            name : `${this.trans('details.back_url','work_in')} ${obj.translate}`
                         })
                     }
                 }
@@ -47,7 +47,7 @@ export default {
                 else if(urlPrefixes[index] === "resume"){
                     arrBackLink.push({
                         url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
-                        name : "Сотрудники Европы"
+                        name : this.trans('details.back_url','european_employees')
                     })
                 }
                 // url связан с resume
@@ -57,7 +57,7 @@ export default {
                     if(obj){
                         arrBackLink.push({
                             url : url.substring(0, url.indexOf(urlPrefixes[index]) + urlPrefixes[index].length),
-                            name : `Сотрудники в ${obj.translate}`
+                            name : `${this.trans('details.back_url','employees_in')} ${obj.translate}`
                         })
                     }
                 }
@@ -78,21 +78,21 @@ export default {
                     let obj = this.checkPrefixLocation( decodeURI(urlPrefixes[index]) )
                     if(obj){
                         if(this.checkWordInUrl("vacancy")){
-                            return `Работа в ${obj.translate}`
+                            return `${this.trans('details.back_url','work_in')} ${obj.translate}`
                         }
                         else{
-                            return `Сотрудники в ${obj.translate}`
+                            return `${this.trans('details.back_url','employees_in')} ${obj.translate}`
                         }
                         break
                     }
                 }
 
                 if(urlPrefixes[index] === "vacancy"){
-                    return "Вакансии Европы"
+                    return this.trans('details.back_url','jobs_in_europe')
                     break
                 }
                 else if(urlPrefixes[index] === "resume"){
-                    return "Сотрудники Европы"
+                    return this.trans('details.back_url','european_employees')
                     break
                 }
             }
@@ -111,14 +111,14 @@ export default {
             if(langArr.indexOf(prefix) !== -1){
                 arrBackLink.push({
                     url : url.substring(0, url.indexOf(prefix) + prefix.length),
-                    name : "Работа в Европе"
+                    name : this.trans('details.back_url','work_in_europe')
                 })
             }
             // это локалицация страницы (/ default /en)
             else{
                 arrBackLink.push({
                     url : '/',
-                    name : "Работа в Европе"
+                    name : this.trans('details.back_url','work_in_europe')
                 })
             }
 

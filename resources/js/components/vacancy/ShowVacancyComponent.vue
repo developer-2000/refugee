@@ -60,11 +60,6 @@
 
             <!-- Sharing panel -->
             <div class="right-site">
-                <!--            <ul>-->
-                <!--                <li v-for="(url, index) in respond.social_share" :key="index">-->
-                <!--                    <a :href="url">{{ index }}</a>-->
-                <!--                </li>-->
-                <!--            </ul>-->
                 <sharing_panel
                     :lang="lang"
                     :page="'vacancy'"

@@ -26,17 +26,6 @@ return [
     'you_suggested_considering' => "Вы предложили рассмотреть",
     'on_his' => "на его",
 
-    'position_not_specified' => "Должность не указана",
-    'company' => "Компания",
-    'show_email' => "Показать email",
-    'email_copied_clipboard' => "Email скопирован в буфер обмена",
-    'not_specified' => "Не указан",
-    'show_skype' => "Показать skype",
-    'skype_copied_clipboard' => "Skype скопирован в буфер обмена",
-    'show_number' => "Показать номер",
-    'number_copied_clipboard' => "Номер скопирован в буфер обмена",
-    'you_not_have_access' => "Вам не открыты данные этого контакта. Откликнитесь на этот или другой документ. Соискатель должен принять ваш отклик для начало прямой переписки.",
-
     'delete_message' => "удалить сообщение",
     'edit_post' => "редактировать сообщение",
     'write_message' => "Написать сообщение",
