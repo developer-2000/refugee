@@ -9,6 +9,7 @@ use \App\Http\Controllers\Auth\TwitterController;
 use \App\Http\Controllers\PoliceController;
 use \App\Http\Controllers\IndexController;
 use \App\Http\Controllers\CharityController;
+use \App\Http\Controllers\OfferController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -98,13 +99,13 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
                     ->where('alias', '[a-z0-9]+')->name('archive.show');
             });
             // чаты предложений
-            Route::post('offers/search-name-position', 'OfferController@searchNamePosition');
-            Route::post('offers/add-message', 'OfferController@addMessage');
-            Route::post('offers/register-viewed-companion', 'OfferController@registerViewedCompanion');
-            Route::post('offers/update-message', 'OfferController@updateMessage');
-            Route::post('offers/delete', 'OfferController@destroy');
-            Route::post('offers/send-to-archive', 'OfferController@sendToArchive');
-            Route::get('offers/{alias}', 'OfferController@show')
+            Route::post('offers/search-name-position', [OfferController::class, 'searchNamePosition']);
+            Route::post('offers/add-message', [OfferController::class, 'addMessage']);
+            Route::post('offers/register-viewed-companion', [OfferController::class, 'registerViewedCompanion']);
+            Route::post('offers/update-message', [OfferController::class, 'updateMessage']);
+            Route::post('offers/delete', [OfferController::class, 'destroy']);
+            Route::post('offers/send-to-archive', [OfferController::class, 'sendToArchive']);
+            Route::get('offers/{alias}', [OfferController::class, 'show'])
                 ->where('alias', '[a-z0-9]+');
             Route::resource('offers', 'OfferController')->only([
                 'index'

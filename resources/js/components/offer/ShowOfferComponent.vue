@@ -6,7 +6,7 @@
 
             <template v-if="respond['table'] === 'offer'">
                 <a :href="`${lang.prefix_lang}offers`">
-                    Чаты предложений
+                    {{trans('pages.offer','suggestion_chats')}}
                 </a>
                 <span class="bread-slash"> | </span>
                 <a :href="`${lang.prefix_lang}private-office`">
@@ -15,7 +15,7 @@
             </template>
             <template v-else>
                 <a :href="`${lang.prefix_lang}offers/archive`">
-                    Архив предложений
+                    {{trans('pages.offer','offer_archive')}}
                 </a>
             </template>
 
@@ -43,7 +43,7 @@
                     <!-- вывод сообщений -->
                     <template v-for="(chat, key) in content.chat">
 
-                        <!-- 1 НЕ мой message :class="{'your-new-message': chat.your_viewing == 0, 'important_message': chat.important_message == 1}" -->
+                        <!-- 1 НЕ мой message -->
                         <div v-if="chat.user_id !== user.id"
                              class="direct-chat-msg box-message left-message"
                              :class="{'important_message': chat.important_message == 1}"
@@ -63,13 +63,13 @@
                                 <div v-if="chat.my_type_document !== null"
                                      class='offer-document'
                                 >
-                                    На Ваше
+                                    {{trans('pages.offer','for_your')}}
                                     <a class="link-a" href="javascript:void(0)"
                                        @click.prevent="transitionToLink($event, chat.your_offer_url)"
                                     >
                                         {{chat.your_offer_title}}
                                     </a>
-                                    предложение рассмотреть {{chat.my_type_document}}
+                                    {{trans('pages.offer','proposal_consider')}} {{chat.my_type_document}}
                                     <a class="link-a" href="javascript:void(0)"
                                        @click.prevent="transitionToLink($event, chat.my_offer_url)"
                                     >
@@ -91,7 +91,7 @@
                                     <!-- delete message -->
                                     <span v-if="chat.your_viewing === 0"
                                           class="info-tooltip" data-placement="top" data-toggle="tooltip" data-trigger="hover"
-                                          title="удалить сообщение"
+                                          :title="trans('pages.offer','delete_message')"
                                     >
                                     <svg @click="deleteElement(key)"
                                          class="delete-svg right-message link-svg"
@@ -100,7 +100,7 @@
                                     <!-- update message -->
                                     <span v-if="chat.your_viewing === 0 && chat.important_message === 0"
                                           class="info-tooltip" data-placement="top" data-toggle="tooltip" data-trigger="hover"
-                                          title="редактировать сообщение"
+                                          :title="trans('pages.offer','edit_post')"
                                     >
                                     <svg @click="selectTextForUpdate(key)"
                                          class="edit-svg right-message link-svg"
@@ -123,13 +123,13 @@
                                 <div v-if="chat.my_type_document !== null"
                                      class='offer-document'
                                 >
-                                    Вы предложили рассмотреть {{chat.my_type_document}}
+                                    {{trans('pages.offer','you_suggested_considering')}} {{chat.my_type_document}}
                                     <a class="link-a" href="javascript:void(0)"
                                        @click.prevent="transitionToLink($event, chat.my_offer_url)"
                                     >
                                         {{chat.my_offer_title}}
                                     </a>
-                                    на его
+                                    {{trans('pages.offer','on_his')}}
                                     <a class="link-a" href="javascript:void(0)"
                                        @click.prevent="transitionToLink($event, chat.your_offer_url)"
                                     >
@@ -147,10 +147,10 @@
                     <!-- ckeditor -->
                     <div id="box-ckeditor">
                         <label v-if="!objChat.bool_update">
-                            Написать сообщение
+                            {{trans('pages.offer','write_message')}}
                         </label>
                         <label v-else>
-                            Обновить сообщение
+                            {{trans('pages.offer','update_message')}}
                         </label>
                         <ckeditor v-model="objTextarea.textarea_letter"
                                   :config="objTextarea.editorConfig1"
@@ -160,14 +160,14 @@
                             <button type="submit" class="btn btn-block btn-outline-danger btn-lg"
                                     @click.prevent="cancelUpdate"
                             >
-                                Отмена
+                                {{trans('pages.offer','cancel')}}
                             </button>
                             <button type="submit" class="btn btn-block btn-primary btn-lg"
                                     @click.prevent="updateMessage"
                                     :class="{'disabled': disableButton()}"
                                     :disabled="disableButton()"
                             >
-                                Обновить
+                                {{trans('pages.offer','refresh')}}
                             </button>
                         </div>
 
@@ -176,7 +176,7 @@
                                 :class="{'disabled': disableButton()}"
                                 :disabled="disableButton()"
                         >
-                            Отправить
+                            {{trans('pages.offer','send')}}
                         </button>
                     </div>
                 </div>

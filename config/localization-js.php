@@ -24,6 +24,8 @@ return [
         'cookie',
         'pages/index',
         'pages/charity',
+        'pages/feedback',
+        'pages/offer',
     ],
 
     /*

@@ -9,7 +9,7 @@
             <ul class="footer-ul">
                 <li>
                     <a :href="`${lang.prefix_lang}feedback`" rel="nofollow">
-                        Обратная связь
+                        {{trans('pages.feedback','feedback')}}
                     </a>
                 </li>
                 <li>

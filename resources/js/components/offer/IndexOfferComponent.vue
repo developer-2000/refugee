@@ -19,7 +19,7 @@
                 </template>
                 <template v-else>
                     <a :href="`${lang.prefix_lang}offers`">
-                        Чаты предложений
+                        {{trans('pages.offer','suggestion_chats')}}
                     </a>
                 </template>
             </div>
@@ -33,7 +33,7 @@
                                v-model="position"
                                @keyup="searchNamePosition($event.target.value)"
                                @keydown="enterKey"
-                               placeholder="имя, должность"
+                               :placeholder="trans('pages.offer','name_position')"
                         >
 
                         <svg @click="clearSearch" class="x-mark-clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256 7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256l118.2 119z"/></svg>
@@ -63,41 +63,43 @@
         <!-- title -->
         <div class="search-panel">
             <h1 v-if="respond['table'] === 'offer'" class="title_page card-body">
-                Предложения
+                {{trans('pages.offer','offers')}}
             </h1>
             <h1 v-else class="title_page card-body">
-                Архив предложений
+                {{trans('pages.offer','offer_archive')}}
             </h1>
         </div>
 
         <!-- No offers -->
         <div v-if="!content.length && respond['table'] === 'offer'" class="callout callout-warning">
-            <b>Предложения отсутствуют.</b>
+            <b>
+                {{trans('pages.offer','there_no_offers')}}
+            </b>
             <div>
-                На этой странице отображаются ваши личные переписки с участниками сервиса. Создать чат с кем либо, возможно откликнувшись на документ, перейдя в документ на странице поиска
+                {{trans('pages.offer','this_page_displays_personal')}}
                 «<a class="link-a" target="_blank"
                    :href="`${lang.prefix_lang}resume`"
-                >Резюме</a>,
+                >{{trans('pages.offer','summary')}}</a>,
                 <a class="link-a" target="_blank"
                    :href="`${lang.prefix_lang}vacancy`"
-                >Вакансия</a>».
-                Чат считается устаревшим спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
-                Перейдя в «Архив предложений» вы всегда можете обратиться к чату. Продолжив общение, чат автоматически восстановится в основном каталоге «Предложения».
+                >{{trans('pages.offer','vacancy')}}</a>».
+                {{trans('pages.offer','the_chat_considered_after')}}
+                {{trans('pages.offer','the_chat_considered_outdated')}}
             </div>
         </div>
         <div v-else-if="content.length && respond['table'] === 'offer'" class="desc-helper-italic">
-            Чат считается устаревшим спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в «Архив предложений».
+            {{trans('pages.offer','the_chat_considered_after')}}
         </div>
         <div v-if="!content.length && respond['table'] === 'archive'" class="callout callout-warning">
-            <b>Архивные чаты отсутствуют.</b>
+            <b>{{trans('pages.offer','there_no_archived_chats')}}</b>
             <div>
-                На этой странице отображаются архивные записи вашей переписки с участниками сервиса.
-                Чат считается устаревшим, спустя один месяц по дате последнего сообщения в нем и автоматически перемещается в этот архив.
-                Продолжив общение, чат автоматически восстановится в основном каталоге «Предложения».
+                {{trans('pages.offer','this_page_displays_archived')}}
+                {{trans('pages.offer','the_chat_considered_after')}}
+                {{trans('pages.offer','continuing_conversation')}}
             </div>
         </div>
         <div v-else-if="content.length && respond['table'] === 'archive'" class="desc-helper-italic">
-            Продолжив общение, чат автоматически восстановится в основном каталоге «Предложения».
+            {{trans('pages.offer','continuing_conversation')}}
         </div>
 
         <!-- documents -->
@@ -130,21 +132,21 @@
                             <div v-if="respond['table'] === 'offer'" class="box-button">
                                 <!-- не интересно -->
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
-                                      title="не интересно"
+                                      :title="trans('pages.offer','not_interested')"
                                 >
                                     <svg @click="addMessage($event, offer.id, 'not_interested')"
                                          class="svg-interest link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.1 7.031c-9.375-9.375-24.56-9.375-33.94 0l-74.59 74.59C358 50.63 309.2 32 256 32 132.3 32 32 132.3 32 256c0 53.21 18.63 102 49.62 140.4L7.03 470.99c-9.375 9.375-9.375 24.56 0 33.94C11.72 509.7 17.84 512 24 512s12.28-2.344 16.97-7.031l74.59-74.59C153.1 461.4 202.8 480 256 480c123.7 0 224-100.3 224-224 0-53.21-18.63-102-49.62-140.4l74.59-74.59c9.33-9.42 9.33-24.6-.87-33.979zM80 256c0-97.05 78.95-176 176-176 39.88 0 76.59 13.49 106.1 35.93l-246.2 246.2C93.49 332.6 80 295.9 80 256zm352 0c0 97.05-78.95 176-176 176-39.88 0-76.59-13.49-106.1-35.93l246.2-246.2C418.5 179.4 432 216.1 432 256z"/></svg>
                                 </span>
                                 <!-- потребность решена -->
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
-                                      title="потребность решена"
+                                      :title="trans('pages.offer','need_solved')"
                                 >
                                     <svg @click="addMessage($event, offer.id, 'need_solved')"
                                          class="svg-end link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 24C0 10.75 10.75 0 24 0h336c13.3 0 24 10.75 24 24s-10.7 24-24 24h-8v18.98c0 40.32-16.9 78.12-44.5 107.52L225.9 256l81.6 81.5C335.1 366 352 404.7 352 445v19h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.25 0-24-10.7-24-24s10.75-24 24-24h8v-19c0-40.3 16.01-79 44.52-107.5L158.1 256l-81.58-81.5C48.01 145.1 32 107.3 32 66.98V48h-8C10.75 48 0 37.25 0 24zm304 42.98V48H80v18.98c0 27.58 10.96 54.02 30.5 73.52l81.5 81.6 81.5-81.6C293 121 304 94.56 304 66.98z"/></svg>
                                 </span>
                                 <!-- отправить в архив -->
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
-                                      title="отправить в архив"
+                                      :title="trans('pages.offer','send_to_archive')"
                                 >
                                     <svg @click="sendToArchive($event, offer.id, key)"
                                          class="svg-archive link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 320h-96a23.964 23.964 0 0 0-21.47 13.28L321.2 384H190.8l-25.38-50.72C161.4 325.1 153.1 320 144 320H32c-17.67 0-32 14.33-32 32v96c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-80c0-26.5-21.5-48-48-48zm0 128c0 8.822-7.178 16-16 16H64c-8.822 0-16-7.178-16-16v-80h81.16l25.38 50.72C158.6 426.9 166.9 432 176 432h160c9.094 0 17.41-5.125 21.47-13.28L382.8 368H464v80zM238.4 312.3c3.7 4.9 10.9 7.7 17.6 7.7s13.03-2.781 17.59-7.656l104-112c9-9.719 8.438-24.91-1.25-33.94-9.719-8.969-24.88-8.438-33.94 1.25L280 234.9V24c0-13.25-10.75-24-24-24s-24 10.75-24 24v210.9l-62.4-67.2c-9.1-10.6-24.2-10.3-33.9-1.3-10.6 9-10.3 24.2-1.3 33.9l104 112z"/></svg>
@@ -165,13 +167,13 @@
                                     <div v-if="offer.chat[offer.chat.length-1].my_type_document !== null"
                                          class='offer-document'
                                     >
-                                        На Ваше
+                                        {{trans('pages.offer','for_your')}}
                                         <a class="link-a" href="javascript:void(0)"
                                            @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].your_offer_url)"
                                         >
                                             {{offer.chat[offer.chat.length-1].your_offer_title}}
                                         </a>
-                                        предложение рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
+                                        {{trans('pages.offer','proposal_consider')}} {{offer.chat[offer.chat.length-1].my_type_document}}
                                         <a class="link-a" href="javascript:void(0)"
                                            @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].my_offer_url)"
                                         >
@@ -191,7 +193,7 @@
                                     <span class="direct-chat-timestamp"
                                           :class="{'read-status': offer.chat[offer.chat.length-1].your_viewing == 1}"
                                     >
-                                        {{offer.chat[offer.chat.length-1].your_viewing == 0 ? 'не прочитано' : 'прочитано'}}
+                                        {{ offer.chat[offer.chat.length-1].your_viewing == 0 ? trans('pages.offer','unread') : trans('pages.offer','read') }}
                                     </span>
                                 </div>
                                 <!-- message -->
@@ -205,13 +207,13 @@
                                     <div v-if="offer.chat[offer.chat.length-1].my_type_document !== null"
                                          class='offer-document'
                                     >
-                                        Вы предложили рассмотреть {{offer.chat[offer.chat.length-1].my_type_document}}
+                                        {{trans('pages.offer','you_suggested_considering')}} {{offer.chat[offer.chat.length-1].my_type_document}}
                                         <a class="link-a" href="javascript:void(0)"
                                            @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].my_offer_url)"
                                         >
                                             {{offer.chat[offer.chat.length-1].my_offer_title}}
                                         </a>
-                                        на его
+                                        {{trans('pages.offer','on_his')}}
                                         <a class="link-a" href="javascript:void(0)"
                                            @click.prevent="transitionToLink($event, offer.chat[offer.chat.length-1].your_offer_url)"
                                         >
@@ -233,7 +235,7 @@
         <a v-if="archive_count > 0 && respond['table'] === 'offer'"
            class="link-a to-archive"
            :href="`${lang.prefix_lang}offers/archive`"
-        >Архив предложений: {{archive_count}} </a>
+        >{{trans('pages.offer','offer_archive')}}: {{archive_count}} </a>
 
     </div>
 </template>

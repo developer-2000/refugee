@@ -20,7 +20,9 @@
                     <div v-if="offer.contact_list.position !== null" class="font-weight-bold contacts-position">
                         {{offer.contact_list.position}}
                     </div>
-                    <div v-else class="not-specified">Должность не указана</div>
+                    <div v-else class="not-specified">
+                        {{trans('pages.offer','position_not_specified')}}
+                    </div>
 
                     <!-- time last message -->
                     <div v-if="table === 'offer'" class="time-last-message">
@@ -44,26 +46,28 @@
                     <a class="link-a" target="_blank"
                        :href="`${lang.prefix_lang}company/${offer.url_company}`"
                     >
-                        Компания
+                        {{trans('pages.offer','company')}}
                     </a>
                 </div>
 
                 <!-- email -->
                 <div class="contacts-line">
                     <span class="box-svg">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
                     </span>
                     <div class="target-label"
                          v-if="!objBoolContacts.bool_show_email"
                          @click="messageNotReceived('bool_show_email')"
                     >
-                        Показать email
+                        {{trans('pages.offer','show_email')}}
                     </div>
                     <template v-else-if="objBoolContacts.bool_show_email">
                         <a v-if="offer.contact_list.email !== null" href="javascript:void(0)"
-                           @click="copyText($event.target,'Email скопирован в буфер обмена')"
+                           @click="copyText($event.target,trans('pages.offer','email_copied_clipboard'))"
                         >{{offer.contact_list.email}}</a>
-                        <div v-else class="not-specified">Не указан</div>
+                        <div v-else class="not-specified">
+                            {{trans('pages.offer','not_specified')}}
+                        </div>
                     </template>
                 </div>
 
@@ -76,13 +80,15 @@
                          v-if="!objBoolContacts.bool_show_skype"
                          @click="messageNotReceived('bool_show_skype')"
                     >
-                        Показать skype
+                        {{trans('pages.offer','show_skype')}}
                     </div>
                     <template v-else-if="objBoolContacts.bool_show_skype">
                         <a v-if="offer.contact_list.skype !== null" href="javascript:void(0)"
-                           @click="copyText($event.target,'Skype скопирован в буфер обмена')"
+                           @click="copyText($event.target,trans('pages.offer','skype_copied_clipboard'))"
                         >{{offer.contact_list.skype}}</a>
-                        <div v-else class="not-specified">Не указан</div>
+                        <div v-else class="not-specified">
+                            {{trans('pages.offer','not_specified')}}
+                        </div>
                     </template>
                 </div>
 
@@ -95,13 +101,15 @@
                          v-if="!objBoolContacts.bool_show_phone"
                          @click="messageNotReceived('bool_show_phone')"
                     >
-                        Показать номер
+                        {{trans('pages.offer','show_number')}}
                     </div>
                     <template v-else-if="objBoolContacts.bool_show_phone">
                         <a v-if="offer.contact_list.phone['phone'] !== null" href="javascript:void(0)"
-                           @click="copyText($event.target,'Номер скопирован в буфер обмена')"
+                           @click="copyText($event.target,trans('pages.offer','number_copied_clipboard'))"
                         >{{offer.contact_list.phone['phone'].replaceAll(/[(-)]/ig, ' ')}}</a>
-                        <div v-else class="not-specified">Не указан</div>
+                        <div v-else class="not-specified">
+                            {{trans('pages.offer','not_specified')}}
+                        </div>
                         <template v-for="(value, key) in offer.contact_list.phone['messengers']">
                             <div class="box-message" v-if="settings.contact_information[value] == 'Telegram'">
                                 <svg class="svg-telegram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
@@ -171,27 +179,11 @@
                 }
 
                 if(!this.offer.contact_list.access.received_respond){
-                    this.message("" +
-                        "Вам не открыты данные этого контакта. Откликнитесь на этот или другой документ. " +
-                        "Соискатель должен принять ваш отклик для начало прямой переписки." , 'success', 20000, true);
+                    this.message(this.trans('pages.offer','you_not_have_access') , 'success', 20000, true);
                 }
                 else{
                     // показать email или skype или phone
                     this.objBoolContacts[bool_element] = true
-                }
-            },
-            openChat(){
-                // для не авторизованных
-                if(!this.checkAuth(window.location)){
-                    return false
-                }
-                if(!this.offer.contact_list.access.received_respond){
-                    this.message("" +
-                        "Вам не открыты данные этого контакта. Откликнитесь на одну из вакансий этой компании. " +
-                        "Работодатель должен принять ваш отклик для начало прямой переписки." , 'success', 20000, true);
-                }
-                else{
-                    alert('Сделать открытие чата')
                 }
             },
             checkAuth(url) {
