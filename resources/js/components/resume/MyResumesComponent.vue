@@ -10,30 +10,36 @@
                 <span class="bread-slash"> | </span>
             </div>
 
-            <a class="btn btn-block btn-primary" id="create-vacancy" :href="`${lang.prefix_lang}private-office/resume/create`">Добавить резюме</a>
+            <a class="btn btn-block btn-primary" id="create-vacancy" :href="`${lang.prefix_lang}private-office/resume/create`">
+                {{trans('menu.menu','add_resume')}}
+            </a>
         </div>
         <!-- title -->
         <h1 class="title_page card-body">
             <u>{{trans('vacancies','my')}}</u>
-            резюме
+            {{trans('vacancies','resume')}}
         </h1>
 
         <!-- No resume -->
         <div v-if="!lookingValueInArrayObjects('type', 0, resumes)"
              class="callout callout-warning"
         >
-            <b>Резюме отсутствуют.</b>
+            <b>
+                {{trans('vacancies','there_no_resumes')}}.
+            </b>
             <div>
-                На этой странице отображаются ваши собственные резюме. Имеете доступ управления ими и просматриваете отклики работодателей на них.
+                {{trans('vacancies','this_page_your_resumes')}}
                 <br>
                 <a class="link-a" target="_blank"
                    :href="`${lang.prefix_lang}private-office/resume/create`"
-                >Создайте резюме</a>
-                 и начните получать предложения от заинтересованных работодателей.
+                >
+                    {{trans('vacancies','create_resume')}}
+                </a>
+                {{trans('vacancies','and_start_getting_offers')}}
             </div>
         </div>
         <div v-else class="desc-helper-italic">
-            Помогает отслеживать и иметь полный доступ к своим резюме.
+            {{trans('vacancies','helps_you_track')}}
         </div>
 
         <!-- resumes -->

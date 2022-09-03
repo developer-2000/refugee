@@ -65,7 +65,7 @@
                 <!-- buttons -->
                 <div class="panel-button">
                     <button class="btn btn-block btn-outline-danger" type="button"
-                            @click="bookmarkVacancy($event, array.vacancy.id)"
+                            @click.prevent.stop="bookmarkVacancy($event, array.vacancy.id)"
                     >
                         {{trans('vacancies','remove')}}
                     </button>

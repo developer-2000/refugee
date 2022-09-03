@@ -4,13 +4,15 @@
         <!-- отображение прошедшего времени -->
         <div v-if="page === 'show'" class="date-document header-date-document">
             <div class="date-string">
-                Резюме {{getDateDocumentString(resume.updated_at)}} назад
+                {{trans('vacancies','resume')}}
+                {{getDateDocumentString(resume.updated_at)}}
+                {{trans('vacancies','back')}}
             </div>
             <!-- Резюме скрыто -->
             <div class="close-document-fon"
                  v-if="resume.job_posting.status_name == 'hidden'"
             >
-                Резюме скрыто
+                {{trans('vacancies','resume_hidden')}}
             </div>
         </div>
 
@@ -28,12 +30,12 @@
                 <!-- если file avatar не загружен -->
                 <img v-if="resume.contact.avatar === null" class="img-logo"
                      :src="`/${resume.contact.default_avatar_url}`"
-                     :alt="`аватар по умолчанию ${resume.contact.name} ${resume.contact.surname}`"
+                     :alt="`${trans('vacancies','default_avatar')} ${resume.contact.name} ${resume.contact.surname}`"
                 >
                 <!-- если загружен -->
                 <img v-else class="img-logo"
                      :src="`/${resume.contact.avatar.url}`"
-                     :alt="`аватар пользователя ${resume.contact.name} ${resume.contact.surname}`"
+                     :alt="`${trans('details.contacts','user_avatar')} ${resume.contact.name} ${resume.contact.surname}`"
                 >
             </template>
 
@@ -169,7 +171,9 @@
                     <div v-if="resume.text_experience !== null"
                          class="textarea-vacancy"
                     >
-                        <h2 class="section-title">Описание опыта</h2>
+                        <h2 class="section-title">
+                            {{trans('vacancies','experience_description')}}
+                        </h2>
                         <div v-html="resume.text_experience"></div>
                     </div>
 
@@ -177,7 +181,9 @@
                     <div v-if="resume.text_achievements !== null"
                          class="textarea-vacancy"
                     >
-                        <h2 class="section-title">Навыки и достижения</h2>
+                        <h2 class="section-title">
+                            {{trans('vacancies','skills_and_achievements')}}
+                        </h2>
                         <div v-html="resume.text_achievements"></div>
                     </div>
 
@@ -185,7 +191,9 @@
                     <div v-if="resume.text_wait !== null"
                          class="textarea-vacancy"
                     >
-                        <h2 class="section-title">Ожидания на новой работе</h2>
+                        <h2 class="section-title">
+                            {{trans('vacancies','expectations_for_new_job')}}
+                        </h2>
                         <div v-html="resume.text_wait"></div>
                     </div>
                 </template>
@@ -193,7 +201,7 @@
                      class="textarea-vacancy"
                 >
                     <div class="link-vacancy">
-                        Подробнее
+                        {{trans('vacancies','more')}}
                         <svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg">
                             <path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/>
                         </svg>
@@ -207,12 +215,13 @@
 
             <!-- отображение прошедшего времени -->
             <div class="date-document">
-                {{getDateDocumentString(resume.updated_at)}} назад
+                {{getDateDocumentString(resume.updated_at)}}
+                {{trans('vacancies','back')}}
                 <!-- вакансия закрыта -->
                 <div class="close-document-fon"
                      v-if="resume.job_posting.status_name == 'hidden'"
                 >
-                    Резюме скрыто
+                    {{trans('vacancies','resume_hidden')}}
                 </div>
             </div>
 
@@ -339,16 +348,12 @@
                         this.messageError(err)
                     })
             },
-            initialData(){
-                // click menu resume
-                $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
-                    e.stopPropagation();
-                });
-
-                if(this.page === "show"){
-                    $(".box-title").css('margin-bottom','-30px')
-                }
-            }
+            // initialData(){
+            //     // click menu resume
+            //     $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
+            //         e.stopPropagation();
+            //     });
+            // }
         },
         props: [
             'resume',
@@ -360,7 +365,9 @@
             'page',
         ],
         mounted() {
-
+            if(this.page === "show"){
+                $(".box-title").css('margin-bottom','-30px')
+            }
         },
     }
 </script>
@@ -372,7 +379,6 @@
             fill: #1d68a7;
         }
     }
-
     .title-name{
         padding: 10px 0 5px 0;
         font-size: 21px;
@@ -423,15 +429,6 @@
     }
     .box-title {
         padding: 0;
-        /*.title-vacancy {*/
-        /*    margin: 0 5px 10px 0!important;*/
-        /*    padding: 0;*/
-        /*    line-height: 25px;*/
-        /*    height: 25px;*/
-        /*    font-size: 26px;*/
-        /*    float: left;*/
-        /*    max-width: 60%;*/
-        /*}*/
         .company-vacancy {
             display: flex;
             flex-direction: column;

@@ -76,4 +76,17 @@ return [
     'number_employees_company'=>'Number of employees in the company',
     'company_description'=>'Company description',
 
+    'each_employer_represents'=>"Each employer represents their company. Your company can be viewed by unauthorized users, including authorized potential employees.",
+    'transliteration_unique'=>"A transliteration is a unique string in a url referring to your company.
+                              Thanks to her, you can always share the link with friends or colleagues. It's easy, fast and convenient.",
+    'attention_transliteration'=>"Attention! The transliteration is created and cannot be changed. Decide how it will be written.",
+    'enter_address'=>"Enter address",
+    'file_extension'=>"File extension",
+    'cancel'=>"Cancel",
+    'confirm'=>"Confirm",
+
+    'company_social_networks'=>"Company social",
+    'video_id_link'=>"The video id in the link is not correct",
+    'change_avatar'=>"Change avatar",
+
 ];

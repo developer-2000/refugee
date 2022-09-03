@@ -56,14 +56,14 @@
                 <button class="btn btn-block btn-outline-danger" type="button"
                         @click="bool_button_canvas = false"
                 >
-                    Отменить
+                    {{trans('company','cancel')}}
                 </button>
 
                 <button class="btn btn-block btn-outline-primary" type="button"
                         @click="confirmCanvas"
                         :disabled="!bool_button_canvas"
                 >
-                    Подтвердить
+                    {{trans('company','confirm')}}
                 </button>
             </div>
         </div>
@@ -133,6 +133,7 @@
             },
         },
         props: [
+            'lang',
             'url',
             'update_avatar_text',
             'description_text',

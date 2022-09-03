@@ -211,14 +211,18 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label>
-                        Аватар пользователя
+                        {{trans('details.contacts','user_avatar')}}
                     </label>
-                    <!-- компонент подгрузки аватар -->
+                    <!-- компонент подгрузки аватар
+                                            :update_avatar_text= trans('company','change_avatar')
+                        :description_text= trans('company','file_extension') + ": .jpg, .jpeg, .png"
+                        -->
                     <load_image_canvas_component
+                        :lang=this.lang
                         :url="update_avatar_url"
                         :format_files="format_files"
-                        update_avatar_text="Изменить аватар"
-                        description_text="Расширение файлов: .jpg, .jpeg, .png"
+                        :update_avatar_text="trans('company','change_avatar')"
+                        :description_text="`${trans('company','file_extension')}: .jpg, .jpeg, .png`"
                         width="120"
                         height="150"
                         @parent="returnFile"

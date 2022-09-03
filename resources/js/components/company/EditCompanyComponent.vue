@@ -34,7 +34,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                         </span>
                         <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                              title="sss"
+                              :title="trans('company','each_employer_represents')"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                         </span>
@@ -61,12 +61,14 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                         </span>
                         <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                              title="Транслитерация – это уникальная строка в url адресе, ссылающаяся на вашу компанию. Благодаря ей вы всегда можете поделится ссылкой с друзьями или коллегами. Это легко, быстро и удобно."
+                              :title="trans('company','transliteration_unique')"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                         </span>
                     </label>
-                    <i class="desc-i">Внимание! Транслитерация создаётся и изменению не подлежит. Примите решение как она будет писаться.</i>
+                    <i class="desc-i">
+                        {{trans('company','attention_transliteration')}}
+                    </i>
                     <input type="text" id="position_transliteration" class="form-control" maxlength="100" autocomplete="off"
                            :placeholder="trans('company','enter_transliteration')"
                            :class="{'is-invalid': $v.position_transliteration.$error}"
@@ -197,7 +199,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M489.1 363.3l-24.03 41.59c-6.635 11.48-21.33 15.41-32.82 8.78l-129.1-74.56V488c0 13.25-10.75 24-24.02 24H231.1c-13.27 0-24.02-10.75-24.02-24v-148.9L78.87 413.7c-11.49 6.629-26.19 2.698-32.82-8.78l-24.03-41.59c-6.635-11.48-2.718-26.14 8.774-32.77L159.9 256L30.8 181.5C19.3 174.8 15.39 160.2 22.02 148.7l24.03-41.59c6.635-11.48 21.33-15.41 32.82-8.781l129.1 74.56L207.1 24c0-13.25 10.75-24 24.02-24h48.04c13.27 0 24.02 10.75 24.02 24l.0005 148.9l129.1-74.56c11.49-6.629 26.19-2.698 32.82 8.78l24.02 41.59c6.637 11.48 2.718 26.14-8.774 32.77L352.1 256l129.1 74.53C492.7 337.2 496.6 351.8 489.1 363.3z"/></svg>
                         </span>
                             <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="`${trans('vacancies','title_categories')}`"
+                                  :title="trans('vacancies','title_categories')"
                             >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
                         </span>
@@ -267,11 +269,16 @@
             <div class="col-sm-4">
                 <div class="form-group height-element">
                     <label for="data_foundation">
-                        {{trans('company','data_foundation')}} (месяц/день/год)
+                        {{trans('company','data_foundation')}}
                     </label>
+                    <i>
+                        {{trans('vacancies','month_day_year')}}
+                    </i>
                     <div class="input-group" id="data_foundation">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M112 0c8.8 0 16 7.164 16 16v48h192V16c0-8.836 7.2-16 16-16s16 7.164 16 16v48h32c35.3 0 64 28.65 64 64v320c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V128c0-35.35 28.65-64 64-64h32V16c0-8.836 7.2-16 16-16zm304 192H312v72h104v-72zm0 104H312v80h104v-80zm0 112H312v72h72c17.7 0 32-14.3 32-32v-40zm-136-32v-80H168v80h112zM168 480h112v-72H168v72zm-32-104v-80H32v80h104zM32 408v40c0 17.7 14.33 32 32 32h72v-72H32zm0-144h104v-72H32v72zm136 0h112v-72H168v72zM384 96H64c-17.67 0-32 14.3-32 32v32h384v-32c0-17.7-14.3-32-32-32z"/></svg>
+                            </span>
                         </div>
                         <input id="datemask" type="text" class="form-control" data-inputmask-alias="datetime"
                                data-inputmask-inputformat="mm/dd/yyyy" data-mask
@@ -424,7 +431,9 @@
                         </label>
                         <div id="input_youtube">
                             <div class="input-group input-group">
-                                <input type="text" class="form-control input_youtube" maxlength="100" autocomplete="off" placeholder="Ввести адрес">
+                                <input type="text" class="form-control input_youtube" maxlength="100" autocomplete="off"
+                                       :placeholder="trans('company','enter_address')"
+                                >
                                 <span class="input-group-append">
                                     <button class="btn btn-warning btn-flat" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 64h-96l-33.63-44.75C293.4 7.125 279.1 0 264 0h-80c-15.1 0-29.4 7.125-38.4 19.25L112 64H16C7.201 64 0 71.2 0 80c0 8.799 7.201 16 16 16h416c8.801 0 16-7.201 16-16 0-8.8-7.2-16-16-16zm-280 0 19.25-25.62C174.3 34.38 179 32 184 32h80c5 0 9.75 2.375 12.75 6.375L296 64H152zm248 64c-8.8 0-16 7.2-16 16v288c0 26.47-21.53 48-48 48H112c-26.47 0-48-21.5-48-48V144c0-8.8-7.16-16-16-16s-16 7.2-16 16v288c0 44.1 35.89 80 80 80h224c44.11 0 80-35.89 80-80V144c0-8.8-7.2-16-16-16zM144 416V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16zm96 0V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16zm96 0V192c0-8.844-7.156-16-16-16s-16 7.2-16 16v224c0 8.844 7.156 16 16 16s16-7.2 16-16z"/></svg>
@@ -478,10 +487,12 @@
                     </label>
                     <!-- компонент подгрузки логотипа -->
                     <load_image_canvas_component
+                        :lang=this.lang
                         :url="update_logotype_url"
                         :format_files="format_files"
                         update_avatar_text="Изменить логотип"
-                        description_text="Расширение файлов: .jpg, .jpeg, .png"
+                        :update_avatar_text="trans('company','change_logo')"
+                        :description_text="`${trans('company','file_extension')}: .jpg, .jpeg, .png`"
                         width="200"
                         height="100"
                         @parent="returnFile"

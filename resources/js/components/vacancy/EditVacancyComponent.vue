@@ -640,33 +640,26 @@
             <!-- button -->
             <div class="row footer-form">
                 <div class="col-sm-4 offset-4 but-box">
+                    <a :href="`${lang.prefix_lang}private-office/vacancy/my-vacancies`"
+                       class="btn btn-block btn-outline-danger btn-lg">
+                        {{trans('vacancies','cancel')}}
+                    </a>
                     <!-- button create -->
-                    <template v-if="vacancy_id === null">
-                        <a href="/" class="btn btn-block btn-outline-danger btn-lg">
-                            {{trans('vacancies','cancel')}}
-                        </a>
-                        <button type="submit" class="btn btn-block btn-primary btn-lg"
-                                :class="{'disabled': disableButton($v)}"
-                                :disabled="disableButton($v)"
-                                @click.prevent="createVacancy"
-                        >
-                            {{trans('vacancies','save')}}
-                        </button>
-                    </template>
+                    <button v-if="vacancy_id === null" type="submit" class="btn btn-block btn-primary btn-lg"
+                            :class="{'disabled': disableButton($v)}"
+                            :disabled="disableButton($v)"
+                            @click.prevent="createVacancy"
+                    >
+                        {{trans('vacancies','save')}}
+                    </button>
                     <!-- button update -->
-                    <template v-else>
-                        <a :href="`${lang.prefix_lang}private-office/vacancy/my-vacancies`"
-                           class="btn btn-block btn-outline-danger btn-lg">
-                            {{trans('vacancies','cancel')}}
-                        </a>
-                        <button type="submit" class="btn btn-block btn-primary btn-lg"
+                    <button v-else type="submit" class="btn btn-block btn-primary btn-lg"
                                 :class="{'disabled': disableButton($v)}"
                                 :disabled="disableButton($v)"
                                 @click.prevent="updateVacancy"
                         >
                             {{trans('vacancies','update_vacancy')}}
                         </button>
-                    </template>
                 </div>
             </div>
         </form>

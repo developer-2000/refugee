@@ -65,19 +65,20 @@
         border-radius: 5px;
         color: #3490dc;
         position: relative;
-        min-width: 190px;
-        padding: 8px 8px 3px 8px;
+        min-width: 200px;
+        padding: 8px 12px 3px 12px;
         background-color: #f7f7f7;
         .share-title{
             position: absolute;
-            top: -9px;
+            top: -15px;
             left: 8px;
             white-space: nowrap;
-            padding: 0 4px;
+            padding: 5px 4px 0px;
             background: #f7f7f7;
             line-height: 17px;
             width: calc(100% - 16px);
             text-align: center;
+            border-radius: 8px;
         }
         .ul-share{
             display: flex;
@@ -90,8 +91,8 @@
                 }
             }
             svg{
-                width: 20px;
-                height: 20px;
+                width: 23px;
+                height: 23px;
             }
             .svg-facebook{
                 fill: #0268e2;

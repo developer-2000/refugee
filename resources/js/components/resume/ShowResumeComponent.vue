@@ -46,7 +46,7 @@
                 <button class="btn btn-block btn-outline-primary" type="button"
                         @click="findSimilarResume()"
                 >
-                    Найти похожие резюме
+                    {{trans('vacancies','find_similar_resumes')}}
                 </button>
 
                 <!-- кнопки закладок вакансий -->
@@ -83,13 +83,13 @@
         <!-- откликнуться -->
         <div v-if="respond_bool" id="box-respond" >
             <h2 class="section-title">
-                Откликнуться на резюме
+                {{trans('vacancies','respond_to_resume')}}
             </h2>
 
                 <!-- показ vacancy сайта -->
                 <div>
                     <label>
-                        Выбрать вакансию
+                        {{trans('vacancies','choose_vacancy')}}
                     </label>
                     <!-- есть vacancy -->
                     <div v-if="respond['respond_data'].arr_vacancy.length">
@@ -111,7 +111,7 @@
                        :href="lang.prefix_lang+'private-office/vacancy/create'"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352 232h-72v-72c0-13.26-10.74-24-23.1-24S232 146.7 232 160v72h-72c-13.3 0-24 10.7-24 24 0 13.25 10.75 24 24 24h72v72c0 13.25 10.75 24 24 24s24-10.7 24-24v-72h72c13.3 0 24-10.7 24-24s-10.7-24-24-24zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208-93.3 208-208 208z"/></svg>
-                        Создать свою вакансию
+                        {{trans('vacancies','create_your_job')}}
                     </a>
                 </div>
 
@@ -148,7 +148,7 @@
                             :disabled="disableButton()"
                             @click.prevent="respondResume"
                     >
-                        Открыть контакты и начать общение
+                        {{trans('vacancies','open_contacts_start')}}
                     </button>
                 </div>
 
