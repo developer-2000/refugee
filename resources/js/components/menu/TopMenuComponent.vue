@@ -1,152 +1,148 @@
 <template>
-    <div class="background-top-menu">
+    <div class="container-fluid background-top-menu">
 
         <!-- top menu -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<!--        <nav class="navbar navbar-expand navbar-white navbar-light">-->
+        <nav class="row navbar-expand">
 
-            <!-- Left navbar -->
-            <ul class="navbar-nav">
-                <!-- Logo -->
-                <li class="nav-item d-sm-inline-block">
-                    <a :href="`${clearPrefixLanguage()}`" class="brand-link" rel="nofollow">
-                        <img alt="site logo" src="/img/custom/logo-site.gif">
-                        <div class="box-logo-title">
-                            <div class="brand-text font-weight-light">
-                                {{this.logo_text.uk}}
+                <!-- Left navbar -->
+                <ul class="navbar-nav col-md-12 col-lg-6 left-navbar">
+                    <!-- Logo -->
+                    <li class="nav-item d-sm-inline-block">
+                        <a :href="`${clearPrefixLanguage()}`" class="brand-link" rel="nofollow">
+                            <img alt="site logo" src="/img/custom/logo-site.gif">
+                            <div class="box-logo-title">
+                                <div class="brand-text font-weight-light">
+                                    {{this.logo_text.uk}}
+                                </div>
+                                <div class="brand-text font-weight-light">
+                                    {{this.logo_text.en}}
+                                </div>
                             </div>
-                            <div class="brand-text font-weight-light">
-                                {{this.logo_text.en}}
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <!-- button open/close sidebar-->
-                <li id="left-sidebar" class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
-                    </a>
-                </li>
-                <!-- Menu -->
-                <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left">
-                    <a :href="lang.prefix_lang+'show-charity'" class="nav-link charity">
-                        <svg class="svg-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352.4 243.8l-49.83 99.5c-6.009 12-23.41 11.62-28.92-.625L216.7 216.3l-30.05 71.75L88.55 288l176.4 182.2c12.66 13.07 33.36 13.07 46.03 0l176.4-182.2l-112.1 .0052L352.4 243.8zM495.2 62.86c-54.36-46.98-137.5-38.5-187.5 13.06L288 96.25L268.3 75.92C218.3 24.36 135.2 15.88 80.81 62.86C23.37 112.5 16.84 197.6 60.18 256h105l35.93-86.25c5.508-12.88 23.66-13.12 29.54-.375l58.21 129.4l49.07-98c5.884-11.75 22.78-11.75 28.67 0l27.67 55.25h121.5C559.2 197.6 552.6 112.5 495.2 62.86z"/></svg>
-                        <span>
+                        </a>
+                    </li>
+                    <!-- Menu -->
+                    <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left">
+                        <a :href="lang.prefix_lang+'show-charity'" class="nav-link charity">
+                            <svg class="svg-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352.4 243.8l-49.83 99.5c-6.009 12-23.41 11.62-28.92-.625L216.7 216.3l-30.05 71.75L88.55 288l176.4 182.2c12.66 13.07 33.36 13.07 46.03 0l176.4-182.2l-112.1 .0052L352.4 243.8zM495.2 62.86c-54.36-46.98-137.5-38.5-187.5 13.06L288 96.25L268.3 75.92C218.3 24.36 135.2 15.88 80.81 62.86C23.37 112.5 16.84 197.6 60.18 256h105l35.93-86.25c5.508-12.88 23.66-13.12 29.54-.375l58.21 129.4l49.07-98c5.884-11.75 22.78-11.75 28.67 0l27.67 55.25h121.5C559.2 197.6 552.6 112.5 495.2 62.86z"/></svg>
+                            <span>
                             {{ trans('menu.menu','support') }}
                         </span>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left">
-                    <a :href="lang.prefix_lang+'about-us'" class="nav-link">
-                        {{ trans('menu.menu','about_service') }}
-                    </a>
-                </li>
-            </ul>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block button-navbar li-margin-left two-li">
+                        <a :href="lang.prefix_lang+'about-us'" class="nav-link">
+                            {{ trans('menu.menu','about_service') }}
+                        </a>
+                    </li>
+                </ul>
 
-            <!-- Right navbar -->
-            <ul class="navbar-nav ml-auto">
+                <!-- Right navbar -->
+                <ul class="navbar-nav ml-auto col-md-12 col-lg-6 right-navbar">
 
-                <!-- предложения -->
-                <li class="nav-item d-none d-sm-inline-block button-navbar">
-                    <a class="nav-link" href="javascript:void(0)"
-                       @click.prevent="checkAuth(lang.prefix_lang+'offers')"
-                    >
-                        <!-- общее кол-во respond на вакансии и резюме -->
-                        <span v-if="count_unread_chats"
-                            class="badge badge-primary navbar-badge">
+                    <!-- предложения -->
+                    <li class="nav-item d-none d-sm-inline-block button-navbar">
+                        <a class="nav-link" href="javascript:void(0)"
+                           @click.prevent="checkAuth(lang.prefix_lang+'offers')"
+                        >
+                            <!-- общее кол-во respond на вакансии и резюме -->
+                            <span v-if="count_unread_chats"
+                                  class="badge badge-primary navbar-badge">
                             {{count_unread_chats}}
                         </span>
-                        {{ trans('menu.menu','offers') }}
-                    </a>
-                </li>
-                <!-- работа -->
-                <li class="nav-item dropdown d-none d-sm-inline-block dropdown-button-menu">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                        {{ trans('menu.menu','work') }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="javascript:void(0)" rel="nofollow"
-                           @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
-                        >
-                            {{ trans('menu.menu','add_job') }}
+                            {{ trans('menu.menu','offers') }}
                         </a>
-                        <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`" rel="nofollow">
-                            {{ trans('menu.menu','find_job') }}
+                    </li>
+                    <!-- работа -->
+                    <li class="nav-item dropdown d-none d-sm-inline-block dropdown-button-menu button-navbar">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            {{ trans('menu.menu','work') }}
                         </a>
-                        <a class="dropdown-item" href="javascript:void(0)" rel="nofollow"
-                           @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
-                        >
-                            {{ trans('menu.menu','add_resume') }}
-                        </a>
-                        <a class="dropdown-item" :href="`${lang.prefix_lang}resume`" rel="nofollow">
-                            {{ trans('menu.menu','find_resume') }}
-                        </a>
-                    </div>
-                </li>
-
-                <!-- Language menu -->
-                <li class="nav-item dropdown button-menu">
-                    <!-- flag -->
-                    <a class="nav-link" data-toggle="dropdown" href="#" rel="nofollow">
-                        <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
-                        <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
-                    </a>
-                    <!-- dropdown -->
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <div v-for="item in this.lang_sort" :key="item.title">
-                            <a class="dropdown-item" rel="nofollow"
-                               :href="`${lang.prefix_lang}language/${item.alias}`"
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office/vacancy/create')"
                             >
-                                <img :src="item.avatar" class="lang_flag" alt="flag language">
-                                {{item.title}}
+                                {{ trans('menu.menu','add_job') }}
                             </a>
-                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`" rel="nofollow">
+                                {{ trans('menu.menu','find_job') }}
+                            </a>
+                            <a class="dropdown-item" href="javascript:void(0)" rel="nofollow"
+                               @click.prevent="checkAuth(lang.prefix_lang+'private-office/resume/create')"
+                            >
+                                {{ trans('menu.menu','add_resume') }}
+                            </a>
+                            <a class="dropdown-item" :href="`${lang.prefix_lang}resume`" rel="nofollow">
+                                {{ trans('menu.menu','find_resume') }}
+                            </a>
                         </div>
-                    </div>
-                </li>
-                <!-- Authorization -->
-                <li class="nav-item button-menu button-auth"
-                    v-if="!user"
-                >
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal" rel="nofollow"
-                       @click.prevent="reset_array(0)"
-                    > {{ trans('menu.menu','authorization') }} </a>
-                    <span>/</span>
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal" rel="nofollow"
-                       @click.prevent="reset_array(1)"
-                    > {{ trans('menu.menu','registration') }} </a>
-                </li>
+                    </li>
 
-                <!-- user menu -->
-                <li class="nav-item dropdown user-menu"
-                    v-if="user"
-                >
-                    <!-- avatar -->
-                    <a class="nav-link user-avatar" data-toggle="dropdown" href="#" rel="nofollow">
-                        <div class="svg-avatar">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fa-primary" d="m272 304-33.1 55.2 33.3 123.9 39.5-161.2c77.2 12 136.3 78.8 136.3 159.4 0 16.9-13.8 30.7-30.7 30.7H30.72C13.75 512 0 498.2 0 481.3c0-80.6 59.09-147.4 136.3-159.4l39.5 161.2 33.3-123.9L176 304h96z"/><path d="M96 128C96 57.31 153.3 0 224 0s128 57.31 128 128c0 70.7-57.3 128-128 128S96 198.7 96 128z" style="opacity:.4"/></svg>
+                    <!-- Language menu -->
+                    <li class="nav-item dropdown button-menu button-navbar">
+                        <!-- flag -->
+                        <a class="nav-link user-avatar" data-toggle="dropdown" href="#" rel="nofollow">
+                            <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
+                            <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
+                        </a>
+                        <!-- dropdown -->
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <div v-for="item in this.lang_sort" :key="item.title">
+                                <a class="dropdown-item" rel="nofollow"
+                                   :href="`${lang.prefix_lang}language/${item.alias}`"
+                                >
+                                    <img :src="item.avatar" class="lang_flag" alt="flag language">
+                                    {{item.title}}
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            </div>
                         </div>
-                        <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
-                    </a>
-                    <!-- dropdown -->
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <!-- Private office -->
-                        <a class="dropdown-item private-office" rel="nofollow"
-                           :href="`${lang.prefix_lang}private-office`"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352 224c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64zm-32 96c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16H192c-8.8 0-16-7.2-16-16 0-44.2 35.8-80 80-80h64zM272.5 5.7c8.9-7.6 22.1-7.6 31 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8-8.6 10.1-23.7 11.4-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.18 0-80-35.8-80-80V245.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8L272.5 5.7zM112 204.8V432c0 17.7 14.3 32 32 32h288c17.7 0 32-14.3 32-32V204.8L288 55.47 112 204.8z"/></svg>
-                            {{ trans('menu.menu','personal_area') }}
-                        </a>
-                        <!-- Logout -->
-                        <a class="dropdown-item" rel="nofollow"
-                           :href="`${lang.prefix_lang}user/logout`"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64c17.67 0 32-14.33 32-32S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256c0 53.02 42.98 96 96 96h64c17.67 0 32-14.33 32-32S177.7 416 160 416zM502.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L402.8 224H192C174.3 224 160 238.3 160 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C515.1 266.1 515.1 245.9 502.6 233.4z"/></svg>
-                            {{ trans('menu.menu','exit') }}
-                        </a>
-                    </div>
-                </li>
+                    </li>
+                    <!-- Authorization -->
+                    <li class="nav-item button-menu button-auth"
+                        v-if="!user"
+                    >
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                           @click.prevent="reset_array(0)"
+                        > {{ trans('menu.menu','authorization') }} </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                           @click.prevent="reset_array(1)"
+                        > {{ trans('menu.menu','registration') }} </a>
+                    </li>
 
-            </ul>
+                    <!-- user menu -->
+                    <li class="nav-item dropdown user-menu button-navbar"
+                        v-if="user"
+                    >
+                        <!-- avatar -->
+                        <a class="nav-link user-avatar" data-toggle="dropdown" href="#" rel="nofollow">
+                            <div class="svg-avatar">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fa-primary" d="m272 304-33.1 55.2 33.3 123.9 39.5-161.2c77.2 12 136.3 78.8 136.3 159.4 0 16.9-13.8 30.7-30.7 30.7H30.72C13.75 512 0 498.2 0 481.3c0-80.6 59.09-147.4 136.3-159.4l39.5 161.2 33.3-123.9L176 304h96z"/><path d="M96 128C96 57.31 153.3 0 224 0s128 57.31 128 128c0 70.7-57.3 128-128 128S96 198.7 96 128z" style="opacity:.4"/></svg>
+                            </div>
+                            <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
+                        </a>
+                        <!-- dropdown -->
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <!-- Private office -->
+                            <a class="dropdown-item private-office" rel="nofollow"
+                               :href="`${lang.prefix_lang}private-office`"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M352 224c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64zm-32 96c44.2 0 80 35.8 80 80 0 8.8-7.2 16-16 16H192c-8.8 0-16-7.2-16-16 0-44.2 35.8-80 80-80h64zM272.5 5.7c8.9-7.6 22.1-7.6 31 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8-8.6 10.1-23.7 11.4-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.18 0-80-35.8-80-80V245.5l-24.47 20.8c-10.11 8.6-25.25 7.3-33.83-2.8-8.576-10.1-7.334-25.2 2.773-33.8L272.5 5.7zM112 204.8V432c0 17.7 14.3 32 32 32h288c17.7 0 32-14.3 32-32V204.8L288 55.47 112 204.8z"/></svg>
+                                {{ trans('menu.menu','personal_area') }}
+                            </a>
+                            <!-- Logout -->
+                            <a class="dropdown-item" rel="nofollow"
+                               :href="`${lang.prefix_lang}user/logout`"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64c17.67 0 32-14.33 32-32S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256c0 53.02 42.98 96 96 96h64c17.67 0 32-14.33 32-32S177.7 416 160 416zM502.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L402.8 224H192C174.3 224 160 238.3 160 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C515.1 266.1 515.1 245.9 502.6 233.4z"/></svg>
+                                {{ trans('menu.menu','exit') }}
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
         </nav>
         <!-- / top menu -->
 
@@ -297,6 +293,26 @@
 <style scoped lang="scss">
     @import "resources/sass/_variables";
 
+    .navbar-expand {
+        flex-flow: row wrap!important;
+        border-bottom: 2px solid #dee2e6!important;
+        padding: 10px 0;
+    }
+
+    .left-navbar,
+    .right-navbar{
+        min-width: 320px;
+    }
+
+    .right-navbar{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: flex-start;
+    }
+
     .charity{
         outline: 2px solid #28a745;
         color: #28a745!important;
@@ -305,7 +321,6 @@
             width: 25px;
         }
     }
-
     .li-margin-left{
         margin-left: 20px!important;
     }
@@ -351,16 +366,16 @@
         }
     }
     .user-menu{
-        .user-avatar{
-            display: flex;
-            align-items: center;
-            background: #f1f1f1;
-            .svg-avatar{
-                width:22px;
-            }
-        }
         .dropdown-menu{
             width:auto;
+        }
+    }
+    .user-avatar{
+        display: flex;
+        align-items: center;
+        background: #f1f1f1;
+        .svg-avatar{
+            width:22px;
         }
     }
     .dropdown-button-menu{
@@ -399,4 +414,14 @@
             }
         }
     }
+
+    @media (max-width: 568px) {
+        .two-li {
+            margin-left: 10px !important;
+        }
+        .dropdown-button-menu {
+            margin-right: 5px !important;
+        }
+    }
+
 </style>

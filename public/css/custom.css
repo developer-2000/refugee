@@ -1,11 +1,15 @@
 body{
-    font-size: 1rem;
+    font-size: 16px;
     color: #444;
     cursor: default;
     min-height:100vh;
     opacity: 0;
+    min-width: 340px;
 }
-.content-wrapper, .wrapper{
+.my-content-wrapper{
+    display: flex;
+    height: 100%;
+}.my-content-wrapper, .wrapper{
     background: white;
 }
 .main-footer{
@@ -109,11 +113,11 @@ a:hover,
     display: flex;
 }
 .button-menu{
-    background: #f1f1f1;
+    /*background: #f1f1f1;*/
     min-width: 50px;
-    text-align: center;
+    /*text-align: center;*/
     margin-right: 10px!important;
-    font-weight: 600;
+    /*font-weight: 600;*/
 }
 .create-page .title_page{
     margin: 0;
@@ -163,9 +167,6 @@ a:hover,
     color: #035ba4;
     font-weight: 500 !important;
     cursor: pointer;
-}
-.content-wrapper{
-    display: flex;
 }
 ul {
     margin-left: 0;
@@ -372,9 +373,11 @@ li {
 .button-auth {
     display: flex;
     align-items: center;
+    margin-right: 0 !important;
 }
 .button-auth a{
     width: 100%;
+    white-space: nowrap;
 }
 
 /* validate laravel */
@@ -692,18 +695,31 @@ select{
 }
 
 
+/*@media (min-width: 1200px){ }*/
+/*@media (min-width: 992px){ }*/
+/*@media (min-width: 768px){ }*/
 
-@media (max-width: 575px) {
-    #left-sidebar{
-        display: flex!important;
-        flex-direction: column!important;
-        flex-wrap: nowrap!important;
-        justify-content: center!important;
-        align-content: flex-start!important;
-        align-items: center!important;
+
+
+/* Media max */
+@media (max-width: 992px) {
+    .navbar-expand ul:nth-child(2){
+        margin-top: 10px;
     }
-    .button-navbar{
-        display:none!important;
+}
+@media (max-width: 568px) {
+    body{
+        font-size: 14px;
+    }
+    .box-logo-title{
+        display: none;
+    }
+    .brand-link img {
+         margin-right: 0;
+    }
+    .navbar-nav > li:nth-child(1),
+    .button-menu{
+        margin-right: 0 !important;
     }
 }
 

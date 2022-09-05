@@ -64,64 +64,6 @@
     <div id="app">
         <div class="wrapper">
 
-            <!-- left menu -->
-{{--            <aside class="main-sidebar sidebar-white elevation-1">--}}
-{{--                <!-- Logo -->--}}
-{{--                <a href="{{(new \App\Services\LanguageService())->clearPrefixLanguage()}}" class="brand-link" rel="nofollow">--}}
-{{--                    <img alt="site logo" src="/img/custom/logo-site.gif">--}}
-{{--                    <div class="box-logo-title">--}}
-{{--                        <div class="brand-text font-weight-light">--}}
-{{--                            {{ env('APP_NAME_UK') }}--}}
-{{--                        </div>--}}
-{{--                        <div class="brand-text font-weight-light">--}}
-{{--                            {{ env('APP_NAME_EN') }}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </a>--}}
-
-{{--                <!-- Menu -->--}}
-{{--                <div class="sidebar">--}}
-{{--                    <nav class="mt-2">--}}
-{{--                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">--}}
-{{--                            <li class="nav-item menu-open">--}}
-{{--                                <a href="#" class="nav-link active">--}}
-{{--                                    <i class="nav-icon fas fa-tachometer-alt"></i>--}}
-{{--                                    <p>--}}
-{{--                                        Starter Pages--}}
-{{--                                        <i class="right fas fa-angle-left"></i>--}}
-{{--                                    </p>--}}
-{{--                                </a>--}}
-{{--                                <ul class="nav nav-treeview">--}}
-{{--                                    <li class="nav-item">--}}
-{{--                                        <a href="#" class="nav-link active">--}}
-{{--                                            <i class="far fa-circle nav-icon"></i>--}}
-{{--                                            <p>Active Page</p>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="nav-item">--}}
-{{--                                        <a href="#" class="nav-link">--}}
-{{--                                            <i class="far fa-circle nav-icon"></i>--}}
-{{--                                            <p>Inactive Page</p>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="#" class="nav-link">--}}
-{{--                                    <i class="nav-icon fas fa-th"></i>--}}
-{{--                                    <p>--}}
-{{--                                        Simple Link--}}
-{{--                                        <span class="right badge badge-danger">New</span>--}}
-{{--                                    </p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </nav>--}}
-{{--                </div>--}}
-{{--                <!-- / Menu -->--}}
-{{--            </aside>--}}
-            <!-- / left menu -->
-
             <top-menu-component
                 :logo_text="{{'{"uk":"'.env("APP_NAME_UK").'","en":"'.env("APP_NAME_EN").'"}'}}"
                 :lang="{{json_encode($lang)}}"
@@ -148,13 +90,12 @@
 
 
             <!-- Content body -->
-            <div class="content-wrapper">
+            <div class="my-content-wrapper">
                 @yield('content')
             </div>
             <!-- / Content body -->
 
             <footer class="main-footer">
-
                 <div class="footer-line-border"></div>
                 <div class="container bottom-footer">
                     <main-footer
@@ -162,7 +103,6 @@
                         :app_name=`{{env('APP_NAME_EN')}}`
                     ></main-footer>
                 </div>
-
             </footer>
 
         </div>

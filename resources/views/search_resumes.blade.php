@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('style')
     @parent
-    <!-- Select2 -->
     <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
 @endsection
 @section('scripts')
