@@ -111,7 +111,7 @@
             </div>
 
             <div class="start-block">
-                <div class="start-content">
+                <div class="start-content four-content">
                     <div class="right-column">
 
                         <h3>
@@ -234,6 +234,7 @@
     .start {
         position: relative;
         padding-bottom: 175px;
+        min-width: 340px;
         &:nth-child(2) {
             border-bottom: 1px solid #DADADA;
         }
@@ -265,7 +266,7 @@
                 left: 50%;
                 width: 50px;
                 height: 50px;
-                -webkit-transform: translate(-50%, -9px);
+                background-size: 50px;
                 transform: translate(-50%, -9px);
                 z-index: 10;
             }
@@ -331,12 +332,9 @@
                 }
             }
         }
-        h2 {
+        h3 {
             margin: 0 0 20px;
-            font-size: 137.5%;
-            font-weight: 400;
-            line-height: 1.6;
-            color: #13161F;
+            font-size: 25px;
         }
         p {
             margin: 0;
@@ -351,7 +349,6 @@
         font-size: 15px;
         justify-content: flex-end;
     }
-
     .top-search{
         border: none;
     }
@@ -363,12 +360,10 @@
         text-align: center;
         margin: 0 auto;
     }
-
     h1{
         width: 100%;
         text-align: center;
     }
-
     .box-page{
         margin-top: 40px;
         h2{
@@ -386,21 +381,35 @@
     .box-flags{
         text-align: center;
         margin: 25px 0;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
         .flag{
             margin: 0 15px;
             position: relative;
             display: inline-block;
-            /*opacity: 0.5;*/
             b{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-content: flex-start;
+                align-items: center;
+
                 position: absolute;
                 bottom: 0px;
                 width: 100%;
-                padding: 10px 0;
                 background: rgba(255 255 255 / 0.8);
                 color: #444;
+                height: 50%;
             }
             img{
-                width: 200px;
+                width: 100%;
+                max-width: 200px;
             }
         }
     }
@@ -446,6 +455,85 @@
         .right-site{
             min-width: 23%;
         }
+    }
+
+    @media (max-width: 992px) {
+        .start .start-block .start-content {
+            min-height: 145px;
+            max-height: 145px;
+            &::after {
+                width: 45px;
+            }
+        }
+    }
+
+    @media (max-width: 768px){
+        .start {
+            padding: 0 0 50px 15px;
+            .start-block {
+                padding-left: 30px;
+                &:not(:last-child) {
+                    padding-bottom: 50px;
+                }
+                &:not(:last-child)::before {
+                    left: 0;
+                }
+                &::after{
+                    left: 0;
+                    width: 40px;
+                    height: 40px;
+                    background-size: 40px !important;
+                    transform: translate(-50%, -4px);
+                }
+                .start-content{
+                    min-height: 160px;
+                    max-height: 160px;
+                    &::after{
+                        display: none;
+                    }
+                    .left-column, .right-column {
+                        max-width: 100%;
+                    }
+                    .left-column {
+                        text-align: left;
+                        h3 {
+                            text-align: left;
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+                .start-content.four-content{
+                    min-height: 210px;
+                    max-height: 210px;
+                }
+            }
+        }
+        .box-share {
+            justify-content: flex-start;
+        }
+
+    }
+
+    @media (max-width: 568px) {
+        .box-flags .flag {
+            margin: 0 7px;
+        }
+        h2.title_page {
+            text-align: center;
+        }
+        .start {
+            .start-block {
+                .start-content{
+                    min-height: 210px;
+                    max-height: 185px;
+                }
+                .start-content.four-content{
+                    min-height: 290px;
+                    max-height: 290px;
+                }
+            }
+        }
+
     }
 
 </style>

@@ -30,7 +30,7 @@ body{
 }
 h1{
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 32px;
 }
 h2{
     font-size: 24px;
@@ -113,11 +113,8 @@ a:hover,
     display: flex;
 }
 .button-menu{
-    /*background: #f1f1f1;*/
     min-width: 50px;
-    /*text-align: center;*/
     margin-right: 10px!important;
-    /*font-weight: 600;*/
 }
 .create-page .title_page{
     margin: 0;
@@ -695,9 +692,9 @@ select{
 }
 
 
-/*@media (min-width: 1200px){ }*/
-/*@media (min-width: 992px){ }*/
-/*@media (min-width: 768px){ }*/
+/*@media (max-width: 1200px){ }*/
+/*@media (max-width: 992px){ }*/
+/*@media (max-width: 768px){ }*/
 
 
 
@@ -707,6 +704,7 @@ select{
         margin-top: 10px;
     }
 }
+
 @media (max-width: 568px) {
     body{
         font-size: 14px;
@@ -717,9 +715,17 @@ select{
     .brand-link img {
          margin-right: 0;
     }
-    .navbar-nav > li:nth-child(1),
-    .button-menu{
-        margin-right: 0 !important;
+    .navbar-nav > li:nth-child(1){
+        margin-right: 5px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    h1{
+        font-size: 28px;
+    }
+    h2{
+        font-size: 22px;
     }
 }
 
