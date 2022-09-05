@@ -703,6 +703,15 @@ select{
     .navbar-expand ul:nth-child(2){
         margin-top: 10px;
     }
+    .main-footer{
+        min-height: 170px;
+    }
+}
+
+@media (max-width: 768px){
+    .main-footer{
+        min-height: 250px;
+    }
 }
 
 @media (max-width: 568px) {
@@ -728,6 +737,7 @@ select{
         font-size: 22px;
     }
 }
+
 
 /* Media min */
 @media (min-width: 1200px){

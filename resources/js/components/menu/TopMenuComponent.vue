@@ -304,12 +304,7 @@
     }
 
     .right-navbar{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         justify-content: flex-end;
-        align-content: center;
-        align-items: flex-start;
     }
 
     .charity{

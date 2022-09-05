@@ -64,7 +64,7 @@
             </div>
 
             <div class="start-block">
-                <div class="start-content">
+                <div class="start-content two-content">
                     <div class="right-column">
                         <h3>
                             {{trans('pages.index','convenient_search')}}
@@ -469,7 +469,7 @@
 
     @media (max-width: 768px){
         .start {
-            padding: 0 0 50px 15px;
+            padding: 0 0 100px 15px;
             .start-block {
                 padding-left: 30px;
                 &:not(:last-child) {
@@ -525,7 +525,12 @@
             .start-block {
                 .start-content{
                     min-height: 210px;
-                    max-height: 185px;
+                    max-height: 210px;
+                    .left-column {
+                        h3 {
+                            font-size: 22px;
+                        }
+                    }
                 }
                 .start-content.four-content{
                     min-height: 290px;
@@ -533,7 +538,27 @@
                 }
             }
         }
+        .box-page h2 {
+            font-size: 22px;
+        }
+    }
 
+    @media (max-width: 400px) {
+        .start {
+            .start-block {
+                .start-content.two-content{
+                    min-height: 240px;
+                    max-height: 240px;
+                }
+                .start-content.four-content{
+                    min-height: 320px;
+                    max-height: 320px;
+                }
+            }
+        }
+        .box-page h2 {
+            font-size: 22px;
+        }
     }
 
 </style>
