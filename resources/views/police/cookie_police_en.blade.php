@@ -59,7 +59,7 @@
                     Since these cookies are necessary for the operation of the Site and our services, you cannot opt ​​out of them.
                 </p>
 
-                <h4>Analytics/Performance</h4>
+                <h4>Analytics / Performance</h4>
                 <strong>Destination</strong>
                 <p>
                     To better understand user behavior on our Site, monitor bots and improve our services accordingly:

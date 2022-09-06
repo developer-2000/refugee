@@ -2,10 +2,10 @@
     <div class="box-page box-offer">
 
         <!-- top panel -->
-        <div class="top-panel bread-top-cabinet">
+        <div class="row top-panel bread-top-cabinet">
 
             <!-- обратная ссылка -->
-            <div class="box-back-link">
+            <div class="box-back-link col-sm-12 col-md-4">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
 
                 <template v-if="respond['table'] === 'offer'">
@@ -25,7 +25,7 @@
             </div>
 
             <!-- search line -->
-            <div class="top-search">
+            <div class="top-search col-sm-12 col-md-8">
                 <div class="form-group">
                     <div class="box-position">
 
@@ -110,7 +110,7 @@
                  @click.prevent="transitionToOffer(offer.alias)"
             >
                 <!-- user -->
-                <div class="col-3">
+                <div class="col-sm-12 col-md-5">
                     <!-- Контакт лист -->
                     <offer_contact_list
                         :offer="offer"
@@ -122,7 +122,7 @@
                     ></offer_contact_list>
                 </div>
                 <!-- text -->
-                <div class="col-9">
+                <div class="text-message col-sm-12 col-md-7">
                     <div class="body-chat">
                         <!-- title chat -->
                         <div class='font-weight-bold title-chat'>
@@ -457,6 +457,11 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .bread-top-cabinet {
+        padding: 20px 0;
+        border: none;
+    }
+
     .top-panel > div:first-child {
         display: flex;
         align-items: center;
@@ -523,7 +528,6 @@
         align-items: center;
     }
     .top-search {
-        width: 75%;
         background-color: #fff;
         border: none;
         padding: 0;
@@ -585,9 +589,6 @@
             }
         }
     }
-    .box-back-link{
-        width: 25%;
-    }
     .search-panel{
         margin: 0 -15px;
         .title_page{
@@ -595,6 +596,7 @@
         }
     }
     .box-vacancy {
+        margin: 2px 5px;
         padding: 10px 5px;
         display: flex;
         .body-chat{
@@ -607,6 +609,15 @@
     }
     .box-user{
         padding: 0;
+    }
+
+    @media (max-width: 768px){
+        .box-back-link{
+            margin-bottom: 20px;
+        }
+        .text-message{
+            margin-top: 20px;
+        }
     }
 
 </style>

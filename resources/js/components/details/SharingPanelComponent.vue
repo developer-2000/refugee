@@ -68,6 +68,7 @@
         min-width: 200px;
         padding: 8px 12px 3px 12px;
         background-color: #f7f7f7;
+        width: 240px;
         .share-title{
             position: absolute;
             top: -15px;

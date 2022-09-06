@@ -47,7 +47,6 @@
                 <h2>Розвиток проекту.</h2>
 
                 <div class="box-above-photo">
-                    <img class="above-photo" src="/img/custom/project-development.jpg" alt="project development">
                     <div class="above-text">
                         <p>
                             Настав час змін. Підсумовуючи - цей сервіс для людей і людей. Це повністю безкоштовний сервіс, спрямований на допомогу
@@ -81,15 +80,11 @@
 
         .box-above-photo{
             position: relative;
-            padding: 0 0 75px 0;
-        }
-        .above-photo{
-            height: 75%;
-            overflow: hidden;
-            position: absolute;
-            right: 0;
-            bottom: 40px;
-            z-index: 0;
+            padding: 80px 0 0 0;
+            background-image: url("/img/custom/project-development.jpg");
+            background-repeat: no-repeat;
+            background-position: 100% 0%;
+            background-size: 80%;
         }
         .above-text{
             align-items: stretch;
@@ -105,9 +100,6 @@
             max-width: 61%;
             min-height: 439px;
         }
-
-
-
         .box-photo{
             background: #f9f9f9;
             border: 1px solid #dee2e6;
@@ -122,8 +114,6 @@
         .box-photo .about-photo{
             padding: 25px 25px 40px 25px;
         }
-
-
         strong{
             margin: 5px 0!important;
             display: inline-block!important;
@@ -140,9 +130,6 @@
         .block-page:last-child{
             padding-top: 60px;
         }
-        /*.box-title-panel{*/
-        /*    padding-bottom: 70px;*/
-        /*}*/
         .box-title-panel > .block-page:last-child{
             border: none;
         }
@@ -171,6 +158,20 @@
         }
         ol ol li{
             list-style-type: disc;
+        }
+
+        @media (max-width: 992px) {
+            .box-photo {
+                width: 45%;
+            }
+            .box-photo img{
+                width: 100%;
+            }
+        }
+        @media (max-width: 768px) {
+            .above-text {
+                max-width: 80%;
+            }
         }
 
     </style>

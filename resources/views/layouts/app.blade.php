@@ -90,7 +90,7 @@
 
 
             <!-- Content body -->
-            <div class="my-content-wrapper">
+            <div class="content-wrapper">
                 @yield('content')
             </div>
             <!-- / Content body -->

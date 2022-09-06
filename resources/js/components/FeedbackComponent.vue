@@ -240,7 +240,6 @@
             }
         }
     }
-
     h1{
         padding: 60px 0 0 !important;
         text-align: center;
@@ -262,6 +261,22 @@
         margin: 0 auto 1rem auto;
         width: 50%;
     }
+
+    @media (max-width: 992px) {
+        .form-group {
+            width: 70%;
+        }
+        .box-alert-exit {
+            width: 90%;
+        }
+    }
+    @media (max-width: 568px) {
+        .form-group {
+            width: 90%;
+        }
+
+    }
+
 </style>
 
 

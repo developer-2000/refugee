@@ -116,7 +116,7 @@
 
 <script>
     import pagination from "../details/PaginationComponent";
-    import right_panel from '../details/right_panel_document_search_page/RightPanelDocumentSearchPageComponent.vue'
+    import right_panel from '../details/right_panel_document_search_page/CountrySitiesRightPanelComponent.vue'
     import bookmark_buttons from './details/BookmarkButtonsResumeComponent'
     import resume_template from "./details/ResumeTemplateComponent";
     import general_functions_mixin from "../../mixins/general_functions_mixin.js";

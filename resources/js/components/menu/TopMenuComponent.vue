@@ -40,8 +40,8 @@
                 <ul class="navbar-nav ml-auto col-md-12 col-lg-6 right-navbar">
 
                     <!-- предложения -->
-                    <li class="nav-item d-none d-sm-inline-block button-navbar">
-                        <a class="nav-link" href="javascript:void(0)"
+                    <li class="nav-item d-none d-sm-inline-block button-navbar ">
+                        <a class="nav-link right-navbar-offer" href="javascript:void(0)"
                            @click.prevent="checkAuth(lang.prefix_lang+'offers')"
                         >
                             <!-- общее кол-во respond на вакансии и резюме -->
@@ -297,16 +297,16 @@
         border-bottom: 2px solid #dee2e6!important;
         padding: 10px 0;
     }
-
     .left-navbar,
     .right-navbar{
         min-width: 320px;
     }
-
     .right-navbar{
         justify-content: flex-end;
+        .right-navbar-offer{
+            position: relative;
+        }
     }
-
     .charity{
         outline: 2px solid #28a745;
         color: #28a745!important;

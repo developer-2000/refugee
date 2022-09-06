@@ -1,5 +1,6 @@
 <template>
     <div class="box-page">
+
         <!-- обратная ссылка -->
         <div class="top-panel bread-top-cabinet">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
@@ -20,12 +21,13 @@
             </template>
 
         </div>
+
         <!-- document -->
         <div class="bottom-search">
-            <div class="box-show">
+            <div class="row box-show">
 
                 <!-- user -->
-                <div class="left-site">
+                <div class="col-sm-12 col-md-4 left-site">
                     <!-- Контакт лист -->
                     <offer_contact_list
                         :offer="respond['offer']"
@@ -38,7 +40,7 @@
                 </div>
 
                 <!-- text -->
-                <div class="right-site">
+                <div class="col-sm-12 col-md-8 right-site">
 
                     <!-- вывод сообщений -->
                     <template v-for="(chat, key) in content.chat">
@@ -180,6 +182,7 @@
                         </button>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -405,8 +408,10 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-
-
+    .bread-top-cabinet{
+        border: none;
+        padding: 20px 15px!important;
+    }
     .box-message{
         width: 70%;
         .direct-chat-text{
@@ -421,8 +426,6 @@
             background-color: #fffbdb;
         }
     }
-
-
     .direct-chat-timestamp{
         font-size: 12px;
     }
@@ -430,10 +433,9 @@
         display: flex;
         padding-top: 15px;
         .left-site{
-            width: 25%;
+
         }
         .right-site{
-            width: 75%;
             .left-message{
                 float: left;
             }
@@ -514,6 +516,14 @@
         align-items: center;
         .direct-chat-timestamp{
             margin-left: 5px;
+        }
+    }
+
+    @media (max-width: 768px){
+        .box-show {
+            .right-site{
+                margin-top: 50px;
+            }
         }
     }
 

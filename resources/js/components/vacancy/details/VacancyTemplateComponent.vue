@@ -400,6 +400,7 @@
 <style scoped lang="scss">
     @import "../../../../sass/variables";
 
+
     .link-a{
         float: right;
     }
@@ -434,7 +435,6 @@
             fill: #1d68a7;
         }
     }
-
     .box-title {
         padding: 0;
         .company-vacancy,
@@ -558,6 +558,25 @@
     .svg-title{
         path{
             fill: #169703;
+        }
+    }
+
+    @media (max-width: 1200px){
+        .box-address {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 768px){
+        .box-title .company-vacancy .img-logo, .box-title .default-company .img-logo {
+            width: 150px;
+            height: 75px;
+        }
+    }
+
+    @media (max-width: 500px){
+        .box-title .company-vacancy, .box-title .default-company {
+            display: none;
         }
     }
 
