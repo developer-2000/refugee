@@ -419,6 +419,11 @@
         .dropdown-button-menu {
             margin-right: 5px !important;
         }
+        .right-navbar{
+            .right-navbar-offer{
+                padding-left: 0;
+            }
+        }
     }
 
 </style>

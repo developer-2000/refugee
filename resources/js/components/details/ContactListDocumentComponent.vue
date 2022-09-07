@@ -246,7 +246,8 @@
     }
     .contacts-list{
         margin: 25px 0;
-        width: 350px;
+        max-width: 350px;
+        width: 100%;
         box-shadow: none;
         background-color: #c8dadf;
         border: 1px solid #1d68a7;

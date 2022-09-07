@@ -1,5 +1,5 @@
 <template>
-    <div id="show-vacancy">
+    <div class="container show-vacancy" id="show-vacancy">
 
         <div class="bread-panel">
 
@@ -7,13 +7,19 @@
             <h1 class="title_page">
                 {{respond['vacancy'].position.title}}
             </h1>
+
             <!-- обратная ссылка -->
             <div class="bread-top">
                 <ul class="ul-breadcrumbs">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
                     <li v-for="(obj, key) in getGenerateBackLink(respond['vacancy'].address)" :key="key">
+                        <template v-if="key === 0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+                        </template>
+                        <template v-else>
+                            <span class="bread-slash"> | </span>
+                        </template>
                         <a :href="obj.url" class="back-url-link">{{obj.name}}</a>
-                        <span class="bread-slash"> | </span>
+
                     </li>
                 </ul>
             </div>
@@ -345,7 +351,7 @@
             this.initializationFunc
             $('html, body').animate({scrollTop: 0},500);
 
-            console.log(this.respond.social_share)
+            // console.log(this.respond.social_share)
         },
     }
 </script>
@@ -353,6 +359,9 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .show-vacancy{
+        padding: 0;
+    }
     .button-panel{
         justify-content: space-between;
         .left-site{
@@ -366,16 +375,12 @@
         background-color: #fff;
         z-index: 20;
         font-size: 15px;
-        .title_page {
-            padding: 25px 15px 15px;
-        }
         .bread-top{
             display: flex;
             align-items: center;
             padding: 0 15px 10px;
         }
     }
-
     .box-page {
         padding: 15px 15px 50px;
     }
@@ -457,6 +462,43 @@
         width: 13px;
         margin-left: 5px;
         cursor: pointer;
+    }
+    .search-panel .title_page,
+    .bread-panel .title_page,
+    .box-page .title_page {
+        padding: 25px 15px 15px;
+    }
+
+    @media (max-width: 992px){
+        .bread-top {
+            padding: 5px 15px 15px 15px;
+        }
+        .ul-breadcrumbs{
+            flex-wrap: wrap;
+            li{
+                margin-top: 10px;
+            }
+        }
+        .button-panel{
+            .left-site{
+                flex-direction: column;
+                &>button{
+                    margin: 0 0 10px 0 !important;
+                }
+            }
+        }
+        .top-panel{
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 768px){
+        .top-panel{
+            flex-direction: column;
+        }
+        .right-site{
+            margin-top: 40px;
+        }
     }
 
 </style>

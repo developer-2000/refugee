@@ -41,6 +41,12 @@ h3{
     font-size: 23px;
     font-weight: bold;
 }
+
+button,
+.back-url-link span{
+    white-space: nowrap;
+}
+
 a:hover,
 .callout .title-vacancy:hover{
    text-decoration: none;
@@ -127,9 +133,11 @@ a:hover,
     width: 100%;
     padding: 0;
 }
-.search-panel .title_page{
+.search-panel .title_page,
+.bread-panel .title_page,
+.box-page .title_page{
     margin: 0;
-    padding: 25px 15px 15px;
+    padding: 25px 0 15px;
 }
 .inline-ul{
     margin: 0;
@@ -158,7 +166,7 @@ a:hover,
 }
 .box-page {
     background-color: #fff;
-    padding: 0 15px 15px;
+    /*padding: 0 15px 15px;*/
 }
 .target-label {
     color: #035ba4;
@@ -429,11 +437,14 @@ svg{
 }
 .but-box{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 .but-box button,
 .but-box a{
-    width: 45%;
+    max-width: 160px;
+}
+.but-box a{
+    margin-right: 20px;
 }
 label{
     color: #444;

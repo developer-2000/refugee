@@ -122,18 +122,27 @@
     @import "../../../sass/variables";
 
     .title_page{
-        padding: 1.25rem 0 0;
+        padding: 10px 0 15px;
     }
-    .box-settings{
-        li {
+    .clear-float{
+        margin-bottom: 20px;
+    }
+    .box-page {
+        padding: 10px 25px;
+    }
+    .inline-ul{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: flex-start;
+        li{
             display: block;
-            float: left;
             background-color: #fff;
             outline: 1px solid #e9ebed;
-            margin: 0;
-            max-width: 33.33333333%;
-            padding: 0;
-            width: 100%;
+            width: 33.33333333%;
+            box-sizing: content-box;
             &:hover{
                 outline: 1px solid #c0ddfb;
                 position: relative;
@@ -146,8 +155,8 @@
                 font-size: 18px;
                 min-height: 65px;
                 svg{
-                    width: 35px;
-                    margin-right: 15px;
+                    min-width: 35px;
+                    margin-right: 10px;
                     path{
                         fill:#3490dc;
                     }
@@ -162,24 +171,32 @@
             }
             .create-company {
                 svg{
-                    width: 26px;
+                    min-width: 26px;
                 }
             }
         }
-    }
-    .clear-float{
-        margin-bottom: 20px;
-    }
-    .box-page {
-        padding: 10px 25px;
+        a{
+            white-space: nowrap;
+        }
     }
 
-    @media (max-width: 767px) {
-        .box-settings li {
-            border-left: none;
-            border-right: none;
-            max-width: 100%;
-            width: 100%;
+
+
+    @media (max-width: 1200px){
+        .inline-ul{
+            li{
+                width: 50%;
+            }
+        }
+    }
+    @media (max-width: 760px){
+        .inline-ul{
+            li{
+                width: 100%;
+            }
+            a {
+                white-space: inherit;
+            }
         }
     }
 

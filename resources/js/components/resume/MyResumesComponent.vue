@@ -1,5 +1,12 @@
 <template>
     <div class="box-page">
+
+        <!-- title -->
+        <h1 class="title_page card-body">
+            <u>{{trans('vacancies','my')}}</u>
+            {{trans('vacancies','resume')}}
+        </h1>
+
         <!-- обратная ссылка -->
         <div class="top-panel bread-top-cabinet">
             <div>
@@ -14,11 +21,6 @@
                 {{trans('menu.menu','add_resume')}}
             </a>
         </div>
-        <!-- title -->
-        <h1 class="title_page card-body">
-            <u>{{trans('vacancies','my')}}</u>
-            {{trans('vacancies','resume')}}
-        </h1>
 
         <!-- No resume -->
         <div v-if="!lookingValueInArrayObjects('type', 0, resumes)"

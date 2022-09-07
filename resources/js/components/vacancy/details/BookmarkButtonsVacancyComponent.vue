@@ -255,11 +255,13 @@
     .panel-button{
         display: flex;
         justify-content: flex-end;
-        /*margin: 15px 0 0;*/
         button{
-            width: auto;
+            margin-right: 0 !important;
             display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
             justify-content: center;
+            align-content: flex-start;
             align-items: center;
             &:hover svg path{
                 fill: white;
@@ -273,13 +275,12 @@
             }
         }
         .first-btn{
-            margin-right: 15px;
+            margin-right: 15px !important;
             svg{
                 width: 14px;
             }
         }
         .save-two {
-            margin-right: 0;
             svg{
                 width: 14px;
             }
@@ -287,6 +288,19 @@
         .show-two {
             svg{
                 width: 15px;
+            }
+        }
+    }
+
+    @media (max-width: 992px){
+        .panel-button {
+            justify-content: flex-start;
+            .first-btn.btn-success{
+                margin-right: 0 !important;
+                width: 100%;
+            }
+            .btn-danger{
+                width: 100%;
             }
         }
     }

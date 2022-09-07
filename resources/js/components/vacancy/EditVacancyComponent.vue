@@ -1,5 +1,14 @@
 <template>
     <div class="forms box-page">
+
+        <!-- title -->
+        <h1 v-if="this.vacancy == null" class="title_page">
+            {{trans('vacancies','create_job')}}
+        </h1>
+        <h1 v-else class="title_page">
+            {{trans('vacancies','update_job')}}
+        </h1>
+
         <!-- обратная ссылка -->
         <div class="top-panel bread-top-cabinet">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
@@ -8,19 +17,13 @@
             </a>
             <span class="bread-slash"> | </span>
         </div>
-        <!-- title -->
-        <h1 v-if="this.vacancy == null" class="title_page card-body">
-            {{trans('vacancies','create_job')}}
-        </h1>
-        <h1 v-else class="title_page card-body">
-            {{trans('vacancies','update_job')}}
-        </h1>
 
-        <form action="" method="post">
+
+        <div class="box-inputs">
 
             <!-- первый row -->
             <div class="row">
-                <div class="col-sm-4 one-one-box">
+                <div class="col-sm-12 col-md-4 one-one-box">
 
                     <!-- Position -->
                     <div class="form-group">
@@ -160,7 +163,7 @@
 
                 </div>
 
-                <div class="col-sm-8">
+                <div class="col-sm-12 col-md-8">
                     <!-- Categories -->
                     <div class="form-group"
                          :class="{'border_error': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
@@ -208,7 +211,7 @@
             <!-- второй row -->
             <div class="row">
                 <!-- Возраст соискателя  -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element">
                         <label for="vacancy_suitable">
                             {{trans('vacancies','job_suitable_for')}}
@@ -301,7 +304,7 @@
                     </div>
                 </div>
                 <!-- Вид занятости -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element">
                         <label for="type_employment">{{trans('vacancies','type_employment')}}</label>
                         <div id="type_employment">
@@ -320,7 +323,7 @@
                     </div>
                 </div>
                 <!-- Зарплата -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group" :class="{border_error: objSalary.switchSalary }">
                         <label for="salary_accordion">
                             {{trans('vacancies','salary')}}
@@ -458,7 +461,7 @@
             <!-- третий row -->
             <div class="row">
                 <!-- Опыт работы -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element2">
                         <label for="work_experience">{{trans('vacancies','work_experience')}}</label>
                         <select class="form-control" id="work_experience"
@@ -473,7 +476,7 @@
                     </div>
                 </div>
                 <!-- Образование -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element2">
                         <label for="education">{{trans('vacancies','education_1')}}</label>
                         <select class="form-control" id="education"
@@ -488,7 +491,7 @@
                     </div>
                 </div>
                 <!-- Язык вакансии -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element2"
                          :class="{border_error: !objLanguage.languages.length }"
                     >
@@ -579,7 +582,7 @@
             <!-- пятый row -->
             <div class="row">
                 <!-- Как можно откликнуться -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element">
                         <label for="how_respond">
                             {{trans('vacancies','how_can_apply')}}
@@ -607,7 +610,7 @@
                     </div>
                 </div>
                 <!-- Размещение вакансии -->
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group height-element">
                         <label for="job_posting">
                             {{trans('vacancies','posting_job')}}
@@ -638,8 +641,8 @@
             </div>
 
             <!-- button -->
-            <div class="row footer-form">
-                <div class="col-sm-4 offset-4 but-box">
+            <div class="footer-form">
+                <div class="but-box">
                     <a :href="`${lang.prefix_lang}private-office/vacancy/my-vacancies`"
                        class="btn btn-block btn-outline-danger btn-lg">
                         {{trans('vacancies','cancel')}}
@@ -662,7 +665,9 @@
                         </button>
                 </div>
             </div>
-        </form>
+
+        </div>
+
     </div>
 </template>
 
@@ -946,8 +951,8 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-    .title_page{
-        padding: 10px 4px;
+    .box-inputs{
+        margin-top: 15px;
     }
     .height-element{
         height: 95%;

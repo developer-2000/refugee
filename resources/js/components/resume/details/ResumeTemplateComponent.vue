@@ -348,12 +348,17 @@
                         this.messageError(err)
                     })
             },
-            // initialData(){
-            //     // click menu resume
-            //     $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
-            //         e.stopPropagation();
-            //     });
-            // }
+            indentPicture(){
+                if(this.page === "show"){
+                    let width = window.innerWidth;
+                    if(width > 500){
+                        $(".box-title").css('margin-bottom','-30px')
+                    }
+                    else{
+                        $(".box-title").css('margin-bottom','0px')
+                    }
+                }
+            },
         },
         props: [
             'resume',
@@ -365,15 +370,15 @@
             'page',
         ],
         mounted() {
-            if(this.page === "show"){
-                $(".box-title").css('margin-bottom','-30px')
-            }
+            window.addEventListener("resize", this.indentPicture, true);
+            this.indentPicture();
         },
     }
 </script>
 
 <style scoped lang="scss">
     @import "../../../../sass/variables";
+
     svg {
         path {
             fill: #1d68a7;
@@ -502,7 +507,6 @@
             margin: 0 5px;
         }
     }
-
     .svg-experience,
     .svg-salary,
     .svg-address{
@@ -520,6 +524,50 @@
     .svg-title{
         path{
             fill: #169703;
+        }
+    }
+
+    @media (max-width: 1200px){
+        .box-address {
+            flex-direction: column;
+        }
+        .footer-vacancy{
+            .date-document{
+                flex-direction: column;
+                align-items: flex-start;
+                .close-document-fon{
+                    margin: 5px 0 0 0;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px){
+        .footer-vacancy{
+            flex-direction: column;
+            align-items: flex-start;
+            .right-footer{
+                margin: 10px 0 5px;
+            }
+        }
+    }
+
+    @media (max-width: 500px){
+
+        .img-logo {
+            display: none;
+        }
+        .footer-vacancy{
+            .right-footer{
+                flex-direction: column;
+                align-items: flex-start;
+                .button-vacancy{
+                    margin: 20px 0 5px 0;
+                }
+            }
+        }
+        .box-address {
+            max-width: 100%;
         }
     }
 

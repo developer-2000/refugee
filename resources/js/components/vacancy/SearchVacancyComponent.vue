@@ -81,9 +81,9 @@
                         :page="'search'"
                     ></vacancy_template>
 
-                    <div class="row footer-vacancy">
+                    <div class="footer-vacancy">
                         <!-- отображение прошедшего времени -->
-                        <div class="col-sm-12 col-md-3 date-document">
+                        <div class="date-document">
                             {{getDateDocumentString(vacancy.updated_at)}}
                             {{trans('vacancies','back')}}
                             <!-- вакансия закрыта -->
@@ -96,7 +96,6 @@
 
                         <!-- кнопки закладок вакансий -->
                         <bookmark_buttons
-                            class="col-sm-12 col-md-9"
                             :lang="lang"
                             :vacancy="vacancy"
                             :user="user"
@@ -180,12 +179,12 @@
     export default {
         components: {
             'pagination': pagination,
-            'country_sities': country_sities,
             'bookmark_buttons': bookmark_buttons,
             'vacancy_template': vacancy_template,
             'search_title_panel': search_title_panel,
             'sharing_panel': sharing_panel,
             'filter_panel': filter_panel,
+            'country_sities': country_sities,
         },
         mixins: [
             translation,
@@ -294,6 +293,7 @@
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
+
     .modal-body {
         padding: 2.5rem 1rem 1rem 1rem;
     }
@@ -316,7 +316,6 @@
             border-bottom: 1px dashed #ed9004;
         }
     }
-
     .right-top-panel{
         display: flex;
         justify-content: flex-end;
@@ -361,7 +360,6 @@
                             margin: 0 5px;
                         }
                     }
-
                 }
             }
             .right-site{
@@ -370,11 +368,27 @@
             }
         }
     }
+    .search-panel .title_page,
+    .bread-panel .title_page,
+    .box-page .title_page {
+        padding: 25px 15px 15px;
+    }
 
     @media (max-width: 992px){
         .search-panel{
             .bottom-search{
                 padding: 10px 15px 50px;
+                .left-site{
+                    .box-vacancy{
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+        .ul-breadcrumbs{
+            flex-wrap: wrap;
+            li{
+                margin-top: 10px;
             }
         }
     }
@@ -392,7 +406,11 @@
         }
     }
 
-    @media (max-width: 520px){
+    @media (max-width: 720px){
+        .footer-vacancy{
+            flex-direction: column;
+            align-items: flex-start;
+        }
         .date-document {
             margin-bottom: 10px;
         }
@@ -405,12 +423,6 @@
     @media (max-width: 480px){
         .bread-top {
             padding: 5px 15px 15px 15px;
-        }
-        .ul-breadcrumbs{
-            flex-wrap: wrap;
-            li{
-                margin-top: 10px;
-            }
         }
     }
 

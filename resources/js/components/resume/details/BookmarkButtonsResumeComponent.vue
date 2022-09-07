@@ -254,8 +254,8 @@
     .panel-button{
         display: flex;
         justify-content: flex-end;
-        /*margin: 15px 0 0;*/
         button{
+            margin-right: 0 !important;
             width: auto;
             display: flex;
             justify-content: center;
@@ -272,13 +272,12 @@
             }
         }
         .first-btn{
-            margin-right: 15px;
+            margin-right: 15px !important;
             svg{
                 width: 14px;
             }
         }
         .save-two {
-            margin-right: 0;
             svg{
                 width: 14px;
             }
@@ -286,6 +285,19 @@
         .show-two {
             svg{
                 width: 15px;
+            }
+        }
+    }
+
+    @media (max-width: 992px){
+        .panel-button {
+            justify-content: flex-start;
+            .first-btn.btn-success{
+                margin-right: 0 !important;
+                width: 100%;
+            }
+            .btn-danger{
+                width: 100%;
             }
         }
     }

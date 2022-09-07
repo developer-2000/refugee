@@ -1,5 +1,5 @@
 <template>
-    <div id="show-vacancy">
+    <div class="container show-vacancy" id="show-vacancy">
 
         <div class="bread-panel">
 
@@ -7,13 +7,18 @@
             <h1 class="title_page">
                 {{respond['resume'].position.title}}
             </h1>
+
             <!-- обратная ссылка -->
             <div class="bread-top">
                 <ul class="ul-breadcrumbs">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
                     <li v-for="(obj, key) in getGenerateBackLink(respond['resume'].address)" :key="key">
+                        <template v-if="key === 0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+                        </template>
+                        <template v-else>
+                            <span class="bread-slash"> | </span>
+                        </template>
                         <a :href="obj.url" class="back-url-link">{{obj.name}}</a>
-                        <span class="bread-slash"> | </span>
                     </li>
                 </ul>
             </div>
@@ -21,13 +26,11 @@
         </div>
 
         <!-- buttons -->
-        <div class="top-panel">
+        <div class="top-panel button-panel">
 
             <div class="left-site">
                 <!-- Откликнуться -->
-                <button v-if="
-            respond['owner_resume'] == null && (user !== null && user.id !== respond['resume']['user_id']) ||
-            respond['owner_vacancy'] == null && user === null"
+                <button v-if="respond['owner_resume'] == null && (user !== null && user.id !== respond['resume']['user_id']) || respond['owner_vacancy'] == null && user === null"
                         class="btn btn-block btn-outline-primary" type="button"
                         @click="scrollRespond()"
                 >
@@ -254,13 +257,15 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-    .top-panel{
+    .show-vacancy{
+        padding: 0;
+    }
+    .button-panel{
         justify-content: space-between;
         .left-site{
             display: flex;
         }
     }
-
     .bread-panel{
         display: flex;
         flex-direction: column;
@@ -277,7 +282,6 @@
             padding: 0 15px 10px;
         }
     }
-
     .box-page {
         padding: 15px 15px 50px;
     }
@@ -361,6 +365,39 @@
         margin-left: 5px;
         cursor: pointer;
     }
+
+    @media (max-width: 992px){
+        .bread-top {
+            padding: 5px 15px 15px 15px;
+        }
+        .ul-breadcrumbs{
+            flex-wrap: wrap;
+            li{
+                margin-top: 10px;
+            }
+        }
+        .button-panel{
+            .left-site{
+                flex-direction: column;
+                button{
+                    margin: 0 0 10px 0 !important;
+                }
+            }
+        }
+        .top-panel{
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 768px){
+        .top-panel{
+            flex-direction: column;
+        }
+        .right-site{
+            margin-top: 40px;
+        }
+    }
+
 
 </style>
 

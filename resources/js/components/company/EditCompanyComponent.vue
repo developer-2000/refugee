@@ -1,13 +1,6 @@
 <template>
     <div class="box-page">
-        <!-- обратная ссылка -->
-        <div class="top-panel bread-top-cabinet">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-            <a :href="`${lang.prefix_lang}private-office`">
-                {{trans('menu.menu','cabinet')}}
-            </a>
-            <span class="bread-slash"> | </span>
-        </div>
+
         <!-- title -->
         <h1 class="title_page card-body"
             v-if="this.company_id == null"
@@ -18,13 +11,22 @@
             {{trans('company','update_company_data')}}
         </h1>
 
+        <!-- обратная ссылка -->
+        <div class="top-panel bread-top-cabinet">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+            <a :href="`${lang.prefix_lang}private-office`">
+                {{trans('menu.menu','cabinet')}}
+            </a>
+            <span class="bread-slash"> | </span>
+        </div>
+
         <div class="desc-helper-italic">
             {{trans('company','about_company')}}
         </div>
 
         <!-- первый row -->
         <div class="row">
-            <div class="col-sm-4 one-one-box">
+            <div class="col-sm-12 col-md-4 one-one-box">
 
                 <!-- Название компании -->
                 <div class="form-group">
@@ -187,7 +189,7 @@
 
             </div>
 
-            <div class="col-sm-8">
+            <div class="col-sm-12 col-md-8">
                 <!-- Categories -->
                 <div class="form-group"
                      :class="{'border_error': (!this.objCategory.categories.length && this.objCategory.boolChecked == true)}"
@@ -237,7 +239,7 @@
         <!-- второй row -->
         <div class="row two-row">
             <!-- Налоговый номер -->
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <div class="form-group height-element">
                     <label for="position">
                         {{trans('company','company_tax_number')}}
@@ -254,7 +256,7 @@
                 </div>
             </div>
             <!-- Сайт компании -->
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <div class="form-group height-element">
                     <label for="site_company">
                         {{trans('company','company_website')}}
@@ -266,7 +268,7 @@
                 </div>
             </div>
             <!-- Дата основания-->
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <div class="form-group height-element">
                     <label for="data_foundation">
                         {{trans('company','data_foundation')}}
@@ -293,7 +295,7 @@
         <!-- третий row -->
         <div class="row">
             <!-- Соц сети -->
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-6">
                 <div class="form-group height-element">
                     <label for="social-network">
                         {{trans('company','social_networks_company')}}
@@ -402,7 +404,7 @@
                 </div>
             </div>
             <!-- Количество сотрудников -->
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-6">
                 <div class="form-group height-element">
                     <label for="work_experience">
                         {{trans('company','number_employees_company')}}
@@ -503,8 +505,8 @@
         </div>
 
         <!-- button -->
-        <div class="row footer-form">
-            <div class="col-sm-4 offset-4 but-box">
+        <div class="footer-form">
+            <div class="but-box">
                 <!-- cancel -->
                 <a :href="`${lang.prefix_lang}private-office`"
                    class="btn btn-block btn-outline-danger btn-lg">

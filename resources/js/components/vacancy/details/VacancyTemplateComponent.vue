@@ -235,8 +235,12 @@
         <div v-if="page === 'my_vacancies'" class="footer-vacancy">
             <!-- отображение прошедшего времени -->
             <div class="date-document">
-                {{getDateDocumentString(vacancy.updated_at)}}
-                {{trans('vacancies','back')}}
+                <!-- отображение прошедшего времени -->
+                <div>
+                    {{getDateDocumentString(vacancy.updated_at)}}
+                    {{trans('vacancies','back')}}
+                </div>
+
                 <!-- вакансия закрыта -->
                 <div class="close-document-fon"
                      v-if="vacancy.job_posting.status_name == 'hidden'"
@@ -370,16 +374,27 @@
                         this.messageError(err)
                     })
             },
+            indentPicture(){
+                if(this.page === "show"){
+                    let width = window.innerWidth;
+                    if(width > 500){
+                        $(".box-title").css('margin-bottom','-40px')
+                    }
+                    else{
+                        $(".box-title").css('margin-bottom','0px')
+                    }
+                }
+            },
             initialData(){
                 // click menu vacancy
                 $(document).on('click.bs.dropdown', '.dropdown-toggle', (e) => {
                     e.stopPropagation();
                 });
 
-                if(this.page === "show"){
-                    $(".box-title").css('margin-bottom','-40px')
-                }
-            }
+                window.addEventListener("resize", this.indentPicture, true);
+                this.indentPicture();
+            },
+
         },
         props: [
             'vacancy',
@@ -392,14 +407,12 @@
         ],
         mounted() {
             this.initialData()
-
         },
     }
 </script>
 
 <style scoped lang="scss">
     @import "../../../../sass/variables";
-
 
     .link-a{
         float: right;
@@ -547,7 +560,7 @@
         }
     }
     .box-svg {
-        width: 30px;
+        min-width: 30px;
         display: block;
         line-height: 16px;
     }
@@ -565,18 +578,54 @@
         .box-address {
             flex-direction: column;
         }
+        .footer-vacancy{
+            .date-document{
+                flex-direction: column;
+                align-items: flex-start;
+                .close-document-fon{
+                    margin: 5px 0 0 0;
+                }
+            }
+        }
     }
 
     @media (max-width: 768px){
-        .box-title .company-vacancy .img-logo, .box-title .default-company .img-logo {
+        .box-title .company-vacancy .img-logo,
+        .box-title .default-company .img-logo {
             width: 150px;
             height: 75px;
+        }
+        .box-title .company-vacancy .title-company,
+        .box-title .default-company .title-company {
+            max-width: 140px;
+        }
+
+        .footer-vacancy{
+            flex-direction: column;
+            align-items: flex-start;
+            .right-footer{
+                margin: 10px 0 5px;
+            }
         }
     }
 
     @media (max-width: 500px){
-        .box-title .company-vacancy, .box-title .default-company {
+
+        .box-title .company-vacancy,
+        .box-title .default-company {
             display: none;
+        }
+        .footer-vacancy{
+            .right-footer{
+                flex-direction: column;
+                align-items: flex-start;
+                .button-vacancy{
+                    margin: 20px 0 5px 0;
+                }
+            }
+        }
+        .box-address {
+            max-width: 100%;
         }
     }
 

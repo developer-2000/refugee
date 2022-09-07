@@ -1,5 +1,12 @@
 <template>
     <div class="box-page">
+
+        <!-- title -->
+        <h1 class="title_page">
+            <u>{{trans('vacancies','my')}}</u>
+            {{trans('vacancies','vacancies')}}
+        </h1>
+
         <!-- обратная ссылка -->
         <div class="top-panel bread-top-cabinet">
             <div>
@@ -14,11 +21,6 @@
                 {{trans('vacancies','add_job')}}
             </a>
         </div>
-        <!-- title -->
-        <h1 class="title_page card-body">
-            <u>{{trans('vacancies','my')}}</u>
-            {{trans('vacancies','vacancies')}}
-        </h1>
 
         <!-- No vacancies -->
         <div class="callout callout-warning"
@@ -103,6 +105,9 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .search-panel .title_page, .bread-panel .title_page, .box-page .title_page {
+        padding: 25px 0 15px;
+    }
     .top-panel{
         display: flex;
         justify-content: space-between;
