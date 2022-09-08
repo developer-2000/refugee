@@ -1,5 +1,6 @@
 <template>
     <div class="box-page container">
+
         <!-- left -->
         <div class="left-site">
             <!-- company logo -->
@@ -158,7 +159,7 @@
                     <div class="row">
                         <template v-for="(url, key) in company.youtube_links">
                             <iframe
-                                class='col-sm-4 iframe-youtube'
+                                class='col-sm-12 col-lg-4 iframe-youtube'
                                 :src="`https://www.youtube.com/embed/${getIfFrame(url)}`"
                                 :srcdoc="`<style>
                             *{padding:0;margin:0;overflow:hidden}
@@ -230,6 +231,7 @@
             </div>
 
         </div>
+
     </div>
 </template>
 
@@ -464,7 +466,6 @@
             }
         }
     }
-
     svg {
         fill: #1d68a7;
     }
@@ -498,6 +499,95 @@
             fill: #259a16;
         }
     }
+
+
+    @media (max-width: 992px){
+        .box-page{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
+            .left-site{
+                border: none;
+                width: 100%;
+                padding: 20px 15px 0;
+                .box-title{
+                    text-align: left;
+                }
+                .box-properties{
+                    padding: 0;
+                    .contacts-list{
+                        margin: 40px 0 20px;
+                    }
+                }
+            }
+            .right-site{
+                .top-panel {
+                    padding: 20px 20px 20px 15px;
+                }
+            }
+        }
+        .top-left-site{
+            flex-direction: column;
+            button:nth-child(1){
+                margin-bottom: 10px;
+            }
+        }
+        .box-page .right-site {
+            .top-panel .box-scroll-button {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                button {
+                    margin-left: 0;
+                }
+                .top-left-site {
+                    margin-bottom: 25px;
+                }
+            }
+            .box-media-files{
+                .iframe-youtube{
+                    margin-bottom: 10px;
+                    min-height: 385px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px){
+        .box-page .right-site {
+            .box-media-files{
+                .iframe-youtube{
+                    min-height: 280px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 520px){
+        .footer-vacancy{
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .date-document {
+            margin-bottom: 10px;
+        }
+    }
+
+    @media (max-width: 420px){
+        .box-page .right-site {
+            .box-media-files{
+                .iframe-youtube{
+                    min-height: 200px;
+                }
+            }
+        }
+    }
+
+
+
 
 </style>
 

@@ -1,13 +1,6 @@
 <template>
     <div class="box-page">
-        <!-- обратная ссылка -->
-        <div class="top-panel bread-top-cabinet">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
-            <a :href="`${lang.prefix_lang}private-office`">
-                {{trans('menu.menu','cabinet')}}
-            </a>
-            <span class="bread-slash"> | </span>
-        </div>
+
         <!-- title -->
         <h1 v-if="this.contact == null" class="title_page card-body">
             {{trans('contact','fill_information')}}
@@ -16,6 +9,15 @@
             {{trans('contact','update_information')}}
         </h1>
 
+        <!-- обратная ссылка -->
+        <div class="top-panel bread-top-cabinet">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="m166.5 424.5-143.1-152a23.94 23.94 0 0 1-6.562-16.5 23.94 23.94 0 0 1 6.562-16.5l143.1-152c9.125-9.625 24.31-10.03 33.93-.938 9.688 9.126 10.03 24.38.938 33.94l-128.4 135.5 128.4 135.5c9.094 9.562 8.75 24.75-.938 33.94-9.53 9.058-24.73 8.658-33.93-.942z"/></svg>
+            <a :href="`${lang.prefix_lang}private-office`">
+                {{trans('menu.menu','cabinet')}}
+            </a>
+            <span class="bread-slash"> | </span>
+        </div>
+
         <!-- desc page -->
         <div class="desc-helper-italic">
             {{trans('contact','specified_information_displayed')}}
@@ -23,7 +25,7 @@
 
         <!-- первый row -->
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <!-- имя -->
                 <div class="form-group">
                     <label for="name">
@@ -43,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <!-- фамилия -->
                 <div class="form-group">
                     <label for="surname">
@@ -63,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <!-- Должность -->
                 <div class="form-group">
                     <label for="position">
@@ -91,7 +93,7 @@
         <!-- второй row -->
         <div class="row">
             <!-- email -->
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-6">
                 <div class="form-group">
                     <label>
                         {{trans('contact','email')}}
@@ -109,7 +111,7 @@
             </div>
 
             <!-- Skype -->
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-6">
                 <div class="form-group">
                     <label for="skype">
                         Skype
@@ -128,6 +130,7 @@
             <div class="col-sm-12 telephone">
                 <div class="form-group">
                     <div class="box-left-right">
+
                         <div class="left-phone">
                             <!-- title -->
                             <label>
@@ -145,31 +148,35 @@
                             <!-- inputs -->
                             <div class="box-input-tel">
                                 <!-- 1 Код страны и региона -->
-                                <span class="minus-tel">+</span>
-                                <div class="box-prefix-tel code_country">
-                                    <label for="code_country" class="target-label">
-                                        {{trans('contact','country_code')}}
-                                    </label>
-                                    <input type="text" id="code_country" class="form-control" maxlength="100" autocomplete="off"
-                                           :placeholder="trans('contact','enter_code')"
-                                           :class="{'is-invalid': !checkingInteger(telObj.code_country) && telObj.bool_target_input}"
-                                           @keyup="enterCodeTelephon($event.target.value, 'code_country')"
-                                    >
+                                <div class="box-input-tel-row">
+                                    <span class="minus-tel">+</span>
+                                    <div class="box-prefix-tel code_country">
+                                        <label for="code_country" class="target-label">
+                                            {{trans('contact','country_code')}}
+                                        </label>
+                                        <input type="text" id="code_country" class="form-control" maxlength="100" autocomplete="off"
+                                               :placeholder="trans('contact','enter_code')"
+                                               :class="{'is-invalid': !checkingInteger(telObj.code_country) && telObj.bool_target_input}"
+                                               @keyup="enterCodeTelephon($event.target.value, 'code_country')"
+                                        >
+                                    </div>
                                 </div>
 
                                 <!-- 2 Код оператора -->
-                                <span class="minus-tel">(</span>
-                                <div class="box-prefix-tel operator_code">
-                                    <label for="operator_code" class="target-label">
-                                        {{trans('contact','operator_code')}}
-                                    </label>
-                                    <input type="text" id="operator_code" class="form-control" maxlength="100" autocomplete="off"
-                                           :placeholder="trans('contact','enter_code')"
-                                           :class="{'is-invalid': !checkingInteger(telObj.operator_code) && telObj.bool_target_input}"
-                                           @keyup="enterCodeTelephon($event.target.value, 'operator_code')"
-                                    >
+                                <div class="box-input-tel-row">
+                                    <span class="minus-tel">(</span>
+                                    <div class="box-prefix-tel operator_code">
+                                        <label for="operator_code" class="target-label">
+                                            {{trans('contact','operator_code')}}
+                                        </label>
+                                        <input type="text" id="operator_code" class="form-control" maxlength="100" autocomplete="off"
+                                               :placeholder="trans('contact','enter_code')"
+                                               :class="{'is-invalid': !checkingInteger(telObj.operator_code) && telObj.bool_target_input}"
+                                               @keyup="enterCodeTelephon($event.target.value, 'operator_code')"
+                                        >
+                                    </div>
+                                    <span class="minus-tel">)</span>
                                 </div>
-                                <span class="minus-tel">)</span>
 
                                 <!-- 3 Номер телефона -->
                                 <div class="box-prefix-tel phone_number">
@@ -184,7 +191,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Месенджеры -->
                         <div class="right-phone">
                             <label>
@@ -201,6 +207,7 @@
                                 </label>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -233,8 +240,8 @@
         </div>
 
         <!-- button -->
-        <div class="row footer-form">
-            <div class="col-sm-4 offset-4 but-box">
+        <div class="footer-form">
+            <div class="but-box">
                 <!-- cancel -->
                 <a :href="`${lang.prefix_lang}private-office`"
                    class="btn btn-block btn-outline-danger btn-lg">
@@ -494,11 +501,14 @@
         .box-left-right{
             display: flex;
             .left-phone{
-                width: 50%;
+                width: 60%;
                 .box-input-tel{
                     display: flex;
                     align-items: flex-end;
-
+                    .box-input-tel-row{
+                        display: flex;
+                        align-items: flex-end;
+                    }
                     .minus-tel{
                         line-height: 38px;
                     }
@@ -519,7 +529,7 @@
                 }
             }
             .right-phone{
-                width: 50%;
+                width: 40%;
             }
         }
 
@@ -553,6 +563,48 @@
     h1{
         padding-left: 4px;
     }
+
+    @media (max-width: 992px){
+        .telephone{
+            .box-left-right{
+                flex-direction: column;
+                .left-phone,
+                .right-phone{
+                    width: 100%;
+                }
+                .left-phone{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px){
+        .telephone{
+            .box-left-right{
+                flex-direction: column;
+                .left-phone,
+                .right-phone{
+                    width: 100%;
+                }
+                .left-phone{
+                    margin-bottom: 10px;
+                    .box-input-tel{
+                        flex-direction: column;
+                        align-items: flex-start;
+                        &>div:nth-child(2){
+                            margin-left: 5px;
+                        }
+                        &>div:nth-child(3){
+                            margin-left: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 
 </style>
 

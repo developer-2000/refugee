@@ -4,7 +4,7 @@ return [
 
     'fill_information'=>'Fill in contact information',
     'update_information'=>'Update contact information',
-    'specified_information_displayed'=>'The specified information will be displayed on your company or job profile. It will be available for viewing by applicants.',
+    'specified_information_displayed'=>'The specified information will be displayed in the «Resume» and «Vacancies». And also, if you are an employer, your contacts will be available in the "Company". Contacts with you become available only after the initial correspondence in the documents «Resume» or «Vacancies».The specified information will be displayed in the «Resume» and «Vacancies». And also, if you are an employer, your contacts will be available in the "Company". Contacts with you become available only after the initial correspondence in the documents «Resume» or «Vacancies».',
     'your_name'=>'Your name',
     'enter_name'=>'Enter name',
     'enter_your_name'=>'Please enter your name',

@@ -222,4 +222,16 @@
         width: 100%;
     }
 
+    @media (max-width: 500px){
+        .box-canvas .box-button{
+            justify-content: center;
+            button:first-child {
+                margin-right: 15px;
+            }
+            button{
+                width: auto;
+            }
+        }
+    }
+
 </style>
