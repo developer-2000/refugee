@@ -105,9 +105,15 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
-    .search-panel .title_page, .bread-panel .title_page, .box-page .title_page {
+    .box-page {
+        padding-bottom: 30px;
+    }
+    .search-panel .title_page,
+    .bread-panel .title_page,
+    .box-page .title_page {
         padding: 25px 0 15px;
     }
+
     .top-panel{
         display: flex;
         justify-content: space-between;

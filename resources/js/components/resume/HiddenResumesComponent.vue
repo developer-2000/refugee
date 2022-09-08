@@ -148,6 +148,7 @@
     @import "../../../sass/variables";
 
     .box-page{
+        padding-bottom: 30px;
         .callout{
             color: #666;
             line-height: 30px;

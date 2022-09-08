@@ -2,6 +2,7 @@
 
 return [
 
+    'advanced_search'=>'advanced search',
     'clear_selection'=>'clear selection',
     'find_similar_jobs'=>'Find similar jobs',
     'your_personal_vacancies'=>'Your own vacancies are displayed on this page. You have access to manage them and view the responses of applicants to them.',

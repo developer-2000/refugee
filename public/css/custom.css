@@ -16,7 +16,8 @@ body{
     border: none!important;
     color: #444!important;
     padding: 0!important;
-    min-height: 140px;
+    /*min-height: 140px;*/
+    min-height: 75px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -721,7 +722,8 @@ select{
 
 @media (max-width: 768px){
     .main-footer{
-        min-height: 250px;
+        /*min-height: 250px;*/
+        min-height: 195px;
     }
 }
 

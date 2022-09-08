@@ -56,7 +56,7 @@
             <div class="left-site">
                 <!-- кнопка modal -->
                 <span v-if="media_bool" class="but-modal-filter" data-toggle="modal" data-target="#modal-filter">
-                    расширенный поиск
+                    {{trans('vacancies','advanced_search')}}
                 </span>
 
                 <!-- item -->

@@ -213,7 +213,7 @@
                                         :disabled="disableButton()"
                                         @click.prevent="respondVacancy"
                                 >
-                                    {{trans('respond','respond')}}
+                                    {{trans('vacancies','open_contacts_start')}}
                                 </button>
                             </div>
 
@@ -432,14 +432,10 @@
         }
         .box-button{
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
             justify-content: center;
-            align-content: flex-start;
-            align-items: flex-start;
             margin-bottom: 15px;
             a, button{
-                width: 175px;
+                width: auto;
             }
             a{
                margin-right: 35px;
@@ -500,6 +496,23 @@
             margin-top: 40px;
         }
     }
+
+    @media (max-width: 520px){
+        #box-respond{
+            .box-button{
+                flex-direction: column;
+                a{
+                    margin: 0 0 15px;
+                }
+                button{
+                    white-space: inherit;
+                }
+            }
+        }
+
+    }
+
+
 
 </style>
 

@@ -257,6 +257,9 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .section-title{
+        margin: 20px 0;
+    }
     .show-vacancy{
         padding: 0;
     }
@@ -333,18 +336,13 @@
         }
         .box-button{
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
             justify-content: center;
-            align-content: flex-start;
-            align-items: flex-start;
             margin-bottom: 15px;
-            button{
-                width: 380px;
+            a, button{
+                width: auto;
             }
             a{
                margin-right: 35px;
-                width: 175px;
             }
         }
     }
@@ -398,6 +396,20 @@
         }
     }
 
+    @media (max-width: 520px){
+        #box-respond{
+            .box-button{
+                flex-direction: column;
+                a{
+                    margin: 0 0 15px;
+                }
+                button{
+                    white-space: inherit;
+                }
+            }
+        }
+
+    }
 
 </style>
 

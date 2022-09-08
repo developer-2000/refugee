@@ -143,6 +143,11 @@
         }
     }
 
+    @media (max-width: 568px){
+        .box-drop-file {
+            width: 100%;
+        }
+    }
 
 </style>
 

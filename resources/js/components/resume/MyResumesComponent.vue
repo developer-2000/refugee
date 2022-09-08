@@ -99,14 +99,16 @@
             'settings',
         ],
         mounted() {
-            this.initialData()
+
         },
     }
 </script>
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
-
+    .box-page {
+        padding-bottom: 30px;
+    }
     .top-panel{
         display: flex;
         justify-content: space-between;

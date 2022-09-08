@@ -379,6 +379,9 @@
 <style scoped lang="scss">
     @import "../../../../sass/variables";
 
+    .section-title{
+        margin: 20px 0!important;
+    }
     svg {
         path {
             fill: #1d68a7;

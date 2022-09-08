@@ -414,6 +414,9 @@
 <style scoped lang="scss">
     @import "../../../../sass/variables";
 
+    .section-title{
+        margin: 20px 0!important;
+    }
     .link-a{
         float: right;
     }
