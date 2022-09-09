@@ -134,22 +134,23 @@
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                       :title="trans('pages.offer','not_interested')"
                                 >
-                                    <svg @click="addMessage($event, offer.id, 'not_interested')"
-                                         class="svg-interest link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.1 7.031c-9.375-9.375-24.56-9.375-33.94 0l-74.59 74.59C358 50.63 309.2 32 256 32 132.3 32 32 132.3 32 256c0 53.21 18.63 102 49.62 140.4L7.03 470.99c-9.375 9.375-9.375 24.56 0 33.94C11.72 509.7 17.84 512 24 512s12.28-2.344 16.97-7.031l74.59-74.59C153.1 461.4 202.8 480 256 480c123.7 0 224-100.3 224-224 0-53.21-18.63-102-49.62-140.4l74.59-74.59c9.33-9.42 9.33-24.6-.87-33.979zM80 256c0-97.05 78.95-176 176-176 39.88 0 76.59 13.49 106.1 35.93l-246.2 246.2C93.49 332.6 80 295.9 80 256zm352 0c0 97.05-78.95 176-176 176-39.88 0-76.59-13.49-106.1-35.93l246.2-246.2C418.5 179.4 432 216.1 432 256z"/></svg>
+<svg @click.prevent.stop="confirm(offer.id, trans('pages.offer','tell_interlocutor_not_interested'), 0,'not_interested')"
+     class="svg-interest link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504.1 7.031c-9.375-9.375-24.56-9.375-33.94 0l-74.59 74.59C358 50.63 309.2 32 256 32 132.3 32 32 132.3 32 256c0 53.21 18.63 102 49.62 140.4L7.03 470.99c-9.375 9.375-9.375 24.56 0 33.94C11.72 509.7 17.84 512 24 512s12.28-2.344 16.97-7.031l74.59-74.59C153.1 461.4 202.8 480 256 480c123.7 0 224-100.3 224-224 0-53.21-18.63-102-49.62-140.4l74.59-74.59c9.33-9.42 9.33-24.6-.87-33.979zM80 256c0-97.05 78.95-176 176-176 39.88 0 76.59 13.49 106.1 35.93l-246.2 246.2C93.49 332.6 80 295.9 80 256zm352 0c0 97.05-78.95 176-176 176-39.88 0-76.59-13.49-106.1-35.93l246.2-246.2C418.5 179.4 432 216.1 432 256z"/></svg>
                                 </span>
                                 <!-- потребность решена -->
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                       :title="trans('pages.offer','need_solved')"
                                 >
-                                    <svg @click="addMessage($event, offer.id, 'need_solved')"
-                                         class="svg-end link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 24C0 10.75 10.75 0 24 0h336c13.3 0 24 10.75 24 24s-10.7 24-24 24h-8v18.98c0 40.32-16.9 78.12-44.5 107.52L225.9 256l81.6 81.5C335.1 366 352 404.7 352 445v19h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.25 0-24-10.7-24-24s10.75-24 24-24h8v-19c0-40.3 16.01-79 44.52-107.5L158.1 256l-81.58-81.5C48.01 145.1 32 107.3 32 66.98V48h-8C10.75 48 0 37.25 0 24zm304 42.98V48H80v18.98c0 27.58 10.96 54.02 30.5 73.52l81.5 81.6 81.5-81.6C293 121 304 94.56 304 66.98z"/></svg>
+<svg @click.prevent.stop="confirm(offer.id, trans('pages.offer','inform_interlocutor_topic'), 0,'need_solved')"
+     class="svg-end link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 24C0 10.75 10.75 0 24 0h336c13.3 0 24 10.75 24 24s-10.7 24-24 24h-8v18.98c0 40.32-16.9 78.12-44.5 107.52L225.9 256l81.6 81.5C335.1 366 352 404.7 352 445v19h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.25 0-24-10.7-24-24s10.75-24 24-24h8v-19c0-40.3 16.01-79 44.52-107.5L158.1 256l-81.58-81.5C48.01 145.1 32 107.3 32 66.98V48h-8C10.75 48 0 37.25 0 24zm304 42.98V48H80v18.98c0 27.58 10.96 54.02 30.5 73.52l81.5 81.6 81.5-81.6C293 121 304 94.56 304 66.98z"/></svg>
                                 </span>
                                 <!-- отправить в архив -->
                                 <span class="info-tooltip" data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                       :title="trans('pages.offer','send_to_archive')"
                                 >
-                                    <svg @click="sendToArchive($event, offer.id, key)"
-                                         class="svg-archive link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 320h-96a23.964 23.964 0 0 0-21.47 13.28L321.2 384H190.8l-25.38-50.72C161.4 325.1 153.1 320 144 320H32c-17.67 0-32 14.33-32 32v96c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-80c0-26.5-21.5-48-48-48zm0 128c0 8.822-7.178 16-16 16H64c-8.822 0-16-7.178-16-16v-80h81.16l25.38 50.72C158.6 426.9 166.9 432 176 432h160c9.094 0 17.41-5.125 21.47-13.28L382.8 368H464v80zM238.4 312.3c3.7 4.9 10.9 7.7 17.6 7.7s13.03-2.781 17.59-7.656l104-112c9-9.719 8.438-24.91-1.25-33.94-9.719-8.969-24.88-8.438-33.94 1.25L280 234.9V24c0-13.25-10.75-24-24-24s-24 10.75-24 24v210.9l-62.4-67.2c-9.1-10.6-24.2-10.3-33.9-1.3-10.6 9-10.3 24.2-1.3 33.9l104 112z"/></svg>
+<svg @click.prevent.stop="confirm(offer.id, trans('pages.offer','send_chat_archive'), 1,key)"
+
+     class="svg-archive link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 320h-96a23.964 23.964 0 0 0-21.47 13.28L321.2 384H190.8l-25.38-50.72C161.4 325.1 153.1 320 144 320H32c-17.67 0-32 14.33-32 32v96c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-80c0-26.5-21.5-48-48-48zm0 128c0 8.822-7.178 16-16 16H64c-8.822 0-16-7.178-16-16v-80h81.16l25.38 50.72C158.6 426.9 166.9 432 176 432h160c9.094 0 17.41-5.125 21.47-13.28L382.8 368H464v80zM238.4 312.3c3.7 4.9 10.9 7.7 17.6 7.7s13.03-2.781 17.59-7.656l104-112c9-9.719 8.438-24.91-1.25-33.94-9.719-8.969-24.88-8.438-33.94 1.25L280 234.9V24c0-13.25-10.75-24-24-24s-24 10.75-24 24v210.9l-62.4-67.2c-9.1-10.6-24.2-10.3-33.9-1.3-10.6 9-10.3 24.2-1.3 33.9l104 112z"/></svg>
                                 </span>
                             </div>
                         </div>
@@ -161,8 +162,10 @@
                                 <div class="direct-chat-text"
                                      :class="{'important_message': offer.chat[offer.chat.length-1].important_message == 1}"
                                 >
-                                    <!-- сопроводительный текст -->
+
+                                    <!-- текст сообщения и кнопочный message -->
                                     <div v-html="textChat(offer.chat[offer.chat.length-1].covering_letter)"></div>
+
                                     <!-- предложение документа -->
                                     <div v-if="offer.chat[offer.chat.length-1].my_type_document !== null"
                                          class='offer-document'
@@ -180,6 +183,7 @@
                                             {{offer.chat[offer.chat.length-1].my_offer_title}}
                                         </a>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="clear-float"></div>
@@ -237,12 +241,19 @@
            :href="`${lang.prefix_lang}offers/archive`"
         >{{trans('pages.offer','offer_archive')}}: {{archive_count}} </a>
 
+        <confirm_component
+            :lang="lang"
+            ref="child_confirm"
+            @confirm='respondConfirm'
+        ></confirm_component>
+
     </div>
 </template>
 
 <script>
     import translation from "../../mixins/translation";
     import offer_contact_list from "../details/OfferContactListComponent";
+    import confirm_component from "../details/ConfirmComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import url_mixin from "../../mixins/url_mixin";
@@ -255,7 +266,8 @@
             url_mixin
         ],
         components: {
-            'offer_contact_list': offer_contact_list
+            'offer_contact_list': offer_contact_list,
+            'confirm_component': confirm_component
         },
         data() {
             return {
@@ -266,6 +278,12 @@
                 position_list: [],
                 name_query: 'search',
                 name_url: 'offers',
+                event: null,
+                offer_id: null,
+                text: null,
+                index: null,
+                method:0,
+                iconMessage:["not_interested", "need_solved"],
             }
         },
         methods: {
@@ -302,13 +320,30 @@
                         // this.messageError(err)
                     })
             },
-            // <div class="alert alert-warning">Благодарю вас, но это предложение меня не интересует!</div>
-            async addMessage(event, offer_id, text) {
-                event.stopPropagation()
+            confirm(offer_id, quest = "", method = 0, text = '') {
+                this.offer_id = offer_id
+                this.text = !Number.isInteger(text) ? text : null
+                this.index = Number.isInteger(text) ? text : null
+                this.method = method
+
+                this.$refs.child_confirm.openModal({
+                    title:null,
+                    text:quest,
+                })
+            },
+            respondConfirm() {
+                if(this.method === 0){
+                    this.addMessage()
+                }
+                else{
+                    this.sendToArchive()
+                }
+            },
+            async addMessage() {
                 let data = {
-                    offer_id: offer_id,
+                    offer_id: this.offer_id,
                     important_message: 1,
-                    text: text,
+                    text: this.text,
                 };
                 const response = await this.$http.post(`/offers/add-message`, data)
                     .then(res => {
@@ -325,15 +360,14 @@
                         location.href = this.lang.prefix_lang+'offers'
                     })
             },
-            async sendToArchive(event, offer_id, index){
-                event.stopPropagation()
+            async sendToArchive(){
                 let data = {
-                    offer_id: offer_id,
+                    offer_id: this.offer_id,
                 };
                 const response = await this.$http.post(`/offers/send-to-archive`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            this.content.splice(index, 1)
+                            this.content.splice(this.index, 1)
                             this.archive_count++
                         }
                         // custom ошибки
@@ -357,7 +391,13 @@
                         line = line.substring(0,this.length_string)+" ...";
                     }
 
-                    string += "<div class='text-chat'>"+line+"</div>";
+                    if(this.iconMessage.indexOf(line) !== -1){
+                        string += "<div class='text-chat'>"+this.trans('pages.offer',`${line}_2`)+"</div>"
+                    }
+                    else{
+                        string += "<div class='text-chat'>"+line+"</div>"
+                    }
+
                 }
 
                 return string
@@ -457,11 +497,13 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .box-page{
+        padding-bottom: 30px;
+    }
     .bread-top-cabinet {
         padding: 20px 0;
         border: none;
     }
-
     .top-panel > div:first-child {
         display: flex;
         align-items: center;

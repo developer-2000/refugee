@@ -17,7 +17,7 @@ return [
     'this_page_displays_archived' => "This page displays archived records of your correspondence with service members.",
     'continuing_conversation' => "Continuing the conversation will automatically restore the chat to the main Suggestions directory.",
     'not_interested' => "not interested",
-    'need_solved' => "need resolved",
+    'need_solved' => "search stopped",
     'send_to_archive' => "send to archive",
     'for_your' => "For your",
     'proposal_consider' => "proposal to consider",
@@ -33,5 +33,13 @@ return [
     'cancel' => "Cancel",
     'refresh' => "Refresh",
     'send' => "Send",
+
+    'tell_interlocutor_not_interested' => "Tell the interlocutor that you are not interested ?",
+    'inform_interlocutor_topic' => "Inform interlocutor that this topic is over ?",
+    'send_chat_archive' => "Send chat archive ?",
+    'confirm' => "Confirm",
+
+    'not_interested_2' => "Thank you, I'm not interested in this offer!",
+    'need_solved_2' => "Thanks, not considering offers at this stage!",
 
 ];

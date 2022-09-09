@@ -58,8 +58,8 @@
                             <!-- message -->
                             <div class="direct-chat-text">
 
-                                <!-- сопроводительный текст -->
-                                <div v-html="chat.covering_letter"></div>
+                                <!-- текст сообщения и кнопочный message -->
+                                <div v-html="textChat(chat.covering_letter)"></div>
 
                                 <!-- предложение документа -->
                                 <div v-if="chat.my_type_document !== null"
@@ -118,8 +118,8 @@
                             <div class="direct-chat-text my-chat-text"
                                  :class="{'important_message': chat.important_message == 1}"
                             >
-                                <!-- сопроводительный текст -->
-                                <div v-html="chat.covering_letter"></div>
+                                <!-- текст сообщения и кнопочный message -->
+                                <div v-html="textChat(chat.covering_letter)"></div>
 
                                 <!-- предложение документа -->
                                 <div v-if="chat.my_type_document !== null"
@@ -219,6 +219,7 @@
                     index: null,
                 },
                 content: {},
+                iconMessage:["not_interested", "need_solved"],
             }
         },
         methods: {
@@ -381,6 +382,17 @@
                 }
 
                 event.stopPropagation()
+            },
+            textChat(text) {
+
+                // текст чата
+                if(text !== null){
+                    if(this.iconMessage.indexOf(text) !== -1){
+                        text = this.trans('pages.offer',`${text}_2`)
+                    }
+                }
+
+                return text
             },
         },
         props: [
