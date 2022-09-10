@@ -31,6 +31,10 @@ export default {
 
             return bool
         },
+        // поиск значения в массиве объектов и возврат index обьекта
+        lookingValueInArrayObjectsReturnIndex(property_name, property_value, arrSearch){
+            return  arrSearch.findIndex(obj => obj[property_name] == property_value)
+        },
         // открытие модалки авторизации в случае не авторизованности
         checkAuth(url) {
             // 0 = авторизация

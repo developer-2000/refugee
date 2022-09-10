@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Model\RespondResume as Model;
+use App\Model\ResumeStatistic;
 use App\Model\UserResume;
 use App\Model\Vacancy;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,11 @@ class RespondResumeRepository extends CoreRepository {
         $this->offerRepository = new OfferRepository();
     }
 
-    /**
-     * откликнуться на резюме
-     * @param $request
-     * @return mixed|null
-     */
+//    /**
+//     * откликнуться на резюме
+//     * @param $request
+//     * @return mixed|null
+//     */
     public function respondResume($request) {
         $offerRepository = new OfferRepository();
         $my_user = Auth::user();
@@ -33,6 +34,13 @@ class RespondResumeRepository extends CoreRepository {
         // моя вакансия
         $vacancy = Vacancy::where('id',$request->vacancy_id)
             ->with('position','country','region','city')->first();
+
+        // увеличить кол-во откликов
+        $statistic = ResumeStatistic::firstOrCreate([
+            'resume_id' => $request->resume_id
+        ]);
+        $statistic->increment('respond');
+        $statistic->save();
 
         // 1 фиксация отзыва
         $respond = $this->model->create(

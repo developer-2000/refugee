@@ -99,4 +99,8 @@ class Vacancy extends Model
     public function respond() {
         return $this->hasMany(RespondVacancy::class, 'vacancy_id', 'id');
     }
+
+    public function statistic() {
+        return $this->hasOne(VacancyStatistic::class, 'vacancy_id', 'id');
+    }
 }

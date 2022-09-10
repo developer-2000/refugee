@@ -46,6 +46,10 @@ class UserResume extends Model
         return $this->hasMany(RespondResume::class, 'resume_id', 'id');
     }
 
+    public function statistic() {
+        return $this->hasOne(ResumeStatistic::class, 'resume_id', 'id');
+    }
+
     public function id_saved_resumes() {
         $user_id = !is_null(Auth::user()) ? Auth::user()->id : null;
         return $this->hasMany(UserSaveResume::class, 'resume_id', 'id')

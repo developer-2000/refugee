@@ -45,7 +45,7 @@
         </button>
         <!-- Не показывать -->
         <!-- 1 -->
-        <button class="btn btn-block btn-outline-primary" type="button"
+        <button class="btn btn-block btn-outline-primary two-btn" type="button"
                 :class="{'btn-sm': which_button_show == 'search_resume'}"
                 @click.prevent="changeButton($event, 'show_', 'show-two_', 'save_', 1)"
                 data-bool="1"
@@ -59,7 +59,7 @@
         </button>
         <!-- 2 -->
         <button v-if="which_button_show == 'search_resume'"
-                class="btn btn-block btn-outline-danger btn-sm show-two" type="button"
+                class="btn btn-block btn-outline-danger btn-sm show-two two-btn" type="button"
                 @click="transitionHidden($event)"
                 :id="`show-two_${resume.id}`"
         >
@@ -134,11 +134,24 @@
                 const response = await this.$http.post(`/private-office/resume/hide-resume`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // убрать со страницы поиска
-                            this.$emit('return', {
-                                resume_id: resume_id,
-                                vacancy_id: null
-                            })
+
+                            // на странице Search
+                            if(this.which_button_show === "search_resume"){
+                                // убрать выдиление с кнопок
+                                $('button').focus()
+
+                                // message
+                                let text = this.trans('vacancies','resume') + " " +
+                                    this.resume.position.title  + " " +  this.trans('vacancies','moved_hidden_resume')
+                                this.message(text, 'success', 10000, true);
+
+                                // убрать со страницы поиска
+                                this.$emit('return', {
+                                    resume_id: resume_id,
+                                    vacancy_id: null
+                                })
+                            }
+
                         }
                         // custom ошибки
                         else{
@@ -188,19 +201,24 @@
                 let resume_id = $(event.target).attr('data-id')
                 // спрятал другие, себя изменил
                 if($(event.target).attr('data-bool') == '1'){
-                    $("#"+but2+resume_id).css('display','flex')
-                    $("#"+but1+resume_id).css('display','none')
-                    $("#"+but3+resume_id).css('display','none')
 
-                    // я сразу disable
-                    $("#"+but1+resume_id).prop( "disabled", true );
-                    // сосед сразу disable
-                    $("#"+but3+resume_id).prop( "disabled", true );
+                    // клик по кнопке Сохранить ИЛИ Спрятать на странице Show
+                    if(but1 !== 'show_' || this.which_button_show !== "search_resume"){
+                        $("#"+but2+resume_id).css('display','flex')
+                        $("#"+but1+resume_id).css('display','none')
+                        $("#"+but3+resume_id).css('display','none')
 
-                    // через время not disable
-                    setTimeout(() => {
-                        $("#"+but2+resume_id).prop( "disabled", false );
-                    }, 2000);
+                        // я сразу disable
+                        $("#"+but1+resume_id).prop( "disabled", true );
+                        // сосед сразу disable
+                        $("#"+but3+resume_id).prop( "disabled", true );
+
+                        // через время not disable
+                        setTimeout(() => {
+                            $("#"+but2+resume_id).prop( "disabled", false );
+                        }, 1000);
+                    }
+
                 }
                 // показал другие, себя изменил
                 else{
@@ -210,11 +228,11 @@
 
                     // рядом сразу disable
                     $("#"+but2+resume_id).prop( "disabled", true );
+
                     // я и сосед через время not disable
-                    setTimeout(() => {
-                        $("#"+but1+resume_id).prop( "disabled", false );
-                        $("#"+but3+resume_id).prop( "disabled", false );
-                    }, 500);
+                    $("#"+but1+resume_id).prop( "disabled", false );
+                    $("#"+but3+resume_id).prop( "disabled", false );
+
                 }
 
                 // в сохраненные закладки
@@ -272,10 +290,12 @@
             }
         }
         .first-btn{
-            margin-right: 15px !important;
             svg{
                 width: 14px;
             }
+        }
+        .two-btn{
+            margin-left: 15px;
         }
         .save-two {
             svg{

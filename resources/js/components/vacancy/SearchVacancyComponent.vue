@@ -61,7 +61,7 @@
 
                 <!-- item -->
                 <a class="box-vacancy"
-                   v-for="(vacancy, key) in respond.vacancies.data" :key="key"
+                   v-for="(vacancy, key) in vacancies" :key="key"
                    :href="getGenerateUrlDocument(vacancy, 'vacancy')"
                    :id="`v${key}`"
                    :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
@@ -100,7 +100,7 @@
                             :vacancy="vacancy"
                             :user="user"
                             :which_button_show="'search_vacancy'"
-                            @return="pageReload"
+                            @return="removeHiddenDocument"
                         ></bookmark_buttons>
                     </div>
 
@@ -197,6 +197,7 @@
         ],
         data() {
             return {
+                vacancies: [],
                 description: '⁠',
                 position: '',
                 prefix_url: 'vacancy',
@@ -275,6 +276,15 @@
                 else{
                     this.media_bool = false
                 }
+            },
+            // убрать спрятаный елемент resume_id
+            removeHiddenDocument(obj){
+                if(obj.vacancy_id !== null){
+                    let index_obj = this.lookingValueInArrayObjectsReturnIndex('id', obj.vacancy_id, this.vacancies)
+                    if(index_obj !== -1){
+                        this.vacancies.splice(index_obj, 1)
+                    }
+                }
             }
         },
         props: [
@@ -284,7 +294,7 @@
         ],
         mounted() {
             // console.log(this.respond)
-
+            this.vacancies = this.respond.vacancies.data
             window.addEventListener("resize", this.moveFilterBar, true);
             this.moveFilterBar();
         },

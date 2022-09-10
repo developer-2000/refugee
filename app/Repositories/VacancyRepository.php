@@ -185,8 +185,7 @@ class VacancyRepository extends CoreRepository {
 
     public function myVacancies(){
         $vacancies = $this->model->where('user_id', Auth::user()->id)
-            ->with('position','country','region','city')
-            ->withCount('respond')
+            ->with('position', 'statistic', 'country','region','city')
             ->orderBy('updated_at', 'desc')
             ->get();
 

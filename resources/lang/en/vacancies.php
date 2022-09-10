@@ -252,4 +252,8 @@ return [
     'your_achievements'=>"Your achievements",
     'maximum_detail'=>"Maximum detail. This will attract more employers.",
 
+    'moved_hidden_vacancies'=>"moved to «Hidden Vacancies» section",
+    'moved_hidden_resume'=>"moved to «Hidden Resume» section",
+
+
 ];

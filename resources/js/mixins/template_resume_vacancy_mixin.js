@@ -59,6 +59,12 @@ export default {
 
             return html_status
         },
+        countRespond(statistic){
+            if(statistic !== null){
+                return statistic['respond']
+            }
+            return 0
+        },
     },
     mounted() {
 

@@ -158,12 +158,11 @@ class ResumeRepository extends CoreRepository {
     public function myResumes(){
         $resumes = $this->model->where('user_id', Auth::user()->id)
             ->where('type', 0)
-            ->with('position', 'contact.avatar','country','region','city')
-            ->withCount('respond')
+            ->with('position', 'statistic', 'contact.avatar','country','region','city')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // address
+        // address summary statistics
         foreach ($resumes as $key => $resume){
             $resume = $this->addPropertiesToCollection($resume);
             $resume = collect($resume);

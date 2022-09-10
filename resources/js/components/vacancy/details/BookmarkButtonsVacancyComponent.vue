@@ -45,7 +45,7 @@
         </button>
         <!-- Не показывать -->
         <!-- 1 -->
-        <button class="btn btn-block btn-outline-primary" type="button"
+        <button class="btn btn-block btn-outline-primary two-btn" type="button"
                 :class="{'btn-sm': which_button_show == 'search_vacancy'}"
                 @click.prevent="changeButton($event, 'show_', 'show-two_', 'save_', 1)"
                 data-bool="1"
@@ -59,7 +59,7 @@
         </button>
         <!-- 2 -->
         <button v-if="which_button_show == 'search_vacancy'"
-                class="btn btn-block btn-outline-danger btn-sm show-two" type="button"
+                class="btn btn-block btn-outline-danger btn-sm show-two two-btn" type="button"
                 @click="transitionHidden($event)"
                 :id="`show-two_${vacancy.id}`"
         >
@@ -125,7 +125,7 @@
                         this.messageError(err)
                     })
             },
-            // в скрырые закладки
+            // в скрытые закладки
             async hideVacancy(vacancy_id, action){
                 let data = {
                     vacancy_id: vacancy_id,
@@ -134,11 +134,24 @@
                 const response = await this.$http.post(`/private-office/vacancy/hide-vacancy`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
-                            // убрать со страницы поиска
-                            this.$emit('return', {
-                                resume_id: null,
-                                vacancy_id: vacancy_id
-                            })
+
+                            // на странице Search
+                            if(this.which_button_show === "search_vacancy"){
+                                // убрать выдиление с кнопок
+                                $('button').focus()
+
+                                // message
+                                let text = this.trans('vacancies','vacancy') + " " +
+                                    this.vacancy.position.title  + " " +  this.trans('vacancies','moved_hidden_vacancies')
+                                this.message(text, 'success', 10000, true);
+
+                                // убрать со страницы поиска
+                                this.$emit('return', {
+                                    resume_id: null,
+                                    vacancy_id: vacancy_id
+                                })
+                            }
+
                         }
                         // custom ошибки
                         else{
@@ -188,19 +201,23 @@
                 let vacancy_id = $(event.target).attr('data-id')
                 // спрятал другие, себя изменил
                 if($(event.target).attr('data-bool') == '1'){
-                    $("#"+but2+vacancy_id).css('display','flex')
-                    $("#"+but1+vacancy_id).css('display','none')
-                    $("#"+but3+vacancy_id).css('display','none')
 
-                    // я сразу disable
-                    $("#"+but1+vacancy_id).prop( "disabled", true );
-                    // сосед сразу disable
-                    $("#"+but3+vacancy_id).prop( "disabled", true );
+                    // клик по кнопке Сохранить ИЛИ Спрятать на странице Show
+                    if(but1 !== 'show_' || this.which_button_show !== "search_vacancy"){
+                        $("#"+but2+vacancy_id).css('display','flex')
+                        $("#"+but1+vacancy_id).css('display','none')
+                        $("#"+but3+vacancy_id).css('display','none')
 
-                    // через время not disable
-                    setTimeout(() => {
-                        $("#"+but2+vacancy_id).prop( "disabled", false );
-                    }, 2000);
+                        // я сразу disable
+                        $("#"+but1+vacancy_id).prop( "disabled", true );
+                        // сосед сразу disable
+                        $("#"+but3+vacancy_id).prop( "disabled", true );
+
+                        // через время not disable
+                        setTimeout(() => {
+                            $("#"+but2+vacancy_id).prop( "disabled", false );
+                        }, 1000);
+                    }
 
                 }
                 // показал другие, себя изменил
@@ -211,11 +228,11 @@
 
                     // рядом сразу disable
                     $("#"+but2+vacancy_id).prop( "disabled", true );
+
                     // я и сосед через время not disable
-                    setTimeout(() => {
-                        $("#"+but1+vacancy_id).prop( "disabled", false );
-                        $("#"+but3+vacancy_id).prop( "disabled", false );
-                    }, 500);
+                    $("#"+but1+vacancy_id).prop( "disabled", false );
+                    $("#"+but3+vacancy_id).prop( "disabled", false );
+
                 }
 
                 // в сохраненные закладки
@@ -227,7 +244,6 @@
                     this.hideVacancy(vacancy_id, action)
                 }
 
-                // остановить распространение события click наверх родителю
                 event.stopPropagation()
             },
             // переход в закладки сохраненных
@@ -275,10 +291,12 @@
             }
         }
         .first-btn{
-            margin-right: 15px !important;
             svg{
                 width: 14px;
             }
+        }
+        .two-btn{
+            margin-left: 15px;
         }
         .save-two {
             svg{

@@ -215,7 +215,7 @@ trait GeneralVacancyResumeTraite {
             }
 
             $this->model = $this->model->whereIn('position_id', $coll)
-                ->orderByRaw("field(position_id,{$stroke})", $coll);
+                ->orderByRaw("FIELD(position_id,{$stroke})");
         }
 
         return $this->model;

@@ -73,14 +73,14 @@
                 </div>
             </template>
 
-            <!-- отклики -->
+            <!-- количество откликов -->
             <div v-if="page === 'my_vacancies'" class="response-vacancy">
-                <a href="#">
+<!--                <a href="#">-->
                     <div class="response-num">
-                        {{vacancy.respond_count}}
+                        {{countRespond(vacancy.statistic)}}
                     </div>
                     {{trans('vacancies','responses')}}
-                </a>
+<!--                </a>-->
             </div>
 
             <div class="clear-float"></div>
@@ -394,7 +394,6 @@
                 window.addEventListener("resize", this.indentPicture, true);
                 this.indentPicture();
             },
-
         },
         props: [
             'vacancy',

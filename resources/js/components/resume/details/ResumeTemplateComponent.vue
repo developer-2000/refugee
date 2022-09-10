@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <!-- title avatar status -->
+        <!-- title. avatar. status. отклики. -->
         <div class="box-title">
             <!-- title resume -->
             <h2 v-if="page !== 'show'" class="title-vacancy">
@@ -54,12 +54,12 @@
 
             <!-- количество откликов -->
             <div v-if="page === 'my_resumes'" class="response-vacancy">
-                <a href="#">
+<!--                <a href="#">-->
                     <div class="response-num">
-                        {{resume.respond_count}}
+                        {{countRespond(resume.statistic)}}
                     </div>
                     {{trans('vacancies','responses')}}
-                </a>
+<!--                </a>-->
             </div>
 
             <div class="clear-float"></div>

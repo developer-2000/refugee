@@ -4,8 +4,10 @@ namespace App\Repositories;
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Model\RespondVacancy as Model;
+use App\Model\ResumeStatistic;
 use App\Model\UserResume;
 use App\Model\Vacancy;
+use App\Model\VacancyStatistic;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -83,6 +85,13 @@ class RespondVacancyRepository extends CoreRepository {
         // мое резюме
         $resume = UserResume::where('id',$resume_id)
             ->with('position','country','region','city')->first();
+
+        // увеличить кол-во откликов
+        $statistic = VacancyStatistic::firstOrCreate([
+            'vacancy_id' => $request->vacancy_id
+        ]);
+        $statistic->increment('respond');
+        $statistic->save();
 
         // 1 фиксация отзыва
         $respond = $this->model->create(

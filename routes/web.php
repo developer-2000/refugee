@@ -10,6 +10,8 @@ use \App\Http\Controllers\PoliceController;
 use \App\Http\Controllers\IndexController;
 use \App\Http\Controllers\CharityController;
 use \App\Http\Controllers\OfferController;
+use \App\Http\Controllers\ResumeController;
+use \App\Http\Controllers\RespondController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -87,9 +89,9 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::group(['middleware'=>['auth']], function () {
 
             // respond vacancy
-            Route::post('respond-vacancy', 'RespondController@respondVacancy');
+            Route::post('respond-vacancy', [RespondController::class, 'respondVacancy']);
             // respond resume
-            Route::post('respond-resume', 'RespondController@respondResume');
+            Route::post('respond-resume', [RespondController::class, 'respondResume']);
 
             // архив чатов
             Route::group(['prefix'=>'offers/archive'], function (){
@@ -149,14 +151,14 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
 
                 // resume
                 Route::group(['prefix'=>'resume'], function (){
-                    Route::post('search-position', 'ResumeController@searchPosition');
-                    Route::get('my-resumes', 'ResumeController@myResumes');
-                    Route::post('up-resume-status', 'ResumeController@upResumeStatus');
-                    Route::post('duplicate-resume', 'ResumeController@duplicateResume');
-                    Route::post('bookmark-resume', 'ResumeController@setBookmarkResume');
-                    Route::get('bookmark-resumes', 'ResumeController@getBookmarkResumes');
-                    Route::post('hide-resume', 'ResumeController@setHideResume');
-                    Route::get('hidden-resumes', 'ResumeController@getHiddenResumes');
+                    Route::post('search-position', [ResumeController::class, 'searchPosition']);
+                    Route::get('my-resumes', [ResumeController::class, 'myResumes']);
+                    Route::post('up-resume-status', [ResumeController::class, 'upResumeStatus']);
+                    Route::post('duplicate-resume', [ResumeController::class, 'duplicateResume']);
+                    Route::post('bookmark-resume', [ResumeController::class, 'setBookmarkResume']);
+                    Route::get('bookmark-resumes', [ResumeController::class, 'getBookmarkResumes']);
+                    Route::post('hide-resume', [ResumeController::class, 'setHideResume']);
+                    Route::get('hidden-resumes', [ResumeController::class, 'getHiddenResumes']);
                 });
                 Route::resource('resume', 'ResumeController')->only([
                     'create', 'store', 'edit', 'update'
@@ -170,8 +172,8 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
 
         // resume
-        Route::get('/resume/{prefix_c}/{prefix_r_c}/{alias}', 'ResumeController@show');
-        Route::get('/resume/{country?}/{city?}', 'ResumeController@index');
+        Route::get('/resume/{prefix_c}/{prefix_r_c}/{alias}', [ResumeController::class, 'show']);
+        Route::get('/resume/{country?}/{city?}', [ResumeController::class, 'index']);
 
         // localisation
         Route::group(['prefix'=>'localisation'], function (){
