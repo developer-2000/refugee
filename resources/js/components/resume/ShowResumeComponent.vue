@@ -209,9 +209,10 @@
                 formData.append('vacancy_id', this.vacancyObj.vacancy_id !== null ? this.vacancyObj.vacancy_id : '');
                 formData.append('textarea_letter', this.objTextarea.textarea_letter);
 
-                const response = await this.$http.post(`/respond-resume`, formData)
+                const response = await this.$http.post(this.lang.prefix_lang+"respond-resume", formData)
                     .then(res => {
                         if(this.checkSuccess(res)){
+                            localStorage.setItem('respond_alert', this.trans('respond','interlocutor_notified'))
                             location.reload()
                         }
                         // custom ошибки
@@ -250,6 +251,12 @@
         ],
         mounted() {
             this.scrollUp()
+
+            // оповещение после respond документа
+            if (localStorage.getItem('respond_alert') !== null) {
+                this.message(localStorage.getItem('respond_alert'), 'success', 10000, true);
+                localStorage.removeItem('respond_alert')
+            }
         },
     }
 </script>

@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="container">
-        <div class="box-title-panel">
+        <div class="box-page">
+            <div class="box-title-panel">
 
             <h1>
                 Terms of use
@@ -95,6 +96,7 @@
                 <li>The company does not send or provide any Invoices and Certificates for the provision of services by the site.</li>
             </ol>
         </div>
+        </div>
     </div>
 
 @endsection
@@ -102,18 +104,16 @@
 @section('style')
     @parent
     <style type="text/css">
+
+        .box-page{
+            padding: 15px 0 50px;
+        }
         p{
             margin-bottom: 0!important;
         }
         .p-bottom{
             margin-bottom: 15px!important;
         }
-        .container{
-            padding: 0 30px!important;
-        }
-        /*.box-title-panel{*/
-        /*    padding-bottom: 70px;*/
-        /*}*/
         h1{
             padding: 30px 0 15px !important;
         }

@@ -12,6 +12,7 @@ use \App\Http\Controllers\CharityController;
 use \App\Http\Controllers\OfferController;
 use \App\Http\Controllers\ResumeController;
 use \App\Http\Controllers\RespondController;
+use \App\Http\Controllers\Auth\AuthorController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -58,14 +59,14 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         // Authentication
         Route::middleware('throttle:10,1')->group(function () {
             Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
-                Route::post('/login', 'AuthorController@login');
-                Route::post('/registration', 'AuthorController@register');
-                Route::post('/check_email', 'AuthorController@checkEmail');
-                Route::post('/send-code-password', 'AuthorController@sendCodeForChangePassword');
-                Route::post('/change-password', 'AuthorController@changePassword');
-                Route::get('/activate', 'AuthorController@activateAccount');
-                Route::get('/view-change-password', 'AuthorController@viewChangePassword');
-                Route::get('/logout', 'AuthorController@logout');
+                Route::post('/login', [AuthorController::class, 'login']);
+                Route::post('/registration', [AuthorController::class, 'register']);
+                Route::post('/check_email', [AuthorController::class, 'checkEmail']);
+                Route::post('/send-code-password', [AuthorController::class, 'sendCodeForChangePassword']);
+                Route::post('/change-password', [AuthorController::class, 'changePassword']);
+                Route::get('/activate', [AuthorController::class, 'activateAccount']);
+                Route::get('/view-change-password', [AuthorController::class, 'viewChangePassword']);
+                Route::get('/logout', [AuthorController::class, 'logout']);
                 // google
                 Route::get('/google/redirect', [GoogleController::class, 'redirect']);
                 Route::get('/google/callback', [GoogleController::class, 'callback']);

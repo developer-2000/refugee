@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use function Symfony\Component\Translation\getLocale;
 
 class DefaultValueProvider extends ServiceProvider {
 
@@ -17,7 +18,8 @@ class DefaultValueProvider extends ServiceProvider {
     {
         // создать префикс языка системы из url
         if (!Session::has('prefix_lang')) {
-            $prefix_lang = (new LanguageService())->createSystemLanguageFromUrl();
+            $service = new LanguageService();
+            $prefix_lang = $service->createSystemLanguageFromUrl();
             session(['prefix_lang' => $prefix_lang]);
         }
 

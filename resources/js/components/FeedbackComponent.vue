@@ -225,6 +225,9 @@
 <style scoped lang="scss">
     @import "../../sass/variables";
 
+    .feedback{
+        padding-bottom: 50px;
+    }
     .box-alert-exit{
         display: none;
         width: 60%;

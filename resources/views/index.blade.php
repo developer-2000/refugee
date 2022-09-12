@@ -14,6 +14,7 @@
     </script>
 @endsection
 
+
 @section('content')
     <index-component
         :lang="{{json_encode($lang)}}"

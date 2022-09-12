@@ -9,6 +9,8 @@ use App\Http\Requests\Auth\SendCodeChangePasswordRequest;
 use App\Http\Requests\Auth\CheckEmailRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Jobs\SendActivateAccount;
+use App\Jobs\SendFeedbackMessage;
 use App\Model\Code;
 use App\Model\User;
 use App\Model\UserContact;
@@ -91,6 +93,9 @@ class AuthorController extends BaseController {
         if(!Auth::check()){
             Auth::guard('web')->login($user);
         }
+
+        SendActivateAccount::dispatch($user->email)
+            ->onQueue('emails');
 
         return redirect(session('prefix_lang'));
     }

@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="container">
-        <div class="box-title-panel">
+        <div class="box-page">
+            <div class="box-title-panel">
 
             <h1 class="block-page">
                 Політика Cookie
@@ -227,6 +228,7 @@
             </div>
 
         </div>
+        </div>
     </div>
 
 @endsection
@@ -234,6 +236,10 @@
 @section('style')
     @parent
     <style type="text/css">
+
+        .box-page{
+            padding: 15px 0 50px;
+        }
         strong{
             margin: 5px 0!important;
             display: inline-block!important;
@@ -241,16 +247,10 @@
         p{
             margin-bottom: 0!important;
         }
-        .container{
-            padding: 0 30px!important;
-        }
         .block-page{
             border-bottom: 1px solid #dee2e6;
             padding: 20px 0 10px 0;
         }
-        /*.box-title-panel{*/
-        /*    padding-bottom: 70px;*/
-        /*}*/
         .box-title-panel > .block-page:last-child{
             border: none;
         }

@@ -28,7 +28,7 @@ return [
     'privacy_policy' => 'Privacy Policy',
     'already_have_account' => 'Already have an account',
     'not_registered' => 'Not registered',
-    'forgot_your_password' => 'Forgot your password',
+    'forgot_your_password' => 'Change your password',
     'not_activation_account' => 'When registering this account, an email was sent to the email you specified to activate the account. You need to follow the activation link contained in the email.',
     'message_change_password_email' => 'An email has been sent to the address provided for further action.',
     'link_not_valid' => 'Link is not valid',

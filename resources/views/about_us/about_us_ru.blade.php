@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="container">
-        <div class="box-title-panel">
+        <div class="box-page">
+            <div class="box-title-panel">
             <!-- title -->
             <h1>
                 О Сервисе трудоустройства в Европе - work.es.ua.com
@@ -70,6 +71,7 @@
             </div>
 
         </div>
+        </div>
     </div>
 
 @endsection
@@ -78,6 +80,9 @@
     @parent
     <style type="text/css">
 
+        .box-page{
+            padding: 15px 0 50px;
+        }
         .box-above-photo{
             position: relative;
             padding: 80px 0 0 0;

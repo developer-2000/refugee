@@ -284,9 +284,10 @@
                 formData.append('old_file_id', this.file_resume !== null ? this.file_resume.id : '');
                 formData.append('new_file', this.filelist.length ? this.filelist[0] : '');
 
-                const response = await this.$http.post(`/respond-vacancy`, formData)
+                const response = await this.$http.post(this.lang.prefix_lang+"respond-vacancy", formData)
                     .then(res => {
                         if(this.checkSuccess(res)){
+                            localStorage.setItem('respond_alert', this.trans('respond','interlocutor_notified'))
                             location.reload()
                         }
                         // custom ошибки
@@ -338,6 +339,12 @@
                 let obj = this.lookingValueInArrayObjects('type', 1, this.respond['respond_data'].arr_resume)
                 if(obj){
                     this.file_resume = obj
+                }
+
+                // оповещение после respond документа
+                if (localStorage.getItem('respond_alert') !== null) {
+                    this.message(localStorage.getItem('respond_alert'), 'success', 10000, true);
+                    localStorage.removeItem('respond_alert')
                 }
             },
         },

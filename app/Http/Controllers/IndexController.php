@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
 use App\Http\Traits\MetaTrait;
-use App\Jobs\SendMessageFromSite;
+use App\Jobs\SendFeedbackMessage;
 use App\Services\LocalizationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -57,7 +57,7 @@ class IndexController extends BaseController {
     }
 
     public function feedbackSendMessage(FeedbackSendMessageRequest $request) {
-        SendMessageFromSite::dispatch($request->validated())
+        SendFeedbackMessage::dispatch($request->validated())
             ->onQueue('emails');
 
         return $this->getResponse();
@@ -68,9 +68,9 @@ class IndexController extends BaseController {
 //
 ////        $users = User::with('permission')->get();
 ////
-////        foreach ($users as $key => $user){
-////            dump($user->toArray());
-////        }
+//        foreach ($users as $key => $user){
+//            dump($user->toArray());
+//        }
 //
 //    }
 

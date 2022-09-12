@@ -8,6 +8,6 @@ class Test extends Model
 {
     protected $guarded = [];
     protected $casts = [
-        'text' => 'json',
+        'json' => 'json',
     ];
 }

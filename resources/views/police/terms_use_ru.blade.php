@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="container">
-        <div class="box-title-panel">
+        <div class="box-page">
+            <div class="box-title-panel">
 
             <h1>
                 Пользовательское соглашение
@@ -113,6 +114,7 @@
             </ol>
 
         </div>
+        </div>
     </div>
 
 @endsection
@@ -120,18 +122,17 @@
 @section('style')
     @parent
     <style type="text/css">
+
+
+        .box-page{
+            padding: 15px 0 50px;
+        }
         p{
             margin-bottom: 0!important;
         }
         .p-bottom{
             margin-bottom: 15px!important;
         }
-        .container{
-            padding: 0 30px!important;
-        }
-        /*.box-title-panel{*/
-        /*    padding-bottom: 70px;*/
-        /*}*/
         h1{
             padding: 30px 0 15px !important;
         }

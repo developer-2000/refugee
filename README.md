@@ -1,3 +1,9 @@
+#### online редактор Email шаблонов
+
+https://my.stripo.email/cabinet/#/template-editor/?projectId=697120&templateId=1582715&type=MY_TEMPLATE
+
+
+
 #### работа с очередями
 
 https://www.oulub.com/ru-RU/Laravel/queues

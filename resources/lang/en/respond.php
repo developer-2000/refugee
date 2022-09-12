@@ -15,5 +15,6 @@ return [
     'resume_file'=>'Resume file',
     'add_cover_letter'=>'Add cover letter',
     'cover_letter'=>'Cover letter',
+    'interlocutor_notified'=>'Interlocutor has been notified. He will contact you shortly.',
 
 ];

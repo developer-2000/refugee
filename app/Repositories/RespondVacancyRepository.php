@@ -3,8 +3,11 @@ namespace App\Repositories;
 
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
+use App\Jobs\RespondVacancyResumeJob;
+use App\Jobs\SendActivateAccount;
 use App\Model\RespondVacancy as Model;
 use App\Model\ResumeStatistic;
+use App\Model\User;
 use App\Model\UserResume;
 use App\Model\Vacancy;
 use App\Model\VacancyStatistic;
@@ -108,6 +111,7 @@ class RespondVacancyRepository extends CoreRepository {
         $resume_title = $resume->type === 0 ? $resume->position->title : $resume->title;
         $offer_url = $resume->type === 0 ? $this->makeFullUrlForDocument($resume, "resume") : $resume->url;
 
+        // 2 обновить или создать offer chat
         $message = config('site.offer.message');
         $message["user_id"] = $my_user->id;
         $message["date_create"] = $this->getNowDate();
@@ -119,8 +123,25 @@ class RespondVacancyRepository extends CoreRepository {
         $message["your_offer_url"] = $this->makeFullUrlForDocument($vacancy, "vacancy");
         $message["covering_letter"] = $request->textarea_letter;
 
-        // 2 обновить или создать offer chat
         $this->setDataOffer($offer, $message, $my_user->id, $vacancy->user_id, $resume_title);
+
+        // 3 отправка Email
+        $offer = $this->offerRepository->getOffer($vacancy->user_id, $my_user->id);
+        $respondUserData = User::where("id",$vacancy->user_id)->with("contact")->first();
+        $email_respond = $respondUserData->contact->email;
+        if(is_null($email_respond)){
+            $email_respond = $respondUserData->email;
+        }
+
+        RespondVacancyResumeJob::dispatch([
+            "email_respond"=>$email_respond,
+            "full_name_person_write"=>$my_user->contact->full_name,
+            "chat_title"=>$offer->chat[0]['title_chat'],
+            "chat_link"=>session('prefix_lang')."offers/".$offer->alias,
+            "offer_document_title"=>$message['my_offer_title'],
+            "offer_document_link"=>session('prefix_lang').$message['my_offer_url'],
+            "chat_text"=>$message['covering_letter'],
+        ])->onQueue('emails');
 
         return $respond;
     }

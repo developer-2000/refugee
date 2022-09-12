@@ -3,8 +3,10 @@ namespace App\Repositories;
 
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
+use App\Jobs\RespondVacancyResumeJob;
 use App\Model\RespondResume as Model;
 use App\Model\ResumeStatistic;
+use App\Model\User;
 use App\Model\UserResume;
 use App\Model\Vacancy;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +21,11 @@ class RespondResumeRepository extends CoreRepository {
         $this->offerRepository = new OfferRepository();
     }
 
-//    /**
-//     * откликнуться на резюме
-//     * @param $request
-//     * @return mixed|null
-//     */
+    /**
+     * откликнуться на резюме
+     * @param $request
+     * @return mixed|null
+     */
     public function respondResume($request) {
         $offerRepository = new OfferRepository();
         $my_user = Auth::user();
@@ -63,17 +65,31 @@ class RespondResumeRepository extends CoreRepository {
         $message["my_type_document"] = 'vacancy';
         $message["your_type_document"] = 'resume';
         $message["my_offer_title"] = $vacancy->position->title;
-
-
         $message["my_offer_url"] = $vacancy_url;
         $message["your_offer_title"] = $resume->position->title;
-
-
         $message["your_offer_url"] = $resume_url;
         $message["covering_letter"] = $request->textarea_letter;
 
         // 2 обновить или создать offer chat
         $this->setDataOffer($offer, $message, $my_user->id, $resume->user_id, $vacancy->position->title);
+
+        // 3 отправка Email
+        $offer = $offerRepository->getOffer($resume->user_id, $my_user->id);
+        $respondUserData = User::where("id",$resume->user_id)->with("contact")->first();
+        $email_respond = $respondUserData->contact->email;
+        if(is_null($email_respond)){
+            $email_respond = $respondUserData->email;
+        }
+
+        RespondVacancyResumeJob::dispatch([
+            "email_respond"=>$email_respond,
+            "full_name_person_write"=>$my_user->contact->full_name,
+            "chat_title"=>$offer->chat[0]['title_chat'],
+            "chat_link"=>session('prefix_lang')."offers/".$offer->alias,
+            "offer_document_title"=>$message['my_offer_title'],
+            "offer_document_link"=>session('prefix_lang').$message['my_offer_url'],
+            "chat_text"=>$message['covering_letter'],
+        ])->onQueue('emails');
 
         return $respond;
     }
