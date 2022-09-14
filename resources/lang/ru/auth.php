@@ -30,5 +30,6 @@ return [
     'message_change_password_email' => 'На указынный Email, отправлено письмо для активации акаунта',
     'link_not_valid' => 'Ссылка не действительна',
     'data_not_correct' => 'Данные неверны',
+    'new_password' => 'Новый пароль',
 
 ];

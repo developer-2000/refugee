@@ -16,7 +16,9 @@
                 <form @submit.prevent="changePassword">
                     <!-- New Password -->
                     <div class="form-group">
-                        <label for="new_password">New Password</label>
+                        <label for="new_password">
+                            {{ trans('auth','new_password') }}
+                        </label>
                         <input type="text" id="new_password" class="form-control"
                                :class="{'is-invalid': $v.new_password.$error}"
                                v-model="new_password"

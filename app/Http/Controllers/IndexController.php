@@ -57,6 +57,7 @@ class IndexController extends BaseController {
     }
 
     public function feedbackSendMessage(FeedbackSendMessageRequest $request) {
+
         SendFeedbackMessage::dispatch($request->validated())
             ->onQueue('emails');
 

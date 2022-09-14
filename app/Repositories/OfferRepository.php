@@ -4,8 +4,11 @@ namespace App\Repositories;
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\OfferAndArchiveTrait;
 use App\Http\Traits\RespondTraite;
+use App\Jobs\ChatMessageJob;
+use App\Jobs\RespondVacancyResumeJob;
 use App\Model\Offer as Model;
 use App\Model\OfferChatArchive;
+use App\Model\User;
 use App\Model\UserCompany;
 use Illuminate\Support\Facades\Auth;
 
@@ -192,6 +195,7 @@ class OfferRepository extends CoreRepository {
         $my_user = Auth::user();
         $offer = $this->getChat('id', $request->offer_id);
 
+
         $message = config('site.offer.message');
         $message["user_id"] = $my_user->id;
         $message["date_create"] = $this->getNowDate();
@@ -202,6 +206,9 @@ class OfferRepository extends CoreRepository {
 
         // 2 обновить или создать offer chat
         $this->setDataOffer($offer, $message, $my_user->id);
+
+        // 3 отправка Email
+        $this->sendEmail($offer, $my_user, $message);
 
         return $offer->chat[count($offer->chat)-1];
     }
@@ -269,6 +276,25 @@ class OfferRepository extends CoreRepository {
         return [true];
     }
 
+    /**
+     * выбрать чат двух участников
+     * @param $user_id
+     * @param $my_id
+     * @return mixed
+     */
+    public function getOurChat($user_id, $my_id)
+    {
+        return $this->model->where(function($query) use ($user_id, $my_id) {
+            $query->where(function ($query) use ($user_id, $my_id) {
+                $query->where('one_user_id', $user_id)
+                    ->where('two_user_id', $my_id);
+            })
+                ->orWhere(function ($query) use ($user_id, $my_id) {
+                    $query->where('one_user_id', $my_id)
+                        ->where('two_user_id', $user_id);
+                });
+        })->first();
+    }
 
     // PRIVATE
     /**
@@ -292,26 +318,5 @@ class OfferRepository extends CoreRepository {
                 });
         })->first();
     }
-
-    /**
-     * выбрать чат двух участников
-     * @param $user_id
-     * @param $my_id
-     * @return mixed
-     */
-    public function getOurChat($user_id, $my_id)
-    {
-        return $this->model->where(function($query) use ($user_id, $my_id) {
-            $query->where(function ($query) use ($user_id, $my_id) {
-                $query->where('one_user_id', $user_id)
-                    ->where('two_user_id', $my_id);
-            })
-            ->orWhere(function ($query) use ($user_id, $my_id) {
-                $query->where('one_user_id', $my_id)
-                    ->where('two_user_id', $user_id);
-            });
-        })->first();
-    }
-
 
 }

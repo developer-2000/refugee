@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\BreadcrumbsTraite;
+use App\Jobs\SendActivateAccount;
 use App\Model\User;
 use App\Model\UserContact;
 use App\Repositories\VacancyRepository;
@@ -19,22 +20,25 @@ class AuthBaseController extends Controller {
         return Socialite::driver(static::DRIVER_TYPE)->user();
     }
 
-    protected function createSocialiteUser($user){
-        $userExisted = User::create([
-            'email' => $user->email,
-            'password' => Hash::make($user->id),
-            'oauth_id' => $user->id,
+    protected function createSocialiteUser($driver){
+        $user = User::create([
+            'email' => $driver->email,
+            'password' => Hash::make($driver->id),
+            'oauth_id' => $driver->id,
             'oauth_type' => static::DRIVER_TYPE,
             'email_verified_at'=>now(),
         ]);
 
         UserContact::create([
-            'user_id'=>$userExisted->id,
-            'name'=>$user->name,
-            'surname'=>$user->name,
+            'user_id'=>$user->id,
+            'name'=>$driver->name,
+            'surname'=>$driver->name,
         ]);
 
-        return $userExisted;
+        SendActivateAccount::dispatch($driver->email)
+            ->onQueue('emails');
+
+        return $user;
     }
 
 }

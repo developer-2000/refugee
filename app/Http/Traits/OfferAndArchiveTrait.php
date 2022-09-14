@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Traits;
 
+use App\Jobs\ChatMessageJob;
+use App\Model\User;
 use App\Repositories\ContactInformationRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -95,7 +97,6 @@ trait OfferAndArchiveTrait
         return $offers;
     }
 
-    // PRIVATE
     /**
      * выбрать чат с данными контакта моего собеседника
      * @param $field
@@ -117,4 +118,22 @@ trait OfferAndArchiveTrait
 
         return $offer;
     }
+
+    private function sendEmail($offer, $my_user, $message) {
+        $to_user_id = ($offer->one_user_id == $my_user->id) ? $offer->two_user_id : $offer->one_user_id;
+        $toUserData = User::where("id",$to_user_id)->with("contact")->first();
+        $email_respond = $toUserData->contact->email;
+        if(is_null($email_respond)){
+            $email_respond = $toUserData->email;
+        }
+
+        ChatMessageJob::dispatch([
+            "email_respond"=>$email_respond,                                  // кому отправить
+            "full_name_person_write"=>$my_user->contact->full_name,           // от кого письмо
+            "chat_title"=>$offer->chat[0]['title_chat'],                      // название чата
+            "chat_link"=>session('prefix_lang')."offers/".$offer->alias, // ссылка чата
+            "chat_text"=>$message['covering_letter']                          // сообщение чата
+        ])->onQueue('emails');
+    }
+
 }

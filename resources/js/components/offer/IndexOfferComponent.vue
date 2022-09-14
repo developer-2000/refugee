@@ -345,7 +345,7 @@
                     important_message: 1,
                     text: this.text,
                 };
-                const response = await this.$http.post(`/offers/add-message`, data)
+                const response = await this.$http.post(this.lang.prefix_lang+"offers/add-message", data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             location.reload()

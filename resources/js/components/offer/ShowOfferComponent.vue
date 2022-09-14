@@ -228,7 +228,7 @@
                     offer_id: (this.respond['table'] === 'offer') ? this.respond['offer'].id : this.respond['offer'].table_id,
                     text: this.objTextarea.textarea_letter,
                 };
-                let url = (this.respond['table'] === 'offer') ? '/offers/add-message' : '/offers/archive/add-message'
+                let url = (this.respond['table'] === 'offer') ? this.lang.prefix_lang+'offers/add-message' : this.lang.prefix_lang+'offers/archive/add-message'
                 const response = await this.$http.post(url, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
@@ -419,6 +419,10 @@
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
+
+    .box-page{
+        padding: 15px 15px 50px;
+    }
 
     .bread-top-cabinet{
         border: none;

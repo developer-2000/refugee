@@ -21,18 +21,19 @@ class LinkedinController extends AuthBaseController {
 
     public function callback() {
         try {
-            $user = $this->getSocialiteDriver();
-            $userExisted = User::where('email', $user->email)->first();
+            $driver = $this->getSocialiteDriver();
+            $user = User::where('email', $driver->email)->first();
 
-            if(is_null($userExisted)) {
-                $userExisted = $this->createSocialiteUser($user);
+            // 1 новый пользователь
+            if(is_null($user)) {
+                $user = $this->createSocialiteUser($driver);
             }
 
-            Auth::login($userExisted);
+            Auth::login($user);
             return redirect()->route('index');
         }
         catch (Exception $e) {
-            return Redirect::route('index')->withErrors(['errors'=>'Verification linkedin error']);
+            return Redirect::route('index')->withErrors(['errors'=>'Verification '.static::DRIVER_TYPE.' error']);
         }
     }
 }

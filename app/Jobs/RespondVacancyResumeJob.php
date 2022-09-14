@@ -30,6 +30,8 @@ class RespondVacancyResumeJob extends EmailBaseJob implements ShouldQueue {
 
         $this->data["chat_interlocutor"] = __('email.chat_interlocutor');
         $this->data["you_have_review_document"] = __('email.you_have_review_document');
+        $this->data["title_subject"] = __('email.message_from');
+
         $this->data["email_respond"] = $arr["email_respond"];
         $this->data["full_name_person_write"] = $arr["full_name_person_write"];
         $this->data["chat_title"] = $arr["chat_title"];
@@ -52,7 +54,7 @@ class RespondVacancyResumeJob extends EmailBaseJob implements ShouldQueue {
         Mail::send('emails.respond_vacancy_resume', ["data"=>$this->data], function($message) use ($config) {
             $message->to($this->data["email_respond"])
                 ->from($config['main_questions']['email'], "Work-es-ua")
-                ->subject("Сообщение от ".$this->data["full_name_person_write"]);
+                ->subject($this->data["title_subject"].$this->data["full_name_person_write"]);
         });
     }
 

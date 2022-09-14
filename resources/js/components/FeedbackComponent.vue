@@ -86,6 +86,7 @@
                     </div>
                 </div>
 
+                <!-- отправить -->
                 <div class="form-group">
                     <button type="submit" class="btn btn-block btn-primary btn-lg btn-form"
                             :disabled="disableButton($v)"
@@ -100,7 +101,9 @@
             </div>
         </div>
 
+        <!-- alert после отправки -->
         <div class="box-alert-exit">
+
             <div class="alert-exit">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM371.8 211.8C382.7 200.9 382.7 183.1 371.8 172.2C360.9 161.3 343.1 161.3 332.2 172.2L224 280.4L179.8 236.2C168.9 225.3 151.1 225.3 140.2 236.2C129.3 247.1 129.3 264.9 140.2 275.8L204.2 339.8C215.1 350.7 232.9 350.7 243.8 339.8L371.8 211.8z"/></svg>
                 <br>
@@ -110,11 +113,14 @@
                 <br>
                 {{trans('pages.feedback','thank_you_contacting')}}
             </div>
+
+            <!-- сброс -->
             <button type="submit" class="btn btn-block btn-primary btn-lg"
                     @click.prevent="resetPage()"
             >
                 {{trans('pages.feedback','proceed')}}
             </button>
+
         </div>
 
     </div>
@@ -158,7 +164,7 @@
 
                 $('.btn-form').attr("disabled", true)
 
-                const response = await this.$http.post(`/feedback-send-message`, data)
+                const response = await this.$http.post(this.lang.prefix_lang+"feedback-send-message", data)
                     .then(res => {
                         $('.btn-form').attr("disabled", false)
                         if(this.checkSuccess(res)){
@@ -198,6 +204,10 @@
                 if(this.respond.contact !== null){
                     this.full_name = this.respond.contact.full_name
                     this.email = this.respond.contact.email
+                }
+                else{
+                    this.full_name = ""
+                    this.email = ""
                 }
             },
         },

@@ -29,6 +29,7 @@ export default {
             this.last_name = ''
             this.email = ''
             this.password = ''
+            this.$v.$reset()
         },
     },
 

@@ -30,4 +30,6 @@ return [
     'message_change_password_email' => 'На вказану пошту надіслано листа для подальших дій..',
     'link_not_valid' => 'Посилання не дійсне',
     'data_not_correct' => 'Дані неправильні',
+    'new_password' => 'Новий пароль',
+
 ];

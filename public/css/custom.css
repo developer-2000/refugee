@@ -82,7 +82,7 @@ a:hover,
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    /*border-bottom: 1px solid #dee2e6;*/
+    border-bottom: 1px solid #dee2e6;
     background-color: #fff;
     padding: 20px 15px;
     z-index: 20;

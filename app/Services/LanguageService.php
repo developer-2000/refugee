@@ -49,7 +49,6 @@ class LanguageService
         return $prefix_lang;
     }
 
-
     /**
      * очистка префикса языка для url
      * @return \Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed|string
@@ -74,6 +73,11 @@ class LanguageService
         $url = array_filter($url, function($value) { return $value !== ''; });
         $url = array_values( $url );
         $languages = config("app.all_lang");
+
+        // зачистить от ненужных символов
+        foreach ($url as $index => $value) {
+            $url[$index] = preg_replace('/[^a-z]/ui', '', $value);
+        }
 
         foreach ($languages as $key => $value) {
             if( array_search($value, $url) !== false ){

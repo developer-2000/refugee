@@ -4,8 +4,10 @@ namespace App\Repositories;
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\OfferAndArchiveTrait;
 use App\Http\Traits\RespondTraite;
+use App\Jobs\ChatMessageJob;
 use App\Model\Offer;
 use App\Model\OfferChatArchive as Model;
+use App\Model\User;
 use App\Model\UserCompany;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,6 +67,9 @@ class OfferArchiveRepository extends CoreRepository {
 
         // 2 обновить или создать offer chat
         $this->setDataOffer($offer, $message, $my_user->id);
+
+        // 3 отправка Email
+        $this->sendEmail($offer, $my_user, $message);
 
         return $offer->chat[count($offer->chat)-1];
     }

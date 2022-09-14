@@ -22,30 +22,19 @@ class TwitterController extends Controller {
 
     public function callback() {
         try {
-            $user = Socialite::driver(static::DRIVER_TYPE)->user();
-            $userExisted = User::where('email', $user->email)->first();
+            $driver = $this->getSocialiteDriver();
+            $user = User::where('email', $driver->email)->first();
 
-            if(is_null($userExisted)) {
-                $userExisted = User::create([
-                    'email' => $user->email,
-                    'password' => Hash::make($user->id),
-                    'oauth_id' => $user->id,
-                    'oauth_type' => static::DRIVER_TYPE,
-                    'email_verified_at'=>now(),
-                ]);
-
-                UserContact::create([
-                    'user_id'=>$userExisted->id,
-                    'name'=>$user->name,
-                    'surname'=>$user->name,
-                ]);
+            // 1 новый пользователь
+            if(is_null($user)) {
+                $user = $this->createSocialiteUser($driver);
             }
 
-            Auth::login($userExisted);
+            Auth::login($user);
             return redirect()->route('index');
         }
         catch (Exception $e) {
-            return Redirect::route('index')->withErrors(['errors'=>'Verification twitter error']);
+            return Redirect::route('index')->withErrors(['errors'=>'Verification '.static::DRIVER_TYPE.' error']);
         }
     }
 }

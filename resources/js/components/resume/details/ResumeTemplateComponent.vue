@@ -54,7 +54,7 @@
 
             <!-- количество откликов -->
             <div v-if="page === 'my_resumes'" class="response-vacancy">
-<!--                <a href="#">-->
+<!--                <a href="javascript:void(0)">-->
                     <div class="response-num">
                         {{countRespond(resume.statistic)}}
                     </div>
@@ -248,14 +248,14 @@
                         </button>
                         <div class="dropdown-menu">
                             <!-- скрыть -->
-                            <a class="dropdown-item" href="#"
+                            <a class="dropdown-item" href="javascript:void(0)"
                                v-if="resume.job_posting.status_name == 'standard'"
                                @click="changeStatus($event, resume.id, 1)"
                             >
                                 {{trans('vacancies','hide')}}
                             </a>
                             <!-- обновить -->
-                            <a class="dropdown-item" href="#"
+                            <a class="dropdown-item" href="javascript:void(0)"
                                v-if="resume.job_posting.status_name == 'standard'"
                                @click="changeStatus($event, resume.id, 0)"
                             >
@@ -268,7 +268,7 @@
                                 {{trans('vacancies','edit')}}
                             </a>
                             <!-- скопировать -->
-                            <a class="dropdown-item" href="#"
+                            <a class="dropdown-item" href="javascript:void(0)"
                                @click="duplicateResume($event, resume.id)"
                             >
                                 {{trans('vacancies','copy')}}

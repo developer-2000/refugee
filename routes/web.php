@@ -13,6 +13,7 @@ use \App\Http\Controllers\OfferController;
 use \App\Http\Controllers\ResumeController;
 use \App\Http\Controllers\RespondController;
 use \App\Http\Controllers\Auth\AuthorController;
+use \App\Http\Controllers\OfferArchiveController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -96,8 +97,8 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
 
             // архив чатов
             Route::group(['prefix'=>'offers/archive'], function (){
-                Route::get('/', 'OfferArchiveController@index');
-                Route::post('add-message', 'OfferArchiveController@addMessage');
+                Route::get('/', [OfferArchiveController::class, 'index']);
+                Route::post('add-message', [OfferArchiveController::class, 'addMessage']);
                 Route::get('/{alias}', 'OfferArchiveController@show')
                     ->where('alias', '[a-z0-9]+')->name('archive.show');
             });

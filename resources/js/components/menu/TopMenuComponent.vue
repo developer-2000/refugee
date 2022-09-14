@@ -54,7 +54,7 @@
                     </li>
                     <!-- работа -->
                     <li class="nav-item dropdown d-none d-sm-inline-block dropdown-button-menu button-navbar">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
                             {{ trans('menu.menu','work') }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -80,7 +80,7 @@
                     <!-- Language menu -->
                     <li class="nav-item dropdown button-menu button-navbar">
                         <!-- flag -->
-                        <a class="nav-link user-avatar" data-toggle="dropdown" href="#" rel="nofollow">
+                        <a class="nav-link user-avatar" data-toggle="dropdown" href="javascript:void(0)" rel="nofollow">
                             <img :src="this.lang.avatar" class="lang_flag" alt="flag language">
                             <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/></svg>
                         </a>
@@ -101,11 +101,11 @@
                     <li class="nav-item button-menu button-auth"
                         v-if="!user"
                     >
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                        <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
                            @click.prevent="reset_array(0)"
                         > {{ trans('menu.menu','authorization') }} </a>
                         <span>/</span>
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                        <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
                            @click.prevent="reset_array(1)"
                         > {{ trans('menu.menu','registration') }} </a>
                     </li>
@@ -115,7 +115,7 @@
                         v-if="user"
                     >
                         <!-- avatar -->
-                        <a class="nav-link user-avatar" data-toggle="dropdown" href="#" rel="nofollow">
+                        <a class="nav-link user-avatar" data-toggle="dropdown" href="javascript:void(0)" rel="nofollow">
                             <div class="svg-avatar">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fa-primary" d="m272 304-33.1 55.2 33.3 123.9 39.5-161.2c77.2 12 136.3 78.8 136.3 159.4 0 16.9-13.8 30.7-30.7 30.7H30.72C13.75 512 0 498.2 0 481.3c0-80.6 59.09-147.4 136.3-159.4l39.5 161.2 33.3-123.9L176 304h96z"/><path d="M96 128C96 57.31 153.3 0 224 0s128 57.31 128 128c0 70.7-57.3 128-128 128S96 198.7 96 128z" style="opacity:.4"/></svg>
                             </div>

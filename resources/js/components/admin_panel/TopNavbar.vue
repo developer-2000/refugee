@@ -7,7 +7,7 @@
             <li id="left_salaska_button"
                 @click="widthContent()"
                 class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                <a class="nav-link" data-widget="pushmenu" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
 

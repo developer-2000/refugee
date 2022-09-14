@@ -33,4 +33,6 @@ return [
     'message_change_password_email' => 'An email has been sent to the address provided for further action.',
     'link_not_valid' => 'Link is not valid',
     'data_not_correct' => 'The data is incorrect',
+    'new_password' => 'New password',
+
 ];

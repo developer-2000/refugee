@@ -86,7 +86,7 @@
                         <label class="form-check-label">
                             <div class="terms-use">
                                 {{ trans('auth','agree_with_that') }}
-                                <a href="#">{{ trans('auth','terms_use') }}</a> {{ trans('auth','and') }} <a href="#">{{ trans('auth','privacy_policy') }}.</a>
+                                <a href="javascript:void(0)">{{ trans('auth','terms_use') }}</a> {{ trans('auth','and') }} <a href="javascript:void(0)">{{ trans('auth','privacy_policy') }}.</a>
                             </div>
                         </label>
                     </div>
@@ -101,7 +101,7 @@
             </div>
             <div class="footer">
                 <div class="login">
-                    <a href="#" @click="chengeVal(0)">{{ trans('auth','already_have_account') }} ?</a>
+                    <a href="javascript:void(0)" @click="chengeVal(0)">{{ trans('auth','already_have_account') }} ?</a>
                 </div>
             </div>
         </div>
@@ -143,7 +143,7 @@
                 try {
                     this.clearInputValue()
                     $('#authModal').modal('toggle')
-                    const response = await this.$http.post(`/user/registration`, data);
+                    const response = await this.$http.post(this.lang.prefix_lang+"user/registration", data);
                     if(this.checkSuccess(response)){
                         this.message(response.data.message, 'success', 10000, true);
                     }

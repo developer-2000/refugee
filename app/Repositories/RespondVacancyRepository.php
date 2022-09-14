@@ -127,20 +127,23 @@ class RespondVacancyRepository extends CoreRepository {
 
         // 3 отправка Email
         $offer = $this->offerRepository->getOffer($vacancy->user_id, $my_user->id);
-        $respondUserData = User::where("id",$vacancy->user_id)->with("contact")->first();
-        $email_respond = $respondUserData->contact->email;
+
+        $toUserData = User::where("id",$vacancy->user_id)->with("contact")->first();
+        $email_respond = $toUserData->contact->email;
         if(is_null($email_respond)){
-            $email_respond = $respondUserData->email;
+            $email_respond = $toUserData->email;
         }
 
         RespondVacancyResumeJob::dispatch([
-            "email_respond"=>$email_respond,
-            "full_name_person_write"=>$my_user->contact->full_name,
-            "chat_title"=>$offer->chat[0]['title_chat'],
-            "chat_link"=>session('prefix_lang')."offers/".$offer->alias,
-            "offer_document_title"=>$message['my_offer_title'],
-            "offer_document_link"=>session('prefix_lang').$message['my_offer_url'],
-            "chat_text"=>$message['covering_letter'],
+            "email_respond"=>$email_respond,                                  // кому отправить
+            "full_name_person_write"=>$my_user->contact->full_name,           // от кого письмо
+            "chat_title"=>$offer->chat[0]['title_chat'],                      // название чата
+            "chat_link"=>session('prefix_lang')."offers/".$offer->alias, // ссылка чата
+            "offer_document_title"=>$message['my_offer_title'],               // название документа
+            // если документ сайта или .doc                                   // ссылка документа
+            "offer_document_link"=> (strripos($message['my_offer_url'], 'files') !== false) ?
+                "/".$message['my_offer_url'] : session('prefix_lang').$message['my_offer_url'],
+            "chat_text"=>$message['covering_letter'],                         // сообщение чата
         ])->onQueue('emails');
 
         return $respond;

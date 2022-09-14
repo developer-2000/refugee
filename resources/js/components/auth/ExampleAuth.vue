@@ -53,10 +53,10 @@
             </div>
             <div class="footer">
                 <div class="sign">
-                    <a href="#" @click="chengeVal(1)">{{ trans('auth','not_registered') }} ?</a>
+                    <a href="javascript:void(0)" @click="chengeVal(1)">{{ trans('auth','not_registered') }} ?</a>
                 </div>
                 <div class="resp_pass">
-                    <a href="#" @click="chengeVal(2)">{{ trans('auth','forgot_your_password') }} ?</a>
+                    <a href="javascript:void(0)" @click="chengeVal(2)">{{ trans('auth','forgot_your_password') }} ?</a>
                 </div>
             </div>
         </div>

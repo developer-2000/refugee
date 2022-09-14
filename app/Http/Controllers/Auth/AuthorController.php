@@ -9,6 +9,9 @@ use App\Http\Requests\Auth\SendCodeChangePasswordRequest;
 use App\Http\Requests\Auth\CheckEmailRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Jobs\ChangePasswordUserJob;
+use App\Jobs\RegistrationUserJob;
+use App\Jobs\RespondVacancyResumeJob;
 use App\Jobs\SendActivateAccount;
 use App\Jobs\SendFeedbackMessage;
 use App\Model\Code;
@@ -41,24 +44,31 @@ class AuthorController extends BaseController {
         return $this->getErrorResponse(__('auth.data_not_correct'));
     }
 
-    /**
+    /** lotokvest@gmail.com
      * @param  RegisterRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(RegisterRequest $request) {
-
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
         UserContact::create([
             'user_id'=>$user->id,
             'name'=>$request->first_name,
             'surname'=>$request->last_name,
         ]);
 
-        $this->sendCodeEmail($request, 'id='.$user->id.'&', $user->id, 'Registration');
+        // Генерируем ссылку и отправляем письмо на указанный адрес
+        $generate = uniqid();
+        Code::create([ 'user_id' => $user->id, 'code' => $generate ]);
+        $url = url(session('prefix_lang'))."/user/activate?id=".$user->id."&code=".$generate;
+
+        RegistrationUserJob::dispatch([
+            "url"=>$url,
+            "email"=>$request->email,
+            "title_subject"=>__('email.registration'),
+        ])->onQueue('emails');
 
         return $this->getResponse(__('auth.message_change_password_email'));
     }
@@ -113,10 +123,19 @@ class AuthorController extends BaseController {
      * @param  SendCodeChangePasswordRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sendCodeForChangePassword(SendCodeChangePasswordRequest $request)
-    {
+    public function sendCodeForChangePassword(SendCodeChangePasswordRequest $request) {
         Auth::logout();
-        $this->sendCodeEmail($request, '', null, 'Change Password', $request->email);
+
+        // Генерируем ссылку и отправляем письмо на указанный адрес
+        $generate = uniqid();
+        Code::create([ 'code' => $generate, 'email' => $request->email ]);
+        $url = url(session('prefix_lang'))."/user/view-change-password?code=".$generate;
+
+        ChangePasswordUserJob::dispatch([
+            "url"=>$url,
+            "email"=>$request->email,
+            "title_subject"=>__('email.password_change'),
+        ])->onQueue('emails');
 
         return $this->getResponse(__('auth.message_change_password_email'));
     }
@@ -155,29 +174,6 @@ class AuthorController extends BaseController {
         }
 
         return $this->getErrorResponse(__('auth.link_not_valid'));
-    }
-
-
-    // Private
-    /**
-     * Email присылаетса в случае смены пароля
-     * @param $request
-     * @param $string_user_id
-     * @param $user_id
-     * @param $title_subject
-     * @param  null  $email
-     */
-    private function sendCodeEmail($request, $string_user_id, $user_id, $title_subject, $email = null)
-    {
-        $alias = is_null($email) ? 'activate' : 'view-change-password';
-        $generate = uniqid();
-        Code::create([ 'user_id' => $user_id, 'code' => $generate, 'email' => $email ]);
-        // Генерируем ссылку и отправляем письмо на указанный адрес
-        $url = url(session('prefix_lang'))."/user/".$alias."?".$string_user_id."code=".$generate;
-
-        Mail::send('emails.registration', ['url' => $url], function($message) use ($request, $title_subject) {
-            $message->to($request->email)->subject($title_subject);
-        });
     }
 
 }
