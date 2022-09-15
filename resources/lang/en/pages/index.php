@@ -30,5 +30,8 @@ return [
     "contact_information" => "Contact information",
     "convenient_promotion" => "Convenient promotion",
     "convenient_fast_nice" => "Convenient, fast, nice. Here's how the Social Panel works to send links to your friends about your jobs, resumes, companies.",
+    'feedback' => "Feedback",
+    "if_you_have_questions" => "If you have any questions, suggestions or problems, please contact our support team: ",
+    "communication_with_administration" => "Communication with administration",
 
 ];

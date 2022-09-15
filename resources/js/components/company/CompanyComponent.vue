@@ -409,7 +409,7 @@
 
         .right-site{
             width: 100%;
-            padding: 0 15px;
+            padding: 0 15px 50px;
             &>div{
                 margin-bottom: 40px;
             }

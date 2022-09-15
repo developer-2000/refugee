@@ -2,6 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 
+{{--    <meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
+{{--    <meta name="viewport" content="width=device-width, initial-scale=1">--}}
+{{--    <meta name="viewport" content="width=device-width, user-scalable=no">--}}
+
     {!! \Butschster\Head\Facades\Meta::toHtml() !!}
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('/img/custom/favicon/apple-touch-icon-144x144.png')}}" />
@@ -54,11 +58,11 @@
         link.rel = "stylesheet";
         head.append(link);
     });
-    $(document).ready(function(){
-        // setTimeout(function(){
-            $('body').css('opacity','1');
-        // }, 400);
-    });
+    // $(document).ready(function(){
+    //     // setTimeout(function(){
+    //         $('body').css('opacity','1');
+    //     // }, 400);
+    // });
 </script>
 
     <div id="app">

@@ -1,5 +1,5 @@
 html, body {
-    background-color: #E5E5E5;
+    /*background-color: #E5E5E5;*/
     color: #444;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
@@ -7,7 +7,7 @@ html, body {
     margin: 0;
 }
 body {
-    opacity: 0;
+    /*opacity: 0;*/
 }
 dl, ol, ul {
     margin: 0px;
@@ -32,7 +32,7 @@ svg{
     width: 17px;
 }
 nav.mt-2{
-    margin-top: 25px !important;
+    margin-top: 70px !important;
 }
 .content-wrapper{
     transition: margin-left .3s ease-in-out;

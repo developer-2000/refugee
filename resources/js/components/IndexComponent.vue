@@ -7,18 +7,15 @@
             </h1>
 
             <div class="box-flags">
-                <a :href="`${lang.prefix_lang}vacancy`" class="flag">
+                <a :href="`${lang.prefix_lang}vacancy`" class="flag european-flag">
                     <b>
                         {{trans('pages.index','find_job')}}
                     </b>
-                    <img alt="european flag" src="/img/custom/european flag.jpg">
                 </a>
-
-                <a :href="`${lang.prefix_lang}resume`" class="flag">
+                <a :href="`${lang.prefix_lang}resume`" class="flag ukraine-flag">
                     <b>
                         {{trans('pages.index','find_employee')}}
                     </b>
-                    <img alt="ukrainian flag" src="/img/custom/ukrainian flag.jpg">
                 </a>
             </div>
 
@@ -180,6 +177,24 @@
                 </div>
             </div>
 
+            <div class="start-block">
+                <div class="start-content four-content">
+                    <div class="right-column">
+
+                        <h3>
+                            {{trans('pages.index','communication_with_administration')}}
+                        </h3>
+                        <p>
+                            {{trans('pages.index','if_you_have_questions')}}
+                            <a :href="lang.prefix_lang+'feedback'" rel="nofollow">
+                                {{trans('pages.index','feedback')}}
+                            </a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -285,6 +300,9 @@
             &:nth-child(5)::after {
                 background: url("/img/custom/number5.png") no-repeat;
             }
+            &:nth-child(6)::after {
+                background: url("/img/custom/number6.png") no-repeat;
+            }
             &:nth-child(2n+1) .start-content::after {
                 left: 50%;
                 -webkit-transform: translate(-100%, 13px);
@@ -381,36 +399,38 @@
     .box-flags{
         text-align: center;
         margin: 25px 0;
-
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
         justify-content: center;
-        align-content: center;
-        align-items: center;
         .flag{
+            width: 200px;
+            height: 95px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: center;
             margin: 0 15px;
-            position: relative;
-            display: inline-block;
             b{
                 display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
                 justify-content: center;
-                align-content: flex-start;
                 align-items: center;
-
-                position: absolute;
-                bottom: 0px;
-                width: 100%;
-                background: rgba(255 255 255 / 0.8);
+                background: rgba(255, 255, 255, 0.7);
                 color: #444;
-                height: 50%;
+                height: 37%;
+                width: 86%;
+                margin-bottom: 12px;
+                line-height: 15px;
             }
             img{
                 width: 100%;
                 max-width: 200px;
             }
+        }
+        .european-flag{
+            background-image: url("/img/custom/european-flag.png");
+        }
+        .ukraine-flag{
+            background-image: url("/img/custom/ukrainian-flag.png");
         }
     }
     .bottom-search{
@@ -540,6 +560,20 @@
         }
         .box-page h2 {
             font-size: 22px;
+        }
+    }
+
+    @media (max-width: 486px) {
+        .box-flags{
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: center;
+            .european-flag{
+                margin: 0 0 15px;
+            }
+            .ukraine-flag{
+                margin: 0;
+            }
         }
     }
 
