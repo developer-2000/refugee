@@ -65,8 +65,6 @@
 <!--                            </a>-->
 <!--                        </li>-->
 
-
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -86,30 +84,27 @@
             return { }
         },
         methods: {
+            // подсвечивает ранее выбранное меню
             openNavBar(){
                 let url = window.location
-                // выбрать раздвежные меню
-                let allLinks = document.querySelectorAll('.has-treeview')
-                const currentLink = [...allLinks].filter(e => {
-                    return e.baseURI == url.href; // baseURI содержит текущий url
-                });
-                // 1 раскрыть родительский список
-                if (currentLink.length) {
-                    currentLink[0].classList.add("menu-is-opening", "menu-open")
-                }
-                // 2 подсветка таргет линк дочерний
-                let not_query = this.urlNotQuery()
-                let iter = 0
-                $(currentLink[0]).find('a').each(function()  {
-                    url = this.href.split('?')
-                    // проскочить первый url родительский (он всегда равен url в строке)
-                    if(iter > 0){
-                        if(url[0] === not_query){
-                            this.classList.add("nav-link-hover")
+                // все раздвежные меню
+                let slidingMenus = document.querySelectorAll('.has-treeview')
+                const arrElements = Array.from(slidingMenus);
+
+                // у дочерних A тегов href
+                arrElements.forEach(parent => {
+                    let aTags = $(parent).children("ul").children("li").children("a")
+                    aTags = Array.from(aTags);
+
+                    aTags.forEach(a => {
+                        if(url.href.indexOf($(a).attr("href")) !== -1){
+                            parent.classList.add("menu-is-opening", "menu-open")
+                            a.classList.add("nav-link-hover")
+                            return false
                         }
-                    }
-                    iter++
+                    });
                 });
+
             }
         },
         props: [

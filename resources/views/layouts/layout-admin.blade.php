@@ -52,6 +52,7 @@
         link.rel = "stylesheet";
         head.append(link);
     });
+
     // $(document).ready(function(){
     //     setTimeout(function(){
     //         $('body').css('opacity','1');
