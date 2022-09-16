@@ -37,9 +37,10 @@ class CreateVacanciesTable extends Migration
             $table->text('text_working')->nullable()->default(null)->comment('условия работы');
             $table->text('text_responsibilities')->nullable()->default(null)->comment('обязанности работника');
             $table->tinyInteger('how_respond')->index()->default(0)->comment('как откликнуться');
-            $table->string('job_posting')->nullable()->default(null)->comment('статус вакансии - стандарт, скрытая');
             $table->string('alias', 100)->unique()->comment('url вакансии');
-            $table->boolean('published')->default(false)->comment('опубликованность');
+            $table->string('job_posting')->nullable()->default(null)->comment('статус вакансии - стандарт, скрытая');
+            $table->boolean('published')->default(false)->comment('доступ к показам');
+            $table->boolean('check_admin')->default(false)->comment('проверен админом');
             $table->timestamps();
         });
 

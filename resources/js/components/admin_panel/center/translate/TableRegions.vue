@@ -1,5 +1,5 @@
 <template>
-    <div id="table_regions">
+    <div id="table_page">
 
         <!-- input для замены -->
         <div class="box-change-value">
@@ -42,36 +42,36 @@
                                     {{response.lang_arr[prefix][3].title}}
                                 </button>
 
-                                <!-- префиксы стран -->
-                                <div class="form-group">
-                                    <select class="form-control" id="prefix_country"
-                                            @change="selectCountry($event, '/admin-panel/translate-regions')"
-                                    >
-                                        <option selected :value="null"> Префиксы стран </option>
-                                        <template v-for="(value, key) in response.prefix_counties">
-                                            <!-- в случае обновления страницы -->
-                                            <option v-if="value == country" :value="value" :key="key" selected>
-                                                {{value}}
-                                            </option>
-                                            <option v-else :value="value" :key="key">
-                                                {{value}}
-                                            </option>
-                                        </template>
-                                    </select>
-                                </div>
-
                             </div>
 
                             <!-- body -->
-                            <div class="card-body">
+                            <div class="row card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th class="col-1">префикс</th>
-                                        <th class="col-2">error свойства перевода</th>
-                                        <th class="col-3">свойство локации</th>
-                                        <th class="col-3">свойство в переводе</th>
-                                        <th class="col-3">перевод</th>
+                                        <th class="col-sm-2">
+                                            <!-- префиксы стран -->
+                                            <div class="form-group">
+                                                <select class="form-control" id="prefix_country"
+                                                        @change="selectCountry($event, '/admin-panel/translate-regions')"
+                                                >
+                                                    <option selected :value="null"> Префиксы стран </option>
+                                                    <template v-for="(value, key) in response.prefix_counties">
+                                                        <!-- в случае обновления страницы -->
+                                                        <option v-if="value == country" :value="value" :key="key" selected>
+                                                            {{value}}
+                                                        </option>
+                                                        <option v-else :value="value" :key="key">
+                                                            {{value}}
+                                                        </option>
+                                                    </template>
+                                                </select>
+                                            </div>
+                                        </th>
+                                        <th class="col-sm-2">error свойства перевода</th>
+                                        <th class="col-sm-2">свойство локации</th>
+                                        <th class="col-sm-2">свойство в переводе</th>
+                                        <th class="col-sm-2">перевод</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -62,11 +62,12 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                     'text_description' => $faker->realText(rand(200, 500)),
                     'text_working' => $faker->realText(rand(200, 500)),
                     'text_responsibilities' => $faker->realText(rand(200, 500)),
-                    'job_posting' => '{"status_name":"standard","create_time":"2022-06-21T19:50:32.955150Z"}',
                     'alias' => sha1(time()),
                     'vacancy_suitable' => '{"inputs":{"to":60,"from":18},"comment":null,"radio_name":"it_not_matter"}',
                     'how_respond' => 0,
+                    'job_posting' => '{"status_name":"standard","create_time":"2022-06-21T19:50:32.955150Z"}',
                     'published' => 1,
+                    'check_admin' => 1,
                     'created_at' => $createdAt,
                     'updated_at' => $createdAt,
                 ];

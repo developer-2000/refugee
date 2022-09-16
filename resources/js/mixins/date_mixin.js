@@ -4,17 +4,6 @@ var moment = require('moment');
 export default {
 
     data() {
-// 'Января',
-// 'Февраля',
-// 'Марта',
-// 'Апреля',
-// 'Мая',
-// 'Июня',
-// 'Июля',
-// 'Августа',
-// 'Сентября',
-// 'Ноября',
-// 'Декабря'
         return {
             moment: moment,
             nameMonth: [
@@ -142,7 +131,7 @@ export default {
             let str = new Date(date);
             const num_month = str.getUTCMonth()
 
-            return str.getDate()+" "+this.nameMonth[num_month]+" "+str.getFullYear()
+            return str.getDate()+" "+this.trans('details.date_mixin','name_month')[num_month]+" "+str.getFullYear()
         },
     },
 

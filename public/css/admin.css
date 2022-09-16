@@ -190,7 +190,7 @@ div.modal-backdrop {
 }
 
 /* table regions */
-#table_regions .pagination {
+#table_page .pagination {
     padding-bottom: 35px;
 }
 .form-group {
@@ -207,8 +207,40 @@ div.modal-backdrop {
     fill: #033fb3;
 }
 
-
-
+.btn-outline-primary path{
+    fill: #3490dc;
+}
+.btn-outline-success path{
+    fill: #38c172;
+}
+.btn-outline-danger path{
+    fill: #e3342f;
+}
+.btn-primary path,
+.btn-danger path,
+.btn-success path{
+    fill: white;
+}
+.btn-warning {
+    color: #1f2d3d;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    box-shadow: none;
+}
+.btn-warning:hover {
+    color: #1f2d3d;
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+.btn-outline-warning:hover {
+    color: #1f2d3d;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
 
 
 

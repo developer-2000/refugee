@@ -5,6 +5,7 @@ use \App\Http\Controllers\Admin\Translate\AdminTranslateCountryController;
 use \App\Http\Controllers\Admin\Translate\AdminTranslateRegionsController;
 use \App\Http\Controllers\Admin\Translate\AdminTranslateCitiesController;
 use \App\Http\Controllers\Admin\AdminController;
+use \App\Http\Controllers\Admin\Documents\AdminVacanciesController;
 
 //->middleware('auth:api')
 
@@ -21,6 +22,7 @@ Route::namespace('Admin')->group( function () {
 
     // только admin
     Route::group(['middleware' => ['only_admin']], function () {
+        // translate location
         Route::namespace('Translate')->group( function () {
             Route::get('translate-countries', [AdminTranslateCountryController::class, 'index']);
             Route::post('translate-countries/update', [AdminTranslateCountryController::class, 'update']);
@@ -28,6 +30,10 @@ Route::namespace('Admin')->group( function () {
             Route::post('translate-regions/update', [AdminTranslateRegionsController::class, 'update']);
             Route::get('translate-cities', [AdminTranslateCitiesController::class, 'index']);
             Route::post('translate-cities/update', [AdminTranslateCitiesController::class, 'update']);
+        });
+
+        Route::namespace('Documents')->group( function () {
+            Route::get('vacancies', [AdminVacanciesController::class, 'index']);
         });
     });
 

@@ -53,7 +53,9 @@
                         >
                             <!-- time -->
                             <div class="box-time-left">
-                                <span class="direct-chat-timestamp">{{chat.date_create}}</span>
+                                <span class="direct-chat-timestamp">
+                                    {{getDateString(chat.date_create)}}
+                                </span>
                             </div>
                             <!-- message -->
                             <div class="direct-chat-text">
@@ -95,10 +97,10 @@
                                           class="info-tooltip" data-placement="top" data-toggle="tooltip" data-trigger="hover"
                                           :title="trans('pages.offer','delete_message')"
                                     >
-                                    <svg @click="deleteElement(key)"
+                                        <svg @click="deleteElement(key)"
                                          class="delete-svg right-message link-svg"
                                          viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M424 80h-74.38l-34-56.75C306.9 8.875 291.3 0 274.4 0H173.6c-16.88 0-32.5 8.875-41.25 23.25L98.38 80H24C10.75 80 0 90.74 0 104c0 13.3 10.75 24 24 24h8l21.21 339c1.5 25.3 22.52 45 47.89 45h245.8c25.38 0 46.4-19.75 47.9-45L416 128h8c13.3 0 24-10.7 24-24 0-13.26-10.7-24-24-24zM173.6 48h100.8l19.25 32H154.4l19.2-32zm173.3 416H101.1L80.13 128h287.8L346.9 464zM143 384.1c9.373 9.371 24.56 9.379 33.94 0l47.03-47.03L271 384.1c9.373 9.371 24.56 9.379 33.94 0 9.375-9.375 9.375-24.56 0-33.94L257.9 304l47.03-47.03c9.375-9.375 9.375-24.56 0-33.94s-24.56-9.375-33.94 0l-47.03 47.03L176.1 223c-9.375-9.375-24.56-9.375-33.94 0s-9.375 24.56 0 33.94L190.1 304l-47.03 47.03c-9.37 9.37-9.37 24.57-.07 33.07z"/></svg>
-                                </span>
+                                    </span>
                                     <!-- update message -->
                                     <span v-if="chat.your_viewing === 0 && chat.important_message === 0"
                                           class="info-tooltip" data-placement="top" data-toggle="tooltip" data-trigger="hover"
@@ -111,7 +113,7 @@
                                 </template>
                                 <!-- time -->
                                 <span class="direct-chat-timestamp right-message">
-                                    {{chat.date_create}}
+                                    {{getDateString(chat.date_create)}}
                                 </span>
                             </div>
                             <!-- message -->
@@ -194,12 +196,14 @@
     import offer_contact_list from "../details/OfferContactListComponent";
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
+    import date_mixin from "../../mixins/date_mixin";
 
     export default {
         mixins: [
             translation,
             response_methods_mixin,
             general_functions_mixin,
+            date_mixin
         ],
         components: {
             'offer_contact_list': offer_contact_list

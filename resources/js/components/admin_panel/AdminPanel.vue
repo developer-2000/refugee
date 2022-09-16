@@ -3,6 +3,7 @@
         <!-- динамически подгружает переданный компонент -->
         <component
             v-bind:is="insertName()"
+            :lang="lang"
             :response="response"
         ></component>
 
@@ -15,6 +16,7 @@
     import table_countries from './center/translate/TableCountries.vue'
     import table_regions from './center/translate/TableRegions.vue'
     import table_cities from './center/translate/TableCities.vue'
+    import table_vacancies from './center/documents/TableVacancies.vue'
 
     export default {
         components: {
@@ -22,6 +24,7 @@
             'table-countries': table_countries,
             'table-regions': table_regions,
             'table_cities': table_cities,
+            'table_vacancies': table_vacancies,
         },
         data() {
             return {
@@ -30,6 +33,7 @@
                     'translate-countries':'table-countries',
                     'translate-regions':'table-regions',
                     'translate-cities':'table_cities',
+                    'vacancies':'table_vacancies',
                 },
             }
         },
@@ -41,10 +45,10 @@
                     // передаю либо имя стартового компонента либо по url имени
                     return (url === '') ? this.arrayCom.index : this.arrayCom[(url.slice(url.indexOf('/')+1))];
                 }
-
             }
         },
         props: [
+            'lang',
             'response',
         ],
         mounted() {},
@@ -52,9 +56,6 @@
 </script>
 
 <style scoped>
-
-
-
 
 </style>
 

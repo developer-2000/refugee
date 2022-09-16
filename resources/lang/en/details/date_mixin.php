@@ -9,5 +9,18 @@ return [
         "minute" => [ "minute", "minutes", "minutes" ],
         "second" => [ "second", "seconds", "seconds" ],
     ],
+    'name_month' => [
+        'January',
+        'February',
+        'Martha',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'November',
+        'December'
+    ],
 
 ];
