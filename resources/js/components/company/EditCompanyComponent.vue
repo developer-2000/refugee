@@ -911,6 +911,14 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .desc-helper-italic {
+        font-style: italic;
+        margin: 25px 4px 10px 4px;
+    }
+    .bread-top-cabinet {
+        padding: 10px 0;
+        margin: 0 4px;
+    }
     .input-group-append{
         svg{
             width: 15px;

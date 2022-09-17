@@ -34,6 +34,7 @@ Route::namespace('Admin')->group( function () {
 
         Route::namespace('Documents')->group( function () {
             Route::get('vacancies', [AdminVacanciesController::class, 'index']);
+            Route::post('verified-by-admin', [AdminVacanciesController::class, 'verifiedByAdmin']);
         });
     });
 

@@ -142,6 +142,7 @@
 
         <!-- для других страниц -->
         <template v-if="page !== 'my_vacancies'">
+
             <!-- опыт -->
             <div class="line-div experience">
                 <span class="box-svg">
@@ -151,6 +152,7 @@
                     <b>{{UpperCaseFirstCharacter( trans('vacancies',settings.work_experience[vacancy.experience]) )}}</b>
                 </span>
             </div>
+
             <!-- возраст -->
             <div class="line-div age-vacancy">
             <span class="box-svg">
@@ -178,6 +180,7 @@
                     {{vacancy.vacancy_suitable.comment}}
                 </div>
             </div>
+
             <!-- образование -->
             <div class="line-div education-vacancy">
                 <span class="box-svg">
@@ -200,6 +203,7 @@
 
             <!-- textarea -->
             <div class="box-textarea">
+
                 <template v-if="page == 'show'">
                     <!-- Описание вакансии -->
                     <div class="textarea-vacancy">
@@ -217,6 +221,8 @@
                         <div v-html="vacancy.text_responsibilities"></div>
                     </div>
                 </template>
+
+                <!-- на странице поиска -->
                 <div v-else-if="page == 'search'"
                      class="textarea-vacancy"
                 >
@@ -227,6 +233,7 @@
                         </svg>
                     </div>
                 </div>
+
             </div>
 
         </template>

@@ -488,6 +488,10 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .bread-top-cabinet {
+        padding: 10px 0;
+        margin: 0 3px;
+    }
     .form-group {
         padding: 5px 10px 15px;
         background: #ededed;

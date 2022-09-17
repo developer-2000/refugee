@@ -804,6 +804,9 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+    .top-panel {
+        border: none;
+    }
     .box-inputs{
         margin-top: 15px;
     }

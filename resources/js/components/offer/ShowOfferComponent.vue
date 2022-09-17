@@ -427,10 +427,8 @@
     .box-page{
         padding: 15px 15px 50px;
     }
-
     .bread-top-cabinet{
-        border: none;
-        padding: 20px 15px!important;
+        padding: 20px 6px !important;
     }
     .box-message{
         width: 70%;

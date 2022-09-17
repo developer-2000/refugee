@@ -106,6 +106,7 @@
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
+
     .box-page {
         padding-bottom: 30px;
     }

@@ -18,7 +18,6 @@
             <span class="bread-slash"> | </span>
         </div>
 
-
         <div class="box-inputs">
 
             <!-- первый row -->
@@ -289,10 +288,10 @@
 
                                     <!-- input -->
                                     <div v-else-if="key==2">
-                                        <label for="suitable_commentary">
+                                        <label>
                                             {{trans('vacancies',value)}}
                                         </label>
-                                        <input class="form-control" id="suitable_commentary" maxlength="100" type="text"
+                                        <input class="form-control" id="suitable_commentary1" maxlength="100" type="text"
                                                :placeholder="`${trans('vacancies','data_entry')}`"
                                                v-model="objSuitable.suitable_commentary"
                                         >
@@ -581,36 +580,37 @@
 
             <!-- пятый row -->
             <div class="row">
+
                 <!-- Как можно откликнуться -->
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group height-element">
-                        <label for="how_respond">
-                            {{trans('vacancies','how_can_apply')}}
-                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"
-                                  :title="trans('vacancies','title_how_respond')"
-                            >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>
-                            </span>
-                        </label>
-                        <div id="how_respond">
-                            <div class="icheck-primary"
-                                 v-for="(value, key) in this.settings.how_respond" :key="key"
-                            >
-                                <input type="radio" name="how_respond"
-                                       :id="`how_respond_${key}`"
-                                       :value="`${key}`"
-                                       v-model="how_respond">
-                                <label class="target-label"
-                                    :for="`how_respond_${key}`"
-                                >
-                                    {{trans('vacancies',value)}}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="col-sm-12 col-md-4">-->
+<!--                    <div class="form-group height-element">-->
+<!--                        <label for="how_respond">-->
+<!--                            {{trans('vacancies','how_can_apply')}}-->
+<!--                            <span class="info-tooltip" data-toggle="tooltip" data-trigger="click"-->
+<!--                                  :title="trans('vacancies','title_how_respond')"-->
+<!--                            >-->
+<!--                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM256 336c-18 0-32 14-32 32s13.1 32 32 32c17.1 0 32-14 32-32S273.1 336 256 336zM289.1 128h-51.1C199 128 168 159 168 198c0 13 11 24 24 24s24-11 24-24C216 186 225.1 176 237.1 176h51.1C301.1 176 312 186 312 198c0 8-4 14.1-11 18.1L244 251C236 256 232 264 232 272V288c0 13 11 24 24 24S280 301 280 288V286l45.1-28c21-13 34-36 34-60C360 159 329 128 289.1 128z"/></svg>-->
+<!--                            </span>-->
+<!--                        </label>-->
+<!--                        <div id="how_respond">-->
+<!--                            <div class="icheck-primary"-->
+<!--                                 v-for="(value, key) in this.settings.how_respond" :key="key"-->
+<!--                            >-->
+<!--                                <input type="radio" name="how_respond"-->
+<!--                                       :id="`how_respond_${key}`"-->
+<!--                                       :value="`${key}`"-->
+<!--                                       v-model="how_respond">-->
+<!--                                <label class="target-label"-->
+<!--                                    :for="`how_respond_${key}`"-->
+<!--                                >-->
+<!--                                    {{trans('vacancies',value)}}-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <!-- Размещение вакансии -->
-                <div class="col-sm-12 col-md-4">
+                <div class="col-sm-12">
                     <div class="form-group height-element">
                         <label for="job_posting">
                             {{trans('vacancies','posting_job')}}
@@ -951,6 +951,10 @@
 <style scoped lang="scss">
     @import "../../../sass/variables";
 
+
+    .top-panel {
+        border: none;
+    }
     .box-inputs{
         margin-top: 15px;
     }

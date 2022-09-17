@@ -502,7 +502,6 @@
     }
     .bread-top-cabinet {
         padding: 20px 0;
-        border: none;
     }
     .top-panel > div:first-child {
         display: flex;

@@ -424,8 +424,8 @@
                 top: 0;
                 border-bottom: 1px solid #dee2e6;
                 background-color: #fff;
-                padding: 20px 20px 15px 15px;
-                margin: 0 -15px;
+                padding: 20px 0 15px 15px;
+                margin: 0 -2px 0 -15px;
                 z-index: 15;
                 font-size: 17px;
 

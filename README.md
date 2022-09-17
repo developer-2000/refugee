@@ -1,8 +1,15 @@
+#### перевод страницы Google
+
+встроить google переводчик в сайт
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+googleTranslateElementInit() {      
+    new google.translate.TranslateElement({ layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'id_google_translate_element')        
+},
+
 #### online редактор Email шаблонов
 
 https://my.stripo.email/cabinet/#/template-editor/?projectId=697120&templateId=1582715&type=MY_TEMPLATE
-
-
 
 #### работа с очередями
 
