@@ -24,7 +24,7 @@ class DuplicateResumeRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|exists:user_resumes,id',
+            'id' => 'required|integer|exists:resumes,id',
         ];
     }
 }

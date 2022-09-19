@@ -5,9 +5,9 @@ use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Jobs\RespondVacancyResumeJob;
 use App\Model\RespondVacancy as Model;
+use App\Model\Resume;
 use App\Model\StatisticVacancy;
 use App\Model\User;
-use App\Model\UserResume;
 use App\Model\Vacancy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -51,7 +51,7 @@ class RespondVacancyRepository extends CoreRepository {
                 $path = $this->saveFile($request);
                 $arrUrl = explode("/", $path);
                 // создать запись резюме в базе
-                $resume = UserResume::updateOrCreate(
+                $resume = Resume::updateOrCreate(
                     [ 'user_id' => Auth::user()->id, 'type' => 1 ],
                     [
                         'title' => $arrUrl[count($arrUrl)-1],
@@ -84,7 +84,7 @@ class RespondVacancyRepository extends CoreRepository {
         $vacancy = Vacancy::where('id',$request->vacancy_id)
             ->with('position','country','region','city')->first();
         // мое резюме
-        $resume = UserResume::where('id',$resume_id)
+        $resume = Resume::where('id',$resume_id)
             ->with('position','country','region','city')->first();
 
         // увеличить кол-во откликов
@@ -169,7 +169,7 @@ class RespondVacancyRepository extends CoreRepository {
      * delete папку файла c hdd
      */
     private function deleteFile(){
-        if( $resume = UserResume::where('user_id', Auth::user()->id)->where('type', 1)->first() ){
+        if( $resume = Resume::where('user_id', Auth::user()->id)->where('type', 1)->first() ){
             $arrUrl = explode("/", $resume->url);
             array_pop($arrUrl);
             $url = implode("/", $arrUrl);

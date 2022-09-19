@@ -33,7 +33,7 @@ class ShowResumeRequest extends FormRequest
         return [
             'prefix_c' => 'required|string|min:2|max:50',
             'prefix_r_c' => 'required|string|min:2|max:50',
-            'alias' => 'required|string|exists:user_resumes,alias',
+            'alias' => 'required|string|exists:resumes,alias',
         ];
     }
 }

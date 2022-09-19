@@ -16,7 +16,7 @@ class CreateStatisticResumesTable extends Migration
         Schema::create('statistic_resumes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resume_id');
-            $table->foreign('resume_id')->references('id')->on('user_resumes')->onDelete('cascade');
+            $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade');
 
             $table->tinyInteger('respond')->nullable()->default(0)->comment('отклики');
             $table->timestamps();

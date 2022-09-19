@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
+use App\Model\Resume;
 use App\Model\User;
 use Illuminate\Database\Seeder;
-use App\Model\UserResume;
 use App\Model\Position;
 use Faker\Generator as Faker;
 use App\Model\GeographyLocal;
@@ -73,7 +73,7 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                 ];
 
                 sleep(1);
-                UserResume::insert($data);
+                Resume::insert($data);
             }
 
         }

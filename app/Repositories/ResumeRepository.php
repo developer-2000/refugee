@@ -9,7 +9,7 @@ use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
 use App\Model\UserHideResume;
-use App\Model\UserResume as Model;
+use App\Model\Resume as Model;
 use App\Model\UserSaveResume;
 use App\Model\Vacancy;
 use App\Services\LocalizationService;

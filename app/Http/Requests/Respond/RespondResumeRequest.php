@@ -24,7 +24,7 @@ class RespondResumeRequest extends FormRequest
     public function rules()
     {
         return [
-            'resume_id' => 'required|integer|exists:user_resumes,id',
+            'resume_id' => 'required|integer|exists:resumes,id',
             'vacancy_id' => 'required|integer|exists:vacancies,id',
             'textarea_letter' => 'sometimes|nullable|string',
         ];

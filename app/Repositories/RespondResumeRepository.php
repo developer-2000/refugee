@@ -5,9 +5,9 @@ use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Jobs\RespondVacancyResumeJob;
 use App\Model\RespondResume as Model;
+use App\Model\Resume;
 use App\Model\StatisticResume;
 use App\Model\User;
-use App\Model\UserResume;
 use App\Model\Vacancy;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,7 +31,7 @@ class RespondResumeRepository extends CoreRepository {
         $my_user = Auth::user();
 
         // резюме человека
-        $resume = UserResume::where('id',$request->resume_id)
+        $resume = Resume::where('id',$request->resume_id)
             ->with('position','country','region','city')->first();
         // моя вакансия
         $vacancy = Vacancy::where('id',$request->vacancy_id)

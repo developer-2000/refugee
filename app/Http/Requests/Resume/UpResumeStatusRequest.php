@@ -24,7 +24,7 @@ class UpResumeStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|exists:user_resumes,id',
+            'id' => 'required|integer|exists:resumes,id',
             'index' => 'required|integer|in:0,1',
         ];
     }

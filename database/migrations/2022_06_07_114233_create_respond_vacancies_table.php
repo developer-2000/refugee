@@ -22,7 +22,7 @@ class CreateRespondVacanciesTable extends Migration
             $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
 
             $table->unsignedBigInteger('resume_id');
-            $table->foreign('resume_id')->references('id')->on('user_resumes')->onDelete('cascade');
+            $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade');
 
             $table->unsignedBigInteger('user_vacancy_id');
             $table->foreign('user_vacancy_id')->references('id')->on('users')->onDelete('cascade');

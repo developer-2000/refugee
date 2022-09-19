@@ -30,7 +30,7 @@ class UpdateResumeRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|exists:user_resumes,id',
+            'id' => 'required|integer|exists:resumes,id',
             'position' => 'required|string|max:255',
             'country' => 'required|array',
             'country.*code' => 'string',

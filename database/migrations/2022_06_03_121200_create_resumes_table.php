@@ -4,18 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserResumesTable extends Migration
+class CreateResumesTable extends Migration
 {
     /**
-     * type=0 (site. задействует position_id)
-     * type=1 (file. задействует title, url)
-     *
      * Run the migrations.
+     *
      * @return void
      */
     public function up()
     {
-        Schema::create('user_resumes', function (Blueprint $table) {
+        Schema::create('resumes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -46,12 +44,13 @@ class CreateUserResumesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('user_resumes', function(Blueprint $table)
+        Schema::table('resumes', function(Blueprint $table)
         {
             $table->foreign('country_id')->references('id')->on('geography_locals')->onDelete('cascade');
             $table->foreign('region_id')->references('id')->on('geography_locals')->onDelete('cascade');
             $table->foreign('city_id')->references('id')->on('geography_locals')->onDelete('cascade');
         });
+
     }
 
     /**
@@ -61,6 +60,6 @@ class CreateUserResumesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_resumes');
+        Schema::dropIfExists('resumes');
     }
 }

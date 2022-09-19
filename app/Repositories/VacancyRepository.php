@@ -8,8 +8,8 @@ use App\Model\Offer;
 use App\Model\Position;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
+use App\Model\Resume;
 use App\Model\UserHideVacancy;
-use App\Model\UserResume;
 use App\Model\UserSaveVacancy;
 use App\Model\Vacancy as Model;
 use App\Services\LocalizationService;
@@ -138,7 +138,7 @@ class VacancyRepository extends CoreRepository {
             }
             else{
                 // 3,1 все мои резюме для отклика
-                $respond_data['arr_resume'] = UserResume::where('user_id', $my_user->id)
+                $respond_data['arr_resume'] = Resume::where('user_id', $my_user->id)
                     ->with('position')->get();
             }
         }

@@ -10,6 +10,6 @@ class UserHideResume extends Model
     public $timestamps = false;
 
     public function resume() {
-        return $this->belongsTo(UserResume::class, 'resume_id', 'id');
+        return $this->belongsTo(Resume::class, 'resume_id', 'id');
     }
 }

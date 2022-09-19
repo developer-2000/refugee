@@ -13,8 +13,8 @@ use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Http\Traits\MetaTrait;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
+use App\Model\Resume;
 use App\Model\UserHideResume;
-use App\Model\UserResume;
 use App\Model\UserSaveResume;
 use App\Repositories\ResumeRepository;
 use Illuminate\Support\Facades\Auth;
@@ -69,7 +69,6 @@ class ResumeController extends BaseController {
      * 2 мои вакансии для отклика,
      * 3 владелец документа для ссылки на него
      * 4
-     * @param  UserResume  $resume
      * @param  ShowResumeRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -112,7 +111,7 @@ class ResumeController extends BaseController {
      */
     public function edit(EditResumeRequest $request)
     {
-        $resume = UserResume::where('id', $request->id)
+        $resume = Resume::where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->with('position','country','region','city')
             ->first();
@@ -132,7 +131,7 @@ class ResumeController extends BaseController {
      */
     public function update(UpdateResumeRequest $request)
     {
-        if(!$resume = $this->checkMyDocument($request, new UserResume())){
+        if( !$resume = $this->checkMyDocument($request, new Resume()) ){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
         $update = $this->repository->updateResume($request, $resume->position_id);
@@ -160,7 +159,7 @@ class ResumeController extends BaseController {
     public function upResumeStatus(UpResumeStatusRequest $request)
     {
         $settings = (object) config('site.settings_vacancy');
-        UserResume::where('id', $request->id)
+        Resume::where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->update([
                 'job_posting'=>[
@@ -179,7 +178,7 @@ class ResumeController extends BaseController {
      */
     public function duplicateResume(DuplicateResumeRequest $request)
     {
-        if(!$resume = $this->checkMyDocument($request, new UserResume())){
+        if(!$resume = $this->checkMyDocument($request, new Resume())){
             return $this->getErrorResponse('Not found!');
         }
 
@@ -187,7 +186,7 @@ class ResumeController extends BaseController {
         $resume['alias'] = sha1(time());
         $resume['published'] = 0;
         $resume['job_posting']['status_name'] = 'hidden';
-        UserResume::create($resume);
+        Resume::create($resume);
 
         return $this->getResponse();
     }

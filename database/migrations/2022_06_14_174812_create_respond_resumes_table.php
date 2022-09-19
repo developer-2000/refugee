@@ -19,7 +19,7 @@ class CreateRespondResumesTable extends Migration
         Schema::create('respond_resumes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resume_id');
-            $table->foreign('resume_id')->references('id')->on('user_resumes')->onDelete('cascade');
+            $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade');
 
             $table->unsignedBigInteger('vacancy_id');
             $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');

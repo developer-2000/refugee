@@ -26,9 +26,9 @@ class RespondVacancyRequest extends FormRequest
         return [
             'vacancy_id' => 'required|integer|exists:vacancies,id',
             'bool_tab' => 'required|integer|in:0,1',
-            'resume_id' => 'sometimes|nullable|integer|exists:user_resumes,id',
+            'resume_id' => 'sometimes|nullable|integer|exists:resumes,id',
             'textarea_letter' => 'sometimes|nullable|string',
-            'old_file_id' => 'sometimes|nullable|integer|exists:user_resumes,id',
+            'old_file_id' => 'sometimes|nullable|integer|exists:resumes,id',
             'new_file' => 'sometimes|nullable|file|mimes:pdf,docx,doc,txt|max:2058',
         ];
     }

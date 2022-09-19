@@ -2,12 +2,15 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class UserResume extends Model
+class Resume extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
     protected $casts = [
         'categories' => 'array',
@@ -73,5 +76,6 @@ class UserResume extends Model
     public function city() {
         return $this->belongsTo(GeographyLocal::class, 'city_id', 'id');
     }
+
 
 }
