@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResumeStatisticsTable extends Migration
+class CreateStatisticVacanciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateResumeStatisticsTable extends Migration
      */
     public function up()
     {
-        Schema::create('resume_statistics', function (Blueprint $table) {
+        Schema::create('statistic_vacancies', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('resume_id');
-            $table->foreign('resume_id')->references('id')->on('user_resumes')->onDelete('cascade');
+            $table->unsignedBigInteger('vacancy_id');
+            $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
 
             $table->tinyInteger('respond')->nullable()->default(0)->comment('отклики');
-
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateResumeStatisticsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resume_statistics');
+        Schema::dropIfExists('statistic_vacancies');
     }
 }

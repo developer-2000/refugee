@@ -5,9 +5,9 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VacancyStatistic extends Model
+class StatisticResume extends Model
 {
-    //    use HasFactory;
+    use HasFactory;
 
     protected $guarded = [];
 }

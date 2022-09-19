@@ -4,13 +4,11 @@ namespace App\Repositories;
 use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Jobs\RespondVacancyResumeJob;
-use App\Jobs\SendActivateAccount;
 use App\Model\RespondVacancy as Model;
-use App\Model\ResumeStatistic;
+use App\Model\StatisticVacancy;
 use App\Model\User;
 use App\Model\UserResume;
 use App\Model\Vacancy;
-use App\Model\VacancyStatistic;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -90,7 +88,7 @@ class RespondVacancyRepository extends CoreRepository {
             ->with('position','country','region','city')->first();
 
         // увеличить кол-во откликов
-        $statistic = VacancyStatistic::firstOrCreate([
+        $statistic = StatisticVacancy::firstOrCreate([
             'vacancy_id' => $request->vacancy_id
         ]);
         $statistic->increment('respond');

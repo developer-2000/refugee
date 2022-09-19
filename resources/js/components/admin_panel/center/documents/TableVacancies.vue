@@ -394,7 +394,7 @@
 <style scoped lang="scss">
 
     .important{
-        background: #e4fbff;
+        background: #d1eaff;
         padding: 2px 5px;
     }
     .value-element{
@@ -416,8 +416,8 @@
     .box-element-vacancy{
         text-align: left;
         outline: 1px solid #dee2e6;
-        border-left: 1px solid #00abff;
-        border-right: 1px solid #00abff;
+        border-left: 1px solid #3490dc;
+        border-right: 1px solid #3490dc;
         padding: 10px;
         .title-element-vacancy{
             margin-bottom: 10px;
@@ -429,7 +429,7 @@
         margin: 0;
     }
     .target-border{
-        outline: 1px solid red;
+        outline: 1px solid #3490dc;
         margin: 2px 1px;
     }
     #main-table{

@@ -47,7 +47,7 @@ class UserResume extends Model
     }
 
     public function statistic() {
-        return $this->hasOne(ResumeStatistic::class, 'resume_id', 'id');
+        return $this->hasOne(StatisticResume::class, 'resume_id', 'id');
     }
 
     public function id_saved_resumes() {

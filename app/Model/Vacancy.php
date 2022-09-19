@@ -101,6 +101,6 @@ class Vacancy extends Model
     }
 
     public function statistic() {
-        return $this->hasOne(VacancyStatistic::class, 'vacancy_id', 'id');
+        return $this->hasOne(StatisticVacancy::class, 'vacancy_id', 'id');
     }
 }

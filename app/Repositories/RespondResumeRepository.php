@@ -5,7 +5,7 @@ use App\Http\Traits\DateTrait;
 use App\Http\Traits\RespondTraite;
 use App\Jobs\RespondVacancyResumeJob;
 use App\Model\RespondResume as Model;
-use App\Model\ResumeStatistic;
+use App\Model\StatisticResume;
 use App\Model\User;
 use App\Model\UserResume;
 use App\Model\Vacancy;
@@ -38,7 +38,7 @@ class RespondResumeRepository extends CoreRepository {
             ->with('position','country','region','city')->first();
 
         // увеличить кол-во откликов
-        $statistic = ResumeStatistic::firstOrCreate([
+        $statistic = StatisticResume::firstOrCreate([
             'resume_id' => $request->resume_id
         ]);
         $statistic->increment('respond');
