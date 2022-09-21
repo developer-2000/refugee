@@ -67,7 +67,7 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                     'how_respond' => 0,
                     'job_posting' => '{"status_name":"standard","create_time":"2022-06-21T19:50:32.955150Z"}',
                     'published' => 1,
-                    'check_admin' => 1,
+                    'check_admin' => 0,
                     'created_at' => $createdAt,
                     'updated_at' => $createdAt,
                 ];

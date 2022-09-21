@@ -18,7 +18,10 @@ class CreateStatisticVacanciesTable extends Migration
             $table->unsignedBigInteger('vacancy_id');
             $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
 
-            $table->tinyInteger('respond')->nullable()->default(0)->comment('отклики');
+            $table->mediumInteger('respond')->nullable()->default(0)->comment('отклики');
+            $table->mediumInteger('show')->nullable()->default(0)->comment('показы');
+            $table->mediumInteger('update')->nullable()->default(0)->comment('обновления документа');
+            $table->mediumInteger('view')->nullable()->default(0)->comment('просмотры документа');
             $table->timestamps();
         });
     }

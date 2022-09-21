@@ -6,6 +6,7 @@ use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Http\Traits\MetaTrait;
+use App\Jobs\Statistics\IncreaseNumberShowJob;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
 use App\Repositories\ContactInformationRepository;
@@ -115,6 +116,12 @@ class CompanyController extends BaseController {
             $vacancies[$key] = $vacancy->except(['city', 'region', 'country']);
         }
         $company['vacancies'] = $vacancies;
+
+        // 3 увеличить кол-во показов вакансий
+        $idVacancies = collect($company['vacancies'])->pluck("id")->toArray();
+        IncreaseNumberShowJob::dispatch([
+            "arr_id_vacancies"=>$idVacancies,
+        ])->onQueue('default');
 
         $this->setMetaShowCompanyPage($company->toArray());
 

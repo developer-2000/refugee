@@ -6,9 +6,9 @@ use App\Http\Traits\RespondTraite;
 use App\Jobs\RespondVacancyResumeJob;
 use App\Model\RespondVacancy as Model;
 use App\Model\Resume;
-use App\Model\StatisticVacancy;
 use App\Model\User;
 use App\Model\Vacancy;
+use App\Services\StatisticVacanciesService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -79,6 +79,7 @@ class RespondVacancyRepository extends CoreRepository {
      */
     private function createRecordDatabase($request, $resume_id){
         $my_user = Auth::user();
+        $statisticService = new StatisticVacanciesService();
 
         // вакансия человека
         $vacancy = Vacancy::where('id',$request->vacancy_id)
@@ -86,13 +87,6 @@ class RespondVacancyRepository extends CoreRepository {
         // мое резюме
         $resume = Resume::where('id',$resume_id)
             ->with('position','country','region','city')->first();
-
-        // увеличить кол-во откликов
-        $statistic = StatisticVacancy::firstOrCreate([
-            'vacancy_id' => $request->vacancy_id
-        ]);
-        $statistic->increment('respond');
-        $statistic->save();
 
         // 1 фиксация отзыва
         $respond = $this->model->create(
@@ -123,7 +117,10 @@ class RespondVacancyRepository extends CoreRepository {
 
         $this->setDataOffer($offer, $message, $my_user->id, $vacancy->user_id, $resume_title);
 
-        // 3 отправка Email
+        // 3 увеличить кол-во откликов
+        $statisticService->increaseNumberRespond($request->vacancy_id);
+
+        // 4 отправка Email
         $offer = $this->offerRepository->getOffer($vacancy->user_id, $my_user->id);
 
         $toUserData = User::where("id",$vacancy->user_id)->with("contact")->first();

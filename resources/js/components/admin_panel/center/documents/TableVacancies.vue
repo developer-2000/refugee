@@ -1,8 +1,6 @@
 <template>
     <div id="table_page">
 
-<!--        <div id="google_translate_element"></div>-->
-
         <!-- Title -->
         <section class="content-header">
             <div class="container-fluid">
@@ -41,18 +39,18 @@
                                         <th class="col-sm-1">включен пользователем</th>
                                         <th class="col-sm-1">допуск к показам</th>
                                         <th class="col-sm-1">проверен админом</th>
-                                        <th class="col-sm-2">создан</th>
-                                        <th class="col-sm-1">меню</th>
+                                        <th class="col-sm-1">создан</th>
+                                        <th class="col-sm-2">меню</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(vacancy, key) in vacancies.data" :key="key">
-                                            <td colspan="7">
+                                            <td colspan="8">
                                                 <div :id="`accordionExample_${key}`" class="accordion" >
                                                     <div class="card">
 
                                                         <!-- Table 2 -->
-                                                        <table class="">
+                                                        <table class="table-document" :id="`table-document_${key}`">
                                                             <tr class="row">
                                                                 <td class="col-sm-1">
                                                                     {{vacancy.id}}
@@ -63,39 +61,41 @@
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${statusView(vacancy.job_posting)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
-
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${accessView(vacancy.published)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${accessView(vacancy.check_admin)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
-                                                                <td class="col-sm-2">
+                                                                <td class="col-sm-1">
                                                                     {{getDateString(vacancy.created_at)}}
                                                                 </td>
                                                                 <!-- button menu -->
-                                                                <td class="col-sm-1">
-                                                                    <div class="btn-group dropleft" :id="`heading_${key}`">
-                                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            Меню
-                                                                        </button>
-                                                                        <div class="dropdown-menu">
-                                                                            <!-- button accordion -->
-                                                                            <a  :data-target="`#collapseOne_${key}`"
-                                                                                :aria-controls="`collapseOne_${key}`"
-                                                                                class="dropdown-item" href="javascript:void(0)"
-                                                                                data-toggle="collapse"  aria-expanded="true"
-                                                                            >
-                                                                                Содержание
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
+                                                                <td class="col-sm-2 box-button">
+
+                                                                    <!-- button accordion -->
+                                                                    <a  :data-target="`#dataDocument_${key}`"
+                                                                        :aria-controls="`dataDocument_${key}`"
+                                                                        class="link-a" href="javascript:void(0)"
+                                                                        data-toggle="collapse"  aria-expanded="true"
+                                                                        @click="elementBorder(`table-document_${key}`)"
+                                                                    >
+                                                                        Содержание
+                                                                    </a>
+                                                                    <a  :data-target="`#statisticDocument_${key}`"
+                                                                        :aria-controls="`statisticDocument_${key}`"
+                                                                        class="link-a" href="javascript:void(0)"
+                                                                        data-toggle="collapse"  aria-expanded="true"
+                                                                        @click="elementBorder(`table-document_${key}`)"
+                                                                    >
+                                                                        Статистика
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                         </table>
-                                                        <!-- accordion -->
-                                                        <div :id="`collapseOne_${key}`"
-                                                             :aria-labelledby="`heading_${key}`"
+
+                                                        <!-- dataDocument Accordion -->
+                                                        <div :id="`dataDocument_${key}`"
                                                              :data-parent="`#accordionExample_${key}`"
                                                              class="collapse">
                                                             <div class="card-body">
@@ -233,17 +233,17 @@
                                                                 <!-- buttons -->
                                                                 <div class="but-box">
                                                                     <button type="submit" class="btn btn-block btn-warning"
-                                                                            @click="cancelDocument(`collapseOne_${key}`)"
+                                                                            @click="cancelDocument(`dataDocument_${key}`)"
                                                                     >
                                                                         Свернуть
                                                                     </button>
                                                                     <button type="submit" class="btn btn-block btn-danger"
-                                                                            @click="verifiedByAdmin(0, vacancy.id, `collapseOne_${key}`)"
+                                                                            @click="verifiedByAdmin(0, vacancy.id, `dataDocument_${key}`)"
                                                                     >
                                                                         Не допустить
                                                                     </button>
                                                                     <button type="submit" class="btn btn-block btn-primary"
-                                                                            @click="verifiedByAdmin(1, vacancy.id, `collapseOne_${key}`)"
+                                                                            @click="verifiedByAdmin(1, vacancy.id, `dataDocument_${key}`)"
                                                                         >
                                                                         Допустить
                                                                     </button>
@@ -252,9 +252,49 @@
                                                             </div>
                                                         </div>
 
+                                                        <!-- statisticDocument Accordion -->
+                                                        <div :id="`statisticDocument_${key}`"
+                                                             :aria-labelledby="`heading_${key}`"
+                                                             :data-parent="`#accordionExample_${key}`"
+                                                             class="collapse">
+                                                            <div class="card-body">
+
+                                                                <!-- Table 3 -->
+                                                                <table class="table-statistic">
+                                                                    <thead>
+                                                                    <tr class="row">
+                                                                        <th class="col-sm-1">user id</th>
+                                                                        <th class="col-sm-1">показы</th>
+                                                                        <th class="col-sm-1">просмотры</th>
+                                                                        <th class="col-sm-1">отклики</th>
+                                                                        <th class="col-sm-8">обновления</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr class="row">
+                                                                            <td class="col-sm-1">{{vacancy.user_id}}</td>
+                                                                            <td class="col-sm-1" v-html="getShow(vacancy.statistic)"></td>
+                                                                            <td class="col-sm-1" v-html="getView(vacancy.statistic)"></td>
+                                                                            <td class="col-sm-1" v-html="getRespond(vacancy.statistic)"></td>
+                                                                            <td class="col-sm-8" v-html="getUpdate(vacancy.statistic)"></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <!-- buttons -->
+                                                                <div class="but-box">
+                                                                    <button type="submit" class="btn btn-block btn-warning"
+                                                                            @click="cancelDocument(`statisticDocument_${key}`)"
+                                                                    >
+                                                                        Свернуть
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -264,9 +304,7 @@
                     </div>
 
                 </div>
-
             </div>
-
         </section>
 
         <pagination
@@ -352,18 +390,19 @@
                 }
                 return this.cssAction[1]
             },
-            elementBorder(){
-                let arrEl = document.querySelectorAll(".dropdown-item")
-                for(let i = 0; i < arrEl.length; i++){
-                    arrEl[i].addEventListener("click", (element)=>{
-                        let borderEl = document.querySelector(".target-border")
-                        if(borderEl !== null){
-                            borderEl.classList.remove('target-border')
-                        }
-                        element.currentTarget.closest("tr").classList.add('target-border')
-                    }, true);
+            elementBorder(table_id){
+
+                let arrTable = document.querySelectorAll(".target-border")
+                for(let i = 0; i < arrTable.length; i++){
+                    arrTable[i].classList.remove('target-border')
+                }
+
+                let targetTable = document.querySelector("#"+table_id)
+                if(targetTable !== null){
+                    targetTable.classList.add('target-border')
                 }
             },
+            // после проверки
             changeObj(vacancy_id, verified){
                 for(let i = 0; i < this.vacancies.data.length; i++){
                     if(this.vacancies.data[i].id === vacancy_id){
@@ -371,7 +410,31 @@
                         this.vacancies.data[i].published = verified
                     }
                 }
-            }
+            },
+            getRespond(statistic){
+                if(statistic !== null){
+                    return statistic.respond
+                }
+                return 0
+            },
+            getShow(statistic){
+                if(statistic !== null){
+                    return statistic.show
+                }
+                return 0
+            },
+            getUpdate(statistic){
+                if(statistic !== null){
+                    return statistic.update
+                }
+                return 0
+            },
+            getView(statistic){
+                if(statistic !== null){
+                    return statistic.view
+                }
+                return 0
+            },
         },
         props: [
             'lang',
@@ -382,11 +445,10 @@
             this.settings = this.response.settings
 
             this.$nextTick(function () {
-                this.elementBorder()
+
             })
 
-
-            // console.log(this.vacancies)
+            console.log(this.vacancies)
         },
     }
 </script>
@@ -430,7 +492,7 @@
     }
     .target-border{
         outline: 1px solid #3490dc;
-        margin: 2px 1px;
+        margin: 2px 1px 0;
     }
     #main-table{
         border: none;
@@ -445,8 +507,6 @@
         td{
             border: none;
             padding: 0;
-
-
         }
         .card{
             border: none;
@@ -466,7 +526,10 @@
                 justify-content: center;
                 align-content: center;
             }
-
+            .box-button{
+                justify-content: flex-start;
+                flex-direction: column;
+            }
         }
         .but-box{
             display: flex;
@@ -490,6 +553,14 @@
     tr td:nth-child(2){
         text-align: left;
     }
+    .table-statistic{
+        width: 100%;
+        margin: 0;
+        border-top: 1px solid #3490dc;
+        border-right: 1px solid #3490dc;
+        border-left: 1px solid #3490dc;
+    }
+
 
 </style>
 

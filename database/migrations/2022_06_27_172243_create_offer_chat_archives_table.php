@@ -24,8 +24,8 @@ class CreateOfferChatArchivesTable extends Migration
             $table->foreign('two_user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->longText('chat')->nullable()->default(null);
-            $table->tinyInteger('one_user_review')->default(0);
-            $table->tinyInteger('two_user_review')->default(0);
+            $table->mediumInteger('one_user_review')->default(0);
+            $table->mediumInteger('two_user_review')->default(0);
             $table->tinyInteger('accepted')->default(0);
             $table->string('alias', 100)->unique()->index();
 

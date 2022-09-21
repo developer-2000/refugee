@@ -9,6 +9,7 @@ use App\Model\Resume;
 use App\Model\StatisticResume;
 use App\Model\User;
 use App\Model\Vacancy;
+use App\Services\StatisticResumesService;
 use Illuminate\Support\Facades\Auth;
 
 class RespondResumeRepository extends CoreRepository {
@@ -29,6 +30,7 @@ class RespondResumeRepository extends CoreRepository {
     public function respondResume($request) {
         $offerRepository = new OfferRepository();
         $my_user = Auth::user();
+        $statisticService = new StatisticResumesService();
 
         // резюме человека
         $resume = Resume::where('id',$request->resume_id)
@@ -36,13 +38,6 @@ class RespondResumeRepository extends CoreRepository {
         // моя вакансия
         $vacancy = Vacancy::where('id',$request->vacancy_id)
             ->with('position','country','region','city')->first();
-
-        // увеличить кол-во откликов
-        $statistic = StatisticResume::firstOrCreate([
-            'resume_id' => $request->resume_id
-        ]);
-        $statistic->increment('respond');
-        $statistic->save();
 
         // 1 фиксация отзыва
         $respond = $this->model->create(
@@ -59,6 +54,7 @@ class RespondResumeRepository extends CoreRepository {
         $resume_url = $resume->type === 0 ? $this->makeFullUrlForDocument($resume, "resume") : $resume->url;
         $vacancy_url = $this->makeFullUrlForDocument($vacancy, "vacancy");
 
+        // 2 обновить или создать offer chat
         $message = config('site.offer.message');
         $message["user_id"] = $my_user->id;
         $message["date_create"] = $this->getNowDate();
@@ -70,10 +66,12 @@ class RespondResumeRepository extends CoreRepository {
         $message["your_offer_url"] = $resume_url;
         $message["covering_letter"] = $request->textarea_letter;
 
-        // 2 обновить или создать offer chat
         $this->setDataOffer($offer, $message, $my_user->id, $resume->user_id, $vacancy->position->title);
 
-        // 3 отправка Email
+        // 3 увеличить кол-во откликов
+        $statisticService->increaseNumberRespond($request->resume_id);
+
+        // 4 отправка Email
         $offer = $offerRepository->getOffer($resume->user_id, $my_user->id);
         $respondUserData = User::where("id",$resume->user_id)->with("contact")->first();
         $email_respond = $respondUserData->contact->email;

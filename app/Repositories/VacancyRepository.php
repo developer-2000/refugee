@@ -248,6 +248,7 @@ class VacancyRepository extends CoreRepository {
                 'status_name'=> $this->settings->job_status[$request->job_posting],
                 'create_time'=>now(),
             ],
+            'check_admin'=>0,
         ];
     }
 

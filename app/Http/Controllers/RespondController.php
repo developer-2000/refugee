@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Respond\RespondResumeRequest;
 use App\Http\Requests\Respond\RespondVacancyRequest;
-use App\Model\RespondResume;
 use App\Repositories\RespondResumeRepository;
 use App\Repositories\RespondVacancyRepository;
 

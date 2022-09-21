@@ -18,7 +18,7 @@ class CreateStatisticResumesTable extends Migration
             $table->unsignedBigInteger('resume_id');
             $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade');
 
-            $table->tinyInteger('respond')->nullable()->default(0)->comment('отклики');
+            $table->mediumInteger('respond')->nullable()->default(0)->comment('отклики');
             $table->timestamps();
         });
     }

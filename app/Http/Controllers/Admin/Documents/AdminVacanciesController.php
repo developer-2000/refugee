@@ -3,9 +3,7 @@ namespace App\Http\Controllers\Admin\Documents;
 
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\Admin\Vacancies\VerifiedByAdminRequest;
-use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
-use App\Http\Traits\Geography\GeographyWorkSeparateEntryTraite;
 use App\Model\Vacancy;
 use App\Services\LocalizationService;
 use Illuminate\Http\Request;
@@ -14,12 +12,9 @@ use Illuminate\Support\Facades\App;
 
 class AdminVacanciesController extends AdminBaseController {
     use GeographyForShowInterfaceTraite;
-//    public function __construct() {
-//        parent::__construct();
-//    }
 
     public function index(){
-        $vacancies = Vacancy::with("position",'country','region','city')
+        $vacancies = Vacancy::with("position", "statistic", 'country','region','city')
             ->paginate(2);
 
         // 3 address
@@ -40,6 +35,11 @@ class AdminVacanciesController extends AdminBaseController {
         return view('admin_panel.admin_panel', compact('response'));
     }
 
+    /**
+     * проверка админом
+     * @param  VerifiedByAdminRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function verifiedByAdmin(VerifiedByAdminRequest $request){
         Vacancy::where('id', $request->vacancy_id)
             ->update([

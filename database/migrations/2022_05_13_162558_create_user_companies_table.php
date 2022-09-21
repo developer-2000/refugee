@@ -38,7 +38,7 @@ class CreateUserCompaniesTable extends Migration
             $table->string('twitter_social', 150)->nullable()->default(null)->comment('акаунт компании');
             $table->string('site_company', 150)->nullable()->default(null);
             // шаблон из \config\site\company.php
-            $table->tinyInteger('count_working_company')->default(0)->comment('количество сотрудников');
+            $table->mediumInteger('count_working_company')->default(0)->comment('количество сотрудников');
             $table->text('about_company')->nullable()->default(null)->comment('описание компании');
             $table->timestamps();
         });

@@ -11,19 +11,18 @@ use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Http\Traits\MetaTrait;
+use App\Jobs\Statistics\IncreaseNumberShowJob;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
+use App\Model\StatisticVacancy;
 use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
-use App\Services\LocalizationService;
-use App\Services\MetaService;
+use App\Services\StatisticVacanciesService;
 use Butschster\Head\Facades\Meta;
 use Butschster\Head\Packages\Entities\OpenGraphPackage;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Jorenvh\Share\ShareFacade;
 
 
@@ -40,11 +39,13 @@ class VacancyController extends BaseController {
     }
 
     public function index(IndexVacancyRequest $request, $country = null, $city = null) {
+
         $my_user = Auth::user();
         $ids_respond = [];
 
         // 1 все не мои вакансии
         $vacancies = $this->repository->index($request, $this->count_pagination);
+
         // 2 выбрать id вакансий на которые я откликнулся или мне предложили (отображение что откликнулся)
         $idVacancies = $vacancies->pluck('id');
         if(!is_null($my_user)){
@@ -57,7 +58,12 @@ class VacancyController extends BaseController {
             $ids_respond = array_merge($ids_respond, $ids_respond2);
         }
 
-        // 3 набор данных по геолокации
+        // 3 увеличить кол-во показов
+        IncreaseNumberShowJob::dispatch([
+            "arr_id_vacancies"=>$idVacancies,
+        ])->onQueue('default');
+
+        // 4 набор данных по геолокации
         $respond = $this->repository->indexRespond($request);
         $respond['vacancies'] = $vacancies;
         $respond['ids_respond'] = $ids_respond;
@@ -80,6 +86,10 @@ class VacancyController extends BaseController {
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
         $arrData['respond']['settings'] = $settings;
+
+        // количество просмотров
+        $statisticService = new StatisticVacanciesService();
+        $statisticService->increaseNumberView($arrData["respond"]["vacancy"]["id"]);
 
         $this->setMetaShowVacancyPage($arrData["respond"]["vacancy"]);
 
@@ -164,12 +174,15 @@ class VacancyController extends BaseController {
      * @param  UpdateVacancyRequest  $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateVacancyRequest $request)
-    {
+    public function update(UpdateVacancyRequest $request) {
         if(!$vacancy = $this->checkMyDocument( $request, new Vacancy() )){
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
         $update = $this->repository->updateVacancy($request, $vacancy->position_id);
+
+        // количество обновлений
+        $statisticService = new StatisticVacanciesService();
+        $statisticService->increaseNumberUpdate($request->id);
 
         return $this->getResponse($update);
     }

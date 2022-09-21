@@ -275,7 +275,7 @@
                 if(companyObj.address.region !== undefined){
                     address_string += ' ' + companyObj.address.region.translate+'.'
                 }
-                if(companyObj.address.city !== null){
+                if(companyObj.address.city !== undefined && companyObj.address.city !== null){
                     address_string += ' ' + companyObj.address.city.translate+'.'
                 }
 
@@ -321,6 +321,7 @@
             'user',
         ],
         mounted() {
+
         },
     }
 </script>
