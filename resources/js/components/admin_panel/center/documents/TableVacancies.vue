@@ -35,11 +35,11 @@
                                     <thead>
                                     <tr class="row">
                                         <th class="col-sm-1"> id </th>
-                                        <th class="col-sm-5">название</th>
+                                        <th class="col-sm-4">название</th>
                                         <th class="col-sm-1">включен пользователем</th>
                                         <th class="col-sm-1">допуск к показам</th>
                                         <th class="col-sm-1">проверен админом</th>
-                                        <th class="col-sm-1">создан</th>
+                                        <th class="col-sm-2">создан</th>
                                         <th class="col-sm-2">меню</th>
                                     </tr>
                                     </thead>
@@ -50,12 +50,12 @@
                                                     <div class="card">
 
                                                         <!-- Table 2 -->
-                                                        <table class="table-document" :id="`table-document_${key}`">
+                                                        <table class="table-document" :id="`table-document_${key}`" :data-index="key">
                                                             <tr class="row">
                                                                 <td class="col-sm-1">
                                                                     {{vacancy.id}}
                                                                 </td>
-                                                                <td class="col-sm-5">
+                                                                <td class="col-sm-4">
                                                                     {{vacancy.position.title}}
                                                                 </td>
                                                                 <td class="col-sm-1">
@@ -67,7 +67,7 @@
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${accessView(vacancy.check_admin)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
-                                                                <td class="col-sm-1">
+                                                                <td class="col-sm-2">
                                                                     {{getDateString(vacancy.created_at)}}
                                                                 </td>
                                                                 <!-- button menu -->
@@ -260,7 +260,7 @@
                                                             <div class="card-body">
 
                                                                 <!-- Table 3 -->
-                                                                <table class="table-statistic">
+                                                                <table class="table-statistic" :id="`table-statistic_${key}`">
                                                                     <thead>
                                                                     <tr class="row">
                                                                         <th class="col-sm-1">user id</th>
@@ -273,10 +273,10 @@
                                                                     <tbody>
                                                                         <tr class="row">
                                                                             <td class="col-sm-1">{{vacancy.user_id}}</td>
-                                                                            <td class="col-sm-1" v-html="getShow(vacancy.statistic)"></td>
-                                                                            <td class="col-sm-1" v-html="getView(vacancy.statistic)"></td>
-                                                                            <td class="col-sm-1" v-html="getRespond(vacancy.statistic)"></td>
-                                                                            <td class="col-sm-8" v-html="getUpdate(vacancy.statistic)"></td>
+                                                                            <td class="col-sm-1">{{vacancy.statistic.show}}</td>
+                                                                            <td class="col-sm-1">{{vacancy.statistic.view}}</td>
+                                                                            <td class="col-sm-1">{{vacancy.statistic.respond}}</td>
+                                                                            <td class="col-sm-8">{{vacancy.statistic.update}}</td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -391,15 +391,23 @@
                 return this.cssAction[1]
             },
             elementBorder(table_id){
-
+                // убрать выдиление везде
                 let arrTable = document.querySelectorAll(".target-border")
                 for(let i = 0; i < arrTable.length; i++){
+                    // parent table
                     arrTable[i].classList.remove('target-border')
+                    // children table
+                    let index = $(arrTable[i]).attr("data-index")
+                    $("#table-statistic_"+index).removeClass('target-border2')
                 }
 
+                // выдилить target table
                 let targetTable = document.querySelector("#"+table_id)
                 if(targetTable !== null){
                     targetTable.classList.add('target-border')
+
+                    let index = $("#"+table_id).attr("data-index")
+                    $("#table-statistic_"+index).addClass('target-border2')
                 }
             },
             // после проверки
@@ -411,30 +419,6 @@
                     }
                 }
             },
-            getRespond(statistic){
-                if(statistic !== null){
-                    return statistic.respond
-                }
-                return 0
-            },
-            getShow(statistic){
-                if(statistic !== null){
-                    return statistic.show
-                }
-                return 0
-            },
-            getUpdate(statistic){
-                if(statistic !== null){
-                    return statistic.update
-                }
-                return 0
-            },
-            getView(statistic){
-                if(statistic !== null){
-                    return statistic.view
-                }
-                return 0
-            },
         },
         props: [
             'lang',
@@ -444,11 +428,9 @@
             this.vacancies = this.response.vacancies
             this.settings = this.response.settings
 
-            this.$nextTick(function () {
+            this.$nextTick(function () {})
 
-            })
-
-            console.log(this.vacancies)
+            // console.log(this.vacancies)
         },
     }
 </script>
@@ -492,7 +474,12 @@
     }
     .target-border{
         outline: 1px solid #3490dc;
-        margin: 2px 1px 0;
+        margin: 2px 1px;
+    }
+    .target-border2{
+        border-top: 1px solid #3490dc;
+        border-right: 1px solid #3490dc;
+        border-left: 1px solid #3490dc;
     }
     #main-table{
         border: none;
@@ -555,10 +542,10 @@
     }
     .table-statistic{
         width: 100%;
-        margin: 0;
-        border-top: 1px solid #3490dc;
-        border-right: 1px solid #3490dc;
-        border-left: 1px solid #3490dc;
+        margin: -2px 0 0;
+        /*border-top: 1px solid #3490dc;*/
+        /*border-right: 1px solid #3490dc;*/
+        /*border-left: 1px solid #3490dc;*/
     }
 
 
