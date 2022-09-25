@@ -4,24 +4,20 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Auth\ActivateAccountRequest;
 use App\Http\Requests\Auth\ChangePasswordRequest;
-use App\Http\Requests\Auth\ViewChangePasswordRequest;
-use App\Http\Requests\Auth\SendCodeChangePasswordRequest;
 use App\Http\Requests\Auth\CheckEmailRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\SendCodeChangePasswordRequest;
+use App\Http\Requests\Auth\ViewChangePasswordRequest;
 use App\Jobs\ChangePasswordUserJob;
 use App\Jobs\RegistrationUserJob;
-use App\Jobs\RespondVacancyResumeJob;
 use App\Jobs\SendActivateAccount;
-use App\Jobs\SendFeedbackMessage;
 use App\Model\Code;
 use App\Model\User;
 use App\Model\UserContact;
 use App\Services\LanguageService;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class AuthorController extends BaseController {
 
@@ -32,13 +28,21 @@ class AuthorController extends BaseController {
     public function login(LoginRequest $request) {
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) {
-            if(Auth::user()->email_verified_at !== null){
-                return $this->getResponse();
+
+            // заблокированный user
+            if (Auth::user()->punished !== 0){
+                return $this->getErrorResponse(__("auth.account_is_blocked"), 404);
             }
-            else{
+            // не активированный user
+            elseif(Auth::user()->email_verified_at === null){
                 Auth::logout();
                 return $this->getErrorResponse(__('auth.not_activation_account'), 404);
             }
+            // активированый user
+            else{
+                return $this->getResponse();
+            }
+
         }
 
         return $this->getErrorResponse(__('auth.data_not_correct'));
@@ -95,22 +99,36 @@ class AuthorController extends BaseController {
      * @param  ActivateAccountRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function activateAccount(ActivateAccountRequest $request)
-    {
-        Code::where('user_id',$request->id)
-            ->where('code',$request->code)
-            ->delete();
-        User::where('id',$request->id)
-            ->update(['email_verified_at'=>now()]);
+    public function activateAccount(ActivateAccountRequest $request) {
 
-        $user = User::find($request->id);
-
-//        if(!Auth::check()){
-            Auth::guard('web')->login($user);
-//        }
-
-        SendActivateAccount::dispatch($user->email)
-            ->onQueue('emails');
+        // существование code верификации
+        if($collCode = Code::where('user_id',$request->id)
+            ->where('code',$request->code)->first()
+        ){
+            // существование указанного user
+            if($user = User::where("id", $request->id)->first()){
+                // user не заблокирован
+                if($user->punished === 0){
+                    $user->email_verified_at = now();
+                    $user->save();
+                     $collCode->delete();
+                    // авторизация user
+                    Auth::guard('web')->login($user);
+                    // отправка уведомления user
+                    SendActivateAccount::dispatch($user->email)
+                        ->onQueue('emails');
+                }
+                else{
+                    return redirect(session('prefix_lang'))->withErrors(['message'=>__("auth.account_is_blocked")]);
+                }
+            }
+            else{
+                return redirect(session('prefix_lang'))->withErrors(['message'=>__("auth.data_not_correct")]);
+            }
+        }
+        else{
+            return redirect(session('prefix_lang'))->withErrors(['message'=>__("auth.account_already_activated")]);
+        }
 
         return redirect(session('prefix_lang'));
     }
@@ -129,20 +147,33 @@ class AuthorController extends BaseController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function sendCodeForChangePassword(SendCodeChangePasswordRequest $request) {
-        Auth::logout();
 
-        // Генерируем ссылку и отправляем письмо на указанный адрес
-        $generate = uniqid();
-        Code::create([ 'code' => $generate, 'email' => $request->email ]);
-        $url = url(session('prefix_lang'))."/user/view-change-password?code=".$generate;
+        // существование указанного user
+        if($user = User::where("email", $request->email)->first()){
+            // user не заблокирован
+            if($user->punished === 0){
+                Auth::logout();
+                // Генерируем ссылку и отправляем письмо на указанный адрес
+                $generate = uniqid();
+                Code::create([ 'code' => $generate, 'email' => $request->email ]);
+                $url = url(session('prefix_lang'))."/user/view-change-password?code=".$generate;
 
-        ChangePasswordUserJob::dispatch([
-            "url"=>$url,
-            "email"=>$request->email,
-            "title_subject"=>__('email.password_change'),
-        ])->onQueue('emails');
+                ChangePasswordUserJob::dispatch([
+                    "url"=>$url,
+                    "email"=>$request->email,
+                    "title_subject"=>__('email.password_change'),
+                ])->onQueue('emails');
 
-        return $this->getResponse(__('auth.message_change_password_email'));
+                return $this->getResponse(__('auth.message_change_password_email'));
+            }
+            else{
+                return $this->getErrorResponse(__("auth.account_is_blocked"));
+            }
+        }
+        else{
+            return $this->getErrorResponse(__("auth.data_not_correct"));
+        }
+
     }
 
     /**

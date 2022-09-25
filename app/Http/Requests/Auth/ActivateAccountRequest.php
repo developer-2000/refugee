@@ -30,8 +30,8 @@ class ActivateAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|exists:users,id',
-            'code' => 'required|string|min:10|max:20|exists:codes,code',
+            'id' => 'required|integer',
+            'code' => 'required|string|min:10|max:20',
         ];
     }
 
@@ -40,12 +40,10 @@ class ActivateAccountRequest extends FormRequest
         return [
             'id.required' => 'Data not valid',
             'id.integer' => 'Data not valid',
-            'id.exists' => 'Data not valid',
             'code.required' => 'Data not valid',
             'code.string' => 'Data not valid',
             'code.min' => 'Data not valid',
             'code.max' => 'Data not valid',
-            'code.exists' => 'Account already activated',
         ];
     }
 }

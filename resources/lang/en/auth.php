@@ -35,4 +35,7 @@ return [
     'data_not_correct' => 'The data is incorrect',
     'new_password' => 'New password',
 
+    'account_already_activated' => "Account is already activated",
+    'account_is_blocked' => "Account blocked",
+
 ];

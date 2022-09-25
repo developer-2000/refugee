@@ -96,7 +96,7 @@
                     password: this.password,
                 };
                 try {
-                    const response = await this.$http.post(`/user/login`, data)
+                    const response = await this.$http.post(this.lang.prefix_lang+`user/login`, data)
                         .then(res => {
                             if(this.checkSuccess(res)){
                                 location.reload()

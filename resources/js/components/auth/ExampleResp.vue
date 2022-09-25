@@ -64,11 +64,15 @@
                     email: this.email,
                 };
                 try {
-                    $('#authModal').modal('toggle')
+                    // $('#authModal').modal('toggle')
                     const response = await this.$http.post(this.lang.prefix_lang+"user/send-code-password", data);
-                    this.clearInputValue()
+                    // this.clearInputValue()
                     if(this.checkSuccess(response)){
                         this.message(response.data.message, 'success', 10000, true);
+                    }
+                    // custom ошибки
+                    else{
+                        this.message(response.data.message, 'error', 10000, true);
                     }
                 } catch (e) {
                     console.log(e);

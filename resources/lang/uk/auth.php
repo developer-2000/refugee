@@ -32,4 +32,7 @@ return [
     'data_not_correct' => 'Дані неправильні',
     'new_password' => 'Новий пароль',
 
+    'account_already_activated' => "Акаунт вже активовано",
+    'account_is_blocked' => "Акаунт заблоковано",
+
 ];
