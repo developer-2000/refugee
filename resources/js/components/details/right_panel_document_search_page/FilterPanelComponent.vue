@@ -38,16 +38,16 @@
                     >
                         <template v-for="(value, index) in respond.categories">
                             <!-- в случае обновления страницы -->
-                            <template v-if="objCategory.categories.indexOf(index) !== -1" >
-                                <option :value="index" :key="index" selected>
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
-                            <template v-else>
-                                <option :value="index" :key="index">
-                                    {{trans('vacancies',value)}}
-                                </option>
-                            </template>
+                            <option v-if="objCategory.categories.indexOf(index) !== -1"
+                                    :value="index" :key="index" selected
+                            >
+                                {{trans('vacancies',value)}}
+                            </option>
+                            <option v-else
+                                    :value="index" :key="index"
+                            >
+                                {{trans('vacancies',value)}}
+                            </option>
                         </template>
                     </select>
                 </div>

@@ -84,22 +84,19 @@
     }
     .modal-body{
         text-align: center;
+        padding: 1rem!important;
     }
     .modal-footer{
         border: none;
-
         display: flex;
-        flex-direction: row;
-        flex-wrap: inherit;
         justify-content: center !important;
-        align-content: center;
-        align-items: center;
-
+        padding-bottom: 20px;
         button{
             width: auto;
+            margin: 0 !important;
         }
         button:nth-child(1){
-            margin-right: 15px;
+            margin-right: 15px !important;
         }
     }
 

@@ -128,6 +128,9 @@ export default {
         },
         // вывести дату в формате - 22 June 2022
         getDateString(date){
+            if(date == null){
+                return "~"
+            }
             let str = new Date(date);
             const num_month = str.getUTCMonth()
 

@@ -111,6 +111,9 @@ th, td{
 thead{
     text-align: center;
 }
+div.modal-backdrop {
+    z-index: 999 !important;
+}
 .modal-footer.justify-content-between{
     justify-content: flex-end!important;
 }
@@ -251,8 +254,25 @@ div.modal-backdrop {
     background-color: #ffc107;
     border-color: #ffc107;
 }
-
-
+.warning-text {
+    color: #d39e00;
+}
+.success-text {
+    color: #1e7e34;
+}
+.image-not-found{
+    height: 200px;
+    width: 100%;
+    background-image: url("/img/custom/string_not_found.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.svg-search{
+    min-width: 17px;
+}
+.search-tr-div{
+    display: flex;
+}
 
 
 

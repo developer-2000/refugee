@@ -16,8 +16,6 @@
 
             <!-- Left panel -->
             <div class="sidebar">
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
@@ -81,16 +79,20 @@
                             </ul>
                         </li>
 
-                        <!-- одиночный -->
-<!--                        <li class="nav-item has-treeview">-->
-<!--                            <a href="/admin/blog_articles" class="nav-link"> <i class="far fa-newspaper"></i> Blog articles-->
-<!--                            </a>-->
-<!--                        </li>-->
+                        <!-- Users -->
+                        <li class="nav-item">
+                            <a href="/admin-panel/users" class="nav-link">
+                                <svg class="small-period" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512"><path d="M64 368c26.47 0 48 21.53 48 48s-21.53 48-48 48-48-21.53-48-48 21.54-48 48-48zm0-16c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64c0-35.3-28.65-64-64-64z"/></svg>
+                                <p class="nav-tab">
+                                    Пользователи
+                                </p>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
+
         </aside>
 </template>
 
@@ -159,6 +161,10 @@
     }
     .small-dot{
         width: 8px;
+    }
+    .small-period{
+        width: 8px;
+        margin: -18px 0 0px 0;
     }
     #sidebar{
         z-index: 3001;

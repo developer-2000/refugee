@@ -17,6 +17,7 @@
     import table_regions from './center/translate/TableRegions.vue'
     import table_cities from './center/translate/TableCities.vue'
     import table_vacancies from './center/documents/TableVacancies.vue'
+    import table_users from './center/users/TableUsers'
 
     export default {
         components: {
@@ -25,6 +26,7 @@
             'table-regions': table_regions,
             'table_cities': table_cities,
             'table_vacancies': table_vacancies,
+            'table_users': table_users,
         },
         data() {
             return {
@@ -34,6 +36,7 @@
                     'translate-regions':'table-regions',
                     'translate-cities':'table_cities',
                     'vacancies':'table_vacancies',
+                    'users':'table_users',
                 },
             }
         },

@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('oauth_id')->nullable()->default(null);
             $table->string('oauth_type')->nullable()->default(null);
+            $table->tinyInteger('punished')->nullable()->default(0)->comment('наказание 0-off, 1-on');
             $table->rememberToken();
             $table->timestamps();
         });

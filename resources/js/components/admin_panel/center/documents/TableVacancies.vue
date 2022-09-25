@@ -23,8 +23,17 @@
                         <div class="card">
                             <!-- header (buttons) -->
                             <div class="card-header">
-                                <svg @click="googleTranslateElementInit()" class="svg-translate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg>
-                                <div id="google_translate_element"></div>
+                                <div class="left-card-header">
+                                    <!-- сбросить все-->
+                                    <a v-if="locationSearch !== ''"
+                                       href="javascript:void(0)"
+                                       @click="clearQuery()"
+                                    > Сбросить фильтры </a>
+                                </div>
+                                <div class="right-card-header">
+                                    <svg @click="googleTranslateElementInit()" class="svg-translate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg>
+                                    <div id="google_translate_element"></div>
+                                </div>
                             </div>
 
                             <!-- body -->
@@ -45,7 +54,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(vacancy, key) in vacancies.data" :key="key">
-                                            <td colspan="8">
+                                            <td colspan="7">
                                                 <div :id="`accordionExample_${key}`" class="accordion" >
                                                     <div class="card">
 
@@ -272,12 +281,18 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr class="row">
-                                                                            <td class="col-sm-1">{{vacancy.user_id}}</td>
+                                                                            <td class="col-sm-1">
+                                                                                <a :href="`/admin-panel/users?user_id=${vacancy.user_id}`"
+                                                                                   class="link-a" target="_blank"
+                                                                                >
+                                                                                    {{vacancy.user_id}}
+                                                                                </a>
+                                                                            </td>
                                                                             <td class="col-sm-1">{{vacancy.statistic.show}}</td>
                                                                             <td class="col-sm-1">{{vacancy.statistic.view}}</td>
                                                                             <td class="col-sm-1">{{vacancy.statistic.respond}}</td>
                                                                             <td class="col-sm-8">{{vacancy.statistic.update}}</td>
-                                                                    </tr>
+                                                                        </tr>
                                                                     </tbody>
                                                                 </table>
 
@@ -299,6 +314,8 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <div v-if="!vacancies.data.length" class="image-not-found"></div>
                             </div>
                         </div>
                     </div>
@@ -347,6 +364,7 @@
                     "active",
                     "not-active"
                 ],
+                locationSearch: window.location.search,
             }
         },
         methods: {
@@ -355,7 +373,7 @@
                     vacancy_id: vacancy_id,
                     verified: bool,
                 };
-                const response = await this.$http.post(`/admin-panel/verified-by-admin`, data)
+                const response = await this.$http.post(`/admin-panel/vacancies/verified-by-admin`, data)
                     .then(res => {
                         if(this.checkSuccess(res)){
                             this.changeObj(vacancy_id, bool)
@@ -416,9 +434,13 @@
                     if(this.vacancies.data[i].id === vacancy_id){
                         this.vacancies.data[i].check_admin = 1
                         this.vacancies.data[i].published = verified
+                        break
                     }
                 }
             },
+            clearQuery(){
+                window.location.href = location.protocol + '//' + location.host + location.pathname
+            }
         },
         props: [
             'lang',
@@ -446,7 +468,8 @@
     }
     .card-header{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-content: center;
         .svg-translate{
             width: 35px;
             fill: #3490dc;
@@ -543,9 +566,6 @@
     .table-statistic{
         width: 100%;
         margin: -2px 0 0;
-        /*border-top: 1px solid #3490dc;*/
-        /*border-right: 1px solid #3490dc;*/
-        /*border-left: 1px solid #3490dc;*/
     }
 
 

@@ -58,6 +58,11 @@ class AuthorController extends BaseController {
             'name'=>$request->first_name,
             'surname'=>$request->last_name,
         ]);
+        $permission = \App\Model\Permission::where("name", "user")->first();
+        \App\Model\UserPermission::create([
+            "user_id"=>$user->id,
+            "permission_id"=>$permission->id,
+        ]);
 
         // Генерируем ссылку и отправляем письмо на указанный адрес
         $generate = uniqid();
@@ -100,9 +105,9 @@ class AuthorController extends BaseController {
 
         $user = User::find($request->id);
 
-        if(!Auth::check()){
+//        if(!Auth::check()){
             Auth::guard('web')->login($user);
-        }
+//        }
 
         SendActivateAccount::dispatch($user->email)
             ->onQueue('emails');

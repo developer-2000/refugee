@@ -11,7 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'email', 'password', 'oauth_id', 'oauth_type', 'email_verified_at',
+        'email', 'password', 'oauth_id', 'oauth_type', 'email_verified_at', 'punished'
     ];
 
     protected $hidden = [
@@ -31,7 +31,15 @@ class User extends Authenticatable
     }
 
     public function contact() {
-        return $this->hasOne(UserContact::class, 'user_id', 'id');
+        return $this->hasOne(UserContact::class, 'user_id', 'id')->withDefault(function ($user) {
+            $user->avatar = null;
+            $user->full_name = null;
+            $user->position = null;
+            $user->email = null;
+            $user->skype = null;
+            $user->phone = null;
+            $user->messengers = null;
+        });
     }
 
     public function permission() {
