@@ -193,7 +193,7 @@ div.modal-backdrop {
 }
 .brand-link img {
     width: 50px;
-    margin-right: 7px;
+    margin-left: 5px;
     background-color: rgba(0, 0, 0, 0.1);
 }
 .edit-svg{
@@ -273,8 +273,15 @@ div.modal-backdrop {
 .search-tr-div{
     display: flex;
 }
-
-
+.box-logo-title{
+    padding: 0 5px 0 10px;
+}
+.brand-link .box-logo-title div:nth-child(1){
+    color: rgba(253,230,45,1);
+}
+.brand-link .box-logo-title div:nth-child(2){
+    color: rgba(0,123,255,1);
+}
 
 
 

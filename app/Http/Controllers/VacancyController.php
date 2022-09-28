@@ -19,9 +19,11 @@ use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
+use App\Services\LanguageService;
 use App\Services\StatisticVacanciesService;
 use Butschster\Head\Facades\Meta;
 use Butschster\Head\Packages\Entities\OpenGraphPackage;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\ShareFacade;
 
@@ -36,6 +38,8 @@ class VacancyController extends BaseController {
         parent::__construct();
         $this->repository = new VacancyRepository();
         $this->count_pagination = 20;
+        $service = new LanguageService();
+        App::setLocale($service->selectLangFromUrl());
     }
 
     public function index(IndexVacancyRequest $request, $country = null, $city = null) {

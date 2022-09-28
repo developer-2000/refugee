@@ -45,7 +45,7 @@
         <div class="start">
 
             <div class="start-block">
-                <div class="start-content">
+                <div class="start-content free_service">
                     <div class="left-column">
                         <h3>
                             {{trans('pages.index','free_service')}}
@@ -61,7 +61,7 @@
             </div>
 
             <div class="start-block">
-                <div class="start-content two-content">
+                <div class="start-content two-content convenient_search">
                     <div class="right-column">
                         <h3>
                             {{trans('pages.index','convenient_search')}}
@@ -90,7 +90,7 @@
             </div>
 
             <div class="start-block">
-                <div class="start-content">
+                <div class="start-content quick_authorization">
                     <div class="left-column">
                         <h3>
                             {{trans('pages.index','quick_authorization')}}
@@ -108,7 +108,7 @@
             </div>
 
             <div class="start-block">
-                <div class="start-content four-content">
+                <div class="start-content four-content personal_information">
                     <div class="right-column">
 
                         <h3>
@@ -157,7 +157,7 @@
             </div>
 
             <div class="start-block">
-                <div class="start-content">
+                <div class="start-content convenient_promotion">
                     <div class="left-column">
                         <h3>
                             {{trans('pages.index','convenient_promotion')}}
@@ -248,7 +248,7 @@
 
     .start {
         position: relative;
-        padding-bottom: 175px;
+        padding-bottom: 75px;
         min-width: 340px;
         &:nth-child(2) {
             border-bottom: 1px solid #DADADA;
@@ -477,19 +477,37 @@
         }
     }
 
+    @media (max-width: 1200px) {
+        .start {
+            .start-block {
+                .personal_information{
+                    min-height: 175px;
+                    max-height: 175px;
+                }
+            }
+        }
+    }
+
     @media (max-width: 992px) {
-        .start .start-block .start-content {
-            min-height: 145px;
-            max-height: 145px;
-            &::after {
-                width: 45px;
+        .start {
+            .start-block {
+                .start-content {
+                    &::after {
+                        width: 45px;
+                    }
+                }
+                .convenient_search{
+                    min-height: 165px;
+                }
+                .personal_information{
+                    min-height: 220px;
+                }
             }
         }
     }
 
     @media (max-width: 768px){
         .start {
-            padding: 0 0 100px 15px;
             .start-block {
                 padding-left: 30px;
                 &:not(:last-child) {
@@ -506,8 +524,6 @@
                     transform: translate(-50%, -4px);
                 }
                 .start-content{
-                    min-height: 160px;
-                    max-height: 160px;
                     &::after{
                         display: none;
                     }
@@ -522,9 +538,20 @@
                         }
                     }
                 }
-                .start-content.four-content{
-                    min-height: 210px;
-                    max-height: 210px;
+                .free_service{
+                    min-height: 125px;
+                }
+                .convenient_search{
+                    min-height: 165px;
+                }
+                .quick_authorization{
+                    min-height: 70px;
+                }
+                .personal_information{
+                    min-height: 195px;
+                }
+                .convenient_promotion{
+                    min-height: 175px;
                 }
             }
         }
@@ -542,19 +569,23 @@
             text-align: center;
         }
         .start {
+            padding: 0 10px 75px 25px;
             .start-block {
                 .start-content{
-                    min-height: 210px;
-                    max-height: 210px;
                     .left-column {
                         h3 {
                             font-size: 22px;
                         }
                     }
-                }
-                .start-content.four-content{
-                    min-height: 290px;
-                    max-height: 290px;
+                    .free_service{
+                        min-height: 120px;
+                    }
+                    .convenient_search{
+                        min-height: 140px;
+                    }
+                    .convenient_promotion{
+                        min-height: 170px;
+                    }
                 }
             }
         }
@@ -575,18 +606,42 @@
                 margin: 0;
             }
         }
+        .start {
+            .start-block {
+                .free_service{
+                    min-height: 155px;
+                }
+                .convenient_search{
+                    min-height: 165px;
+                }
+                .quick_authorization{
+                    min-height: 90px;
+                }
+                .personal_information{
+                    min-height: 250px;
+                }
+            }
+        }
     }
 
     @media (max-width: 400px) {
         .start {
+            padding-bottom: 150px;
             .start-block {
-                .start-content.two-content{
-                    min-height: 240px;
-                    max-height: 240px;
+                .free_service{
+                    min-height: 195px;
                 }
-                .start-content.four-content{
-                    min-height: 320px;
-                    max-height: 320px;
+                .convenient_search{
+                    min-height: 235px;
+                }
+                .quick_authorization{
+                    min-height: 110px;
+                }
+                .personal_information{
+                    min-height: 295px;
+                }
+                .convenient_promotion{
+                    min-height: 205px;
                 }
             }
         }

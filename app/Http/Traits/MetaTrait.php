@@ -15,7 +15,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.index_page.title').config('app.name', ""),
             "description" => config('app.name', "").__('meta_tags.index_page.description'),
-            "keywords" => __('meta_tags.index_page.keywords'),
+            "keywords" => __('meta_tags.index_page.keywords').config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -30,7 +30,7 @@ trait MetaTrait
             $this->metaTags(new MetaService(), [
                 "title" => __('meta_tags.all_vacancies.title').config('app.name', ""),
                 "description" => __('meta_tags.all_vacancies.description'),
-                "keywords" => __('meta_tags.all_vacancies.keywords'),
+                "keywords" => __('meta_tags.all_vacancies.keywords').config('site.meta.keywords', ""),
                 "canonical" => url()->current(),
             ]);
         }
@@ -39,7 +39,7 @@ trait MetaTrait
             $this->metaTags(new MetaService(), [
                 "title" => __('meta_tags.vacancies_country.title', ['name' => $boolArr["now_country"]["translate"]])." - ".config('app.name', ""),
                 "description" =>__('meta_tags.vacancies_country.description', ['name' => $boolArr["now_country"]["translate"]]).config('app.name', ""),
-                "keywords" => __('meta_tags.vacancies_country.keywords', ['name' => $boolArr["now_country"]["translate"]]),
+                "keywords" => __('meta_tags.vacancies_country.keywords', ['name' => $boolArr["now_country"]["translate"]]).config('site.meta.keywords', ""),
                 "canonical" => url()->current(),
             ]);
         }
@@ -53,7 +53,7 @@ trait MetaTrait
                         'country' => $boolArr["now_country"]["translate"]
                     ]).config('app.name', ""),
                 "description" =>  __('meta_tags.vacancies_city.description', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"], ]).config('app.name', ""),
-                "keywords" => __('meta_tags.vacancies_city.keywords', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"], ]),
+                "keywords" => __('meta_tags.vacancies_city.keywords', [ 'city' => $city, 'country' => $boolArr["now_country"]["translate"], ]).config('site.meta.keywords', ""),
                 "canonical" => url()->current(),
             ]);
         }
@@ -74,7 +74,7 @@ trait MetaTrait
                 'title' => $vacancy["position"]["title"], 'salary' => $salary
                 ]).config('app.name', ""),
             "description" => __('meta_tags.show_vacancy.description', [ 'company' => $vacancy["company"]["title"], 'title' => $vacancy["position"]["title"], 'salary' => $salary, 'address' => $address,]).config('app.name', ""),
-            "keywords" => __('meta_tags.show_vacancy.keywords', [ 'address' => $address]),
+            "keywords" => __('meta_tags.show_vacancy.keywords', [ 'address' => $address]).config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
 
@@ -90,7 +90,7 @@ trait MetaTrait
             $this->metaTags(new MetaService(), [
                 "title" => __('meta_tags.all_resumes.title').config('app.name', ""),
                 "description" =>  config('app.name', "").__('meta_tags.all_resumes.description'),
-                "keywords" => __('meta_tags.all_resumes.keywords'),
+                "keywords" => __('meta_tags.all_resumes.keywords').config('site.meta.keywords', ""),
                 "canonical" => url()->current(),
             ]);
         }
@@ -99,7 +99,7 @@ trait MetaTrait
             $this->metaTags(new MetaService(), [
                 "title" => __('meta_tags.resumes_country.title', ["country"=>$boolArr["now_country"]["translate"]]).config('app.name', ""),
                 "description" => __('meta_tags.resumes_country.description', [ "country"=>$boolArr["now_country"]["translate"], "site"=>config('app.name', "") ]),
-                "keywords" => __('meta_tags.resumes_country.keywords', [ "country"=>$boolArr["now_country"]["translate"] ]),
+                "keywords" => __('meta_tags.resumes_country.keywords', [ "country"=>$boolArr["now_country"]["translate"] ]).config('site.meta.keywords', ""),
                 "canonical" => url()->current(),
             ]);
         }
@@ -112,7 +112,7 @@ trait MetaTrait
                         'country' => $boolArr["now_country"]["translate"]
                         ]).config('app.name', ""),
                 "description" => __('meta_tags.resumes_city.description', ["city"=>$city, "country"=>$boolArr["now_country"]["translate"], ]).config('app.name', ""),
-                "keywords" => __('meta_tags.resumes_city.keywords', ["city"=>$city, "country"=>$boolArr["now_country"]["translate"], ]),
+                "keywords" => __('meta_tags.resumes_city.keywords', ["city"=>$city, "country"=>$boolArr["now_country"]["translate"], ]).config('site.meta.keywords', ""),
                 "canonical" => url()->current(),
             ]);
         }
@@ -128,7 +128,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.show_resume.title', [ "title"=>$resume["position"]["title"], "address"=>$address, ]).config('app.name', ""),
             "description" => __('meta_tags.show_resume.description', [ "title"=>$resume["position"]["title"], "address"=>$address, ]).config('app.name', ""),
-            "keywords" => __('meta_tags.show_resume.keywords', [ "address"=>$address ]),
+            "keywords" => __('meta_tags.show_resume.keywords', [ "address"=>$address ]).config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -141,7 +141,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.show_company.title', [ "company"=>$company["title"] ]).config('app.name', ""),
             "description" => __('meta_tags.show_company.description', [ "company"=>$company["title"] ]).config('app.name', ""),
-            "keywords" =>  __('meta_tags.show_company.keywords', [ "company"=>$company["title"] ]),
+            "keywords" =>  __('meta_tags.show_company.keywords', [ "company"=>$company["title"] ]).config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -153,7 +153,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.about_us.title')." | ".config('app.name', ""),
             "description" => __('meta_tags.about_us.description', [ "app_name"=>config('app.name', "") ]),
-            "keywords" => __('meta_tags.about_us.keywords'),
+            "keywords" => __('meta_tags.about_us.keywords').config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -165,7 +165,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.feedback.title')." | ".config('app.name', ""),
             "description" => __('meta_tags.feedback.description').config('app.name', ""),
-            "keywords" => __('meta_tags.feedback.keywords'),
+            "keywords" => __('meta_tags.feedback.keywords').config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -177,7 +177,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.terms_use.title')." | ".config('app.name', ""),
             "description" => __('meta_tags.terms_use.description').config('app.name', ""),
-            "keywords" => __('meta_tags.terms_use.keywords'),
+            "keywords" => __('meta_tags.terms_use.keywords').config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -189,7 +189,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.cookie_policy.title')." | ".config('app.name', ""),
             "description" => __('meta_tags.cookie_policy.description').config('app.name', ""),
-            "keywords" => __('meta_tags.cookie_policy.keywords'),
+            "keywords" => __('meta_tags.cookie_policy.keywords').config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }
@@ -198,7 +198,7 @@ trait MetaTrait
         $this->metaTags(new MetaService(), [
             "title" => __('meta_tags.charity.title')." | ".config('app.name', ""),
             "description" => __('meta_tags.charity.description').config('app.name', ""),
-            "keywords" => __('meta_tags.charity.keywords'),
+            "keywords" => __('meta_tags.charity.keywords').config('site.meta.keywords', ""),
             "canonical" => url()->current(),
         ]);
     }

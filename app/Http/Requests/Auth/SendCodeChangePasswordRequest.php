@@ -25,7 +25,6 @@ class SendCodeChangePasswordRequest extends FormRequest
     {
         return [
             'email' => 'required|email|min:5|max:255',
-//            'email' => 'required|email|min:5|max:255|exists:users,email',
         ];
     }
 }

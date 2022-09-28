@@ -17,6 +17,8 @@ use App\Model\Resume;
 use App\Model\UserHideResume;
 use App\Model\UserSaveResume;
 use App\Repositories\ResumeRepository;
+use App\Services\LanguageService;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends BaseController {
@@ -29,6 +31,8 @@ class ResumeController extends BaseController {
         parent::__construct();
         $this->repository = new ResumeRepository();
         $this->count_pagination = 20;
+        $service = new LanguageService();
+        App::setLocale($service->selectLangFromUrl());
     }
 
     public function index(IndexResumeRequest $request, $country = null, $city = null)

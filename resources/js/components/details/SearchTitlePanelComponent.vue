@@ -306,6 +306,7 @@
                     flex-direction: column;
                     button{
                         margin-top: 10px;
+                        border-radius: 4px;
                     }
                 }
             }

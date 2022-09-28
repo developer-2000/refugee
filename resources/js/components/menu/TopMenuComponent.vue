@@ -292,6 +292,9 @@
 <style scoped lang="scss">
     @import "resources/sass/_variables";
 
+    .box-logo-title{
+        padding: 0 5px 0 10px;
+    }
     .navbar-expand {
         flex-flow: row wrap!important;
         border-bottom: 2px solid #dee2e6!important;

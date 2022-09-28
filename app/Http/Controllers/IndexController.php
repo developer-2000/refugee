@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
 use App\Http\Traits\MetaTrait;
 use App\Jobs\SendFeedbackMessage;
+use App\Repositories\ResumeRepository;
+use App\Services\LanguageService;
 use App\Services\LocalizationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Session;
 
 class IndexController extends BaseController {
     use MetaTrait;
+
+    public function __construct() {
+        parent::__construct();
+        $service = new LanguageService();
+        App::setLocale($service->selectLangFromUrl());
+    }
 
     /**
      * transition_after_auth - создаетса в middleware auth

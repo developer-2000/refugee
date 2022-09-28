@@ -104,7 +104,7 @@
                 <div class="bottom-footer">
                     <main-footer
                         :lang="{{json_encode($lang)}}"
-                        :app_name=`{{env('APP_NAME_EN')}}`
+                        :app_name=`{{env('APP_NAME')}}`
                     ></main-footer>
                 </div>
             </footer>

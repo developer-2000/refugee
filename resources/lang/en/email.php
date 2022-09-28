@@ -11,7 +11,7 @@ return [
     "you_have_review_document" => "You have been asked to review a document ",
     "message_from" => "Message from ",
 
-    "welcome" => "Welcome to Work-Europe-Ukraine.",
+    "welcome" => "Welcome to Work-Ukraine.",
     "to_complete_registration" => "To complete your registration follow the link to activate your account:",
 
     "registration" => "Registration",

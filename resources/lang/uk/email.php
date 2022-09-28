@@ -11,7 +11,7 @@ return [
     "you_have_review_document" => "Вам запропонували розглянути документ",
     "message_from" => "Повідомлення від ",
 
-    "welcome" => "Ласкаво просимо до Work-Europe-Ukraine.",
+    "welcome" => "Ласкаво просимо до Work-Ukraine.",
     "to_complete_registration" => "Для завершення реєстрації перейдіть за посиланням активуючи акаунт:",
 
     "registration" => "Реєстрація",
