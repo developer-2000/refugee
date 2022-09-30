@@ -19,6 +19,9 @@ class CreateStatisticResumesTable extends Migration
             $table->foreign('resume_id')->references('id')->on('resumes')->onDelete('cascade');
 
             $table->mediumInteger('respond')->nullable()->default(0)->comment('отклики');
+            $table->mediumInteger('show')->nullable()->default(0)->comment('показы');
+            $table->mediumInteger('update')->nullable()->default(0)->comment('обновления документа');
+            $table->mediumInteger('view')->nullable()->default(0)->comment('просмотры документа');
             $table->timestamps();
         });
     }

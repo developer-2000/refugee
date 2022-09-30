@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Documents;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\Admin\Vacancies\IndexVacancyAdminRequest;
 use App\Http\Requests\Admin\Vacancies\VerifiedByAdminRequest;
+use App\Http\Traits\Admin\AdminVacanyResumeTrait;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Model\Vacancy;
 use App\Model\Vacancy as Model;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\App;
 
 
 class AdminVacanciesController extends AdminBaseController {
-    use GeographyForShowInterfaceTraite;
+    use GeographyForShowInterfaceTraite, AdminVacanyResumeTrait;
 
     protected $model;
 
@@ -39,7 +40,7 @@ class AdminVacanciesController extends AdminBaseController {
         }
 
         $settings = $this->getSettingsDocumentsAndCountries();
-        $settings['contact_information'] = config('site.contacts.contact_information');
+
 
         $response = [
             "vacancies"=>$vacancies,
@@ -55,7 +56,7 @@ class AdminVacanciesController extends AdminBaseController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function verifiedByAdmin(VerifiedByAdminRequest $request){
-        Vacancy::where('id', $request->vacancy_id)
+        Vacancy::where('id', $request->id)
             ->update([
                 'check_admin' => 1,
                 'published' => $request->verified,
@@ -64,32 +65,4 @@ class AdminVacanciesController extends AdminBaseController {
         return $this->getResponse();
     }
 
-    private function getSettingsDocumentsAndCountries(){
-        $settings = config('site.settings_vacancy');
-        $settings = array_merge($settings, config('site.search_title_panel.collection_location'));
-        $settings['start_search_page'] = config('site.search_title_panel.start_search_page');
-        $settings['obj_countries'] = (new LocalizationService())->getCountries(App::getLocale());
-        $settings['categories'] = config('site.categories.categories');
-
-        return $settings;
-    }
-
-    public function initialDataForSampling($request){
-        $this->model = $this->userVacancies($request);
-
-        return $this->model;
-    }
-
-    /**
-     * вакансии юзера
-     * @param $request
-     * @return \Illuminate\Contracts\Foundation\Application|mixed
-     */
-    private function userVacancies($request){
-        if (isset($request->user_id)) {
-            $this->model = $this->model->where('user_id', $request->user_id);
-        }
-
-        return $this->model;
-    }
 }

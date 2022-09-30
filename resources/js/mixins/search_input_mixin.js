@@ -103,13 +103,12 @@ export default {
 
             // на странице /document ...
             if(now_url.indexOf(this.prefix_url) !== -1){
-                // console.log(1, now_url+query)
                 location.href = now_url+query
             }
             // на странице /
             else{
-                // console.log(2, now_url+"/"+this.prefix_url+query)
-                location.href = now_url+"/"+this.prefix_url+query
+                now_url = (this.lang.prefix_lang !== "/") ? (now_url+"/") : now_url
+                location.href = now_url+this.prefix_url+query
             }
         },
         clearSearch2(){

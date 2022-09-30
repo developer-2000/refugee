@@ -57,34 +57,32 @@
                             </ul>
                         </li>
 
-                        <!-- Documents -->
-                        <li class="nav-item has-treeview">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M160 384h127.1V128H160v256zM96 .003H31.1C14.37.003 0 14.38 0 32v63.1h128V32C128 14.38 113.6.002 96 .002zM160 479.1c0 17.62 14.37 31.1 32 31.1h63.1c17.62 0 31.98-14.36 31.1-31.98V414.2H159.1l.9 64.9zm-160 0c0 17.62 14.37 31.1 31.1 31.1h64c17.62 0 31.1-14.37 31.1-31.1L128 416H0v63.1zM0 384h128V128H0v256zm419.9-267.8-123.6 33.04 66.21 246.7 123.7-33.04-66.31-246.7zm91 339.1-16.48-61.67-123.6 33.05 16.55 61.66c4.559 16.98 22.15 27.12 39.17 22.57l61.85-16.52c17.01-4.59 27.11-22.09 22.51-39.09zM395 23.64c-4.568-16.98-22.15-27.1-39.16-22.55l-61.78 16.52c-3.072.82-5.619 2.484-8.197 4.07C281.515 9.16 269.933 0 255.963 0h-63.1c-17.63 0-32 14.37-32 31.1L160 96l122 .001 6.004 22.37 123.5-33.05L395 23.64z"/></svg>
-                                <p class="nav-tab">
-                                    Вакансия / Резюме
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <!-- Вакансии -->
-                                <li class="nav-item">
-                                    <a href="/admin-panel/vacancies" class="nav-link">
-                                        <svg class="small-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
-                                        <p class="nav-tab">
-                                            Вакансии
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
                         <!-- Users -->
                         <li class="nav-item">
                             <a href="/admin-panel/users" class="nav-link">
                                 <svg class="small-period" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512"><path d="M64 368c26.47 0 48 21.53 48 48s-21.53 48-48 48-48-21.53-48-48 21.54-48 48-48zm0-16c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64c0-35.3-28.65-64-64-64z"/></svg>
                                 <p class="nav-tab">
                                     Пользователи
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- Вакансии -->
+                        <li class="nav-item">
+                            <a href="/admin-panel/vacancies" class="nav-link">
+                                <svg class="small-period" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512"><path d="M64 368c26.47 0 48 21.53 48 48s-21.53 48-48 48-48-21.53-48-48 21.54-48 48-48zm0-16c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64c0-35.3-28.65-64-64-64z"/></svg>
+                                <p class="nav-tab">
+                                    Вакансии
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- Резюме -->
+                        <li class="nav-item">
+                            <a href="/admin-panel/resumes" class="nav-link">
+                                <svg class="small-period" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512"><path d="M64 368c26.47 0 48 21.53 48 48s-21.53 48-48 48-48-21.53-48-48 21.54-48 48-48zm0-16c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64c0-35.3-28.65-64-64-64z"/></svg>
+                                <p class="nav-tab">
+                                    Резюме
                                 </p>
                             </a>
                         </li>

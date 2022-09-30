@@ -52,12 +52,10 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                     'user_id' => $obj->id,
                     'position_id' => $position->id,
                     'alias' => sha1(time()),
-
                     'country_id' => $country_id,
                     'region_id' => $local_id,
                     'city_id' => $city_id,
-
-                    'data_birth' => '1977-01-04 00:00:00',
+                    'data_birth' => '01/04/1977',
                     'categories' => '[0]',
                     'salary' => '{"radio_name":"range","inputs":{"from":0,"to":1000,"salary_sum":0},"comment":null}',
                     'type_employment' => rand(0,3),
@@ -69,6 +67,7 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                     'text_achievements' => $faker->realText(rand(200,500)),
                     'job_posting' => '{"status_name":"standard","create_time":"2022-06-21T19:50:32.955150Z"}',
                     'published' => 1,
+                    'check_admin' => 0,
                     'created_at' => $createdAt,
                     'updated_at' => $createdAt,
                 ];

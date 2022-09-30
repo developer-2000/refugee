@@ -216,7 +216,7 @@ class ResumeRepository extends CoreRepository {
             'country_id' => $this->createSpecifiedLocationRecord($request, 'country', 0),
             'region_id' => $this->createSpecifiedLocationRecord($request, 'region', 1),
             'city_id' => $this->createSpecifiedLocationRecord($request, 'city', 2),
-            'data_birth'=>Carbon::parse($request->data_birth),
+            'data_birth'=>$request->data_birth,
             'categories'=>$request->categories,
             'salary'=>[
                 'radio_name'=>$request->salary_but,

@@ -15,23 +15,13 @@ class Resume extends Model
     protected $casts = [
         'categories' => 'array',
         'languages' => 'array',
-        'vacancy_suitable' => 'json',
         'salary' => 'json',
         'job_posting' => 'json',
-    ];
-
-    protected $dates = [
-        'data_birth'
     ];
 
     public function getRouteKeyName()
     {
         return 'alias';
-    }
-
-    public function getDataBirthAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y');
     }
 
     // название резюме
@@ -42,15 +32,6 @@ class Resume extends Model
     // владелец резюме
     public function contact() {
         return $this->belongsTo(UserContact::class, 'user_id', 'user_id');
-    }
-
-    // смежная таблица для подписок
-    public function respond() {
-        return $this->hasMany(RespondResume::class, 'resume_id', 'id');
-    }
-
-    public function statistic() {
-        return $this->hasOne(StatisticResume::class, 'resume_id', 'id');
     }
 
     public function id_saved_resumes() {
@@ -77,5 +58,19 @@ class Resume extends Model
         return $this->belongsTo(GeographyLocal::class, 'city_id', 'id');
     }
 
+    // смежная таблица для подписок
+    public function respond() {
+        return $this->hasMany(RespondResume::class, 'resume_id', 'id');
+    }
+
+    public function statistic() {
+        return $this->hasOne(StatisticResume::class, 'resume_id', 'id')
+            ->withDefault(function ($user, $post) {
+                $user->respond = 0;
+                $user->show = 0;
+                $user->update = 0;
+                $user->view = 0;
+            });
+    }
 
 }

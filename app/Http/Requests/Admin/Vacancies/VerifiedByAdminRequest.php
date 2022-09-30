@@ -23,7 +23,7 @@ class VerifiedByAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'vacancy_id' => 'required|integer|exists:vacancies,id',
+            'id' => 'required|integer',
             'verified' => 'required|integer|in:0,1',
         ];
     }

@@ -28,7 +28,8 @@ class CreateResumesTable extends Migration
             $table->unsignedBigInteger('region_id')->nullable()->default(null);
             $table->unsignedBigInteger('city_id')->nullable()->default(null);
 
-            $table->timestamp('data_birth')->nullable()->default(null)->comment('дата рождения');
+//            $table->timestamp('data_birth')->nullable()->default(null)->comment('дата рождения');
+            $table->string('data_birth')->nullable()->default(null)->comment('дата рождения');
             $table->string('categories')->index()->nullable()->default(null)->comment('категории резюме');
             $table->text('salary')->nullable()->default(null)->comment('зарплата - одно значение, диапазон, коментарий');
             $table->tinyInteger('type_employment')->index()->nullable()->default(null)->comment('работа - полная / не полная / удаленка');
@@ -39,7 +40,8 @@ class CreateResumesTable extends Migration
             $table->text('text_wait')->nullable()->default(null)->comment('ожидания от вакансии');
             $table->text('text_achievements')->nullable()->default(null)->comment('свои достижения');
             $table->string('job_posting')->nullable()->default(null)->comment('статус вакансии - стандарт, скрытая');
-            $table->tinyInteger('published')->default(0)->comment('0=close, 1=open - проверка админом');
+            $table->boolean('published')->default(false)->comment('доступ к показам');
+            $table->boolean('check_admin')->default(false)->comment('проверен админом');
 
             $table->timestamps();
         });

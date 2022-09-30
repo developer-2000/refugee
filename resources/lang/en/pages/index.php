@@ -2,7 +2,7 @@
 
 return [
 
-    'the_best_site_for_finding' => 'Best site for finding and providing jobs in Europe',
+    'the_best_site_for_finding' => 'Employment and provision of work in Europe.',
     "find_job" => "Find a job",
     "find_employee" => "Find an employee",
     "job_search_employers" => "Search jobs for employers",

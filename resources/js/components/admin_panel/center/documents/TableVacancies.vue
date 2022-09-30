@@ -53,7 +53,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(vacancy, key) in vacancies.data" :key="key">
+                                        <tr v-for="(vacancy, key) in vacancies" :key="key">
                                             <td colspan="7">
                                                 <div :id="`accordionExample_${key}`" class="accordion" >
                                                     <div class="card">
@@ -141,6 +141,17 @@
                                                                         <template v-for="(value, key) in vacancy.languages">
                                                                             {{lang.lang[value].title}},
                                                                         </template>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Категория вакансии -->
+                                                                <div class="box-element-vacancy">
+                                                                    <div class="title-element-vacancy">
+                                                                        Категория вакансии
+                                                                    </div>
+                                                                    <div :class="`value-element value-element_${key}`"
+                                                                         v-html="viewCategories(vacancy.categories)"
+                                                                    >
                                                                     </div>
                                                                 </div>
 
@@ -315,7 +326,7 @@
                                     </tbody>
                                 </table>
 
-                                <div v-if="!vacancies.data.length" class="image-not-found"></div>
+                                <div v-if="!vacancies.length" class="image-not-found"></div>
                             </div>
                         </div>
                     </div>
@@ -370,7 +381,7 @@
         methods: {
             async verifiedByAdmin(bool, vacancy_id, id_collapse){
                 let data = {
-                    vacancy_id: vacancy_id,
+                    id: vacancy_id,
                     verified: bool,
                 };
                 const response = await this.$http.post(`/admin-panel/vacancies/verified-by-admin`, data)
@@ -430,30 +441,37 @@
             },
             // после проверки
             changeObj(vacancy_id, verified){
-                for(let i = 0; i < this.vacancies.data.length; i++){
-                    if(this.vacancies.data[i].id === vacancy_id){
-                        this.vacancies.data[i].check_admin = 1
-                        this.vacancies.data[i].published = verified
+                for(let i = 0; i < this.vacancies.length; i++){
+                    if(this.vacancies[i].id === vacancy_id){
+                        this.vacancies[i].check_admin = 1
+                        this.vacancies[i].published = verified
                         break
                     }
                 }
             },
             clearQuery(){
                 window.location.href = location.protocol + '//' + location.host + location.pathname
-            }
+            },
+            viewCategories(arrCategories){
+                let str = ""
+                arrCategories.forEach((value, index) => {
+                    str += `${this.trans('vacancies', this.settings.categories[value])}, <br/>`
+                });
+                return str
+            },
         },
         props: [
             'lang',
             'response',
         ],
         mounted() {
-            this.vacancies = this.response.vacancies
+            this.vacancies = this.response.vacancies.data
             this.settings = this.response.settings
 
             this.$nextTick(function () {})
 
             // console.log(this.vacancies)
-        },
+        }
     }
 </script>
 

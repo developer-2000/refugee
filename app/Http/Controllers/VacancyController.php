@@ -47,10 +47,10 @@ class VacancyController extends BaseController {
         $my_user = Auth::user();
         $ids_respond = [];
 
-        // 1 все не мои вакансии
+        // 1 выборка с пагинацией
         $vacancies = $this->repository->index($request, $this->count_pagination);
 
-        // 2 выбрать id вакансий на которые я откликнулся или мне предложили (отображение что откликнулся)
+        // 2 выбрать id вакансий на которые я откликнулся или мне предложили (отображение в интерфейсе)
         $idVacancies = $vacancies->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondVacancy::where('user_resume_id',$my_user->id)
@@ -95,8 +95,10 @@ class VacancyController extends BaseController {
         $statisticService = new StatisticVacanciesService();
         $statisticService->increaseNumberView($arrData["respond"]["vacancy"]["id"]);
 
+        // основные мета теги
         $this->setMetaShowVacancyPage($arrData["respond"]["vacancy"]);
 
+        // soc мета теги
         $og = new OpenGraphPackage('some_name');
 //        $og->setType('website')
         $og->setType('article')

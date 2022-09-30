@@ -2,7 +2,7 @@
 
 return [
 
-    'the_best_site_for_finding' => 'Кращий сайт з пошуку та надання роботи в Європі',
+    'the_best_site_for_finding' => 'Працевлаштування та надання роботи в Європі.',
     "find_job" => "Знайти роботу",
     "find_employee" => "Знайти співробітника",
     "job_search_employers" => "Пошук вакансій роботодавців",

@@ -746,6 +746,8 @@
 
                 // день рождения
                 this.data_birth = this.resume.data_birth
+
+
                 // категория резюме
                 this.objCategory.categories = this.resume.categories
                 var input = ''
@@ -754,6 +756,10 @@
                     input.checked = true
                 }
                 this.objCategory.boolChecked = true
+
+
+
+
                 // Зарплата
                 this.objSalary.salary_but = this.resume.salary.radio_name
                 this.objSalary.from = this.resume.salary.inputs.from

@@ -127,9 +127,9 @@
                                                                     <a :href="`/admin-panel/vacancies?user_id=${user.id}`"
                                                                        class="link-a" target="_blank"
                                                                     >Вакансии</a>
-                                                                    <div>
-                                                                        Резюме
-                                                                    </div>
+                                                                    <a :href="`/admin-panel/resumes?user_id=${user.id}`"
+                                                                       class="link-a" target="_blank"
+                                                                    >Резюме</a>
 
                                                                 </td>
                                                             </tr>

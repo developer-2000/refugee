@@ -11,6 +11,7 @@ use App\Http\Requests\Resume\UpResumeStatusRequest;
 use App\Http\Requests\Resume\DuplicateResumeRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
 use App\Http\Traits\MetaTrait;
+use App\Jobs\Statistics\IncreaseNumberShowResume;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
 use App\Model\Resume;
@@ -18,6 +19,8 @@ use App\Model\UserHideResume;
 use App\Model\UserSaveResume;
 use App\Repositories\ResumeRepository;
 use App\Services\LanguageService;
+use App\Services\StatisticResumesService;
+use App\Services\StatisticVacanciesService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,9 +43,10 @@ class ResumeController extends BaseController {
         $my_user = Auth::user();
         $ids_respond = [];
 
-        // 1
+        // 1 выборка с пагинацией
         $resumes = $this->repository->index($request, $this->count_pagination);
-        // 2 выбрать id резюме на которые я уже откликнулся (отображение что откликнулся)
+
+        // 2 выбрать id резюме на которые я уже откликнулся (отображение в интерфейсе)
         $idResumes = $resumes->pluck('id');
         if(!is_null($my_user)){
             $ids_respond = RespondResume::where('user_vacancy_id',$my_user->id)
@@ -55,7 +59,13 @@ class ResumeController extends BaseController {
 
             $ids_respond = array_merge($ids_respond, $ids_respond2);
         }
-        // 3
+
+        // 3 увеличить кол-во показов
+        IncreaseNumberShowResume::dispatch([
+            "arr_id_resumes"=>$idResumes,
+        ])->onQueue('default');
+
+        // 4 набор данных по геолокации
         $respond = $this->repository->indexRespond($request);
         $respond['resumes'] = $resumes;
         $respond['ids_respond'] = $ids_respond;
@@ -82,6 +92,11 @@ class ResumeController extends BaseController {
         $settings['contact_information'] = config('site.contacts.contact_information');
         $arrData['respond']['settings'] = $settings;
 
+        // количество просмотров
+        $statisticService = new StatisticResumesService();
+        $statisticService->increaseNumberView($arrData["respond"]["resume"]["id"]);
+
+        // основные мета теги
         $this->setMetaShowResumePage($arrData['respond']["resume"]->toArray());
 
         return view('resumes.show_resume', $arrData);
@@ -139,6 +154,10 @@ class ResumeController extends BaseController {
             return redirect()->back()->withErrors(['message'=>'Not found!']);
         }
         $update = $this->repository->updateResume($request, $resume->position_id);
+
+        // количество обновлений
+        $statisticService = new StatisticResumesService();
+        $statisticService->increaseNumberUpdate($request->id);
 
         return $this->getResponse($update);
     }

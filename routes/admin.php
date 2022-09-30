@@ -6,6 +6,7 @@ use \App\Http\Controllers\Admin\Translate\AdminTranslateRegionsController;
 use \App\Http\Controllers\Admin\Translate\AdminTranslateCitiesController;
 use \App\Http\Controllers\Admin\AdminController;
 use \App\Http\Controllers\Admin\Documents\AdminVacanciesController;
+use \App\Http\Controllers\Admin\Documents\AdminResumesController;
 use \App\Http\Controllers\Admin\AdminUserController;
 
 //->middleware('auth:api')
@@ -32,15 +33,20 @@ Route::namespace('Admin')->group( function () {
             Route::get('translate-cities', [AdminTranslateCitiesController::class, 'index']);
             Route::post('translate-cities/update', [AdminTranslateCitiesController::class, 'update']);
         });
-        // вакансии/резюме
-        Route::group(['namespace' => 'Documents', 'prefix'=>'vacancies'], function (){
-            Route::get('/', [AdminVacanciesController::class, 'index']);
-            Route::post('verified-by-admin', [AdminVacanciesController::class, 'verifiedByAdmin']);
-        });
         // Пользователи
         Route::group(['prefix'=>'users'], function (){
             Route::get('/', [AdminUserController::class, 'index']);
             Route::post('set-punished', [AdminUserController::class, 'setPunished']);
+        });
+        // вакансии
+        Route::group(['namespace' => 'Documents', 'prefix'=>'vacancies'], function (){
+            Route::get('/', [AdminVacanciesController::class, 'index']);
+            Route::post('verified-by-admin', [AdminVacanciesController::class, 'verifiedByAdmin']);
+        });
+        // резюме
+        Route::group(['namespace' => 'Documents', 'prefix'=>'resumes'], function (){
+            Route::get('/', [AdminResumesController::class, 'index']);
+            Route::post('verified-by-admin', [AdminResumesController::class, 'verifiedByAdmin']);
         });
     });
 
