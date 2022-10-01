@@ -5,14 +5,14 @@
             <a target="_blank" href="{!! $data["domain"] !!}{!! $data["lang_url"] !!}"
                style="text-decoration-line:none;color:#205fec"
             >
-                <img src="{!! $data["domain"] !!}/img/email/logo-site.png" alt="Logotype {!! $data["domain"] !!}" style="display: block;" title="logotype" width="150"></a>
+                <img src="{!! $data["domain"] !!}/img/email/logo-site.png" alt="Logotype {!! $data["domain"] !!}" style="display: block;width:150px;" title="logotype"></a>
             <h2 style="font-family:Arial;margin:0 0 10px 0;font-size:16px;line-height:1.38;padding-top:10px;padding-bottom:0px">
                 {!! $data["title_site"] !!}
             </h2>
         </td>
     </tr>
     <tr style="font-family:Arial;margin:0">
-        <td style="font-family:Arial;margin:0;padding: 60px 0;">
+        <td style="font-family:Arial;margin:0;padding: 25px 0;">
             <p style="padding:0;font-weight: 700;margin: 0;font-size: 15px;">
                 {!! $data["full_name_person_write"] !!}
             </p>

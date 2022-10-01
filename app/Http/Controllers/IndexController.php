@@ -9,6 +9,7 @@ use App\Services\LanguageService;
 use App\Services\LocalizationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -47,8 +48,9 @@ class IndexController extends BaseController {
 
     public function aboutUs() {
         $this->setMetaAboutUsPage();
+        $domain = env("APP_DOMAIN", "");
 
-        return view("about_us.about_us_".app()->getLocale());
+        return view("about_us.about_us_".app()->getLocale(), compact("domain"));
     }
 
     public function feedback() {
@@ -72,15 +74,11 @@ class IndexController extends BaseController {
         return $this->getResponse();
     }
 
+    // php artisan queue:listen --queue=default
+    public function test() {
 
-//    private function test() {
-//
-////        $users = User::with('permission')->get();
-////
-//        foreach ($users as $key => $user){
-//            dump($user->toArray());
-//        }
-//
-//    }
+//        Artisan::call('queue:work --queue=default --stop-when-empty', []);
+
+    }
 
 }

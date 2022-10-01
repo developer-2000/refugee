@@ -33,25 +33,25 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/user/google/callback',
+        'redirect' => 'https://work-ukraine.com/user/google/callback',
     ],
 
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/user/facebook/callback',
+        'redirect' => 'https://work-ukraine.com/user/facebook/callback',
     ],
 
     'linkedin' => [
         'client_id' => env('LINKEDIN_CLIENT_ID'),
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/user/linkedin/callback',
+        'redirect' => 'https://work-ukraine.com/user/linkedin/callback',
     ],
 
     'twitter' => [
         'client_id' => env('TWITTER_CLIENT_ID'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/user/twitter/callback',
+        'redirect' => 'https://work-ukraine.com/user/twitter/callback',
     ],
 
 ];

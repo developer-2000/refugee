@@ -7,7 +7,7 @@
             <div class="box-title-panel">
             <!-- title -->
             <h1>
-                About the Employment Service in Europe - work.es.ua.com
+                About the Employment Service in Europe {{$domain}}
             </h1>
 
             <div class="block-page">
@@ -31,12 +31,17 @@
                     for their contribution and support to Ukrainians in difficult times!
                 </p>
                 <p>
-                    It's time for a change. And according to the law of nature - where it decreases, there will definitely be something that replenishes.
-                    The first thing I faced after my relatives left for Europe was the choice of a host country where they could stay.
-                    I was interested in housing, food, minimal financial assistance and, of course, employment. The last one was the hardest.
+                    It's time for a change. And according to the law of nature - where it decreases, there will definitely be something that
+                    replenishes.
+                    The first thing I faced after the departure of relatives to Europe was the choice of a host country in which
+                    maybe they will stop.
+                    I was interested in housing, food, minimal financial assistance and, of course, employment. FROM
+                    The last one was the hardest.
                     This was the moment of truth, the day the start of my startup, this site you are on.
-                    The goal of the work.es.ua.com project is to help every Ukrainian who needs a job as much as possible. The service includes 45 European countries.
-                    On it, every official employer can post their vacancies, relieve the burden of their state of social payments,
+                    The goal of the project is to help every Ukrainian who needs to receive
+                    work. The service includes 45 European countries.
+                    On it, every official employer can post their vacancies, relieve the load of their
+                    welfare state,
                     find your employee and at the same time help the Ukrainian. This is cool, noble, good!
                 </p>
 
@@ -52,7 +57,7 @@
                         <p>
                             It's time for a change. To sum up - this service is for people and about people. This is a completely free service aimed at helping
                             people and studying the topic of employment in Europe. My profession is web developer (full stack). In the matter of the technical part, I am autonomous and practically
-                            I devote all my time to this project. There is an idea, a goal, a movement. There is only one small thing left, I need help:
+                            I devote all my time to this project. There is an idea, a goal, a movement. The only thing left to do is <a href="{{ route('show-charity') }}">your support is needed</a>:
                         </p>
                         <ol>
                             <li>Material - technical (mailings, advertising, services), personal needs (productivity, motivation)</li>
@@ -63,7 +68,7 @@
                             </ol>
                         </ol>
                         <p>
-                            I am ready to consider proposals and make improvements to the service for a particular country and its standards.
+                            Ready to <a href="{{ route('feedback') }}">consider proposals</a> and improve the service for a particular country and its standards.
                         </p>
                     </div>
                 </div>

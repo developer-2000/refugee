@@ -10,7 +10,7 @@
                 Terms of use
             </h1>
             <p>
-                The rules below constitute the Agreement between the Owner (<b>hereinafter referred to as the Company</b>) and the User of the services of the website <b>www.work.ua.es.com</b> (<b>hereinafter referred to as the Service</b>),
+                The rules below constitute the Agreement between the Owner (<b>hereinafter referred to as the Company</b>) and the User of the services of the website <b>{{$app_url}}</b> (<b>hereinafter referred to as the Service</b>),
                 on the terms of which the User uses the information and services provided by the Service.
                 <br>If you do not agree with this Agreement or with its individual clauses, you have the right to refuse to use the Service.
                 <br>This Agreement shall enter into force for you <b>from the moment of registration</b> on our Service.

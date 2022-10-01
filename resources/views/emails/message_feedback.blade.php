@@ -5,7 +5,7 @@
             <a target="_blank" href="{!! $data["domain"] !!}{!! $data["lang_url"] !!}"
                style="text-decoration-line:none;color:#205fec"
             >
-                <img src="{!! $data["domain"] !!}/img/email/logo-site.png" alt="Logotype {!! $data["domain"] !!}" style="display: block;" title="Logotype evro-work.com" width="150"></a>
+                <img src="{!! $data["domain"] !!}/img/email/logo-site.png" alt="Logotype {!! $data["domain"] !!}" style="display: block;width:150px;" title="Logotype {!! $data["domain"] !!}"></a>
             <h2 style="font-family:Arial;margin:0 0 10px 0;font-size:16px;line-height:1.38;padding-top:10px;padding-bottom:0px">
                 {!! $data["title_site"] !!}
             </h2>

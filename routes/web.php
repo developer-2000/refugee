@@ -14,6 +14,7 @@ use \App\Http\Controllers\ResumeController;
 use \App\Http\Controllers\RespondController;
 use \App\Http\Controllers\Auth\AuthorController;
 use \App\Http\Controllers\OfferArchiveController;
+use \App\Http\Controllers\CronController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -49,6 +50,11 @@ Route::group(['prefix'=>'technical'], function (){
         (new \App\Services\MakeLocationDbServices());
         return view('index');
     });
+
+    // Cron /technical/run-job-default
+    Route::get('/run-job-default', [CronController::class, 'runJobDefault']);
+    // emails
+    Route::get('/run-job-emails', [CronController::class, 'runJobEmails']);
 });
 
 // переключение url и translation сайта
@@ -192,7 +198,8 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::get('terms-use', [PoliceController::class, 'showTermsUsePage']);
         Route::get('about-us', [IndexController::class, 'aboutUs'])
             ->name('about-us');
-        Route::get('feedback', [IndexController::class, 'feedback']);
+        Route::get('feedback', [IndexController::class, 'feedback'])
+            ->name('feedback');
         Route::post('feedback-send-message', [IndexController::class, 'feedbackSendMessage']);
         Route::get('show-charity', [CharityController::class, 'showCharity'])
             ->name('show-charity');

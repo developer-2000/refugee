@@ -16,8 +16,9 @@ class PoliceController extends Controller {
 
     public function showTermsUsePage(){
         $this->setMetaTermsUsePage();
+        $app_url = env("APP_URL", "");
 
-        return view("police.terms_use_".app()->getLocale());
+        return view("police.terms_use_".app()->getLocale(), compact("app_url"));
     }
 
 }

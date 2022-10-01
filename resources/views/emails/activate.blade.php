@@ -5,17 +5,16 @@
                 <a target="_blank" href="{!! $data["domain"] !!}{!! $data["lang_url"] !!}"
                    style="text-decoration-line:none;color:#205fec"
                 >
-                    <img src="{!! $data["domain"] !!}/img/email/logo-site.png" alt="Logotype {!! $data["domain"] !!}" style="display: block;" title="Logotype evro-work.com" width="150"></a>
+                    <img src="{!! $data["domain"] !!}/img/email/logo-site.png" alt="Logotype {!! $data["domain"] !!}" style="display: block;width:150px;" title="Logotype {!! $data["domain"] !!}"></a>
                 <h2 style="font-family:Arial;margin:0 0 10px 0;font-size:16px;line-height:1.38;padding-top:10px;padding-bottom:0px">
                     {!! $data["title_site"] !!}
                 </h2>
             </td>
         </tr>
         <tr style="font-family:Arial;margin:0">
-            <td style="font-family:Arial;margin:0;padding:60px 0;">
+            <td style="font-family:Arial;margin:0;padding:25px 0;">
                 <img src="{!! $data["domain"] !!}/img/email/compliments_1.png"  alt="congratulation"
-                     style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;margin:0 auto 15px"
-                     width="100"
+                     style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;margin:0 auto 15px;width:70px;"
                 >
                 <p style="text-align:center;padding:0 0 20px;font-size:17px;font-weight:700;">
                     {!! $data["your_account_activated"] !!}

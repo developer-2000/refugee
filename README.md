@@ -1,3 +1,16 @@
+#### настройка laravel https
+
+https://mb4.ru/frameworks/laravel/articles/1051-laravel-https.html
+
+D:\ystanovki\OpenServer_5.3.8\domains\refugee\app\Providers\AppServiceProvider.php
+
+заменить на 
+
+    public function boot()
+    {
+        URL::forceScheme('https');
+    }
+    
 #### перевод страницы Google
 
 встроить google переводчик в сайт
@@ -42,6 +55,9 @@ help настроек - https://blog.ithillel.ua/ru/articles/oauth-2-0-autentifi
 
 ###### страница настроек google 
 https://console.cloud.google.com/apis/credentials?highlightClient=890676224339-h89hv5apvt4rroi3rb8d6k38fpu1vg64.apps.googleusercontent.com&project=engaged-hook-358914
+
+страница подтверждения перехода с тест на продукт приложения 
+https://console.cloud.google.com/apis/credentials/consent?project=engaged-hook-358914
 
 после сменить домен на рабочий D:\ystanovki\OpenServer_5.3.8\domains\refugee\config\services.php
 
