@@ -6,8 +6,7 @@ D:\ystanovki\OpenServer_5.3.8\domains\refugee\app\Providers\AppServiceProvider.p
 
 заменить на 
 
-    public function boot()
-    {
+    public function boot() {
         URL::forceScheme('https');
     }
     
@@ -43,7 +42,7 @@ https://d-element.ru/about/blog/chto-takoe-schema-org/#wpheader
 
 https://github.com/jorenvh/laravel-share
 
-help - https://www.youtube.com/watch?v=EgiHdLgmeSo
+как сделать кнопки и url - https://www.youtube.com/watch?v=EgiHdLgmeSo
 
 #### авторизация через пакет socialite
 
@@ -53,26 +52,25 @@ help video - https://www.youtube.com/watch?v=cXbgZhOS72w&list=PLfViXxbdy6QjbnKsM
 
 help настроек - https://blog.ithillel.ua/ru/articles/oauth-2-0-autentifikatsiya-cherez-google-kak-realizovat-vhod-cherez-google-na-sayte
 
-###### страница настроек google 
+ * страница настроек google 
 https://console.cloud.google.com/apis/credentials?highlightClient=890676224339-h89hv5apvt4rroi3rb8d6k38fpu1vg64.apps.googleusercontent.com&project=engaged-hook-358914
 
-страница подтверждения перехода с тест на продукт приложения 
+   страница подтверждения перехода с тест на продукт приложения 
 https://console.cloud.google.com/apis/credentials/consent?project=engaged-hook-358914
 
-после сменить домен на рабочий D:\ystanovki\OpenServer_5.3.8\domains\refugee\config\services.php
+   после сменить домен на рабочий D:\ystanovki\OpenServer_5.3.8\domains\refugee\config\services.php
 
-'redirect' => 'http://localhost:8000/user/google/callback',
+   'redirect' => 'http://localhost:8000/user/google/callback',
 
-###### страница настроек facebook
+ * страница настроек facebook
 
-https://developers.facebook.com/apps/427327926024607/settings/basic/
+   https://developers.facebook.com/apps/427327926024607/settings/basic/
 
-help - https://www.youtube.com/watch?v=oAYyYhd58qQ
+   help - https://www.youtube.com/watch?v=oAYyYhd58qQ
 
-###### страница настроек linkedin
+ * страница настроек linkedin
 
-https://www.linkedin.com/developers/apps
-
+   https://www.linkedin.com/developers/apps
 
 #### пакет для мета тегов сайта
 https://github.com/butschster/LaravelMetaTags

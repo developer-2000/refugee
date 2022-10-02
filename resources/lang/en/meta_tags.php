@@ -8,8 +8,8 @@ return [
         "keywords" => 'work in europe, job, work in europe, vacancies, resumes, candidates, job search, looking for a job, employers in europe, recruitment',
     ],
     "all_vacancies" => [
-        "title" => 'Free jobs and job search - ',
-        "description" => 'Search for jobs by country and city in Europe. Free vacancies from employers abroad. Find a job abroad.',
+        "title" => 'Current vacancies in Europe and job search - ',
+        "description" => 'Search for vacancies by countries and cities of Europe. The best offers from employers abroad. Find a job abroad.',
         "keywords" => 'work in europe, work in europe countries, vacancies abroad, job search, looking for a job, employers in europe, job offers',
     ],
     "vacancies_country" => [
