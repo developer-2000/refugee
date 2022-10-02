@@ -193,7 +193,7 @@ li {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: center;
-    padding: 6px 10px 6px 8px;
+    padding: 6px 5px 6px 8px;
     font-size: 15px;
     background: linear-gradient(0deg, rgba(253,230,45,1) 0%, rgba(253,230,45,1) 49%, rgba(0,123,255,1) 49%, rgba(0,123,255,1) 100%);
 }
@@ -202,7 +202,7 @@ li {
 }
 .brand-link img{
     width: 50px;
-    margin-left: 5px;
+    margin-left: 2px;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -382,6 +382,7 @@ li {
     display: flex;
     align-items: center;
     margin-right: 0 !important;
+    overflow: hidden;
 }
 .button-auth a{
     width: 100%;

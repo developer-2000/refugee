@@ -26,7 +26,7 @@ return [
     'vacancies9'=>'«Vacancies»',
     'resumes9'=>'«Resume»',
     'remove'=>'Remove',
-    'reset_all'=>'reset all',
+    'reset_all'=>'reset all filters',
     'location'=>'Location',
     'search_country'=>'Search country',
     'select'=>'Select',

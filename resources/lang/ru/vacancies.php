@@ -26,7 +26,7 @@ return [
     'vacancies9'=>'«Вакансиям»',
     'resumes9'=>'«Резюме»',
     'remove'=>'Убрать',
-    'reset_all'=>'сбросить все',
+    'reset_all'=>'сбросить все фильтры',
     'location'=>'Локация',
     'search_country'=>'Страна поиска',
     'select'=>'Выбрать',

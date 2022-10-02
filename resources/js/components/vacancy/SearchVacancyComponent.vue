@@ -1,11 +1,12 @@
 <template>
     <div class="search-panel container">
 
-        <!-- title -->
+        <!-- Title -->
         <h1 class="title_page">
             {{getTitlePage()}}
         </h1>
 
+        <!-- Breadcrumbs, Sharing panel-->
         <div class="row top-panel bread-top">
 
             <!-- breadcrumbs -->
@@ -35,25 +36,55 @@
             </div>
         </div>
 
+        <!-- Search input line -->
         <h2 class="title_page">
             {{trans('vacancies','job_search')}}
         </h2>
-
-        <!-- search input line -->
         <search_title_panel
             :lang="lang"
             :respond="respond"
             :prefix="prefix_url"
         ></search_title_panel>
 
+        <!-- Vacancies, Right panel -->
         <div class="bottom-search">
 
-            <!-- vacancies -->
+            <!-- Кнопка modal, Vacancies -->
             <div class="left-site">
-                <!-- кнопка modal -->
-                <span v-if="media_bool" class="but-modal-filter" data-toggle="modal" data-target="#modal-filter">
-                    {{trans('vacancies','advanced_search')}}
-                </span>
+
+                <!-- mobile search filters -->
+                <div v-if="media_bool" class="box-mobile-filter-buttons">
+
+                    <!-- top -->
+                    <div class="top-mobile-filter-buttons">
+                        <!-- кнопка modal -->
+                        <span  class="but-modal-filter" data-target="#modal-filter" data-toggle="modal">
+                            {{trans('vacancies','advanced_search')}}
+                        </span>
+
+                        <!-- сбросить все-->
+                        <a v-if="locationSearch != '' && media_bool"
+                           class="but-reset-all"
+                           href="javascript:void(0)"
+                           @click="clearQuery()"
+                        >
+                            {{trans('vacancies','reset_all')}}
+                        </a>
+                    </div>
+
+                    <!-- bottom -->
+                    <div class="bottom-mobile-filter-buttons">
+
+                        <span v-for="(value, key) in objButtonFilters" :key="key"
+                              class="item-filter-parameter"
+                        >
+                            {{value.text}}
+                            <svg @click="resetFilters(objButtonFilters[key])" class="svg-circle-xmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M331.3 180.7c-6.25-6.25-16.38-6.25-22.62 0L256 233.4l-52.7-52.7c-6.25-6.25-16.38-6.25-22.62 0s-6.25 16.38 0 22.62L233.4 256l-52.7 52.7c-6.25 6.25-6.25 16.38 0 22.62 6.246 6.246 16.37 6.254 22.62 0L256 278.6l52.69 52.69c6.246 6.246 16.37 6.254 22.62 0 6.25-6.25 6.25-16.38 0-22.62L278.6 256l52.69-52.69c6.31-6.21 6.31-16.41.01-22.61zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 480C132.5 480 32 379.5 32 256S132.5 32 256 32s224 100.5 224 224-100.5 224-224 224z"/></svg>
+                        </span>
+
+                    </div>
+
+                </div>
 
                 <!-- item -->
                 <a class="box-vacancy"
@@ -118,7 +149,7 @@
                     :lang="lang"
                     :respond="respond"
                     :page="'search_vacancies'"
-                    @returnParent="getVacancies"
+                    @returnParent="reloadFilterPage"
                 ></filter_panel>
 
                 <country_sities
@@ -128,7 +159,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Filter -->
         <div v-if="media_bool" class="modal fade" id="modal-filter">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -145,7 +176,7 @@
                             :lang="lang"
                             :respond="respond"
                             :page="'search_vacancies'"
-                            @returnParent="getVacancies"
+                            @returnParent="reloadFilterPage"
                         ></filter_panel>
                     </div>
                 </div>
@@ -169,6 +200,7 @@
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import url_mixin from "../../mixins/url_mixin";
     import top_panel from "../../mixins/vacancy_resume/top_panel_vacancy_resume_mixin";
+    import mobile_filter_panel from "../../mixins/vacancy_resume/mobile_filter_panel_mixin";
     import sharing_panel from "../details/SharingPanelComponent";
     import filter_panel from '../details/right_panel_document_search_page/FilterPanelComponent'
 
@@ -190,6 +222,7 @@
             date_mixin,
             top_panel,
             url_mixin,
+            mobile_filter_panel
         ],
         data() {
             return {
@@ -202,55 +235,6 @@
             }
         },
         methods: {
-            getVacancies(obj){
-                let params = new URLSearchParams(window.location.search)
-                params.delete('page')
-                params.delete('categories')
-                params.delete('languages')
-                params.delete('suitable')
-                params.delete('employment')
-                params.delete('salary')
-                params.delete('experience')
-                params.delete('education')
-
-                // categories
-                if(obj.categories != undefined && obj.categories.length){
-                    params.set('categories',obj.categories.toString())
-                }
-                // languages
-                if(obj.languages != undefined && obj.languages.length){
-                    params.set('languages',obj.languages.toString())
-                }
-                // suitable
-                if(obj.suitable != undefined && obj.suitable.check){
-                    params.set('suitable',[obj.suitable.suitable_from,obj.suitable.suitable_to].toString())
-                }
-                // employment
-                if(obj.employment != undefined && obj.employment){
-                    params.set('employment',obj.employment)
-                }
-                // salary
-                if(obj.salary != undefined && obj.salary.check){
-                    params.set('salary',[
-                        obj.salary.without_salary_checkbox ? 1 : 0,
-                        obj.salary.from,
-                        obj.salary.to
-                    ].toString())
-                }
-                // experience
-                if(obj.experience != undefined && obj.experience){
-                    params.set('experience',obj.experience)
-                }
-                // education
-                if(obj.education != undefined && obj.education){
-                    params.set('education',obj.education)
-                }
-
-                params.sort()
-                let query = (params.toString() == '') ? '' : '?'+params.toString()
-
-                location.href = this.urlPathname()+query
-            },
             paginateReload(obj){
                 let params = new URLSearchParams(window.location.search)
                 params.delete('page')
@@ -281,7 +265,7 @@
                         this.vacancies.splice(index_obj, 1)
                     }
                 }
-            }
+            },
         },
         props: [
             'lang',
@@ -289,7 +273,6 @@
             'user',
         ],
         mounted() {
-            // console.log(this.respond)
             this.vacancies = this.respond.vacancies.data
             window.addEventListener("resize", this.moveFilterBar, true);
             this.moveFilterBar();
@@ -299,6 +282,65 @@
 
 <style scoped lang="scss">
     @import "../../../sass/variables";
+
+    .box-mobile-filter-buttons{
+        font-size: 14px;
+        margin-bottom: 20px;
+        .top-mobile-filter-buttons{
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            .but-modal-filter{
+                color: #c97900;
+                border-bottom: 1px dashed #c97900;
+                display: inline-block;
+                cursor: pointer;
+                &:hover{
+                    color: #ed9004;
+                    border-bottom: 1px dashed #ed9004;
+                }
+            }
+            .but-reset-all {
+                display: inline-block;
+                color: #3490dc;
+                text-decoration: none;
+                border-bottom: 1px dashed #3490dc;
+                &:hover {
+                    border-bottom: 1px dashed #0268bc;
+                    color: #0268bc;
+                }
+            }
+        }
+        .bottom-mobile-filter-buttons{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: flex-start;
+
+            .item-filter-parameter{
+                display: flex;
+                align-content: center;
+
+                background: #e3e3e3;
+                padding: 4px 8px 4px 10px;
+                border-radius: 15px;
+                line-height: 20px;
+                margin: 10px 5px 0 0;
+                .svg-circle-xmark{
+                    width: 17px;
+                    fill: #dc3545;
+                    margin-left: 4px;
+                    cursor: pointer;
+                    &:hover{
+                        fill: #e6041a;
+                    }
+                }
+            }
+        }
+
+    }
 
     .top-panel{
         padding: 20px 15px!important;
@@ -311,18 +353,6 @@
             font-size: 1.125rem;
             color: #444;
             font-weight: 300;
-        }
-    }
-    .but-modal-filter{
-        font-size: 16px;
-        color: #c97900;
-        border-bottom: 1px dashed #c97900;
-        margin-bottom: 19px;
-        display: inline-block;
-        cursor: pointer;
-        &:hover{
-            color: #ed9004;
-            border-bottom: 1px dashed #ed9004;
         }
     }
     .right-top-panel{
@@ -413,6 +443,9 @@
             margin-top: 40px;
             justify-content: flex-start;
         }
+        .top-panel{
+            position: static;
+        }
     }
 
     @media (max-width: 720px){
@@ -427,6 +460,7 @@
             display: flex;
             justify-content: flex-start;
         }
+
     }
 
     @media (max-width: 480px){

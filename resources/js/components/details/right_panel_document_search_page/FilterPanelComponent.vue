@@ -43,9 +43,7 @@
                             >
                                 {{trans('vacancies',value)}}
                             </option>
-                            <option v-else
-                                    :value="index" :key="index"
-                            >
+                            <option v-else :value="index" :key="index">
                                 {{trans('vacancies',value)}}
                             </option>
                         </template>
@@ -151,7 +149,7 @@
                             :data-placeholder="trans('vacancies','select')"
                     >
                         <template v-for="(obj, index) in lang.lang">
-                            <!-- в случае редиктирования -->
+                            <!-- в случае редактирования -->
                             <template v-if="arrLanguages.indexOf(index) !== -1" >
                                 <option :value="index" :key="index" selected>{{obj.title}}</option>
                             </template>
@@ -282,9 +280,6 @@
             <!-- body -->
             <div class="card-body">
                 <div class="form-group">
-                    <label for="suitable">
-                        {{trans('vacancies','years_age')}}
-                    </label>
                     <div id="suitable" class="box-suitable">
                         <input :placeholder="`${trans('vacancies','from')}`"
                                max="100" min="0" type="number"
@@ -340,7 +335,7 @@
                         <option :value="null" selected>
                             {{trans('vacancies','select')}}
                         </option>
-                        <template v-for="(value, key) in this.respond.education">
+                        <template v-for="(value, key) in respond.education">
                             <!-- в случае обновления страницы -->
                             <template v-if="key == education" >
                                 <option :value="key" selected>
@@ -542,7 +537,7 @@
             },
             clearQuery(){
                 window.location.href = location.protocol + '//' + location.host + location.pathname
-            }
+            },
         },
         props: [
             'lang',   // масив названий и url языка
@@ -718,7 +713,7 @@
         text-align: center;
         display: block;
         margin: -25px auto 10px;
-        font-size: 19px;
+        font-size: 14px;
         color: #3490dc;
         text-decoration: none;
         border-bottom: 1px dashed #3490dc;
