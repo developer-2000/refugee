@@ -612,7 +612,7 @@
                     min-height: 155px;
                 }
                 .convenient_search{
-                    min-height: 165px;
+                    min-height: 215px;
                 }
                 .quick_authorization{
                     min-height: 90px;
@@ -624,7 +624,7 @@
         }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 415px) {
         .start {
             padding-bottom: 150px;
             .start-block {

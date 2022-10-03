@@ -206,6 +206,7 @@
         margin: 25px 0;
         box-shadow: none;
         background-color: #c8dadf;
+        max-width: 300px;
         .contacts-header{
             color: #444;
             display: flex;

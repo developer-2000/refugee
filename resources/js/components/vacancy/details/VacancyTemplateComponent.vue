@@ -620,9 +620,18 @@
 
     @media (max-width: 500px){
 
-        .box-title .company-vacancy,
-        .box-title .default-company {
-            display: none;
+        .box-title{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            .company-vacancy {
+                float: none;
+                margin: 0 0 10px 0;
+            }
+        }
+        .link-a{
+            float: none;
         }
         .footer-vacancy{
             .right-footer{

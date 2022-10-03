@@ -129,8 +129,8 @@ class AdminSeeder extends Seeder
             'text_description' => "
 <p>
 I'm looking for anyone who has the ability, the ability to make the world a better place. Everyone who has the profession of a designer, programmer, system administrator,
-cybersecurity specialist - point out shortcomings and errors in the work and implementation of the service
-<a href='https://work-ukraine.com'>work-ukraine.com</a>
+cybersecurity specialist, tester, HR manager - point out shortcomings and errors in the work and implementation of the service
+<a href='https://work-ukraine.com'>work-ukraine.com</a>. Suggest options.
 </p>
 <p>I am looking for managers of you company who provide vacancies for their employer. I will be happy to provide a platform for additional recruitment of employees in your company.</p>
 <p>&nbsp;</p>",
@@ -145,5 +145,3 @@ cybersecurity specialist - point out shortcomings and errors in the work and imp
 
     }
 }
-
-

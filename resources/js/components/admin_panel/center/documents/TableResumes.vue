@@ -472,7 +472,7 @@
         justify-content: space-between;
         align-content: center;
         .svg-translate{
-            width: 35px;
+            width: 50px;
             fill: #3490dc;
             cursor: pointer;
             &:hover{

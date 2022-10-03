@@ -382,7 +382,7 @@
             display: flex;
             margin-left: 20px;
             .svg-translate{
-                width: 35px;
+                width: 50px;
                 fill: #3490dc;
                 cursor: pointer;
                 &:hover{
@@ -529,6 +529,7 @@
     @media (max-width: 768px){
         .top-panel{
             flex-direction: column;
+            position: static;
         }
         .right-site{
             margin-top: 40px;
@@ -549,7 +550,14 @@
         }
 
     }
-
+    @media (max-width: 418px) {
+        .h1-translate{
+            flex-direction: column;
+        }
+        .h1-translate .box-translate-google {
+            margin: 30px 0 0 0;
+        }
+    }
 
 
 </style>
