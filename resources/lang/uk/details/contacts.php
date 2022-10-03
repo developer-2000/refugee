@@ -6,6 +6,7 @@ return [
     'company' => "Компанія",
     'show_email' => "Показати email",
     'email_copied_clipboard' => "Email скопійований у буфер обміну",
+    'url_copied_clipboard' => "url сторінки скопійовано в буфер обміну",
     'not_specified' => "Не вказано",
     'show_skype' => "Показати skype",
     'skype_copied_clipboard' => "Skype скопійовано в буфер обміну",

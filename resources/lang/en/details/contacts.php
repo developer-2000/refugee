@@ -6,6 +6,7 @@ return [
     'company' => "company",
     'show_email' => "Show email",
     'email_copied_clipboard' => "Email copied to clipboard",
+    'url_copied_clipboard' => "page url copied to clipboard",
     'not_specified' => "Not specified",
     'show_skype' => "Show skype",
     'skype_copied_clipboard' => "Skype copied to clipboard",
