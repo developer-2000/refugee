@@ -2,11 +2,11 @@
 export default {
     data() {
         return {
-            first_name: 'Shamil',
-            last_name: 'Bagalov',
-            email: 'thwglobal2000@gmail.com',
-            password: 'thwglobal2000',
-            new_password: 'thwglobal2000',
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
+            new_password: '',
             terms: false
         }
     },

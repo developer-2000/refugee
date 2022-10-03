@@ -74,8 +74,8 @@
         ],
         data() {
             return {
-                email: 'admin@admin.admin',
-                password: 'adminadmin',
+                email: '',
+                password: '',
             }
         },
         props: [

@@ -726,17 +726,17 @@
                     textarea_candidate: '',
                     editorConfig1: {
                         toolbar: [
-                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
+                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList', 'Link' ]
                         ],
                     },
                     editorConfig2: {
                         toolbar: [
-                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
+                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList', 'Link' ]
                         ],
                     },
                     editorConfig3: {
                         toolbar: [
-                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList' ]
+                            [ 'Maximize', 'Bold', 'Italic', 'NumberedList', 'BulletedList', 'Link' ]
                         ],
                     },
                 },

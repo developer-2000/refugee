@@ -57,9 +57,9 @@ Route::group(['prefix'=>'technical'], function (){
     Route::get('/run-job-emails', [CronController::class, 'runJobEmails']);
 });
 
-// переключение url и translation сайта
+// переключение url и translation сайта 'middleware' => ['redirect_admin']
 Route::group(['prefix' => LocalizationFacades::locale()], function () {
-    Route::group(['middleware' => ['redirect_admin']], function () {
+    Route::group([], function () {
 
         Route::get('/', [IndexController::class, 'index'])->name('index');
 

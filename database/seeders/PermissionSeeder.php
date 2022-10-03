@@ -1,13 +1,15 @@
 <?php
 namespace Database\Seeders;
 
+use App\Model\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
     private static $permissions = [
-        "user",
         "admin",
+        "user",
+        "test",
     ];
 
     /**
@@ -18,7 +20,7 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         foreach (self::$permissions as $key => $value) {
-            $model = new \App\Model\Permission();
+            $model = new Permission();
             $model->name = $value;
             $model->save();
         }
