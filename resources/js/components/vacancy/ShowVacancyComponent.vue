@@ -68,6 +68,7 @@
             <div class="right-site">
                 <sharing_panel
                     :lang="lang"
+                    :social_share="respond['social_share']"
                     :page="'vacancy'"
                 ></sharing_panel>
             </div>

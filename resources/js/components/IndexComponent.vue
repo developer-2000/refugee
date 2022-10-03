@@ -164,10 +164,10 @@
                         </h3>
                         <p>
                             {{trans('pages.index','convenient_fast_nice')}}
-<!--                            <img src="/img/custom/panel_soc.png" alt="панель соцсетей">-->
                             <span class="box-share">
                                 <sharing_panel
                                     :lang="lang"
+                                    :social_share="respond['social_share']"
                                     :page="'service'"
                                 ></sharing_panel>
                             </span>

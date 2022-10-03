@@ -5,7 +5,7 @@ use App\Http\Requests\Company\CheckTransliterationRequest;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
-use App\Http\Traits\MetaTrait;
+use App\Http\Traits\SharingTraite;
 use App\Jobs\Statistics\IncreaseNumberShowJob;
 use App\Model\UserCompany;
 use App\Repositories\CompanyRepository;
@@ -13,11 +13,12 @@ use App\Repositories\ContactInformationRepository;
 use App\Repositories\OfferArchiveRepository;
 use App\Repositories\OfferRepository;
 use App\Services\LocalizationService;
+use App\Services\MetaService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends BaseController {
-    use GeographyForShowInterfaceTraite, MetaTrait;
+    use GeographyForShowInterfaceTraite, SharingTraite;
 
     protected $repository;
 
@@ -65,6 +66,7 @@ class CompanyController extends BaseController {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($alias){
+        $metaService = new MetaService();
         $my_user = Auth::user();
         $company = UserCompany::where('alias', $alias)
             ->with(
@@ -123,7 +125,23 @@ class CompanyController extends BaseController {
             "arr_id_vacancies"=>$idVacancies,
         ])->onQueue('default');
 
-        $this->setMetaShowCompanyPage($company->toArray());
+        $companyArr = $company->toArray();
+
+        // 4 установить мета теги страницы
+        $metaService->setMetaShowCompanyPage($companyArr);
+
+        // 5 установить  meta Open Graph
+        $config = config('site.open_graph');
+        $config["title_page"] = __('meta_tags.show_company.title', [ "company"=>$companyArr["title"] ]);
+        $config["description"] = __('meta_tags.show_company.description', [ "company"=>$companyArr["title"] ]);
+
+        $metaService->setOpenGraph($config);
+
+        // 7 установить meta Twitter Card
+        $metaService->setTwitterCard($config);
+
+        // 8 вернуть ссылки Sharing соц-сетей
+        $settings["social_share"] = $this->getLinksShare();
 
         return view('company', compact('company','settings', 'contact_list'));
     }

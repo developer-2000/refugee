@@ -2,26 +2,30 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
-use App\Http\Traits\MetaTrait;
+use App\Http\Traits\SharingTraite;
 use App\Jobs\SendFeedbackMessage;
-use App\Repositories\ResumeRepository;
+use App\Services\InstrumentService;
 use App\Services\LanguageService;
 use App\Services\LocalizationService;
+use App\Services\MetaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 
 class IndexController extends BaseController {
-    use MetaTrait;
+    use SharingTraite;
+
+    protected $metaService = '';
 
     public function __construct() {
         parent::__construct();
+        // установка lang из url
         $service = new LanguageService();
         App::setLocale($service->selectLangFromUrl());
+        // мета сервис
+        $this->metaService = new MetaService();
     }
 
     /**
@@ -41,13 +45,29 @@ class IndexController extends BaseController {
         $respond = config('site.search_title_panel.collection_location');
         $respond['obj_countries'] = (new LocalizationService())->getCountries(App::getLocale());
 
-        $this->setMetaIndexPage();
+        // 1 установить мета теги страницы
+        $this->metaService->setMetaIndexPage();
+
+        // 2 установить meta Open Graph
+        $config = config('site.open_graph');
+        $config["title_page"] = __('meta_tags.index_page.title');
+        $desc = trim(__('meta_tags.index_page.description'));
+        $desc = (new InstrumentService())->firstSymbolStringUppercase($desc);
+        $config["description"] = $desc;
+
+        $this->metaService->setOpenGraph($config);
+
+        // 3 установить meta Twitter Card
+        $this->metaService->setTwitterCard($config);
+
+        // 4 вернуть ссылки Sharing соц-сетей
+        $respond["social_share"] = $this->getLinksShare();
 
         return view('index', compact('transition_url_page','respond'));
     }
 
     public function aboutUs() {
-        $this->setMetaAboutUsPage();
+        $this->metaService->setMetaAboutUsPage();
         $domain = env("APP_DOMAIN", "");
 
         return view("about_us.about_us_".app()->getLocale(), compact("domain"));
@@ -61,7 +81,7 @@ class IndexController extends BaseController {
 
         $respond["config"] = config('site.feedback');
 
-        $this->setMetaFeedbackPage();
+        $this->metaService->setMetaFeedbackPage();
 
         return view("feedback", compact('respond'));
     }

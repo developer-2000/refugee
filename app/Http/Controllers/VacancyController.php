@@ -10,16 +10,16 @@ use App\Http\Requests\Vacancy\StoreVacancyRequest;
 use App\Http\Requests\Vacancy\UpdateVacancyRequest;
 use App\Http\Requests\Vacancy\UpVacancyStatusRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
-use App\Http\Traits\MetaTrait;
+use App\Http\Traits\SharingTraite;
 use App\Jobs\Statistics\IncreaseNumberShowJob;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
-use App\Model\StatisticVacancy;
 use App\Model\UserSaveVacancy;
 use App\Model\UserHideVacancy;
 use App\Model\Vacancy;
 use App\Repositories\VacancyRepository;
 use App\Services\LanguageService;
+use App\Services\MetaService;
 use App\Services\StatisticVacanciesService;
 use Butschster\Head\Facades\Meta;
 use Butschster\Head\Packages\Entities\OpenGraphPackage;
@@ -29,7 +29,7 @@ use Jorenvh\Share\ShareFacade;
 
 
 class VacancyController extends BaseController {
-    use GeneralVacancyResumeTraite, MetaTrait;
+    use GeneralVacancyResumeTraite, SharingTraite;
 
     protected $repository;
     protected $count_pagination = 0;
@@ -43,7 +43,7 @@ class VacancyController extends BaseController {
     }
 
     public function index(IndexVacancyRequest $request, $country = null, $city = null) {
-
+        $metaService = new MetaService();
         $my_user = Auth::user();
         $ids_respond = [];
 
@@ -72,7 +72,41 @@ class VacancyController extends BaseController {
         $respond['vacancies'] = $vacancies;
         $respond['ids_respond'] = $ids_respond;
 
-        $this->setMetaAllVacanciesPage($respond);
+        // 5 установить мета теги страницы
+        $metaService->setMetaAllVacanciesPage($respond);
+
+        // 6 установить  meta Open Graph
+        $config = config('site.open_graph');
+        $location_now = $metaService->checkLocation($respond);
+
+        // 6.1 все вакансии
+        if( $location_now === "all_documents" ){
+            $config["title_page"] = __('meta_tags.all_vacancies.title');
+            $config["description"] = __('meta_tags.all_vacancies.description');
+        }
+        // 6.2 вакансии страны
+        elseif ( $location_now === "country" ){
+            $config["title_page"] = __('meta_tags.vacancies_country.title', ['name' => $respond["now_country"]["translate"]]);
+            $config["description"] = __('meta_tags.vacancies_city.open_graph');
+        }
+        // 6.3 вакансии региона или города
+        elseif ( $location_now === "city" ){
+            $city = !is_null($respond["now_city"]) ? $respond["now_city"]["translate"] : $respond["now_region"]["translate"];
+
+            $config["title_page"] = __('meta_tags.vacancies_city.title', [
+                'city' => $city,
+                'country' => $respond["now_country"]["translate"]
+            ]);
+            $config["description"] = __('meta_tags.vacancies_city.open_graph');
+        }
+
+        $metaService->setOpenGraph($config);
+
+        // 7 установить meta Twitter Card
+        $metaService->setTwitterCard($config);
+
+        // 8 вернуть ссылки Sharing соц-сетей
+        $respond["social_share"] = $this->getLinksShare();
 
         return view('search_vacancies', compact('respond'));
     }
@@ -84,50 +118,49 @@ class VacancyController extends BaseController {
      * @param  ShowVacancyRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(ShowVacancyRequest $request)
-    {
+    public function show(ShowVacancyRequest $request) {
+        $metaService = new MetaService();
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
         $arrData['respond']['settings'] = $settings;
+        $vacancy = $arrData["respond"]["vacancy"];
 
         // количество просмотров
         $statisticService = new StatisticVacanciesService();
-        $statisticService->increaseNumberView($arrData["respond"]["vacancy"]["id"]);
+        $statisticService->increaseNumberView($vacancy["id"]);
 
-        // основные мета теги
-        $this->setMetaShowVacancyPage($arrData["respond"]["vacancy"]);
+        // 1 установить мета теги страницы
+        $metaService->setMetaShowVacancyPage($vacancy);
 
-        // soc мета теги
-        $og = new OpenGraphPackage('some_name');
-//        $og->setType('website')
-        $og->setType('article')
-            ->setSiteName('My awesome site')
-            ->setDescription('View the album on Flickr.')
-            ->setUrl('http://127.0.0.1:8000/vacancy/ukraine/odessa/70ad4bf80aa87e6a32fb885daab78346ac222191')
-            ->setLocale('en_US')
-            ->setTitle('Post title')
-            ->addImage('http://127.0.0.1:8000', [
-                'secure_url' => 'http://127.0.0.1:8000/img/company/default/company-default.jpg',
-                'type' => 'image/jpg'
-            ]);
+        // 2 установить meta Open Graph
+        $config = config('site.open_graph');
+        $salary = ($vacancy["salary"]["radio_name"] == "range") ?
+            ($vacancy["salary"]["inputs"]["from"]." - ".$vacancy["salary"]["inputs"]["to"]) :
+            (($vacancy["salary"]["radio_name"] == "single_value") ? $vacancy["salary"]["inputs"]["salary_sum"] : "");
+        $user_name = $vacancy['contact']['full_name'];
+        $address = isset($vacancy["address"]["city"]) ? $vacancy["address"]["city"]["translate"] : $vacancy["address"]["region"]["translate"];
 
-        $og->toHtml();
+        $config["title_page"] = __('meta_tags.show_vacancy.title', [
+            'title' => $vacancy["position"]["title"],
+            'salary' => $salary,
+            'user_name' => $user_name,
+        ]);
+        $config["description"] = __(
+            'meta_tags.show_vacancy.description',
+            [
+                'company' => $vacancy["company"]["title"],
+                'title' => $vacancy["position"]["title"],
+                'salary' => $salary, 'address' => $address,]
+        );
 
-        Meta::registerPackage($og);
+        $metaService->setOpenGraph($config);
 
+        // 3 установить meta Twitter Card
+        $metaService->setTwitterCard($config);
 
-//        $arrData["respond"]["social_share"] = ShareFacade::currentPage()
-        $arrData["respond"]["social_share"] = ShareFacade::page(
-            'http://127.0.0.1:8000/vacancy/ukraine/odessa/70ad4bf80aa87e6a32fb885daab78346ac222191',
-            'Share title'
-        )
-            ->facebook()
-            ->twitter()
-            ->linkedin('Extra linkedin summary can be passed here')
-            ->whatsapp()
-            ->telegram()
-            ->getRawLinks();
+        // 4 вернуть ссылки Sharing соц-сетей
+        $arrData["respond"]["social_share"] = $this->getLinksShare();
 
         return view('vacancies.show_vacancy', $arrData);
     }

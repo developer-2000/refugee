@@ -129,6 +129,7 @@
                     <div class="top-right-site">
                         <sharing_panel
                             :lang="lang"
+                            :social_share="settings.social_share"
                             :page="'company'"
                         ></sharing_panel>
                     </div>

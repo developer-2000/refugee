@@ -10,7 +10,7 @@ use App\Http\Requests\Resume\UpdateResumeRequest;
 use App\Http\Requests\Resume\UpResumeStatusRequest;
 use App\Http\Requests\Resume\DuplicateResumeRequest;
 use App\Http\Traits\GeneralVacancyResumeTraite;
-use App\Http\Traits\MetaTrait;
+use App\Http\Traits\SharingTraite;
 use App\Jobs\Statistics\IncreaseNumberShowResume;
 use App\Model\RespondResume;
 use App\Model\RespondVacancy;
@@ -19,13 +19,14 @@ use App\Model\UserHideResume;
 use App\Model\UserSaveResume;
 use App\Repositories\ResumeRepository;
 use App\Services\LanguageService;
+use App\Services\MetaService;
 use App\Services\StatisticResumesService;
-use App\Services\StatisticVacanciesService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Jorenvh\Share\ShareFacade;
 
 class ResumeController extends BaseController {
-    use GeneralVacancyResumeTraite, MetaTrait;
+    use GeneralVacancyResumeTraite, SharingTraite;
 
     protected $repository;
     protected $count_pagination;
@@ -38,8 +39,8 @@ class ResumeController extends BaseController {
         App::setLocale($service->selectLangFromUrl());
     }
 
-    public function index(IndexResumeRequest $request, $country = null, $city = null)
-    {
+    public function index(IndexResumeRequest $request, $country = null, $city = null) {
+        $metaService = new MetaService();
         $my_user = Auth::user();
         $ids_respond = [];
 
@@ -70,7 +71,43 @@ class ResumeController extends BaseController {
         $respond['resumes'] = $resumes;
         $respond['ids_respond'] = $ids_respond;
 
-        $this->setMetaAllResumesPage($respond);
+        // 5 установить мета теги страницы
+        $metaService->setMetaAllResumesPage($respond);
+
+        // 6 установить  meta Open Graph
+        $config = config('site.open_graph');
+        $location_now = $metaService->checkLocation($respond);
+
+        // 6.1 все резюме
+        if( $location_now === "all_documents" ){
+            $config["title_page"] = __('meta_tags.all_resumes.title');
+            $desc = trim(__('meta_tags.all_resumes.description'));
+            $config["description"] = $desc;
+        }
+        // 6.2 резюме страны
+        elseif ( $location_now === "country" ){
+            $config["title_page"] = __('meta_tags.resumes_country.title', ["country"=>$respond["now_country"]["translate"]]);
+            $config["description"] = __('meta_tags.resumes_country.description', [ "country"=>$respond["now_country"]["translate"], "site"=>config('app.name', "") ]);
+        }
+        // 6.3 резюме региона или города
+        elseif ( $location_now === "city" ){
+            $city = !is_null($respond["now_city"]) ? $respond["now_city"]["translate"] : $respond["now_region"]["translate"];
+
+            $config["title_page"] = __('meta_tags.resumes_city.title', [
+                "city"=>$city,
+                'country' => $respond["now_country"]["translate"]
+            ]);
+            $config["description"] = __('meta_tags.resumes_city.description', ["city"=>$city, "country"=>$respond["now_country"]["translate"], ])
+                .config('app.name', "");
+        }
+
+        $metaService->setOpenGraph($config);
+
+        // 7 установить meta Twitter Card
+        $metaService->setTwitterCard($config);
+
+        // 8 вернуть ссылки Sharing соц-сетей
+        $respond["social_share"] = $this->getLinksShare();
 
         return view('search_resumes', compact('respond'));
     }
@@ -87,6 +124,7 @@ class ResumeController extends BaseController {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(ShowResumeRequest $request) {
+        $metaService = new MetaService();
         $arrData = $this->repository->show($request);
         $settings = $this->getSettingsDocumentsAndCountries();
         $settings['contact_information'] = config('site.contacts.contact_information');
@@ -96,8 +134,29 @@ class ResumeController extends BaseController {
         $statisticService = new StatisticResumesService();
         $statisticService->increaseNumberView($arrData["respond"]["resume"]["id"]);
 
-        // основные мета теги
-        $this->setMetaShowResumePage($arrData['respond']["resume"]->toArray());
+        $resumeArr = $arrData['respond']["resume"]->toArray();
+        // 1 установить мета теги страницы
+        $metaService->setMetaShowResumePage($resumeArr);
+
+        // 6 установить meta Open Graph
+        $config = config('site.open_graph');
+        $address = isset($resumeArr["address"]["city"]) ? $resumeArr["address"]["city"]["translate"] : $resumeArr["address"]["region"]["translate"];
+        $user_name = $resumeArr['contact']['full_name'];
+
+        $config["title_page"] = __('meta_tags.show_resume.title', [
+            "title"=>$resumeArr["position"]["title"],
+            "address"=>$address,
+            'user_name' => $user_name
+        ]);
+        $config["description"] = __('meta_tags.show_resume.description', [ "title"=>$resumeArr["position"]["title"] ]).config('app.name', "");
+
+        $metaService->setOpenGraph($config);
+
+        // 3 установить meta Twitter Card
+        $metaService->setTwitterCard($config);
+
+        // 4 вернуть ссылки Sharing соц-сетей
+        $arrData["respond"]["social_share"] = $this->getLinksShare();
 
         return view('resumes.show_resume', $arrData);
     }

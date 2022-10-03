@@ -31,6 +31,7 @@
             <div class="col-sm-12 col-md-4 right-top-panel">
                 <sharing_panel
                     :lang="lang"
+                    :social_share="respond['social_share']"
                     :page="'search'"
                 ></sharing_panel>
             </div>
