@@ -65,10 +65,10 @@ class ResumeRepository extends CoreRepository {
             // не показывать мною скрытые резюме
             $idHide = UserHideResume::where('user_id',$my_user->id)->get()->pluck('resume_id');
             $resumes = $resumes->whereNotIn('id', $idHide);
-            // 3 убрать закрытые вакансии
-            $resumes = $resumes->whereJsonDoesntContain('job_posting->status_name', "hidden");
         }
 
+        // 3 убрать закрытые вакансии
+        $resumes = $resumes->whereJsonDoesntContain('job_posting->status_name', "hidden");
         // 4 прошла верификацию
         $resumes = $resumes->where('published', 1);
 

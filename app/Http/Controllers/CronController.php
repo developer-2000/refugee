@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Resume;
 use App\Model\Vacancy;
+use App\Services\InstrumentService;
 use Illuminate\Support\Facades\Artisan;
 
 class CronController {
@@ -24,38 +25,107 @@ class CronController {
     }
 
     /**
-     *  псевдо проверка админом и показ документа
+     *  псевдо проверка админом и активация документа
      *  Cron через 10 мин активировать созданные документы, которые
      *  не опубликована
      *  админ не проверял
      *  юзер активировал,
+     * @throws \Exception
      */
     public function pseudoCheckByAdminAndShowDocument() {
-
         $config = config("site.settings_vacancy");
+        $arrModels = [new Vacancy(), new Resume()];
 
-        // не заблокирована админом и активирована юзером
-        $vacancies = Vacancy::where("published", 0)
-            ->where("check_admin", 0)
-            ->whereJsonContains('job_posting->status_name', $config['job_status'][0])
-            ->get();
+        foreach ($arrModels as $key => $model){
+            // не заблокирована админом и активирована юзером
+            $collections = $model->where("published", 0)
+                ->where("check_admin", 0)
+                ->whereJsonContains('job_posting->status_name', $config['job_status'][0])
+                ->get();
 
-        foreach ($vacancies as $key => $vacancy){
-            $vacancy->published = 1;
-            $vacancy->save();
-        }
-
-        // не заблокирована админом и активирована юзером
-        $resumes = Resume::where("published", 0)
-            ->where("check_admin", 0)
-            ->whereJsonContains('job_posting->status_name', $config['job_status'][0])
-            ->get();
-
-        foreach ($resumes as $key => $resume){
-            $resume->published = 1;
-            $resume->save();
+            $this->activationCycle($collections, $config);
         }
     }
 
+    /**
+     * Деактивировать устаревшие документы
+     */
+    public function deactivateOldDocuments() {
+        $config = config("site.settings_vacancy");
+        $arrModels = [new Vacancy(), new Resume()];
+
+        foreach ($arrModels as $key => $model){
+            // не заблокирована админом и активирована юзером
+            $collections = $model->where("published", 1)
+                ->whereJsonContains('job_posting->status_name', $config['job_status'][0])
+                ->get();
+
+            // 1 заменить статус активности документа
+            $this->deactivationCycle($collections, $config);
+        }
+    }
+
+
+    /**
+     * переборка активации
+     * @param $collections
+     * @param $config
+     * @throws \Exception
+     */
+    private function activationCycle($collections, $config) {
+        $service = new InstrumentService();
+
+        foreach ($collections as $key => $coll){
+            $limit = 0;
+
+            // 1 вернет разницу в днях между старой датой и сейчас (добавлен жизненный цикл standard 30дней)
+            try {
+                $limit = $service
+                    ->returnDifferenceDateDays(
+                        $coll->job_posting['create_time'],
+                        $add_time = $config["lifetime_days_job_status"]["standard"],
+                        $type_add_time = 3
+                    );
+            } catch (\Exception $e) {}
+            // 2 standard имеет время жизни
+            if($limit > 0){
+                $coll->published = 1;
+                $coll->save();
+            }
+        }
+    }
+
+    /**
+     * переборка деактивации
+     * @param $collections
+     * @param $config
+     */
+    private function deactivationCycle($collections, $config) {
+        $service = new InstrumentService();
+
+        foreach ($collections as $key => $coll){
+            $limit = 0;
+
+            // 1 вернет разницу в днях между старой датой и сейчас (добавлен жизненный цикл standard 30дней)
+            try {
+                $limit = $service
+                    ->returnDifferenceDateDays(
+                        $coll->job_posting['create_time'],
+                        $add_time = $config["lifetime_days_job_status"]["standard"],
+                        $type_add_time = 3
+                    );
+            } catch (\Exception $e) {}
+
+            // 2 standard прекратил свой цикл
+            if($limit <= 0){
+                $coll->published = 0;
+                $coll->job_posting = [
+                    'status_name'=> $config['job_status'][1],
+                    'create_time'=>now()->subDays($config["lifetime_days_job_status"]["standard"]),
+                ];
+                $coll->save();
+            }
+        }
+    }
 
 }

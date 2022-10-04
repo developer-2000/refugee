@@ -57,8 +57,10 @@ Route::group(['prefix'=>'technical'], function (){
     Route::get('/run-job-default', [CronController::class, 'runJobDefault']);
     // run queue:work emails
     Route::get('/run-job-emails', [CronController::class, 'runJobEmails']);
-    // псевдо проверка админом и показ документа
+    // псевдо проверка админом и активация документа
     Route::get('/pseudo-check-by-admin-documents', [CronController::class, 'pseudoCheckByAdminAndShowDocument']);
+    // Деактивировать устаревшие документы
+    Route::get('/deactivate_old_documents', [CronController::class, 'deactivateOldDocuments']);
 });
 
 // переключение url и translation сайта 'middleware' => ['redirect_admin']

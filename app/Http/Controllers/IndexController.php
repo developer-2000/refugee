@@ -96,28 +96,10 @@ class IndexController extends BaseController {
         return $this->getResponse();
     }
 
+//    {"status_name":"standard","create_time":"2022-09-03T12:39:43.761498Z"}
     public function test() {
-
 
     }
 
+
 }
-
-// ОПРЕДЕЛИТЬ ЛИМИТ ЖИЗНИ ДОКУМЕНТА
-//        $config = config("site.settings_vacancy");
-//        $service = new InstrumentService();
-
-// 1 добавить lifetime job_status
-//        foreach ($vacancies as $key => $vacancy){
-//            // вернет разницу в миллисекундах между старой датой и сейчас
-//            $limit = $service
-//                ->returnDifferenceDateMilliseconds(
-//                    $vacancy->job_posting['create_time'],
-//                    $add_time = $config["lifetime_days_job_status"]["standard"],
-//                    $type_add_time = 3
-//                );
-//            $vacancy->setAttribute('lifetime', [
-//                "lifetime_days" => $config["lifetime_days_job_status"]["standard"],
-//                "limit" => $limit,
-//            ]);
-//        }

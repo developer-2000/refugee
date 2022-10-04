@@ -70,6 +70,21 @@ export default {
             }
             return 0
         },
+        // {"status_name":"standard","create_time":"2022-09-03T12:39:43.761498Z"}
+        checkAccess(resume){
+            // не опубликовано
+            if(resume.published == 0){
+                // активировано юзером
+                if(resume.job_posting['status_name'] == this.settings.job_status[0]){
+                    // время активации юзера по лимиту жизни достаточно
+                    if(this.getStatusInDay(resume.job_posting) > 0){
+                        return true
+                    }
+                }
+            }
+
+            return false
+        }
     },
     mounted() {
 

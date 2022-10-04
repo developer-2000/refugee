@@ -229,7 +229,7 @@ class ResumeController extends BaseController {
     {
         $settings = $this->getSettingsDocumentsAndCountries();
         $resumes = $this->repository->myResumes();
-
+//dd($settings);
         return view('resumes.my_resumes', compact('resumes','settings'));
     }
 
@@ -244,6 +244,7 @@ class ResumeController extends BaseController {
         Resume::where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->update([
+                "published"=>0,
                 'job_posting'=>[
                     'status_name'=>$settings->job_status[$request->index],
                     'create_time'=>now(),

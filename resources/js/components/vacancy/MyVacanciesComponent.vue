@@ -40,7 +40,7 @@
             {{trans('vacancies','helps_you_track_have')}}
         </div>
 
-        <!-- vacancies :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }" -->
+        <!-- vacancies -->
         <a class="box-vacancy"
            v-for="(vacancy, key) in vacancies" :key="key"
            :href="getGenerateUrlDocument(vacancy, 'vacancy')"

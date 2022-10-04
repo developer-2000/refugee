@@ -249,6 +249,7 @@ class VacancyController extends BaseController {
         Vacancy::where('id', $request->id)
             ->where('user_id', Auth::user()->id)
             ->update([
+                "published"=>0,
                 'job_posting'=>[
                     'status_name'=>$settings->job_status[$request->index],
                     'create_time'=>now(),
