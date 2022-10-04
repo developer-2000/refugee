@@ -48,7 +48,7 @@
         <a class="box-vacancy"
            v-for="(resume, key) in resumes" :key="key"
            :href="getGenerateUrlDocument(resume, 'resume')"
-           :class="{'close-document-border': resume.job_posting.status_name == 'hidden' }"
+           :class="{'close-document-border': getStatusInDay(resume.job_posting) <= 0 }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -75,6 +75,7 @@
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import date_mixin from "../../mixins/date_mixin";
     import url_mixin from "../../mixins/url_mixin";
+    import template_resume_vacancy_mixin from "../../mixins/template_resume_vacancy_mixin";
 
     export default {
         components: {
@@ -84,7 +85,9 @@
             translation,
             general_functions_mixin,
             bookmark_vacancies_mixin,
+            date_mixin,
             url_mixin,
+            template_resume_vacancy_mixin
         ],
         data() {
             return {

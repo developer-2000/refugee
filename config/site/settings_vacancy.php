@@ -63,6 +63,13 @@ return [
         'hidden',
     ],
 
+    // сколько в днях живет статус документа
+    'lifetime_days_job_status' => [
+        'standard' => 30,
+        'hidden' => 0,
+    ],
+
+
 ];
 
 

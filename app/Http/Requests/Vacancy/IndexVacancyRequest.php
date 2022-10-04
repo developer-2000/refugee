@@ -41,7 +41,7 @@ class IndexVacancyRequest extends FormRequest
             'position' => 'sometimes|nullable|string|max:100',
             'country' => 'sometimes|nullable|string|min:2|max:50',
             'city' => 'sometimes|nullable|string|min:2|max:50',
-            'categories' => 'sometimes|nullable|string|max:20',
+            'categories' => 'sometimes|nullable|string|max:200',
             'languages' => 'sometimes|nullable|string|max:20',
             'suitable' => 'sometimes|nullable|string|max:20',
             'employment' => 'sometimes|nullable|integer|in:0,1,2,3',

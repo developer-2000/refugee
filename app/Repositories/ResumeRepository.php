@@ -58,17 +58,19 @@ class ResumeRepository extends CoreRepository {
         // 1 фильтр выборки
         $resumes = $this->initialDataForSampling($request);
 
+        // авторизованый пользователь
         if(!is_null($my_user)){
             // не показывать мои резюме
             $resumes = $resumes->where('user_id', '!=', $my_user->id);
             // не показывать мною скрытые резюме
             $idHide = UserHideResume::where('user_id',$my_user->id)->get()->pluck('resume_id');
             $resumes = $resumes->whereNotIn('id', $idHide);
-            // 3 прошла верификацию
-            $resumes = $resumes->where('published', 1);
-            // 4 убрать закрытые вакансии
+            // 3 убрать закрытые вакансии
             $resumes = $resumes->whereJsonDoesntContain('job_posting->status_name', "hidden");
         }
+
+        // 4 прошла верификацию
+        $resumes = $resumes->where('published', 1);
 
         $resumes = $resumes->where('type', 0)
             ->with('position', 'contact.avatar','id_saved_resumes','id_hide_resumes','country','region','city')

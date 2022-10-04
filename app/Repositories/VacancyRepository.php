@@ -12,7 +12,9 @@ use App\Model\Resume;
 use App\Model\UserHideVacancy;
 use App\Model\UserSaveVacancy;
 use App\Model\Vacancy as Model;
+use App\Services\InstrumentService;
 use App\Services\LocalizationService;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,17 +57,19 @@ class VacancyRepository extends CoreRepository {
         // 1 фильтр выборки
         $vacancies = $this->initialDataForSampling($request);
 
+        // авторизованый пользователь
         if(!is_null($my_user)){
             // 1 не показывать мои вакансии
             $vacancies = $vacancies->where('user_id', '!=', $my_user->id);
             // 2 не показывать мною скрытые вакансии
             $idHide = UserHideVacancy::where('user_id',$my_user->id)->get()->pluck('vacancy_id');
             $vacancies = $vacancies->whereNotIn('id', $idHide);
-            // 3 прошла верификацию
-            $vacancies = $vacancies->where('published', 1);
-            // 4 убрать закрытые вакансии
+            // 3 убрать закрытые вакансии
             $vacancies = $vacancies->whereJsonDoesntContain('job_posting->status_name', "hidden");
         }
+
+        // 4 прошла верификацию
+        $vacancies = $vacancies->where('published', 1);
 
         $vacancies = $vacancies
             ->with('position','company.image','id_saved_vacancies','id_hide_vacancies','country','region','city')
@@ -189,7 +193,7 @@ class VacancyRepository extends CoreRepository {
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        // address
+        // 2 add address
         foreach ($vacancies as $key => $vacancy){
             $vacancy = $this->addPropertiesToCollection($vacancy);
             $vacancy = collect($vacancy);

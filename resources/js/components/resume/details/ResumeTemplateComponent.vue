@@ -228,7 +228,7 @@
             <div class="right-footer">
                 <!-- статус -->
                 <div class="mode-vacancy"
-                     v-html="getStatus(resume.job_posting)"
+                     v-html="viewStatus(resume.job_posting)"
                 >
                 </div>
 

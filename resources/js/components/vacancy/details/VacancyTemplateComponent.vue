@@ -240,6 +240,7 @@
 
         <!-- footer-vacancy -->
         <div v-if="page === 'my_vacancies'" class="footer-vacancy">
+
             <!-- отображение прошедшего времени -->
             <div class="date-document">
                 <!-- отображение прошедшего времени -->
@@ -250,16 +251,17 @@
 
                 <!-- вакансия закрыта -->
                 <div class="close-document-fon"
-                     v-if="vacancy.job_posting.status_name == 'hidden'"
+                     v-if="getStatusInDay(vacancy.job_posting) <= 0"
                 >
                     {{trans('vacancies','vacancy_closed')}}
                 </div>
             </div>
 
             <div class="right-footer">
-                <!-- статус -->
+
+                <!-- статус жизни показа -->
                 <div class="mode-vacancy"
-                     v-html="getStatus(vacancy.job_posting)"
+                     v-html="viewStatus(vacancy.job_posting)"
                 >
                 </div>
 
@@ -401,6 +403,7 @@
                 window.addEventListener("resize", this.indentPicture, true);
                 this.indentPicture();
             },
+
         },
         props: [
             'vacancy',

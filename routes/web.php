@@ -15,6 +15,7 @@ use \App\Http\Controllers\RespondController;
 use \App\Http\Controllers\Auth\AuthorController;
 use \App\Http\Controllers\OfferArchiveController;
 use \App\Http\Controllers\CronController;
+use \App\Http\Controllers\VacancyController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
@@ -51,10 +52,13 @@ Route::group(['prefix'=>'technical'], function (){
         return view('index');
     });
 
-    // Cron /technical/run-job-default
+    // url - /technical/...
+    // run queue:work default
     Route::get('/run-job-default', [CronController::class, 'runJobDefault']);
-    // emails
+    // run queue:work emails
     Route::get('/run-job-emails', [CronController::class, 'runJobEmails']);
+    // псевдо проверка админом и показ документа
+    Route::get('/pseudo-check-by-admin-documents', [CronController::class, 'pseudoCheckByAdminAndShowDocument']);
 });
 
 // переключение url и translation сайта 'middleware' => ['redirect_admin']
@@ -176,8 +180,8 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         });
 
         // vacancies
-        Route::get('/vacancy/{prefix_c}/{prefix_r_c}/{alias}', 'VacancyController@show');
-        Route::get('/vacancy/{country?}/{city?}', 'VacancyController@index');
+        Route::get('/vacancy/{prefix_c}/{prefix_r_c}/{alias}', [VacancyController::class, 'show']);
+        Route::get('/vacancy/{country?}/{city?}', [VacancyController::class, 'index']);
 
         // resume
         Route::get('/resume/{prefix_c}/{prefix_r_c}/{alias}', [ResumeController::class, 'show']);

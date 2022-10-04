@@ -40,11 +40,11 @@
             {{trans('vacancies','helps_you_track_have')}}
         </div>
 
-        <!-- vacancies -->
+        <!-- vacancies :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }" -->
         <a class="box-vacancy"
            v-for="(vacancy, key) in vacancies" :key="key"
            :href="getGenerateUrlDocument(vacancy, 'vacancy')"
-           :class="{'close-document-border': vacancy.job_posting.status_name == 'hidden' }"
+           :class="{'close-document-border': getStatusInDay(vacancy.job_posting) <= 0 }"
         >
             <!-- лента -->
             <div class="ribbon-wrapper">
@@ -70,9 +70,9 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import bookmark_vacancies_mixin from "../../mixins/bookmark_vacancies_mixin";
     import vacancy_template from "./details/VacancyTemplateComponent";
-    import general_functions_mixin from "../../mixins/general_functions_mixin";
     import date_mixin from "../../mixins/date_mixin";
     import url_mixin from "../../mixins/url_mixin";
+    import template_resume_vacancy_mixin from "../../mixins/template_resume_vacancy_mixin";
 
     export default {
         components: {
@@ -84,6 +84,7 @@
             bookmark_vacancies_mixin,
             date_mixin,
             url_mixin,
+            template_resume_vacancy_mixin
         ],
         data() {
             return {

@@ -314,6 +314,8 @@
                 params.set('position',this.respond['vacancy'].position.title)
                 params.sort()
 
+// /ru/vacancy?categories=0%2C1%2C4%2C8%2C11%2C13%2C18%2C21%2C23%2C25%2C26%2C28&position=Best+friend
+
                 location.href = this.lang.prefix_lang+'vacancy?'+params.toString()
             },
             disableButton() {

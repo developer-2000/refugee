@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
 use App\Http\Traits\SharingTraite;
 use App\Jobs\SendFeedbackMessage;
+use App\Model\Resume;
+use App\Model\Vacancy;
 use App\Services\InstrumentService;
 use App\Services\LanguageService;
 use App\Services\LocalizationService;
@@ -94,11 +96,28 @@ class IndexController extends BaseController {
         return $this->getResponse();
     }
 
-    // php artisan queue:listen --queue=default
     public function test() {
 
-//        Artisan::call('queue:work --queue=default --stop-when-empty', []);
 
     }
 
 }
+
+// ОПРЕДЕЛИТЬ ЛИМИТ ЖИЗНИ ДОКУМЕНТА
+//        $config = config("site.settings_vacancy");
+//        $service = new InstrumentService();
+
+// 1 добавить lifetime job_status
+//        foreach ($vacancies as $key => $vacancy){
+//            // вернет разницу в миллисекундах между старой датой и сейчас
+//            $limit = $service
+//                ->returnDifferenceDateMilliseconds(
+//                    $vacancy->job_posting['create_time'],
+//                    $add_time = $config["lifetime_days_job_status"]["standard"],
+//                    $type_add_time = 3
+//                );
+//            $vacancy->setAttribute('lifetime', [
+//                "lifetime_days" => $config["lifetime_days_job_status"]["standard"],
+//                "limit" => $limit,
+//            ]);
+//        }

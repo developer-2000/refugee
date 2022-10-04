@@ -34,30 +34,35 @@ export default {
 
             return address_string
         },
-        // статус и дни
-        getStatus(statusObj){
+        viewStatus(job_posting){
             let html_status = '<div class="mode standard">'
-            html_status += statusObj.status_name
-            html_status += '</div>'
+            let count_day = this.getStatusInDay(job_posting)
 
-            if(statusObj.status_name == 'hidden'){
-                html_status += '<div class="balance-mode">'
-                html_status += '~ 0 дней'
+            // hidden
+            if(count_day <= 0){
+                html_status += this.settings.job_status[1]
+                html_status += '</div> <div class="balance-mode">'
+                html_status += "&nbsp;0 "+this.getTitleDate('days', 0)
             }
+            // standard
             else{
-                // прибавить месяц к дате пуюликации
-                let create_date = new Date(statusObj.create_time)
-                create_date.setMonth(create_date.getMonth() + 1)
-                // сколько осталось дней у публикации
-                let count_day = this.getDifferenceDays(create_date, Date.now())
-
-                html_status += '<div class="balance-mode standard">'
-                html_status += '~ '+count_day+' дней'
+                html_status += this.settings.job_status[0]
+                html_status += '</div> <div class="balance-mode standard">'
+                html_status += '~ '+count_day+` ${this.getTitleDate('days', count_day)} `
             }
 
             html_status += '</div>'
 
             return html_status
+        },
+        // вернет разницу в днях статуса документа
+        getStatusInDay(job_posting){
+            // прибавить к дате публикации дни жизни
+            let create_date = new Date(job_posting.create_time)
+            create_date.setDate(create_date.getDate() +  + this.settings.lifetime_days_job_status['standard']);
+
+            // сколько осталось дней у публикации
+            return this.getDifferenceDays(create_date, Date.now())
         },
         countRespond(statistic){
             if(statistic !== null){
