@@ -47,38 +47,50 @@
                                     <tr class="row">
                                         <th class="col-sm-1"> id </th>
                                         <th class="col-sm-4">название</th>
+                                        <th class="col-sm-1">перепроверка blocked</th>
                                         <th class="col-sm-1">включен пользователем</th>
                                         <th class="col-sm-1">допуск к показам</th>
                                         <th class="col-sm-1">проверен админом</th>
-                                        <th class="col-sm-2">создан</th>
+                                        <th class="col-sm-1">создан</th>
                                         <th class="col-sm-2">меню</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(vacancy, key) in vacancies" :key="key">
-                                            <td colspan="7">
+                                            <td colspan="8">
                                                 <div :id="`accordionExample_${key}`" class="accordion" >
                                                     <div class="card">
 
                                                         <!-- Table 2 -->
                                                         <table class="table-document" :id="`table-document_${key}`" :data-index="key">
                                                             <tr class="row">
+                                                                <!-- id -->
                                                                 <td class="col-sm-1">
                                                                     {{vacancy.id}}
                                                                 </td>
+                                                                <!-- название -->
                                                                 <td class="col-sm-4">
                                                                     {{vacancy.position.title}}
                                                                 </td>
+                                                                <!-- перепроверка -->
+                                                                <td class="col-sm-1">
+                                                                    <svg v-if="checkBlocked(vacancy)" class="small-dot active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
+                                                                    <svg v-else class="svg-pirate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M400 128c0 44.4-25.4 83.5-64 106.4V256c0 17.7-14.3 32-32 32H208c-17.7 0-32-14.3-32-32V234.4c-38.6-23-64-62.1-64-106.4C112 57.3 176.5 0 256 0s144 57.3 144 128zM200 176c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm144-32c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zM35.4 273.7c7.9-15.8 27.1-22.2 42.9-14.3L256 348.2l177.7-88.8c15.8-7.9 35-1.5 42.9 14.3s1.5 35-14.3 42.9L327.6 384l134.8 67.4c15.8 7.9 22.2 27.1 14.3 42.9s-27.1 22.2-42.9 14.3L256 419.8 78.3 508.6c-15.8 7.9-35 1.5-42.9-14.3s-1.5-35 14.3-42.9L184.4 384 49.7 316.6c-15.8-7.9-22.2-27.1-14.3-42.9z"/></svg>
+                                                                </td>
+                                                                <!-- включен пользователем -->
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${statusView(vacancy.job_posting)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
+                                                                <!-- допуск к показам -->
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${accessView(vacancy.published)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
+                                                                <!-- проверен админом -->
                                                                 <td class="col-sm-1">
                                                                     <svg :class="`small-dot ${accessView(vacancy.check_admin)}`" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M320 256c0 88.37-71.63 160-160 160S0 344.37 0 256 71.63 96 160 96s160 71.6 160 160z"/></svg>
                                                                 </td>
-                                                                <td class="col-sm-2">
+                                                                <!-- создан -->
+                                                                <td class="col-sm-1">
                                                                     {{getDateString(vacancy.created_at)}}
                                                                 </td>
                                                                 <!-- button menu -->
@@ -262,7 +274,7 @@
                                                                     <button type="submit" class="btn btn-block btn-danger"
                                                                             @click="verifiedByAdmin(0, vacancy.id, `dataDocument_${key}`)"
                                                                     >
-                                                                        Не допустить
+                                                                        Заблокировать
                                                                     </button>
                                                                     <button type="submit" class="btn btn-block btn-primary"
                                                                             @click="verifiedByAdmin(1, vacancy.id, `dataDocument_${key}`)"
@@ -447,6 +459,7 @@
                     if(this.vacancies[i].id === vacancy_id){
                         this.vacancies[i].check_admin = 1
                         this.vacancies[i].published = verified
+                        this.vacancies[i].job_posting.status_name = !verified ? "hidden" : 'standard'
                         break
                     }
                 }
@@ -570,6 +583,10 @@
                 margin-right: 20px;
             }
         }
+    }
+    .svg-pirate{
+        width: 20px;
+        fill: #adadad;
     }
     .small-dot{
         width: 12px;

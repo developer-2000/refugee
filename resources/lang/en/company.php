@@ -27,6 +27,10 @@ return [
     'change_logo'=>'Change logo',
 
 // info
+     'about_categories'=>"When specifying a company category, remember that people will search for you by it. Don't point out things that aren't actually.",
+     'tax_number'=>'Tax number, optional field. According to it, the site administration can determine the legality of your company.',
+     'company_description2'=>'To effectively search for the person you need, try to describe the scope of the company as much as possible. Tell us what kind of company you have, who works in it, what you do and why you are looking for a new person.',
+
     'create_your_company'=>'Create your company',
     'change company details'=>'Change company details',
     'about_company'=>'Information about the company, this is the face of the employer. Try to provide information about her as extensively as possible, without dwelling only on what she does. For the applicant, this can be a decisive factor.',

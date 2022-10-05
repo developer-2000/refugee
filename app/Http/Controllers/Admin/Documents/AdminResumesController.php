@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Documents;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\Admin\Vacancies\IndexVacancyAdminRequest;
 use App\Http\Requests\Admin\Vacancies\VerifiedByAdminRequest;
-use App\Http\Traits\Admin\AdminVacanyResumeTrait;
+use App\Http\Traits\Admin\AdminVacanсyResumeTrait;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Model\Resume;
 use App\Model\Resume as Model;
@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 
 class AdminResumesController extends AdminBaseController {
-    use GeographyForShowInterfaceTraite, AdminVacanyResumeTrait;
+    use GeographyForShowInterfaceTraite, AdminVacanсyResumeTrait;
 
     protected $model;
 
@@ -53,13 +53,11 @@ class AdminResumesController extends AdminBaseController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function verifiedByAdmin(VerifiedByAdminRequest $request){
-        Resume::where('id', $request->id)
-            ->update([
-                'check_admin' => 1,
-                'published' => $request->verified,
-            ]);
+        $this->updateVerified($request, new Resume());
 
         return $this->getResponse();
     }
+
+
 
 }

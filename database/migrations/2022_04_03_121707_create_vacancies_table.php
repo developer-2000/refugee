@@ -41,6 +41,8 @@ class CreateVacanciesTable extends Migration
             $table->string('job_posting')->nullable()->default(null)->comment('статус вакансии - стандарт, скрытая');
             $table->boolean('published')->default(false)->comment('доступ к показам');
             $table->boolean('check_admin')->default(false)->comment('проверен админом');
+            $table->boolean('blocked')->default(false)->comment('блокировка документа 0-off, 1-on');
+
             $table->timestamps();
         });
 

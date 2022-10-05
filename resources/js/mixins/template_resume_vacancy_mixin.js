@@ -84,7 +84,13 @@ export default {
             }
 
             return false
-        }
+        },
+        checkBlocked(document){
+            if(document.job_posting.status_name == "standard" && document.blocked == 1){
+                return true
+            }
+            return false
+        },
     },
     mounted() {
 

@@ -7,6 +7,7 @@ use App\Model\User;
 use Illuminate\Database\Seeder;
 use App\Model\Position;
 use Faker\Generator as Faker;
+use Illuminate\Support\Carbon;
 
 
 class TestResumeSeeder extends Seeder {
@@ -65,7 +66,7 @@ $city->city = (Array) json_decode('{"original_index":"odessa","prefix":"ua","tra
                     'text_experience' => $faker->realText(rand(200,500)),
                     'text_wait' => $faker->realText(rand(200,500)),
                     'text_achievements' => $faker->realText(rand(200,500)),
-                    'job_posting' => json_decode('{"status_name":"standard","create_time":"2022-06-21T19:50:32.955150Z"}', true),
+                    'job_posting' => json_decode('{"status_name":"standard","create_time":"'.Carbon::now().'"}', true),
                     'published' => 1,
                     'check_admin' => 0,
                     'created_at' => $createdAt,

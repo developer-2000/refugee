@@ -1,8 +1,6 @@
 <?php
 namespace Database\Seeders;
 
-use Database\Seeders\Test\TestUserSeeder;
-use Database\Seeders\Test\TestVacancySeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 

@@ -29,7 +29,7 @@ export default {
             let timeMessage = "";
 
             if(timeDiff.years() > 0){
-                timeMessage = timeDiff.years()+ ` ${this.getTitleDate('years', timeDiff.days())} `
+                timeMessage = timeDiff.years()+ ` ${this.getTitleDate('years', timeDiff.years())} `
             }
             // if(timeDiff.months() > 0){
             //     timeMessage += timeDiff.years()+ " месяц "

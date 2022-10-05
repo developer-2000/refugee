@@ -216,6 +216,8 @@ class VacancyRepository extends CoreRepository {
     }
 
     private function makeArrayVacancy($request, $position){
+        $config = config("site.settings_vacancy");
+
         return [
             'position_id'=>$position->id,
             'categories'=>$request->categories,
@@ -250,8 +252,10 @@ class VacancyRepository extends CoreRepository {
             'how_respond'=>$request->how_respond,
             'job_posting'=>[
                 'status_name'=> $this->settings->job_status[$request->job_posting],
-                'create_time'=>now(),
+                'create_time'=>($this->settings->job_status[$request->job_posting] == "standard") ? now() : now()->subDays($config["lifetime_days_job_status"]["standard"]),
             ],
+            // проверка админом
+            'published'=>0,
             'check_admin'=>0,
         ];
     }

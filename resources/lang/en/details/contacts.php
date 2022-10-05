@@ -15,6 +15,6 @@ return [
     'you_not_have_access' => "You don't have access to this contact's details. Please respond to this or another document. The applicant must accept your application in order to start a direct correspondence.",
     'communication_contacts' => "Communication contacts",
     'user_avatar' => "User avatar",
-    'your_chat_exist' => "Your chat does not exist. To do this, apply to one of the vacancies of this company and continue to write your proposal.",
+    'your_chat_exist' => "Your chat does not exist. To create one, apply to one of the vacancies of this company and write the desired offer.",
 
 ];

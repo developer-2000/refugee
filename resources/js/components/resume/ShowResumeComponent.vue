@@ -5,8 +5,13 @@
 
             <!-- title -->
             <div class="title_page block-title">
-                <div class="type-page">
-                    {{trans('vacancies','resumes10')}}
+                <!-- лента -->
+                <div class="box-ribbon">
+                    <div class="ribbon-wrapper">
+                        <div class="ribbon uk-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="uk-star-icon" viewBox="0 0 576 512"><path d="m305.3 12.57 54.9 169.03h177.6c17.6 0 24.92 22.55 10.68 32.9L404.78 319l54.89 169.1c5.44 16.76-13.72 30.69-27.96 20.33L288 403.1 144.3 507.6c-14.24 10.36-33.4-3.577-27.96-20.33l54.89-169.1L27.53 214.5c-14.25-10.3-6.93-32.9 10.68-32.9h177.6L270.7 12.5c5.5-16.69 29.1-16.69 34.6.07z"/></svg>
+                        </div>
+                    </div>
                 </div>
                 <h1 class="h1-translate">
                     {{UpperCaseFirstCharacter(respond['resume'].position.title)}}
@@ -282,6 +287,20 @@
     .block-title{
         display: flex;
         align-items: flex-end;
+        .box-ribbon{
+            position: relative;
+            .ribbon-wrapper{
+                left: -1px!important;
+                top: -55px!important;
+                transform: rotate(-90deg);
+                height: 60px;
+                width: 60px;
+                .ribbon {
+                    left: -2px!important;
+                    top: 1px!important;
+                }
+            }
+        }
     }
     .type-page{
         font-size: 20px;
@@ -290,7 +309,7 @@
     }
     .h1-translate{
         display: flex;
-        margin: 0;
+        margin: 0 0 0 35px;
     }
     .box-translate-google{
         display: flex;
@@ -329,7 +348,7 @@
         z-index: 20;
         font-size: 15px;
         .title_page {
-            padding: 25px 15px 15px;
+            padding: 35px 15px 25px;
         }
         .bread-top{
             display: flex;

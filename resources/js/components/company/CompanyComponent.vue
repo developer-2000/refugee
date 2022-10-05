@@ -393,7 +393,6 @@
         align-items: center;
         svg{
             width: 20px;
-            cursor: pointer;
             margin-left: 5px;
         }
     }

@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Admin\Documents;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\Admin\Vacancies\IndexVacancyAdminRequest;
 use App\Http\Requests\Admin\Vacancies\VerifiedByAdminRequest;
-use App\Http\Traits\Admin\AdminVacanyResumeTrait;
+use App\Http\Traits\Admin\AdminVacanсyResumeTrait;
 use App\Http\Traits\Geography\GeographyForShowInterfaceTraite;
 use App\Model\Vacancy;
 use App\Model\Vacancy as Model;
-use App\Services\LocalizationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 
 class AdminVacanciesController extends AdminBaseController {
-    use GeographyForShowInterfaceTraite, AdminVacanyResumeTrait;
+    use GeographyForShowInterfaceTraite, AdminVacanсyResumeTrait;
 
     protected $model;
 
@@ -56,11 +54,7 @@ class AdminVacanciesController extends AdminBaseController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function verifiedByAdmin(VerifiedByAdminRequest $request){
-        Vacancy::where('id', $request->id)
-            ->update([
-                'check_admin' => 1,
-                'published' => $request->verified,
-            ]);
+        $this->updateVerified($request, new Vacancy());
 
         return $this->getResponse();
     }

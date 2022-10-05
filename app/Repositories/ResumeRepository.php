@@ -213,6 +213,8 @@ class ResumeRepository extends CoreRepository {
     }
 
     private function makeArrayResume($request, $position){
+        $config = config("site.settings_vacancy");
+
         return [
             'position_id'=>$position->id,
             'country_id' => $this->createSpecifiedLocationRecord($request, 'country', 0),
@@ -232,14 +234,17 @@ class ResumeRepository extends CoreRepository {
             'type_employment'=>$request->type_employment,
             'languages'=>$request->languages,
             'education'=>$request->education,
-            'job_posting'=>[
-                'status_name'=> $this->settings->job_status[$request->job_posting],
-                'create_time'=>now(),
-            ],
             'experience'=>$request->experience,
             'text_experience'=>$request->text_experience,
             'text_wait'=>$request->text_wait,
             'text_achievements'=>$request->text_achievements,
+            'job_posting'=>[
+                'status_name'=> $this->settings->job_status[$request->job_posting],
+                'create_time'=>($this->settings->job_status[$request->job_posting] == "standard") ? now() : now()->subDays($config["lifetime_days_job_status"]["standard"]),
+            ],
+            // проверка админом
+            'published'=>0,
+            'check_admin'=>0,
         ];
     }
 

@@ -2,6 +2,12 @@
 
 return [
 
+    'job_title_resume'=>"The title of the job is the first thing an employer will see. Put the title of the job you are applying for in the title. For example: building materials sales manager, English speaking secretary...",
+    'title_categories_resume'=>"Only select categories that match your resume.",
+    'salary_resume'=>"Enter an adequate figure in the salary field. Sometimes an employer is willing to pay more, but if it meets its requirements. If you specify a salary in the range, the employer responds to resumes faster.",
+    'if_you_not_yet_ready'=>"If you are not yet ready to show this resume, select the Hidden setting. You can always change this setting on your resume page or in the resume editing menu.",
+    'maximum_detail'=>"Maximum detail. Achievements always inspire a potential employer.",
+
     'advanced_search'=>'advanced search',
     'clear_selection'=>'clear selection',
     'find_similar_jobs'=>'Find similar jobs',
@@ -243,7 +249,6 @@ return [
     'make_best_decision'=>"Make the best decision. Even if one of the languages ​​is in doubt, you can always discuss it with the employer.",
     'please_indicate_languages'=>"Please indicate your languages",
     'placement_resume'=>"Placement resume",
-    'if_you_not_yet_ready'=>"If you are not yet ready to show this resume to applicants, select the Hidden setting. This setting can always be changed in the resume editing menu.",
     'enter_total_number_experience'=>"Enter the total number of years of experience",
     'describe_your_experience'=>"Describe your experience",
     'it_very_important_tell'=>"It is very important to tell in detail in what periods and in what positions you worked. What methods or technologies you used.
@@ -251,10 +256,14 @@ return [
     'expectations_new_job'=>"Expectations for a new job",
     'describe_what_expect'=>"Describe what you're looking forward to, what you're capable of, and what you don't want to do.",
     'your_achievements'=>"Your achievements",
-    'maximum_detail'=>"Maximum detail. This will attract more employers.",
-
     'moved_hidden_vacancies'=>"moved to «Hidden Vacancies» section",
     'moved_hidden_resume'=>"moved to «Hidden Resume» section",
 
+    'salary2'=>"Salary",
+    'languages'=>"Requirement for language proficiency",
+    'work_localization'=>"Work localization",
+    'work_experience2'=>"Work experience",
+    'age_requirement'=>"age requirement",
+    'education_requirement'=>"Education requirement",
 
 ];
