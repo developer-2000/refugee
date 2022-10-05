@@ -35,6 +35,7 @@ class CronController {
     public function pseudoCheckByAdminAndShowDocument() {
         $config = config("site.settings_vacancy");
         $arrModels = [new Vacancy(), new Resume()];
+        $service = new InstrumentService();
 
         foreach ($arrModels as $key => $model){
             // не заблокирована админом и активирована юзером
@@ -43,7 +44,7 @@ class CronController {
                 ->whereJsonContains('job_posting->status_name', $config['job_status'][0])
                 ->get();
 
-            $this->activationCycle($collections, $config);
+            $this->activationCycle($collections, $config, $service);
         }
     }
 
@@ -53,6 +54,7 @@ class CronController {
     public function deactivateOldDocuments() {
         $config = config("site.settings_vacancy");
         $arrModels = [new Vacancy(), new Resume()];
+        $service = new InstrumentService();
 
         foreach ($arrModels as $key => $model){
             // не заблокирована админом и активирована юзером
@@ -61,7 +63,7 @@ class CronController {
                 ->get();
 
             // 1 заменить статус активности документа
-            $this->deactivationCycle($collections, $config);
+            $this->deactivationCycle($collections, $config, $service);
         }
     }
 
@@ -70,18 +72,16 @@ class CronController {
      * переборка активации
      * @param $collections
      * @param $config
-     * @throws \Exception
+     * @param $service
      */
-    private function activationCycle($collections, $config) {
-        $service = new InstrumentService();
+    private function activationCycle($collections, $config, $service) {
 
         foreach ($collections as $key => $coll){
             $limit = 0;
 
             // 1 вернет разницу в днях между старой датой и сейчас (добавлен жизненный цикл standard 30дней)
             try {
-                $limit = $service
-                    ->returnDifferenceDateDays(
+                $limit = $service->returnDifferenceDateDays(
                         $coll->job_posting['create_time'],
                         $add_time = $config["lifetime_days_job_status"]["standard"],
                         $type_add_time = 3
@@ -99,17 +99,16 @@ class CronController {
      * переборка деактивации
      * @param $collections
      * @param $config
+     * @param $service
      */
-    private function deactivationCycle($collections, $config) {
-        $service = new InstrumentService();
+    private function deactivationCycle($collections, $config, $service) {
 
         foreach ($collections as $key => $coll){
             $limit = 0;
 
             // 1 вернет разницу в днях между старой датой и сейчас (добавлен жизненный цикл standard 30дней)
             try {
-                $limit = $service
-                    ->returnDifferenceDateDays(
+                $limit = $service->returnDifferenceDateDays(
                         $coll->job_posting['create_time'],
                         $add_time = $config["lifetime_days_job_status"]["standard"],
                         $type_add_time = 3

@@ -1,10 +1,8 @@
 <?php
 namespace Database\Seeders;
 
-use Database\Seeders\TestContent\UserSeeder;
-use Database\Seeders\TestContent\ContactSeeder;
-use Database\Seeders\TestContent\ResumeSeeder;
-use Database\Seeders\TestContent\VacancySeeder;
+use Database\Seeders\Test\TestUserSeeder;
+use Database\Seeders\Test\TestVacancySeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,12 +19,13 @@ class DatabaseSeeder extends Seeder
          $this->call(PermissionSeeder::class);
          $this->call(LocationDbSeeder::class);
          $this->call(AdminSeeder::class);
+         $this->call(TestUserSeeder::class);
+         $this->call(TestVacancySeeder::class);
+         $this->call(TestResumeSeeder::class);
 
 
 
-//         $this->call(UserSeeder::class);
 //         $this->call(ContactSeeder::class);
 //        $this->call(ResumeSeeder::class);
-//         $this->call(VacancySeeder::class);
     }
 }

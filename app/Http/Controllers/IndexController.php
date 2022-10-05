@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
 use App\Http\Traits\SharingTraite;
 use App\Jobs\SendFeedbackMessage;
-use App\Model\Resume;
-use App\Model\Vacancy;
 use App\Services\InstrumentService;
 use App\Services\LanguageService;
 use App\Services\LocalizationService;
@@ -100,6 +98,5 @@ class IndexController extends BaseController {
     public function test() {
 
     }
-
 
 }

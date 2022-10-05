@@ -4,6 +4,7 @@ namespace App\Http\Traits;
 use App\Http\Requests\Vacancy\SearchPositionRequest;
 use App\Model\GeographyLocal;
 use App\Model\Position;
+use App\Model\User;
 use App\Services\LocalizationService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
@@ -110,6 +111,8 @@ trait GeneralVacancyResumeTraite {
 
     public function initialDataForSampling($request){
 
+        // не показывать Test документы не админу
+        $this->model = $this->notShowUserTestDocuments();
         // поиск по заголовку с сортировкой
         $this->model = $this->searchByPositionWithSorting($request);
         $this->model = $this->categorySearch($request);
@@ -126,6 +129,31 @@ trait GeneralVacancyResumeTraite {
     }
 
     // Private
+    private function notShowUserTestDocuments(){
+        $my_user = Auth::user();
+        $users_test = User::whereHas('permission', function ($query) {
+            return $query->where('name', "test");
+        })->get();
+
+        // если есть юзеры тест
+        if($users_test->count()){
+            $ids = $users_test->pluck("id")->toArray();
+
+            // не показывать не админу
+            if(!is_null($my_user)){
+                if($my_user->permission[0]["name"] !== "admin"){
+                    $this->model = $this->model->whereNotIn('user_id', $ids);
+                }
+            }
+            // не показывать не авторизованному
+            elseif(is_null($my_user)){
+                $this->model = $this->model->whereNotIn('user_id', $ids);
+            }
+        }
+
+        return $this->model;
+    }
+
     /**
      * проверка на мое resume
      * @param $request

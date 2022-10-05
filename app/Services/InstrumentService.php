@@ -28,12 +28,13 @@ class InstrumentService {
     public function returnDifferenceDateDays($old_date, $add_time = 0, $type_add_time = 0) {
         $timeOptions = [ "second", "minute", "hour", "day", "month", "year"];
         $old_date = Carbon::parse($old_date);
-        $now = Carbon::now()->format('Y-m-d');
-        $now = new \DateTime($now);
+        $now = new \DateTime(Carbon::now());
+        // серверный UTC
+        $now->setTimezone(new \DateTimeZone('Europe/Kiev'));
 
         // добавить к дате дни
         if($timeOptions[$type_add_time] == "day"){
-            $old_date = Carbon::parse($old_date)->addDays($add_time)->format('Y-m-d');
+            $old_date = $old_date->addDays($add_time)->format('Y-m-d');
         }
 
         $old_date = new \DateTime($old_date);

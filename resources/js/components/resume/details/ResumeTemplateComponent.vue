@@ -101,7 +101,9 @@
                 </span>
                 <b>
                 <template v-for="(value, key) in resume.languages">
-                    {{lang.lang[value].title}},
+                    <template v-if="lang.lang[value] !== undefined">
+                        {{lang.lang[value].title}},
+                    </template>
                 </template>
                 </b>
             </div>
