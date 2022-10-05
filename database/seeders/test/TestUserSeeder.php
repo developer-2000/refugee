@@ -4,6 +4,7 @@ namespace Database\Seeders\Test;
 use App\Model\Permission;
 use App\Model\Position;
 use App\Model\User;
+use App\Model\UserCompany;
 use App\Model\UserContact;
 use App\Model\UserPermission;
 use App\Model\Vacancy;
@@ -41,6 +42,27 @@ class TestUserSeeder extends Seeder
             'name' => $faker->firstName($gender),
             'surname' => $faker->lastName($gender),
             'default_avatar_url' => "img/avatars/default/man.jpg",
+        ]);
+        // 7 компания
+        UserCompany::create([
+            'user_id' => $user->id,
+            'title' => "Test Company",
+            'alias' => "test-company",
+            'country_id' => 1,
+            'region_id' => 2,
+            'city_id' => 3,
+            'rest_address' => "Internet",
+            'categories' => [0,1,25],
+            'youtube_links' => [],
+            'tax_number' => null,
+            'founding_date' => "01/24/2022",
+            'facebook_social' => null,
+            'instagram_social' => null,
+            'telegram_social' => null,
+            'twitter_social' => null,
+            'site_company' => "https://work-ukraine.com",
+            'count_working_company' => 0,
+            'about_company' => "<p>Employment service - providing the opportunity to post vacancies and resumes of job seekers on our platform. We are developing service functionality, ease and convenience of using platform resources. Searching and conducting advertising sessions, introductory events that help expand the client base. </p>",
         ]);
     }
 }

@@ -25,6 +25,7 @@ return [
     'helps_track_have_quick'=>"Quick access page to saved, alien ",
     'vacancies9'=>'«Vacancies»',
     'resumes9'=>'«Resume»',
+    'resumes10'=>'resume',
     'remove'=>'Remove',
     'reset_all'=>'reset all filters',
     'location'=>'Location',
