@@ -81,14 +81,10 @@
         }
         .right_footer{
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
             justify-content: flex-end;
-            align-content: flex-start;
             align-items: center;
         }
     }
-
     .footer-ul{
         display: flex;
         li{
@@ -101,6 +97,7 @@
             .left_footer{
                 border: none;
                 text-align: center;
+                order: 1;
             }
             .right_footer{
                 justify-content: center;

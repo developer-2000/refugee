@@ -101,13 +101,23 @@
                     <li class="nav-item button-menu button-auth"
                         v-if="!user"
                     >
-                        <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
-                           @click.prevent="reset_array(0)"
-                        > {{ trans('menu.menu','authorization') }} </a>
-                        <span>/</span>
-                        <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
-                           @click.prevent="reset_array(1)"
-                        > {{ trans('menu.menu','registration') }} </a>
+                        <div class="desktop-auth">
+                            <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                               @click.prevent="reset_array(0)"
+                            > {{ trans('menu.menu','authorization') }} </a>
+                            <span>/</span>
+                            <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                               @click.prevent="reset_array(1)"
+                            > {{ trans('menu.menu','registration') }} </a>
+                        </div>
+                        <div class="mobile-auth">
+                            <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#authModal" rel="nofollow"
+                               @click.prevent="reset_array(0)"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fa-primary" d="M0 287.1v160c0 35.34 28.65 64 64 64h320c35.35 0 64-28.66 64-64v-160c0-35.35-28.65-64-64-64H64c-35.35 0-64 29.6-64 64zm192 64c0-17.67 14.33-32 32-32s32 14.33 32 32v32c0 17.67-14.33 32-32 32s-32-14.33-32-32v-32z"/><path d="M368 144v80h-64v-80c0-44.12-35.9-80-80-80s-80 35.88-80 80v80H80v-80C80 64.59 144.59 0 224 0s144 64.59 144 144z" style="opacity:.4"/></svg>
+                                {{ trans('menu.menu','authorization') }}
+                            </a>
+                        </div>
                     </li>
 
                     <!-- user menu -->
@@ -292,6 +302,13 @@
 <style scoped lang="scss">
     @import "resources/sass/_variables";
 
+    .desktop-auth{
+        display: flex;
+        align-items: center;
+    }
+    .mobile-auth{
+        display: none;
+    }
     .box-logo-title{
         padding: 0 5px 0 10px;
     }
@@ -426,6 +443,17 @@
             .right-navbar-offer{
                 padding-left: 0;
             }
+        }
+        .mobile-auth{
+            display: block;
+            a{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        .desktop-auth{
+            display: none;
         }
     }
 
