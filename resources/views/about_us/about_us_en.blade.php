@@ -25,6 +25,7 @@
     <div class="container">
         <div class="box-page">
             <div class="box-title-panel">
+
             <!-- title -->
             <h1 class="h1-translate">
                 About the Employment Service in Europe {{$domain}}
@@ -35,6 +36,16 @@
                 </div>
             </h1>
 
+            {{-- Миссия проекта --}}
+            <div class="block-page">
+                <h2>Project mission.</h2>
+                <p>
+                    Provide the best job search service in Europe for expats. Help people to be happier by making the service fast,
+                    accessible and effective contact of people, finding an employee and an employer.
+                </p>
+            </div>
+
+            {{-- Цель проекта --}}
             <div class="block-page">
                 <h2>Objective of the project.</h2>
 
@@ -47,27 +58,27 @@
                 </div>
 
                 <p>
-                    February 24, 2022 is the time for radical change. Fighting began on my land, in Ukraine.
+                    The goal of the project is to help every Ukrainian who needs a job as much as possible.
+                </p>
+                <p>
+                    February 24, 2022 is the time for radical change. The fighting has begun on my land,
+                    in Ukraine.
                     The aggressor country simultaneously entered from 4 directions and hastily moved through the territory of Ukraine,
                     accompanying its offensive with regular missile strikes on cities and residential villages.
                     This caused panic fear among the civilian population, stopping small and medium-sized businesses,
-                    mass migration of women and children to other European countries. Those who remained in the country froze in anticipation of the threatening future,
-                    faced with unemployment, destruction and numerous casualties. Special thanks to the countries of Europe and the West
+                    mass migration of women and children to other European countries. Those who remained in the country froze in
+                    anticipation of a threatening future,
+                    faced with unemployment, destruction and numerous casualties. Special thanks
+                    European and Western countries
                     for their contribution and support to Ukrainians in difficult times!
                 </p>
                 <p>
-                    It's time for a change. And according to the law of nature - where it decreases, there will definitely be something that
-                    replenishes.
-                    The first thing I faced after the departure of relatives to Europe was the choice of a host country in which
-                    maybe they will stop.
-                    I was interested in housing, food, minimal financial assistance and, of course, employment. FROM
-                    The last one was the hardest.
-                    This was the moment of truth, the day the start of my startup, this site you are on.
-                    The goal of the project is to help every Ukrainian who needs to receive
-                    work. The service includes 45 European countries.
-                    On it, every official employer can post their vacancies, relieve the load of their
-                    welfare state,
-                    find your employee and at the same time help the Ukrainian. This is cool, noble, good!
+                    It's time for a change. And according to the law of nature - where it decreases, there will definitely be something that replenishes.
+                    The first thing I faced after my relatives left for Europe was the choice of a host country where they could stay.
+                    I was interested in housing, food, minimal financial assistance and, of course, employment. The last one was the hardest.
+                    This was the moment of truth, the day the start of this startup. The service includes 45 European countries. On it, every official employer,
+                    can post their vacancies, relieve the burden of their state of social payments, find their employee and at the same time help
+                    emigrant in providing a job. This is cool, noble, good!
                 </p>
 
             </div>
