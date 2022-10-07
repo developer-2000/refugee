@@ -53,7 +53,7 @@ class RespondVacancyResumeJob extends EmailBaseJob implements ShouldQueue {
         // клиенту
         Mail::send('emails.respond_vacancy_resume', ["data"=>$this->data], function($message) use ($config) {
             $message->to($this->data["email_respond"])
-                ->from($config['main_questions']['email'], "Work-es-ua")
+                ->from($config['main_questions']['email'], env('APP_DOMAIN', 'Laravel'))
                 ->subject($this->data["title_subject"].$this->data["full_name_person_write"]);
         });
     }

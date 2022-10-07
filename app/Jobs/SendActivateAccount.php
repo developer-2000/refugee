@@ -55,7 +55,7 @@ class SendActivateAccount extends EmailBaseJob implements ShouldQueue
         // клиенту
         Mail::send('emails.activate', ["data"=>$this->data], function($message) use ($config) {
             $message->to($this->email)
-                ->from($config['main_questions']['email'], "Work-es-ua")
+                ->from($config['main_questions']['email'], env('APP_DOMAIN', 'Laravel'))
                 ->subject($this->title_subject);
         });
     }

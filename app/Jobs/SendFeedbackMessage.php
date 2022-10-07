@@ -51,7 +51,7 @@ class SendFeedbackMessage extends EmailBaseJob implements ShouldQueue {
         $text = $this->validated['full_name']."( ".$this->validated['email']." ) отправил(а) письмо с сайта <br>".$this->validated['text'];
         Mail::send('emails.admin_feedback', ['text' => $text], function($message) use ($config) {
             $message->to($config[$this->validated['subject']]['email'])
-                ->from($this->validated['email'], "Work-es-ua")
+                ->from($this->validated['email'], env('APP_DOMAIN', 'Laravel'))
                 ->subject($this->title_subject.$this->validated['full_name']);
 
         });
@@ -59,7 +59,7 @@ class SendFeedbackMessage extends EmailBaseJob implements ShouldQueue {
         // 2 отправителю
         Mail::send('emails.message_feedback', ["data"=>$this->data], function($message) use ($config) {
             $message->to($this->validated['email'])
-                ->from($config[$this->validated['subject']]['email'], "Work-es-ua")
+                ->from($config[$this->validated['subject']]['email'], env('APP_DOMAIN', 'Laravel'))
                 ->subject($this->title_subject.$this->validated['full_name']);
         });
 

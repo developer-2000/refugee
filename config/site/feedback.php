@@ -3,11 +3,11 @@
 return [
 
     // основные вопросы
-    'main_questions'=>[ 'email' => 'thwglobal2000@gmail.com' ],
+    'main_questions'=>[ 'email' => 'office@work-ukraine.com' ],
     // партнерские отношения
-    'partnerships'=>[ 'email' => 'thwglobal2000@gmail.com' ],
+    'partnerships'=>[ 'email' => 'office@work-ukraine.com' ],
     // ошибки в работе сервиса
-    'service_errors'=>[ 'email' => 'thwglobal2000@gmail.com' ],
+    'service_errors'=>[ 'email' => 'office@work-ukraine.com' ],
 
 ];
 
