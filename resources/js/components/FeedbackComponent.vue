@@ -91,12 +91,19 @@
                     <button type="submit" class="btn btn-block btn-primary btn-lg btn-form"
                             :disabled="disableButton($v)"
                             :class="{'disabled': disableButton($v)}"
-                            @click.prevent="sendMessage()"
+                            @click.prevent="runCaptcha()"
                     >
                         {{trans('pages.feedback','send_message')}}
                     </button>
                 </div>
 
+                <vue-recaptcha
+                    ref="recaptcha"
+                    size="invisible"
+                    :sitekey="respond.captcha_key"
+                    @verify="sendMessage"
+                    @expired="onCaptchaExpired"
+                ></vue-recaptcha>
 
             </div>
         </div>
@@ -131,11 +138,13 @@
     import translation from "../mixins/translation";
     import {email, required} from "vuelidate/lib/validators";
     import response_methods_mixin from "../mixins/response_methods_mixin";
+    import recaptcha_mixin from "../mixins/recaptcha_mixin";
 
     export default {
         mixins: [
             translation,
             response_methods_mixin,
+            recaptcha_mixin
         ],
         data() {
             return {
@@ -154,12 +163,13 @@
             }
         },
         methods: {
-            async sendMessage() {
+            async sendMessage(recaptchaToken) {
                 let data = {
                     full_name: this.full_name,
                     email: this.email,
                     subject: this.message_subject,
                     text: this.objTextarea.message_text,
+                    captcha_token: recaptchaToken
                 }
 
                 $('.btn-form').attr("disabled", true)
@@ -218,7 +228,6 @@
         ],
         mounted() {
             this.insertDefaultValue()
-
         },
         validations: {
             full_name: {
@@ -230,6 +239,7 @@
             },
         },
     }
+
 </script>
 
 <style scoped lang="scss">

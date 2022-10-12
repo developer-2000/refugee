@@ -9,7 +9,6 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/stack-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-debugbar" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/biscolab/laravel-recaptcha" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/butschster/meta-tags" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />

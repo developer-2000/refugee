@@ -1,6 +1,7 @@
 #### настройка reCAPTCHA v3
-https://www-freecodecamp-org.translate.goog/news/how-to-setup-recaptcha-v3-in-laravel/?_x_tr_sl=auto&_x_tr_tl=ru&_x_tr_hl=ru
+https://habr.com/ru/post/443370/
 
+установка vue recaptcha - https://github.com/DanSnow/vue-recaptcha#what-is-recaptcha-couldnt-find-user-provided-function-vuerecaptchaapiloaded
 
 #### настройка laravel https
 

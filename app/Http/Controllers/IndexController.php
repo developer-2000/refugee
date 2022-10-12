@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerSurvey\SendSurveyRequest;
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
+use App\Http\Traits\RecaptchaTraite;
 use App\Http\Traits\SharingTraite;
 use App\Jobs\CustomerSurveyJob;
 use App\Jobs\SendFeedbackMessage;
@@ -11,13 +12,14 @@ use App\Services\LanguageService;
 use App\Services\LocalizationService;
 use App\Services\MetaService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 
 class IndexController extends BaseController {
-    use SharingTraite;
+    use SharingTraite, RecaptchaTraite;
 
     protected $metaService = '';
 
@@ -82,6 +84,7 @@ class IndexController extends BaseController {
         }
 
         $respond["config"] = config('site.feedback');
+        $respond["captcha_key"] = env("RECAPTCHAV2_SITEKEY","");
 
         $this->metaService->setMetaFeedbackPage();
 
@@ -89,6 +92,11 @@ class IndexController extends BaseController {
     }
 
     public function feedbackSendMessage(FeedbackSendMessageRequest $request) {
+        // 1 верификация пришедшего token с фронта
+        $back = $this->checkRecaptcha($request->captcha_token, $request->ip());
+        if ( !$back ) {
+            return $this->getErrorResponse('Captcha is invalid.');
+        }
 
         SendFeedbackMessage::dispatch($request->validated())
             ->onQueue('emails');
