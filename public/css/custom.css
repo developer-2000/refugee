@@ -46,7 +46,6 @@ button,
 .back-url-link span{
     white-space: nowrap;
 }
-
 a:hover,
 .callout .title-vacancy:hover{
    text-decoration: none;
@@ -184,6 +183,7 @@ li {
 .body-page{
     padding-top: 40px!important;
 }
+
 /* sidebar left */
 .brand-link{
     display: flex;
@@ -204,7 +204,6 @@ li {
     margin-left: 2px;
     background-color: rgba(0, 0, 0, 0.1);
 }
-
 .brand-link .box-logo-title div:nth-child(1){
     color: rgba(253,230,45,1);
 }
@@ -679,7 +678,6 @@ select{
 .header-date-document{
     margin: -5px 0 10px 0;
 }
-
 .close-document-fon{
     background-color: #e87b85;
     text-align: center;
@@ -691,8 +689,6 @@ select{
 .close-document-border{
     outline: 2px solid #e87b85;
 }
-
-
 
 /* color */
 .euro-color{
@@ -708,8 +704,6 @@ select{
 /* @media (max-width: 1200px){ } */
 /* @media (max-width: 992px){ } */
 /* @media (max-width: 768px){ } */
-
-
 
 /* Media max */
 @media (max-width: 992px) {
@@ -752,7 +746,6 @@ select{
         font-size: 22px;
     }
 }
-
 
 /* Media min */
 @media (min-width: 1200px){

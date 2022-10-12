@@ -26,6 +26,7 @@ return [
         'pages/charity',
         'pages/feedback',
         'pages/offer',
+        'pages/customer_survey',
         'details/date_mixin',
         'details/back_url',
         'details/sharing_panel',

@@ -44,6 +44,16 @@ class MetaService {
         ]);
     }
 
+
+    public function setMetaCustomerSurveyPage(){
+        $this->metaTags([
+            "title" => __('meta_tags.survey.title')." | ".config('app.name', ""),
+            "description" => __('meta_tags.survey.description').config('app.name', ""),
+            "keywords" => __('meta_tags.survey.keywords').config('site.meta.keywords', ""),
+            "canonical" => url()->current(),
+        ]);
+    }
+
     /**
      * страница пользовательское соглашение
      */

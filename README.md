@@ -1,3 +1,7 @@
+#### настройка reCAPTCHA v3
+https://www-freecodecamp-org.translate.goog/news/how-to-setup-recaptcha-v3-in-laravel/?_x_tr_sl=auto&_x_tr_tl=ru&_x_tr_hl=ru
+
+
 #### настройка laravel https
 
 https://mb4.ru/frameworks/laravel/articles/1051-laravel-https.html

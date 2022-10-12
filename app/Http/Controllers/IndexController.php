@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerSurvey\SendSurveyRequest;
 use App\Http\Requests\Feedback\FeedbackSendMessageRequest;
 use App\Http\Traits\SharingTraite;
+use App\Jobs\CustomerSurveyJob;
 use App\Jobs\SendFeedbackMessage;
 use App\Services\InstrumentService;
 use App\Services\LanguageService;
@@ -90,6 +92,44 @@ class IndexController extends BaseController {
 
         SendFeedbackMessage::dispatch($request->validated())
             ->onQueue('emails');
+
+        return $this->getResponse();
+    }
+
+    public function customerSurvey() {
+        $user = Auth::user();
+        $respond["contact"] = !is_null($user) ? $user->contact : null;
+
+        $this->metaService->setMetaCustomerSurveyPage();
+
+        return view("customer_survey", compact('respond'));
+    }
+
+    public function sendCustomerSurvey(SendSurveyRequest $request) {
+        $text = "<ul>";
+        $comment = "";
+
+        foreach ($request->arr_data as $key => $arr){
+            $text .= "<li><b>".$arr['name']."</b>";
+            $text .= $arr['value'];
+            $text .= "</li>";
+        }
+
+        $text .= "</ul>";
+
+        if(!is_null($request->comment)){
+            $comment .= '<div style="text-align:left;padding-bottom:10px;">';
+            $comment .= '<b>Коментарий к письму</b><br>';
+            $comment .= $request->comment;
+            $comment .= '</div>';
+        }
+
+        CustomerSurveyJob::dispatch([
+            "name"=>$request->name,
+            "email"=>$request->email,
+            "comment"=>$comment,
+            "text"=>$text,
+        ])->onQueue('emails');
 
         return $this->getResponse();
     }

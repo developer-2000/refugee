@@ -53,7 +53,6 @@ return [
         "description" => "Portfolio of the employer\'s company «:company». Contacts, description, media files, vacancies. ",
         "keywords" => 'company in europe :company, employer in europe, company abroad, employee search, looking for a company, employers in europe, job offers',
     ],
-
     "about_us" => [
         "title" => 'About the service',
         "description" => 'The :app_name employment service brings together 45 European countries to help every Ukrainian find a decent job.',
@@ -78,6 +77,11 @@ return [
         "title" => 'Service financial support',
         "description" => 'Give financial support to the service ',
         "keywords" => 'financial support, charity',
+    ],
+    "survey" => [
+        "title" => 'Site Improvement Survey',
+        "description" => 'Advice, order, improvement, modernization, site adaptation ',
+        "keywords" => 'site improvement',
     ],
 
 ];

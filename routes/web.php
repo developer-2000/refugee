@@ -209,6 +209,7 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::post('feedback-send-message', [IndexController::class, 'feedbackSendMessage']);
         Route::get('show-charity', [CharityController::class, 'showCharity'])
             ->name('show-charity');
-
+        Route::get('customer-survey', [IndexController::class, 'customerSurvey']);
+        Route::post('send-customer-survey', [IndexController::class, 'sendCustomerSurvey']);
     });
 });

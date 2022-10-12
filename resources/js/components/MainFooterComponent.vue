@@ -1,5 +1,4 @@
 <template>
-
     <div class="container footer">
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-12 left_footer">
@@ -8,16 +7,27 @@
             </div>
             <div class="col-xl-9 col-lg-8 col-md-12 right_footer">
                 <ul class="footer-ul">
+                    <!-- опросник -->
+                    <li>
+                        <a :href="`${lang.prefix_lang}customer-survey`" rel="nofollow">
+                            Опрос улучшений
+                        </a>
+                    </li>
+                    <!-- feedback -->
                     <li>
                         <a :href="`${lang.prefix_lang}feedback`" rel="nofollow">
                             {{trans('pages.feedback','feedback')}}
                         </a>
                     </li>
+                </ul>
+                <ul class="footer-ul">
+                    <!-- cookie_policy -->
                     <li>
                         <a :href="`${lang.prefix_lang}cookie-police`" rel="nofollow">
                             {{ trans('cookie','cookie_policy') }}
                         </a>
                     </li>
+                    <!-- соглашение -->
                     <li>
                         <a :href="`${lang.prefix_lang}terms-use`" rel="nofollow">
                             {{ trans('cookie','terms_use') }}
@@ -27,7 +37,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -78,6 +87,12 @@
             border-right: 1px solid #dee2e6;
             padding-right: 15px;
             line-height: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            a{
+                margin-left: 10px;
+            }
         }
         .right_footer{
             display: flex;
@@ -87,9 +102,9 @@
     }
     .footer-ul{
         display: flex;
-        li{
-            margin-left: 20px;
-        }
+        flex-direction: column;
+        margin-left: 20px;
+        height: 100%;
     }
 
     @media (max-width: 992px) {
@@ -100,7 +115,11 @@
                 order: 1;
             }
             .right_footer{
-                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                li{
+                    text-align: center;
+                }
             }
         }
     }
