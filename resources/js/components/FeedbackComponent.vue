@@ -98,10 +98,11 @@
                 </div>
 
                 <vue-recaptcha
-                    ref="recaptcha"
+                    v-if="!this.$store.getters.ReGetAuth"
+                    ref="recaptcha_body"
                     size="invisible"
-                    :sitekey="respond.captcha_key"
-                    @verify="sendMessage"
+                    :sitekey="cap_key"
+                    @verify="send"
                     @expired="onCaptchaExpired"
                 ></vue-recaptcha>
 
@@ -139,8 +140,12 @@
     import {email, required} from "vuelidate/lib/validators";
     import response_methods_mixin from "../mixins/response_methods_mixin";
     import recaptcha_mixin from "../mixins/recaptcha_mixin";
+    import {VueRecaptcha} from "vue-recaptcha";
 
     export default {
+        components: {
+            VueRecaptcha,
+        },
         mixins: [
             translation,
             response_methods_mixin,
@@ -163,7 +168,7 @@
             }
         },
         methods: {
-            async sendMessage(recaptchaToken) {
+            async send(recaptchaToken) {
                 let data = {
                     full_name: this.full_name,
                     email: this.email,
@@ -224,6 +229,7 @@
         props: [
             'lang',
             'user',
+            'cap_key',
             'respond',
         ],
         mounted() {

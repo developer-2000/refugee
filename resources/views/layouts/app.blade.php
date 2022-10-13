@@ -2,10 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 
-{{--    <meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1">--}}
-{{--    <meta name="viewport" content="width=device-width, user-scalable=no">--}}
-
     {!! \Butschster\Head\Facades\Meta::toHtml() !!}
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('/img/custom/favicon/apple-touch-icon-144x144.png')}}" />
@@ -22,6 +18,7 @@
 <body class="skin-blue sidebar-custom sidebar-collapse">
 <script src="{{asset('js/jquery-3.6.0.js')}}" ></script>
 <script src="{{asset('js/admin_lte/adminlte.min.js')}}" defer></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 
 <script>
     var arr1 = [
@@ -57,6 +54,7 @@
                 :logo_text="{{'{"uk":"'.env("APP_NAME_UK").'","en":"'.env("APP_NAME_EN").'"}'}}"
                 :lang="{{json_encode($lang)}}"
                 :user="{{json_encode($user)}}"
+                :cap_key="{{json_encode($cap_key)}}"
                 :count_unread_chats="{{json_encode($count_unread_chats)}}"
                 :code_change_password="@if (session('code_change_password')) {{ session('code_change_password') }} @else 0 @endif"
                 :transition_url_page="@if (isset($transition_url_page)) {{ json_encode($transition_url_page) }} @else null @endif"

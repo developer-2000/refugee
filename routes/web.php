@@ -69,12 +69,14 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
 
         Route::get('/', [IndexController::class, 'index'])->name('index');
 
-        // Authentication
-        Route::middleware('throttle:10,1')->group(function () {
-            Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
+        // Authentication ограничит запросы до 10 каждые 1 минут.
+        Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
+            Route::post('/check_email', [AuthorController::class, 'checkEmail']);
+
+            Route::middleware('throttle:10,1')->group(function () {
                 Route::post('/login', [AuthorController::class, 'login']);
                 Route::post('/registration', [AuthorController::class, 'register']);
-                Route::post('/check_email', [AuthorController::class, 'checkEmail']);
+
                 Route::post('/send-code-password', [AuthorController::class, 'sendCodeForChangePassword']);
                 Route::post('/change-password', [AuthorController::class, 'changePassword']);
                 Route::get('/activate', [AuthorController::class, 'activateAccount']);

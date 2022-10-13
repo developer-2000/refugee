@@ -24,6 +24,7 @@
     <customer_survey
         :lang="{{json_encode($lang)}}"
         :user="{{json_encode($user)}}"
+        :cap_key="{{json_encode($cap_key)}}"
         :respond="{{json_encode($respond)}}"
     ></customer_survey>
 @endsection

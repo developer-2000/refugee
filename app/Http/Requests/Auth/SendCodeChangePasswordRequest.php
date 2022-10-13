@@ -24,7 +24,7 @@ class SendCodeChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|min:5|max:255',
+            'email' => 'required|email|min:5',
         ];
     }
 }

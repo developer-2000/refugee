@@ -165,6 +165,7 @@
                     <component
                         :reset_p="reset_pass"
                         :lang="lang"
+                        :cap_key="cap_key"
                         :code_change_password="code_change_password"
                         @reset_pass="func_reset_pass"
                         @login='reset_array'
@@ -188,6 +189,8 @@
                 {{ trans('cookie','accept') }}
             </button>
         </div>
+
+
     </div>
 </template>
 
@@ -223,6 +226,7 @@
             'logo_text',
             'lang',   // масив названий и url языка
             'user',
+            'cap_key',
             'count_unread_chats',
             'code_change_password',
             'transition_url_page',
@@ -295,6 +299,13 @@
         },
         mounted() {
             this.initializationFunc()
+
+            $("#authModal").on('show.bs.modal', () => {
+                this.$store.commit('ReSetAuth', true)
+            })
+            $("#authModal").on('hide.bs.modal', () => {
+                this.$store.commit('ReSetAuth', false)
+            })
         },
     }
 </script>

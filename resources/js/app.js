@@ -52,7 +52,6 @@ Vue.component('feedback', require('./components/FeedbackComponent').default);
 Vue.component('customer_survey', require('./components/customer_survey/CustomerSurveyComponent').default);
 Vue.component('show-charity', require('./components/charity/ShowCharityComponent').default);
 
-
 const app = new Vue({
     el: '#app',
     store,

@@ -7,16 +7,17 @@ export default {
             email: '',
             password: '',
             new_password: '',
-            terms: false
+            terms: false,
+            uniq_email: true,
         }
     },
     methods: {
         clearEmail(value) {
-            this.email = value
-            this.$store.commit('tpSetEmail', this.email)
+            this.$store.commit('tpSetEmail', value)
         },
         clearPassword(value) {
-            this.password = value.replace(/[^A-Za-z0-9@.^_]/g, '')
+            this.password = value.replace(/\s/g,'')
+            // this.password = value.replace(/[^A-Za-z0-9@.^_]/g, '')
         },
         clearOldPassword(value) {
             this.old_password = value.replace(/[^A-Za-z0-9@.^_]/g, '')

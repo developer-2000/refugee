@@ -15,7 +15,7 @@
             <div class="annotation-bottom"> <span>{{ trans('auth','or') }}</span> </div>
             <div class="forms">
                 <!-- ФОРМЫ =============================== -->
-                <form @submit.prevent="Sign" action="#">
+                <form @submit.prevent="runCaptcha" action="#">
                     <div class="full-name">
                         <!-- First name -->
                         <div class="form-group">
@@ -44,19 +44,24 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Email -->
-                    <div class="form-group">
+                    <div class="form-group">{{$v.$invalid}}
                         <label for="email">Email</label>
                         <input type="email" id="email" class="form-control"
                                :class="{'is-invalid': $v.email.$error}"
                                v-model="email"
                                @input="clearEmail($event.target.value)"
-                               @blur="$v.email.$touch()"
+                               @blur="uniqEmail()"
                         >
                         <div class="invalid-feedback" v-if="!$v.email.required"> {{ trans('auth','field_not_filled') }} </div>
                         <div class="invalid-feedback" v-if="!$v.email.email"> {{ trans('auth','email_not_incorrectly') }} </div>
-                        <div class="invalid-feedback" v-if="!$v.email.uniqEmail">{{ trans('auth','email_already_registered') }}</div>
+                        <div class="custom-invalid" :class="{'visible': uniq_email === false}">
+                            {{ trans('auth','email_already_registered') }}
+                        </div>
+
                     </div>
+
                     <!-- Password -->
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -101,9 +106,19 @@
             </div>
             <div class="footer">
                 <div class="login">
-                    <a href="javascript:void(0)" @click="chengeVal(0)">{{ trans('auth','already_have_account') }} ?</a>
+                    <a href="javascript:void(0)" @click="changeVal(0)">{{ trans('auth','already_have_account') }} ?</a>
                 </div>
             </div>
+
+            <!-- recaptcha -->
+            <vue-recaptcha
+                v-if="this.$store.getters.ReGetAuth"
+                ref="recaptcha_auth"
+                size="invisible"
+                :sitekey="cap_key"
+                @verify="send"
+                @expired="onCaptchaExpired"
+            ></vue-recaptcha>
         </div>
     </div>
 </template>
@@ -114,6 +129,7 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import auth_methods_mixin from "../../mixins/auth_methods_mixin";
     import buttons_social from "./details/ButtonsSocialComponent";
+    import {VueRecaptcha} from "vue-recaptcha";
 
     export default {
         mixins: [
@@ -123,23 +139,24 @@
         ],
         components: {
             'buttons_social': buttons_social,
+            VueRecaptcha,
         },
         data: function(){
             return {}
         },
         methods: {
             // высылает родителю значение в виде цифры - отображения модалки (при кликах - авториз или регистрация)
-            chengeVal: function (a) {
+            changeVal: function (a) {
                 this.$emit('login', { num: a })
             },
             // регистрация пользователя
-            async Sign(){
+            async send(){
                 let data = {
                     first_name: this.first_name,
                     last_name: this.last_name,
                     email: this.email,
                     password: this.password,
-                };
+                }
                 try {
                     this.clearInputValue()
                     $('#authModal').modal('toggle')
@@ -150,10 +167,32 @@
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            },
+            async uniqEmail() {
+                this.$v.email.$touch()
+                let data = {email: this.email}
+
+                if(this.email == ""){
+                    this.uniq_email = true
+                    return false
+                }
+
+                const response = await this.$http.post("/user/check_email", data)
+                if(this.checkSuccess(response)){
+                    this.uniq_email = response.data.message
+                }
+            },
+            onCaptchaExpired () {
+                this.$refs.recaptcha_auth.reset()
+            },
+            // запускаем каптчу
+            runCaptcha () {
+                this.$refs.recaptcha_auth.execute()
+            },
         },
         props: [
             'lang',
+            'cap_key',
         ],
         validations: {
             last_name: {
@@ -167,33 +206,12 @@
             email: {
                 required,
                 email,
-                // проверка email на повторение в базе
-                uniqEmail: function(newEmail) {
-                    // если поле пустое - не выводи эту ошибку
-                    if (newEmail === '') return true
-
-                    return new Promise((resolve, reject) => {
-                        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
-                        $.ajax({
-                            url: "/user/check_email",
-                            method: "POST",
-                            data: {email: this.email},
-                            success: (response) => {
-                                if(response?.message && parseInt(response.message)){
-                                    resolve(false)
-                                }
-                                else{
-                                    resolve(true)
-                                }
-                            }
-                        });
-                    })
-                }
             },
             password: {
                 required,
                 minLength: minLength(6)
             },
+            // соглашение
             terms: {
                 checked(val) {
                     return val;
@@ -204,6 +222,17 @@
 </script>
 
 <style scoped lang="scss">
+
+    .custom-invalid{
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #e3342f;
+    }
+    .visible {
+        display: block;
+    }
     .block_auth{
         .soc {
             display: flex;

@@ -1,22 +1,17 @@
-import {VueRecaptcha} from "vue-recaptcha";
 
 export default {
-    components: {
-        VueRecaptcha,
-    },
     data() {
-        return {
-        }
+        return { }
     },
     methods: {
         onCaptchaExpired () {
-            this.$refs.recaptcha.reset()
+            this.$refs.recaptcha_body.reset()
         },
         // запускаем каптчу
         runCaptcha () {
-            this.$refs.recaptcha.execute()
+            console.log(this.$refs.recaptcha_body)
+            this.$refs.recaptcha_body.execute()
         },
     },
-
 }
 

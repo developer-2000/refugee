@@ -1,5 +1,5 @@
 <template>
-<!-- new пароль -->
+<!-- ввод нового пароля -->
     <div>
         <!-- header modal -->
         <div class="modal-header">

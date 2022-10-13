@@ -15,7 +15,7 @@
             <div class="annotation-bottom"> <span>{{ trans('auth','or') }}</span> </div>
             <div class="forms">
                 <!-- ФОРМЫ =============================== -->
-                <form @submit.prevent="auth">
+                <form @submit.prevent="send">
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -59,7 +59,9 @@
                     <a href="javascript:void(0)" @click="chengeVal(2)">{{ trans('auth','forgot_your_password') }} ?</a>
                 </div>
             </div>
+
         </div>
+
     </div>
 </template>
 
@@ -90,7 +92,7 @@
                 })
             },
             // авторизация пользователя
-            async auth(){
+            async send(){
                 let data = {
                     email: this.email,
                     password: this.password,
@@ -116,7 +118,7 @@
             },
         },
         props: [
-            'lang',   // масив названий и url языка
+            'lang',
         ],
         validations: {
             email: {

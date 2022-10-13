@@ -16,6 +16,7 @@ use App\Model\Code;
 use App\Model\User;
 use App\Model\UserContact;
 use App\Services\LanguageService;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -86,11 +87,10 @@ class AuthorController extends BaseController {
      * @param  CheckEmailRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function checkEmail(CheckEmailRequest $request)
-    {
-        $resp = 0;
+    public function checkEmail(CheckEmailRequest $request) {
+        $resp = true;
         if(User::where('email', $request->email)->first()){
-            $resp = 1;
+            $resp = false;
         }
         return $this->getResponse($resp);
     }

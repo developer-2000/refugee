@@ -11,9 +11,8 @@
         <!-- body modal -->
         <div class="block_auth">
             <div class="comment">{{ trans('auth','enter_mail_use_authorization') }}.</div>
-            <!-- ФОРМЫ =============================== -->
             <div class="forms">
-                <form @submit.prevent="changePassword" action="#">
+                <form @submit.prevent="runCaptcha" action="#">
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -26,8 +25,6 @@
 
                         <div class="invalid-feedback" v-if="!$v.email.required"> {{ trans('auth','field_not_filled') }} </div>
                         <div class="invalid-feedback" v-if="!$v.email.email"> {{ trans('auth','email_not_incorrectly') }} </div>
-                        <!--valid-feedback-->
-                        <input type="hidden" name="token" v-model="x_csrf">
                     </div>
 
                     <button :class="{'btn btn-block btn-primary disabled': $v.$invalid, 'btn btn-block btn-primary btn-flat': !$v.$invalid}"
@@ -36,7 +33,16 @@
                     >{{ trans('auth','email_request') }}</button>
                 </form>
             </div>
-            <!-- / ФОРМЫ =============================== .prevent-->
+
+            <!-- recaptcha -->
+            <vue-recaptcha
+                v-if="this.$store.getters.ReGetAuth"
+                ref="recaptcha_auth"
+                size="invisible"
+                :sitekey="cap_key"
+                @verify="send"
+                @expired="onCaptchaExpired"
+            ></vue-recaptcha>
         </div>
     </div>
 </template>
@@ -46,20 +52,22 @@
     import translation from '../../mixins/translation'
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import auth_methods_mixin from "../../mixins/auth_methods_mixin";
+    import {VueRecaptcha} from "vue-recaptcha";
 
     export default {
+        components: {
+            VueRecaptcha,
+        },
         mixins: [
             translation,
             response_methods_mixin,
             auth_methods_mixin
         ],
         data: function(){
-            return {
-                x_csrf: $('meta[name="csrf-token"]').attr('content'),
-            }
+            return { }
         },
         methods: {
-            async changePassword () {
+            async send () {
                 let data = {
                     email: this.email,
                 };
@@ -77,10 +85,18 @@
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            },
+            onCaptchaExpired () {
+                this.$refs.recaptcha_auth.reset()
+            },
+            // запускаем каптчу
+            runCaptcha () {
+                this.$refs.recaptcha_auth.execute()
+            },
         },
         props: [
-            'lang',   // масив названий и url языка
+            'lang',
+            'cap_key',
         ],
         validations: {
             email: {

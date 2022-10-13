@@ -18,8 +18,7 @@ class DefaultValueProvider extends ServiceProvider {
     {
         // создать префикс языка системы из url
         if (!Session::has('prefix_lang')) {
-            $service = new LanguageService();
-            $prefix_lang = $service->createSystemLanguageFromUrl();
+            $prefix_lang = (new LanguageService())->createSystemLanguageFromUrl();
             session(['prefix_lang' => $prefix_lang]);
         }
 
@@ -30,8 +29,10 @@ class DefaultValueProvider extends ServiceProvider {
             $user = Auth::user();
             // вернуть количество не прочитанных чатов
             $count_unread_chats = (new OfferRepository())->getCountUnreadChats();
+            // recaptcha key
+            $cap_key = env("RECAPTCHAV2_SITEKEY","");
 
-            $view->with(compact('lang','user', 'count_unread_chats'));
+            $view->with(compact('lang','user', 'count_unread_chats', 'cap_key'));
         });
     }
 }

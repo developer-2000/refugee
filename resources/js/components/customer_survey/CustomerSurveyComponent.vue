@@ -717,12 +717,22 @@
                     <button type="submit" class="btn btn-block btn-primary btn-lg btn_send_message"
                             :class="{'disabled': $v.$invalid}"
                             :disabled="$v.$invalid"
-                            @click.prevent="sendMessage()"
+                            @click.prevent="runCaptcha()"
                     >
                         {{trans('pages.customer_survey','submit')}}
                     </button>
                 </div>
             </div>
+
+            <vue-recaptcha
+                v-if="!this.$store.getters.ReGetAuth"
+                ref="recaptcha_body"
+                size="invisible"
+                :sitekey="cap_key"
+                @verify="send"
+                @expired="onCaptchaExpired"
+            ></vue-recaptcha>
+
         </div>
 
         <!-- alert после отправки -->
@@ -762,12 +772,18 @@
     import response_methods_mixin from "../../mixins/response_methods_mixin";
     import general_functions_mixin from "../../mixins/general_functions_mixin";
     import { required, email } from 'vuelidate/lib/validators'
+    import {VueRecaptcha} from "vue-recaptcha";
+    import recaptcha_mixin from "../../mixins/recaptcha_mixin";
 
     export default {
+        components: {
+            VueRecaptcha,
+        },
         mixins: [
             translation,
             response_methods_mixin,
             general_functions_mixin,
+            recaptcha_mixin
         ],
         data() {
             return {
@@ -913,7 +929,7 @@
             }
         },
         methods: {
-            async sendMessage() {
+            async send() {
                 let data = {
                     name: this.name,
                     email: this.email,
@@ -1048,13 +1064,14 @@
         props: [
             'lang',
             'user',
+            'cap_key',
             'respond',
         ],
         mounted() {
             this.initialData()
 
 
-            console.log( localStorage.getItem('url_click_no_auth') )
+            console.log( this.cap_key )
         },
         validations: {
             name: {

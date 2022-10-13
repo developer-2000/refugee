@@ -84,7 +84,6 @@ class IndexController extends BaseController {
         }
 
         $respond["config"] = config('site.feedback');
-        $respond["captcha_key"] = env("RECAPTCHAV2_SITEKEY","");
 
         $this->metaService->setMetaFeedbackPage();
 
@@ -142,7 +141,6 @@ class IndexController extends BaseController {
         return $this->getResponse();
     }
 
-//    {"status_name":"standard","create_time":"2022-09-03T12:39:43.761498Z"}
     public function test() {
 
     }
