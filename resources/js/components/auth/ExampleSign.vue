@@ -46,7 +46,7 @@
                     </div>
 
                     <!-- Email -->
-                    <div class="form-group">{{$v.$invalid}}
+                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" class="form-control"
                                :class="{'is-invalid': $v.email.$error}"
@@ -79,6 +79,7 @@
                             {{ trans('auth','number_characters') }} {{ password.length }} {{ trans('auth','less_needed') }} {{ $v.password.$params.minLength.min }}.
                         </div>
                     </div>
+
                     <!-- Соглашение -->
                     <div class="form-check input inline" :class="{invalid: $v.terms.$invalid}">
                         <input type="checkbox" id="terms"

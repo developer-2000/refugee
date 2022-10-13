@@ -9,7 +9,6 @@ export default {
         },
         // запускаем каптчу
         runCaptcha () {
-            console.log(this.$refs.recaptcha_body)
             this.$refs.recaptcha_body.execute()
         },
     },

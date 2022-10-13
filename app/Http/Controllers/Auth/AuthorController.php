@@ -143,6 +143,7 @@ class AuthorController extends BaseController {
     }
 
     /**
+     * отправка письма для смены пароля
      * @param  SendCodeChangePasswordRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */

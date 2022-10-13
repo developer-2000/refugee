@@ -73,11 +73,15 @@ Route::group(['prefix' => LocalizationFacades::locale()], function () {
         Route::group(['namespace' => 'Auth', 'prefix'=>'user'], function (){
             Route::post('/check_email', [AuthorController::class, 'checkEmail']);
 
+            //ограничит запросы до 1 каждые 1 минут.
+            Route::middleware('throttle:1,1')->group(function () {
+                Route::post('/registration', [AuthorController::class, 'register']);
+                Route::post('/send-code-password', [AuthorController::class, 'sendCodeForChangePassword']);
+            });
+
+            // ограничит запросы до 10 каждые 1 минут.
             Route::middleware('throttle:10,1')->group(function () {
                 Route::post('/login', [AuthorController::class, 'login']);
-                Route::post('/registration', [AuthorController::class, 'register']);
-
-                Route::post('/send-code-password', [AuthorController::class, 'sendCodeForChangePassword']);
                 Route::post('/change-password', [AuthorController::class, 'changePassword']);
                 Route::get('/activate', [AuthorController::class, 'activateAccount']);
                 Route::get('/view-change-password', [AuthorController::class, 'viewChangePassword']);

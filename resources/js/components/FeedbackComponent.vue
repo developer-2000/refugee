@@ -209,9 +209,7 @@
                 this.bool_touch = true
             },
             resetPage() {
-                this.insertDefaultValue()
-                $(".block-body").css("display","block")
-                $(".box-alert-exit").css("display","none")
+                location.reload()
             },
             insertDefaultValue() {
                 this.objTextarea.message_text = ""

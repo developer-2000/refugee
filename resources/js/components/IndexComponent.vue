@@ -414,11 +414,9 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background: rgba(255, 255, 255, 0.7);
-                color: #444;
-                height: 37%;
+                height: 22%;
                 width: 86%;
-                margin-bottom: 12px;
+                margin-bottom: 20px;
                 line-height: 15px;
             }
             img{
@@ -428,9 +426,16 @@
         }
         .european-flag{
             background-image: url("/img/custom/european-flag.png");
+            b{
+                background: rgba(0, 50, 159, 0.4);
+                color: white;
+            }
         }
         .ukraine-flag{
             background-image: url("/img/custom/ukrainian-flag.png");
+            b{
+                color: #444;
+            }
         }
     }
     .bottom-search{

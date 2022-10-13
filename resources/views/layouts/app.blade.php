@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28R8F38K91"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-28R8F38K91');
+    </script>
+
 
     {!! \Butschster\Head\Facades\Meta::toHtml() !!}
 
