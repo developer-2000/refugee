@@ -1,0 +1,37 @@
+<?php
+
+return [
+
+    'the_best_site_for_finding' => 'Ocuparea forței de muncă și plasarea unui loc de muncă în Europa.',
+    "find_job" => "Găsiți un loc de muncă",
+    "find_employee" => "Găsiți un angajat",
+    "job_search_employers" => "Căutați locuri de muncă pentru angajatori",
+    "use_european_level" => "Utilizați un serviciu la nivel european",
+    "realize_what_you_want" => "Realizați ceea ce doriți, parcurgând lista de mai jos.",
+    "free_service" => "Serviciu gratuit",
+    "everything_free" => "Totul este gratuit!",
+    "functionality_allows_you" => "Funcționalitate care vă permite să găsiți cu ușurință un angajator și un potențial angajat. Notificări: răspunsuri la documentele dvs. și mesaje noi de la solicitantul de muncă.",
+    "convenient_search" => "Căutare convenabilă",
+    "start_searching_content" => "Începeți imediat să căutați conținut care vă interesează. Folosiți filtre pentru a citi doar ceea ce vă interesează.",
+    "for_employer" => "Pentru angajator - ",
+    "for_worker" => "Pentru un angajat - ",
+    "find_vacancy" => "Găsiți un loc de muncă",
+    "quick_authorization" => "Autorizare rapidă",
+    "go_to_your_personal" => "Accesați contul personal prin autorizarea rapidă a butoanelor rețelelor sociale -",
+    "personal_area" => "zonă personală",
+    "personal_information" => "Informații personale",
+    "filling_out_simple" => "Completarea formularelor simple vă va ajuta să începeți.",
+    "employer" => "Angajator - ",
+    "my_company" => "Compania mea",
+    "create_job" => "Creează job",
+    "worker" => "Angajat - ",
+    "create_resume" => "Creați CV-ul",
+    "also_for_both" => "De asemenea, ambele părți trebuie să își obțină detaliile personale în ordine -",
+    "contact_information" => "Informații de contact",
+    "convenient_promotion" => "Promovare convenabilă",
+    "convenient_fast_nice" => "Convenient, rapid, frumos. Iată cum funcționează Panoul Social pentru a trimite prietenilor tăi linkuri despre joburile, CV-urile, companiile tale.",
+    'feedback' => "Feedback",
+    "if_you_have_questions" => "Dacă aveți întrebări, sugestii sau probleme, vă rugăm să contactați echipa noastră de asistență: ",
+    "communication_with_administration" => "Comunicare cu administrația",
+
+];

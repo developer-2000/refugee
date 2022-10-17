@@ -410,13 +410,16 @@
             justify-content: flex-end;
             align-content: center;
             margin: 0 15px;
+            &:hover b{
+                background: rgba(255, 255, 255, 0.3);
+            }
             b{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 22%;
+                height: 37%;
                 width: 86%;
-                margin-bottom: 20px;
+                margin-bottom: 12px;
                 line-height: 15px;
             }
             img{
@@ -427,6 +430,7 @@
         .european-flag{
             background-image: url("/img/custom/european-flag.png");
             b{
+                border-top: 1px solid #7093fa;
                 background: rgba(0, 50, 159, 0.4);
                 color: white;
             }
@@ -495,6 +499,7 @@
 
     @media (max-width: 992px) {
         .start {
+            padding-bottom: 140px;
             .start-block {
                 .start-content {
                     &::after {
@@ -509,6 +514,7 @@
                 }
             }
         }
+
     }
 
     @media (max-width: 768px){

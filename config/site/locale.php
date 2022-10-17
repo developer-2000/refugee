@@ -24,5 +24,6 @@ return [
         'en'    => ['en', 'en_US', false, [ 'alias' => 'en', 'title' => 'English', 'avatar' => '/img/custom/US.png' ], ],
         'ru'    => ['ru', 'ru-RU', false, [ 'alias' => 'ru', 'title' => 'Русский', 'avatar' => '/img/custom/RU.png' ], ],
         'uk'    => ['uk', 'uk_UA', false, [ 'alias' => 'uk', 'title' => 'Український', 'avatar' => '/img/custom/UA.png' ], ],
+        'ro'    => ['ro', 'ro_RO', false, [ 'alias' => 'ro', 'title' => 'Română', 'avatar' => '/img/custom/RO.png' ], ],
     ],
 ];

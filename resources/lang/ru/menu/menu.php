@@ -12,7 +12,6 @@ return [
     'offers' => "Предложения",
     'about_service' => "О Сервисе",
     'support' => "Поддержка",
-
     'vacancy' => 'Поиск вакансий',
     'bookmark_vacancies' => 'Сохраненные вакансии',
     'hidden_vacancies' => 'Скрытые вакансии',
@@ -26,4 +25,5 @@ return [
     'authorization' => 'Вход',
     'registration' => 'Регистрация',
     'cabinet' => 'Кабинет',
+
 ];

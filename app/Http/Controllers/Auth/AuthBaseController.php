@@ -2,16 +2,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\BreadcrumbsTraite;
 use App\Jobs\SendActivateAccount;
+use App\Model\Permission;
 use App\Model\User;
 use App\Model\UserContact;
-use App\Repositories\VacancyRepository;
-use App\Services\LanguageService;
-use Illuminate\Support\Facades\Auth;
+use App\Model\UserPermission;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\View;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthBaseController extends Controller {
@@ -27,6 +23,12 @@ class AuthBaseController extends Controller {
             'oauth_id' => $driver->id,
             'oauth_type' => static::DRIVER_TYPE,
             'email_verified_at'=>now(),
+        ]);
+
+        $permission = Permission::where("name", "user")->first();
+        UserPermission::create([
+            "user_id"=>$user->id,
+            "permission_id"=>$permission->id,
         ]);
 
         UserContact::create([

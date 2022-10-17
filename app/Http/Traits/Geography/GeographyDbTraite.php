@@ -141,6 +141,10 @@ trait GeographyDbTraite {
                 $arrOriginal['UK'] = $arrOriginal['RU'];
                 $arrOriginal = $this->fetchFromFileCountry($url_translate.'uk/', $prefix_lang, $arrOriginal);
             }
+            elseif($prefix_lang === 'ro'){
+                $arrOriginal['RO'] = $arrOriginal['EN'];
+                $arrOriginal = $this->fetchFromFileCountry($url_translate.'ro/', $prefix_lang, $arrOriginal);
+            }
         }
 
         return $arrOriginal;

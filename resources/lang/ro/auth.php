@@ -1,0 +1,38 @@
+<?php
+
+return [
+
+    'registration' => 'Înregistrare',
+    'authorization' => 'Autorizare',
+    'sign_out' => 'Deconectare',
+    'password_recovery' => 'Recuperarea parolei',
+    'email_request' => 'E-mail',
+    'change_password' => 'Schimbați parola',
+    'registration_with' => 'Înregistrare cu',
+    'authorization_using' => 'Autorizare folosind',
+    'or' => 'Sau',
+    'enter_mail_use_authorization' => 'Introduceți e-mailul pe care îl utilizați pentru autorizare',
+    'enter_remember_new_password' => 'Introduceți și amintiți-vă noua parolă.',
+    'first_name' => 'Nume',
+    'last_name' => 'Nume de familie',
+    'field_not_filled' => 'Câmpul nu este completat!',
+    'number_characters' => 'Număr de caractere',
+    'less_needed' => 'mai puțin necesar',
+    'email_not_incorrectly' => 'E-mail introdus incorect!',
+    'email_already_registered' => 'Acest e-mail este deja înregistrat!',
+    'agree_with_that' => 'Făcând clic pe Înregistrare, sunt de acord cu ceea ce am citit și acceptat',
+    'terms_use' => 'Termeni de utilizare',
+    'and' => 'și',
+    'privacy_policy' => 'Politica de confidențialitate',
+    'already_have_account' => 'Aveți deja un cont',
+    'not_registered' => 'Neînregistrat',
+    'forgot_your_password' => 'Schimbați-vă parola',
+    'not_activation_account' => 'E-mailul de activare a contului a fost trimis la adresa de e-mail pe care ați furnizat-o la înregistrarea acestui cont. Trebuie să urmați linkul de activare conținut în e-mail.',
+    'message_change_password_email' => 'Un e-mail a fost trimis la adresa de e-mail specificată pentru a vă activa contul',
+    'link_not_valid' => 'Link-ul nu este valid',
+    'data_not_correct' => 'Datele sunt incorecte',
+    'new_password' => 'Parolă nouă',
+    'account_already_activated' => "Contul este deja activat",
+    'account_is_blocked' => "Cont blocat",
+
+];

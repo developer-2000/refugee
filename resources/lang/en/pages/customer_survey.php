@@ -44,5 +44,6 @@ return [
     'you_made_suggestions' => "You made suggestions in sections:",
     'comment' => "Comment",
     'submit' => "Submit",
+    'poll_for_improvements' => "Poll for improvements",
 
 ];

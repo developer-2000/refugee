@@ -44,5 +44,6 @@ return [
     'you_made_suggestions' => "Вы сделали предложения в разделах:",
     'comment' => "Коментарий",
     'submit' => "Отправить",
+    'poll_for_improvements' => "Опрос улучшений",
 
 ];

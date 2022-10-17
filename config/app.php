@@ -75,8 +75,8 @@ return [
     */
 
     'locale' => 'en',
-    'alternative_lang' => ['uk','ru'],
-    'all_lang' => ['en','uk','ru'],
+    'alternative_lang' => ['uk','ru','ro'],
+    'all_lang' => ['en','uk','ru','ro'],
 
     /*
     |--------------------------------------------------------------------------

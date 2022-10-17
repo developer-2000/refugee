@@ -9,14 +9,11 @@ return [
     "chat_interlocutor" => "Чат собеседника - ",
     "you_have_review_document" => "Вам предложили рассмотреть документ ",
     "message_from" => "Сообщение от ",
-
     "welcome" => "Добро пожаловать в Work-Ukraine.",
     "to_complete_registration" => "Для завершения регистрации перейдите по ссылке активируя акаунт:",
-
     "registration" => "Регистрация",
     "password_change" => "Смена пароля",
     "account_activation" => "Активация аккаунта",
-
     "your_account_activated" => "Ваш аккаунт активирован.",
     "you_change_your_password" => "1) Изменить свой пароль вы можете в меню авторизации, выбрав ссылку - ",
     "change_your_password" => "Изменить свой пароль",
@@ -29,11 +26,9 @@ return [
     "create_job" => "Создать Вакансию",
     "for_employee" => "Для Сотрудника - ",
     "create_resume" => "Создать Резюме",
-
     "update_your_personal_account" => "Обновление пароля личного кабинета.",
     "follow_link_change_password" => "Пройдите по ссылке для смены пароля",
     "feedback" => "Обратная связь от ",
-
     "we_greet_you" => "Приветствуем Вас ",
     "we_have_received" => "Мы получили ваше сообщение и свяжемся с вами как можно скорее. Чтобы добавить дополнительные комментарии, вы можете ответить на это письмо.",
 

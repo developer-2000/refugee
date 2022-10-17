@@ -10,7 +10,7 @@
                     <!-- опросник -->
                     <li>
                         <a :href="`${lang.prefix_lang}customer-survey`" rel="nofollow">
-                            Опрос улучшений
+                            {{trans('pages.customer_survey','poll_for_improvements')}}
                         </a>
                     </li>
                     <!-- feedback -->
@@ -110,6 +110,7 @@
     @media (max-width: 992px) {
         .footer{
             .left_footer{
+                justify-content: center;
                 border: none;
                 text-align: center;
                 order: 1;
@@ -121,6 +122,9 @@
                     text-align: center;
                 }
             }
+        }
+        .footer-ul {
+            margin-left: 0;
         }
     }
     @media (max-width: 768px){

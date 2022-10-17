@@ -1,0 +1,42 @@
+<?php
+
+return [
+
+    'suggestion_chats' => "Sugestii de chat",
+    'name_position' => "nume, poziție",
+    'offers' => "Oferte",
+    'offer_archive' => "Arhiva ofertei",
+    'there_no_offers' => "Nu există oferte.",
+    'this_page_displays_personal' => "Această pagină afișează comunicările dvs. personale cu membrii serviciului. Creați un chat cu cineva
+    eventual, răspunzând la document, accesând documentul de pe pagina de căutare",
+    'summary' => "Rezumat",
+    'vacancy' => "post vacant",
+    'the_chat_considered_outdated' => "Accedând la Arhiva de oferte, puteți accesa oricând chat-ul. Dacă continuați conversația, chat-ul va fi restabilit automat în directorul principal de oferte.",
+    'the_chat_considered_after' => "Un chat este considerat învechit după o lună de la data ultimului mesaj din el și este mutat automat în Arhiva de Sugestii.",
+    'there_no_archived_chats' => "Nu există discuții arhivate.",
+    'this_page_displays_archived' => "Această pagină afișează înregistrările arhivate ale corespondenței dvs. cu membrii serviciului.",
+    'continuing_conversation' => "Continuarea conversației va restabili automat chat-ul în directorul principal de sugestii.",
+    'not_interested' => "nu sunt interesat",
+    'need_solved' => "căutare oprită",
+    'send_to_archive' => "trimite la arhiva",
+    'for_your' => "Pentru dvs.",
+    'proposal_consider' => "propunere de luat în considerare",
+    'unread' => "necitit",
+    'read' => "citește",
+    'you_suggested_considering' => "Ați sugerat să luați în considerare",
+    'on_his' => "pe lui",
+    'delete_message' => "Ștergeți mesajul",
+    'edit_post' => "editează postarea",
+    'write_message' => "Scrieți un mesaj",
+    'update_message' => "Actualizează mesajul",
+    'cancel' => "Anulează",
+    'refresh' => "Actualizează",
+    'send' => "Trimite",
+    'tell_interlocutor_not_interested' => "Spune-i interlocutorului că nu te interesează?",
+    'inform_interlocutor_topic' => "Informați interlocutorul că acest subiect s-a terminat?",
+    'send_chat_archive' => "Trimite arhiva chat?",
+    'confirm' => "Confirmați",
+    'not_interested_2' => "Vă mulțumesc, nu sunt interesat de această ofertă!",
+    'need_solved_2' => "Multumesc, nu am luat in considerare ofertele in aceasta etapa!",
+
+];
