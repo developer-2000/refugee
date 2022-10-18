@@ -16,9 +16,13 @@ use \App\Http\Controllers\Auth\AuthorController;
 use \App\Http\Controllers\OfferArchiveController;
 use \App\Http\Controllers\CronController;
 use \App\Http\Controllers\VacancyController;
+use \App\Http\Controllers\SiteMapController;
 
 //<a href="{{ route('index') }}">111</a>
 //<a class="dropdown-item" :href="`${lang.prefix_lang}vacancy`">Найти вакансию</a>
+
+
+
 
 // технический роут
 Route::group(['prefix'=>'technical'], function (){
@@ -66,6 +70,10 @@ Route::group(['prefix'=>'technical'], function (){
 // переключение url и translation сайта 'middleware' => ['redirect_admin']
 Route::group(['prefix' => LocalizationFacades::locale()], function () {
     Route::group([], function () {
+
+        Route::get('/sitemap.xml', [SiteMapController::class, 'index']);
+        Route::get('/sitemap/pages', [SiteMapController::class, 'pages']);
+
 
         Route::get('/', [IndexController::class, 'index'])->name('index');
 
